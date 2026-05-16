@@ -478,15 +478,15 @@
 
 <div class="controls">
   <div class="filter-group">
-    <button class="filter-btn active" data-filter="todos">Todos (44)</button>
-    <button class="filter-btn" data-filter="Disponible">Disponible (37)</button>
-    <button class="filter-btn" data-filter="Reservado">Reservado (7)</button>
+    <button class="filter-btn active" data-filter="todos">Todos (45)</button>
+    <button class="filter-btn" data-filter="Disponible">Disponible (39)</button>
+    <button class="filter-btn" data-filter="Reservado">Reservado (6)</button>
   </div>
   <div class="search-wrap">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
     <input class="search-input" id="search" type="text" placeholder="Buscar modelo..." autocomplete="off">
   </div>
-  <div class="counter" id="counter">Mostrando <strong id="cnt-showing">44</strong> vehículos</div>
+  <div class="counter" id="counter">Mostrando <strong id="cnt-showing">45</strong> vehículos</div>
 </div>
 
 <div class="grid" id="grid"></div>
@@ -549,6 +549,78 @@
 const COCHES = [
   {
     "n": 1,
+    "modelo": "SEAT Arona",
+    "version": "1.0 TSI S&S FR Plus DSG 81 kW (110 CV)",
+    "combustible": "Gasolina",
+    "km": "78.233",
+    "fecha": "06/2022",
+    "cambio": "Automático",
+    "color": "Blanco",
+    "precio": "17.500",
+    "estado": "Disponible",
+    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-110-cv-del-2022-en-malaga/142169637",
+    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/21/69/63/7/x01.jpg",
+    "equipamiento": [
+      "Sensores de aparcamiento delanteros con radar, sensores de aparcamiento traseros con radar y cámara, sensores de aparcamiento en los lados con radar",
+      "Asistente de mantenimiento de carril y asistente para atascos",
+      "Asientos de simil ante (material principal) y de vinilo/símil cuero (material secundario)",
+      "Controles de climatización diferenciados digitales para conductor/acompañante",
+      "Velocidad máxima: 190 km/h",
+      "Blanco (sólido) Techo Negro",
+      "Llantas de aleación de 46cm (18\") PERFORMANCE AERO",
+      "Faros antiniebla LED",
+      "Llantas de 16\" pulgadas",
+      "Advertencia de colisión frontal"
+    ],
+    "fotos": [
+      "web_fotos/01/foto_01.jpg",
+      "web_fotos/01/foto_02.jpg",
+      "web_fotos/01/foto_03.jpg",
+      "web_fotos/01/foto_04.jpg",
+      "web_fotos/01/foto_05.jpg",
+      "web_fotos/01/foto_06.jpg",
+      "web_fotos/01/foto_07.jpg",
+      "web_fotos/01/foto_08.jpg"
+    ]
+  },
+  {
+    "n": 2,
+    "modelo": "SEAT Ibiza",
+    "version": "1.0 TSI S&S Style 85 kW (115 CV)",
+    "combustible": "Gasolina",
+    "km": "350",
+    "fecha": "01/2026",
+    "cambio": "Manual",
+    "color": "Gris",
+    "precio": "20.500",
+    "estado": "Disponible",
+    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2026-en-malaga/142030332",
+    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/20/30/33/2/x01.jpg",
+    "equipamiento": [
+      "Asistente frontal incluido función frenada de emergencia para ACC High",
+      "Calefacción en los asientos delanteros regulables por separado",
+      "Asistente de mantenimiento de carril",
+      "\"Keyless\" (acceso al vehículo sin llave) sin \"SAFE\" (bloqueo automático)",
+      "Velocidad máxima: 200 km/h",
+      "Tapicería premium Aurora",
+      "Volante multifunción deportivo de cuero",
+      "Cierre centralizado \"Keyless-Entry\"",
+      "Palanca del freno de mano en cuero",
+      "Ayuda de aparcamiento delante y detrás"
+    ],
+    "fotos": [
+      "web_fotos/02/foto_01.jpg",
+      "web_fotos/02/foto_02.jpg",
+      "web_fotos/02/foto_03.jpg",
+      "web_fotos/02/foto_04.jpg",
+      "web_fotos/02/foto_05.jpg",
+      "web_fotos/02/foto_06.jpg",
+      "web_fotos/02/foto_07.jpg",
+      "web_fotos/02/foto_08.jpg"
+    ]
+  },
+  {
+    "n": 3,
     "modelo": "SEAT León",
     "version": "2.0 TDI S&S Style XS 85 kW (115 CV)",
     "combustible": "Diésel",
@@ -573,18 +645,18 @@ const COCHES = [
       "Cierre centralizado \"Keyless-Go\" sin cierre de seguridad"
     ],
     "fotos": [
-      "web_fotos/01/foto_01.jpg",
-      "web_fotos/01/foto_02.jpg",
-      "web_fotos/01/foto_03.jpg",
-      "web_fotos/01/foto_04.jpg",
-      "web_fotos/01/foto_05.jpg",
-      "web_fotos/01/foto_06.jpg",
-      "web_fotos/01/foto_07.jpg",
-      "web_fotos/01/foto_08.jpg"
+      "web_fotos/03/foto_01.jpg",
+      "web_fotos/03/foto_02.jpg",
+      "web_fotos/03/foto_03.jpg",
+      "web_fotos/03/foto_04.jpg",
+      "web_fotos/03/foto_05.jpg",
+      "web_fotos/03/foto_06.jpg",
+      "web_fotos/03/foto_07.jpg",
+      "web_fotos/03/foto_08.jpg"
     ]
   },
   {
-    "n": 2,
+    "n": 4,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -609,18 +681,18 @@ const COCHES = [
       "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 6,0 pulgadas de ancho 40,6 y 15,2"
     ],
     "fotos": [
-      "web_fotos/02/foto_01.jpg",
-      "web_fotos/02/foto_02.jpg",
-      "web_fotos/02/foto_03.jpg",
-      "web_fotos/02/foto_04.jpg",
-      "web_fotos/02/foto_05.jpg",
-      "web_fotos/02/foto_06.jpg",
-      "web_fotos/02/foto_07.jpg",
-      "web_fotos/02/foto_08.jpg"
+      "web_fotos/04/foto_01.jpg",
+      "web_fotos/04/foto_02.jpg",
+      "web_fotos/04/foto_03.jpg",
+      "web_fotos/04/foto_04.jpg",
+      "web_fotos/04/foto_05.jpg",
+      "web_fotos/04/foto_06.jpg",
+      "web_fotos/04/foto_07.jpg",
+      "web_fotos/04/foto_08.jpg"
     ]
   },
   {
-    "n": 3,
+    "n": 5,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI FR Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -645,54 +717,18 @@ const COCHES = [
       "Asientos deportivos tipo bucket"
     ],
     "fotos": [
-      "web_fotos/03/foto_01.jpg",
-      "web_fotos/03/foto_02.jpg",
-      "web_fotos/03/foto_03.jpg",
-      "web_fotos/03/foto_04.jpg",
-      "web_fotos/03/foto_05.jpg",
-      "web_fotos/03/foto_06.jpg",
-      "web_fotos/03/foto_07.jpg",
-      "web_fotos/03/foto_08.jpg"
+      "web_fotos/05/foto_01.jpg",
+      "web_fotos/05/foto_02.jpg",
+      "web_fotos/05/foto_03.jpg",
+      "web_fotos/05/foto_04.jpg",
+      "web_fotos/05/foto_05.jpg",
+      "web_fotos/05/foto_06.jpg",
+      "web_fotos/05/foto_07.jpg",
+      "web_fotos/05/foto_08.jpg"
     ]
   },
   {
-    "n": 4,
-    "modelo": "SEAT Arona",
-    "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
-    "combustible": "Gasolina",
-    "km": "10.255",
-    "fecha": "05/2025",
-    "cambio": "Manual",
-    "color": "Gris",
-    "precio": "18.900",
-    "estado": "No disponible",
-    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139634295",
-    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/96/34/29/5/x01.jpg",
-    "equipamiento": [
-      "Asistente frontal incluido función frenada de emergencia para ACC High",
-      "Asistente de mantenimiento de carril",
-      "Asistente de cambio de carril",
-      "\"Connectivity box\": Estación de carga inalámbrica para teléfono móvil",
-      "Luces frontales antiniebla, luces de cruce, Luces de día y luces de carretera con tecnología LED",
-      "Velocidad máxima: 193 km/h",
-      "Volante multifunción deportivo de cuero",
-      "Palanca del freno de mano en cuero",
-      "Climatronic bizona",
-      "Llantas de aleación ligera 6j x 16\" pulgadas"
-    ],
-    "fotos": [
-      "web_fotos/04/foto_01.jpg",
-      "web_fotos/04/foto_02.jpg",
-      "web_fotos/04/foto_03.jpg",
-      "web_fotos/04/foto_04.jpg",
-      "web_fotos/04/foto_05.jpg",
-      "web_fotos/04/foto_06.jpg",
-      "web_fotos/04/foto_07.jpg",
-      "web_fotos/04/foto_08.jpg"
-    ]
-  },
-  {
-    "n": 5,
+    "n": 6,
     "modelo": "SEAT Ibiza",
     "version": "1.0 TSI S&S Xcellence 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -717,18 +753,18 @@ const COCHES = [
       "Climatronic bizona"
     ],
     "fotos": [
-      "web_fotos/05/foto_01.jpg",
-      "web_fotos/05/foto_02.jpg",
-      "web_fotos/05/foto_03.jpg",
-      "web_fotos/05/foto_04.jpg",
-      "web_fotos/05/foto_05.jpg",
-      "web_fotos/05/foto_06.jpg",
-      "web_fotos/05/foto_07.jpg",
-      "web_fotos/05/foto_08.jpg"
+      "web_fotos/06/foto_01.jpg",
+      "web_fotos/06/foto_02.jpg",
+      "web_fotos/06/foto_03.jpg",
+      "web_fotos/06/foto_04.jpg",
+      "web_fotos/06/foto_05.jpg",
+      "web_fotos/06/foto_06.jpg",
+      "web_fotos/06/foto_07.jpg",
+      "web_fotos/06/foto_08.jpg"
     ]
   },
   {
-    "n": 6,
+    "n": 7,
     "modelo": "SEAT León",
     "version": "1.4 e-Hybrid S&S FR Go XL DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -753,18 +789,18 @@ const COCHES = [
       "Pack de seguridad y conducción XL"
     ],
     "fotos": [
-      "web_fotos/06/foto_01.jpg",
-      "web_fotos/06/foto_02.jpg",
-      "web_fotos/06/foto_03.jpg",
-      "web_fotos/06/foto_04.jpg",
-      "web_fotos/06/foto_05.jpg",
-      "web_fotos/06/foto_06.jpg",
-      "web_fotos/06/foto_07.jpg",
-      "web_fotos/06/foto_08.jpg"
+      "web_fotos/07/foto_01.jpg",
+      "web_fotos/07/foto_02.jpg",
+      "web_fotos/07/foto_03.jpg",
+      "web_fotos/07/foto_04.jpg",
+      "web_fotos/07/foto_05.jpg",
+      "web_fotos/07/foto_06.jpg",
+      "web_fotos/07/foto_07.jpg",
+      "web_fotos/07/foto_08.jpg"
     ]
   },
   {
-    "n": 7,
+    "n": 8,
     "modelo": "SEAT León",
     "version": "1.5 TSI S&S Style XS 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -789,18 +825,18 @@ const COCHES = [
       "Toma/s de 12v en los asientos delanteros"
     ],
     "fotos": [
-      "web_fotos/07/foto_01.jpg",
-      "web_fotos/07/foto_02.jpg",
-      "web_fotos/07/foto_03.jpg",
-      "web_fotos/07/foto_04.jpg",
-      "web_fotos/07/foto_05.jpg",
-      "web_fotos/07/foto_06.jpg",
-      "web_fotos/07/foto_07.jpg",
-      "web_fotos/07/foto_08.jpg"
+      "web_fotos/08/foto_01.jpg",
+      "web_fotos/08/foto_02.jpg",
+      "web_fotos/08/foto_03.jpg",
+      "web_fotos/08/foto_04.jpg",
+      "web_fotos/08/foto_05.jpg",
+      "web_fotos/08/foto_06.jpg",
+      "web_fotos/08/foto_07.jpg",
+      "web_fotos/08/foto_08.jpg"
     ]
   },
   {
-    "n": 8,
+    "n": 9,
     "modelo": "SEAT León",
     "version": "1.5 TSI S&S Style XS 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -825,18 +861,18 @@ const COCHES = [
       "Cuadro de instrumentos digital Medio"
     ],
     "fotos": [
-      "web_fotos/08/foto_01.jpg",
-      "web_fotos/08/foto_02.jpg",
-      "web_fotos/08/foto_03.jpg",
-      "web_fotos/08/foto_04.jpg",
-      "web_fotos/08/foto_05.jpg",
-      "web_fotos/08/foto_06.jpg",
-      "web_fotos/08/foto_07.jpg",
-      "web_fotos/08/foto_08.jpg"
+      "web_fotos/09/foto_01.jpg",
+      "web_fotos/09/foto_02.jpg",
+      "web_fotos/09/foto_03.jpg",
+      "web_fotos/09/foto_04.jpg",
+      "web_fotos/09/foto_05.jpg",
+      "web_fotos/09/foto_06.jpg",
+      "web_fotos/09/foto_07.jpg",
+      "web_fotos/09/foto_08.jpg"
     ]
   },
   {
-    "n": 9,
+    "n": 10,
     "modelo": "SEAT Ateca",
     "version": "1.5 TSI S&S FR Special Edition 110 kW (150 CV)",
     "combustible": "Gasolina",
@@ -861,18 +897,18 @@ const COCHES = [
       "Cierre centralizado \"Keyless-Entry\""
     ],
     "fotos": [
-      "web_fotos/09/foto_01.jpg",
-      "web_fotos/09/foto_02.jpg",
-      "web_fotos/09/foto_03.jpg",
-      "web_fotos/09/foto_04.jpg",
-      "web_fotos/09/foto_05.jpg",
-      "web_fotos/09/foto_06.jpg",
-      "web_fotos/09/foto_07.jpg",
-      "web_fotos/09/foto_08.jpg"
+      "web_fotos/10/foto_01.jpg",
+      "web_fotos/10/foto_02.jpg",
+      "web_fotos/10/foto_03.jpg",
+      "web_fotos/10/foto_04.jpg",
+      "web_fotos/10/foto_05.jpg",
+      "web_fotos/10/foto_06.jpg",
+      "web_fotos/10/foto_07.jpg",
+      "web_fotos/10/foto_08.jpg"
     ]
   },
   {
-    "n": 10,
+    "n": 11,
     "modelo": "SEAT León",
     "version": "1.5 TSI S&S Style XS 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -897,18 +933,18 @@ const COCHES = [
       "Volante multifunción deportivo de cuero"
     ],
     "fotos": [
-      "web_fotos/10/foto_01.jpg",
-      "web_fotos/10/foto_02.jpg",
-      "web_fotos/10/foto_03.jpg",
-      "web_fotos/10/foto_04.jpg",
-      "web_fotos/10/foto_05.jpg",
-      "web_fotos/10/foto_06.jpg",
-      "web_fotos/10/foto_07.jpg",
-      "web_fotos/10/foto_08.jpg"
+      "web_fotos/11/foto_01.jpg",
+      "web_fotos/11/foto_02.jpg",
+      "web_fotos/11/foto_03.jpg",
+      "web_fotos/11/foto_04.jpg",
+      "web_fotos/11/foto_05.jpg",
+      "web_fotos/11/foto_06.jpg",
+      "web_fotos/11/foto_07.jpg",
+      "web_fotos/11/foto_08.jpg"
     ]
   },
   {
-    "n": 11,
+    "n": 12,
     "modelo": "Volkswagen T-Cross",
     "version": "Life 1.0 TSI 70 kW (95 CV)",
     "combustible": "Gasolina",
@@ -933,18 +969,18 @@ const COCHES = [
       "Paquete lanzamiento \"Life\""
     ],
     "fotos": [
-      "web_fotos/11/foto_01.jpg",
-      "web_fotos/11/foto_02.jpg",
-      "web_fotos/11/foto_03.jpg",
-      "web_fotos/11/foto_04.jpg",
-      "web_fotos/11/foto_05.jpg",
-      "web_fotos/11/foto_06.jpg",
-      "web_fotos/11/foto_07.jpg",
-      "web_fotos/11/foto_08.jpg"
+      "web_fotos/12/foto_01.jpg",
+      "web_fotos/12/foto_02.jpg",
+      "web_fotos/12/foto_03.jpg",
+      "web_fotos/12/foto_04.jpg",
+      "web_fotos/12/foto_05.jpg",
+      "web_fotos/12/foto_06.jpg",
+      "web_fotos/12/foto_07.jpg",
+      "web_fotos/12/foto_08.jpg"
     ]
   },
   {
-    "n": 12,
+    "n": 13,
     "modelo": "SEAT Tarraco",
     "version": "1.5 TSI S&S FR XM DSG 110 kW (150 CV)",
     "combustible": "Gasolina",
@@ -969,18 +1005,18 @@ const COCHES = [
       "Pack de seguridad y conducción XL"
     ],
     "fotos": [
-      "web_fotos/12/foto_01.jpg",
-      "web_fotos/12/foto_02.jpg",
-      "web_fotos/12/foto_03.jpg",
-      "web_fotos/12/foto_04.jpg",
-      "web_fotos/12/foto_05.jpg",
-      "web_fotos/12/foto_06.jpg",
-      "web_fotos/12/foto_07.jpg",
-      "web_fotos/12/foto_08.jpg"
+      "web_fotos/13/foto_01.jpg",
+      "web_fotos/13/foto_02.jpg",
+      "web_fotos/13/foto_03.jpg",
+      "web_fotos/13/foto_04.jpg",
+      "web_fotos/13/foto_05.jpg",
+      "web_fotos/13/foto_06.jpg",
+      "web_fotos/13/foto_07.jpg",
+      "web_fotos/13/foto_08.jpg"
     ]
   },
   {
-    "n": 13,
+    "n": 14,
     "modelo": "CUPRA Leon",
     "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -1005,18 +1041,18 @@ const COCHES = [
       "Anclaje asientos infantiles para sistema asientos"
     ],
     "fotos": [
-      "web_fotos/13/foto_01.jpg",
-      "web_fotos/13/foto_02.jpg",
-      "web_fotos/13/foto_03.jpg",
-      "web_fotos/13/foto_04.jpg",
-      "web_fotos/13/foto_05.jpg",
-      "web_fotos/13/foto_06.jpg",
-      "web_fotos/13/foto_07.jpg",
-      "web_fotos/13/foto_08.jpg"
+      "web_fotos/14/foto_01.jpg",
+      "web_fotos/14/foto_02.jpg",
+      "web_fotos/14/foto_03.jpg",
+      "web_fotos/14/foto_04.jpg",
+      "web_fotos/14/foto_05.jpg",
+      "web_fotos/14/foto_06.jpg",
+      "web_fotos/14/foto_07.jpg",
+      "web_fotos/14/foto_08.jpg"
     ]
   },
   {
-    "n": 14,
+    "n": 15,
     "modelo": "CUPRA Born",
     "version": "59kWh E-Boost Pack 170 kW (231 CV)",
     "combustible": "Eléctrico",
@@ -1041,18 +1077,18 @@ const COCHES = [
       "Climatronic, libre de CFC"
     ],
     "fotos": [
-      "web_fotos/14/foto_01.jpg",
-      "web_fotos/14/foto_02.jpg",
-      "web_fotos/14/foto_03.jpg",
-      "web_fotos/14/foto_04.jpg",
-      "web_fotos/14/foto_05.jpg",
-      "web_fotos/14/foto_06.jpg",
-      "web_fotos/14/foto_07.jpg",
-      "web_fotos/14/foto_08.jpg"
+      "web_fotos/15/foto_01.jpg",
+      "web_fotos/15/foto_02.jpg",
+      "web_fotos/15/foto_03.jpg",
+      "web_fotos/15/foto_04.jpg",
+      "web_fotos/15/foto_05.jpg",
+      "web_fotos/15/foto_06.jpg",
+      "web_fotos/15/foto_07.jpg",
+      "web_fotos/15/foto_08.jpg"
     ]
   },
   {
-    "n": 15,
+    "n": 16,
     "modelo": "SEAT Ibiza",
     "version": "1.0 TSI FR Salta 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1077,42 +1113,6 @@ const COCHES = [
       "Palanca del freno de mano en cuero"
     ],
     "fotos": [
-      "web_fotos/15/foto_01.jpg",
-      "web_fotos/15/foto_02.jpg",
-      "web_fotos/15/foto_03.jpg",
-      "web_fotos/15/foto_04.jpg",
-      "web_fotos/15/foto_05.jpg",
-      "web_fotos/15/foto_06.jpg",
-      "web_fotos/15/foto_07.jpg",
-      "web_fotos/15/foto_08.jpg"
-    ]
-  },
-  {
-    "n": 16,
-    "modelo": "SEAT Ibiza",
-    "version": "1.0 TSI S&S Xcellence 85 kW (115 CV)",
-    "combustible": "Gasolina",
-    "km": "16.523",
-    "fecha": "04/2025",
-    "cambio": "Manual",
-    "color": "Blanco",
-    "precio": "18.200",
-    "estado": "No disponible",
-    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/121127099",
-    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/12/11/27/09/9/x01.jpg",
-    "equipamiento": [
-      "Asistente frontal incluido función frenada de emergencia para ACC High",
-      "Asistente de mantenimiento de carril",
-      "Velocidad máxima: 198 km/h",
-      "Tapicería tela Xcellence",
-      "Safe & Driving Pack M",
-      "Pack Vision Plus",
-      "Volante multifunción deportivo de cuero",
-      "Cierre centralizado \"Keyless-Entry\"",
-      "Palanca del freno de mano en cuero",
-      "Ayuda de aparcamiento delante y detrás"
-    ],
-    "fotos": [
       "web_fotos/16/foto_01.jpg",
       "web_fotos/16/foto_02.jpg",
       "web_fotos/16/foto_03.jpg",
@@ -1125,42 +1125,6 @@ const COCHES = [
   },
   {
     "n": 17,
-    "modelo": "SEAT Tarraco",
-    "version": "1.5 TSI S&S FR Edition DSG 110 kW (150 CV)",
-    "combustible": "Gasolina",
-    "km": "27.725",
-    "fecha": "04/2024",
-    "cambio": "Automático",
-    "color": "Gris",
-    "precio": "32.900",
-    "estado": "Disponible",
-    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-tarraco-gasolina-150-cv-del-2024-en-malaga/118049993",
-    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/80/49/99/3/x01.jpg",
-    "equipamiento": [
-      "Asistente frontal incluido función frenada de emergencia para ACC High",
-      "Asistente mantenimiento carril con Emergency Assist y asistente en atasco",
-      "Asistente de cambio de carril",
-      "Con sistema de cámaras frontal y de marcha atrás, y dos cámaras laterales",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor, sistema de distancia de aparcamiento en los lados con sensor y cámara",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 199 km/h",
-      "Asientos tipo bucket tela LAVA"
-    ],
-    "fotos": [
-      "web_fotos/17/foto_01.jpg",
-      "web_fotos/17/foto_02.jpg",
-      "web_fotos/17/foto_03.jpg",
-      "web_fotos/17/foto_04.jpg",
-      "web_fotos/17/foto_05.jpg",
-      "web_fotos/17/foto_06.jpg",
-      "web_fotos/17/foto_07.jpg",
-      "web_fotos/17/foto_08.jpg"
-    ]
-  },
-  {
-    "n": 18,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1185,18 +1149,18 @@ const COCHES = [
       "Con cámara multifuncional"
     ],
     "fotos": [
-      "web_fotos/18/foto_01.jpg",
-      "web_fotos/18/foto_02.jpg",
-      "web_fotos/18/foto_03.jpg",
-      "web_fotos/18/foto_04.jpg",
-      "web_fotos/18/foto_05.jpg",
-      "web_fotos/18/foto_06.jpg",
-      "web_fotos/18/foto_07.jpg",
-      "web_fotos/18/foto_08.jpg"
+      "web_fotos/17/foto_01.jpg",
+      "web_fotos/17/foto_02.jpg",
+      "web_fotos/17/foto_03.jpg",
+      "web_fotos/17/foto_04.jpg",
+      "web_fotos/17/foto_05.jpg",
+      "web_fotos/17/foto_06.jpg",
+      "web_fotos/17/foto_07.jpg",
+      "web_fotos/17/foto_08.jpg"
     ]
   },
   {
-    "n": 19,
+    "n": 18,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1221,18 +1185,18 @@ const COCHES = [
       "Reconocimiento de señales de trafico"
     ],
     "fotos": [
-      "web_fotos/19/foto_01.jpg",
-      "web_fotos/19/foto_02.jpg",
-      "web_fotos/19/foto_03.jpg",
-      "web_fotos/19/foto_04.jpg",
-      "web_fotos/19/foto_05.jpg",
-      "web_fotos/19/foto_06.jpg",
-      "web_fotos/19/foto_07.jpg",
-      "web_fotos/19/foto_08.jpg"
+      "web_fotos/18/foto_01.jpg",
+      "web_fotos/18/foto_02.jpg",
+      "web_fotos/18/foto_03.jpg",
+      "web_fotos/18/foto_04.jpg",
+      "web_fotos/18/foto_05.jpg",
+      "web_fotos/18/foto_06.jpg",
+      "web_fotos/18/foto_07.jpg",
+      "web_fotos/18/foto_08.jpg"
     ]
   },
   {
-    "n": 20,
+    "n": 19,
     "modelo": "SEAT León",
     "version": "1.5 TSI S&S Style XS 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1257,18 +1221,18 @@ const COCHES = [
       "Volante multifunción deportivo de cuero"
     ],
     "fotos": [
-      "web_fotos/20/foto_01.jpg",
-      "web_fotos/20/foto_02.jpg",
-      "web_fotos/20/foto_03.jpg",
-      "web_fotos/20/foto_04.jpg",
-      "web_fotos/20/foto_05.jpg",
-      "web_fotos/20/foto_06.jpg",
-      "web_fotos/20/foto_07.jpg",
-      "web_fotos/20/foto_08.jpg"
+      "web_fotos/19/foto_01.jpg",
+      "web_fotos/19/foto_02.jpg",
+      "web_fotos/19/foto_03.jpg",
+      "web_fotos/19/foto_04.jpg",
+      "web_fotos/19/foto_05.jpg",
+      "web_fotos/19/foto_06.jpg",
+      "web_fotos/19/foto_07.jpg",
+      "web_fotos/19/foto_08.jpg"
     ]
   },
   {
-    "n": 21,
+    "n": 20,
     "modelo": "SEAT Ateca",
     "version": "1.5 TSI S&S FR Special Edition 110 kW (150 CV)",
     "combustible": "Gasolina",
@@ -1293,6 +1257,42 @@ const COCHES = [
       "Llantas de aleación ligera 7J x 18\""
     ],
     "fotos": [
+      "web_fotos/20/foto_01.jpg",
+      "web_fotos/20/foto_02.jpg",
+      "web_fotos/20/foto_03.jpg",
+      "web_fotos/20/foto_04.jpg",
+      "web_fotos/20/foto_05.jpg",
+      "web_fotos/20/foto_06.jpg",
+      "web_fotos/20/foto_07.jpg",
+      "web_fotos/20/foto_08.jpg"
+    ]
+  },
+  {
+    "n": 21,
+    "modelo": "SEAT Arona",
+    "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
+    "combustible": "Gasolina",
+    "km": "18.024",
+    "fecha": "05/2025",
+    "cambio": "Manual",
+    "color": "Gris",
+    "precio": "18.500",
+    "estado": "Disponible",
+    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139363119",
+    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/93/63/11/9/x01.jpg",
+    "equipamiento": [
+      "Asistente frontal incluido función frenada de emergencia para ACC High",
+      "Asistente de mantenimiento de carril",
+      "Asistente de cambio de carril",
+      "\"Connectivity box\": Estación de carga inalámbrica para teléfono móvil",
+      "Volante multifunción deportivo de cuero",
+      "Palanca del freno de mano en cuero",
+      "Climatronic bizona",
+      "Llantas de aleación ligera 6j x 16\" pulgadas",
+      "Con cámara multifuncional",
+      "Reconocimiento de señales de trafico"
+    ],
+    "fotos": [
       "web_fotos/21/foto_01.jpg",
       "web_fotos/21/foto_02.jpg",
       "web_fotos/21/foto_03.jpg",
@@ -1308,14 +1308,14 @@ const COCHES = [
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
-    "km": "18.024",
+    "km": "14.728",
     "fecha": "05/2025",
     "cambio": "Manual",
     "color": "Gris",
     "precio": "18.500",
     "estado": "Disponible",
-    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139363119",
-    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/93/63/11/9/x01.jpg",
+    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139352877",
+    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/93/52/87/7/x01.jpg",
     "equipamiento": [
       "Asistente frontal incluido función frenada de emergencia para ACC High",
       "Asistente de mantenimiento de carril",
@@ -1341,28 +1341,28 @@ const COCHES = [
   },
   {
     "n": 23,
-    "modelo": "SEAT Arona",
-    "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
+    "modelo": "SEAT Ibiza",
+    "version": "1.0 TSI S&S Xcellence 85 kW (115 CV)",
     "combustible": "Gasolina",
-    "km": "14.728",
-    "fecha": "05/2025",
+    "km": "16.523",
+    "fecha": "04/2025",
     "cambio": "Manual",
-    "color": "Gris",
-    "precio": "18.500",
-    "estado": "Disponible",
-    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139352877",
-    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/93/52/87/7/x01.jpg",
+    "color": "Blanco",
+    "precio": "18.200",
+    "estado": "No disponible",
+    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/121127099",
+    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/12/11/27/09/9/x01.jpg",
     "equipamiento": [
       "Asistente frontal incluido función frenada de emergencia para ACC High",
       "Asistente de mantenimiento de carril",
-      "Asistente de cambio de carril",
-      "\"Connectivity box\": Estación de carga inalámbrica para teléfono móvil",
+      "Velocidad máxima: 198 km/h",
+      "Tapicería tela Xcellence",
+      "Safe & Driving Pack M",
+      "Pack Vision Plus",
       "Volante multifunción deportivo de cuero",
+      "Cierre centralizado \"Keyless-Entry\"",
       "Palanca del freno de mano en cuero",
-      "Climatronic bizona",
-      "Llantas de aleación ligera 6j x 16\" pulgadas",
-      "Con cámara multifuncional",
-      "Reconocimiento de señales de trafico"
+      "Ayuda de aparcamiento delante y detrás"
     ],
     "fotos": [
       "web_fotos/23/foto_01.jpg",
@@ -1377,6 +1377,42 @@ const COCHES = [
   },
   {
     "n": 24,
+    "modelo": "SEAT Tarraco",
+    "version": "1.5 TSI S&S FR Edition DSG 110 kW (150 CV)",
+    "combustible": "Gasolina",
+    "km": "27.725",
+    "fecha": "04/2024",
+    "cambio": "Automático",
+    "color": "Gris",
+    "precio": "32.900",
+    "estado": "Disponible",
+    "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-tarraco-gasolina-150-cv-del-2024-en-malaga/118049993",
+    "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/80/49/99/3/x01.jpg",
+    "equipamiento": [
+      "Asistente frontal incluido función frenada de emergencia para ACC High",
+      "Asistente mantenimiento carril con Emergency Assist y asistente en atasco",
+      "Asistente de cambio de carril",
+      "Con sistema de cámaras frontal y de marcha atrás, y dos cámaras laterales",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor, sistema de distancia de aparcamiento en los lados con sensor y cámara",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 199 km/h",
+      "Asientos tipo bucket tela LAVA"
+    ],
+    "fotos": [
+      "web_fotos/24/foto_01.jpg",
+      "web_fotos/24/foto_02.jpg",
+      "web_fotos/24/foto_03.jpg",
+      "web_fotos/24/foto_04.jpg",
+      "web_fotos/24/foto_05.jpg",
+      "web_fotos/24/foto_06.jpg",
+      "web_fotos/24/foto_07.jpg",
+      "web_fotos/24/foto_08.jpg"
+    ]
+  },
+  {
+    "n": 25,
     "modelo": "SEAT León",
     "version": "1.5 eTSI Style 25 Aniversario DSG 85 kW (116 CV)",
     "combustible": "Mild Hybrid",
@@ -1401,18 +1437,18 @@ const COCHES = [
       "Toma/s de 12v en los asientos delanteros"
     ],
     "fotos": [
-      "web_fotos/24/foto_01.jpg",
-      "web_fotos/24/foto_02.jpg",
-      "web_fotos/24/foto_03.jpg",
-      "web_fotos/24/foto_04.jpg",
-      "web_fotos/24/foto_05.jpg",
-      "web_fotos/24/foto_06.jpg",
-      "web_fotos/24/foto_07.jpg",
-      "web_fotos/24/foto_08.jpg"
+      "web_fotos/25/foto_01.jpg",
+      "web_fotos/25/foto_02.jpg",
+      "web_fotos/25/foto_03.jpg",
+      "web_fotos/25/foto_04.jpg",
+      "web_fotos/25/foto_05.jpg",
+      "web_fotos/25/foto_06.jpg",
+      "web_fotos/25/foto_07.jpg",
+      "web_fotos/25/foto_08.jpg"
     ]
   },
   {
-    "n": 25,
+    "n": 26,
     "modelo": "SEAT León",
     "version": "1.5 eTSI Style 25 Aniversario DSG 85 kW (116 CV)",
     "combustible": "Mild Hybrid",
@@ -1437,18 +1473,18 @@ const COCHES = [
       "Con ayuda de esquiva con asistente de giro"
     ],
     "fotos": [
-      "web_fotos/25/foto_01.jpg",
-      "web_fotos/25/foto_02.jpg",
-      "web_fotos/25/foto_03.jpg",
-      "web_fotos/25/foto_04.jpg",
-      "web_fotos/25/foto_05.jpg",
-      "web_fotos/25/foto_06.jpg",
-      "web_fotos/25/foto_07.jpg",
-      "web_fotos/25/foto_08.jpg"
+      "web_fotos/26/foto_01.jpg",
+      "web_fotos/26/foto_02.jpg",
+      "web_fotos/26/foto_03.jpg",
+      "web_fotos/26/foto_04.jpg",
+      "web_fotos/26/foto_05.jpg",
+      "web_fotos/26/foto_06.jpg",
+      "web_fotos/26/foto_07.jpg",
+      "web_fotos/26/foto_08.jpg"
     ]
   },
   {
-    "n": 26,
+    "n": 27,
     "modelo": "CUPRA Terramar",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -1473,18 +1509,18 @@ const COCHES = [
       "Apertura de confort del portón del maletero (pedal virtual)"
     ],
     "fotos": [
-      "web_fotos/26/foto_01.jpg",
-      "web_fotos/26/foto_02.jpg",
-      "web_fotos/26/foto_03.jpg",
-      "web_fotos/26/foto_04.jpg",
-      "web_fotos/26/foto_05.jpg",
-      "web_fotos/26/foto_06.jpg",
-      "web_fotos/26/foto_07.jpg",
-      "web_fotos/26/foto_08.jpg"
+      "web_fotos/27/foto_01.jpg",
+      "web_fotos/27/foto_02.jpg",
+      "web_fotos/27/foto_03.jpg",
+      "web_fotos/27/foto_04.jpg",
+      "web_fotos/27/foto_05.jpg",
+      "web_fotos/27/foto_06.jpg",
+      "web_fotos/27/foto_07.jpg",
+      "web_fotos/27/foto_08.jpg"
     ]
   },
   {
-    "n": 27,
+    "n": 28,
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI 110 kW (150 CV)",
     "combustible": "Gasolina",
@@ -1509,18 +1545,18 @@ const COCHES = [
       "Toma/s de 12v en los asientos delanteros"
     ],
     "fotos": [
-      "web_fotos/27/foto_01.jpg",
-      "web_fotos/27/foto_02.jpg",
-      "web_fotos/27/foto_03.jpg",
-      "web_fotos/27/foto_04.jpg",
-      "web_fotos/27/foto_05.jpg",
-      "web_fotos/27/foto_06.jpg",
-      "web_fotos/27/foto_07.jpg",
-      "web_fotos/27/foto_08.jpg"
+      "web_fotos/28/foto_01.jpg",
+      "web_fotos/28/foto_02.jpg",
+      "web_fotos/28/foto_03.jpg",
+      "web_fotos/28/foto_04.jpg",
+      "web_fotos/28/foto_05.jpg",
+      "web_fotos/28/foto_06.jpg",
+      "web_fotos/28/foto_07.jpg",
+      "web_fotos/28/foto_08.jpg"
     ]
   },
   {
-    "n": 28,
+    "n": 29,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1545,18 +1581,18 @@ const COCHES = [
       "Reconocimiento de señales de trafico"
     ],
     "fotos": [
-      "web_fotos/28/foto_01.jpg",
-      "web_fotos/28/foto_02.jpg",
-      "web_fotos/28/foto_03.jpg",
-      "web_fotos/28/foto_04.jpg",
-      "web_fotos/28/foto_05.jpg",
-      "web_fotos/28/foto_06.jpg",
-      "web_fotos/28/foto_07.jpg",
-      "web_fotos/28/foto_08.jpg"
+      "web_fotos/29/foto_01.jpg",
+      "web_fotos/29/foto_02.jpg",
+      "web_fotos/29/foto_03.jpg",
+      "web_fotos/29/foto_04.jpg",
+      "web_fotos/29/foto_05.jpg",
+      "web_fotos/29/foto_06.jpg",
+      "web_fotos/29/foto_07.jpg",
+      "web_fotos/29/foto_08.jpg"
     ]
   },
   {
-    "n": 29,
+    "n": 30,
     "modelo": "Volkswagen ID.4",
     "version": "Pro Performance 150 kW (204 CV)",
     "combustible": "Eléctrico",
@@ -1581,18 +1617,18 @@ const COCHES = [
       "Sujetavasos en los asientos delanteros y los asientos traseros"
     ],
     "fotos": [
-      "web_fotos/29/foto_01.jpg",
-      "web_fotos/29/foto_02.jpg",
-      "web_fotos/29/foto_03.jpg",
-      "web_fotos/29/foto_04.jpg",
-      "web_fotos/29/foto_05.jpg",
-      "web_fotos/29/foto_06.jpg",
-      "web_fotos/29/foto_07.jpg",
-      "web_fotos/29/foto_08.jpg"
+      "web_fotos/30/foto_01.jpg",
+      "web_fotos/30/foto_02.jpg",
+      "web_fotos/30/foto_03.jpg",
+      "web_fotos/30/foto_04.jpg",
+      "web_fotos/30/foto_05.jpg",
+      "web_fotos/30/foto_06.jpg",
+      "web_fotos/30/foto_07.jpg",
+      "web_fotos/30/foto_08.jpg"
     ]
   },
   {
-    "n": 30,
+    "n": 31,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1617,18 +1653,18 @@ const COCHES = [
       "Reconocimiento de señales de trafico"
     ],
     "fotos": [
-      "web_fotos/30/foto_01.jpg",
-      "web_fotos/30/foto_02.jpg",
-      "web_fotos/30/foto_03.jpg",
-      "web_fotos/30/foto_04.jpg",
-      "web_fotos/30/foto_05.jpg",
-      "web_fotos/30/foto_06.jpg",
-      "web_fotos/30/foto_07.jpg",
-      "web_fotos/30/foto_08.jpg"
+      "web_fotos/31/foto_01.jpg",
+      "web_fotos/31/foto_02.jpg",
+      "web_fotos/31/foto_03.jpg",
+      "web_fotos/31/foto_04.jpg",
+      "web_fotos/31/foto_05.jpg",
+      "web_fotos/31/foto_06.jpg",
+      "web_fotos/31/foto_07.jpg",
+      "web_fotos/31/foto_08.jpg"
     ]
   },
   {
-    "n": 31,
+    "n": 32,
     "modelo": "SEAT León",
     "version": "1.0 TSI S&S Style XL Vision 81 kW (110 CV)",
     "combustible": "Gasolina",
@@ -1653,18 +1689,18 @@ const COCHES = [
       "Volante multi-función de aluminio y cuero ajustable en altura y en profundidad"
     ],
     "fotos": [
-      "web_fotos/31/foto_01.jpg",
-      "web_fotos/31/foto_02.jpg",
-      "web_fotos/31/foto_03.jpg",
-      "web_fotos/31/foto_04.jpg",
-      "web_fotos/31/foto_05.jpg",
-      "web_fotos/31/foto_06.jpg",
-      "web_fotos/31/foto_07.jpg",
-      "web_fotos/31/foto_08.jpg"
+      "web_fotos/32/foto_01.jpg",
+      "web_fotos/32/foto_02.jpg",
+      "web_fotos/32/foto_03.jpg",
+      "web_fotos/32/foto_04.jpg",
+      "web_fotos/32/foto_05.jpg",
+      "web_fotos/32/foto_06.jpg",
+      "web_fotos/32/foto_07.jpg",
+      "web_fotos/32/foto_08.jpg"
     ]
   },
   {
-    "n": 32,
+    "n": 33,
     "modelo": "CUPRA Formentor",
     "version": "1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -1689,18 +1725,18 @@ const COCHES = [
       "Control de crucero adaptativo"
     ],
     "fotos": [
-      "web_fotos/32/foto_01.jpg",
-      "web_fotos/32/foto_02.jpg",
-      "web_fotos/32/foto_03.jpg",
-      "web_fotos/32/foto_04.jpg",
-      "web_fotos/32/foto_05.jpg",
-      "web_fotos/32/foto_06.jpg",
-      "web_fotos/32/foto_07.jpg",
-      "web_fotos/32/foto_08.jpg"
+      "web_fotos/33/foto_01.jpg",
+      "web_fotos/33/foto_02.jpg",
+      "web_fotos/33/foto_03.jpg",
+      "web_fotos/33/foto_04.jpg",
+      "web_fotos/33/foto_05.jpg",
+      "web_fotos/33/foto_06.jpg",
+      "web_fotos/33/foto_07.jpg",
+      "web_fotos/33/foto_08.jpg"
     ]
   },
   {
-    "n": 33,
+    "n": 34,
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -1725,18 +1761,18 @@ const COCHES = [
       "Anclaje asientos infantiles para sistema asientos"
     ],
     "fotos": [
-      "web_fotos/33/foto_01.jpg",
-      "web_fotos/33/foto_02.jpg",
-      "web_fotos/33/foto_03.jpg",
-      "web_fotos/33/foto_04.jpg",
-      "web_fotos/33/foto_05.jpg",
-      "web_fotos/33/foto_06.jpg",
-      "web_fotos/33/foto_07.jpg",
-      "web_fotos/33/foto_08.jpg"
+      "web_fotos/34/foto_01.jpg",
+      "web_fotos/34/foto_02.jpg",
+      "web_fotos/34/foto_03.jpg",
+      "web_fotos/34/foto_04.jpg",
+      "web_fotos/34/foto_05.jpg",
+      "web_fotos/34/foto_06.jpg",
+      "web_fotos/34/foto_07.jpg",
+      "web_fotos/34/foto_08.jpg"
     ]
   },
   {
-    "n": 34,
+    "n": 35,
     "modelo": "CUPRA Leon",
     "version": "Sportstourer 1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -1761,18 +1797,18 @@ const COCHES = [
       "Dirección asistida eléctrica con endurecimiento progresivo s/velocidad y desmultiplicación variable"
     ],
     "fotos": [
-      "web_fotos/34/foto_01.jpg",
-      "web_fotos/34/foto_02.jpg",
-      "web_fotos/34/foto_03.jpg",
-      "web_fotos/34/foto_04.jpg",
-      "web_fotos/34/foto_05.jpg",
-      "web_fotos/34/foto_06.jpg",
-      "web_fotos/34/foto_07.jpg",
-      "web_fotos/34/foto_08.jpg"
+      "web_fotos/35/foto_01.jpg",
+      "web_fotos/35/foto_02.jpg",
+      "web_fotos/35/foto_03.jpg",
+      "web_fotos/35/foto_04.jpg",
+      "web_fotos/35/foto_05.jpg",
+      "web_fotos/35/foto_06.jpg",
+      "web_fotos/35/foto_07.jpg",
+      "web_fotos/35/foto_08.jpg"
     ]
   },
   {
-    "n": 35,
+    "n": 36,
     "modelo": "CUPRA Formentor",
     "version": "2.5 TSI VZ5 Taiga Grey 4Drive DSG 287 kW (390 CV)",
     "combustible": "Gasolina",
@@ -1797,18 +1833,18 @@ const COCHES = [
       "Toma/s de 12v en los asientos delanteros"
     ],
     "fotos": [
-      "web_fotos/35/foto_01.jpg",
-      "web_fotos/35/foto_02.jpg",
-      "web_fotos/35/foto_03.jpg",
-      "web_fotos/35/foto_04.jpg",
-      "web_fotos/35/foto_05.jpg",
-      "web_fotos/35/foto_06.jpg",
-      "web_fotos/35/foto_07.jpg",
-      "web_fotos/35/foto_08.jpg"
+      "web_fotos/36/foto_01.jpg",
+      "web_fotos/36/foto_02.jpg",
+      "web_fotos/36/foto_03.jpg",
+      "web_fotos/36/foto_04.jpg",
+      "web_fotos/36/foto_05.jpg",
+      "web_fotos/36/foto_06.jpg",
+      "web_fotos/36/foto_07.jpg",
+      "web_fotos/36/foto_08.jpg"
     ]
   },
   {
-    "n": 36,
+    "n": 37,
     "modelo": "CUPRA Leon",
     "version": "Sportstourer 1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -1833,18 +1869,18 @@ const COCHES = [
       "Anclaje asientos infantiles para sistema asientos"
     ],
     "fotos": [
-      "web_fotos/36/foto_01.jpg",
-      "web_fotos/36/foto_02.jpg",
-      "web_fotos/36/foto_03.jpg",
-      "web_fotos/36/foto_04.jpg",
-      "web_fotos/36/foto_05.jpg",
-      "web_fotos/36/foto_06.jpg",
-      "web_fotos/36/foto_07.jpg",
-      "web_fotos/36/foto_08.jpg"
+      "web_fotos/37/foto_01.jpg",
+      "web_fotos/37/foto_02.jpg",
+      "web_fotos/37/foto_03.jpg",
+      "web_fotos/37/foto_04.jpg",
+      "web_fotos/37/foto_05.jpg",
+      "web_fotos/37/foto_06.jpg",
+      "web_fotos/37/foto_07.jpg",
+      "web_fotos/37/foto_08.jpg"
     ]
   },
   {
-    "n": 37,
+    "n": 38,
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI DSG 110 kW (150 CV)",
     "combustible": "Gasolina",
@@ -1869,18 +1905,18 @@ const COCHES = [
       "Llantas de aleación ligera 8J x 18\" pulgadas"
     ],
     "fotos": [
-      "web_fotos/37/foto_01.jpg",
-      "web_fotos/37/foto_02.jpg",
-      "web_fotos/37/foto_03.jpg",
-      "web_fotos/37/foto_04.jpg",
-      "web_fotos/37/foto_05.jpg",
-      "web_fotos/37/foto_06.jpg",
-      "web_fotos/37/foto_07.jpg",
-      "web_fotos/37/foto_08.jpg"
+      "web_fotos/38/foto_01.jpg",
+      "web_fotos/38/foto_02.jpg",
+      "web_fotos/38/foto_03.jpg",
+      "web_fotos/38/foto_04.jpg",
+      "web_fotos/38/foto_05.jpg",
+      "web_fotos/38/foto_06.jpg",
+      "web_fotos/38/foto_07.jpg",
+      "web_fotos/38/foto_08.jpg"
     ]
   },
   {
-    "n": 38,
+    "n": 39,
     "modelo": "CUPRA León",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -1905,18 +1941,18 @@ const COCHES = [
       "Llantas de aleación ligera 7,5J x 18\" pulgadas"
     ],
     "fotos": [
-      "web_fotos/38/foto_01.jpg",
-      "web_fotos/38/foto_02.jpg",
-      "web_fotos/38/foto_03.jpg",
-      "web_fotos/38/foto_04.jpg",
-      "web_fotos/38/foto_05.jpg",
-      "web_fotos/38/foto_06.jpg",
-      "web_fotos/38/foto_07.jpg",
-      "web_fotos/38/foto_08.jpg"
+      "web_fotos/39/foto_01.jpg",
+      "web_fotos/39/foto_02.jpg",
+      "web_fotos/39/foto_03.jpg",
+      "web_fotos/39/foto_04.jpg",
+      "web_fotos/39/foto_05.jpg",
+      "web_fotos/39/foto_06.jpg",
+      "web_fotos/39/foto_07.jpg",
+      "web_fotos/39/foto_08.jpg"
     ]
   },
   {
-    "n": 39,
+    "n": 40,
     "modelo": "CUPRA León",
     "version": "1.4 e-Hybrid DSG 180 kW (245 CV)",
     "combustible": "Híbrido",
@@ -1941,18 +1977,18 @@ const COCHES = [
       "Sujetavasos en los asientos delanteros"
     ],
     "fotos": [
-      "web_fotos/39/foto_01.jpg",
-      "web_fotos/39/foto_02.jpg",
-      "web_fotos/39/foto_03.jpg",
-      "web_fotos/39/foto_04.jpg",
-      "web_fotos/39/foto_05.jpg",
-      "web_fotos/39/foto_06.jpg",
-      "web_fotos/39/foto_07.jpg",
-      "web_fotos/39/foto_08.jpg"
+      "web_fotos/40/foto_01.jpg",
+      "web_fotos/40/foto_02.jpg",
+      "web_fotos/40/foto_03.jpg",
+      "web_fotos/40/foto_04.jpg",
+      "web_fotos/40/foto_05.jpg",
+      "web_fotos/40/foto_06.jpg",
+      "web_fotos/40/foto_07.jpg",
+      "web_fotos/40/foto_08.jpg"
     ]
   },
   {
-    "n": 40,
+    "n": 41,
     "modelo": "CUPRA Tavascan",
     "version": "77kWh Endurance First Edition 210 kW (286 CV)",
     "combustible": "Eléctrico",
@@ -1977,18 +2013,18 @@ const COCHES = [
       "Front Assist con función de aviso y frenada para vehículos, peatones y bicicletas"
     ],
     "fotos": [
-      "web_fotos/40/foto_01.jpg",
-      "web_fotos/40/foto_02.jpg",
-      "web_fotos/40/foto_03.jpg",
-      "web_fotos/40/foto_04.jpg",
-      "web_fotos/40/foto_05.jpg",
-      "web_fotos/40/foto_06.jpg",
-      "web_fotos/40/foto_07.jpg",
-      "web_fotos/40/foto_08.jpg"
+      "web_fotos/41/foto_01.jpg",
+      "web_fotos/41/foto_02.jpg",
+      "web_fotos/41/foto_03.jpg",
+      "web_fotos/41/foto_04.jpg",
+      "web_fotos/41/foto_05.jpg",
+      "web_fotos/41/foto_06.jpg",
+      "web_fotos/41/foto_07.jpg",
+      "web_fotos/41/foto_08.jpg"
     ]
   },
   {
-    "n": 41,
+    "n": 42,
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -2013,18 +2049,18 @@ const COCHES = [
       "Anclaje asientos infantiles para sistema asientos"
     ],
     "fotos": [
-      "web_fotos/41/foto_01.jpg",
-      "web_fotos/41/foto_02.jpg",
-      "web_fotos/41/foto_03.jpg",
-      "web_fotos/41/foto_04.jpg",
-      "web_fotos/41/foto_05.jpg",
-      "web_fotos/41/foto_06.jpg",
-      "web_fotos/41/foto_07.jpg",
-      "web_fotos/41/foto_08.jpg"
+      "web_fotos/42/foto_01.jpg",
+      "web_fotos/42/foto_02.jpg",
+      "web_fotos/42/foto_03.jpg",
+      "web_fotos/42/foto_04.jpg",
+      "web_fotos/42/foto_05.jpg",
+      "web_fotos/42/foto_06.jpg",
+      "web_fotos/42/foto_07.jpg",
+      "web_fotos/42/foto_08.jpg"
     ]
   },
   {
-    "n": 42,
+    "n": 43,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -2049,18 +2085,18 @@ const COCHES = [
       "Asientos de tela (material principal) y de tela (material secundario)"
     ],
     "fotos": [
-      "web_fotos/42/foto_01.jpg",
-      "web_fotos/42/foto_02.jpg",
-      "web_fotos/42/foto_03.jpg",
-      "web_fotos/42/foto_04.jpg",
-      "web_fotos/42/foto_05.jpg",
-      "web_fotos/42/foto_06.jpg",
-      "web_fotos/42/foto_07.jpg",
-      "web_fotos/42/foto_08.jpg"
+      "web_fotos/43/foto_01.jpg",
+      "web_fotos/43/foto_02.jpg",
+      "web_fotos/43/foto_03.jpg",
+      "web_fotos/43/foto_04.jpg",
+      "web_fotos/43/foto_05.jpg",
+      "web_fotos/43/foto_06.jpg",
+      "web_fotos/43/foto_07.jpg",
+      "web_fotos/43/foto_08.jpg"
     ]
   },
   {
-    "n": 43,
+    "n": 44,
     "modelo": "CUPRA Formentor",
     "version": "1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -2085,18 +2121,18 @@ const COCHES = [
       "Ayuda de aparcamiento delante y detrás"
     ],
     "fotos": [
-      "web_fotos/43/foto_01.jpg",
-      "web_fotos/43/foto_02.jpg",
-      "web_fotos/43/foto_03.jpg",
-      "web_fotos/43/foto_04.jpg",
-      "web_fotos/43/foto_05.jpg",
-      "web_fotos/43/foto_06.jpg",
-      "web_fotos/43/foto_07.jpg",
-      "web_fotos/43/foto_08.jpg"
+      "web_fotos/44/foto_01.jpg",
+      "web_fotos/44/foto_02.jpg",
+      "web_fotos/44/foto_03.jpg",
+      "web_fotos/44/foto_04.jpg",
+      "web_fotos/44/foto_05.jpg",
+      "web_fotos/44/foto_06.jpg",
+      "web_fotos/44/foto_07.jpg",
+      "web_fotos/44/foto_08.jpg"
     ]
   },
   {
-    "n": 44,
+    "n": 45,
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -2121,14 +2157,14 @@ const COCHES = [
       "Front Assist con función de aviso y frenada para vehículos, peatones y bicicletas"
     ],
     "fotos": [
-      "web_fotos/44/foto_01.jpg",
-      "web_fotos/44/foto_02.jpg",
-      "web_fotos/44/foto_03.jpg",
-      "web_fotos/44/foto_04.jpg",
-      "web_fotos/44/foto_05.jpg",
-      "web_fotos/44/foto_06.jpg",
-      "web_fotos/44/foto_07.jpg",
-      "web_fotos/44/foto_08.jpg"
+      "web_fotos/45/foto_01.jpg",
+      "web_fotos/45/foto_02.jpg",
+      "web_fotos/45/foto_03.jpg",
+      "web_fotos/45/foto_04.jpg",
+      "web_fotos/45/foto_05.jpg",
+      "web_fotos/45/foto_06.jpg",
+      "web_fotos/45/foto_07.jpg",
+      "web_fotos/45/foto_08.jpg"
     ]
   }
 ];
