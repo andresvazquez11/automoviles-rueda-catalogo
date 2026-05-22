@@ -282,6 +282,20 @@
   .card-price span { font-size: 13px; font-weight: 500; color: var(--muted); }
   .card-cuota { font-size: 12px; color: var(--muted); margin-top: 2px; }
   .card-cuota strong { color: #4a5568; font-weight: 600; }
+  .card-cuota .fin-tipo-badge {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1px 5px; margin-left: 4px;
+    vertical-align: middle; color: var(--muted);
+  }
+
+  .etiqueta-dgt {
+    position: absolute; bottom: 8px; left: 8px;
+    width: 52px; height: 52px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+    pointer-events: none;
+  }
 
   .sort-select {
     background: var(--surface);
@@ -618,8 +632,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/145312122",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/12/12/2/x01.jpg",
@@ -661,8 +677,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/145312005",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/12/00/5/x01.jpg",
@@ -704,8 +722,10 @@ const COCHES = [
     "fin_tae": "8.29",
     "fin_meses": "96",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/145311939",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/11/93/9/x01.jpg",
@@ -747,8 +767,10 @@ const COCHES = [
     "fin_tae": "6.67",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/145310463",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/10/46/3/x01.jpg",
@@ -790,8 +812,10 @@ const COCHES = [
     "fin_tae": "6.64",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "No disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-gasolina-150-cv-del-2025-en-malaga/145310274",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/10/27/4/x01.jpg",
@@ -833,8 +857,10 @@ const COCHES = [
     "fin_tae": "8.24",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-150-cv-del-2026-en-malaga/145310646",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/10/64/6/x01.jpg",
@@ -876,8 +902,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ateca-gasolina-115-cv-del-2026-en-malaga/144874020",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/48/74/02/0/x01.jpg",
@@ -919,8 +947,10 @@ const COCHES = [
     "fin_tae": "8.30",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2026-en-malaga/144592158",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/45/92/15/8/x01.jpg",
@@ -962,8 +992,10 @@ const COCHES = [
     "fin_tae": "8.28",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-st-gasolina-116-cv-del-2025-en-malaga/144456396",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/44/56/39/6/x01.jpg",
@@ -1005,8 +1037,10 @@ const COCHES = [
     "fin_tae": "8.32",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/144196086",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/41/96/08/6/x01.jpg",
@@ -1048,8 +1082,10 @@ const COCHES = [
     "fin_tae": "8.33",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/144456456",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/44/56/45/6/x01.jpg",
@@ -1091,8 +1127,10 @@ const COCHES = [
     "fin_tae": "6.67",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2026-en-malaga/142839474",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/28/39/47/4/x01.jpg",
@@ -1134,8 +1172,10 @@ const COCHES = [
     "fin_tae": "8.24",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-150-cv-del-2025-en-malaga/142841133",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/28/41/13/3/x01.jpg",
@@ -1177,8 +1217,10 @@ const COCHES = [
     "fin_tae": "8.27",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/142841013",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/28/41/01/3/x01.jpg",
@@ -1220,8 +1262,10 @@ const COCHES = [
     "fin_tae": "8.37",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-110-cv-del-2022-en-malaga/142169637",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/21/69/63/7/x01.jpg",
@@ -1263,8 +1307,10 @@ const COCHES = [
     "fin_tae": "10.44",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2026-en-malaga/142030332",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/20/30/33/2/x01.jpg",
@@ -1306,8 +1352,10 @@ const COCHES = [
     "fin_tae": "8.29",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "No disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-diesel-116-cv-del-2025-en-malaga/140460837",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/04/60/83/7/x01.jpg",
@@ -1349,8 +1397,10 @@ const COCHES = [
     "fin_tae": "8.32",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139634322",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/96/34/32/2/x01.jpg",
@@ -1392,8 +1442,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/145312104",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/12/10/4/x01.jpg",
@@ -1435,8 +1487,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/145311984",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/11/98/4/x01.jpg",
@@ -1478,8 +1532,10 @@ const COCHES = [
     "fin_tae": "8.24",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-150-cv-del-2026-en-malaga/142841067",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/28/41/06/7/x01.jpg",
@@ -1521,8 +1577,10 @@ const COCHES = [
     "fin_tae": "8.32",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/145312038",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/12/03/8/x01.jpg",
@@ -1564,8 +1622,10 @@ const COCHES = [
     "fin_tae": "8.33",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139634442",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/96/34/44/2/x01.jpg",
@@ -1607,8 +1667,10 @@ const COCHES = [
     "fin_tae": "8.33",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139634409",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/96/34/40/9/x01.jpg",
@@ -1650,8 +1712,10 @@ const COCHES = [
     "fin_tae": "6.67",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/145312593",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/12/59/3/x01.jpg",
@@ -1693,8 +1757,10 @@ const COCHES = [
     "fin_tae": "8.33",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "No disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139364595",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/93/64/59/5/x01.jpg",
@@ -1736,8 +1802,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/139334478",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/93/34/47/8/x01.jpg",
@@ -1779,8 +1847,10 @@ const COCHES = [
     "fin_tae": "11.36",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-hibrido-electro-gasolina-204-cv-del-2021-en-malaga/136785196",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/67/85/19/6/x01.jpg",
@@ -1822,8 +1892,10 @@ const COCHES = [
     "fin_tae": "8.26",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "No disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-116-cv-del-2025-en-malaga/136138876",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/61/38/87/6/x01.jpg",
@@ -1865,8 +1937,10 @@ const COCHES = [
     "fin_tae": "8.30",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ateca-gasolina-150-cv-del-2026-en-malaga/133954846",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/39/54/84/6/x01.jpg",
@@ -1908,8 +1982,10 @@ const COCHES = [
     "fin_tae": "8.26",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-116-cv-del-2025-en-malaga/134176063",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/41/76/06/3/x01.jpg",
@@ -1951,8 +2027,10 @@ const COCHES = [
     "fin_tae": "",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/volkswagen-t-cross-gasolina-95-cv-del-2024-en-malaga/133710346",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/37/10/34/6/x01.jpg",
@@ -1994,8 +2072,10 @@ const COCHES = [
     "fin_tae": "8.36",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-tarraco-gasolina-150-cv-del-2024-en-malaga/132740291",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/27/40/29/1/x01.jpg",
@@ -2037,8 +2117,10 @@ const COCHES = [
     "fin_tae": "6.68",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/129674822",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/12/96/74/82/2/x01.jpg",
@@ -2080,8 +2162,10 @@ const COCHES = [
     "fin_tae": "6.83",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-born-electrico-231-cv-del-2024-en-malaga/121127225",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/12/11/27/22/5/x01.jpg",
@@ -2123,8 +2207,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "No disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/121127162",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/12/11/27/16/2/x01.jpg",
@@ -2166,8 +2252,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "No disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/121127099",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/12/11/27/09/9/x01.jpg",
@@ -2209,8 +2297,10 @@ const COCHES = [
     "fin_tae": "8.35",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-tarraco-gasolina-150-cv-del-2024-en-malaga/118049993",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/80/49/99/3/x01.jpg",
@@ -2252,8 +2342,10 @@ const COCHES = [
     "fin_tae": "8.27",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "No disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-116-cv-del-2025-en-malaga/121041989",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/12/10/41/98/9/x01.jpg",
@@ -2295,8 +2387,10 @@ const COCHES = [
     "fin_tae": "6.64",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-terramar-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/115432463",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/54/32/46/3/x01.jpg",
@@ -2338,8 +2432,10 @@ const COCHES = [
     "fin_tae": "6.69",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/115432109",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/54/32/10/9/x01.jpg",
@@ -2381,8 +2477,10 @@ const COCHES = [
     "fin_tae": "",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/volkswagen-id-4-electrico-204-cv-del-2022-en-malaga/112563922",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/25/63/92/2/x01.jpg",
@@ -2424,8 +2522,10 @@ const COCHES = [
     "fin_tae": "8.32",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/114256934",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/42/56/93/4/x01.jpg",
@@ -2467,8 +2567,10 @@ const COCHES = [
     "fin_tae": "8.33",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139363119",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/93/63/11/9/x01.jpg",
@@ -2510,8 +2612,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ateca-gasolina-150-cv-del-2026-en-malaga/129674279",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/12/96/74/27/9/x01.jpg",
@@ -2553,8 +2657,10 @@ const COCHES = [
     "fin_tae": "8.33",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/139352877",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/93/52/87/7/x01.jpg",
@@ -2596,8 +2702,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/111839131",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/18/39/13/1/x01.jpg",
@@ -2639,8 +2747,10 @@ const COCHES = [
     "fin_tae": "8.31",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/111846664",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/18/46/66/4/x01.jpg",
@@ -2682,8 +2792,10 @@ const COCHES = [
     "fin_tae": "8.30",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-110-cv-del-2024-en-malaga/111273154",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/12/73/15/4/x01.jpg",
@@ -2725,8 +2837,10 @@ const COCHES = [
     "fin_tae": "6.67",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/103057176",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/10/30/57/17/6/x01.jpg",
@@ -2768,8 +2882,10 @@ const COCHES = [
     "fin_tae": "6.68",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/101116899",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/10/11/16/89/9/x01.jpg",
@@ -2811,8 +2927,10 @@ const COCHES = [
     "fin_tae": "6.65",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-gasolina-150-cv-del-2025-en-malaga/93242187",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/09/32/42/18/7/x01.jpg",
@@ -2854,8 +2972,10 @@ const COCHES = [
     "fin_tae": "6.73",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "No disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-390-cv-del-2023-en-malaga/93201927",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/09/32/01/92/7/x01.jpg",
@@ -2897,8 +3017,10 @@ const COCHES = [
     "fin_tae": "6.66",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "No disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-gasolina-150-cv-del-2025-en-malaga/92941305",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/09/29/41/30/5/x01.jpg",
@@ -2940,8 +3062,10 @@ const COCHES = [
     "fin_tae": "6.76",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2021-en-malaga/91398764",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/09/13/98/76/4/x01.jpg",
@@ -2983,8 +3107,10 @@ const COCHES = [
     "fin_tae": "6.66",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/90641054",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/09/06/41/05/4/x01.jpg",
@@ -3026,8 +3152,10 @@ const COCHES = [
     "fin_tae": "6.75",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-245-cv-del-2021-en-malaga/90592532",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/09/05/92/53/2/x01.jpg",
@@ -3069,8 +3197,10 @@ const COCHES = [
     "fin_tae": "6.76",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-tavascan-electrico-286-cv-del-2025-en-malaga/82128388",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/08/21/28/38/8/x01.jpg",
@@ -3112,8 +3242,10 @@ const COCHES = [
     "fin_tae": "6.66",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/79738786",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/07/97/38/78/6/x01.jpg",
@@ -3155,8 +3287,10 @@ const COCHES = [
     "fin_tae": "6.67",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/95153439",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/09/51/53/43/9/x01.jpg",
@@ -3198,8 +3332,10 @@ const COCHES = [
     "fin_tae": "6.66",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "ECO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/75714019",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/07/57/14/01/9/x01.jpg",
@@ -3241,8 +3377,10 @@ const COCHES = [
     "fin_tae": "8.26",
     "fin_meses": "60",
     "fin_entrada": "0",
+    "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_fuente": "dwa",
+    "etiqueta": "C",
     "estado": "No disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-116-cv-del-2025-en-malaga/134396323",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/43/96/32/3/x01.jpg",
@@ -3304,6 +3442,35 @@ function fuelIcon(c) {
   return {'Gasolina':'⛽','Diésel':'🛢️','Eléctrico':'⚡','Híbrido':'🔋','Mild Hybrid':'🔋','GNC':'💧'}[c] || '⛽';
 }
 
+function etiquetaSVG(e) {
+  if (e === 'CERO') return `<svg class="etiqueta-dgt" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+    <clipPath id="circle-clip"><circle cx="26" cy="26" r="24"/></clipPath>
+    <circle cx="26" cy="26" r="24" fill="#009FE3"/>
+    <rect x="2" y="2" width="48" height="26" fill="#003087" clip-path="url(#circle-clip)"/>
+    <circle cx="26" cy="26" r="24" fill="none" stroke="white" stroke-width="2"/>
+    <text x="26" y="22" text-anchor="middle" fill="white" font-size="16" font-weight="900" font-family="Arial,sans-serif">0</text>
+    <text x="26" y="32" text-anchor="middle" fill="white" font-size="5.5" font-weight="700" font-family="Arial,sans-serif">CERO</text>
+    <text x="26" y="38" text-anchor="middle" fill="white" font-size="5.5" font-weight="700" font-family="Arial,sans-serif">EMISIONES</text>
+  </svg>`;
+  if (e === 'ECO') return `<svg class="etiqueta-dgt" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+    <clipPath id="eco-clip"><circle cx="26" cy="26" r="24"/></clipPath>
+    <circle cx="26" cy="26" r="24" fill="#009FE3"/>
+    <rect x="2" y="2" width="24" height="48" fill="#00A850" clip-path="url(#eco-clip)"/>
+    <circle cx="26" cy="26" r="24" fill="none" stroke="white" stroke-width="2"/>
+    <text x="26" y="31" text-anchor="middle" fill="white" font-size="17" font-weight="900" font-family="Arial,sans-serif">ECO</text>
+  </svg>`;
+  if (e === 'C') return `<svg class="etiqueta-dgt" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="26" cy="26" r="24" fill="#00A850"/>
+    <circle cx="26" cy="26" r="24" fill="none" stroke="white" stroke-width="2"/>
+    <text x="26" y="33" text-anchor="middle" fill="white" font-size="26" font-weight="900" font-family="Arial,sans-serif">C</text>
+  </svg>`;
+  return `<svg class="etiqueta-dgt" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="26" cy="26" r="24" fill="#C8D400"/>
+    <circle cx="26" cy="26" r="24" fill="none" stroke="white" stroke-width="2"/>
+    <text x="26" y="33" text-anchor="middle" fill="#333" font-size="26" font-weight="900" font-family="Arial,sans-serif">B</text>
+  </svg>`;
+}
+
 function cardHTML(c) {
   const reservado = esReservado(c.estado);
   const label = estadoLabel(c.estado);
@@ -3330,6 +3497,7 @@ function cardHTML(c) {
       <span class="badge-estado ${badgeCls}">${label}</span>
       ${reservado ? '<div class="reservado-overlay"></div>' : ''}
       ${c.fotos.length > 1 ? `<span class="foto-count">📷 ${c.fotos.length}</span>` : ''}
+      ${c.etiqueta ? etiquetaSVG(c.etiqueta) : ''}
     </div>
     <div class="card-body">
       <div>
@@ -3340,7 +3508,7 @@ function cardHTML(c) {
       <div class="card-footer">
         <div>
           <div class="card-price">${c.precio}<span>€</span></div>
-          ${c.cuota ? `<div class="card-cuota">Desde <strong>${c.cuota} €/mes</strong> *</div>` : ''}
+          ${c.cuota ? `<div class="card-cuota">Desde <strong>${c.cuota} €/mes</strong>${c.fin_tipo ? ` <span class="fin-tipo-badge">${c.fin_tipo}</span>` : ''} *</div>` : ''}
         </div>
         ${c.url ? `<a class="btn-dwa" href="${c.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">DWA ↗</a>` : ''}
       </div>
@@ -3444,18 +3612,25 @@ function abrirModal(n) {
     document.getElementById('m-fin-contado').textContent = c.precio.toLocaleString('es-ES') + ' €';
     document.getElementById('m-fin-cuota').textContent   = c.cuota + ' €/mes';
 
+    // Tipo de financiación
+    const tipoBadge = c.fin_tipo
+      ? `<span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:2px 8px;margin-bottom:6px;">${c.fin_tipo}</span><br>`
+      : '';
+
     // Condiciones: usar las de DWA si existen, si no mostrar nota genérica
-    let condText = '';
+    let condText = tipoBadge;
     if (c.fin_fuente === 'dwa' && (c.fin_tin || c.fin_meses)) {
       const partes = [];
       if (c.fin_tin)     partes.push('TIN ' + c.fin_tin + '%');
       if (c.fin_tae)     partes.push('TAE ' + c.fin_tae + '%');
       if (c.fin_meses)   partes.push(c.fin_meses + ' meses');
       if (c.fin_entrada !== null) partes.push(c.fin_entrada === '0' || c.fin_entrada === 0 ? 'sin entrada' : 'entrada ' + c.fin_entrada + '€');
-      condText = partes.join(' · ');
-      if (c.fin_ejemplo) condText += '<br><span style="font-size:10px;color:var(--muted)">' + c.fin_ejemplo + '</span>';
+      condText += partes.join(' · ');
+      if (c.fin_ejemplo) {
+        condText += '<br><span style="display:block;margin-top:8px;font-size:10px;color:var(--muted);line-height:1.55;">' + c.fin_ejemplo + '</span>';
+      }
     } else {
-      condText = 'Cuota orientativa: TIN 6,99% · 48 meses · sin entrada. Consulta condiciones exactas con Andrés Vázquez · 610 02 90 56';
+      condText += 'Cuota orientativa: TIN 6,99% · 48 meses · sin entrada. Consulta condiciones exactas con Andrés Vázquez · 610 02 90 56';
     }
     document.getElementById('m-fin-cond').innerHTML = condText;
     finSection.style.display = '';
