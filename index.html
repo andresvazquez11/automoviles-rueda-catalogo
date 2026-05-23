@@ -292,8 +292,7 @@
 
   .etiqueta-dgt {
     position: absolute; bottom: 8px; left: 8px;
-    width: 52px; height: 52px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+    width: 62px; height: 62px;
     pointer-events: none;
   }
 
@@ -3443,31 +3442,104 @@ function fuelIcon(c) {
 }
 
 function etiquetaSVG(e) {
-  if (e === 'CERO') return `<svg class="etiqueta-dgt" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
-    <clipPath id="circle-clip"><circle cx="26" cy="26" r="24"/></clipPath>
-    <circle cx="26" cy="26" r="24" fill="#009FE3"/>
-    <rect x="2" y="2" width="48" height="26" fill="#003087" clip-path="url(#circle-clip)"/>
-    <circle cx="26" cy="26" r="24" fill="none" stroke="white" stroke-width="2"/>
-    <text x="26" y="22" text-anchor="middle" fill="white" font-size="16" font-weight="900" font-family="Arial,sans-serif">0</text>
-    <text x="26" y="32" text-anchor="middle" fill="white" font-size="5.5" font-weight="700" font-family="Arial,sans-serif">CERO</text>
-    <text x="26" y="38" text-anchor="middle" fill="white" font-size="5.5" font-weight="700" font-family="Arial,sans-serif">EMISIONES</text>
+  /* ── CERO EMISIONES — círculo dividido azul marino (arriba) / celeste (abajo) ── */
+  if (e === 'CERO') return `<svg class="etiqueta-dgt" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="cero-shine" cx="38%" cy="28%" r="60%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+      <clipPath id="cero-clip"><circle cx="32" cy="32" r="28"/></clipPath>
+      <filter id="cero-shadow"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#000" flood-opacity="0.45"/></filter>
+    </defs>
+    <!-- Fondo celeste (mitad inferior) -->
+    <circle cx="32" cy="32" r="28" fill="#009FE3" filter="url(#cero-shadow)"/>
+    <!-- Mitad superior azul marino -->
+    <rect x="4" y="4" width="56" height="29" fill="#003087" clip-path="url(#cero-clip)"/>
+    <!-- Línea divisoria -->
+    <line x1="5" y1="33" x2="59" y2="33" stroke="white" stroke-width="1.2" clip-path="url(#cero-clip)"/>
+    <!-- Borde blanco exterior -->
+    <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="2.2"/>
+    <!-- Borde interno sutil -->
+    <circle cx="32" cy="32" r="25.5" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+    <!-- "0" grande en azul marino -->
+    <text x="32" y="28" text-anchor="middle" fill="white" font-size="21" font-weight="900"
+          font-family="'Arial Black',Arial,sans-serif" letter-spacing="-1">0</text>
+    <!-- CERO EMISIONES en celeste -->
+    <text x="32" y="40" text-anchor="middle" fill="white" font-size="6.5" font-weight="700"
+          font-family="Arial,sans-serif" letter-spacing="0.3">CERO</text>
+    <text x="32" y="48" text-anchor="middle" fill="white" font-size="5.8" font-weight="600"
+          font-family="Arial,sans-serif" letter-spacing="0.2">EMISIONES</text>
+    <!-- Brillo -->
+    <circle cx="32" cy="32" r="28" fill="url(#cero-shine)" clip-path="url(#cero-clip)"/>
   </svg>`;
-  if (e === 'ECO') return `<svg class="etiqueta-dgt" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
-    <clipPath id="eco-clip"><circle cx="26" cy="26" r="24"/></clipPath>
-    <circle cx="26" cy="26" r="24" fill="#009FE3"/>
-    <rect x="2" y="2" width="24" height="48" fill="#00A850" clip-path="url(#eco-clip)"/>
-    <circle cx="26" cy="26" r="24" fill="none" stroke="white" stroke-width="2"/>
-    <text x="26" y="31" text-anchor="middle" fill="white" font-size="17" font-weight="900" font-family="Arial,sans-serif">ECO</text>
+
+  /* ── ECO — mitad izquierda verde / mitad derecha azul celeste ── */
+  if (e === 'ECO') return `<svg class="etiqueta-dgt" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="eco-shine" cx="38%" cy="28%" r="60%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+      <clipPath id="eco-clip"><circle cx="32" cy="32" r="28"/></clipPath>
+      <filter id="eco-shadow"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#000" flood-opacity="0.45"/></filter>
+    </defs>
+    <!-- Fondo azul celeste (mitad derecha) -->
+    <circle cx="32" cy="32" r="28" fill="#009FE3" filter="url(#eco-shadow)"/>
+    <!-- Mitad izquierda verde -->
+    <rect x="4" y="4" width="29" height="56" fill="#00A850" clip-path="url(#eco-clip)"/>
+    <!-- Línea divisoria vertical -->
+    <line x1="33" y1="5" x2="33" y2="59" stroke="white" stroke-width="1.2" clip-path="url(#eco-clip)"/>
+    <!-- Borde blanco exterior -->
+    <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="2.2"/>
+    <!-- Borde interno sutil -->
+    <circle cx="32" cy="32" r="25.5" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+    <!-- "ECO" centrado -->
+    <text x="32" y="37" text-anchor="middle" fill="white" font-size="19" font-weight="900"
+          font-family="'Arial Black',Arial,sans-serif" letter-spacing="0.5">ECO</text>
+    <!-- Brillo -->
+    <circle cx="32" cy="32" r="28" fill="url(#eco-shine)" clip-path="url(#eco-clip)"/>
   </svg>`;
-  if (e === 'C') return `<svg class="etiqueta-dgt" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="26" cy="26" r="24" fill="#00A850"/>
-    <circle cx="26" cy="26" r="24" fill="none" stroke="white" stroke-width="2"/>
-    <text x="26" y="33" text-anchor="middle" fill="white" font-size="26" font-weight="900" font-family="Arial,sans-serif">C</text>
+
+  /* ── C — círculo verde con borde blanco doble ── */
+  if (e === 'C') return `<svg class="etiqueta-dgt" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="c-fill" cx="35%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#00C85A"/>
+        <stop offset="100%" stop-color="#007A30"/>
+      </radialGradient>
+      <radialGradient id="c-shine" cx="38%" cy="28%" r="60%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.20"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="c-shadow"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#000" flood-opacity="0.45"/></filter>
+    </defs>
+    <circle cx="32" cy="32" r="28" fill="url(#c-fill)" filter="url(#c-shadow)"/>
+    <!-- Borde blanco exterior -->
+    <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="2.5"/>
+    <!-- Borde interno -->
+    <circle cx="32" cy="32" r="24.5" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+    <!-- "C" grande -->
+    <text x="32" y="42" text-anchor="middle" fill="white" font-size="34" font-weight="900"
+          font-family="'Arial Black',Arial,sans-serif">C</text>
+    <!-- Brillo -->
+    <circle cx="32" cy="32" r="28" fill="url(#c-shine)"/>
   </svg>`;
-  return `<svg class="etiqueta-dgt" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="26" cy="26" r="24" fill="#C8D400"/>
-    <circle cx="26" cy="26" r="24" fill="none" stroke="white" stroke-width="2"/>
-    <text x="26" y="33" text-anchor="middle" fill="#333" font-size="26" font-weight="900" font-family="Arial,sans-serif">B</text>
+
+  /* ── B — círculo amarillo-verde (fallback) ── */
+  return `<svg class="etiqueta-dgt" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="b-fill" cx="35%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#D4E000"/>
+        <stop offset="100%" stop-color="#8FA000"/>
+      </radialGradient>
+      <filter id="b-shadow"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#000" flood-opacity="0.45"/></filter>
+    </defs>
+    <circle cx="32" cy="32" r="28" fill="url(#b-fill)" filter="url(#b-shadow)"/>
+    <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="2.5"/>
+    <circle cx="32" cy="32" r="24.5" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+    <text x="32" y="42" text-anchor="middle" fill="#2a2a00" font-size="34" font-weight="900"
+          font-family="'Arial Black',Arial,sans-serif">B</text>
   </svg>`;
 }
 
