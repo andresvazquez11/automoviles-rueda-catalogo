@@ -89,25 +89,25 @@ def etiqueta_dgt(combustible: str) -> str:
     else:
         return "C"   # Gasolina / Diésel modernos Euro 6 en DWA
 
-def _cuota_display(c: dict) -> int:
-    """Devuelve la cuota a mostrar: primero la de DWA, si no la calculada."""
+def _cuota_display(c: dict) -> float:
+    """Devuelve la cuota a mostrar con 2 decimales: primero la de DWA, si no la calculada."""
     dwa = c.get("financiacion", {}).get("cuota")
     if dwa:
         try:
-            return round(float(str(dwa).replace(",", ".")))
+            return round(float(str(dwa).replace(",", ".")), 2)
         except Exception:
             pass
     return calcular_cuota(c["precio"])
 
-def calcular_cuota(precio) -> int:
+def calcular_cuota(precio) -> float:
     """Cuota mensual estimada — TIN 6,99%, 48 meses, sin entrada (VW Financial Services)."""
     try:
         p = int(str(precio).replace(".", "").replace(",", "").split()[0])
     except Exception:
-        return 0
+        return 0.0
     TIN, MESES = 0.0699, 48
     r = TIN / 12
-    return round(p * r * (1 + r) ** MESES / ((1 + r) ** MESES - 1))
+    return round(p * r * (1 + r) ** MESES / ((1 + r) ** MESES - 1), 2)
 
 def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
     # Todos menos vendidos (actualmente "Disponible" o "No disponible")
@@ -765,6 +765,11 @@ const COCHES = {cars_js};
 function estadoLabel(estado) {{
   return estado === 'No disponible' ? 'Reservado' : estado;
 }}
+function fmtCuota(v) {{
+  if (!v && v !== 0) return '';
+  return Number(v).toLocaleString('es-ES', {{minimumFractionDigits: 2, maximumFractionDigits: 2}});
+}}
+
 function esReservado(estado) {{
   return estado === 'No disponible';
 }}
@@ -933,7 +938,7 @@ function cardHTML(c) {{
       <div class="card-footer">
         <div>
           <div class="card-price">${{c.precio}}<span>€</span></div>
-          ${{c.cuota ? `<div class="card-cuota">Desde <strong>${{c.cuota}} €/mes</strong>${{c.fin_tipo ? ` <span class="fin-tipo-badge">${{c.fin_tipo}}</span>` : ''}} *</div>` : ''}}
+          ${{c.cuota ? `<div class="card-cuota">Desde <strong>${{fmtCuota(c.cuota)}} €/mes</strong>${{c.fin_tipo ? ` <span class="fin-tipo-badge">${{c.fin_tipo}}</span>` : ''}} *</div>` : ''}}
         </div>
         ${{c.url ? `<a class="btn-dwa" href="${{c.url}}" target="_blank" rel="noopener" onclick="event.stopPropagation()">DWA ↗</a>` : ''}}
       </div>
@@ -1035,7 +1040,7 @@ function abrirModal(n) {{
   const finSection = document.getElementById('m-financiacion');
   if (c.cuota) {{
     document.getElementById('m-fin-contado').textContent = c.precio.toLocaleString('es-ES') + ' €';
-    document.getElementById('m-fin-cuota').textContent   = c.cuota + ' €/mes';
+    document.getElementById('m-fin-cuota').textContent   = fmtCuota(c.cuota) + ' €/mes';
 
     // Tipo de financiación
     const tipoBadge = c.fin_tipo
