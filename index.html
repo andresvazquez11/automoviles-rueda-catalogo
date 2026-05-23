@@ -3448,128 +3448,14 @@ function fuelIcon(c) {
 }
 
 function etiquetaSVG(e) {
-  /* Reproducción fiel del pegatina medioambiental DGT oficial */
-  /* Elementos comunes: barcode izquierda, caja QR + hologram derecha, barra DGT abajo */
-
-  if (e === 'CERO') return `<svg class="etiqueta-dgt" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="40" cy="40" r="37" fill="#2196C8"/>
-    <!-- barcode vertical izquierda -->
-    <rect x="8"    y="17" width="2"   height="40" fill="rgba(0,0,0,0.65)"/>
-    <rect x="11.5" y="17" width="3.5" height="40" fill="rgba(0,0,0,0.65)"/>
-    <rect x="16.5" y="17" width="1.5" height="40" fill="rgba(0,0,0,0.65)"/>
-    <rect x="19.5" y="17" width="2.5" height="40" fill="rgba(0,0,0,0.65)"/>
-    <rect x="23.5" y="17" width="1.5" height="40" fill="rgba(0,0,0,0.65)"/>
-    <!-- "0" grande negro -->
-    <text x="32" y="52" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="40" font-weight="900" fill="black">0</text>
-    <!-- Emisiones -->
-    <text x="32" y="61" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="black" letter-spacing="0.2">Emisiones</text>
-    <!-- caja QR (arriba-derecha) -->
-    <rect x="47" y="10" width="22" height="22" fill="white" rx="1.5"/>
-    <rect x="48.5" y="11.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="60.5" y="11.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="48.5" y="23.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="60.5" y="23.5" width="3"   height="3"   fill="#1a1a1a"/>
-    <rect x="64.5" y="23.5" width="3"   height="3"   fill="#1a1a1a"/>
-    <rect x="60.5" y="27.5" width="7"   height="2.5" fill="#1a1a1a"/>
-    <rect x="55"   y="18"   width="4"   height="4"   fill="#1a1a1a"/>
-    <!-- hologram (debajo caja QR) -->
-    <rect x="47" y="35" width="22" height="13" fill="rgba(255,255,255,0.8)" rx="1.5"/>
-    <!-- barra DGT -->
-    <rect x="12" y="57" width="56" height="18" fill="#878787" rx="4"/>
-    <text x="40" y="69.5" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="10.5" font-weight="900" fill="white" letter-spacing="0.5">≡DGT</text>
-    <!-- borde exterior blanco -->
-    <circle cx="40" cy="40" r="37" fill="none" stroke="white" stroke-width="2.5"/>
-  </svg>`;
-
-  if (e === 'ECO') return `<svg class="etiqueta-dgt" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-    <!-- mitad derecha azul -->
-    <circle cx="40" cy="40" r="37" fill="#2196C8"/>
-    <!-- mitad izquierda verde (half-circle path, sin clipPath) -->
-    <path d="M 40,3 A 37,37 0 0,0 40,77 Z" fill="#4CAF50"/>
-    <!-- barcode vertical izquierda -->
-    <rect x="8"    y="15" width="2"   height="36" fill="rgba(0,0,0,0.55)"/>
-    <rect x="11.5" y="15" width="3.5" height="36" fill="rgba(0,0,0,0.55)"/>
-    <rect x="16.5" y="15" width="1.5" height="36" fill="rgba(0,0,0,0.55)"/>
-    <rect x="19.5" y="15" width="2.5" height="36" fill="rgba(0,0,0,0.55)"/>
-    <rect x="23.5" y="15" width="1.5" height="36" fill="rgba(0,0,0,0.55)"/>
-    <!-- E C O apiladas en blanco sobre zona verde -->
-    <text x="30" y="24" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="17" font-weight="900" fill="white">E</text>
-    <text x="30" y="41" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="17" font-weight="900" fill="white">C</text>
-    <text x="30" y="55" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="17" font-weight="900" fill="white">O</text>
-    <!-- caja QR -->
-    <rect x="47" y="10" width="22" height="22" fill="white" rx="1.5"/>
-    <rect x="48.5" y="11.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="60.5" y="11.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="48.5" y="23.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="60.5" y="23.5" width="3"   height="3"   fill="#1a1a1a"/>
-    <rect x="64.5" y="23.5" width="3"   height="3"   fill="#1a1a1a"/>
-    <rect x="60.5" y="27.5" width="7"   height="2.5" fill="#1a1a1a"/>
-    <rect x="55"   y="18"   width="4"   height="4"   fill="#1a1a1a"/>
-    <!-- hologram -->
-    <rect x="47" y="35" width="22" height="13" fill="rgba(255,255,255,0.8)" rx="1.5"/>
-    <!-- barra DGT -->
-    <rect x="12" y="57" width="56" height="18" fill="#878787" rx="4"/>
-    <text x="40" y="69.5" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="10.5" font-weight="900" fill="white" letter-spacing="0.5">≡DGT</text>
-    <!-- borde exterior blanco -->
-    <circle cx="40" cy="40" r="37" fill="none" stroke="white" stroke-width="2.5"/>
-  </svg>`;
-
-  if (e === 'C') return `<svg class="etiqueta-dgt" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="40" cy="40" r="37" fill="#4CAF50"/>
-    <!-- barcode -->
-    <rect x="8"    y="17" width="2"   height="40" fill="rgba(0,0,0,0.55)"/>
-    <rect x="11.5" y="17" width="3.5" height="40" fill="rgba(0,0,0,0.55)"/>
-    <rect x="16.5" y="17" width="1.5" height="40" fill="rgba(0,0,0,0.55)"/>
-    <rect x="19.5" y="17" width="2.5" height="40" fill="rgba(0,0,0,0.55)"/>
-    <rect x="23.5" y="17" width="1.5" height="40" fill="rgba(0,0,0,0.55)"/>
-    <!-- "C" negro grande -->
-    <text x="31" y="54" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="43" font-weight="900" fill="black">C</text>
-    <!-- caja QR -->
-    <rect x="47" y="10" width="22" height="22" fill="white" rx="1.5"/>
-    <rect x="48.5" y="11.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="60.5" y="11.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="48.5" y="23.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="60.5" y="23.5" width="3"   height="3"   fill="#1a1a1a"/>
-    <rect x="64.5" y="23.5" width="3"   height="3"   fill="#1a1a1a"/>
-    <rect x="60.5" y="27.5" width="7"   height="2.5" fill="#1a1a1a"/>
-    <rect x="55"   y="18"   width="4"   height="4"   fill="#1a1a1a"/>
-    <!-- hologram -->
-    <rect x="47" y="35" width="22" height="13" fill="rgba(255,255,255,0.8)" rx="1.5"/>
-    <!-- barra DGT -->
-    <rect x="12" y="57" width="56" height="18" fill="#878787" rx="4"/>
-    <text x="40" y="69.5" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="10.5" font-weight="900" fill="white" letter-spacing="0.5">≡DGT</text>
-    <!-- borde exterior blanco -->
-    <circle cx="40" cy="40" r="37" fill="none" stroke="white" stroke-width="2.5"/>
-  </svg>`;
-
-  /* ── B — amarillo (fallback) ── */
-  return `<svg class="etiqueta-dgt" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="40" cy="40" r="37" fill="#F5D400"/>
-    <!-- barcode -->
-    <rect x="8"    y="17" width="2"   height="40" fill="rgba(0,0,0,0.5)"/>
-    <rect x="11.5" y="17" width="3.5" height="40" fill="rgba(0,0,0,0.5)"/>
-    <rect x="16.5" y="17" width="1.5" height="40" fill="rgba(0,0,0,0.5)"/>
-    <rect x="19.5" y="17" width="2.5" height="40" fill="rgba(0,0,0,0.5)"/>
-    <rect x="23.5" y="17" width="1.5" height="40" fill="rgba(0,0,0,0.5)"/>
-    <!-- "B" negro grande -->
-    <text x="31" y="54" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="43" font-weight="900" fill="black">B</text>
-    <!-- caja QR -->
-    <rect x="47" y="10" width="22" height="22" fill="white" rx="1.5"/>
-    <rect x="48.5" y="11.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="60.5" y="11.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="48.5" y="23.5" width="7"   height="7"   fill="#1a1a1a" rx="0.5"/>
-    <rect x="60.5" y="23.5" width="3"   height="3"   fill="#1a1a1a"/>
-    <rect x="64.5" y="23.5" width="3"   height="3"   fill="#1a1a1a"/>
-    <rect x="60.5" y="27.5" width="7"   height="2.5" fill="#1a1a1a"/>
-    <rect x="55"   y="18"   width="4"   height="4"   fill="#1a1a1a"/>
-    <!-- hologram -->
-    <rect x="47" y="35" width="22" height="13" fill="rgba(255,255,255,0.8)" rx="1.5"/>
-    <!-- barra DGT -->
-    <rect x="12" y="57" width="56" height="18" fill="#878787" rx="4"/>
-    <text x="40" y="69.5" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="10.5" font-weight="900" fill="white" letter-spacing="0.5">≡DGT</text>
-    <!-- borde exterior blanco -->
-    <circle cx="40" cy="40" r="37" fill="none" stroke="white" stroke-width="2.5"/>
-  </svg>`;
+  const urls = {
+    'CERO': 'https://commons.wikimedia.org/wiki/Special:FilePath/DistAmbDGT_CeroEmisiones.svg',
+    'ECO':  'https://commons.wikimedia.org/wiki/Special:FilePath/DistAmbDGT_ECO.svg',
+    'C':    'https://commons.wikimedia.org/wiki/Special:FilePath/DistAmbDGT_C.svg',
+  };
+  const url = urls[e];
+  if (!url) return '';
+  return `<img class="etiqueta-dgt" src="${url}" alt="Etiqueta ${e}" loading="lazy">`;
 }
 
 function cardHTML(c) {
