@@ -291,8 +291,10 @@
   }
 
   .etiqueta-dgt {
-    position: absolute; bottom: 8px; left: 8px;
-    width: 68px; height: 68px;
+    position: absolute !important; bottom: 8px !important; left: 8px !important;
+    width: 68px !important; height: 68px !important;
+    max-width: 68px !important; max-height: 68px !important;
+    display: block; object-fit: contain;
     filter: drop-shadow(0 2px 5px rgba(0,0,0,0.55));
     pointer-events: none;
   }
@@ -3455,7 +3457,7 @@ function etiquetaSVG(e) {
   };
   const url = urls[e];
   if (!url) return '';
-  return `<img class="etiqueta-dgt" src="${url}" alt="Etiqueta ${e}" loading="lazy">`;
+  return `<img class="etiqueta-dgt" src="${url}" alt="Etiqueta ${e}" width="68" height="68" loading="lazy">`;
 }
 
 function cardHTML(c) {
