@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Financiación · Automóviles Rueda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #07090F;
+  --bg2:       #0D1120;
+  --bg3:       #131829;
+  --border:    rgba(255,255,255,0.08);
+  --border2:   rgba(255,255,255,0.15);
+  --red:       #C8232B;
+  --red-glow:  rgba(200,35,43,0.25);
+  --red-dim:   rgba(200,35,43,0.12);
+  --white:     #F4F5F7;
+  --muted:     rgba(244,245,247,0.45);
+  --muted2:    rgba(244,245,247,0.25);
+  --green:     #22C55E;
+  --amber:     #F59E0B;
+  --font-num:  'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.5;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ─── Grid noise background ────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(200,35,43,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,35,43,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: -300px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(200,35,43,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Header ────────────────────────────────────────────────── */
+header {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 32px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7,9,15,0.8);
+  backdrop-filter: blur(12px);
+}
+
+.logo-area {
+  display: flex; align-items: center; gap: 14px;
+}
+.logo-badge {
+  background: var(--red);
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-num); font-weight: 800; font-size: 18px;
+  color: #fff; letter-spacing: -1px;
+  clip-path: polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%);
+}
+.logo-text {
+  font-family: var(--font-num); font-weight: 700; font-size: 13px;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--white);
+  line-height: 1.2;
+}
+.logo-sub { font-weight: 300; color: var(--muted); font-size: 10px; letter-spacing: 2px; }
+
+.header-tag {
+  font-family: var(--font-num); font-size: 11px; font-weight: 500;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--border2);
+  padding: 5px 12px;
+}
+
+/* ─── Layout ────────────────────────────────────────────────── */
+.page {
+  position: relative; z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .page { grid-template-columns: 1fr; padding: 24px 16px 60px; gap: 16px; }
+  header { padding: 14px 16px; }
+}
+
+/* ─── Section label ─────────────────────────────────────────── */
+.section-label {
+  font-family: var(--font-num); font-size: 10px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--red);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--red-dim);
+}
+
+/* ─── Cards ─────────────────────────────────────────────────── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--red) 0%, transparent 100%);
+  opacity: 0.6;
+}
+.card:hover { border-color: var(--border2); }
+
+/* ─── Price Input ────────────────────────────────────────────── */
+.price-display {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.price-input-wrap {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 0;
+  border-bottom: 2px solid var(--red);
+  padding-bottom: 6px;
+}
+.price-input-wrap input {
+  background: transparent;
+  border: none; outline: none;
+  font-family: var(--font-num); font-weight: 700; font-size: clamp(36px, 8vw, 56px);
+  color: var(--white);
+  width: 9ch; text-align: right;
+  caret-color: var(--red);
+  -moz-appearance: textfield;
+}
+.price-input-wrap input::-webkit-outer-spin-button,
+.price-input-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.price-currency {
+  font-family: var(--font-num); font-weight: 300; font-size: 28px;
+  color: var(--muted); padding-left: 8px; padding-bottom: 4px;
+  align-self: flex-end;
+}
+.price-hint {
+  font-size: 11px; color: var(--muted2); margin-top: 8px;
+  font-family: var(--font-num); letter-spacing: 1px;
+}
+
+/* ─── Mode Tabs ─────────────────────────────────────────────── */
+.mode-tabs {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.mode-tab {
+  background: transparent; border: none; cursor: pointer;
+  padding: 12px 8px;
+  font-family: var(--font-num); font-size: 14px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted);
+  transition: all 0.15s;
+  position: relative;
+}
+.mode-tab.active {
+  background: var(--red-dim);
+  color: var(--red);
+}
+.mode-tab.active::after {
+  content: '';
+  position: absolute; bottom: 0; left: 10%; right: 10%; height: 2px;
+  background: var(--red);
+}
+.mode-tab:hover:not(.active) { color: var(--white); background: rgba(255,255,255,0.04); }
+
+/* ─── Field rows ─────────────────────────────────────────────── */
+.field { margin-bottom: 20px; }
+.field-label {
+  font-family: var(--font-num); font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 10px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.field-label span { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0; }
+
+/* ─── Pill buttons (plazo/km) ───────────────────────────────── */
+.pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); cursor: pointer;
+  font-family: var(--font-num); font-size: 13px; font-weight: 600;
+  padding: 7px 14px; letter-spacing: 0.5px;
+  transition: all 0.15s;
+  flex: 1; min-width: 0; text-align: center;
+}
+.pill.active {
+  background: var(--red); border-color: var(--red);
+  color: #fff;
+}
+.pill:hover:not(.active) { border-color: var(--border2); color: var(--white); }
+
+/* ─── Slider ─────────────────────────────────────────────────── */
+.slider-wrap { padding: 4px 0; }
+input[type=range].calc-slider {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 4px; outline: none; cursor: pointer;
+  background: linear-gradient(
+    90deg,
+    var(--red) 0%,
+    var(--red) var(--pct, 0%),
+    rgba(255,255,255,0.1) var(--pct, 0%),
+    rgba(255,255,255,0.1) 100%
+  );
+  border-radius: 0;
+}
+input[type=range].calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px;
+  background: var(--red);
+  clip-path: polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+  cursor: pointer; border: none;
+  transition: transform 0.1s;
+}
+input[type=range].calc-slider::-webkit-slider-thumb:hover { transform: scale(1.3); }
+input[type=range].calc-slider::-moz-range-thumb {
+  width: 18px; height: 18px;
+  background: var(--red); border: none; border-radius: 0;
+  cursor: pointer;
+}
+
+/* ─── TIN input ─────────────────────────────────────────────── */
+.tin-input-wrap {
+  display: flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  transition: border-color 0.15s;
+}
+.tin-input-wrap:focus-within { border-color: var(--red); }
+.tin-input-wrap input {
+  background: transparent; border: none; outline: none;
+  font-family: var(--font-num); font-size: 22px; font-weight: 700;
+  color: var(--white); width: 6ch; text-align: right;
+  -moz-appearance: textfield;
+}
+.tin-input-wrap input::-webkit-outer-spin-button,
+.tin-input-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.tin-suffix {
+  font-family: var(--font-num); font-size: 16px; font-weight: 300;
+  color: var(--muted);
+}
+.tin-note { font-size: 11px; color: var(--muted2); margin-top: 6px; }
+
+/* ─── Results panel ─────────────────────────────────────────── */
+.results-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  position: sticky; top: 24px;
+  overflow: hidden;
+}
+.results-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--red) 0%, rgba(200,35,43,0.3) 60%, transparent 100%);
+}
+
+.cuota-hero {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  background: linear-gradient(180deg, rgba(200,35,43,0.06) 0%, transparent 100%);
+}
+.cuota-hero-label {
+  font-family: var(--font-num); font-size: 10px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 8px;
+}
+.cuota-hero-value {
+  font-family: var(--font-num); font-weight: 800;
+  font-size: clamp(38px, 8vw, 54px);
+  color: var(--red); line-height: 1;
+  transition: all 0.2s;
+  letter-spacing: -1px;
+}
+.cuota-hero-unit {
+  font-family: var(--font-num); font-weight: 300;
+  font-size: 18px; color: var(--muted);
+  margin-left: 4px;
+}
+.cuota-final-row {
+  margin-top: 10px; padding: 8px 16px;
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.2);
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: 300px; margin: 10px auto 0;
+}
+.cuota-final-row.hidden { display: none; }
+.cuota-final-label { font-family: var(--font-num); font-size: 11px; color: var(--amber); letter-spacing: 1px; }
+.cuota-final-val { font-family: var(--font-num); font-size: 14px; font-weight: 700; color: var(--amber); }
+
+/* ─── Breakdown table ───────────────────────────────────────── */
+.breakdown { padding: 0 24px; }
+.breakdown-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 13px;
+  transition: background 0.1s;
+}
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-row:hover { background: rgba(255,255,255,0.02); margin: 0 -4px; padding: 10px 4px; }
+.breakdown-row .lbl { color: var(--muted); font-family: var(--font-num); font-weight: 400; font-size: 12px; letter-spacing: 0.5px; }
+.breakdown-row .val { font-family: var(--font-num); font-weight: 600; font-size: 14px; color: var(--white); }
+.breakdown-row.dim .val { color: var(--muted2); font-weight: 400; }
+.breakdown-row.sep {
+  border-top: 1px solid var(--border2); margin-top: 4px; padding-top: 12px;
+}
+.breakdown-row.total-row { background: rgba(200,35,43,0.06); margin: 8px -24px 0; padding: 12px 24px 0; border-bottom: none; }
+.breakdown-row.total-row .lbl { color: var(--white); font-weight: 600; font-size: 13px; }
+.breakdown-row.total-row .val { font-size: 16px; font-weight: 700; }
+
+/* ─── CTA section ───────────────────────────────────────────── */
+.cta-section {
+  padding: 20px 24px 24px;
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 13px 20px; font-family: var(--font-num);
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; text-decoration: none; border: none; cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-whatsapp {
+  background: #25D366; color: #fff;
+}
+.btn-whatsapp:hover { background: #1ebe57; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,211,102,0.3); }
+.btn-phone {
+  background: transparent; border: 1px solid var(--border2);
+  color: var(--white);
+}
+.btn-phone:hover { border-color: var(--red); color: var(--red); }
+
+/* ─── Legal note ─────────────────────────────────────────────── */
+.legal-note {
+  font-size: 10px; color: var(--muted2); line-height: 1.6;
+  padding: 0 24px 20px;
+  border-top: 1px solid var(--border);
+  margin-top: 0;
+  padding-top: 14px;
+}
+
+/* ─── Status line ───────────────────────────────────────────── */
+.status-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(7,9,15,0.95); backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border);
+  padding: 8px 32px;
+  display: flex; align-items: center; gap: 16px;
+  font-family: var(--font-num); font-size: 11px;
+  letter-spacing: 1px;
+}
+.status-item { color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.status-item strong { color: var(--white); font-weight: 600; }
+.status-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+.status-item.red strong { color: var(--red); }
+
+/* ─── Animations ─────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card, .results-card { animation: fadeInUp 0.4s ease both; }
+.card:nth-child(2) { animation-delay: 0.08s; }
+
+@keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+.cuota-hero-value.updating { animation: flash 0.3s ease; }
+
+/* ─── No-print ───────────────────────────────────────────────── */
+@media print {
+  .status-bar, .cta-section, header .header-tag { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo-area">
+    <div class="logo-badge">R</div>
+    <div>
+      <div class="logo-text">Automóviles Rueda</div>
+      <div class="logo-sub">Das WeltAuto · Concesionario Oficial</div>
+    </div>
+  </div>
+  <div class="header-tag">Calculadora&nbsp;Financiación</div>
+</header>
+
+<!-- Main -->
+<main class="page">
+
+  <!-- ── LEFT: Inputs ── -->
+  <div style="display:flex;flex-direction:column;gap:20px;">
+
+    <!-- Precio -->
+    <div class="card" id="card-precio">
+      <div class="section-label">Vehículo</div>
+
+      <div class="price-display">
+        <div class="price-input-wrap">
+          <input
+            type="number"
+            id="inp-precio"
+            value="22900"
+            min="1000" max="200000" step="100"
+            inputmode="numeric"
+            placeholder="00000"
+            aria-label="Precio del vehículo en euros"
+          >
+          <span class="price-currency">€</span>
+        </div>
+        <div class="price-hint">Introduce el precio del vehículo</div>
+      </div>
+
+      <!-- quick presets -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+        <button class="pill" onclick="setPrice(15000)">15.000</button>
+        <button class="pill" onclick="setPrice(20000)">20.000</button>
+        <button class="pill" onclick="setPrice(25000)">25.000</button>
+        <button class="pill" onclick="setPrice(30000)">30.000</button>
+        <button class="pill" onclick="setPrice(35000)">35.000</button>
+      </div>
+    </div>
+
+    <!-- Financiación params -->
+    <div class="card">
+      <div class="section-label">Configuración</div>
+
+      <!-- Modo -->
+      <div class="field">
+        <div class="field-label" style="margin-bottom:8px;">Modalidad</div>
+        <div class="mode-tabs">
+          <button class="mode-tab active" id="tab-lineal" onclick="setMode('lineal')">Lineal</button>
+          <button class="mode-tab" id="tab-autocredit" onclick="setMode('autocredit')">Autocredit</button>
+        </div>
+      </div>
+
+      <!-- TIN -->
+      <div class="field">
+        <div class="field-label">Tipo de interés nominal (TIN)</div>
+        <div class="tin-input-wrap">
+          <input
+            type="number" id="inp-tin"
+            value="6.99" min="0" max="30" step="0.01"
+            inputmode="decimal"
+            aria-label="TIN en porcentaje"
+          >
+          <span class="tin-suffix">% TIN</span>
+        </div>
+        <div class="tin-note">DWA estándar: 6,99% · Modifica si tienes una oferta diferente</div>
+      </div>
+
+      <!-- Entrada -->
+      <div class="field">
+        <div class="field-label">
+          Entrada inicial
+          <span id="disp-entrada">0 €</span>
+        </div>
+        <div class="slider-wrap">
+          <input
+            type="range" class="calc-slider" id="sl-entrada"
+            min="0" max="0" step="100" value="0"
+            oninput="onSliderMove(this.value)"
+            aria-label="Entrada en euros"
+          >
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;">
+          <span style="font-family:var(--font-num);font-size:11px;color:var(--muted2);">0 €</span>
+          <span style="font-family:var(--font-num);font-size:11px;color:var(--muted2);" id="lbl-max-entrada">máx. — €</span>
+        </div>
+      </div>
+
+      <!-- Plazo -->
+      <div class="field">
+        <div class="field-label">
+          Plazo
+          <span id="disp-meses">60 meses</span>
+        </div>
+        <div class="pills" id="pills-meses">
+          <button class="pill" onclick="setMeses(24)">24m</button>
+          <button class="pill" onclick="setMeses(36)">36m</button>
+          <button class="pill" onclick="setMeses(48)">48m</button>
+          <button class="pill active" onclick="setMeses(60)">60m</button>
+          <button class="pill" onclick="setMeses(72)">72m</button>
+        </div>
+      </div>
+
+      <!-- Km/año (Autocredit only) -->
+      <div class="field" id="field-km" style="display:none;">
+        <div class="field-label">
+          Km / año
+          <span id="disp-km">15.000 km</span>
+        </div>
+        <div class="pills" id="pills-km">
+          <button class="pill" onclick="setKm(10000)">10k</button>
+          <button class="pill active" onclick="setKm(15000)">15k</button>
+          <button class="pill" onclick="setKm(20000)">20k</button>
+          <button class="pill" onclick="setKm(25000)">25k</button>
+          <button class="pill" onclick="setKm(30000)">30k</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RIGHT: Results ── -->
+  <div class="results-card" id="results-card">
+
+    <!-- Cuota hero -->
+    <div class="cuota-hero">
+      <div class="cuota-hero-label">Cuota mensual estimada</div>
+      <div>
+        <span class="cuota-hero-value" id="cuota-display">—</span>
+        <span class="cuota-hero-unit">&nbsp;€ / mes</span>
+      </div>
+      <!-- Cuota final (Autocredit) -->
+      <div class="cuota-final-row hidden" id="cuota-final-row">
+        <span class="cuota-final-label" id="cuota-final-label">Cuota final mes 60</span>
+        <span class="cuota-final-val" id="cuota-final-val">—</span>
+      </div>
+    </div>
+
+    <!-- Breakdown table -->
+    <div class="breakdown" id="breakdown">
+      <div class="breakdown-row">
+        <span class="lbl">Precio al contado</span>
+        <span class="val" id="br-precio">—</span>
+      </div>
+      <div class="breakdown-row dim">
+        <span class="lbl">Descuento por financiar</span>
+        <span class="val">—</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="lbl">Entrada inicial</span>
+        <span class="val" id="br-entrada">—</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="lbl">Seguro Protección Plus</span>
+        <span class="val" id="br-seguro">—</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="lbl">Comisión apertura (3,5%)</span>
+        <span class="val" id="br-comision">—</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="lbl">Importe total financiado</span>
+        <span class="val" id="br-capital">—</span>
+      </div>
+      <div class="breakdown-row sep">
+        <span class="lbl">T.I.N.</span>
+        <span class="val" id="br-tin">—</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="lbl">Nº de cuotas</span>
+        <span class="val" id="br-ncuotas">—</span>
+      </div>
+      <div class="breakdown-row total-row">
+        <span class="lbl">Precio total a plazos</span>
+        <span class="val" id="br-total">—</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <a class="btn btn-whatsapp" id="btn-wa" href="#" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enviar por WhatsApp
+      </a>
+      <a class="btn btn-phone" href="tel:+34610029056">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        610 02 90 56 · Andrés
+      </a>
+    </div>
+
+    <!-- Legal -->
+    <div class="legal-note" id="legal-note">
+      Cálculo orientativo. T.I.N. <span id="ln-tin">6,99</span>%. Seguro de Protección Plus opcional incluido en el importe financiado. Comisión de apertura financiada del 3,5%. Condiciones sujetas a aprobación de VW Financial Services España, S.A. Consulta condiciones exactas con Andrés.
+    </div>
+  </div>
+
+</main>
+
+<!-- Status bar -->
+<div class="status-bar">
+  <div class="status-item"><div class="status-dot"></div> En línea</div>
+  <div class="status-item">Precio: <strong id="sb-precio">—</strong></div>
+  <div class="status-item">Modalidad: <strong id="sb-modo">Lineal</strong></div>
+  <div class="status-item">TIN: <strong id="sb-tin">6,99%</strong></div>
+  <div class="status-item red">Cuota: <strong id="sb-cuota">—</strong></div>
+</div>
+
+<script>
+// ── State ───────────────────────────────────────────────────────────────────
+const S = {
+  precio:  22900,
+  tin:     6.99,
+  entrada: 0,   // EUR
+  meses:   60,
+  tab:     'lineal',
+  km:      15000,
+};
+
+// ── VR Tables ───────────────────────────────────────────────────────────────
+const VR_TABLE = {
+  24: {10000:62,15000:58,20000:53,25000:48,30000:43},
+  36: {10000:58,15000:54,20000:49,25000:44,30000:39},
+  48: {10000:54,15000:50,20000:45,25000:40,30000:35},
+  60: {10000:50,15000:46,20000:41,25000:36,30000:31},
+  72: {10000:46,15000:42,20000:37,25000:32,30000:27},
+};
+
+// ── Formatting ───────────────────────────────────────────────────────────────
+const fmt = (n) => Math.round(n).toLocaleString('es-ES');
+const fmt2 = (n) => n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+// ── Core calculation ─────────────────────────────────────────────────────────
+function calcFinanciacion() {
+  const { precio, tin, entrada, meses, tab, km } = S;
+  const r  = tin / 100 / 12;
+  const rn = Math.pow(1 + r, meses);
+  const neto = precio - entrada;
+
+  // Insurance: scales with neto using power law (matches DWA behavior)
+  const seg0 = precio * 0.0615;
+  const seg  = precio > 0
+    ? Math.round(seg0 * Math.pow(neto / precio, 1.5) * 100) / 100
+    : 0;
+
+  const base     = neto + seg;
+  const capital  = Math.round(base * 1.035 * 100) / 100;
+  const comision = Math.round((capital - base) * 100) / 100;
+
+  let vr = 0, cuota = 0;
+
+  if (tab === 'autocredit') {
+    const tbl  = VR_TABLE[meses] || VR_TABLE[60];
+    const pct  = tbl[km] !== undefined ? tbl[km] : 46;
+    vr         = Math.round(precio * pct / 100);
+    if (rn > 1 && r > 0) {
+      cuota = (capital * r * rn - vr * r) / (rn - 1);
+    } else {
+      cuota = capital / meses;
+    }
+  } else {
+    if (rn > 1 && r > 0) {
+      cuota = capital * r / (1 - 1 / rn);
+    } else {
+      cuota = capital / meses;
+    }
+  }
+
+  cuota = Math.round(cuota * 100) / 100;
+  const total = Math.round((cuota * meses + entrada + vr) * 100) / 100;
+
+  return { seg, comision, capital, cuota, total, vr };
+}
+
+// ── Render ───────────────────────────────────────────────────────────────────
+function render() {
+  const { precio, tin, entrada, meses, tab, km } = S;
+  const res = calcFinanciacion();
+
+  // Hero cuota — flash animation
+  const el = document.getElementById('cuota-display');
+  el.classList.remove('updating');
+  void el.offsetWidth;
+  el.textContent = fmt2(res.cuota);
+  el.classList.add('updating');
+
+  // Breakdown
+  document.getElementById('br-precio').textContent    = fmt(precio) + ' €';
+  document.getElementById('br-entrada').textContent   = fmt(entrada) + ' €';
+  document.getElementById('br-seguro').textContent    = fmt2(res.seg) + ' €';
+  document.getElementById('br-comision').textContent  = fmt2(res.comision) + ' €';
+  document.getElementById('br-capital').textContent   = fmt2(res.capital) + ' €';
+  document.getElementById('br-tin').textContent       = tin.toFixed(2).replace('.', ',') + ' %';
+  document.getElementById('br-ncuotas').textContent   = meses;
+  document.getElementById('br-total').textContent     = fmt2(res.total) + ' €';
+
+  // Cuota final (Autocredit)
+  const cfRow = document.getElementById('cuota-final-row');
+  if (tab === 'autocredit' && res.vr > 0) {
+    cfRow.classList.remove('hidden');
+    document.getElementById('cuota-final-label').textContent = 'Cuota final mes ' + meses;
+    document.getElementById('cuota-final-val').textContent   = fmt2(res.vr) + ' €';
+  } else {
+    cfRow.classList.add('hidden');
+  }
+
+  // Status bar
+  document.getElementById('sb-precio').textContent = fmt(precio) + ' €';
+  document.getElementById('sb-modo').textContent   = tab === 'lineal' ? 'Lineal' : 'Autocredit';
+  document.getElementById('sb-tin').textContent    = tin.toFixed(2).replace('.', ',') + '%';
+  document.getElementById('sb-cuota').textContent  = fmt2(res.cuota) + ' €';
+
+  // Legal note TIN
+  document.getElementById('ln-tin').textContent = tin.toFixed(2).replace('.', ',');
+
+  // WhatsApp link
+  buildWhatsAppLink(res);
+}
+
+// ── WhatsApp message ─────────────────────────────────────────────────────────
+function buildWhatsAppLink(res) {
+  const { precio, tin, entrada, meses, tab } = S;
+  const modeStr = tab === 'lineal' ? 'Lineal' : 'Autocredit';
+  let msg = `🚗 *Simulación de Financiación*\n`;
+  msg += `━━━━━━━━━━━━━━━\n`;
+  msg += `Precio al contado: *${fmt(precio)} €*\n`;
+  msg += `Entrada inicial: *${fmt(entrada)} €*\n`;
+  msg += `Modalidad: *${modeStr}*\n`;
+  msg += `Plazo: *${meses} meses*\n`;
+  msg += `TIN: *${tin.toFixed(2).replace('.', ',')}%*\n`;
+  msg += `Seguro Protección Plus: *${fmt2(res.seg)} €*\n`;
+  msg += `Comisión apertura (3,5%): *${fmt2(res.comision)} €*\n`;
+  msg += `Importe financiado: *${fmt2(res.capital)} €*\n`;
+  msg += `━━━━━━━━━━━━━━━\n`;
+  msg += `📅 *CUOTA: ${fmt2(res.cuota)} €/mes*\n`;
+  if (tab === 'autocredit' && res.vr > 0) {
+    msg += `🔑 Cuota final mes ${meses}: *${fmt2(res.vr)} €*\n`;
+  }
+  msg += `💰 Total a plazos: *${fmt2(res.total)} €*\n`;
+  msg += `━━━━━━━━━━━━━━━\n`;
+  msg += `_Cálculo orientativo. Condiciones exactas con Andrés · 610 02 90 56_`;
+
+  const encoded = encodeURIComponent(msg);
+  document.getElementById('btn-wa').href = `https://wa.me/?text=${encoded}`;
+}
+
+// ── Slider init & move ───────────────────────────────────────────────────────
+function initSlider() {
+  const slider = document.getElementById('sl-entrada');
+  const maxE   = Math.max(0, Math.floor((S.precio - 10000) / 100) * 100);
+  slider.max   = maxE;
+  slider.step  = 100;
+  // Clamp current entrada if out of range
+  S.entrada = Math.min(S.entrada, maxE);
+  slider.value = S.entrada;
+
+  const pct = maxE > 0 ? (S.entrada / maxE * 100) : 0;
+  slider.style.setProperty('--pct', pct + '%');
+
+  document.getElementById('lbl-max-entrada').textContent = 'máx. ' + fmt(maxE) + ' €';
+  document.getElementById('disp-entrada').textContent    = fmt(S.entrada) + ' €';
+}
+
+function onSliderMove(val) {
+  const eur    = parseInt(val) || 0;
+  const slider = document.getElementById('sl-entrada');
+  const max    = parseInt(slider.max) || 1;
+  const pct    = max > 0 ? (eur / max * 100) : 0;
+  slider.style.setProperty('--pct', pct + '%');
+  S.entrada = eur;
+  document.getElementById('disp-entrada').textContent = fmt(eur) + ' €';
+  render();
+}
+
+// ── Event handlers ───────────────────────────────────────────────────────────
+function setPrice(p) {
+  S.precio = p;
+  document.getElementById('inp-precio').value = p;
+  initSlider();
+  render();
+}
+
+function setMode(m) {
+  S.tab = m;
+  document.getElementById('tab-lineal').classList.toggle('active', m === 'lineal');
+  document.getElementById('tab-autocredit').classList.toggle('active', m === 'autocredit');
+  document.getElementById('field-km').style.display = m === 'autocredit' ? 'block' : 'none';
+  render();
+}
+
+function setMeses(m) {
+  S.meses = m;
+  document.querySelectorAll('#pills-meses .pill').forEach((el, i) => {
+    el.classList.toggle('active', [24,36,48,60,72][i] === m);
+  });
+  document.getElementById('disp-meses').textContent = m + ' meses';
+  render();
+}
+
+function setKm(k) {
+  S.km = k;
+  document.querySelectorAll('#pills-km .pill').forEach((el, i) => {
+    el.classList.toggle('active', [10000,15000,20000,25000,30000][i] === k);
+  });
+  document.getElementById('disp-km').textContent = k.toLocaleString('es-ES') + ' km';
+  render();
+}
+
+// ── Input listeners ──────────────────────────────────────────────────────────
+document.getElementById('inp-precio').addEventListener('input', (e) => {
+  const v = parseFloat(e.target.value);
+  if (!isNaN(v) && v > 0) {
+    S.precio = v;
+    // deselect price presets
+    document.querySelectorAll('#card-precio .pill').forEach(el => el.classList.remove('active'));
+    initSlider();
+    render();
+  }
+});
+
+document.getElementById('inp-tin').addEventListener('input', (e) => {
+  const v = parseFloat(e.target.value);
+  if (!isNaN(v) && v >= 0 && v <= 30) {
+    S.tin = v;
+    document.getElementById('sb-tin').textContent = v.toFixed(2).replace('.', ',') + '%';
+    render();
+  }
+});
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+initSlider();
+render();
+</script>
+
+</body>
+</html>
