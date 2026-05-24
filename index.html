@@ -282,6 +282,40 @@
   .card-price span { font-size: 13px; font-weight: 500; color: var(--muted); }
   .card-cuota { font-size: 12px; color: var(--muted); margin-top: 2px; }
   .card-cuota strong { color: #4a5568; font-weight: 600; }
+
+  /* ── Bajada de precio ── */
+  .oferta-badge {
+    position: absolute; top: 10px; right: 10px; z-index: 3;
+    background: var(--red); color: #fff;
+    font-size: 11px; font-weight: 800; letter-spacing: 1px;
+    text-transform: uppercase; padding: 4px 9px;
+    border-radius: 4px;
+    animation: oferta-pulse 2s ease-in-out infinite;
+    box-shadow: 0 2px 8px rgba(200,35,43,0.5);
+  }
+  @keyframes oferta-pulse {
+    0%,100% { transform: scale(1);     box-shadow: 0 2px 8px rgba(200,35,43,0.5); }
+    50%      { transform: scale(1.06); box-shadow: 0 4px 16px rgba(200,35,43,0.7); }
+  }
+  .card-price-drop {
+    display: flex; align-items: center; gap: 6px; margin-bottom: 1px;
+  }
+  .card-price-old {
+    font-size: 14px; font-weight: 500; color: var(--muted);
+    text-decoration: line-through; text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+  }
+  .price-drop-arrow {
+    font-size: 15px; font-weight: 800; color: #16a34a;
+    animation: arrow-bounce 1.2s ease-in-out infinite;
+  }
+  @keyframes arrow-bounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(3px); }
+  }
+  .card-price-new {
+    font-size: 25px !important; /* ligeramente más grande que el normal */
+  }
   .card-cuota .fin-tipo-badge {
     display: inline-block; font-size: 9px; font-weight: 700;
     letter-spacing: 0.5px; text-transform: uppercase;
@@ -836,6 +870,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "18.900",
+    "precio_anterior": 0,
     "cuota": 252.52,
     "fin_tin": "6.99",
     "fin_tae": "8.31",
@@ -883,6 +918,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "18.900",
+    "precio_anterior": 0,
     "cuota": 252.05,
     "fin_tin": "6.99",
     "fin_tae": "8.31",
@@ -930,6 +966,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "18.500",
+    "precio_anterior": 0,
     "cuota": 235.03,
     "fin_tin": "6.99",
     "fin_tae": "8.29",
@@ -977,6 +1014,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Azul",
     "precio": "34.500",
+    "precio_anterior": 0,
     "cuota": 404.26,
     "fin_tin": "5.50",
     "fin_tae": "6.67",
@@ -987,7 +1025,7 @@ const COCHES = [
     "fin_vr": 22026.19,
     "fin_seguro": 2123.29,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/145310463",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/10/46/3/x01.jpg",
@@ -1024,6 +1062,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "30.900",
+    "precio_anterior": 0,
     "cuota": 332.03,
     "fin_tin": "5.50",
     "fin_tae": "6.64",
@@ -1071,6 +1110,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "27.900",
+    "precio_anterior": 0,
     "cuota": 314.42,
     "fin_tin": "6.99",
     "fin_tae": "8.24",
@@ -1118,6 +1158,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "26.500",
+    "precio_anterior": 0,
     "cuota": 345.87,
     "fin_tin": "6.99",
     "fin_tae": "8.30",
@@ -1165,6 +1206,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "22.900",
+    "precio_anterior": 0,
     "cuota": 297.23,
     "fin_tin": "6.99",
     "fin_tae": "8.30",
@@ -1212,6 +1254,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "22.500",
+    "precio_anterior": 0,
     "cuota": 280.03,
     "fin_tin": "6.99",
     "fin_tae": "8.28",
@@ -1259,6 +1302,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "20.900",
+    "precio_anterior": 0,
     "cuota": 282.85,
     "fin_tin": "6.99",
     "fin_tae": "8.32",
@@ -1306,6 +1350,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "19.900",
+    "precio_anterior": 0,
     "cuota": 272.6,
     "fin_tin": "6.99",
     "fin_tae": "8.33",
@@ -1353,6 +1398,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Azul",
     "precio": "31.900",
+    "precio_anterior": 0,
     "cuota": 376.5,
     "fin_tin": "5.50",
     "fin_tae": "6.67",
@@ -1400,6 +1446,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "27.900",
+    "precio_anterior": 0,
     "cuota": 315.71,
     "fin_tin": "6.99",
     "fin_tae": "8.24",
@@ -1447,6 +1494,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "29.300",
+    "precio_anterior": 0,
     "cuota": 359.13,
     "fin_tin": "6.99",
     "fin_tae": "8.27",
@@ -1457,7 +1505,7 @@ const COCHES = [
     "fin_vr": 19909.1,
     "fin_seguro": 1803.26,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/142841013",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/28/41/01/3/x01.jpg",
@@ -1494,6 +1542,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "17.500",
+    "precio_anterior": 0,
     "cuota": 329.57,
     "fin_tin": "8.99",
     "fin_tae": "10.74",
@@ -1541,6 +1590,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "20.500",
+    "precio_anterior": 0,
     "cuota": 325.25,
     "fin_tin": "8.99",
     "fin_tae": "10.44",
@@ -1588,6 +1638,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Azul",
     "precio": "22.900",
+    "precio_anterior": 0,
     "cuota": 293.42,
     "fin_tin": "6.99",
     "fin_tae": "8.29",
@@ -1635,6 +1686,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "20.500",
+    "precio_anterior": 0,
     "cuota": 314.17,
     "fin_tin": "6.99",
     "fin_tae": "8.23",
@@ -1682,6 +1734,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "18.900",
+    "precio_anterior": 0,
     "cuota": 252.56,
     "fin_tin": "6.99",
     "fin_tae": "8.31",
@@ -1729,6 +1782,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "18.500",
+    "precio_anterior": 0,
     "cuota": 246.35,
     "fin_tin": "6.99",
     "fin_tae": "8.31",
@@ -1776,6 +1830,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "28.500",
+    "precio_anterior": 0,
     "cuota": 321.23,
     "fin_tin": "6.99",
     "fin_tae": "8.24",
@@ -1823,6 +1878,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "18.300",
+    "precio_anterior": 0,
     "cuota": 245.6,
     "fin_tin": "6.99",
     "fin_tae": "8.32",
@@ -1870,6 +1926,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "17.900",
+    "precio_anterior": 0,
     "cuota": 245.3,
     "fin_tin": "6.99",
     "fin_tae": "8.33",
@@ -1917,6 +1974,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "18.300",
+    "precio_anterior": 0,
     "cuota": 251.37,
     "fin_tin": "6.99",
     "fin_tae": "8.33",
@@ -1964,6 +2022,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "31.900",
+    "precio_anterior": 0,
     "cuota": 373.46,
     "fin_tin": "5.50",
     "fin_tae": "6.67",
@@ -1974,7 +2033,7 @@ const COCHES = [
     "fin_vr": 20388.92,
     "fin_seguro": 1963.28,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/145312593",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/14/53/12/59/3/x01.jpg",
@@ -2011,6 +2070,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "18.500",
+    "precio_anterior": 0,
     "cuota": 254.46,
     "fin_tin": "6.99",
     "fin_tae": "8.33",
@@ -2058,6 +2118,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Azul",
     "precio": "17.900",
+    "precio_anterior": 0,
     "cuota": 274.33,
     "fin_tin": "6.99",
     "fin_tae": "8.23",
@@ -2105,6 +2166,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "20.900",
+    "precio_anterior": 0,
     "cuota": 548.5,
     "fin_tin": "8.99",
     "fin_tae": "11.36",
@@ -2115,7 +2177,7 @@ const COCHES = [
     "fin_vr": 0.0,
     "fin_seguro": 400.11,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-hibrido-electro-gasolina-204-cv-del-2021-en-malaga/136785196",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/13/67/85/19/6/x01.jpg",
@@ -2152,6 +2214,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "20.200",
+    "precio_anterior": 0,
     "cuota": 240.62,
     "fin_tin": "6.99",
     "fin_tae": "8.26",
@@ -2199,6 +2262,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "28.900",
+    "precio_anterior": 0,
     "cuota": 374.58,
     "fin_tin": "6.99",
     "fin_tae": "8.30",
@@ -2246,6 +2310,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Azul",
     "precio": "20.200",
+    "precio_anterior": 0,
     "cuota": 240.97,
     "fin_tin": "6.99",
     "fin_tae": "8.26",
@@ -2293,6 +2358,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "18.900",
+    "precio_anterior": 0,
     "cuota": 347.32,
     "fin_tin": "",
     "fin_tae": "",
@@ -2340,6 +2406,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Negro",
     "precio": "32.900",
+    "precio_anterior": 0,
     "cuota": 474.49,
     "fin_tin": "6.99",
     "fin_tae": "8.36",
@@ -2387,6 +2454,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "41.300",
+    "precio_anterior": 0,
     "cuota": 500.04,
     "fin_tin": "5.50",
     "fin_tae": "6.68",
@@ -2397,7 +2465,7 @@ const COCHES = [
     "fin_vr": 25258.63,
     "fin_seguro": 2541.8,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/129674822",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/12/96/74/82/2/x01.jpg",
@@ -2434,6 +2502,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Azul",
     "precio": "28.500",
+    "precio_anterior": 0,
     "cuota": 445.05,
     "fin_tin": "5.50",
     "fin_tae": "6.83",
@@ -2481,6 +2550,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "18.900",
+    "precio_anterior": 0,
     "cuota": 252.82,
     "fin_tin": "6.99",
     "fin_tae": "8.31",
@@ -2528,6 +2598,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "18.200",
+    "precio_anterior": 0,
     "cuota": 235.03,
     "fin_tin": "",
     "fin_tae": "",
@@ -2575,6 +2646,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "32.900",
+    "precio_anterior": 0,
     "cuota": 469.96,
     "fin_tin": "6.99",
     "fin_tae": "8.35",
@@ -2622,6 +2694,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "21.500",
+    "precio_anterior": 0,
     "cuota": 263.04,
     "fin_tin": "6.99",
     "fin_tae": "8.27",
@@ -2669,6 +2742,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "35.900",
+    "precio_anterior": 0,
     "cuota": 394.67,
     "fin_tin": "5.50",
     "fin_tae": "6.64",
@@ -2679,7 +2753,7 @@ const COCHES = [
     "fin_vr": 24710.84,
     "fin_seguro": 2209.46,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-terramar-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/115432463",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/11/54/32/46/3/x01.jpg",
@@ -2716,6 +2790,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "29.900",
+    "precio_anterior": 0,
     "cuota": 366.78,
     "fin_tin": "5.50",
     "fin_tae": "6.69",
@@ -2763,6 +2838,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "35.900",
+    "precio_anterior": 0,
     "cuota": 347.32,
     "fin_tin": "",
     "fin_tae": "",
@@ -2810,6 +2886,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "18.700",
+    "precio_anterior": 0,
     "cuota": 252.52,
     "fin_tin": "",
     "fin_tae": "",
@@ -2857,6 +2934,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "18.500",
+    "precio_anterior": 0,
     "cuota": 254.66,
     "fin_tin": "6.99",
     "fin_tae": "8.33",
@@ -2904,6 +2982,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "32.500",
+    "precio_anterior": 0,
     "cuota": 427.76,
     "fin_tin": "6.99",
     "fin_tae": "8.31",
@@ -2951,6 +3030,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "18.500",
+    "precio_anterior": 0,
     "cuota": 253.57,
     "fin_tin": "6.99",
     "fin_tae": "8.33",
@@ -2998,6 +3078,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Blanco",
     "precio": "17.900",
+    "precio_anterior": 0,
     "cuota": 224.17,
     "fin_tin": "6.99",
     "fin_tae": "8.31",
@@ -3045,6 +3126,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "18.300",
+    "precio_anterior": 0,
     "cuota": 370.91,
     "fin_tin": "6.99",
     "fin_tae": "8.78",
@@ -3092,6 +3174,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "19.500",
+    "precio_anterior": 0,
     "cuota": 254.42,
     "fin_tin": "6.99",
     "fin_tae": "8.30",
@@ -3139,6 +3222,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "31.900",
+    "precio_anterior": 0,
     "cuota": 372.4,
     "fin_tin": "5.50",
     "fin_tae": "6.67",
@@ -3186,6 +3270,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Negro",
     "precio": "36.500",
+    "precio_anterior": 0,
     "cuota": 404.26,
     "fin_tin": "",
     "fin_tae": "",
@@ -3196,7 +3281,7 @@ const COCHES = [
     "fin_vr": 22026.19,
     "fin_seguro": 123.29,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/101116899",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/10/11/16/89/9/x01.jpg",
@@ -3233,6 +3318,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "29.800",
+    "precio_anterior": 0,
     "cuota": 329.11,
     "fin_tin": "5.50",
     "fin_tae": "6.65",
@@ -3280,6 +3366,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "",
     "precio": "48.500",
+    "precio_anterior": 0,
     "cuota": 650.75,
     "fin_tin": "5.50",
     "fin_tae": "6.73",
@@ -3327,6 +3414,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "31.900",
+    "precio_anterior": 0,
     "cuota": 362.76,
     "fin_tin": "5.50",
     "fin_tae": "6.66",
@@ -3374,6 +3462,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "22.900",
+    "precio_anterior": 0,
     "cuota": 318.86,
     "fin_tin": "5.50",
     "fin_tae": "6.76",
@@ -3421,6 +3510,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Gris",
     "precio": "36.500",
+    "precio_anterior": 0,
     "cuota": 416.71,
     "fin_tin": "5.50",
     "fin_tae": "6.66",
@@ -3431,7 +3521,7 @@ const COCHES = [
     "fin_vr": 24059.41,
     "fin_seguro": 2246.38,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/90641054",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/09/06/41/05/4/x01.jpg",
@@ -3468,6 +3558,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "25.900",
+    "precio_anterior": 0,
     "cuota": 359.72,
     "fin_tin": "5.50",
     "fin_tae": "6.75",
@@ -3478,7 +3569,7 @@ const COCHES = [
     "fin_vr": 12662.2,
     "fin_seguro": 1594.01,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-245-cv-del-2021-en-malaga/90592532",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/09/05/92/53/2/x01.jpg",
@@ -3515,6 +3606,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "37.900",
+    "precio_anterior": 0,
     "cuota": 529.74,
     "fin_tin": "5.50",
     "fin_tae": "6.76",
@@ -3562,6 +3654,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "34.900",
+    "precio_anterior": 0,
     "cuota": 403.0,
     "fin_tin": "5.50",
     "fin_tae": "6.66",
@@ -3572,7 +3665,7 @@ const COCHES = [
     "fin_vr": 22690.98,
     "fin_seguro": 2147.92,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/79738786",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/07/97/38/78/6/x01.jpg",
@@ -3609,6 +3702,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "32.500",
+    "precio_anterior": 0,
     "cuota": 377.54,
     "fin_tin": "5.50",
     "fin_tae": "6.67",
@@ -3656,6 +3750,7 @@ const COCHES = [
     "cambio": "Automático",
     "color": "Blanco",
     "precio": "33.900",
+    "precio_anterior": 0,
     "cuota": 386.48,
     "fin_tin": "5.50",
     "fin_tae": "6.66",
@@ -3666,7 +3761,7 @@ const COCHES = [
     "fin_vr": 22383.37,
     "fin_seguro": 2086.37,
     "fin_fuente": "dwa",
-    "etiqueta": "ECO",
+    "etiqueta": "CERO",
     "estado": "Disponible",
     "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/75714019",
     "foto_main": "https://www.dasweltauto.es/esp/fotos_anuncios/00/07/57/14/01/9/x01.jpg",
@@ -3703,6 +3798,7 @@ const COCHES = [
     "cambio": "Manual",
     "color": "Gris",
     "precio": "20.200",
+    "precio_anterior": 0,
     "cuota": 240.82,
     "fin_tin": "6.99",
     "fin_tae": "8.26",
@@ -3818,6 +3914,7 @@ function cardHTML(c) {
       ${reservado ? '<div class="reservado-overlay"></div>' : ''}
       ${c.fotos.length > 1 ? `<span class="foto-count">📷 ${c.fotos.length}</span>` : ''}
       ${c.etiqueta ? etiquetaSVG(c.etiqueta) : ''}
+      ${c.precio_anterior > 0 ? '<span class="oferta-badge">OFERTA</span>' : ''}
     </div>
     <div class="card-body">
       <div>
@@ -3827,7 +3924,13 @@ function cardHTML(c) {
       <div class="card-specs">${specs}</div>
       <div class="card-footer">
         <div>
-          <div class="card-price">${c.precio}<span>€</span></div>
+          ${c.precio_anterior > 0 ? `
+            <div class="card-price-drop">
+              <span class="card-price-old">${c.precio_anterior.toLocaleString('es-ES')} €</span>
+              <span class="price-drop-arrow">↓</span>
+            </div>
+            <div class="card-price card-price-new">${c.precio.toLocaleString ? c.precio.toLocaleString('es-ES') : c.precio}<span>€</span></div>
+          ` : `<div class="card-price">${c.precio}<span>€</span></div>`}
           ${c.cuota ? `<div class="card-cuota">Desde <strong>${fmtCuota(c.cuota)} €/mes</strong>${c.fin_tipo ? ` <span class="fin-tipo-badge">${c.fin_tipo}</span>` : ''} *</div>` : ''}
         </div>
         ${c.url ? `<a class="btn-dwa" href="${c.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">DWA ↗</a>` : ''}

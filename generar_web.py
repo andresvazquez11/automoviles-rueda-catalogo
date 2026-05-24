@@ -80,6 +80,28 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
 # ── Generar HTML ─────────────────────────────────────────────────────────────
 
 import re as _re
+from datetime import date as _date, timedelta as _timedelta
+
+HISTORIAL_PRECIOS = BASE_DIR / "historial_precios.json"
+
+def _cargar_historial_precios() -> dict:
+    if not HISTORIAL_PRECIOS.exists():
+        return {}
+    try:
+        return json.loads(HISTORIAL_PRECIOS.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+def precio_maximo_historico(url_coche: str, precio_actual: int, hist: dict) -> int:
+    """Devuelve el precio máximo de los últimos 10 días si es superior al actual.
+    Retorna 0 si no hay bajada de precio."""
+    registros = hist.get(url_coche, [])
+    if len(registros) < 2:
+        return 0
+    # Solo precios anteriores (excluir el más reciente = precio actual)
+    anteriores = [r["precio"] for r in registros[:-1]]
+    maximo = max(anteriores) if anteriores else 0
+    return maximo if maximo > precio_actual else 0
 
 def extract_vr_eur(ejemplo: str) -> float:
     """Extrae el valor residual (cuota final) en EUR del texto verbatim de DWA."""
@@ -114,12 +136,18 @@ def extract_seguro_eur(ejemplo: str, precio: int) -> float:
     return fallback
 
 def etiqueta_dgt(combustible: str) -> str:
-    """Etiqueta medioambiental DGT según combustible (coches modernos DWA)."""
+    """Etiqueta medioambiental DGT según combustible (coches modernos DWA).
+    - CERO: Eléctrico + e-Hybrid PHEV (los que llevan pegatina 0 en el coche)
+    - ECO:  Mild Hybrid
+    - C:    Gasolina / Diésel Euro 6
+    """
     c = combustible.lower()
     if "eléctrico" in c or "electrico" in c:
         return "CERO"
-    elif "híbrido" in c or "hibrido" in c or "mild" in c:
-        return "ECO"
+    elif "mild" in c:
+        return "ECO"   # Mild Hybrid → ECO
+    elif "híbrido" in c or "hibrido" in c:
+        return "CERO"  # e-Hybrid PHEV → etiqueta 0 (igual que eléctrico)
     else:
         return "C"   # Gasolina / Diésel modernos Euro 6 en DWA
 
@@ -150,6 +178,16 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
     total_disp = sum(1 for c in visibles if c.get("estado") == "Disponible")
     total_res  = sum(1 for c in visibles if c.get("estado") == "No disponible")
 
+    _hist = _cargar_historial_precios()
+
+    def _precio_ant(c):
+        url = c.get("url", "")
+        try:
+            p = int(str(c["precio"]).replace(".", "").replace(",", "").split()[0])
+        except Exception:
+            p = 0
+        return precio_maximo_historico(url, p, _hist)
+
     cars_js = json.dumps([{
         "n":           c["n"],
         "modelo":      c["modelo"],
@@ -159,8 +197,9 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
         "fecha":       c["fecha"],
         "cambio":      c.get("cambio", ""),
         "color":       c.get("color", ""),
-        "precio":      c["precio"],
-        "cuota":       _cuota_display(c),
+        "precio":          c["precio"],
+        "precio_anterior": _precio_ant(c),  # >0 si bajó en últimos 10 días
+        "cuota":           _cuota_display(c),
         "fin_tin":     c.get("financiacion", {}).get("tin", ""),
         "fin_tae":     c.get("financiacion", {}).get("tae", ""),
         "fin_meses":   c.get("financiacion", {}).get("meses", ""),
@@ -465,6 +504,40 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
   .card-price span {{ font-size: 13px; font-weight: 500; color: var(--muted); }}
   .card-cuota {{ font-size: 12px; color: var(--muted); margin-top: 2px; }}
   .card-cuota strong {{ color: #4a5568; font-weight: 600; }}
+
+  /* ── Bajada de precio ── */
+  .oferta-badge {{
+    position: absolute; top: 10px; right: 10px; z-index: 3;
+    background: var(--red); color: #fff;
+    font-size: 11px; font-weight: 800; letter-spacing: 1px;
+    text-transform: uppercase; padding: 4px 9px;
+    border-radius: 4px;
+    animation: oferta-pulse 2s ease-in-out infinite;
+    box-shadow: 0 2px 8px rgba(200,35,43,0.5);
+  }}
+  @keyframes oferta-pulse {{
+    0%,100% {{ transform: scale(1);     box-shadow: 0 2px 8px rgba(200,35,43,0.5); }}
+    50%      {{ transform: scale(1.06); box-shadow: 0 4px 16px rgba(200,35,43,0.7); }}
+  }}
+  .card-price-drop {{
+    display: flex; align-items: center; gap: 6px; margin-bottom: 1px;
+  }}
+  .card-price-old {{
+    font-size: 14px; font-weight: 500; color: var(--muted);
+    text-decoration: line-through; text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+  }}
+  .price-drop-arrow {{
+    font-size: 15px; font-weight: 800; color: #16a34a;
+    animation: arrow-bounce 1.2s ease-in-out infinite;
+  }}
+  @keyframes arrow-bounce {{
+    0%,100% {{ transform: translateY(0); }}
+    50%      {{ transform: translateY(3px); }}
+  }}
+  .card-price-new {{
+    font-size: 25px !important; /* ligeramente más grande que el normal */
+  }}
   .card-cuota .fin-tipo-badge {{
     display: inline-block; font-size: 9px; font-weight: 700;
     letter-spacing: 0.5px; text-transform: uppercase;
@@ -1086,6 +1159,7 @@ function cardHTML(c) {{
       ${{reservado ? '<div class="reservado-overlay"></div>' : ''}}
       ${{c.fotos.length > 1 ? `<span class="foto-count">📷 ${{c.fotos.length}}</span>` : ''}}
       ${{c.etiqueta ? etiquetaSVG(c.etiqueta) : ''}}
+      ${{c.precio_anterior > 0 ? '<span class="oferta-badge">OFERTA</span>' : ''}}
     </div>
     <div class="card-body">
       <div>
@@ -1095,7 +1169,13 @@ function cardHTML(c) {{
       <div class="card-specs">${{specs}}</div>
       <div class="card-footer">
         <div>
-          <div class="card-price">${{c.precio}}<span>€</span></div>
+          ${{c.precio_anterior > 0 ? `
+            <div class="card-price-drop">
+              <span class="card-price-old">${{c.precio_anterior.toLocaleString('es-ES')}} €</span>
+              <span class="price-drop-arrow">↓</span>
+            </div>
+            <div class="card-price card-price-new">${{c.precio.toLocaleString ? c.precio.toLocaleString('es-ES') : c.precio}}<span>€</span></div>
+          ` : `<div class="card-price">${{c.precio}}<span>€</span></div>`}}
           ${{c.cuota ? `<div class="card-cuota">Desde <strong>${{fmtCuota(c.cuota)}} €/mes</strong>${{c.fin_tipo ? ` <span class="fin-tipo-badge">${{c.fin_tipo}}</span>` : ''}} *</div>` : ''}}
         </div>
         ${{c.url ? `<a class="btn-dwa" href="${{c.url}}" target="_blank" rel="noopener" onclick="event.stopPropagation()">DWA ↗</a>` : ''}}

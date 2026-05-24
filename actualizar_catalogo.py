@@ -27,6 +27,7 @@ INFORME         = OUTPUT_DIR / "informe_cambios.txt"
 SNAPSHOT_DIA       = OUTPUT_DIR / "datos_coches_ayer.json"
 SNAPSHOT_DIA_FECHA = OUTPUT_DIR / "datos_coches_ayer_fecha.txt"
 CAMBIOS_HOY_FILE   = OUTPUT_DIR / "cambios_hoy.json"
+HISTORIAL_PRECIOS  = OUTPUT_DIR / "historial_precios.json"
 CONTADOR_HOY_FILE  = OUTPUT_DIR / "actualizaciones_hoy.txt"
 
 def hoy_str():
@@ -149,6 +150,44 @@ def acumular_cambios_hoy(nuevos, vendidos, cambios):
 # ── Identificador único fiable: URL del coche ──────────────
 def id_coche(c):
     return c.get("url") or f"{c['modelo']}_{c['version']}_{c['precio']}"
+
+def actualizar_historial_precios(actuales: list):
+    """Actualiza historial_precios.json con los precios actuales.
+    Guarda un registro por coche por día durante los últimos 10 días.
+    Usado por generar_web.py para detectar bajadas de precio."""
+    from datetime import date, timedelta
+    hoy = date.today().isoformat()
+    corte = (date.today() - timedelta(days=10)).isoformat()
+
+    hist = {}
+    if HISTORIAL_PRECIOS.exists():
+        try:
+            hist = json.loads(HISTORIAL_PRECIOS.read_text(encoding="utf-8"))
+        except Exception:
+            hist = {}
+
+    for c in actuales:
+        key = id_coche(c)
+        try:
+            precio = int(str(c["precio"]).replace(".", "").replace(",", "").split()[0])
+        except Exception:
+            continue
+        registros = hist.get(key, [])
+        # Purgar entradas más viejas de 10 días
+        registros = [r for r in registros if r["fecha"] >= corte]
+        # Solo añadir entrada si es un día nuevo o el precio cambió
+        if not registros or registros[-1]["precio"] != precio:
+            registros.append({"fecha": hoy, "precio": precio})
+        hist[key] = registros
+
+    # Purgar claves de coches que ya no están en el catálogo
+    keys_activos = {id_coche(c) for c in actuales}
+    hist = {k: v for k, v in hist.items() if k in keys_activos}
+
+    HISTORIAL_PRECIOS.write_text(
+        json.dumps(hist, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    print(f"  📊 Historial de precios actualizado ({len(hist)} coches)")
 
 def comparar(anteriores: list, actuales: list):
     ant_map = {id_coche(c): c for c in anteriores}
@@ -421,6 +460,7 @@ async def main():
 
     # 5) Guardar JSON actualizado
     CACHE.write_text(json.dumps(actuales, ensure_ascii=False, indent=2), encoding="utf-8")
+    actualizar_historial_precios(actuales)   # registro rolling 10 días para web
 
     # 5b) Verificar integridad de fotos SIEMPRE y ANTES del PDF
     # Esto garantiza que el PDF y la web nunca usen fotos de otro coche,
