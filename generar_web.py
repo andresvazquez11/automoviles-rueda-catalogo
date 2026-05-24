@@ -574,6 +574,8 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
     font-size: 13px; font-weight: 600; color: rgba(240,244,255,0.85);
     font-variant-numeric: tabular-nums;
   }}
+  .cr-total-row .calc-result-lbl {{ color: rgba(240,244,255,0.7); font-weight: 600; }}
+  .cr-total-row .cr-total-val {{ color: #fff; font-size: 14px; font-weight: 700; }}
   .calc-cuota-row {{
     display: flex; justify-content: space-between; align-items: center;
     margin-top: 12px; padding-top: 12px;
@@ -867,20 +869,12 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
         </div>
         <div class="calc-result">
           <div class="calc-result-row">
-            <span class="calc-result-lbl">Importe financiado</span>
-            <span class="calc-result-val" id="cr-importe">—</span>
+            <span class="calc-result-lbl">Precio al contado</span>
+            <span class="calc-result-val" id="cr-precio">—</span>
           </div>
           <div class="calc-result-row">
-            <span class="calc-result-lbl">Entrada</span>
+            <span class="calc-result-lbl">Entrada inicial</span>
             <span class="calc-result-val" id="cr-entrada">—</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="calc-result-lbl">N° cuotas</span>
-            <span class="calc-result-val" id="cr-meses">—</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="calc-result-lbl">Comisión apertura</span>
-            <span class="calc-result-val" id="cr-comision">—</span>
           </div>
           <div class="calc-result-row">
             <span class="calc-result-lbl">T.I.N.</span>
@@ -890,13 +884,29 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
             <span class="calc-result-lbl">T.A.E.</span>
             <span class="calc-result-val" id="cr-tae">—</span>
           </div>
-          <div class="calc-result-row" id="cr-vr-row" style="display:none">
-            <span class="calc-result-lbl">Valor residual</span>
-            <span class="calc-result-val" id="cr-vr">—</span>
+          <div class="calc-result-row">
+            <span class="calc-result-lbl">Comisión de apertura financiada</span>
+            <span class="calc-result-val" id="cr-comision">—</span>
           </div>
           <div class="calc-result-row">
-            <span class="calc-result-lbl">Total a plazos</span>
-            <span class="calc-result-val" id="cr-total">—</span>
+            <span class="calc-result-lbl">Importe total financiado</span>
+            <span class="calc-result-val" id="cr-importe">—</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-lbl">Importe total de los intereses</span>
+            <span class="calc-result-val" id="cr-intereses">—</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-lbl">Coste total del crédito</span>
+            <span class="calc-result-val" id="cr-coste">—</span>
+          </div>
+          <div class="calc-result-row" id="cr-vr-row" style="display:none">
+            <span class="calc-result-lbl" id="cr-vr-lbl">Cuota final mes N</span>
+            <span class="calc-result-val" id="cr-vr">—</span>
+          </div>
+          <div class="calc-result-row cr-total-row">
+            <span class="calc-result-lbl">Precio total a plazos</span>
+            <span class="calc-result-val cr-total-val" id="cr-total">—</span>
           </div>
           <div class="calc-cuota-row">
             <span class="calc-cuota-lbl">Cuota mensual</span>
@@ -1114,14 +1124,18 @@ function calcFinanciacion(precio, tin, entradaPct, meses, tab, km) {{
     importe = Math.max(0, precio - entrada);
   }}
   const comision = Math.round(importe * 0.01);
-  const capital  = importe + comision;
+  const capital  = importe + comision;   // importe total financiado
   let cuota = 0;
   if (r > 0 && meses > 0 && capital > 0) {{
     cuota = capital * r / (1 - Math.pow(1 + r, -meses));
   }}
   cuota = Math.round(cuota * 100) / 100;
-  const total = Math.round((cuota * meses + entrada + comision + vr) * 100) / 100;
-  return {{ entrada, importe, comision, cuota, total, vr }};
+  // total a plazos: cuotas + entrada + cuota final (VR en Autocredit)
+  // comision NO se suma de nuevo: ya está dentro de capital → ya está en las cuotas
+  const total      = Math.round((cuota * meses + entrada + vr) * 100) / 100;
+  const intereses  = Math.round((cuota * meses - capital) * 100) / 100;
+  const coste      = Math.round((intereses + comision) * 100) / 100;
+  return {{ entrada, importe, comision, capital, cuota, total, vr, intereses, coste }};
 }}
 
 function fmtEur(v) {{
@@ -1131,27 +1145,50 @@ function fmtEur(v) {{
 function renderCalc() {{
   const s = calcState;
   const r = calcFinanciacion(s.precio, s.tin, s.entradaPct, s.meses, s.tab, s.km);
-  document.getElementById('cr-importe').textContent  = fmtEur(r.importe);
+  const tinStr = Number(s.tin).toFixed(2).replace('.', ',') + ' %';
+  const taeStr = s.tae ? (String(s.tae).replace('.', ',') + ' %') : '—';
+
+  document.getElementById('cr-precio').textContent   = fmtEur(s.precio);
   document.getElementById('cr-entrada').textContent  = fmtEur(r.entrada);
-  document.getElementById('cr-meses').textContent    = s.meses;
+  document.getElementById('cr-tin').textContent      = tinStr;
+  document.getElementById('cr-tae').textContent      = taeStr;
   document.getElementById('cr-comision').textContent = fmtEur(r.comision);
-  document.getElementById('cr-tin').textContent      = Number(s.tin).toFixed(2).replace('.', ',') + ' %';
-  document.getElementById('cr-tae').textContent      = s.tae ? (String(s.tae).replace('.', ',') + ' %') : '—';
+  document.getElementById('cr-importe').textContent  = fmtEur(r.capital);
+  document.getElementById('cr-intereses').textContent = fmtEur(r.intereses);
+  document.getElementById('cr-coste').textContent    = fmtEur(r.coste);
   document.getElementById('cr-total').textContent    = fmtEur(r.total);
   document.getElementById('cr-cuota').textContent    = fmtEur(r.cuota);
+
   const vrRow = document.getElementById('cr-vr-row');
   if (s.tab === 'autocredit') {{
     vrRow.style.display = '';
+    document.getElementById('cr-vr-lbl').textContent = `Cuota final mes ${{s.meses}}`;
     document.getElementById('cr-vr').textContent = fmtEur(r.vr);
   }} else {{
     vrRow.style.display = 'none';
   }}
+
+  // ── Texto legal dinámico (estilo DWA) ────────────────────────────────────
   const legal = document.getElementById('calc-legal');
-  if (s.fin_ejemplo) {{
-    legal.textContent = s.fin_ejemplo;
-  }} else {{
-    legal.textContent = '* Cálculo orientativo. Condiciones exactas sujetas a aprobación de VW Financial Services.';
+  const anos  = Math.round(s.meses / 12);
+  const kmk   = Math.round(s.km / 1000);
+  let txt = `Precio financiando: ${{fmtEur(s.precio)}}. Precio al contado: ${{fmtEur(s.precio)}}. ` +
+    `TIN: ${{tinStr}}. TAE: ${{taeStr}}. ` +
+    `Ejemplo de cuota a ${{s.meses}} meses: ${{fmtEur(r.cuota)}}`;
+  if (s.tab === 'autocredit') {{
+    txt += `, y si lo deseas, al cabo de ${{anos}} año${{anos !== 1 ? 's' : ''}} ` +
+      `podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final ` +
+      `en el mes ${{s.meses}} de ${{fmtEur(r.vr)}} (calculada con ${{kmk}}.000 km anuales)`;
   }}
+  txt += `. Entrada inicial: ${{fmtEur(r.entrada)}}. ` +
+    `Comisión de apertura financiada: ${{fmtEur(r.comision)}}. ` +
+    `Importe total financiado: ${{fmtEur(r.capital)}}. ` +
+    `Importe total de los intereses: ${{fmtEur(r.intereses)}}. ` +
+    `Coste total del crédito: ${{fmtEur(r.coste)}}. ` +
+    `Precio total a plazos: ${{fmtEur(r.total)}}. ` +
+    `Sistema de amortización francés. ` +
+    `Cálculo orientativo sujeto a aprobación de VW Financial Services.`;
+  legal.textContent = txt;
 }}
 
 function calcTabClick(tab) {{
