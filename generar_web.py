@@ -1249,7 +1249,7 @@ const VR_TABLE = {{
 
 // Ajustes aditivos en % de precio para escalar desde la base 60m/15k
 const VR_KM_ADJ   = {{10000:+5,15000:0,20000:-6,25000:-11,30000:-16}};
-const VR_MES_ADJ  = {{24:+18,36:+11,48:+5,60:0,72:-6,84:-12}};
+const VR_MES_ADJ  = {{24:+18,36:+11,48:+3,60:0,72:-6,84:-12}};
 
 function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase, seguro) {{
   const entrada  = Math.round(precio * entradaPct / 100);
@@ -1260,7 +1260,11 @@ function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase, segur
   // DWA: capital = (precio - entrada + seguro) × 1.035
   //      comision = capital - (precio - entrada + seguro)  =  base × 0.035
   const neto     = precio - entrada;                          // precio menos entrada
-  const seg      = seguro || 0;
+  // DWA scales insurance proportionally with neto: seg = seg0 * (neto/precio)^1.5
+  // At entrada=0: neto=precio → factor=1 → seg unchanged (verified exact ✓)
+  // At entrada>0: factor<1 → seg shrinks → matches DWA breakdown display
+  const seg0     = seguro || 0;
+  const seg      = precio > 0 ? Math.round(seg0 * Math.pow(neto / precio, 1.5) * 100) / 100 : seg0;
   const base     = neto + seg;                                // neto + seguro
   const capital  = Math.round(base * 1.035 * 100) / 100;     // importe total financiado
   const comision = Math.round((capital - base) * 100) / 100;
