@@ -79,6 +79,20 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
 
 # ── Generar HTML ─────────────────────────────────────────────────────────────
 
+import re as _re
+
+def extract_vr_eur(ejemplo: str) -> float:
+    """Extrae el valor residual (cuota final) en EUR del texto verbatim de DWA."""
+    if not ejemplo:
+        return 0.0
+    m = _re.search(r'cuota final en el mes \d+ de ([0-9.,]+)', ejemplo, _re.I)
+    if m:
+        try:
+            return round(float(m.group(1).replace('.', '').replace(',', '.')), 2)
+        except Exception:
+            pass
+    return 0.0
+
 def etiqueta_dgt(combustible: str) -> str:
     """Etiqueta medioambiental DGT según combustible (coches modernos DWA)."""
     c = combustible.lower()
@@ -133,6 +147,7 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
         "fin_entrada": c.get("financiacion", {}).get("entrada", ""),
         "fin_tipo":    c.get("financiacion", {}).get("tipo", ""),
         "fin_ejemplo": c.get("financiacion", {}).get("ejemplo", ""),
+        "fin_vr":      extract_vr_eur(c.get("financiacion", {}).get("ejemplo", "")),
         "fin_fuente":  "dwa" if c.get("financiacion", {}).get("cuota") else "calc",
         "etiqueta":    etiqueta_dgt(c.get("combustible", "")),
         "estado":      c["estado"],          # "Disponible" o "No disponible"
@@ -574,23 +589,28 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
     font-size: 13px; font-weight: 600; color: rgba(240,244,255,0.85);
     font-variant-numeric: tabular-nums;
   }}
-  .cr-total-row .calc-result-lbl {{ color: rgba(240,244,255,0.7); font-weight: 600; }}
-  .cr-total-row .cr-total-val {{ color: #fff; font-size: 14px; font-weight: 700; }}
-  .calc-cuota-row {{
+  /* Cuota featured (arriba, protagonista como DWA) */
+  .calc-cuota-featured {{
     display: flex; justify-content: space-between; align-items: center;
-    margin-top: 12px; padding-top: 12px;
-    border-top: 1px solid rgba(200,35,43,0.4);
+    padding: 14px 16px 14px;
+    border-bottom: 1px solid rgba(200,35,43,0.35);
+    margin-bottom: 4px;
   }}
-  .calc-cuota-lbl {{
+  .calc-cuota-featured-lbl {{
     font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.6px; color: rgba(240,244,255,0.55);
+    letter-spacing: 0.8px; color: rgba(240,244,255,0.55);
   }}
-  .calc-cuota-big {{
-    font-size: 28px; font-weight: 800; color: #C8232B;
+  .calc-cuota-featured-val {{
+    font-size: 30px; font-weight: 800; color: #C8232B;
     font-variant-numeric: tabular-nums;
     text-shadow: 0 0 24px rgba(200,35,43,0.45);
     line-height: 1;
   }}
+  /* Desglose debajo */
+  .calc-desglose {{ padding: 2px 0; }}
+  .cr-total-row .calc-result-lbl {{ color: rgba(240,244,255,0.8); font-weight: 700; }}
+  .cr-total-row .cr-total-val {{ color: #fff; font-size: 14px; font-weight: 700; }}
+  .cr-vr-val {{ color: #f9c74f !important; font-weight: 700 !important; }}
   .btn-calc-cta {{
     display: flex; align-items: center; justify-content: center; gap: 8px;
     width: 100%;
@@ -868,49 +888,53 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
           <div class="calc-chips" id="calc-km-chips"></div>
         </div>
         <div class="calc-result">
-          <div class="calc-result-row">
-            <span class="calc-result-lbl">Precio al contado</span>
-            <span class="calc-result-val" id="cr-precio">—</span>
+          <!-- CUOTA MENSUAL — protagonista, igual que DWA -->
+          <div class="calc-cuota-featured">
+            <div class="calc-cuota-featured-lbl">Cuota mensual</div>
+            <div class="calc-cuota-featured-val" id="cr-cuota">—</div>
           </div>
-          <div class="calc-result-row">
-            <span class="calc-result-lbl">Entrada inicial</span>
-            <span class="calc-result-val" id="cr-entrada">—</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="calc-result-lbl">T.I.N.</span>
-            <span class="calc-result-val" id="cr-tin">—</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="calc-result-lbl">T.A.E.</span>
-            <span class="calc-result-val" id="cr-tae">—</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="calc-result-lbl">Comisión de apertura financiada</span>
-            <span class="calc-result-val" id="cr-comision">—</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="calc-result-lbl">Importe total financiado</span>
-            <span class="calc-result-val" id="cr-importe">—</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="calc-result-lbl">Importe total de los intereses</span>
-            <span class="calc-result-val" id="cr-intereses">—</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="calc-result-lbl">Coste total del crédito</span>
-            <span class="calc-result-val" id="cr-coste">—</span>
-          </div>
-          <div class="calc-result-row" id="cr-vr-row" style="display:none">
-            <span class="calc-result-lbl" id="cr-vr-lbl">Cuota final mes N</span>
-            <span class="calc-result-val" id="cr-vr">—</span>
-          </div>
-          <div class="calc-result-row cr-total-row">
-            <span class="calc-result-lbl">Precio total a plazos</span>
-            <span class="calc-result-val cr-total-val" id="cr-total">—</span>
-          </div>
-          <div class="calc-cuota-row">
-            <span class="calc-cuota-lbl">Cuota mensual</span>
-            <span class="calc-cuota-big" id="cr-cuota">—</span>
+          <!-- Desglose -->
+          <div class="calc-desglose">
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Precio al contado</span>
+              <span class="calc-result-val" id="cr-precio">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Entrada inicial</span>
+              <span class="calc-result-val" id="cr-entrada">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">T.I.N.</span>
+              <span class="calc-result-val" id="cr-tin">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">T.A.E.</span>
+              <span class="calc-result-val" id="cr-tae">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Comisión de apertura financiada</span>
+              <span class="calc-result-val" id="cr-comision">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Importe total financiado</span>
+              <span class="calc-result-val" id="cr-importe">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Importe total de los intereses</span>
+              <span class="calc-result-val" id="cr-intereses">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Coste total del crédito</span>
+              <span class="calc-result-val" id="cr-coste">—</span>
+            </div>
+            <div class="calc-result-row" id="cr-vr-row" style="display:none">
+              <span class="calc-result-lbl" id="cr-vr-lbl">Cuota final mes N</span>
+              <span class="calc-result-val cr-vr-val" id="cr-vr">—</span>
+            </div>
+            <div class="calc-result-row cr-total-row">
+              <span class="calc-result-lbl">Precio total a plazos</span>
+              <span class="calc-result-val cr-total-val" id="cr-total">—</span>
+            </div>
           </div>
         </div>
         <a class="btn-calc-cta" id="calc-cta-link" href="#" target="_blank" rel="noopener">
@@ -1102,23 +1126,40 @@ let calcState = {{
   entradaPct: 0, tab: 'lineal', km: 15000, fin_ejemplo: ''
 }};
 
+// Tabla VR% calibrada con datos reales de DWA (60m/15k ≈ 61% promedio real)
+// Si el coche tiene fin_vr (VR real de DWA a 60m/15k), se usa como base y se escala.
+// Esta tabla solo se usa como fallback si no hay dato real.
 const VR_TABLE = {{
-  24: {{10000:58,15000:54,20000:50,25000:46,30000:42}},
-  36: {{10000:50,15000:46,20000:42,25000:38,30000:34}},
-  48: {{10000:44,15000:40,20000:36,25000:32,30000:28}},
-  60: {{10000:38,15000:34,20000:30,25000:26,30000:22}},
-  72: {{10000:32,15000:28,20000:24,25000:20,30000:16}},
-  84: {{10000:26,15000:22,20000:18,25000:14,30000:10}}
+  24: {{10000:79,15000:74,20000:68,25000:63,30000:58}},
+  36: {{10000:73,15000:68,20000:62,25000:57,30000:52}},
+  48: {{10000:68,15000:63,20000:57,25000:52,30000:47}},
+  60: {{10000:66,15000:61,20000:55,25000:50,30000:45}},
+  72: {{10000:60,15000:55,20000:49,25000:44,30000:39}},
+  84: {{10000:54,15000:49,20000:43,25000:38,30000:33}}
 }};
 
-function calcFinanciacion(precio, tin, entradaPct, meses, tab, km) {{
+// Ajustes aditivos en % de precio para escalar desde la base 60m/15k
+const VR_KM_ADJ   = {{10000:+5,15000:0,20000:-6,25000:-11,30000:-16}};
+const VR_MES_ADJ  = {{24:+18,36:+11,48:+5,60:0,72:-6,84:-12}};
+
+function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase) {{
   const entrada = Math.round(precio * entradaPct / 100);
   const r = tin / 100 / 12;
   let importe, vr = 0;
   if (tab === 'autocredit') {{
-    const tbl = VR_TABLE[meses] || VR_TABLE[48];
-    const pct = tbl[km] !== undefined ? tbl[km] : 30;
-    vr = Math.round(precio * pct / 100);
+    if (vrBase && vrBase > 0) {{
+      // Tenemos VR real de DWA a 60m/15k → escalar a la combinación elegida
+      const vrBasePct = vrBase / precio * 100;
+      const kmAdj  = VR_KM_ADJ[km]   !== undefined ? VR_KM_ADJ[km]   : 0;
+      const mesAdj = VR_MES_ADJ[meses] !== undefined ? VR_MES_ADJ[meses] : 0;
+      const pct = Math.max(10, Math.min(90, vrBasePct + kmAdj + mesAdj));
+      vr = Math.round(precio * pct / 100);
+    }} else {{
+      // Fallback: tabla genérica
+      const tbl = VR_TABLE[meses] || VR_TABLE[60];
+      const pct = tbl[km] !== undefined ? tbl[km] : 61;
+      vr = Math.round(precio * pct / 100);
+    }}
     importe = Math.max(0, precio - entrada - vr);
   }} else {{
     importe = Math.max(0, precio - entrada);
@@ -1130,8 +1171,8 @@ function calcFinanciacion(precio, tin, entradaPct, meses, tab, km) {{
     cuota = capital * r / (1 - Math.pow(1 + r, -meses));
   }}
   cuota = Math.round(cuota * 100) / 100;
-  // total a plazos: cuotas + entrada + cuota final (VR en Autocredit)
-  // comision NO se suma de nuevo: ya está dentro de capital → ya está en las cuotas
+  // total a plazos = cuotas mensuales + entrada + cuota final balloon (VR)
+  // comision NO se suma: ya está en capital → dentro de las cuotas
   const total      = Math.round((cuota * meses + entrada + vr) * 100) / 100;
   const intereses  = Math.round((cuota * meses - capital) * 100) / 100;
   const coste      = Math.round((intereses + comision) * 100) / 100;
@@ -1144,7 +1185,7 @@ function fmtEur(v) {{
 
 function renderCalc() {{
   const s = calcState;
-  const r = calcFinanciacion(s.precio, s.tin, s.entradaPct, s.meses, s.tab, s.km);
+  const r = calcFinanciacion(s.precio, s.tin, s.entradaPct, s.meses, s.tab, s.km, s.vrBase);
   const tinStr = Number(s.tin).toFixed(2).replace('.', ',') + ' %';
   const taeStr = s.tae ? (String(s.tae).replace('.', ',') + ' %') : '—';
 
@@ -1157,7 +1198,7 @@ function renderCalc() {{
   document.getElementById('cr-intereses').textContent = fmtEur(r.intereses);
   document.getElementById('cr-coste').textContent    = fmtEur(r.coste);
   document.getElementById('cr-total').textContent    = fmtEur(r.total);
-  document.getElementById('cr-cuota').textContent    = fmtEur(r.cuota);
+  document.getElementById('cr-cuota').textContent    = fmtEur(r.cuota) + '/mes';
 
   const vrRow = document.getElementById('cr-vr-row');
   if (s.tab === 'autocredit') {{
@@ -1229,6 +1270,8 @@ function initCalc(c) {{
   calcState.tin        = c.fin_tin   ? parseFloat(String(c.fin_tin).replace(',', '.'))   : 6.99;
   calcState.tae        = c.fin_tae   ? String(c.fin_tae) : null;
   calcState.fin_ejemplo = c.fin_ejemplo || '';
+  // VR real de DWA a 60m/15k km (extraído del texto de condiciones)
+  calcState.vrBase     = c.fin_vr && c.fin_vr > 0 ? c.fin_vr : null;
   const defaultMeses   = c.fin_meses ? parseInt(c.fin_meses) : 48;
   calcState.meses      = [24,36,48,60,72,84].includes(defaultMeses) ? defaultMeses : 48;
   calcState.entradaPct = 0;
