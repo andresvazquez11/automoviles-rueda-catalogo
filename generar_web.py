@@ -965,6 +965,10 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
         </div>
       </div>
       <div class="specs-grid" id="m-specs"></div>
+      <div class="equip-section" id="equip-section">
+        <h3>Equipamiento</h3>
+        <div class="equip-grid" id="m-equip"></div>
+      </div>
       <div class="modal-financiacion" id="m-financiacion">
         <div class="calc-title">💰 Calculadora de Financiación</div>
         <div class="calc-tabs">
@@ -1031,10 +1035,6 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
           Solicitar financiación con Andrés
         </a>
         <div class="calc-legal" id="calc-legal">* Cálculo orientativo. Condiciones exactas sujetas a aprobación de VW Financial Services.</div>
-      </div>
-      <div class="equip-section" id="equip-section">
-        <h3>Equipamiento</h3>
-        <div class="equip-grid" id="m-equip"></div>
       </div>
       <div class="modal-cta">
         <a class="btn-cta" id="m-link" href="#" target="_blank" rel="noopener">
