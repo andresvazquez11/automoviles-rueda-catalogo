@@ -93,6 +93,26 @@ def extract_vr_eur(ejemplo: str) -> float:
             pass
     return 0.0
 
+def extract_seguro_eur(ejemplo: str, precio: int) -> float:
+    """Extrae el Seguro de Protección Plus en EUR del texto verbatim de DWA.
+    Fórmula: importe_total_financiado - precio - comision_apertura.
+    Fallback: 6,15% del precio (valor real verificado en todos los coches DWA)."""
+    fallback = round(precio * 0.0615, 2)
+    if not ejemplo:
+        return fallback
+    comision_m = _re.search(r'Comisi[oó]n de apertura financiada[:\s]+([0-9.,]+)', ejemplo)
+    importe_m  = _re.search(r'Importe total financiado[:\s]+([0-9.,]+)', ejemplo)
+    if comision_m and importe_m:
+        try:
+            comision = float(comision_m.group(1).replace('.', '').replace(',', '.'))
+            importe  = float(importe_m.group(1).replace('.', '').replace(',', '.'))
+            val = round(importe - precio - comision, 2)
+            if 0 < val < precio * 0.15:   # sanity check: entre 0 y 15% del precio
+                return val
+        except Exception:
+            pass
+    return fallback
+
 def etiqueta_dgt(combustible: str) -> str:
     """Etiqueta medioambiental DGT según combustible (coches modernos DWA)."""
     c = combustible.lower()
@@ -148,6 +168,10 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
         "fin_tipo":    c.get("financiacion", {}).get("tipo", ""),
         "fin_ejemplo": c.get("financiacion", {}).get("ejemplo", ""),
         "fin_vr":      extract_vr_eur(c.get("financiacion", {}).get("ejemplo", "")),
+        "fin_seguro":  extract_seguro_eur(
+                           c.get("financiacion", {}).get("ejemplo", ""),
+                           int(str(c["precio"]).replace(".", "").replace(",", "").split()[0])
+                       ),
         "fin_fuente":  "dwa" if c.get("financiacion", {}).get("cuota") else "calc",
         "etiqueta":    etiqueta_dgt(c.get("combustible", "")),
         "estado":      c["estado"],          # "Disponible" o "No disponible"
@@ -893,15 +917,31 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
             <div class="calc-cuota-featured-lbl">Cuota mensual</div>
             <div class="calc-cuota-featured-val" id="cr-cuota">—</div>
           </div>
-          <!-- Desglose -->
+          <!-- Desglose — mismo orden y campos que Das WeltAuto -->
           <div class="calc-desglose">
             <div class="calc-result-row">
               <span class="calc-result-lbl">Precio al contado</span>
               <span class="calc-result-val" id="cr-precio">—</span>
             </div>
             <div class="calc-result-row">
+              <span class="calc-result-lbl">Descuento por financiar</span>
+              <span class="calc-result-val cr-muted">—</span>
+            </div>
+            <div class="calc-result-row">
               <span class="calc-result-lbl">Entrada inicial</span>
               <span class="calc-result-val" id="cr-entrada">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Seguro de Protección Plus</span>
+              <span class="calc-result-val" id="cr-seguro">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Comisión de apertura (3,5%)</span>
+              <span class="calc-result-val" id="cr-comision">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Importe total financiado</span>
+              <span class="calc-result-val" id="cr-importe">—</span>
             </div>
             <div class="calc-result-row">
               <span class="calc-result-lbl">T.I.N.</span>
@@ -912,20 +952,8 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
               <span class="calc-result-val" id="cr-tae">—</span>
             </div>
             <div class="calc-result-row">
-              <span class="calc-result-lbl">Comisión de apertura financiada</span>
-              <span class="calc-result-val" id="cr-comision">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Importe total financiado</span>
-              <span class="calc-result-val" id="cr-importe">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Importe total de los intereses</span>
-              <span class="calc-result-val" id="cr-intereses">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Coste total del crédito</span>
-              <span class="calc-result-val" id="cr-coste">—</span>
+              <span class="calc-result-lbl">Nº de cuotas</span>
+              <span class="calc-result-val" id="cr-ncuotas">—</span>
             </div>
             <div class="calc-result-row" id="cr-vr-row" style="display:none">
               <span class="calc-result-lbl" id="cr-vr-lbl">Cuota final mes N</span>
@@ -1123,7 +1151,8 @@ document.getElementById('sort-select').addEventListener('change', e => {{ ordenA
 // ── Calculadora de Financiación ─────────────────────────────────────────────
 let calcState = {{
   precio: 0, tin: 6.99, tae: null, meses: 48,
-  entradaPct: 0, tab: 'lineal', km: 15000, fin_ejemplo: ''
+  entradaPct: 0, tab: 'lineal', km: 15000, fin_ejemplo: '',
+  vrBase: null, seguro: 0
 }};
 
 // Tabla VR% calibrada con datos reales de DWA (60m/15k ≈ 61% promedio real)
@@ -1142,16 +1171,19 @@ const VR_TABLE = {{
 const VR_KM_ADJ   = {{10000:+5,15000:0,20000:-6,25000:-11,30000:-16}};
 const VR_MES_ADJ  = {{24:+18,36:+11,48:+5,60:0,72:-6,84:-12}};
 
-function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase) {{
-  const entrada = Math.round(precio * entradaPct / 100);
-  const r       = tin / 100 / 12;
-  const rn      = Math.pow(1 + r, meses);
+function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase, seguro) {{
+  const entrada  = Math.round(precio * entradaPct / 100);
+  const r        = tin / 100 / 12;
+  const rn       = Math.pow(1 + r, meses);
 
-  // ── Comisión de apertura: 3,5% sobre el capital (circular, igual que DWA) ──
-  // comision = capital × 0.035 → capital × 0.965 = neto → capital = neto / 0.965
-  const neto    = precio - entrada;                        // precio sin entrada
-  const capital = Math.round(neto / 0.965 * 100) / 100;   // importe total financiado
-  const comision= Math.round((capital - neto) * 100) / 100;
+  // ── Seguro de Protección Plus + Comisión de apertura 3,5% (circular) ──────
+  // DWA: capital = (precio - entrada + seguro) × 1.035
+  //      comision = capital - (precio - entrada + seguro)  =  base × 0.035
+  const neto     = precio - entrada;                          // precio menos entrada
+  const seg      = seguro || 0;
+  const base     = neto + seg;                                // neto + seguro
+  const capital  = Math.round(base * 1.035 * 100) / 100;     // importe total financiado
+  const comision = Math.round((capital - base) * 100) / 100;
 
   let vr = 0, cuota = 0;
 
@@ -1192,12 +1224,9 @@ function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase) {{
   cuota = Math.round(cuota * 100) / 100;
 
   // total a plazos = cuotas × n + entrada + cuota final VR (balloon)
-  const total     = Math.round((cuota * meses + entrada + vr) * 100) / 100;
-  const intereses = Math.round((cuota * meses - capital) * 100) / 100;
-  const coste     = Math.round((intereses + comision) * 100) / 100;
-  const importe   = neto;   // para mostrar: lo que financia el cliente (sin comision)
+  const total  = Math.round((cuota * meses + entrada + vr) * 100) / 100;
 
-  return {{ entrada, importe, comision, capital, cuota, total, vr, intereses, coste }};
+  return {{ entrada, seguro: seg, comision, capital, cuota, total, vr }};
 }}
 
 function fmtEur(v) {{
@@ -1206,18 +1235,19 @@ function fmtEur(v) {{
 
 function renderCalc() {{
   const s = calcState;
-  const r = calcFinanciacion(s.precio, s.tin, s.entradaPct, s.meses, s.tab, s.km, s.vrBase);
+  const r = calcFinanciacion(s.precio, s.tin, s.entradaPct, s.meses, s.tab, s.km, s.vrBase, s.seguro);
   const tinStr = Number(s.tin).toFixed(2).replace('.', ',') + ' %';
   const taeStr = s.tae ? (String(s.tae).replace('.', ',') + ' %') : '—';
 
+  // ── Desglose (mismo orden que DWA) ───────────────────────────────────────
   document.getElementById('cr-precio').textContent   = fmtEur(s.precio);
   document.getElementById('cr-entrada').textContent  = fmtEur(r.entrada);
-  document.getElementById('cr-tin').textContent      = tinStr;
-  document.getElementById('cr-tae').textContent      = taeStr;
+  document.getElementById('cr-seguro').textContent   = fmtEur(r.seguro);
   document.getElementById('cr-comision').textContent = fmtEur(r.comision);
   document.getElementById('cr-importe').textContent  = fmtEur(r.capital);
-  document.getElementById('cr-intereses').textContent = fmtEur(r.intereses);
-  document.getElementById('cr-coste').textContent    = fmtEur(r.coste);
+  document.getElementById('cr-tin').textContent      = tinStr;
+  document.getElementById('cr-tae').textContent      = taeStr;
+  document.getElementById('cr-ncuotas').textContent  = s.meses;
   document.getElementById('cr-total').textContent    = fmtEur(r.total);
   document.getElementById('cr-cuota').textContent    = fmtEur(r.cuota) + '/mes';
 
@@ -1234,7 +1264,11 @@ function renderCalc() {{
   const legal = document.getElementById('calc-legal');
   const anos  = Math.round(s.meses / 12);
   const kmk   = Math.round(s.km / 1000);
-  let txt = `Precio financiando: ${{fmtEur(s.precio)}}. Precio al contado: ${{fmtEur(s.precio)}}. ` +
+  let txt = `Precio al contado: ${{fmtEur(s.precio)}}. ` +
+    `Entrada inicial: ${{fmtEur(r.entrada)}}. ` +
+    `Seguro de Protección Plus: ${{fmtEur(r.seguro)}}. ` +
+    `Comisión de apertura financiada: ${{fmtEur(r.comision)}}. ` +
+    `Importe total financiado: ${{fmtEur(r.capital)}}. ` +
     `TIN: ${{tinStr}}. TAE: ${{taeStr}}. ` +
     `Ejemplo de cuota a ${{s.meses}} meses: ${{fmtEur(r.cuota)}}`;
   if (s.tab === 'autocredit') {{
@@ -1242,16 +1276,9 @@ function renderCalc() {{
       `podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final ` +
       `en el mes ${{s.meses}} de ${{fmtEur(r.vr)}} (calculada con ${{kmk}}.000 km anuales)`;
   }}
-  txt += `. Entrada inicial: ${{fmtEur(r.entrada)}}. ` +
-    `Comisión de apertura financiada: ${{fmtEur(r.comision)}}. ` +
-    `Importe total financiado: ${{fmtEur(r.capital)}}. ` +
-    `Importe total de los intereses: ${{fmtEur(r.intereses)}}. ` +
-    `Coste total del crédito: ${{fmtEur(r.coste)}}. ` +
-    `Precio total a plazos: ${{fmtEur(r.total)}}. ` +
+  txt += `. Precio total a plazos: ${{fmtEur(r.total)}}. ` +
     `Sistema de amortización francés. ` +
-    `Cálculo orientativo (TIN {COMERCIAL_TELEFONO.replace(" ","")[0]}`,99%). ` +
-    `La cuota real de DWA puede incluir un seguro de protección opcional que puede elevar la cuota mensual. ` +
-    `Consulta condiciones exactas con Andrés · {COMERCIAL_TELEFONO}.`;
+    `Consulta condiciones exactas con {COMERCIAL_NOMBRE} · {COMERCIAL_TELEFONO}.`;
   legal.textContent = txt;
 }}
 
@@ -1295,6 +1322,10 @@ function initCalc(c) {{
   calcState.fin_ejemplo = c.fin_ejemplo || '';
   // VR real de DWA a 60m/15k km (extraído del texto de condiciones)
   calcState.vrBase     = c.fin_vr && c.fin_vr > 0 ? c.fin_vr : null;
+  // Seguro de Protección Plus: valor real extraído del texto DWA, o fallback 6,15%
+  calcState.seguro     = c.fin_seguro && c.fin_seguro > 0
+                         ? c.fin_seguro
+                         : Math.round(calcState.precio * 0.0615);
   const defaultMeses   = c.fin_meses ? parseInt(c.fin_meses) : 48;
   calcState.meses      = [24,36,48,60,72,84].includes(defaultMeses) ? defaultMeses : 48;
   calcState.entradaPct = 0;

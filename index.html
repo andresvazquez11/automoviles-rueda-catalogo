@@ -734,15 +734,31 @@
             <div class="calc-cuota-featured-lbl">Cuota mensual</div>
             <div class="calc-cuota-featured-val" id="cr-cuota">—</div>
           </div>
-          <!-- Desglose -->
+          <!-- Desglose — mismo orden y campos que Das WeltAuto -->
           <div class="calc-desglose">
             <div class="calc-result-row">
               <span class="calc-result-lbl">Precio al contado</span>
               <span class="calc-result-val" id="cr-precio">—</span>
             </div>
             <div class="calc-result-row">
+              <span class="calc-result-lbl">Descuento por financiar</span>
+              <span class="calc-result-val cr-muted">—</span>
+            </div>
+            <div class="calc-result-row">
               <span class="calc-result-lbl">Entrada inicial</span>
               <span class="calc-result-val" id="cr-entrada">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Seguro de Protección Plus</span>
+              <span class="calc-result-val" id="cr-seguro">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Comisión de apertura (3,5%)</span>
+              <span class="calc-result-val" id="cr-comision">—</span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-lbl">Importe total financiado</span>
+              <span class="calc-result-val" id="cr-importe">—</span>
             </div>
             <div class="calc-result-row">
               <span class="calc-result-lbl">T.I.N.</span>
@@ -753,20 +769,8 @@
               <span class="calc-result-val" id="cr-tae">—</span>
             </div>
             <div class="calc-result-row">
-              <span class="calc-result-lbl">Comisión de apertura financiada</span>
-              <span class="calc-result-val" id="cr-comision">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Importe total financiado</span>
-              <span class="calc-result-val" id="cr-importe">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Importe total de los intereses</span>
-              <span class="calc-result-val" id="cr-intereses">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Coste total del crédito</span>
-              <span class="calc-result-val" id="cr-coste">—</span>
+              <span class="calc-result-lbl">Nº de cuotas</span>
+              <span class="calc-result-val" id="cr-ncuotas">—</span>
             </div>
             <div class="calc-result-row" id="cr-vr-row" style="display:none">
               <span class="calc-result-lbl" id="cr-vr-lbl">Cuota final mes N</span>
@@ -840,6 +844,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 252,52 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.348,65 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 702,21 €. Importe total financiado 20.765,39 €. Importe total de los intereses: 5.734,46 €. Coste total del crédito: 6.436,67 €. Precio total a plazos 26.499,85 €. Importe total adeudado: 26.499,85 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 11348.65,
+    "fin_seguro": 1163.18,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -886,6 +891,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 252,05 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.382,26 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 702,21 €. Importe total financiado 20.765,39 €. Importe total de los intereses: 5.739,87 €. Coste total del crédito: 6.442,08 €. Precio total a plazos 26.505,26 €. Importe total adeudado: 26.505,26 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 11382.26,
+    "fin_seguro": 1163.18,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -932,6 +938,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 235,03 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.978,33 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 687,35 €. Importe total financiado 20.325,93 €. Importe total de los intereses: 5.754,20 €. Coste total del crédito: 6.441,55 €. Precio total a plazos 26.080,13 €. Importe total adeudado: 26.080,13 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 11978.33,
+    "fin_seguro": 1138.58,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -978,6 +985,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 404,26 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.026,19 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.281,82 €. Importe total financiado 37.905,11 €. Importe total de los intereses: 8.376,68 €. Coste total del crédito: 9.658,50 €. Precio total a plazos 46.281,79 €. Importe total adeudado: 46.281,79 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 22026.19,
+    "fin_seguro": 2123.29,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -1024,6 +1032,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 332,03 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.797,44 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.148,07 €. Importe total financiado 33.949,80 €. Importe total de los intereses: 7.769,44 €. Coste total del crédito: 8.917,51 €. Precio total a plazos 41.719,24 €. Importe total adeudado: 41.719,24 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 21797.44,
+    "fin_seguro": 1901.73,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "No disponible",
@@ -1070,6 +1079,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 314,42 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.929,20 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.036,60 €. Importe total financiado 30.653,70 €. Importe total de los intereses: 9.140,70 €. Coste total del crédito: 10.177,30 €. Precio total a plazos 39.794,40 €. Importe total adeudado: 39.794,40 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 20929.2,
+    "fin_seguro": 1717.1,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -1116,6 +1126,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 345,87 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 16.498,85 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 984,59 €. Importe total financiado 29.115,53 €. Importe total de los intereses: 8.135,52 €. Coste total del crédito: 9.120,11 €. Precio total a plazos 37.251,05 €. Importe total adeudado: 37.251,05 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 16498.85,
+    "fin_seguro": 1630.94,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1162,6 +1173,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 297,23 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.375,82 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 850,83 €. Importe total financiado 25.160,20 €. Importe total de los intereses: 7.049,42 €. Coste total del crédito: 7.900,25 €. Precio total a plazos 32.209,62 €. Importe total adeudado: 32.209,62 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 14375.82,
+    "fin_seguro": 1409.37,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1208,6 +1220,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 280,03 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.984,63 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 835,97 €. Importe total financiado 24.720,73 €. Importe total de los intereses: 7.065,70 €. Coste total del crédito: 7.901,67 €. Precio total a plazos 31.786,43 €. Importe total adeudado: 31.786,43 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 14984.63,
+    "fin_seguro": 1384.76,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -1254,6 +1267,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 282,85 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 12.291,58 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 776,52 €. Importe total financiado 22.962,80 €. Importe total de los intereses: 6.299,78 €. Coste total del crédito: 7.076,30 €. Precio total a plazos 29.262,58 €. Importe total adeudado: 29.262,58 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 12291.58,
+    "fin_seguro": 1286.28,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1300,6 +1314,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 272,60 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.468,47 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 739,37 €. Importe total financiado 21.864,11 €. Importe total de los intereses: 5.960,36 €. Coste total del crédito: 6.699,73 €. Precio total a plazos 27.824,47 €. Importe total adeudado: 27.824,47 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 11468.47,
+    "fin_seguro": 1224.74,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1346,6 +1361,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 376,50 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.179,71 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.185,22 €. Importe total financiado 35.048,50 €. Importe total de los intereses: 7.721,21 €. Coste total del crédito: 8.906,43 €. Precio total a plazos 42.769,71 €. Importe total adeudado: 42.769,71 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 20179.71,
+    "fin_seguro": 1963.28,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -1392,6 +1408,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 315,71 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.837,34 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.036,60 €. Importe total financiado 30.653,70 €. Importe total de los intereses: 9.126,24 €. Coste total del crédito: 10.162,84 €. Precio total a plazos 39.779,94 €. Importe total adeudado: 39.779,94 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 20837.34,
+    "fin_seguro": 1717.1,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -1438,6 +1455,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 359,13 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 19.909,10 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.088,62 €. Importe total financiado 32.191,88 €. Importe total de los intereses: 9.265,02 €. Coste total del crédito: 10.353,64 €. Precio total a plazos 41.456,90 €. Importe total adeudado: 41.456,90 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 19909.1,
+    "fin_seguro": 1803.26,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -1484,6 +1502,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 72 meses: 329,57 €. Entrada inicial: 0,00 €. Comisión de apertura financiada: 618,46 €. Importe total financiado 18.288,81 €. Importe total de los intereses: 5.440,23 €. Coste total del crédito: 6.058,69 €. Precio total a plazos 23.729,04 €. Importe total adeudado: 23.729,04 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 0.0,
+    "fin_seguro": 170.35,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1530,6 +1549,7 @@ const COCHES = [
     "fin_tipo": "Lineal",
     "fin_ejemplo": "Ejemplo de cuota a 96 meses: 325,25 €. Entrada inicial: 0,00 €. Comisión de apertura financiada: 751,03 €. Importe total financiado 22.208,97 €. Importe total de los intereses: 9.015,03 €. Coste total del crédito: 9.766,06 €. Precio total a plazos 31.224,00 €. Importe total adeudado: 31.224,00 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 0.0,
+    "fin_seguro": 957.94,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1576,6 +1596,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 293,42 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.648,73 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 850,83 €. Importe total financiado 25.160,20 €. Importe total de los intereses: 7.093,73 €. Coste total del crédito: 7.944,56 €. Precio total a plazos 32.253,93 €. Importe total adeudado: 32.253,93 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 14648.73,
+    "fin_seguro": 1409.37,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "No disponible",
@@ -1622,6 +1643,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 96 meses: 314,17 €. Entrada inicial: 0,00 €. Comisión de apertura financiada: 779,55 €. Importe total financiado 23.052,35 €. Importe total de los intereses: 7.107,97 €. Coste total del crédito: 7.887,52 €. Precio total a plazos 30.160,32 €. Importe total adeudado: 30.160,32 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 0.0,
+    "fin_seguro": 1772.8,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1668,6 +1690,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 252,56 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.346,06 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 702,21 €. Importe total financiado 20.765,39 €. Importe total de los intereses: 5.734,27 €. Coste total del crédito: 6.436,48 €. Precio total a plazos 26.499,66 €. Importe total adeudado: 26.499,66 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 11346.06,
+    "fin_seguro": 1163.18,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1714,6 +1737,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 246,35 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.167,65 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 687,35 €. Importe total financiado 20.325,93 €. Importe total de los intereses: 5.622,72 €. Coste total del crédito: 6.310,07 €. Precio total a plazos 25.948,65 €. Importe total adeudado: 25.948,65 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 11167.65,
+    "fin_seguro": 1138.58,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1760,6 +1784,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 321,23 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.375,89 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.058,90 €. Importe total financiado 31.312,93 €. Importe total de los intereses: 9.336,76 €. Coste total del crédito: 10.395,66 €. Precio total a plazos 40.649,69 €. Importe total adeudado: 40.649,69 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 21375.89,
+    "fin_seguro": 1754.03,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -1806,6 +1831,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 245,60 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.910,55 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 679,92 €. Importe total financiado 20.106,19 €. Importe total de los intereses: 5.540,36 €. Coste total del crédito: 6.220,28 €. Precio total a plazos 25.646,55 €. Importe total adeudado: 25.646,55 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 10910.55,
+    "fin_seguro": 1126.27,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1852,6 +1878,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 245,30 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.308,73 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 665,06 €. Importe total financiado 19.666,71 €. Importe total de los intereses: 5.360,02 €. Coste total del crédito: 6.025,08 €. Precio total a plazos 25.026,73 €. Importe total adeudado: 25.026,73 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 10308.73,
+    "fin_seguro": 1101.65,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1898,6 +1925,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 251,37 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.497,15 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 679,92 €. Importe total financiado 20.106,19 €. Importe total de los intereses: 5.473,16 €. Coste total del crédito: 6.153,08 €. Precio total a plazos 25.579,35 €. Importe total adeudado: 25.579,35 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 10497.15,
+    "fin_seguro": 1126.27,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -1944,6 +1972,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 373,46 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.388,92 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.185,22 €. Importe total financiado 35.048,50 €. Importe total de los intereses: 7.748,02 €. Coste total del crédito: 8.933,24 €. Precio total a plazos 42.796,52 €. Importe total adeudado: 42.796,52 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 20388.92,
+    "fin_seguro": 1963.28,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -1990,6 +2019,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 254,46 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.587,68 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 687,35 €. Importe total financiado 20.325,93 €. Importe total de los intereses: 5.529,35 €. Coste total del crédito: 6.216,70 €. Precio total a plazos 25.855,28 €. Importe total adeudado: 25.855,28 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 10587.68,
+    "fin_seguro": 1138.58,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "No disponible",
@@ -2036,6 +2066,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 96 meses: 274,33 €. Entrada inicial: 0,00 €. Comisión de apertura financiada: 680,68 €. Importe total financiado 20.128,64 €. Importe total de los intereses: 6.207,04 €. Coste total del crédito: 6.887,72 €. Precio total a plazos 26.335,68 €. Importe total adeudado: 26.335,68 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 0.0,
+    "fin_seguro": 1547.96,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2082,6 +2113,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 48 meses: 548,50 €. Entrada inicial: 0,00 €. Comisión de apertura financiada: 745,50 €. Importe total financiado 22.045,61 €. Importe total de los intereses: 4.282,39 €. Coste total del crédito: 5.027,89 €. Precio total a plazos 26.328,00 €. Importe total adeudado: 26.328,00 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 0.0,
+    "fin_seguro": 400.11,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -2128,6 +2160,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 240,62 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.224,27 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 750,52 €. Importe total financiado 22.193,71 €. Importe total de los intereses: 6.467,76 €. Coste total del crédito: 7.218,28 €. Precio total a plazos 28.661,47 €. Importe total adeudado: 28.661,47 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 14224.27,
+    "fin_seguro": 1243.19,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "No disponible",
@@ -2174,6 +2207,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 374,58 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 18.180,06 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.073,76 €. Importe total financiado 31.752,40 €. Importe total de los intereses: 8.902,46 €. Coste total del crédito: 9.976,22 €. Precio total a plazos 40.654,86 €. Importe total adeudado: 40.654,86 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 18180.06,
+    "fin_seguro": 1778.64,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2220,6 +2254,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 240,97 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.199,56 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 750,52 €. Importe total financiado 22.193,71 €. Importe total de los intereses: 6.464,05 €. Coste total del crédito: 7.214,57 €. Precio total a plazos 28.657,76 €. Importe total adeudado: 28.657,76 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 14199.56,
+    "fin_seguro": 1243.19,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2266,6 +2301,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota: importe a financiar de 16.000,00€. Sin entrada. 60 cuotas de 347,32€/mes. Comisión de apertura al contado: 480,00€ (3,00%). Importe de los intereses 4.103,65€. Coste total del crédito 4.583,65€. Importe total adeudado: 21.319,20€. Precio total a plazos: 21.319,20€. TIN: 8,99%. TAE: 10,74%. Sistema de amortización francés. La oferta incluye Seguro de Protección de Pago Básico opcional y financiado por 735,55€ que no está incluido como gasto en el cálculo de la TAE. La oferta incluye gratis 2 años de Mantenimiento o 40",
     "fin_vr": 0.0,
+    "fin_seguro": 1162.35,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2312,6 +2348,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 474,49 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.256,37 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.222,38 €. Importe total financiado 36.147,20 €. Importe total de los intereses: 9.578,57 €. Coste total del crédito: 10.800,95 €. Precio total a plazos 45.725,77 €. Importe total adeudado: 45.725,77 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 17256.37,
+    "fin_seguro": 2024.82,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2358,6 +2395,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 500,04 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 25.258,63 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.534,47 €. Importe total financiado 45.376,27 €. Importe total de los intereses: 9.884,76 €. Coste total del crédito: 11.419,23 €. Precio total a plazos 55.261,03 €. Importe total adeudado: 55.261,03 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 25258.63,
+    "fin_seguro": 2541.8,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -2404,6 +2442,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 445,05 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.543,22 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.058,90 €. Importe total financiado 31.312,93 €. Importe total de los intereses: 5.933,29 €. Coste total del crédito: 6.992,19 €. Precio total a plazos 37.246,22 €. Importe total adeudado: 37.246,22 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 10543.22,
+    "fin_seguro": 1754.03,
     "fin_fuente": "dwa",
     "etiqueta": "CERO",
     "estado": "Disponible",
@@ -2450,6 +2489,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 252,82 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.327,53 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 702,21 €. Importe total financiado 20.765,39 €. Importe total de los intereses: 5.731,34 €. Coste total del crédito: 6.433,55 €. Precio total a plazos 26.496,73 €. Importe total adeudado: 26.496,73 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 11327.53,
+    "fin_seguro": 1163.18,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "No disponible",
@@ -2496,6 +2536,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 235,03 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.978,33 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 687,35 €. Importe total financiado 20.325,93 €. Importe total de los intereses: 5.754,20 €. Coste total del crédito: 6.441,55 €. Precio total a plazos 26.080,13 €. Importe total adeudado: 26.080,13 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat.",
     "fin_vr": 11978.33,
+    "fin_seguro": 1438.58,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "No disponible",
@@ -2542,6 +2583,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 469,96 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.580,97 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.222,38 €. Importe total financiado 36.147,20 €. Importe total de los intereses: 9.631,37 €. Coste total del crédito: 10.853,75 €. Precio total a plazos 45.778,57 €. Importe total adeudado: 45.778,57 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 17580.97,
+    "fin_seguro": 2024.82,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2588,6 +2630,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 263,04 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.643,48 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 798,82 €. Importe total financiado 23.622,04 €. Importe total de los intereses: 6.803,84 €. Coste total del crédito: 7.602,66 €. Precio total a plazos 30.425,88 €. Importe total adeudado: 30.425,88 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 14643.48,
+    "fin_seguro": 1323.22,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "No disponible",
@@ -2634,6 +2677,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 394,67 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 24.710,84 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.333,84 €. Importe total financiado 39.443,30 €. Importe total de los intereses: 8.947,74 €. Coste total del crédito: 10.281,58 €. Precio total a plazos 48.391,04 €. Importe total adeudado: 48.391,04 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 24710.84,
+    "fin_seguro": 2209.46,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -2680,6 +2724,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 366,78 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.957,97 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.110,91 €. Importe total financiado 32.851,10 €. Importe total de los intereses: 7.113,67 €. Coste total del crédito: 8.224,58 €. Precio total a plazos 39.964,77 €. Importe total adeudado: 39.964,77 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 17957.97,
+    "fin_seguro": 1840.19,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2726,6 +2771,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota: importe a financiar de 16.000,00€. Sin entrada. 60 cuotas de 347,32€/mes. Comisión de apertura al contado: 480,00€ (3,00%). Importe de los intereses 4.103,65€. Coste total del crédito 4.583,65€. Importe total adeudado: 21.319,20€. Precio total a plazos: 21.319,20€. TIN: 8,99%. TAE: 10,74%. Sistema de amortización francés. La oferta incluye Seguro de Protección de Pago Básico opcional y financiado por 735,55€ que no está incluido como gasto en el cálculo de la TAE. La oferta incluye gratis 2 años de Mantenimiento o 40",
     "fin_vr": 0.0,
+    "fin_seguro": 2207.85,
     "fin_fuente": "dwa",
     "etiqueta": "CERO",
     "estado": "Disponible",
@@ -2772,6 +2818,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 252,52 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.348,65 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 702,21 €. Importe total financiado 20.765,39 €. Importe total de los intereses: 5.734,46 €. Coste total del crédito: 6.436,67 €. Precio total a plazos 26.499,85 €. Importe total adeudado: 26.499,85 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat.",
     "fin_vr": 11348.65,
+    "fin_seguro": 1363.18,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2818,6 +2865,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 254,66 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.573,00 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 687,35 €. Importe total financiado 20.325,93 €. Importe total de los intereses: 5.526,67 €. Coste total del crédito: 6.214,02 €. Precio total a plazos 25.852,60 €. Importe total adeudado: 25.852,60 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 10573.0,
+    "fin_seguro": 1138.58,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2864,6 +2912,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 427,76 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 19.978,40 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.207,51 €. Importe total financiado 35.707,71 €. Importe total de los intereses: 9.936,29 €. Coste total del crédito: 11.143,80 €. Precio total a plazos 45.644,00 €. Importe total adeudado: 45.644,00 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 19978.4,
+    "fin_seguro": 2000.2,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2910,6 +2959,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 253,57 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.651,30 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 687,35 €. Importe total financiado 20.325,93 €. Importe total de los intereses: 5.539,57 €. Coste total del crédito: 6.226,92 €. Precio total a plazos 25.865,50 €. Importe total adeudado: 25.865,50 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 10651.3,
+    "fin_seguro": 1138.58,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -2956,6 +3006,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 224,17 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.264,69 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 627,91 €. Importe total financiado 18.568,02 €. Importe total de los intereses: 5.146,87 €. Coste total del crédito: 5.774,78 €. Precio total a plazos 23.714,89 €. Importe total adeudado: 23.714,89 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 10264.69,
+    "fin_seguro": 40.11,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -3002,6 +3053,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 370,91 €. Entrada inicial: 0,00 €. Comisión de apertura financiada: 633,59 €. Importe total financiado 18.736,12 €. Importe total de los intereses: 3.518,48 €. Coste total del crédito: 4.152,07 €. Precio total a plazos 22.254,60 €. Importe total adeudado: 22.254,60 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 0.0,
+    "fin_seguro": 1125.45,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -3048,6 +3100,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 254,42 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 12.147,36 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 724,51 €. Importe total financiado 21.424,63 €. Importe total de los intereses: 5.987,93 €. Coste total del crédito: 6.712,44 €. Precio total a plazos 27.412,56 €. Importe total adeudado: 27.412,56 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar",
     "fin_vr": 12147.36,
+    "fin_seguro": 1200.12,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -3094,6 +3147,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 372,40 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.461,95 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.185,22 €. Importe total financiado 35.048,50 €. Importe total de los intereses: 7.757,45 €. Coste total del crédito: 8.942,67 €. Precio total a plazos 42.805,95 €. Importe total adeudado: 42.805,95 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 20461.95,
+    "fin_seguro": 1963.28,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -3140,6 +3194,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 404,26 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.026,19 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.281,82 €. Importe total financiado 37.905,11 €. Importe total de los intereses: 8.376,68 €. Coste total del crédito: 9.658,50 €. Precio total a plazos 46.281,79 €. Importe total adeudado: 46.281,79 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra.",
     "fin_vr": 22026.19,
+    "fin_seguro": 123.29,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -3186,6 +3241,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 329,11 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.408,31 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.107,20 €. Importe total financiado 32.741,23 €. Importe total de los intereses: 7.413,68 €. Coste total del crédito: 8.520,88 €. Precio total a plazos 40.154,91 €. Importe total adeudado: 40.154,91 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 20408.31,
+    "fin_seguro": 1834.03,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -3232,6 +3288,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 650,75 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 25.285,34 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.801,98 €. Importe total financiado 53.286,89 €. Importe total de los intereses: 11.043,45 €. Coste total del crédito: 12.845,43 €. Precio total a plazos 64.330,34 €. Importe total adeudado: 64.330,34 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 25285.34,
+    "fin_seguro": 2984.91,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "No disponible",
@@ -3278,6 +3335,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 362,76 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.125,90 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.185,22 €. Importe total financiado 35.048,50 €. Importe total de los intereses: 7.843,00 €. Coste total del crédito: 9.028,22 €. Precio total a plazos 42.891,50 €. Importe total adeudado: 42.891,50 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 21125.9,
+    "fin_seguro": 1963.28,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "No disponible",
@@ -3324,6 +3382,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 318,86 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.139,84 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 850,83 €. Importe total financiado 25.160,20 €. Importe total de los intereses: 5.111,24 €. Coste total del crédito: 5.962,07 €. Precio total a plazos 30.271,44 €. Importe total adeudado: 30.271,44 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 11139.84,
+    "fin_seguro": 1409.37,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "Disponible",
@@ -3370,6 +3429,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 416,71 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 24.059,41 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.356,13 €. Importe total financiado 40.102,51 €. Importe total de los intereses: 8.959,50 €. Coste total del crédito: 10.315,63 €. Precio total a plazos 49.062,01 €. Importe total adeudado: 49.062,01 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 24059.41,
+    "fin_seguro": 2246.38,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -3416,6 +3476,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 359,72 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 12.662,20 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 962,30 €. Importe total financiado 28.456,31 €. Importe total de los intereses: 5.789,09 €. Coste total del crédito: 6.751,39 €. Precio total a plazos 34.245,40 €. Importe total adeudado: 34.245,40 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 12662.2,
+    "fin_seguro": 1594.01,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -3462,6 +3523,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 529,74 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 18.298,03 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.408,15 €. Importe total financiado 41.640,70 €. Importe total de los intereses: 8.441,73 €. Coste total del crédito: 9.849,88 €. Precio total a plazos 50.082,43 €. Importe total adeudado: 50.082,43 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 18298.03,
+    "fin_seguro": 2332.55,
     "fin_fuente": "dwa",
     "etiqueta": "CERO",
     "estado": "Disponible",
@@ -3508,6 +3570,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 403,00 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.690,98 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.296,68 €. Importe total financiado 38.344,60 €. Importe total de los intereses: 8.526,38 €. Coste total del crédito: 9.823,06 €. Precio total a plazos 46.870,98 €. Importe total adeudado: 46.870,98 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 22690.98,
+    "fin_seguro": 2147.92,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -3554,6 +3617,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 377,54 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.975,27 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.207,51 €. Importe total financiado 35.707,71 €. Importe total de los intereses: 7.919,96 €. Coste total del crédito: 9.127,47 €. Precio total a plazos 43.627,67 €. Importe total adeudado: 43.627,67 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 20975.27,
+    "fin_seguro": 2000.2,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -3600,6 +3664,7 @@ const COCHES = [
     "fin_tipo": "Autocredit",
     "fin_ejemplo": "Ejemplo de cuota a 60 meses: 386,48 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.383,37 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.259,53 €. Importe total financiado 37.245,90 €. Importe total de los intereses: 8.326,27 €. Coste total del crédito: 9.585,80 €. Precio total a plazos 45.572,17 €. Importe total adeudado: 45.572,17 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar",
     "fin_vr": 22383.37,
+    "fin_seguro": 2086.37,
     "fin_fuente": "dwa",
     "etiqueta": "ECO",
     "estado": "Disponible",
@@ -3646,6 +3711,7 @@ const COCHES = [
     "fin_tipo": "",
     "fin_ejemplo": "",
     "fin_vr": 0.0,
+    "fin_seguro": 1242.3,
     "fin_fuente": "dwa",
     "etiqueta": "C",
     "estado": "No disponible",
@@ -3817,7 +3883,8 @@ document.getElementById('sort-select').addEventListener('change', e => { ordenAc
 // ── Calculadora de Financiación ─────────────────────────────────────────────
 let calcState = {
   precio: 0, tin: 6.99, tae: null, meses: 48,
-  entradaPct: 0, tab: 'lineal', km: 15000, fin_ejemplo: ''
+  entradaPct: 0, tab: 'lineal', km: 15000, fin_ejemplo: '',
+  vrBase: null, seguro: 0
 };
 
 // Tabla VR% calibrada con datos reales de DWA (60m/15k ≈ 61% promedio real)
@@ -3836,16 +3903,19 @@ const VR_TABLE = {
 const VR_KM_ADJ   = {10000:+5,15000:0,20000:-6,25000:-11,30000:-16};
 const VR_MES_ADJ  = {24:+18,36:+11,48:+5,60:0,72:-6,84:-12};
 
-function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase) {
-  const entrada = Math.round(precio * entradaPct / 100);
-  const r       = tin / 100 / 12;
-  const rn      = Math.pow(1 + r, meses);
+function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase, seguro) {
+  const entrada  = Math.round(precio * entradaPct / 100);
+  const r        = tin / 100 / 12;
+  const rn       = Math.pow(1 + r, meses);
 
-  // ── Comisión de apertura: 3,5% sobre el capital (circular, igual que DWA) ──
-  // comision = capital × 0.035 → capital × 0.965 = neto → capital = neto / 0.965
-  const neto    = precio - entrada;                        // precio sin entrada
-  const capital = Math.round(neto / 0.965 * 100) / 100;   // importe total financiado
-  const comision= Math.round((capital - neto) * 100) / 100;
+  // ── Seguro de Protección Plus + Comisión de apertura 3,5% (circular) ──────
+  // DWA: capital = (precio - entrada + seguro) × 1.035
+  //      comision = capital - (precio - entrada + seguro)  =  base × 0.035
+  const neto     = precio - entrada;                          // precio menos entrada
+  const seg      = seguro || 0;
+  const base     = neto + seg;                                // neto + seguro
+  const capital  = Math.round(base * 1.035 * 100) / 100;     // importe total financiado
+  const comision = Math.round((capital - base) * 100) / 100;
 
   let vr = 0, cuota = 0;
 
@@ -3886,12 +3956,9 @@ function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase) {
   cuota = Math.round(cuota * 100) / 100;
 
   // total a plazos = cuotas × n + entrada + cuota final VR (balloon)
-  const total     = Math.round((cuota * meses + entrada + vr) * 100) / 100;
-  const intereses = Math.round((cuota * meses - capital) * 100) / 100;
-  const coste     = Math.round((intereses + comision) * 100) / 100;
-  const importe   = neto;   // para mostrar: lo que financia el cliente (sin comision)
+  const total  = Math.round((cuota * meses + entrada + vr) * 100) / 100;
 
-  return { entrada, importe, comision, capital, cuota, total, vr, intereses, coste };
+  return { entrada, seguro: seg, comision, capital, cuota, total, vr };
 }
 
 function fmtEur(v) {
@@ -3900,18 +3967,19 @@ function fmtEur(v) {
 
 function renderCalc() {
   const s = calcState;
-  const r = calcFinanciacion(s.precio, s.tin, s.entradaPct, s.meses, s.tab, s.km, s.vrBase);
+  const r = calcFinanciacion(s.precio, s.tin, s.entradaPct, s.meses, s.tab, s.km, s.vrBase, s.seguro);
   const tinStr = Number(s.tin).toFixed(2).replace('.', ',') + ' %';
   const taeStr = s.tae ? (String(s.tae).replace('.', ',') + ' %') : '—';
 
+  // ── Desglose (mismo orden que DWA) ───────────────────────────────────────
   document.getElementById('cr-precio').textContent   = fmtEur(s.precio);
   document.getElementById('cr-entrada').textContent  = fmtEur(r.entrada);
-  document.getElementById('cr-tin').textContent      = tinStr;
-  document.getElementById('cr-tae').textContent      = taeStr;
+  document.getElementById('cr-seguro').textContent   = fmtEur(r.seguro);
   document.getElementById('cr-comision').textContent = fmtEur(r.comision);
   document.getElementById('cr-importe').textContent  = fmtEur(r.capital);
-  document.getElementById('cr-intereses').textContent = fmtEur(r.intereses);
-  document.getElementById('cr-coste').textContent    = fmtEur(r.coste);
+  document.getElementById('cr-tin').textContent      = tinStr;
+  document.getElementById('cr-tae').textContent      = taeStr;
+  document.getElementById('cr-ncuotas').textContent  = s.meses;
   document.getElementById('cr-total').textContent    = fmtEur(r.total);
   document.getElementById('cr-cuota').textContent    = fmtEur(r.cuota) + '/mes';
 
@@ -3928,7 +3996,11 @@ function renderCalc() {
   const legal = document.getElementById('calc-legal');
   const anos  = Math.round(s.meses / 12);
   const kmk   = Math.round(s.km / 1000);
-  let txt = `Precio financiando: ${fmtEur(s.precio)}. Precio al contado: ${fmtEur(s.precio)}. ` +
+  let txt = `Precio al contado: ${fmtEur(s.precio)}. ` +
+    `Entrada inicial: ${fmtEur(r.entrada)}. ` +
+    `Seguro de Protección Plus: ${fmtEur(r.seguro)}. ` +
+    `Comisión de apertura financiada: ${fmtEur(r.comision)}. ` +
+    `Importe total financiado: ${fmtEur(r.capital)}. ` +
     `TIN: ${tinStr}. TAE: ${taeStr}. ` +
     `Ejemplo de cuota a ${s.meses} meses: ${fmtEur(r.cuota)}`;
   if (s.tab === 'autocredit') {
@@ -3936,16 +4008,9 @@ function renderCalc() {
       `podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final ` +
       `en el mes ${s.meses} de ${fmtEur(r.vr)} (calculada con ${kmk}.000 km anuales)`;
   }
-  txt += `. Entrada inicial: ${fmtEur(r.entrada)}. ` +
-    `Comisión de apertura financiada: ${fmtEur(r.comision)}. ` +
-    `Importe total financiado: ${fmtEur(r.capital)}. ` +
-    `Importe total de los intereses: ${fmtEur(r.intereses)}. ` +
-    `Coste total del crédito: ${fmtEur(r.coste)}. ` +
-    `Precio total a plazos: ${fmtEur(r.total)}. ` +
+  txt += `. Precio total a plazos: ${fmtEur(r.total)}. ` +
     `Sistema de amortización francés. ` +
-    `Cálculo orientativo (TIN 6`,99%). ` +
-    `La cuota real de DWA puede incluir un seguro de protección opcional que puede elevar la cuota mensual. ` +
-    `Consulta condiciones exactas con Andrés · 610 02 90 56.`;
+    `Consulta condiciones exactas con Andrés Vázquez · 610 02 90 56.`;
   legal.textContent = txt;
 }
 
@@ -3989,6 +4054,10 @@ function initCalc(c) {
   calcState.fin_ejemplo = c.fin_ejemplo || '';
   // VR real de DWA a 60m/15k km (extraído del texto de condiciones)
   calcState.vrBase     = c.fin_vr && c.fin_vr > 0 ? c.fin_vr : null;
+  // Seguro de Protección Plus: valor real extraído del texto DWA, o fallback 6,15%
+  calcState.seguro     = c.fin_seguro && c.fin_seguro > 0
+                         ? c.fin_seguro
+                         : Math.round(calcState.precio * 0.0615);
   const defaultMeses   = c.fin_meses ? parseInt(c.fin_meses) : 48;
   calcState.meses      = [24,36,48,60,72,84].includes(defaultMeses) ? defaultMeses : 48;
   calcState.entradaPct = 0;
