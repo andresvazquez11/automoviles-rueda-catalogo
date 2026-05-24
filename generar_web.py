@@ -1144,38 +1144,59 @@ const VR_MES_ADJ  = {{24:+18,36:+11,48:+5,60:0,72:-6,84:-12}};
 
 function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase) {{
   const entrada = Math.round(precio * entradaPct / 100);
-  const r = tin / 100 / 12;
-  let importe, vr = 0;
+  const r       = tin / 100 / 12;
+  const rn      = Math.pow(1 + r, meses);
+
+  // ── Comisión de apertura: 3,5% sobre el capital (circular, igual que DWA) ──
+  // comision = capital × 0.035 → capital × 0.965 = neto → capital = neto / 0.965
+  const neto    = precio - entrada;                        // precio sin entrada
+  const capital = Math.round(neto / 0.965 * 100) / 100;   // importe total financiado
+  const comision= Math.round((capital - neto) * 100) / 100;
+
+  let vr = 0, cuota = 0;
+
   if (tab === 'autocredit') {{
+    // ── Valor Residual ─────────────────────────────────────────────────────
     if (vrBase && vrBase > 0) {{
-      // Tenemos VR real de DWA a 60m/15k → escalar a la combinación elegida
+      // VR real de DWA a 60m/15k → escalar por km y plazo
       const vrBasePct = vrBase / precio * 100;
-      const kmAdj  = VR_KM_ADJ[km]   !== undefined ? VR_KM_ADJ[km]   : 0;
+      const kmAdj  = VR_KM_ADJ[km]    !== undefined ? VR_KM_ADJ[km]    : 0;
       const mesAdj = VR_MES_ADJ[meses] !== undefined ? VR_MES_ADJ[meses] : 0;
       const pct = Math.max(10, Math.min(90, vrBasePct + kmAdj + mesAdj));
       vr = Math.round(precio * pct / 100);
     }} else {{
-      // Fallback: tabla genérica
       const tbl = VR_TABLE[meses] || VR_TABLE[60];
       const pct = tbl[km] !== undefined ? tbl[km] : 61;
       vr = Math.round(precio * pct / 100);
     }}
-    importe = Math.max(0, precio - entrada - vr);
+
+    // ── FÓRMULA BALLOON LOAN (TRUE AUTOCREDIT) ─────────────────────────────
+    // DWA financia el precio COMPLETO (+ comision); el VR es el pago final balloon.
+    // cuota = (capital × r × rn − vr × r) / (rn − 1)
+    if (rn > 1 && r > 0) {{
+      cuota = (capital * r * rn - vr * r) / (rn - 1);
+    }} else {{
+      cuota = capital / meses;
+    }}
+
   }} else {{
-    importe = Math.max(0, precio - entrada);
+    // ── FÓRMULA LINEAL: amortización francesa estándar ────────────────────
+    // capital = precio + comision 3,5% (ya calculado arriba)
+    if (rn > 1 && r > 0) {{
+      cuota = capital * r / (1 - 1 / rn);
+    }} else {{
+      cuota = capital / meses;
+    }}
   }}
-  const comision = Math.round(importe * 0.01);
-  const capital  = importe + comision;   // importe total financiado
-  let cuota = 0;
-  if (r > 0 && meses > 0 && capital > 0) {{
-    cuota = capital * r / (1 - Math.pow(1 + r, -meses));
-  }}
+
   cuota = Math.round(cuota * 100) / 100;
-  // total a plazos = cuotas mensuales + entrada + cuota final balloon (VR)
-  // comision NO se suma: ya está en capital → dentro de las cuotas
-  const total      = Math.round((cuota * meses + entrada + vr) * 100) / 100;
-  const intereses  = Math.round((cuota * meses - capital) * 100) / 100;
-  const coste      = Math.round((intereses + comision) * 100) / 100;
+
+  // total a plazos = cuotas × n + entrada + cuota final VR (balloon)
+  const total     = Math.round((cuota * meses + entrada + vr) * 100) / 100;
+  const intereses = Math.round((cuota * meses - capital) * 100) / 100;
+  const coste     = Math.round((intereses + comision) * 100) / 100;
+  const importe   = neto;   // para mostrar: lo que financia el cliente (sin comision)
+
   return {{ entrada, importe, comision, capital, cuota, total, vr, intereses, coste }};
 }}
 
@@ -1228,7 +1249,9 @@ function renderCalc() {{
     `Coste total del crédito: ${{fmtEur(r.coste)}}. ` +
     `Precio total a plazos: ${{fmtEur(r.total)}}. ` +
     `Sistema de amortización francés. ` +
-    `Cálculo orientativo sujeto a aprobación de VW Financial Services.`;
+    `Cálculo orientativo (TIN {COMERCIAL_TELEFONO.replace(" ","")[0]}`,99%). ` +
+    `La cuota real de DWA puede incluir un seguro de protección opcional que puede elevar la cuota mensual. ` +
+    `Consulta condiciones exactas con Andrés · {COMERCIAL_TELEFONO}.`;
   legal.textContent = txt;
 }}
 
