@@ -750,11 +750,11 @@
           <button class="calc-tab" id="calc-tab-autocredit" onclick="calcTabClick('autocredit')">Autocredit</button>
         </div>
         <div class="calc-slider-label">
-          <span>Entrada</span>
+          <span>Entrada <span id="calc-entrada-max-lbl" style="font-size:11px;opacity:0.55;font-weight:400"></span></span>
           <span class="calc-slider-val" id="calc-entrada-display">0 €</span>
         </div>
         <input type="range" class="calc-slider" id="calc-entrada-slider"
-          min="0" max="30" step="1" value="0"
+          min="0" max="0" step="100" value="0"
           oninput="calcSliderMove(this.value)">
         <div class="calc-chips-label">Plazo (meses)</div>
         <div class="calc-chips" id="calc-plazo-chips"></div>
@@ -4128,10 +4128,15 @@ function calcTabClick(tab) {
 }
 
 function calcSliderMove(val) {
-  calcState.entradaPct = +val;
-  const entradaEur = Math.round(calcState.precio * (+val) / 100);
-  document.getElementById('calc-entrada-display').textContent = entradaEur.toLocaleString('es-ES') + ' €';
-  document.getElementById('calc-entrada-slider').style.setProperty('--pct', val + '%');
+  const slider = document.getElementById('calc-entrada-slider');
+  const max    = parseInt(slider.max) || 1;
+  const eur    = parseInt(val) || 0;
+  // pct para colorear la pista — posición real del thumb en el rango
+  const pct    = max > 0 ? (eur / max * 100) : 0;
+  slider.style.setProperty('--pct', pct + '%');
+  // Guardar entrada como % del precio para calcFinanciacion
+  calcState.entradaPct = calcState.precio > 0 ? (eur / calcState.precio * 100) : 0;
+  document.getElementById('calc-entrada-display').textContent = eur.toLocaleString('es-ES') + ' €';
   renderCalc();
 }
 
@@ -4173,11 +4178,19 @@ function initCalc(c) {
   const kmRow = document.getElementById('calc-km-row');
   if (calcState.tab === 'autocredit') kmRow.classList.add('visible'); else kmRow.classList.remove('visible');
 
-  // Slider reset
-  const slider = document.getElementById('calc-entrada-slider');
+  // Slider — rango en EUR, máx = precio - 10.000 (mínimo financiado DWA), paso 100 €
+  const slider    = document.getElementById('calc-entrada-slider');
+  const maxEntrada = Math.max(0, Math.floor((calcState.precio - 10000) / 100) * 100);
+  slider.min   = 0;
+  slider.max   = maxEntrada;
+  slider.step  = 100;
   slider.value = 0;
   slider.style.setProperty('--pct', '0%');
+  calcState.entradaPct = 0;
   document.getElementById('calc-entrada-display').textContent = '0 €';
+  // Mostrar el tope máximo en el label
+  const maxLbl = document.getElementById('calc-entrada-max-lbl');
+  if (maxLbl) maxLbl.textContent = maxEntrada > 0 ? `(máx. ${maxEntrada.toLocaleString('es-ES')} €)` : '';
 
   // Plazo chips
   const plazos = [24,36,48,60,72,84];
