@@ -457,22 +457,155 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
   }}
   .sort-select:focus {{ border-color: var(--red); }}
 
+  /* ── Calculadora de Financiación ── */
   .modal-financiacion {{
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    background: #0d1b35;
+    border-radius: 16px;
+    padding: 22px 20px 18px;
+    color: #f0f4ff;
+    position: relative;
+    overflow: hidden;
+  }}
+  .modal-financiacion::before {{
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(200,35,43,0.16) 0%, transparent 70%);
+    pointer-events: none;
+  }}
+  .calc-title {{
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: rgba(240,244,255,0.45); margin-bottom: 14px;
+  }}
+  .calc-tabs {{
+    display: flex; gap: 4px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 11px; padding: 3px;
+    margin-bottom: 18px;
+  }}
+  .calc-tab {{
+    flex: 1; border: none; background: transparent;
+    color: rgba(240,244,255,0.5); font-family: inherit;
+    font-size: 13px; font-weight: 700; padding: 8px 12px;
+    border-radius: 9px; cursor: pointer;
+    transition: all 0.22s ease;
+    letter-spacing: 0.3px;
+  }}
+  .calc-tab.active {{
+    background: #C8232B;
+    color: #fff;
+    box-shadow: 0 3px 14px rgba(200,35,43,0.5);
+  }}
+  .calc-tab:not(.active):hover {{
+    color: rgba(240,244,255,0.9);
+    background: rgba(255,255,255,0.08);
+  }}
+  .calc-slider-label {{
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: rgba(240,244,255,0.5); margin-bottom: 8px;
+  }}
+  .calc-slider-val {{ font-size: 15px; font-weight: 700; color: #fff; }}
+  .calc-slider {{
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 4px;
+    background: linear-gradient(to right, #C8232B var(--pct,0%), rgba(255,255,255,0.14) var(--pct,0%));
+    border-radius: 2px; outline: none; cursor: pointer;
+    margin-bottom: 18px;
+  }}
+  .calc-slider::-webkit-slider-thumb {{
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    background: #C8232B;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(200,35,43,0.65);
+    cursor: pointer;
+    transition: transform 0.1s;
+  }}
+  .calc-slider::-webkit-slider-thumb:active {{ transform: scale(1.15); }}
+  .calc-chips-label {{
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.5px; color: rgba(240,244,255,0.4); margin-bottom: 8px;
+  }}
+  .calc-chips {{
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+  }}
+  .calc-chip {{
+    border: 1.5px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.05);
+    color: rgba(240,244,255,0.6);
+    font-family: inherit; font-size: 12px; font-weight: 700;
+    padding: 5px 12px; border-radius: 20px;
+    cursor: pointer; transition: all 0.18s ease;
+    white-space: nowrap;
+  }}
+  .calc-chip.active {{
+    background: rgba(200,35,43,0.18);
+    border-color: #C8232B;
+    color: #fff;
+    box-shadow: 0 0 0 1px rgba(200,35,43,0.35);
+  }}
+  .calc-chip:hover:not(.active) {{
+    border-color: rgba(255,255,255,0.32);
+    color: #fff;
+    background: rgba(255,255,255,0.09);
+  }}
+  .calc-km-row {{ display: none; }}
+  .calc-km-row.visible {{ display: block; }}
+  .calc-result {{
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
     padding: 14px 16px;
-    display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 14px;
   }}
-  .modal-financiacion h3 {{
-    font-size: 12px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.5px; color: var(--muted); margin-bottom: 2px;
+  .calc-result-row {{
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 5px 0;
   }}
-  .fin-row {{ display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }}
-  .fin-label {{ font-size: 13px; color: var(--muted); }}
-  .fin-value {{ font-size: 16px; font-weight: 700; color: var(--text); }}
-  .fin-value.highlight {{ color: var(--red); font-size: 20px; }}
-  .fin-note {{ font-size: 11px; color: var(--muted); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 2px; }}
+  .calc-result-row + .calc-result-row {{
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }}
+  .calc-result-lbl {{
+    font-size: 12px; color: rgba(240,244,255,0.45);
+  }}
+  .calc-result-val {{
+    font-size: 13px; font-weight: 600; color: rgba(240,244,255,0.85);
+    font-variant-numeric: tabular-nums;
+  }}
+  .calc-cuota-row {{
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 12px; padding-top: 12px;
+    border-top: 1px solid rgba(200,35,43,0.4);
+  }}
+  .calc-cuota-lbl {{
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.6px; color: rgba(240,244,255,0.55);
+  }}
+  .calc-cuota-big {{
+    font-size: 28px; font-weight: 800; color: #C8232B;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 24px rgba(200,35,43,0.45);
+    line-height: 1;
+  }}
+  .btn-calc-cta {{
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%;
+    background: #25D366;
+    color: #fff; font-family: inherit; font-size: 14px; font-weight: 700;
+    padding: 13px 16px; border-radius: 11px; border: none; cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.12s;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }}
+  .btn-calc-cta:hover {{ background: #1ebe59; transform: translateY(-1px); }}
+  .btn-calc-cta:active {{ transform: translateY(0); }}
+  .calc-legal {{
+    font-size: 10px; color: rgba(240,244,255,0.3); line-height: 1.55;
+    text-align: center;
+  }}
 
   .btn-dwa {{
     background: none; border: 1px solid var(--border); color: var(--muted);
@@ -714,16 +847,67 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
       </div>
       <div class="specs-grid" id="m-specs"></div>
       <div class="modal-financiacion" id="m-financiacion">
-        <h3>Financiación estimada</h3>
-        <div class="fin-row">
-          <span class="fin-label">Precio al contado</span>
-          <span class="fin-value" id="m-fin-contado"></span>
+        <div class="calc-title">💰 Calculadora de Financiación</div>
+        <div class="calc-tabs">
+          <button class="calc-tab active" id="calc-tab-lineal" onclick="calcTabClick('lineal')">Lineal</button>
+          <button class="calc-tab" id="calc-tab-autocredit" onclick="calcTabClick('autocredit')">Autocredit</button>
         </div>
-        <div class="fin-row">
-          <span class="fin-label">Desde</span>
-          <span class="fin-value highlight" id="m-fin-cuota"></span>
+        <div class="calc-slider-label">
+          <span>Entrada</span>
+          <span class="calc-slider-val" id="calc-entrada-display">0 €</span>
         </div>
-        <div class="fin-note" id="m-fin-cond">* Cuota orientativa: TIN 6,99% · 48 meses · sin entrada. Sujeto a aprobación.</div>
+        <input type="range" class="calc-slider" id="calc-entrada-slider"
+          min="0" max="30" step="1" value="0"
+          oninput="calcSliderMove(this.value)">
+        <div class="calc-chips-label">Plazo (meses)</div>
+        <div class="calc-chips" id="calc-plazo-chips"></div>
+        <div class="calc-km-row" id="calc-km-row">
+          <div class="calc-chips-label">Km / año</div>
+          <div class="calc-chips" id="calc-km-chips"></div>
+        </div>
+        <div class="calc-result">
+          <div class="calc-result-row">
+            <span class="calc-result-lbl">Importe financiado</span>
+            <span class="calc-result-val" id="cr-importe">—</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-lbl">Entrada</span>
+            <span class="calc-result-val" id="cr-entrada">—</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-lbl">N° cuotas</span>
+            <span class="calc-result-val" id="cr-meses">—</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-lbl">Comisión apertura</span>
+            <span class="calc-result-val" id="cr-comision">—</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-lbl">T.I.N.</span>
+            <span class="calc-result-val" id="cr-tin">—</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-lbl">T.A.E.</span>
+            <span class="calc-result-val" id="cr-tae">—</span>
+          </div>
+          <div class="calc-result-row" id="cr-vr-row" style="display:none">
+            <span class="calc-result-lbl">Valor residual</span>
+            <span class="calc-result-val" id="cr-vr">—</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-lbl">Total a plazos</span>
+            <span class="calc-result-val" id="cr-total">—</span>
+          </div>
+          <div class="calc-cuota-row">
+            <span class="calc-cuota-lbl">Cuota mensual</span>
+            <span class="calc-cuota-big" id="cr-cuota">—</span>
+          </div>
+        </div>
+        <a class="btn-calc-cta" id="calc-cta-link" href="#" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Solicitar financiación con Andrés
+        </a>
+        <div class="calc-legal" id="calc-legal">* Cálculo orientativo. Condiciones exactas sujetas a aprobación de VW Financial Services.</div>
       </div>
       <div class="equip-section" id="equip-section">
         <h3>Equipamiento</h3>
@@ -902,6 +1086,151 @@ document.querySelectorAll('.filter-btn').forEach(btn => {{
 searchInput.addEventListener('input', e => {{ busqueda = e.target.value; render(); }});
 document.getElementById('sort-select').addEventListener('change', e => {{ ordenActivo = e.target.value; render(); }});
 
+// ── Calculadora de Financiación ─────────────────────────────────────────────
+let calcState = {{
+  precio: 0, tin: 6.99, tae: null, meses: 48,
+  entradaPct: 0, tab: 'lineal', km: 15000, fin_ejemplo: ''
+}};
+
+const VR_TABLE = {{
+  24: {{10000:58,15000:54,20000:50,25000:46,30000:42}},
+  36: {{10000:50,15000:46,20000:42,25000:38,30000:34}},
+  48: {{10000:44,15000:40,20000:36,25000:32,30000:28}},
+  60: {{10000:38,15000:34,20000:30,25000:26,30000:22}},
+  72: {{10000:32,15000:28,20000:24,25000:20,30000:16}},
+  84: {{10000:26,15000:22,20000:18,25000:14,30000:10}}
+}};
+
+function calcFinanciacion(precio, tin, entradaPct, meses, tab, km) {{
+  const entrada = Math.round(precio * entradaPct / 100);
+  const r = tin / 100 / 12;
+  let importe, vr = 0;
+  if (tab === 'autocredit') {{
+    const tbl = VR_TABLE[meses] || VR_TABLE[48];
+    const pct = tbl[km] !== undefined ? tbl[km] : 30;
+    vr = Math.round(precio * pct / 100);
+    importe = Math.max(0, precio - entrada - vr);
+  }} else {{
+    importe = Math.max(0, precio - entrada);
+  }}
+  const comision = Math.round(importe * 0.01);
+  const capital  = importe + comision;
+  let cuota = 0;
+  if (r > 0 && meses > 0 && capital > 0) {{
+    cuota = capital * r / (1 - Math.pow(1 + r, -meses));
+  }}
+  cuota = Math.round(cuota * 100) / 100;
+  const total = Math.round((cuota * meses + entrada + comision + vr) * 100) / 100;
+  return {{ entrada, importe, comision, cuota, total, vr }};
+}}
+
+function fmtEur(v) {{
+  return Number(v).toLocaleString('es-ES', {{minimumFractionDigits: 2, maximumFractionDigits: 2}}) + ' €';
+}}
+
+function renderCalc() {{
+  const s = calcState;
+  const r = calcFinanciacion(s.precio, s.tin, s.entradaPct, s.meses, s.tab, s.km);
+  document.getElementById('cr-importe').textContent  = fmtEur(r.importe);
+  document.getElementById('cr-entrada').textContent  = fmtEur(r.entrada);
+  document.getElementById('cr-meses').textContent    = s.meses;
+  document.getElementById('cr-comision').textContent = fmtEur(r.comision);
+  document.getElementById('cr-tin').textContent      = Number(s.tin).toFixed(2).replace('.', ',') + ' %';
+  document.getElementById('cr-tae').textContent      = s.tae ? (String(s.tae).replace('.', ',') + ' %') : '—';
+  document.getElementById('cr-total').textContent    = fmtEur(r.total);
+  document.getElementById('cr-cuota').textContent    = fmtEur(r.cuota);
+  const vrRow = document.getElementById('cr-vr-row');
+  if (s.tab === 'autocredit') {{
+    vrRow.style.display = '';
+    document.getElementById('cr-vr').textContent = fmtEur(r.vr);
+  }} else {{
+    vrRow.style.display = 'none';
+  }}
+  const legal = document.getElementById('calc-legal');
+  if (s.fin_ejemplo) {{
+    legal.textContent = s.fin_ejemplo;
+  }} else {{
+    legal.textContent = '* Cálculo orientativo. Condiciones exactas sujetas a aprobación de VW Financial Services.';
+  }}
+}}
+
+function calcTabClick(tab) {{
+  calcState.tab = tab;
+  document.getElementById('calc-tab-lineal').classList.toggle('active', tab === 'lineal');
+  document.getElementById('calc-tab-autocredit').classList.toggle('active', tab === 'autocredit');
+  const kmRow = document.getElementById('calc-km-row');
+  if (tab === 'autocredit') kmRow.classList.add('visible');
+  else kmRow.classList.remove('visible');
+  renderCalc();
+}}
+
+function calcSliderMove(val) {{
+  calcState.entradaPct = +val;
+  const entradaEur = Math.round(calcState.precio * (+val) / 100);
+  document.getElementById('calc-entrada-display').textContent = entradaEur.toLocaleString('es-ES') + ' €';
+  document.getElementById('calc-entrada-slider').style.setProperty('--pct', val + '%');
+  renderCalc();
+}}
+
+function calcChipMeses(m, el) {{
+  calcState.meses = m;
+  el.closest('.calc-chips').querySelectorAll('.calc-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderCalc();
+}}
+
+function calcChipKm(k, el) {{
+  calcState.km = k;
+  el.closest('.calc-chips').querySelectorAll('.calc-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderCalc();
+}}
+
+function initCalc(c) {{
+  calcState.precio     = typeof c.precio === 'number' ? c.precio
+                         : parseInt(String(c.precio || '0').replace(/[^\d]/g, '')) || 0;
+  calcState.tin        = c.fin_tin   ? parseFloat(String(c.fin_tin).replace(',', '.'))   : 6.99;
+  calcState.tae        = c.fin_tae   ? String(c.fin_tae) : null;
+  calcState.fin_ejemplo = c.fin_ejemplo || '';
+  const defaultMeses   = c.fin_meses ? parseInt(c.fin_meses) : 48;
+  calcState.meses      = [24,36,48,60,72,84].includes(defaultMeses) ? defaultMeses : 48;
+  calcState.entradaPct = 0;
+  calcState.km         = 15000;
+  calcState.tab        = (c.fin_tipo || '').toLowerCase() === 'autocredit' ? 'autocredit' : 'lineal';
+
+  // Tabs
+  document.getElementById('calc-tab-lineal').classList.toggle('active', calcState.tab === 'lineal');
+  document.getElementById('calc-tab-autocredit').classList.toggle('active', calcState.tab === 'autocredit');
+  const kmRow = document.getElementById('calc-km-row');
+  if (calcState.tab === 'autocredit') kmRow.classList.add('visible'); else kmRow.classList.remove('visible');
+
+  // Slider reset
+  const slider = document.getElementById('calc-entrada-slider');
+  slider.value = 0;
+  slider.style.setProperty('--pct', '0%');
+  document.getElementById('calc-entrada-display').textContent = '0 €';
+
+  // Plazo chips
+  const plazos = [24,36,48,60,72,84];
+  document.getElementById('calc-plazo-chips').innerHTML = plazos.map(m =>
+    `<button class="calc-chip ${{m === calcState.meses ? 'active' : ''}}" onclick="calcChipMeses(${{m}},this)">${{m}}</button>`
+  ).join('');
+
+  // Km chips
+  const kms = [10000,15000,20000,25000,30000];
+  document.getElementById('calc-km-chips').innerHTML = kms.map(k =>
+    `<button class="calc-chip ${{k === calcState.km ? 'active' : ''}}" onclick="calcChipKm(${{k}},this)">${{Math.round(k/1000)}}k</button>`
+  ).join('');
+
+  // WhatsApp CTA
+  const modelo = ((c.modelo || '') + ' ' + (c.version || '')).trim();
+  const preciof = calcState.precio.toLocaleString('es-ES');
+  const msg = encodeURIComponent(`Hola Andrés, me interesa financiar el ${{modelo}} (${{preciof}} €). ¿Podéis informarme sobre la financiación?`);
+  document.getElementById('calc-cta-link').href = `https://wa.me/34610029056?text=${{msg}}`;
+
+  renderCalc();
+}}
+
 function abrirModal(n) {{
   const c = COCHES.find(x => x.n === n);
   if (!c) return;
@@ -949,36 +1278,8 @@ function abrirModal(n) {{
     equipSection.style.display = 'none';
   }}
 
-  const finSection = document.getElementById('m-financiacion');
-  if (c.cuota) {{
-    document.getElementById('m-fin-contado').textContent = c.precio.toLocaleString('es-ES') + ' €';
-    document.getElementById('m-fin-cuota').textContent   = fmtCuota(c.cuota) + ' €/mes';
-
-    // Tipo de financiación
-    const tipoBadge = c.fin_tipo
-      ? `<span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:2px 8px;margin-bottom:6px;">${{c.fin_tipo}}</span><br>`
-      : '';
-
-    // Condiciones: usar las de DWA si existen, si no mostrar nota genérica
-    let condText = tipoBadge;
-    if (c.fin_fuente === 'dwa' && (c.fin_tin || c.fin_meses)) {{
-      const partes = [];
-      if (c.fin_tin)     partes.push('TIN ' + c.fin_tin + '%');
-      if (c.fin_tae)     partes.push('TAE ' + c.fin_tae + '%');
-      if (c.fin_meses)   partes.push(c.fin_meses + ' meses');
-      if (c.fin_entrada !== null) partes.push(c.fin_entrada === '0' || c.fin_entrada === 0 ? 'sin entrada' : 'entrada ' + c.fin_entrada + '€');
-      condText += partes.join(' · ');
-      if (c.fin_ejemplo) {{
-        condText += '<br><span style="display:block;margin-top:8px;font-size:10px;color:var(--muted);line-height:1.55;">' + c.fin_ejemplo + '</span>';
-      }}
-    }} else {{
-      condText += 'Cuota orientativa: TIN 6,99% · 48 meses · sin entrada. Consulta condiciones exactas con {COMERCIAL_NOMBRE} · {COMERCIAL_TELEFONO}';
-    }}
-    document.getElementById('m-fin-cond').innerHTML = condText;
-    finSection.style.display = '';
-  }} else {{
-    finSection.style.display = 'none';
-  }}
+  // Calculadora de financiación
+  initCalc(c);
 
   const link = document.getElementById('m-link');
   if (c.url) {{ link.href = c.url; link.style.display = ''; }}
