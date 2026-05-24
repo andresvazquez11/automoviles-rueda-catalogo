@@ -577,18 +577,6 @@ input[type=range].calc-slider::-moz-range-thumb {
         <span class="lbl">Entrada inicial</span>
         <span class="val" id="br-entrada">—</span>
       </div>
-      <div class="breakdown-row">
-        <span class="lbl">Seguro Protección Plus</span>
-        <span class="val" id="br-seguro">—</span>
-      </div>
-      <div class="breakdown-row">
-        <span class="lbl">Comisión apertura (3,5%)</span>
-        <span class="val" id="br-comision">—</span>
-      </div>
-      <div class="breakdown-row">
-        <span class="lbl">Importe total financiado</span>
-        <span class="val" id="br-capital">—</span>
-      </div>
       <div class="breakdown-row sep">
         <span class="lbl">T.I.N.</span>
         <span class="val" id="br-tin">—</span>
@@ -615,10 +603,8 @@ input[type=range].calc-slider::-moz-range-thumb {
       </a>
     </div>
 
-    <!-- Legal -->
-    <div class="legal-note" id="legal-note">
-      Cálculo orientativo. T.I.N. <span id="ln-tin">6,99</span>%. Seguro de Protección Plus opcional incluido en el importe financiado. Comisión de apertura financiada del 3,5%. Condiciones sujetas a aprobación de VW Financial Services España, S.A. Consulta condiciones exactas con Andrés.
-    </div>
+    <!-- Legal — generado dinámicamente en render() -->
+    <div class="legal-note" id="legal-note"></div>
   </div>
 
 </main>
@@ -713,12 +699,29 @@ function render() {
   // Breakdown
   document.getElementById('br-precio').textContent    = fmt(precio) + ' €';
   document.getElementById('br-entrada').textContent   = fmt(entrada) + ' €';
-  document.getElementById('br-seguro').textContent    = fmt2(res.seg) + ' €';
-  document.getElementById('br-comision').textContent  = fmt2(res.comision) + ' €';
-  document.getElementById('br-capital').textContent   = fmt2(res.capital) + ' €';
   document.getElementById('br-tin').textContent       = tin.toFixed(2).replace('.', ',') + ' %';
   document.getElementById('br-ncuotas').textContent   = meses;
   document.getElementById('br-total').textContent     = fmt2(res.total) + ' €';
+
+  // Legal note — detalles completos estilo DWA (letra pequeña)
+  const modeStr2 = tab === 'lineal' ? 'francés' : 'francés con cuota final';
+  let legalTxt = `Ejemplo de cuota a ${meses} meses: ${fmt2(res.cuota)} €`;
+  if (tab === 'autocredit' && res.vr > 0) {
+    const anos = Math.round(meses / 12);
+    const kmk  = Math.round(km / 1000);
+    legalTxt += `, y si lo deseas, al cabo de ${anos} año${anos !== 1 ? 's' : ''} podrás ` +
+      `cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes ` +
+      `${meses} de ${fmt2(res.vr)} € (calculada con ${kmk}.000 km anuales)`;
+  }
+  legalTxt += `. Entrada inicial: ${fmt(entrada)} €. ` +
+    `Seguro de Protección Plus opcional y financiado: ${fmt2(res.seg)} €. ` +
+    `Comisión de apertura financiada: ${fmt2(res.comision)} €. ` +
+    `Importe total financiado: ${fmt2(res.capital)} €. ` +
+    `TIN ${tin.toFixed(2).replace('.', ',')}%. ` +
+    `Precio total a plazos: ${fmt2(res.total)} €. ` +
+    `Sistema de amortización ${modeStr2}. Incompatible con otras ofertas financieras. ` +
+    `Consulta condiciones exactas con Andrés · 610 02 90 56.`;
+  document.getElementById('legal-note').textContent = legalTxt;
 
   // Cuota final (Autocredit)
   const cfRow = document.getElementById('cuota-final-row');
@@ -735,9 +738,6 @@ function render() {
   document.getElementById('sb-modo').textContent   = tab === 'lineal' ? 'Lineal' : 'Autocredit';
   document.getElementById('sb-tin').textContent    = tin.toFixed(2).replace('.', ',') + '%';
   document.getElementById('sb-cuota').textContent  = fmt2(res.cuota) + ' €';
-
-  // Legal note TIN
-  document.getElementById('ln-tin').textContent = tin.toFixed(2).replace('.', ',');
 
   // WhatsApp link
   buildWhatsAppLink(res);

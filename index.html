@@ -783,18 +783,6 @@
               <span class="calc-result-val" id="cr-entrada">—</span>
             </div>
             <div class="calc-result-row">
-              <span class="calc-result-lbl">Seguro de Protección Plus</span>
-              <span class="calc-result-val" id="cr-seguro">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Comisión de apertura (3,5%)</span>
-              <span class="calc-result-val" id="cr-comision">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Importe total financiado</span>
-              <span class="calc-result-val" id="cr-importe">—</span>
-            </div>
-            <div class="calc-result-row">
               <span class="calc-result-lbl">T.I.N.</span>
               <span class="calc-result-val" id="cr-tin">—</span>
             </div>
@@ -4081,9 +4069,6 @@ function renderCalc() {
   // ── Desglose (mismo orden que DWA) ───────────────────────────────────────
   document.getElementById('cr-precio').textContent   = fmtEur(s.precio);
   document.getElementById('cr-entrada').textContent  = fmtEur(r.entrada);
-  document.getElementById('cr-seguro').textContent   = fmtEur(r.seguro);
-  document.getElementById('cr-comision').textContent = fmtEur(r.comision);
-  document.getElementById('cr-importe').textContent  = fmtEur(r.capital);
   document.getElementById('cr-tin').textContent      = tinStr;
   document.getElementById('cr-tae').textContent      = taeStr;
   document.getElementById('cr-ncuotas').textContent  = s.meses;
@@ -4103,20 +4088,19 @@ function renderCalc() {
   const legal = document.getElementById('calc-legal');
   const anos  = Math.round(s.meses / 12);
   const kmk   = Math.round(s.km / 1000);
-  let txt = `Precio al contado: ${fmtEur(s.precio)}. ` +
-    `Entrada inicial: ${fmtEur(r.entrada)}. ` +
-    `Seguro de Protección Plus: ${fmtEur(r.seguro)}. ` +
-    `Comisión de apertura financiada: ${fmtEur(r.comision)}. ` +
-    `Importe total financiado: ${fmtEur(r.capital)}. ` +
-    `TIN: ${tinStr}. TAE: ${taeStr}. ` +
-    `Ejemplo de cuota a ${s.meses} meses: ${fmtEur(r.cuota)}`;
+  const tinStr2 = Number(s.tin).toFixed(2).replace('.', ',');
+  let txt = `Ejemplo de cuota a ${s.meses} meses: ${fmtEur(r.cuota)}`;
   if (s.tab === 'autocredit') {
     txt += `, y si lo deseas, al cabo de ${anos} año${anos !== 1 ? 's' : ''} ` +
       `podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final ` +
       `en el mes ${s.meses} de ${fmtEur(r.vr)} (calculada con ${kmk}.000 km anuales)`;
   }
-  txt += `. Precio total a plazos: ${fmtEur(r.total)}. ` +
-    `Sistema de amortización francés. ` +
+  txt += `. Entrada inicial: ${fmtEur(r.entrada)}. ` +
+    `Seguro de Protección Plus opcional y financiado: ${fmtEur(r.seguro)}. ` +
+    `Comisión de apertura financiada: ${fmtEur(r.comision)}. ` +
+    `Importe total financiado: ${fmtEur(r.capital)}. ` +
+    `TIN ${tinStr2}%. Precio total a plazos: ${fmtEur(r.total)}. ` +
+    `Sistema de amortización francés. Incompatible con otras ofertas financieras. ` +
     `Consulta condiciones exactas con Andrés Vázquez · 610 02 90 56.`;
   legal.textContent = txt;
 }
