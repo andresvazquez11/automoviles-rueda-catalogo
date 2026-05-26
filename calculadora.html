@@ -24,7 +24,9 @@
   --muted:     rgba(244,245,247,0.45);
   --muted2:    rgba(244,245,247,0.25);
   --green:     #22C55E;
+  --green-dim: rgba(34,197,94,0.1);
   --amber:     #F59E0B;
+  --amber-dim: rgba(245,158,11,0.1);
   --font-num:  'Barlow Condensed', sans-serif;
   --font-body: 'Barlow', sans-serif;
 }
@@ -201,7 +203,10 @@ header {
   position: absolute; bottom: 0; left: 10%; right: 10%; height: 2px;
   background: var(--red);
 }
-.mode-tab:hover:not(.active) { color: var(--white); background: rgba(255,255,255,0.04); }
+.mode-tab:hover:not(.active):not(:disabled) { color: var(--white); background: rgba(255,255,255,0.04); }
+.mode-tab:disabled {
+  opacity: 0.3; cursor: not-allowed;
+}
 
 /* ─── Field rows ─────────────────────────────────────────────── */
 .field { margin-bottom: 20px; }
@@ -213,13 +218,13 @@ header {
 }
 .field-label span { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0; }
 
-/* ─── Pill buttons (plazo/km) ───────────────────────────────── */
+/* ─── Pill buttons (plazo/km/marca) ────────────────────────── */
 .pills { display: flex; gap: 6px; flex-wrap: wrap; }
 .pill {
   background: transparent; border: 1px solid var(--border);
   color: var(--muted); cursor: pointer;
   font-family: var(--font-num); font-size: 13px; font-weight: 600;
-  padding: 7px 14px; letter-spacing: 0.5px;
+  padding: 7px 12px; letter-spacing: 0.5px;
   transition: all 0.15s;
   flex: 1; min-width: 0; text-align: center;
 }
@@ -227,7 +232,120 @@ header {
   background: var(--red); border-color: var(--red);
   color: #fff;
 }
-.pill:hover:not(.active) { border-color: var(--border2); color: var(--white); }
+.pill:hover:not(.active):not(:disabled) { border-color: var(--border2); color: var(--white); }
+.pill:disabled {
+  opacity: 0.25; cursor: not-allowed; pointer-events: none;
+}
+
+/* ─── Campaign pills ─────────────────────────────────────────── */
+.camp-pills { display: flex; gap: 6px; }
+.camp-pill {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); cursor: pointer;
+  font-family: var(--font-num); font-size: 12px; font-weight: 600;
+  padding: 8px 14px; letter-spacing: 0.5px;
+  transition: all 0.15s; flex: 1; text-align: center;
+}
+.camp-pill.active {
+  background: rgba(34,197,94,0.12); border-color: var(--green);
+  color: var(--green);
+}
+.camp-pill:hover:not(.active):not(:disabled) { border-color: var(--border2); color: var(--white); }
+.camp-pill:disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+
+/* ─── Fecha / categoria ──────────────────────────────────────── */
+.fecha-row {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.fecha-row select, .fecha-row input[type=number] {
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--white); outline: none;
+  font-family: var(--font-num); font-size: 14px; font-weight: 500;
+  padding: 9px 10px;
+  transition: border-color 0.15s;
+  -moz-appearance: textfield;
+}
+.fecha-row select::-webkit-outer-spin-button,
+.fecha-row select::-webkit-inner-spin-button { -webkit-appearance: none; }
+.fecha-row select { width: 120px; cursor: pointer; }
+.fecha-row input[type=number] { width: 86px; }
+.fecha-row select:focus, .fecha-row input[type=number]:focus { border-color: var(--red); }
+.fecha-row input[type=number]::-webkit-outer-spin-button,
+.fecha-row input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.cat-badge {
+  font-family: var(--font-num); font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; padding: 5px 10px; border: 1px solid;
+}
+.cat-badge.vs  { color: var(--green); border-color: var(--green);  background: var(--green-dim); }
+.cat-badge.vo  { color: var(--amber); border-color: var(--amber);  background: var(--amber-dim); }
+.cat-badge.vu  { color: var(--muted); border-color: var(--border2); background: rgba(255,255,255,0.04); }
+.cat-badge.empty { display: none; }
+
+/* ─── TIN auto display ───────────────────────────────────────── */
+.tin-auto-wrap {
+  display: flex; align-items: center; gap: 12px;
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  background: rgba(34,197,94,0.04);
+}
+.tin-auto-val {
+  font-family: var(--font-num); font-size: 26px; font-weight: 700;
+  color: var(--green); line-height: 1;
+}
+.tin-auto-suffix {
+  font-family: var(--font-num); font-size: 14px; font-weight: 300;
+  color: var(--muted);
+}
+.tin-auto-label {
+  flex: 1;
+  font-family: var(--font-num); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.5px; line-height: 1.4;
+}
+.tin-override-link {
+  font-family: var(--font-num); font-size: 11px; color: var(--muted2);
+  cursor: pointer; text-decoration: underline; letter-spacing: 0.5px;
+  background: none; border: none; padding: 0; margin-top: 5px;
+}
+.tin-override-link:hover { color: var(--white); }
+
+/* TIN manual override (shown when user clicks ✎ personalizar) */
+.tin-manual-wrap {
+  display: none;
+  flex-direction: column; gap: 4px;
+}
+.tin-manual-wrap.visible { display: flex; }
+.tin-input-row {
+  display: flex; align-items: center; gap: 8px;
+  border: 1px solid var(--red);
+  padding: 10px 14px;
+}
+.tin-input-row input {
+  background: transparent; border: none; outline: none;
+  font-family: var(--font-num); font-size: 22px; font-weight: 700;
+  color: var(--white); width: 6ch; text-align: right;
+  -moz-appearance: textfield;
+}
+.tin-input-row input::-webkit-outer-spin-button,
+.tin-input-row input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.tin-suffix { font-family: var(--font-num); font-size: 16px; font-weight: 300; color: var(--muted); }
+.tin-restore-link {
+  font-family: var(--font-num); font-size: 11px; color: var(--amber);
+  cursor: pointer; text-decoration: underline; letter-spacing: 0.5px;
+  background: none; border: none; padding: 0;
+}
+
+/* ─── Credit warning ─────────────────────────────────────────── */
+.credit-warning {
+  display: none;
+  margin: 0 24px 0;
+  padding: 10px 14px;
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.3);
+  font-family: var(--font-num); font-size: 12px; color: var(--amber);
+  letter-spacing: 0.3px; line-height: 1.5;
+}
+.credit-warning.visible { display: block; }
 
 /* ─── Slider ─────────────────────────────────────────────────── */
 .slider-wrap { padding: 4px 0; }
@@ -258,27 +376,20 @@ input[type=range].calc-slider::-moz-range-thumb {
   cursor: pointer;
 }
 
-/* ─── TIN input ─────────────────────────────────────────────── */
-.tin-input-wrap {
-  display: flex; align-items: center; gap: 8px;
-  border: 1px solid var(--border);
-  padding: 10px 14px;
-  transition: border-color 0.15s;
+/* ─── Info chips row (results) ───────────────────────────────── */
+.info-chips {
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
 }
-.tin-input-wrap:focus-within { border-color: var(--red); }
-.tin-input-wrap input {
-  background: transparent; border: none; outline: none;
-  font-family: var(--font-num); font-size: 22px; font-weight: 700;
-  color: var(--white); width: 6ch; text-align: right;
-  -moz-appearance: textfield;
+.info-chip {
+  font-family: var(--font-num); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.8px; padding: 4px 9px;
+  border: 1px solid var(--border); color: var(--muted);
 }
-.tin-input-wrap input::-webkit-outer-spin-button,
-.tin-input-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; }
-.tin-suffix {
-  font-family: var(--font-num); font-size: 16px; font-weight: 300;
-  color: var(--muted);
-}
-.tin-note { font-size: 11px; color: var(--muted2); margin-top: 6px; }
+.info-chip.green { color: var(--green); border-color: rgba(34,197,94,0.3); background: var(--green-dim); }
+.info-chip.amber { color: var(--amber); border-color: rgba(245,158,11,0.3); background: var(--amber-dim); }
+.info-chip.red   { color: var(--red);   border-color: rgba(200,35,43,0.3);  background: var(--red-dim); }
 
 /* ─── Results panel ─────────────────────────────────────────── */
 .results-card {
@@ -347,6 +458,8 @@ input[type=range].calc-slider::-moz-range-thumb {
 .breakdown-row.total-row { background: rgba(200,35,43,0.06); margin: 8px -24px 0; padding: 12px 24px 0; border-bottom: none; }
 .breakdown-row.total-row .lbl { color: var(--white); font-weight: 600; font-size: 13px; }
 .breakdown-row.total-row .val { font-size: 16px; font-weight: 700; }
+.breakdown-row.bonif-row .val { color: var(--green); }
+.breakdown-row.hidden { display: none; }
 
 /* ─── CTA section ───────────────────────────────────────────── */
 .cta-section {
@@ -389,11 +502,19 @@ input[type=range].calc-slider::-moz-range-thumb {
   display: flex; align-items: center; gap: 16px;
   font-family: var(--font-num); font-size: 11px;
   letter-spacing: 1px;
+  flex-wrap: wrap;
 }
 .status-item { color: var(--muted); display: flex; align-items: center; gap: 6px; }
 .status-item strong { color: var(--white); font-weight: 600; }
 .status-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
 .status-item.red strong { color: var(--red); }
+
+/* ─── FLEX unavailable note ──────────────────────────────────── */
+.flex-unavail-note {
+  font-family: var(--font-num); font-size: 11px; color: var(--amber);
+  margin-top: 6px; display: none;
+}
+.flex-unavail-note.visible { display: block; }
 
 /* ─── Animations ─────────────────────────────────────────────── */
 @keyframes fadeInUp {
@@ -427,7 +548,7 @@ input[type=range].calc-slider::-moz-range-thumb {
       <div class="logo-sub">Das WeltAuto · Concesionario Oficial</div>
     </div>
   </div>
-  <div class="header-tag">Calculadora&nbsp;Financiación</div>
+  <div class="header-tag">Calculadora&nbsp;Financiación&nbsp;VWFS</div>
 </header>
 
 <!-- Main -->
@@ -436,10 +557,52 @@ input[type=range].calc-slider::-moz-range-thumb {
   <!-- ── LEFT: Inputs ── -->
   <div style="display:flex;flex-direction:column;gap:20px;">
 
-    <!-- Precio -->
+    <!-- Vehículo -->
     <div class="card" id="card-precio">
       <div class="section-label">Vehículo</div>
 
+      <!-- Marca -->
+      <div class="field">
+        <div class="field-label">Marca</div>
+        <div class="pills" id="pills-marca">
+          <button class="pill active" onclick="setMarca('SEAT')">SEAT</button>
+          <button class="pill" onclick="setMarca('CUPRA')">CUPRA</button>
+          <button class="pill" onclick="setMarca('OTRA')">Otra marca</button>
+        </div>
+      </div>
+
+      <!-- Fecha matrícula -->
+      <div class="field">
+        <div class="field-label">
+          Fecha matrícula
+          <span id="disp-categoria" class="cat-badge empty">—</span>
+        </div>
+        <div class="fecha-row">
+          <select id="inp-mes" onchange="onFechaChange()">
+            <option value="">Mes</option>
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+          </select>
+          <span style="color:var(--muted);font-family:var(--font-num)">/</span>
+          <input type="number" id="inp-anio" min="2010" max="2035" placeholder="Año"
+                 onchange="onFechaChange()" oninput="onFechaChange()" style="width:80px">
+          <span style="font-family:var(--font-num);font-size:11px;color:var(--muted2);flex:1">
+            ← define VS / VO / VU
+          </span>
+        </div>
+      </div>
+
+      <!-- Precio -->
       <div class="price-display">
         <div class="price-input-wrap">
           <input
@@ -470,28 +633,67 @@ input[type=range].calc-slider::-moz-range-thumb {
     <div class="card">
       <div class="section-label">Configuración</div>
 
-      <!-- Modo -->
+      <!-- Modalidad -->
       <div class="field">
         <div class="field-label" style="margin-bottom:8px;">Modalidad</div>
         <div class="mode-tabs">
-          <button class="mode-tab active" id="tab-lineal" onclick="setMode('lineal')">Lineal</button>
-          <button class="mode-tab" id="tab-autocredit" onclick="setMode('autocredit')">Autocredit</button>
+          <button class="mode-tab active" id="tab-lineal" onclick="setMode('lineal')">LINEAL</button>
+          <button class="mode-tab" id="tab-flex" onclick="setMode('flex')">FLEX</button>
+        </div>
+        <div class="flex-unavail-note" id="flex-unavail-note">
+          ⚠ FLEX no disponible para vehículos VU (&gt;60 meses)
         </div>
       </div>
 
-      <!-- TIN -->
+      <!-- Campaña -->
+      <div class="field" id="field-campana">
+        <div class="field-label">Campaña</div>
+        <!-- SEAT: ENTRY / GAMA -->
+        <div class="camp-pills" id="camp-seat" style="display:none">
+          <button class="camp-pill active" id="cp-entry" onclick="setCampana('ENTRY')">
+            ENTRY · 6,99%
+          </button>
+          <button class="camp-pill" id="cp-gama-seat" onclick="setCampana('GAMA')">
+            GAMA · 8,99%
+          </button>
+        </div>
+        <!-- CUPRA: GAMA / APPROVED -->
+        <div class="camp-pills" id="camp-cupra" style="display:none">
+          <button class="camp-pill active" id="cp-gama-cupra" onclick="setCampana('GAMA')">
+            GAMA · 8,99%
+          </button>
+          <button class="camp-pill" id="cp-approved" onclick="setCampana('APPROVED')">
+            APPROVED · 5,50%
+          </button>
+        </div>
+        <!-- OTRA: computed label -->
+        <div id="camp-otra" style="display:none">
+          <div style="font-family:var(--font-num);font-size:12px;color:var(--muted);padding:8px 12px;border:1px solid var(--border);">
+            <span id="otra-tier-label">Automático según importe financiado</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIN auto -->
       <div class="field">
         <div class="field-label">Tipo de interés nominal (TIN)</div>
-        <div class="tin-input-wrap">
-          <input
-            type="number" id="inp-tin"
-            value="6.99" min="0" max="30" step="0.01"
-            inputmode="decimal"
-            aria-label="TIN en porcentaje"
-          >
-          <span class="tin-suffix">% TIN</span>
+        <!-- Auto display -->
+        <div class="tin-auto-wrap" id="tin-auto-wrap">
+          <div>
+            <span class="tin-auto-val" id="tin-auto-val">6,99</span>
+            <span class="tin-auto-suffix"> % TIN</span>
+          </div>
+          <div class="tin-auto-label" id="tin-auto-label">ENTRY SEAT</div>
         </div>
-        <div class="tin-note">DWA estándar: 6,99% · Modifica si tienes una oferta diferente</div>
+        <button class="tin-override-link" id="tin-override-btn" onclick="toggleTinOverride()">✎ personalizar TIN</button>
+        <!-- Manual override -->
+        <div class="tin-manual-wrap" id="tin-manual-wrap">
+          <div class="tin-input-row">
+            <input type="number" id="inp-tin" value="6.99" min="0" max="30" step="0.01" inputmode="decimal">
+            <span class="tin-suffix">% TIN</span>
+          </div>
+          <button class="tin-restore-link" onclick="restoreTin()">↩ restaurar TIN automático</button>
+        </div>
       </div>
 
       <!-- Entrada -->
@@ -521,15 +723,17 @@ input[type=range].calc-slider::-moz-range-thumb {
           <span id="disp-meses">60 meses</span>
         </div>
         <div class="pills" id="pills-meses">
-          <button class="pill" onclick="setMeses(24)">24m</button>
-          <button class="pill" onclick="setMeses(36)">36m</button>
-          <button class="pill" onclick="setMeses(48)">48m</button>
-          <button class="pill active" onclick="setMeses(60)">60m</button>
-          <button class="pill" onclick="setMeses(72)">72m</button>
+          <button class="pill" id="pl-24" onclick="setMeses(24)">24m</button>
+          <button class="pill" id="pl-36" onclick="setMeses(36)">36m</button>
+          <button class="pill" id="pl-48" onclick="setMeses(48)">48m</button>
+          <button class="pill active" id="pl-60" onclick="setMeses(60)">60m</button>
+          <button class="pill" id="pl-72" onclick="setMeses(72)">72m</button>
+          <button class="pill" id="pl-84" onclick="setMeses(84)">84m</button>
+          <button class="pill" id="pl-96" onclick="setMeses(96)">96m</button>
         </div>
       </div>
 
-      <!-- Km/año (Autocredit only) -->
+      <!-- Km/año (FLEX only) -->
       <div class="field" id="field-km" style="display:none;">
         <div class="field-label">
           Km / año
@@ -556,12 +760,22 @@ input[type=range].calc-slider::-moz-range-thumb {
         <span class="cuota-hero-value" id="cuota-display">—</span>
         <span class="cuota-hero-unit">&nbsp;€ / mes</span>
       </div>
-      <!-- Cuota final (Autocredit) -->
+      <!-- Cuota final (FLEX) -->
       <div class="cuota-final-row hidden" id="cuota-final-row">
         <span class="cuota-final-label" id="cuota-final-label">Cuota final mes 60</span>
         <span class="cuota-final-val" id="cuota-final-val">—</span>
       </div>
     </div>
+
+    <!-- Info chips: categoría + campaña -->
+    <div class="info-chips" id="info-chips">
+      <span class="info-chip" id="chip-cat" style="display:none"></span>
+      <span class="info-chip green" id="chip-camp"></span>
+      <span class="info-chip red" id="chip-tin"></span>
+    </div>
+
+    <!-- Credit warning -->
+    <div class="credit-warning" id="credit-warning"></div>
 
     <!-- Breakdown table -->
     <div class="breakdown" id="breakdown">
@@ -569,9 +783,9 @@ input[type=range].calc-slider::-moz-range-thumb {
         <span class="lbl">Precio al contado</span>
         <span class="val" id="br-precio">—</span>
       </div>
-      <div class="breakdown-row dim">
-        <span class="lbl">Descuento por financiar</span>
-        <span class="val">—</span>
+      <div class="breakdown-row bonif-row hidden" id="br-bonif-row">
+        <span class="lbl">Bonificación VWFS</span>
+        <span class="val" id="br-bonif">—</span>
       </div>
       <div class="breakdown-row">
         <span class="lbl">Entrada inicial</span>
@@ -613,7 +827,7 @@ input[type=range].calc-slider::-moz-range-thumb {
 <div class="status-bar">
   <div class="status-item"><div class="status-dot"></div> En línea</div>
   <div class="status-item">Precio: <strong id="sb-precio">—</strong></div>
-  <div class="status-item">Modalidad: <strong id="sb-modo">Lineal</strong></div>
+  <div class="status-item">Marca: <strong id="sb-marca">SEAT</strong></div>
   <div class="status-item">TIN: <strong id="sb-tin">6,99%</strong></div>
   <div class="status-item red">Cuota: <strong id="sb-cuota">—</strong></div>
 </div>
@@ -621,15 +835,22 @@ input[type=range].calc-slider::-moz-range-thumb {
 <script>
 // ── State ───────────────────────────────────────────────────────────────────
 const S = {
-  precio:  22900,
-  tin:     6.99,
-  entrada: 0,   // EUR
-  meses:   60,
-  tab:     'lineal',
-  km:      15000,
+  precio:        22900,
+  entrada:       0,       // EUR
+  meses:         60,
+  tab:           'lineal',  // 'lineal' | 'flex'
+  km:            15000,
+  marca:         'SEAT',    // 'SEAT' | 'CUPRA' | 'OTRA'
+  matriculaMes:  null,      // 1-12
+  matriculaAnio: null,      // e.g. 2022
+  campana:       'ENTRY',   // 'ENTRY' | 'GAMA' | 'APPROVED'
+  tinOverride:   null,      // null = auto | number = manual override
 };
 
-// ── VR Tables ───────────────────────────────────────────────────────────────
+// ── All plazo options ────────────────────────────────────────────────────────
+const ALL_PLAZOS = [24, 36, 48, 60, 72, 84, 96];
+
+// ── VR Tables (FLEX) ─────────────────────────────────────────────────────────
 const VR_TABLE = {
   24: {10000:62,15000:58,20000:53,25000:48,30000:43},
   36: {10000:58,15000:54,20000:49,25000:44,30000:39},
@@ -639,20 +860,152 @@ const VR_TABLE = {
 };
 
 // ── Formatting ───────────────────────────────────────────────────────────────
-const fmt = (n) => Math.round(n).toLocaleString('es-ES');
+const fmt  = (n) => Math.round(n).toLocaleString('es-ES');
 const fmt2 = (n) => n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+// ── Financing Rules Engine ───────────────────────────────────────────────────
+function getFinancingRules() {
+  const { marca, matriculaMes, matriculaAnio, tab, precio, entrada, campana } = S;
+
+  // 1. Calculate vehicle age in months
+  let antigMeses = null;
+  if (matriculaMes && matriculaAnio && matriculaAnio >= 2000) {
+    const now = new Date();
+    const diff = (now.getFullYear() - matriculaAnio) * 12 + (now.getMonth() + 1 - matriculaMes);
+    antigMeses = Math.max(0, diff);
+  }
+
+  // 2. Classify VS / VO / VU
+  const categoria = antigMeses === null ? null
+    : antigMeses <= 24 ? 'VS'
+    : antigMeses <= 60 ? 'VO'
+    : 'VU';
+
+  const producto = tab === 'lineal' ? 'LINEAL' : 'FLEX';
+  const importeNeto = Math.max(0, precio - entrada);
+
+  // 3. Max plazo rules per product
+  const maxGlobal = producto === 'FLEX' ? 120 : 144;
+
+  // 4. Build available plazos list
+  let plazosDisp = [...ALL_PLAZOS];
+
+  if (antigMeses !== null) {
+    // Global rule: matricula + plazo <= max
+    plazosDisp = plazosDisp.filter(p => antigMeses + p <= maxGlobal);
+  }
+
+  if (producto === 'FLEX') {
+    // FLEX: max 60m always; VU = not available
+    if (categoria === 'VU') {
+      plazosDisp = []; // FLEX no disponible para VU
+    } else {
+      plazosDisp = plazosDisp.filter(p => p <= 60);
+    }
+  } else {
+    // LINEAL: depends on category
+    if (categoria === 'VS') {
+      plazosDisp = plazosDisp.filter(p => p <= 96);
+    } else if (categoria === 'VO') {
+      plazosDisp = plazosDisp.filter(p => p <= 84);
+    } else if (categoria === 'VU') {
+      plazosDisp = plazosDisp.filter(p => p <= 48);
+    }
+    // null = no restriction applied (fecha not filled)
+  }
+
+  // Ensure minimum plazos (GAMA SEAT LINEAL VS min 60m, VO min 60m, etc.)
+  // We apply these as soft guidance but let user see all pills
+  // Hard campaign restrictions:
+  let creditoMinimo = 0;
+  let bonificacion  = 0;
+  let tin_auto      = 6.99;
+  let campanaLabel  = '';
+
+  if (marca === 'SEAT') {
+    if (campana === 'ENTRY' && categoria !== 'VU') {
+      tin_auto      = 6.99;
+      bonificacion  = 0;
+      creditoMinimo = 10000;
+      campanaLabel  = 'ENTRY · SEAT';
+      // ENTRY: LINEAL min 48m
+      if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 48);
+    } else {
+      // GAMA or forced GAMA (VU)
+      tin_auto = 8.99;
+      if (categoria === 'VU') {
+        bonificacion  = 400;
+        creditoMinimo = 7000;
+        campanaLabel  = 'GAMA · SEAT · VU';
+        plazosDisp = plazosDisp.filter(p => p <= 48);
+      } else if (categoria === 'VO') {
+        bonificacion  = 750;
+        creditoMinimo = producto === 'LINEAL' ? 9500 : 10000;
+        campanaLabel  = 'GAMA · SEAT · VO';
+        if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 60 && p <= 84);
+      } else {
+        // VS or null
+        bonificacion  = 750;
+        creditoMinimo = producto === 'LINEAL' ? 13000 : 10000;
+        campanaLabel  = categoria ? 'GAMA · SEAT · VS' : 'GAMA · SEAT';
+        if (producto === 'LINEAL' && categoria === 'VS') plazosDisp = plazosDisp.filter(p => p >= 60 && p <= 96);
+      }
+    }
+
+  } else if (marca === 'CUPRA') {
+    if (campana === 'APPROVED' && (categoria === 'VS' || categoria === null)) {
+      tin_auto      = 5.50;
+      bonificacion  = 0;
+      creditoMinimo = producto === 'FLEX' ? 13500 : 10000;
+      campanaLabel  = 'APPROVED · CUPRA';
+      if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 36);
+    } else {
+      // GAMA
+      tin_auto     = 8.99;
+      bonificacion = 1800;
+      creditoMinimo = producto === 'FLEX' ? 16500 : 13500;
+      campanaLabel  = categoria ? 'GAMA · CUPRA · ' + (categoria || '') : 'GAMA · CUPRA';
+      if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 48);
+    }
+
+  } else {
+    // OTRAS MARCAS — LINEAL only, 48-96m, tier by importe
+    plazosDisp = plazosDisp.filter(p => p >= 48 && p <= 96);
+    if (importeNeto >= 20000) {
+      tin_auto = 8.99; bonificacion = 1200; creditoMinimo = 20000; campanaLabel = 'TOP · Otras Marcas';
+    } else if (importeNeto >= 15000) {
+      tin_auto = 8.99; bonificacion = 800;  creditoMinimo = 15000; campanaLabel = 'Premium · Otras Marcas';
+    } else if (importeNeto >= 10000) {
+      tin_auto = 8.99; bonificacion = 400;  creditoMinimo = 10000; campanaLabel = 'Entry · Otras Marcas';
+    } else {
+      tin_auto = 7.50; bonificacion = 0;    creditoMinimo = 6000;  campanaLabel = 'Básica · Otras Marcas';
+    }
+  }
+
+  // Use manual override if set
+  const tinFinal = S.tinOverride !== null ? S.tinOverride : tin_auto;
+
+  return { tinFinal, tin_auto, bonificacion, creditoMinimo, campanaLabel, plazosDisp, categoria, antigMeses };
+}
 
 // ── Core calculation ─────────────────────────────────────────────────────────
 function calcFinanciacion() {
-  const { precio, tin, entrada, meses, tab, km } = S;
+  const { precio, entrada, meses, tab, km } = S;
+  const rules = getFinancingRules();
+  const tin   = rules.tinFinal;
+  const bonif = rules.bonificacion;
+
   const r  = tin / 100 / 12;
   const rn = Math.pow(1 + r, meses);
-  const neto = precio - entrada;
 
-  // Insurance: scales with neto using power law (matches DWA behavior)
-  const seg0 = precio * 0.0615;
-  const seg  = precio > 0
-    ? Math.round(seg0 * Math.pow(neto / precio, 1.5) * 100) / 100
+  // Effective price after bonification
+  const precioEf = Math.max(0, precio - bonif);
+  const neto     = Math.max(0, precioEf - entrada);
+
+  // Insurance: Seguro de Protección Plus (VWFS product, scales with neto)
+  const seg0 = precioEf * 0.0615;
+  const seg  = precioEf > 0
+    ? Math.round(seg0 * Math.pow(neto / precioEf, 1.5) * 100) / 100
     : 0;
 
   const base     = neto + seg;
@@ -661,10 +1014,10 @@ function calcFinanciacion() {
 
   let vr = 0, cuota = 0;
 
-  if (tab === 'autocredit') {
-    const tbl  = VR_TABLE[meses] || VR_TABLE[60];
-    const pct  = tbl[km] !== undefined ? tbl[km] : 46;
-    vr         = Math.round(precio * pct / 100);
+  if (tab === 'flex') {
+    const tbl = VR_TABLE[meses] || VR_TABLE[60];
+    const pct = tbl[km] !== undefined ? tbl[km] : 46;
+    vr        = Math.round(precio * pct / 100);
     if (rn > 1 && r > 0) {
       cuota = (capital * r * rn - vr * r) / (rn - 1);
     } else {
@@ -681,13 +1034,143 @@ function calcFinanciacion() {
   cuota = Math.round(cuota * 100) / 100;
   const total = Math.round((cuota * meses + entrada + vr) * 100) / 100;
 
-  return { seg, comision, capital, cuota, total, vr };
+  return { seg, comision, capital, cuota, total, vr, bonif, precioEf, rules };
+}
+
+// ── Update campaign UI ───────────────────────────────────────────────────────
+function updateCampanaUI() {
+  const { marca, campana } = S;
+  const rules  = getFinancingRules();
+  const cat    = rules.categoria;
+
+  // Show/hide campaign selector panels
+  document.getElementById('camp-seat').style.display  = marca === 'SEAT'  ? 'flex' : 'none';
+  document.getElementById('camp-cupra').style.display = marca === 'CUPRA' ? 'flex' : 'none';
+  document.getElementById('camp-otra').style.display  = marca === 'OTRA'  ? 'block' : 'none';
+
+  if (marca === 'SEAT') {
+    // ENTRY disabled for VU
+    const entryBtn = document.getElementById('cp-entry');
+    const gamaBtn  = document.getElementById('cp-gama-seat');
+    const isVU     = cat === 'VU';
+    entryBtn.disabled = isVU;
+    if (isVU && campana === 'ENTRY') {
+      S.campana = 'GAMA';
+    }
+    const activeCamp = S.campana;
+    entryBtn.classList.toggle('active', activeCamp === 'ENTRY' && !isVU);
+    gamaBtn.classList.toggle('active',  activeCamp === 'GAMA' || isVU);
+  }
+
+  if (marca === 'CUPRA') {
+    const gamaBtn     = document.getElementById('cp-gama-cupra');
+    const approvedBtn = document.getElementById('cp-approved');
+    const canApproved = cat === 'VS' || cat === null;
+    approvedBtn.disabled = !canApproved;
+    if (!canApproved && campana === 'APPROVED') {
+      S.campana = 'GAMA';
+    }
+    const activeCamp = S.campana;
+    gamaBtn.classList.toggle('active',     activeCamp === 'GAMA');
+    approvedBtn.classList.toggle('active', activeCamp === 'APPROVED' && canApproved);
+  }
+
+  if (marca === 'OTRA') {
+    const rules2 = getFinancingRules();
+    document.getElementById('otra-tier-label').textContent =
+      rules2.campanaLabel + ' · mín. ' + fmt(rules2.creditoMinimo) + ' €';
+  }
+}
+
+// ── Update TIN display ───────────────────────────────────────────────────────
+function updateTinUI(rules) {
+  const tinDisp = rules.tinFinal.toFixed(2).replace('.', ',');
+  document.getElementById('tin-auto-val').textContent   = tinDisp;
+  document.getElementById('tin-auto-label').textContent = rules.campanaLabel;
+  document.getElementById('inp-tin').value              = rules.tinFinal.toFixed(2);
+  document.getElementById('sb-tin').textContent         = tinDisp + '%';
+}
+
+// ── Update plazo pills ───────────────────────────────────────────────────────
+function updatePlazoPills(plazosDisp) {
+  const { tab } = S;
+  ALL_PLAZOS.forEach(p => {
+    const el = document.getElementById('pl-' + p);
+    if (!el) return;
+    const avail = plazosDisp.includes(p);
+    el.disabled = !avail;
+    el.classList.toggle('active', S.meses === p);
+    el.style.opacity = avail ? '' : '0.25';
+    el.style.cursor  = avail ? '' : 'not-allowed';
+    el.style.pointerEvents = avail ? '' : 'none';
+  });
+
+  // If current meses is not available, pick highest available
+  if (!plazosDisp.includes(S.meses) && plazosDisp.length > 0) {
+    const newMeses = plazosDisp[plazosDisp.length - 1];
+    S.meses = newMeses;
+    document.getElementById('disp-meses').textContent = newMeses + ' meses';
+    // Update active pill
+    ALL_PLAZOS.forEach(p => {
+      const el = document.getElementById('pl-' + p);
+      if (el) el.classList.toggle('active', p === newMeses);
+    });
+  }
+
+  // FLEX unavailable note
+  const isVU = (() => { const r = getFinancingRules(); return r.categoria === 'VU'; })();
+  const flexNote = document.getElementById('flex-unavail-note');
+  if (tab === 'lineal' && isVU) {
+    flexNote.classList.add('visible');
+  } else {
+    flexNote.classList.remove('visible');
+  }
 }
 
 // ── Render ───────────────────────────────────────────────────────────────────
 function render() {
-  const { precio, tin, entrada, meses, tab, km } = S;
-  const res = calcFinanciacion();
+  const { precio, entrada, meses, tab, km, marca } = S;
+  const res   = calcFinanciacion();
+  const rules = res.rules;
+
+  // Update campaign UI
+  updateCampanaUI();
+
+  // Update TIN display
+  updateTinUI(rules);
+
+  // Update plazo pills
+  updatePlazoPills(rules.plazosDisp);
+
+  // Marca pills
+  document.querySelectorAll('#pills-marca .pill').forEach((el, i) => {
+    el.classList.toggle('active', ['SEAT','CUPRA','OTRA'][i] === marca);
+  });
+
+  // FLEX tab disabled if VU
+  const flexTab = document.getElementById('tab-flex');
+  if (rules.categoria === 'VU') {
+    flexTab.disabled = true;
+    if (tab === 'flex') {
+      S.tab = 'lineal';
+      document.getElementById('tab-lineal').classList.add('active');
+      flexTab.classList.remove('active');
+      document.getElementById('field-km').style.display = 'none';
+    }
+  } else {
+    flexTab.disabled = false;
+  }
+
+  // Categoria badge
+  const catEl = document.getElementById('disp-categoria');
+  if (rules.categoria) {
+    const catNames = { VS: 'VS · ' + rules.antigMeses + 'm', VO: 'VO · ' + rules.antigMeses + 'm', VU: 'VU · ' + rules.antigMeses + 'm' };
+    catEl.textContent = catNames[rules.categoria];
+    catEl.className   = 'cat-badge ' + rules.categoria.toLowerCase();
+  } else {
+    catEl.textContent = '';
+    catEl.className   = 'cat-badge empty';
+  }
 
   // Hero cuota — flash animation
   const el = document.getElementById('cuota-display');
@@ -696,38 +1179,74 @@ function render() {
   el.textContent = fmt2(res.cuota);
   el.classList.add('updating');
 
-  // Breakdown
-  document.getElementById('br-precio').textContent    = fmt(precio) + ' €';
-  document.getElementById('br-entrada').textContent   = fmt(entrada) + ' €';
-  document.getElementById('br-tin').textContent       = tin.toFixed(2).replace('.', ',') + ' %';
-  document.getElementById('br-ncuotas').textContent   = meses;
-  document.getElementById('br-total').textContent     = fmt2(res.total) + ' €';
+  // Info chips
+  const chipCat  = document.getElementById('chip-cat');
+  const chipCamp = document.getElementById('chip-camp');
+  const chipTin  = document.getElementById('chip-tin');
+  if (rules.categoria) {
+    chipCat.textContent  = rules.categoria + ' · ' + rules.antigMeses + 'm';
+    chipCat.style.display = '';
+    chipCat.className = 'info-chip ' + (rules.categoria === 'VS' ? 'green' : rules.categoria === 'VO' ? 'amber' : '');
+  } else {
+    chipCat.style.display = 'none';
+  }
+  chipCamp.textContent = rules.campanaLabel;
+  chipTin.textContent  = 'TIN ' + rules.tinFinal.toFixed(2).replace('.', ',') + '%';
 
-  // Legal note — detalles completos estilo DWA (letra pequeña)
+  // Breakdown
+  document.getElementById('br-precio').textContent  = fmt(precio) + ' €';
+  document.getElementById('br-entrada').textContent = fmt(entrada) + ' €';
+  document.getElementById('br-tin').textContent     = rules.tinFinal.toFixed(2).replace('.', ',') + ' %';
+  document.getElementById('br-ncuotas').textContent = S.meses;
+  document.getElementById('br-total').textContent   = fmt2(res.total) + ' €';
+
+  // Bonificación row
+  const bonifRow = document.getElementById('br-bonif-row');
+  if (res.bonif > 0) {
+    bonifRow.classList.remove('hidden');
+    document.getElementById('br-bonif').textContent = '−' + fmt(res.bonif) + ' €';
+  } else {
+    bonifRow.classList.add('hidden');
+  }
+
+  // Credit warning
+  const importeFinanciado = Math.max(0, res.precioEf - entrada);
+  const warning = document.getElementById('credit-warning');
+  if (rules.creditoMinimo > 0 && importeFinanciado < rules.creditoMinimo) {
+    warning.classList.add('visible');
+    warning.textContent = '⚠ Importe financiado (' + fmt(importeFinanciado) + ' €) inferior al mínimo de la campaña ' +
+      rules.campanaLabel + ' (' + fmt(rules.creditoMinimo) + ' €). Consulta condiciones con Andrés.';
+  } else {
+    warning.classList.remove('visible');
+  }
+
+  // Legal note
   const modeStr2 = tab === 'lineal' ? 'francés' : 'francés con cuota final';
-  let legalTxt = `Ejemplo de cuota a ${meses} meses: ${fmt2(res.cuota)} €`;
-  if (tab === 'autocredit' && res.vr > 0) {
-    const anos = Math.round(meses / 12);
+  let legalTxt = `Ejemplo de cuota a ${S.meses} meses: ${fmt2(res.cuota)} €`;
+  if (tab === 'flex' && res.vr > 0) {
+    const anos = Math.round(S.meses / 12);
     const kmk  = Math.round(km / 1000);
     legalTxt += `, y si lo deseas, al cabo de ${anos} año${anos !== 1 ? 's' : ''} podrás ` +
       `cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes ` +
-      `${meses} de ${fmt2(res.vr)} € (calculada con ${kmk}.000 km anuales)`;
+      `${S.meses} de ${fmt2(res.vr)} € (calculada con ${kmk}.000 km anuales)`;
   }
-  legalTxt += `. Entrada inicial: ${fmt(entrada)} €. ` +
+  legalTxt += `. Campaña: ${rules.campanaLabel}. `;
+  if (res.bonif > 0) legalTxt += `Bonificación VWFS: ${fmt(res.bonif)} €. `;
+  legalTxt += `Entrada inicial: ${fmt(entrada)} €. ` +
     `Seguro de Protección Plus opcional y financiado: ${fmt2(res.seg)} €. ` +
     `Comisión de apertura financiada: ${fmt2(res.comision)} €. ` +
     `Importe total financiado: ${fmt2(res.capital)} €. ` +
-    `TIN ${tin.toFixed(2).replace('.', ',')}%. ` +
+    `TIN ${rules.tinFinal.toFixed(2).replace('.', ',')}%. ` +
     `Precio total a plazos: ${fmt2(res.total)} €. ` +
     `Sistema de amortización ${modeStr2}. Incompatible con otras ofertas financieras. ` +
     `Consulta condiciones exactas con Andrés · 610 02 90 56.`;
   document.getElementById('legal-note').textContent = legalTxt;
 
-  // Cuota final (Autocredit)
+  // Cuota final (FLEX)
   const cfRow = document.getElementById('cuota-final-row');
-  if (tab === 'autocredit' && res.vr > 0) {
+  if (tab === 'flex' && res.vr > 0) {
     cfRow.classList.remove('hidden');
-    document.getElementById('cuota-final-label').textContent = 'Cuota final mes ' + meses;
+    document.getElementById('cuota-final-label').textContent = 'Cuota final mes ' + S.meses;
     document.getElementById('cuota-final-val').textContent   = fmt2(res.vr) + ' €';
   } else {
     cfRow.classList.add('hidden');
@@ -735,39 +1254,42 @@ function render() {
 
   // Status bar
   document.getElementById('sb-precio').textContent = fmt(precio) + ' €';
-  document.getElementById('sb-modo').textContent   = tab === 'lineal' ? 'Lineal' : 'Autocredit';
-  document.getElementById('sb-tin').textContent    = tin.toFixed(2).replace('.', ',') + '%';
+  document.getElementById('sb-marca').textContent  = marca + (rules.categoria ? ' · ' + rules.categoria : '');
+  document.getElementById('sb-tin').textContent    = rules.tinFinal.toFixed(2).replace('.', ',') + '%';
   document.getElementById('sb-cuota').textContent  = fmt2(res.cuota) + ' €';
 
   // WhatsApp link
-  buildWhatsAppLink(res);
+  buildWhatsAppLink(res, rules);
 }
 
 // ── WhatsApp message ─────────────────────────────────────────────────────────
-function buildWhatsAppLink(res) {
-  const { precio, tin, entrada, meses, tab } = S;
-  const modeStr = tab === 'lineal' ? 'Lineal' : 'Autocredit';
-  let msg = `🚗 *Simulación de Financiación*\n`;
+function buildWhatsAppLink(res, rules) {
+  const { precio, entrada, marca, tab } = S;
+  const modeStr = tab === 'lineal' ? 'LINEAL' : 'FLEX';
+  let msg = `🚗 *Simulación Financiación VWFS*\n`;
   msg += `━━━━━━━━━━━━━━━\n`;
+  msg += `Marca: *${marca}* ${rules.categoria ? '· ' + rules.categoria : ''}\n`;
+  msg += `Campaña: *${rules.campanaLabel}*\n`;
   msg += `Precio al contado: *${fmt(precio)} €*\n`;
+  if (res.bonif > 0) msg += `Bonificación VWFS: *−${fmt(res.bonif)} €*\n`;
   msg += `Entrada inicial: *${fmt(entrada)} €*\n`;
   msg += `Modalidad: *${modeStr}*\n`;
-  msg += `Plazo: *${meses} meses*\n`;
-  msg += `TIN: *${tin.toFixed(2).replace('.', ',')}%*\n`;
+  msg += `Plazo: *${S.meses} meses*\n`;
+  msg += `TIN: *${rules.tinFinal.toFixed(2).replace('.', ',')}%*\n`;
   msg += `Seguro Protección Plus: *${fmt2(res.seg)} €*\n`;
   msg += `Comisión apertura (3,5%): *${fmt2(res.comision)} €*\n`;
   msg += `Importe financiado: *${fmt2(res.capital)} €*\n`;
   msg += `━━━━━━━━━━━━━━━\n`;
   msg += `📅 *CUOTA: ${fmt2(res.cuota)} €/mes*\n`;
-  if (tab === 'autocredit' && res.vr > 0) {
-    msg += `🔑 Cuota final mes ${meses}: *${fmt2(res.vr)} €*\n`;
+  if (tab === 'flex' && res.vr > 0) {
+    msg += `🔑 Cuota final mes ${S.meses}: *${fmt2(res.vr)} €*\n`;
   }
   msg += `💰 Total a plazos: *${fmt2(res.total)} €*\n`;
   msg += `━━━━━━━━━━━━━━━\n`;
   msg += `_Cálculo orientativo. Condiciones exactas con Andrés · 610 02 90 56_`;
 
   const encoded = encodeURIComponent(msg);
-  document.getElementById('btn-wa').href = `https://wa.me/?text=${encoded}`;
+  document.getElementById('btn-wa').href = `https://wa.me/34610029056?text=${encoded}`;
 }
 
 // ── Slider init & move ───────────────────────────────────────────────────────
@@ -776,8 +1298,7 @@ function initSlider() {
   const maxE   = Math.max(0, Math.floor((S.precio - 10000) / 100) * 100);
   slider.max   = maxE;
   slider.step  = 100;
-  // Clamp current entrada if out of range
-  S.entrada = Math.min(S.entrada, maxE);
+  S.entrada    = Math.min(S.entrada, maxE);
   slider.value = S.entrada;
 
   const pct = maxE > 0 ? (S.entrada / maxE * 100) : 0;
@@ -802,22 +1323,51 @@ function onSliderMove(val) {
 function setPrice(p) {
   S.precio = p;
   document.getElementById('inp-precio').value = p;
+  document.querySelectorAll('#card-precio .pill').forEach(el => el.classList.remove('active'));
   initSlider();
   render();
 }
 
+function setMarca(m) {
+  S.marca = m;
+  // Reset campaign defaults
+  if (m === 'SEAT')  S.campana = 'ENTRY';
+  if (m === 'CUPRA') S.campana = 'GAMA';
+  if (m === 'OTRA')  { S.campana = 'GAMA'; S.tab = 'lineal'; }
+  // Reset TIN override
+  S.tinOverride = null;
+  document.getElementById('tin-manual-wrap').classList.remove('visible');
+  document.getElementById('tin-auto-wrap').style.display = '';
+  document.getElementById('tin-override-btn').textContent = '✎ personalizar TIN';
+  render();
+}
+
 function setMode(m) {
+  if (m === 'flex') {
+    const rules = getFinancingRules();
+    if (rules.categoria === 'VU') return; // blocked
+    if (S.marca === 'OTRA') return; // OTRA solo LINEAL
+  }
   S.tab = m;
   document.getElementById('tab-lineal').classList.toggle('active', m === 'lineal');
-  document.getElementById('tab-autocredit').classList.toggle('active', m === 'autocredit');
-  document.getElementById('field-km').style.display = m === 'autocredit' ? 'block' : 'none';
+  document.getElementById('tab-flex').classList.toggle('active',   m === 'flex');
+  document.getElementById('field-km').style.display = m === 'flex' ? 'block' : 'none';
+  render();
+}
+
+function setCampana(c) {
+  S.campana = c;
+  S.tinOverride = null;
+  document.getElementById('tin-manual-wrap').classList.remove('visible');
+  document.getElementById('tin-auto-wrap').style.display = '';
   render();
 }
 
 function setMeses(m) {
   S.meses = m;
-  document.querySelectorAll('#pills-meses .pill').forEach((el, i) => {
-    el.classList.toggle('active', [24,36,48,60,72][i] === m);
+  ALL_PLAZOS.forEach(p => {
+    const el = document.getElementById('pl-' + p);
+    if (el) el.classList.toggle('active', p === m);
   });
   document.getElementById('disp-meses').textContent = m + ' meses';
   render();
@@ -832,12 +1382,49 @@ function setKm(k) {
   render();
 }
 
+function onFechaChange() {
+  const mes  = parseInt(document.getElementById('inp-mes').value) || null;
+  const anio = parseInt(document.getElementById('inp-anio').value) || null;
+  S.matriculaMes  = mes;
+  S.matriculaAnio = anio;
+  render();
+}
+
+function toggleTinOverride() {
+  const manualWrap = document.getElementById('tin-manual-wrap');
+  const autoWrap   = document.getElementById('tin-auto-wrap');
+  const btn        = document.getElementById('tin-override-btn');
+  if (manualWrap.classList.contains('visible')) {
+    manualWrap.classList.remove('visible');
+    autoWrap.style.display = '';
+    btn.textContent = '✎ personalizar TIN';
+    S.tinOverride = null;
+    render();
+  } else {
+    manualWrap.classList.add('visible');
+    autoWrap.style.display = 'none';
+    btn.textContent = '✕ cerrar personalización';
+    // Pre-fill with current auto TIN
+    const rules = getFinancingRules();
+    document.getElementById('inp-tin').value = rules.tin_auto.toFixed(2);
+    S.tinOverride = rules.tin_auto;
+    render();
+  }
+}
+
+function restoreTin() {
+  S.tinOverride = null;
+  document.getElementById('tin-manual-wrap').classList.remove('visible');
+  document.getElementById('tin-auto-wrap').style.display = '';
+  document.getElementById('tin-override-btn').textContent = '✎ personalizar TIN';
+  render();
+}
+
 // ── Input listeners ──────────────────────────────────────────────────────────
 document.getElementById('inp-precio').addEventListener('input', (e) => {
   const v = parseFloat(e.target.value);
   if (!isNaN(v) && v > 0) {
     S.precio = v;
-    // deselect price presets
     document.querySelectorAll('#card-precio .pill').forEach(el => el.classList.remove('active'));
     initSlider();
     render();
@@ -847,8 +1434,7 @@ document.getElementById('inp-precio').addEventListener('input', (e) => {
 document.getElementById('inp-tin').addEventListener('input', (e) => {
   const v = parseFloat(e.target.value);
   if (!isNaN(v) && v >= 0 && v <= 30) {
-    S.tin = v;
-    document.getElementById('sb-tin').textContent = v.toFixed(2).replace('.', ',') + '%';
+    S.tinOverride = v;
     render();
   }
 });
