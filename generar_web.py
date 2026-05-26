@@ -212,6 +212,7 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
                            int(str(c["precio"]).replace(".", "").replace(",", "").split()[0])
                        ),
         "fin_fuente":  "dwa" if c.get("financiacion", {}).get("cuota") else "calc",
+        "fin_fecha_iso": (lambda f: f"{f.split('/')[1]}-{f.split('/')[0]}" if f and "/" in f and len(f.split("/"))==2 else "")(c.get("fecha", "")),
         "etiqueta":    etiqueta_dgt(c.get("combustible", "")),
         "estado":      c["estado"],          # "Disponible" o "No disponible"
         "url":         DASWELTAUTO + c["url"] if c.get("url") else "",
@@ -590,28 +591,32 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
     font-size: 11px; font-weight: 700; text-transform: uppercase;
     letter-spacing: 1px; color: rgba(240,244,255,0.45); margin-bottom: 14px;
   }}
-  .calc-tabs {{
-    display: flex; gap: 4px;
-    background: rgba(255,255,255,0.07);
-    border-radius: 11px; padding: 3px;
-    margin-bottom: 18px;
+  /* Campaign badge — auto-selected, info-only */
+  .calc-campaign-badge {{
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 14px; min-height: 24px;
   }}
-  .calc-tab {{
-    flex: 1; border: none; background: transparent;
-    color: rgba(240,244,255,0.5); font-family: inherit;
-    font-size: 13px; font-weight: 700; padding: 8px 12px;
-    border-radius: 9px; cursor: pointer;
-    transition: all 0.22s ease;
-    letter-spacing: 0.3px;
-  }}
-  .calc-tab.active {{
-    background: #C8232B;
-    color: #fff;
-    box-shadow: 0 3px 14px rgba(200,35,43,0.5);
-  }}
-  .calc-tab:not(.active):hover {{
+  .camp-badge {{
+    display: inline-flex; align-items: center;
+    background: rgba(200,35,43,0.18);
+    border: 1px solid rgba(200,35,43,0.4);
     color: rgba(240,244,255,0.9);
-    background: rgba(255,255,255,0.08);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+    padding: 4px 10px; border-radius: 20px;
+    text-transform: uppercase;
+  }}
+  .camp-badge.camp-none {{
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.12);
+    color: rgba(240,244,255,0.4);
+  }}
+  .camp-cat {{
+    font-size: 11px; color: rgba(240,244,255,0.35); font-weight: 600;
+  }}
+  .calc-chip.disabled {{
+    opacity: 0.28; cursor: not-allowed;
+    border-color: rgba(255,255,255,0.07);
+    pointer-events: none;
   }}
   .calc-slider-label {{
     display: flex; justify-content: space-between; align-items: center;
@@ -971,10 +976,7 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
       </div>
       <div class="modal-financiacion" id="m-financiacion">
         <div class="calc-title">💰 Calculadora de Financiación</div>
-        <div class="calc-tabs">
-          <button class="calc-tab active" id="calc-tab-lineal" onclick="calcTabClick('lineal')">Lineal</button>
-          <button class="calc-tab" id="calc-tab-autocredit" onclick="calcTabClick('autocredit')">Autocredit</button>
-        </div>
+        <div id="calc-campaign-badge" class="calc-campaign-badge"></div>
         <div class="calc-slider-label">
           <span>Entrada <span id="calc-entrada-max-lbl" style="font-size:11px;opacity:0.55;font-weight:400"></span></span>
           <span class="calc-slider-val" id="calc-entrada-display">0 €</span>
@@ -984,7 +986,7 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
           oninput="calcSliderMove(this.value)">
         <div class="calc-chips-label">Plazo (meses)</div>
         <div class="calc-chips" id="calc-plazo-chips"></div>
-        <div class="calc-km-row" id="calc-km-row">
+        <div class="calc-km-row visible" id="calc-km-row">
           <div class="calc-chips-label">Km / año</div>
           <div class="calc-chips" id="calc-km-chips"></div>
         </div>
@@ -1216,160 +1218,220 @@ document.querySelectorAll('.filter-btn').forEach(btn => {{
 searchInput.addEventListener('input', e => {{ busqueda = e.target.value; render(); }});
 document.getElementById('sort-select').addEventListener('change', e => {{ ordenActivo = e.target.value; render(); }});
 
-// ── Calculadora de Financiación ─────────────────────────────────────────────
-let calcState = {{
-  precio: 0, tin: 6.99, tae: null, meses: 48,
-  entradaPct: 0, tab: 'lineal', km: 15000, fin_ejemplo: '',
-  vrBase: null, seguro: 0
-}};
+// ── Calculadora Auto-Campaña VWFS ────────────────────────────────────────────
 
-// Tabla VR% calibrada con datos reales de DWA (60m/15k ≈ 61% promedio real)
-// Si el coche tiene fin_vr (VR real de DWA a 60m/15k), se usa como base y se escala.
-// Esta tabla solo se usa como fallback si no hay dato real.
+// Tabla VR% calibrada con datos reales DWA (63% para 60m/15k)
 const VR_TABLE = {{
-  24: {{10000:79,15000:74,20000:68,25000:63,30000:58}},
-  36: {{10000:73,15000:68,20000:62,25000:57,30000:52}},
-  48: {{10000:68,15000:63,20000:57,25000:52,30000:47}},
-  60: {{10000:66,15000:61,20000:55,25000:50,30000:45}},
-  72: {{10000:60,15000:55,20000:49,25000:44,30000:39}},
-  84: {{10000:54,15000:49,20000:43,25000:38,30000:33}}
+  24: {{10000:79,15000:75,20000:70,25000:65,30000:60}},
+  36: {{10000:75,15000:71,20000:66,25000:61,30000:56}},
+  48: {{10000:71,15000:67,20000:62,25000:57,30000:52}},
+  60: {{10000:67,15000:63,20000:58,25000:53,30000:48}},
+  72: {{10000:63,15000:59,20000:54,25000:49,30000:44}},
 }};
 
-// Ajustes aditivos en % de precio para escalar desde la base 60m/15k
-const VR_KM_ADJ   = {{10000:+5,15000:0,20000:-6,25000:-11,30000:-16}};
-const VR_MES_ADJ  = {{24:+18,36:+11,48:+3,60:0,72:-6,84:-12}};
-
-function calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase, seguro) {{
-  const entrada  = Math.round(precio * entradaPct / 100);
-  const r        = tin / 100 / 12;
-  const rn       = Math.pow(1 + r, meses);
-
-  // ── Seguro de Protección Plus + Comisión de apertura 3,5% (circular) ──────
-  // DWA: capital = (precio - entrada + seguro) × 1.035
-  //      comision = capital - (precio - entrada + seguro)  =  base × 0.035
-  const neto     = precio - entrada;                          // precio menos entrada
-  // DWA scales insurance proportionally with neto: seg = seg0 * (neto/precio)^1.5
-  // At entrada=0: neto=precio → factor=1 → seg unchanged (verified exact ✓)
-  // At entrada>0: factor<1 → seg shrinks → matches DWA breakdown display
-  const seg0     = seguro || 0;
-  const seg      = precio > 0 ? Math.round(seg0 * Math.pow(neto / precio, 1.5) * 100) / 100 : seg0;
-  const base     = neto + seg;                                // neto + seguro
-  const capital  = Math.round(base * 1.035 * 100) / 100;     // importe total financiado
-  const comision = Math.round((capital - base) * 100) / 100;
-
-  let vr = 0, cuota = 0;
-
-  if (tab === 'autocredit') {{
-    // ── Valor Residual ─────────────────────────────────────────────────────
-    if (vrBase && vrBase > 0) {{
-      // VR real de DWA a 60m/15k → escalar por km y plazo
-      const vrBasePct = vrBase / precio * 100;
-      const kmAdj  = VR_KM_ADJ[km]    !== undefined ? VR_KM_ADJ[km]    : 0;
-      const mesAdj = VR_MES_ADJ[meses] !== undefined ? VR_MES_ADJ[meses] : 0;
-      const pct = Math.max(10, Math.min(90, vrBasePct + kmAdj + mesAdj));
-      vr = Math.round(precio * pct / 100);
-    }} else {{
-      const tbl = VR_TABLE[meses] || VR_TABLE[60];
-      const pct = tbl[km] !== undefined ? tbl[km] : 61;
-      vr = Math.round(precio * pct / 100);
-    }}
-
-    // ── FÓRMULA BALLOON LOAN (TRUE AUTOCREDIT) ─────────────────────────────
-    // DWA financia el precio COMPLETO (+ comision); el VR es el pago final balloon.
-    // cuota = (capital × r × rn − vr × r) / (rn − 1)
-    if (rn > 1 && r > 0) {{
-      cuota = (capital * r * rn - vr * r) / (rn - 1);
-    }} else {{
-      cuota = capital / meses;
-    }}
-
-  }} else {{
-    // ── FÓRMULA LINEAL: amortización francesa estándar ────────────────────
-    // capital = precio + comision 3,5% (ya calculado arriba)
-    if (rn > 1 && r > 0) {{
-      cuota = capital * r / (1 - 1 / rn);
-    }} else {{
-      cuota = capital / meses;
-    }}
-  }}
-
-  cuota = Math.round(cuota * 100) / 100;
-
-  // total a plazos = cuotas × n + entrada + cuota final VR (balloon)
-  const total  = Math.round((cuota * meses + entrada + vr) * 100) / 100;
-
-  return {{ entrada, seguro: seg, comision, capital, cuota, total, vr }};
+function parsePrecio(v) {{
+  return typeof v === 'number' ? v : (parseInt(String(v||'0').replace(/[^\d]/g,''))||0);
 }}
 
+function computeAntiq(fechaIso) {{
+  if (!fechaIso) return null;
+  const parts = fechaIso.split('-').map(Number);
+  if (parts.length < 2) return null;
+  const [y, m] = parts;
+  const now = new Date();
+  return (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m);
+}}
+
+function getFinancingRulesAuto(marca, antigMeses, importeNeto, producto, campana) {{
+  const cat = (antigMeses === null || antigMeses < 0) ? 'VS'
+            : antigMeses <= 24 ? 'VS'
+            : antigMeses <= 60 ? 'VO' : 'VU';
+  const maxGlobal = producto === 'FLEX' ? 120 : 144;
+  const mDesde = antigMeses !== null && antigMeses >= 0 ? antigMeses : 0;
+  function fp(raw) {{ return raw.filter(p => mDesde + p <= maxGlobal); }}
+
+  if (marca === 'SEAT') {{
+    if (campana === 'ENTRY' && producto === 'FLEX' && (cat==='VS'||cat==='VO'))
+      return {{tin:6.99,bonificacion:0,mesesDisponibles:fp([36,48,60]),creditoMinimo:10000,campanaLabel:'SEAT ENTRY · FLEX',categoria:cat}};
+    if (campana === 'ENTRY' && producto === 'LINEAL' && (cat==='VS'||cat==='VO'))
+      return {{tin:6.99,bonificacion:0,mesesDisponibles:fp([48,60,72,84,96]),creditoMinimo:10000,campanaLabel:'SEAT ENTRY · LINEAL',categoria:cat}};
+    if (campana === 'GAMA' && producto === 'FLEX' && (cat==='VS'||cat==='VO'))
+      return {{tin:8.99,bonificacion:750,mesesDisponibles:fp([36,48,60]),creditoMinimo:10000,campanaLabel:'SEAT GAMA · FLEX',categoria:cat}};
+    if (campana === 'GAMA' && producto === 'LINEAL') {{
+      if (cat==='VS') return {{tin:8.99,bonificacion:750,mesesDisponibles:fp([60,72,84,96]),creditoMinimo:13000,campanaLabel:'SEAT GAMA · LINEAL',categoria:cat}};
+      if (cat==='VO') return {{tin:8.99,bonificacion:750,mesesDisponibles:fp([60,72,84]),creditoMinimo:9500,campanaLabel:'SEAT GAMA · LINEAL',categoria:cat}};
+      if (cat==='VU') return {{tin:8.99,bonificacion:400,mesesDisponibles:fp([36,48]),creditoMinimo:7000,campanaLabel:'SEAT GAMA · LINEAL',categoria:cat}};
+    }}
+  }}
+  if (marca === 'CUPRA') {{
+    if (campana === 'APPROVED' && producto === 'FLEX' && cat==='VS')
+      return {{tin:5.50,bonificacion:0,mesesDisponibles:fp([36,48,60]),creditoMinimo:13500,campanaLabel:'CUPRA APPROVED · FLEX',categoria:cat}};
+    if (campana === 'APPROVED' && producto === 'LINEAL' && cat==='VS')
+      return {{tin:5.50,bonificacion:0,mesesDisponibles:fp([36,48,60,72,84,96]),creditoMinimo:10000,campanaLabel:'CUPRA APPROVED · LINEAL',categoria:cat}};
+    if (campana === 'GAMA' && producto === 'FLEX' && (cat==='VS'||cat==='VO'))
+      return {{tin:8.99,bonificacion:1800,mesesDisponibles:fp([36,48,60]),creditoMinimo:16500,campanaLabel:'CUPRA GAMA · FLEX',categoria:cat}};
+    if (campana === 'GAMA' && producto === 'LINEAL') {{
+      if (cat==='VS') return {{tin:8.99,bonificacion:1800,mesesDisponibles:fp([48,60,72,84,96]),creditoMinimo:13500,campanaLabel:'CUPRA GAMA · LINEAL',categoria:cat}};
+      if (cat==='VO') return {{tin:8.99,bonificacion:1400,mesesDisponibles:fp([48,60,72,84,96]),creditoMinimo:13500,campanaLabel:'CUPRA GAMA · LINEAL',categoria:cat}};
+    }}
+  }}
+  if (marca === 'OTRA' && producto === 'LINEAL' && campana === 'OTRA') {{
+    let tin, bonif;
+    if      (importeNeto < 10000) {{ tin=7.50; bonif=0;    }}
+    else if (importeNeto < 15000) {{ tin=8.99; bonif=400;  }}
+    else if (importeNeto < 20000) {{ tin=8.99; bonif=800;  }}
+    else                          {{ tin=8.99; bonif=1200; }}
+    return {{tin,bonificacion:bonif,mesesDisponibles:fp([48,60,72,84,96]),creditoMinimo:6000,campanaLabel:'Financiación · LINEAL',categoria:cat}};
+  }}
+  return null;
+}}
+
+function calcCuotaAuto(precio, entrada, meses, km, tin, bonif, producto, seguroBase) {{
+  const precioEf = precio - bonif;
+  const r  = tin / 100 / 12;
+  const rn = Math.pow(1 + r, meses);
+  const neto = precioEf - entrada;
+  const seg0 = seguroBase || Math.round(precio * 0.061545);
+  const seg = precio > 0 ? Math.round(seg0 * Math.pow(Math.max(0,neto) / precio, 1.5) * 100) / 100 : seg0;
+  const base = neto + seg;
+  const capital  = Math.round(base * 1.035 * 100) / 100;
+  const comision = Math.round((capital - base) * 100) / 100;
+  let vr = 0, cuota = 0;
+  if (producto === 'FLEX') {{
+    const tbl = VR_TABLE[meses] || VR_TABLE[60];
+    const pct = tbl[km] !== undefined ? tbl[km] : 63;
+    vr = Math.round(precioEf * pct / 100);
+    cuota = (rn > 1 && r > 0) ? (capital * r * rn - vr * r) / (rn - 1) : capital / meses;
+  }} else {{
+    cuota = (rn > 1 && r > 0) ? capital * r / (1 - 1/rn) : capital / meses;
+  }}
+  cuota = Math.round(cuota * 100) / 100;
+  const total = Math.round((cuota * meses + entrada + vr) * 100) / 100;
+  return {{ cuota, capital, comision, seg, vr, total, entrada }};
+}}
+
+function getBestOption(car, entrada, meses, km) {{
+  const precio = parsePrecio(car.precio);
+  const modelo = car.modelo || '';
+  const marca = modelo.includes('CUPRA') ? 'CUPRA' : modelo.includes('SEAT') ? 'SEAT' : 'OTRA';
+  const antigMeses = computeAntiq(car.fin_fecha_iso || '');
+  const seguroBase = (car.fin_seguro && car.fin_seguro > 0) ? car.fin_seguro : Math.round(precio * 0.061545);
+  const combos = marca === 'OTRA'
+    ? [{{campana:'OTRA',    producto:'LINEAL'}}]
+    : [
+        {{campana:'APPROVED',producto:'FLEX'}},  {{campana:'APPROVED',producto:'LINEAL'}},
+        {{campana:'ENTRY',   producto:'FLEX'}},  {{campana:'ENTRY',   producto:'LINEAL'}},
+        {{campana:'GAMA',    producto:'FLEX'}},  {{campana:'GAMA',    producto:'LINEAL'}},
+      ];
+  let best = null;
+  for (const {{campana, producto}} of combos) {{
+    const rules = getFinancingRulesAuto(marca, antigMeses, precio - entrada, producto, campana);
+    if (!rules) continue;
+    if (!rules.mesesDisponibles.includes(meses)) continue;
+    const impNeto = precio - rules.bonificacion - entrada;
+    if (impNeto < rules.creditoMinimo) continue;
+    const res = calcCuotaAuto(precio, entrada, meses, km, rules.tin, rules.bonificacion, producto, seguroBase);
+    if (!best || res.cuota < best.cuota) {{
+      best = {{ ...res, campana, producto, rules, tin: rules.tin, bonif: rules.bonificacion,
+               marca, campanaLabel: rules.campanaLabel, categoria: rules.categoria }};
+    }}
+  }}
+  return best;
+}}
+
+function getValidPlazos(car, entrada) {{
+  const precio = parsePrecio(car.precio);
+  const modelo = car.modelo || '';
+  const marca = modelo.includes('CUPRA') ? 'CUPRA' : modelo.includes('SEAT') ? 'SEAT' : 'OTRA';
+  const antigMeses = computeAntiq(car.fin_fecha_iso || '');
+  const valid = new Set();
+  const combos = marca === 'OTRA'
+    ? [{{campana:'OTRA',    producto:'LINEAL'}}]
+    : [
+        {{campana:'APPROVED',producto:'FLEX'}},  {{campana:'APPROVED',producto:'LINEAL'}},
+        {{campana:'ENTRY',   producto:'FLEX'}},  {{campana:'ENTRY',   producto:'LINEAL'}},
+        {{campana:'GAMA',    producto:'FLEX'}},  {{campana:'GAMA',    producto:'LINEAL'}},
+      ];
+  for (const {{campana, producto}} of combos) {{
+    const rules = getFinancingRulesAuto(marca, antigMeses, precio - entrada, producto, campana);
+    if (!rules) continue;
+    if ((precio - rules.bonificacion - entrada) < rules.creditoMinimo) continue;
+    rules.mesesDisponibles.forEach(p => valid.add(p));
+  }}
+  // fallback si nada aplica: todos los plazos
+  if (valid.size === 0) [36,48,60,72,84,96].forEach(p => valid.add(p));
+  return valid;
+}}
+
+let calcState = {{ car: null, precio: 0, entrada: 0, meses: 60, km: 15000, best: null }};
+
 function fmtEur(v) {{
-  return Number(v).toLocaleString('es-ES', {{minimumFractionDigits: 2, maximumFractionDigits: 2}}) + ' €';
+  return Number(v).toLocaleString('es-ES', {{minimumFractionDigits:2,maximumFractionDigits:2}}) + ' €';
 }}
 
 function renderCalc() {{
   const s = calcState;
-  const r = calcFinanciacion(s.precio, s.tin, s.entradaPct, s.meses, s.tab, s.km, s.vrBase, s.seguro);
-  const tinStr = Number(s.tin).toFixed(2).replace('.', ',') + ' %';
-  const taeStr = s.tae ? (String(s.tae).replace('.', ',') + ' %') : '—';
+  if (!s.car) return;
+  const best = getBestOption(s.car, s.entrada, s.meses, s.km);
+  s.best = best;
 
-  // ── Desglose (mismo orden que DWA) ───────────────────────────────────────
+  const badge = document.getElementById('calc-campaign-badge');
+  if (!best) {{
+    document.getElementById('cr-cuota').textContent    = 'Sin financiación disponible';
+    document.getElementById('cr-precio').textContent   = '—';
+    document.getElementById('cr-entrada').textContent  = '—';
+    document.getElementById('cr-tin').textContent      = '—';
+    document.getElementById('cr-tae').textContent      = '—';
+    document.getElementById('cr-ncuotas').textContent  = s.meses;
+    document.getElementById('cr-total').textContent    = '—';
+    document.getElementById('cr-vr-row').style.display = 'none';
+    if (badge) badge.innerHTML = '<span class="camp-badge camp-none">Sin campaña disponible para este plazo/entrada</span>';
+    return;
+  }}
+
   document.getElementById('cr-precio').textContent   = fmtEur(s.precio);
-  document.getElementById('cr-entrada').textContent  = fmtEur(r.entrada);
-  document.getElementById('cr-tin').textContent      = tinStr;
-  document.getElementById('cr-tae').textContent      = taeStr;
+  document.getElementById('cr-entrada').textContent  = fmtEur(best.entrada);
+  document.getElementById('cr-tin').textContent      = Number(best.tin).toFixed(2).replace('.',',') + ' %';
+  document.getElementById('cr-tae').textContent      = '—';
   document.getElementById('cr-ncuotas').textContent  = s.meses;
-  document.getElementById('cr-total').textContent    = fmtEur(r.total);
-  document.getElementById('cr-cuota').textContent    = fmtEur(r.cuota) + '/mes';
+  document.getElementById('cr-total').textContent    = fmtEur(best.total);
+  document.getElementById('cr-cuota').textContent    = fmtEur(best.cuota) + '/mes';
 
   const vrRow = document.getElementById('cr-vr-row');
-  if (s.tab === 'autocredit') {{
+  if (best.producto === 'FLEX') {{
     vrRow.style.display = '';
     document.getElementById('cr-vr-lbl').textContent = `Cuota final mes ${{s.meses}}`;
-    document.getElementById('cr-vr').textContent = fmtEur(r.vr);
+    document.getElementById('cr-vr').textContent     = fmtEur(best.vr);
   }} else {{
     vrRow.style.display = 'none';
   }}
 
-  // ── Texto legal dinámico (estilo DWA) ────────────────────────────────────
-  const legal = document.getElementById('calc-legal');
-  const anos  = Math.round(s.meses / 12);
-  const kmk   = Math.round(s.km / 1000);
-  const tinStr2 = Number(s.tin).toFixed(2).replace('.', ',');
-  let txt = `Ejemplo de cuota a ${{s.meses}} meses: ${{fmtEur(r.cuota)}}`;
-  if (s.tab === 'autocredit') {{
-    txt += `, y si lo deseas, al cabo de ${{anos}} año${{anos !== 1 ? 's' : ''}} ` +
-      `podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final ` +
-      `en el mes ${{s.meses}} de ${{fmtEur(r.vr)}} (calculada con ${{kmk}}.000 km anuales)`;
+  // Badge campaña (info, el cliente no elige)
+  if (badge) {{
+    const bonifTxt = best.bonif > 0 ? ` · Dto. ${{best.bonif.toLocaleString('es-ES')}} €` : '';
+    badge.innerHTML = `<span class="camp-badge">${{best.campanaLabel}}${{bonifTxt}}</span>`
+      + `<span class="camp-cat">Vehículo ${{best.categoria || ''}}</span>`;
   }}
-  txt += `. Entrada inicial: ${{fmtEur(r.entrada)}}. ` +
-    `Seguro de Protección Plus opcional y financiado: ${{fmtEur(r.seguro)}}. ` +
-    `Comisión de apertura financiada: ${{fmtEur(r.comision)}}. ` +
-    `Importe total financiado: ${{fmtEur(r.capital)}}. ` +
-    `TIN ${{tinStr2}}%. Precio total a plazos: ${{fmtEur(r.total)}}. ` +
-    `Sistema de amortización francés. Incompatible con otras ofertas financieras. ` +
-    `Consulta condiciones exactas con {COMERCIAL_NOMBRE} · {COMERCIAL_TELEFONO}.`;
-  legal.textContent = txt;
-}}
 
-function calcTabClick(tab) {{
-  calcState.tab = tab;
-  document.getElementById('calc-tab-lineal').classList.toggle('active', tab === 'lineal');
-  document.getElementById('calc-tab-autocredit').classList.toggle('active', tab === 'autocredit');
-  const kmRow = document.getElementById('calc-km-row');
-  if (tab === 'autocredit') kmRow.classList.add('visible');
-  else kmRow.classList.remove('visible');
-  renderCalc();
+  // Texto legal dinámico
+  const legal = document.getElementById('calc-legal');
+  if (legal) {{
+    const tinStr = Number(best.tin).toFixed(2).replace('.',',');
+    legal.textContent = `Cálculo orientativo: ${{fmtEur(best.cuota)}}/mes · ${{s.meses}} meses · TIN ${{tinStr}}% · Entrada ${{fmtEur(best.entrada)}}. Sujeto a aprobación de VW Financial Services. Condiciones exactas con {COMERCIAL_NOMBRE} · {COMERCIAL_TELEFONO}.`;
+  }}
 }}
 
 function calcSliderMove(val) {{
   const slider = document.getElementById('calc-entrada-slider');
-  const max    = parseInt(slider.max) || 1;
-  const eur    = parseInt(val) || 0;
-  // pct para colorear la pista — posición real del thumb en el rango
-  const pct    = max > 0 ? (eur / max * 100) : 0;
+  const max = parseInt(slider.max) || 1;
+  const eur = parseInt(val) || 0;
+  const pct = max > 0 ? (eur / max * 100) : 0;
   slider.style.setProperty('--pct', pct + '%');
-  // Guardar entrada como % del precio para calcFinanciacion
-  calcState.entradaPct = calcState.precio > 0 ? (eur / calcState.precio * 100) : 0;
+  calcState.entrada = eur;
   document.getElementById('calc-entrada-display').textContent = eur.toLocaleString('es-ES') + ' €';
+  // Actualizar pills según nueva entrada
+  const valid = getValidPlazos(calcState.car, eur);
+  updatePlazoPills(valid, calcState.meses);
   renderCalc();
 }}
 
@@ -1387,60 +1449,71 @@ function calcChipKm(k, el) {{
   renderCalc();
 }}
 
+function updatePlazoPills(validSet, mesSel) {{
+  const chips = document.getElementById('calc-plazo-chips');
+  if (!chips) return;
+  chips.querySelectorAll('.calc-chip').forEach(btn => {{
+    const m = parseInt(btn.dataset.meses);
+    const avail = validSet.has(m);
+    btn.disabled = !avail;
+    btn.classList.toggle('disabled', !avail);
+    btn.classList.toggle('active', m === mesSel && avail);
+  }});
+  if (!validSet.has(mesSel)) {{
+    const first = [36,48,60,72,84,96].find(p => validSet.has(p));
+    if (first) {{
+      calcState.meses = first;
+      chips.querySelectorAll('.calc-chip').forEach(btn => {{
+        btn.classList.toggle('active', parseInt(btn.dataset.meses) === first);
+      }});
+    }}
+  }}
+}}
+
 function initCalc(c) {{
-  calcState.precio     = typeof c.precio === 'number' ? c.precio
-                         : parseInt(String(c.precio || '0').replace(/[^\d]/g, '')) || 0;
-  calcState.tin        = c.fin_tin   ? parseFloat(String(c.fin_tin).replace(',', '.'))   : 6.99;
-  calcState.tae        = c.fin_tae   ? String(c.fin_tae) : null;
-  calcState.fin_ejemplo = c.fin_ejemplo || '';
-  // VR real de DWA a 60m/15k km (extraído del texto de condiciones)
-  calcState.vrBase     = c.fin_vr && c.fin_vr > 0 ? c.fin_vr : null;
-  // Seguro de Protección Plus: valor real extraído del texto DWA, o fallback 6,15%
-  calcState.seguro     = c.fin_seguro && c.fin_seguro > 0
-                         ? c.fin_seguro
-                         : Math.round(calcState.precio * 0.0615);
-  const defaultMeses   = c.fin_meses ? parseInt(c.fin_meses) : 48;
-  calcState.meses      = [24,36,48,60,72,84].includes(defaultMeses) ? defaultMeses : 48;
-  calcState.entradaPct = 0;
-  calcState.km         = 15000;
-  calcState.tab        = (c.fin_tipo || '').toLowerCase() === 'autocredit' ? 'autocredit' : 'lineal';
+  calcState.car    = c;
+  calcState.precio = parsePrecio(c.precio);
+  calcState.entrada = 0;
+  calcState.km     = 15000;
 
-  // Tabs
-  document.getElementById('calc-tab-lineal').classList.toggle('active', calcState.tab === 'lineal');
-  document.getElementById('calc-tab-autocredit').classList.toggle('active', calcState.tab === 'autocredit');
-  const kmRow = document.getElementById('calc-km-row');
-  if (calcState.tab === 'autocredit') kmRow.classList.add('visible'); else kmRow.classList.remove('visible');
+  // Plazo por defecto: 60m si disponible, si no el menor disponible
+  const valid = getValidPlazos(c, 0);
+  calcState.meses = valid.has(60) ? 60 : valid.has(48) ? 48 : ([36,48,60,72,84,96].find(p => valid.has(p)) || 60);
 
-  // Slider — rango en EUR, máx = precio - 10.000 (mínimo financiado DWA), paso 100 €
-  const slider    = document.getElementById('calc-entrada-slider');
+  // Slider entrada
+  const slider = document.getElementById('calc-entrada-slider');
   const maxEntrada = Math.max(0, Math.floor((calcState.precio - 10000) / 100) * 100);
   slider.min   = 0;
   slider.max   = maxEntrada;
   slider.step  = 100;
   slider.value = 0;
   slider.style.setProperty('--pct', '0%');
-  calcState.entradaPct = 0;
   document.getElementById('calc-entrada-display').textContent = '0 €';
-  // Mostrar el tope máximo en el label
   const maxLbl = document.getElementById('calc-entrada-max-lbl');
   if (maxLbl) maxLbl.textContent = maxEntrada > 0 ? `(máx. ${{maxEntrada.toLocaleString('es-ES')}} €)` : '';
 
-  // Plazo chips
-  const plazos = [24,36,48,60,72,84];
+  // Plazo chips con data-meses
+  const plazos = [36,48,60,72,84,96];
   document.getElementById('calc-plazo-chips').innerHTML = plazos.map(m =>
-    `<button class="calc-chip ${{m === calcState.meses ? 'active' : ''}}" onclick="calcChipMeses(${{m}},this)">${{m}}</button>`
+    `<button class="calc-chip ${{m===calcState.meses?'active':''}} ${{!valid.has(m)?'disabled':''}}"
+      ${{!valid.has(m)?'disabled':''}} data-meses="${{m}}"
+      onclick="calcChipMeses(${{m}},this)">${{m}}</button>`
   ).join('');
 
   // Km chips
   const kms = [10000,15000,20000,25000,30000];
   document.getElementById('calc-km-chips').innerHTML = kms.map(k =>
-    `<button class="calc-chip ${{k === calcState.km ? 'active' : ''}}" onclick="calcChipKm(${{k}},this)">${{Math.round(k/1000)}}k</button>`
+    `<button class="calc-chip ${{k===calcState.km?'active':''}}" onclick="calcChipKm(${{k}},this)">${{Math.round(k/1000)}}k</button>`
   ).join('');
 
+  // Asegurar km row visible
+  const kmRow = document.getElementById('calc-km-row');
+  if (kmRow) kmRow.classList.add('visible');
+
   // WhatsApp CTA
-  const modelo = ((c.modelo || '') + ' ' + (c.version || '')).trim();
+  const modelo = ((c.modelo||'') + ' ' + (c.version||'')).trim();
   const preciof = calcState.precio.toLocaleString('es-ES');
-  const msg = encodeURIComponent(`Hola Andrés, me interesa financiar el ${{modelo}} (${{preciof}} €). ¿Podéis informarme sobre la financiación?`);
+  const msg = encodeURIComponent(`Hola Andrés, me interesa el ${{modelo}} (${{preciof}} €). ¿Podéis informarme sobre la financiación?`);
   document.getElementById('calc-cta-link').href = `https://wa.me/34610029056?text=${{msg}}`;
 
   renderCalc();
