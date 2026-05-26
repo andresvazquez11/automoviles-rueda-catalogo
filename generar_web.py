@@ -570,166 +570,231 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
   }}
   .sort-select:focus {{ border-color: var(--red); }}
 
-  /* ── Calculadora de Financiación ── */
+  /* ── Calculadora de Financiación v2 (full port) ── */
   .modal-financiacion {{
-    background: #0d1b35;
-    border-radius: 16px;
-    padding: 22px 20px 18px;
+    background: #0d1120;
+    border-top: 2px solid rgba(200,35,43,0.3);
     color: #f0f4ff;
-    position: relative;
     overflow: hidden;
   }}
-  .modal-financiacion::before {{
-    content: '';
-    position: absolute;
-    top: -50px; right: -50px;
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(200,35,43,0.16) 0%, transparent 70%);
-    pointer-events: none;
+  /* Car info bar */
+  .cv2-car-bar {{
+    padding: 14px 20px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
   }}
-  .calc-title {{
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; color: rgba(240,244,255,0.45); margin-bottom: 14px;
+  .cv2-car-modelo {{ font-weight: 700; font-size: 14px; color: #fff; line-height: 1.25; }}
+  .cv2-car-precio {{ font-size: 14px; font-weight: 800; color: #C8232B; font-variant-numeric: tabular-nums; }}
+  .cv2-cat-badge {{
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 1px; padding: 3px 9px; border: 1px solid;
+    vertical-align: middle;
   }}
-  /* Campaign badge — auto-selected, info-only */
-  .calc-campaign-badge {{
-    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-    margin-bottom: 14px; min-height: 24px;
+  .cv2-cat-badge.vs {{ color:#22C55E; border-color:#22C55E; background:rgba(34,197,94,.1); }}
+  .cv2-cat-badge.vo {{ color:#F59E0B; border-color:#F59E0B; background:rgba(245,158,11,.1); }}
+  .cv2-cat-badge.vu {{ color:rgba(240,244,255,.45); border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.05); }}
+  /* Panel (inputs area) */
+  .cv2-panel {{ padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }}
+  /* Section label */
+  .cv2-slbl {{
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #C8232B; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
   }}
-  .camp-badge {{
-    display: inline-flex; align-items: center;
-    background: rgba(200,35,43,0.18);
-    border: 1px solid rgba(200,35,43,0.4);
-    color: rgba(240,244,255,0.9);
-    font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
-    padding: 4px 10px; border-radius: 20px;
-    text-transform: uppercase;
+  .cv2-slbl::after {{ content:''; flex:1; height:1px; background:rgba(200,35,43,.2); }}
+  /* Mode tabs LINEAL / FLEX */
+  .cv2-mode-tabs {{
+    display: grid; grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(255,255,255,0.1); margin-bottom: 8px;
   }}
-  .camp-badge.camp-none {{
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(255,255,255,0.12);
-    color: rgba(240,244,255,0.4);
+  .cv2-mode-tab {{
+    background: transparent; border: none; cursor: pointer;
+    padding: 10px 8px; font-family: inherit;
+    font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: rgba(240,244,255,0.4); transition: all 0.15s; position: relative;
   }}
-  .camp-cat {{
-    font-size: 11px; color: rgba(240,244,255,0.35); font-weight: 600;
+  .cv2-mode-tab.active {{ background:rgba(200,35,43,.12); color:#C8232B; }}
+  .cv2-mode-tab.active::after {{
+    content:''; position:absolute; bottom:0; left:10%; right:10%; height:2px; background:#C8232B;
   }}
-  .calc-chip.disabled {{
-    opacity: 0.28; cursor: not-allowed;
-    border-color: rgba(255,255,255,0.07);
-    pointer-events: none;
+  .cv2-mode-tab:hover:not(.active):not(:disabled) {{ color:#fff; background:rgba(255,255,255,.04); }}
+  .cv2-mode-tab:disabled {{ opacity:.3; cursor:not-allowed; }}
+  .cv2-flex-note {{ display:none; font-size:11px; color:#F59E0B; margin-bottom:8px; }}
+  .cv2-flex-note.visible {{ display:block; }}
+  /* Campaign pills */
+  .cv2-camp-pills {{ display:flex; gap:6px; }}
+  .cv2-camp-pill {{
+    flex:1; text-align:center;
+    background:transparent; border:1px solid rgba(255,255,255,.1);
+    color:rgba(240,244,255,.45); cursor:pointer;
+    font-family:inherit; font-size:12px; font-weight:700;
+    padding:8px 10px; letter-spacing:.3px; transition:all .15s;
   }}
-  .calc-slider-label {{
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 12px; color: rgba(240,244,255,0.5); margin-bottom: 8px;
+  .cv2-camp-pill.active {{ background:rgba(34,197,94,.1); border-color:#22C55E; color:#22C55E; }}
+  .cv2-camp-pill:hover:not(.active):not(:disabled) {{ border-color:rgba(255,255,255,.25); color:#fff; }}
+  .cv2-camp-pill:disabled {{ opacity:.3; cursor:not-allowed; pointer-events:none; }}
+  .cv2-camp-auto {{
+    font-size:12px; color:rgba(240,244,255,.45);
+    padding:8px 12px; border:1px solid rgba(255,255,255,.1); font-family:inherit;
   }}
-  .calc-slider-val {{ font-size: 15px; font-weight: 700; color: #fff; }}
-  .calc-slider {{
-    -webkit-appearance: none; appearance: none;
-    width: 100%; height: 4px;
-    background: linear-gradient(to right, #C8232B var(--pct,0%), rgba(255,255,255,0.14) var(--pct,0%));
-    border-radius: 2px; outline: none; cursor: pointer;
-    margin-bottom: 18px;
+  /* TIN block */
+  .cv2-tin-block {{
+    display:flex; align-items:center; gap:12px;
+    border:1px solid rgba(255,255,255,.1); padding:10px 14px;
+    background:rgba(34,197,94,.04); margin-bottom:4px;
   }}
-  .calc-slider::-webkit-slider-thumb {{
-    -webkit-appearance: none;
-    width: 20px; height: 20px;
-    background: #C8232B;
-    border: 3px solid #fff;
-    border-radius: 50%;
-    box-shadow: 0 2px 10px rgba(200,35,43,0.65);
-    cursor: pointer;
-    transition: transform 0.1s;
+  .cv2-tin-val {{ font-size:24px; font-weight:800; color:#22C55E; line-height:1; font-variant-numeric:tabular-nums; }}
+  .cv2-tin-sfx {{ font-size:13px; color:rgba(240,244,255,.35); }}
+  .cv2-tin-lbl {{ flex:1; font-size:11px; color:rgba(240,244,255,.4); line-height:1.4; }}
+  .cv2-tin-link {{
+    background:none; border:none; cursor:pointer; font-family:inherit;
+    font-size:11px; color:rgba(240,244,255,.28); text-decoration:underline; padding:0;
   }}
-  .calc-slider::-webkit-slider-thumb:active {{ transform: scale(1.15); }}
-  .calc-chips-label {{
-    font-size: 11px; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.5px; color: rgba(240,244,255,0.4); margin-bottom: 8px;
+  .cv2-tin-link:hover {{ color:#fff; }}
+  .cv2-tin-manual {{
+    display:none; border:1px solid #C8232B; padding:10px 14px;
+    align-items:center; gap:8px; margin-bottom:4px;
   }}
-  .calc-chips {{
-    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+  .cv2-tin-manual.visible {{ display:flex; }}
+  .cv2-tin-manual input {{
+    background:transparent; border:none; outline:none;
+    font-family:inherit; font-size:20px; font-weight:700;
+    color:#fff; width:6ch; text-align:right; -moz-appearance:textfield;
   }}
-  .calc-chip {{
-    border: 1.5px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.05);
-    color: rgba(240,244,255,0.6);
-    font-family: inherit; font-size: 12px; font-weight: 700;
-    padding: 5px 12px; border-radius: 20px;
-    cursor: pointer; transition: all 0.18s ease;
-    white-space: nowrap;
+  .cv2-tin-manual input::-webkit-outer-spin-button,
+  .cv2-tin-manual input::-webkit-inner-spin-button {{ -webkit-appearance:none; }}
+  .cv2-tin-restore {{
+    background:none; border:none; cursor:pointer; font-family:inherit;
+    font-size:11px; color:#F59E0B; text-decoration:underline; padding:0; display:none;
   }}
-  .calc-chip.active {{
-    background: rgba(200,35,43,0.18);
-    border-color: #C8232B;
-    color: #fff;
-    box-shadow: 0 0 0 1px rgba(200,35,43,0.35);
+  /* Field label */
+  .cv2-flbl {{
+    font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
+    color:rgba(240,244,255,.35); margin-bottom:8px;
+    display:flex; justify-content:space-between; align-items:center;
   }}
-  .calc-chip:hover:not(.active) {{
-    border-color: rgba(255,255,255,0.32);
-    color: #fff;
-    background: rgba(255,255,255,0.09);
+  .cv2-flbl span {{ font-size:13px; font-weight:700; color:#fff; letter-spacing:0; text-transform:none; }}
+  /* Pills (plazo & km) */
+  .cv2-pills {{ display:flex; gap:5px; flex-wrap:wrap; }}
+  .cv2-pill {{
+    background:transparent; border:1px solid rgba(255,255,255,.1);
+    color:rgba(240,244,255,.45); cursor:pointer;
+    font-family:inherit; font-size:12px; font-weight:700;
+    padding:6px 10px; transition:all .15s;
+    flex:1; min-width:0; text-align:center;
   }}
-  .calc-km-row {{ display: none; }}
-  .calc-km-row.visible {{ display: block; }}
-  .calc-result {{
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin-bottom: 14px;
+  .cv2-pill.active {{ background:#C8232B; border-color:#C8232B; color:#fff; }}
+  .cv2-pill:hover:not(.active):not(:disabled) {{ border-color:rgba(255,255,255,.3); color:#fff; }}
+  .cv2-pill:disabled {{ opacity:.25; cursor:not-allowed; pointer-events:none; }}
+  /* Slider */
+  .cv2-slider-row {{
+    display:flex; justify-content:space-between;
+    font-size:11px; color:rgba(240,244,255,.3); margin-top:6px;
   }}
-  .calc-result-row {{
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 5px 0;
+  input[type=range].cv2-slider {{
+    -webkit-appearance:none; appearance:none;
+    width:100%; height:4px; outline:none; cursor:pointer; border-radius:0;
+    background:linear-gradient(90deg, #C8232B var(--pct,0%), rgba(255,255,255,.1) var(--pct,0%));
   }}
-  .calc-result-row + .calc-result-row {{
-    border-top: 1px solid rgba(255,255,255,0.06);
+  input[type=range].cv2-slider::-webkit-slider-thumb {{
+    -webkit-appearance:none;
+    width:18px; height:18px; background:#C8232B;
+    clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+    cursor:pointer; border:none; transition:transform .1s;
   }}
-  .calc-result-lbl {{
-    font-size: 12px; color: rgba(240,244,255,0.45);
+  input[type=range].cv2-slider::-webkit-slider-thumb:hover {{ transform:scale(1.3); }}
+  input[type=range].cv2-slider::-moz-range-thumb {{
+    width:18px; height:18px; background:#C8232B; border:none; border-radius:0; cursor:pointer;
   }}
-  .calc-result-val {{
-    font-size: 13px; font-weight: 600; color: rgba(240,244,255,0.85);
-    font-variant-numeric: tabular-nums;
+  /* Maintenance */
+  .cv2-mant-badge {{
+    display:none; font-size:12px; font-weight:700; color:#22C55E;
+    padding:6px 10px; border:1px solid rgba(34,197,94,.3);
+    background:rgba(34,197,94,.08); letter-spacing:.3px; margin-bottom:8px;
   }}
-  /* Cuota featured (arriba, protagonista como DWA) */
-  .calc-cuota-featured {{
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 14px 16px 14px;
-    border-bottom: 1px solid rgba(200,35,43,0.35);
-    margin-bottom: 4px;
+  .cv2-mant-badge.visible {{ display:block; }}
+  .cv2-mant-info {{
+    display:none; font-size:11px; color:rgba(240,244,255,.4);
+    margin-top:8px; line-height:1.6;
+    border-left:2px solid rgba(255,255,255,.1); padding-left:10px;
   }}
-  .calc-cuota-featured-lbl {{
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.8px; color: rgba(240,244,255,0.55);
+  .cv2-mant-info.visible {{ display:block; }}
+  .cv2-mant-unavail {{
+    display:none; font-size:11px; color:rgba(240,244,255,.3); margin-top:6px;
   }}
-  .calc-cuota-featured-val {{
-    font-size: 30px; font-weight: 800; color: #C8232B;
-    font-variant-numeric: tabular-nums;
-    text-shadow: 0 0 24px rgba(200,35,43,0.45);
-    line-height: 1;
+  .cv2-mant-unavail.visible {{ display:block; }}
+  /* Info chips row */
+  .cv2-info-chips {{
+    padding:8px 20px; border-bottom:1px solid rgba(255,255,255,.06);
+    display:flex; gap:6px; flex-wrap:wrap; align-items:center;
   }}
-  /* Desglose debajo */
-  .calc-desglose {{ padding: 2px 0; }}
-  .cr-total-row .calc-result-lbl {{ color: rgba(240,244,255,0.8); font-weight: 700; }}
-  .cr-total-row .cr-total-val {{ color: #fff; font-size: 14px; font-weight: 700; }}
-  .cr-vr-val {{ color: #f9c74f !important; font-weight: 700 !important; }}
-  .btn-calc-cta {{
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: 100%;
-    background: #25D366;
-    color: #fff; font-family: inherit; font-size: 14px; font-weight: 700;
-    padding: 13px 16px; border-radius: 11px; border: none; cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.12s;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+  .cv2-chip {{
+    font-size:11px; font-weight:600; letter-spacing:.5px;
+    padding:3px 9px; border:1px solid rgba(255,255,255,.12); color:rgba(240,244,255,.45);
   }}
-  .btn-calc-cta:hover {{ background: #1ebe59; transform: translateY(-1px); }}
-  .btn-calc-cta:active {{ transform: translateY(0); }}
-  .calc-legal {{
-    font-size: 10px; color: rgba(240,244,255,0.3); line-height: 1.55;
-    text-align: center;
+  .cv2-chip.green {{ color:#22C55E; border-color:rgba(34,197,94,.35); background:rgba(34,197,94,.08); }}
+  .cv2-chip.amber {{ color:#F59E0B; border-color:rgba(245,158,11,.35); background:rgba(245,158,11,.08); }}
+  .cv2-chip.red   {{ color:#C8232B; border-color:rgba(200,35,43,.35);  background:rgba(200,35,43,.08); }}
+  /* Credit warning */
+  .cv2-credit-warn {{
+    display:none; margin:0 20px 8px; padding:10px 14px;
+    background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.3);
+    font-size:12px; color:#F59E0B; line-height:1.5;
   }}
+  .cv2-credit-warn.visible {{ display:block; }}
+  /* Cuota hero */
+  .cv2-cuota-hero {{
+    padding:24px 20px 16px; text-align:center;
+    background:linear-gradient(180deg,rgba(200,35,43,.07) 0%,transparent 100%);
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }}
+  .cv2-cuota-lbl {{
+    font-size:10px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase;
+    color:rgba(240,244,255,.4); margin-bottom:8px;
+  }}
+  .cv2-cuota-val {{
+    font-weight:800; font-size:clamp(36px,8vw,52px);
+    color:#C8232B; line-height:1; letter-spacing:-1px;
+    font-variant-numeric:tabular-nums; transition:opacity .15s;
+  }}
+  .cv2-cuota-unit {{ font-size:17px; font-weight:400; color:rgba(240,244,255,.4); margin-left:4px; }}
+  .cv2-cuota-final {{
+    display:none; margin:10px auto 0; padding:7px 16px;
+    background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.2);
+    max-width:260px; justify-content:space-between; align-items:center; gap:12px;
+  }}
+  .cv2-cuota-final.visible {{ display:flex; }}
+  .cv2-cf-lbl {{ font-size:11px; color:#F59E0B; letter-spacing:.8px; }}
+  .cv2-cf-val {{ font-size:14px; font-weight:700; color:#F59E0B; font-variant-numeric:tabular-nums; }}
+  /* Breakdown */
+  .cv2-breakdown {{ padding:0 20px 4px; }}
+  .cv2-br-row {{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:9px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:13px;
+  }}
+  .cv2-br-row:last-child {{ border-bottom:none; }}
+  .cv2-br-lbl {{ color:rgba(240,244,255,.4); font-size:12px; }}
+  .cv2-br-val {{ font-weight:600; font-size:13px; color:rgba(240,244,255,.9); font-variant-numeric:tabular-nums; }}
+  .cv2-br-row.hidden {{ display:none; }}
+  .cv2-br-row.bonif .cv2-br-val {{ color:#22C55E; }}
+  .cv2-br-row.mant  .cv2-br-val {{ color:#F59E0B; }}
+  .cv2-br-row.total {{
+    background:rgba(200,35,43,.07); margin:6px -20px 0; padding:11px 20px; border-bottom:none;
+  }}
+  .cv2-br-row.total .cv2-br-lbl {{ color:#fff; font-weight:700; }}
+  .cv2-br-row.total .cv2-br-val {{ font-size:15px; font-weight:700; }}
+  /* CTA */
+  .cv2-cta {{ padding:16px 20px 20px; border-top:1px solid rgba(255,255,255,.07); display:flex; flex-direction:column; gap:10px; }}
+  .cv2-btn-wa {{
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    width:100%; padding:13px 16px; background:#25D366; color:#fff;
+    font-family:inherit; font-size:13px; font-weight:700;
+    letter-spacing:.5px; text-transform:uppercase;
+    text-decoration:none; border:none; cursor:pointer;
+    transition:background .2s, transform .12s;
+  }}
+  .cv2-btn-wa:hover {{ background:#1ebe57; transform:translateY(-1px); }}
+  .cv2-legal {{ font-size:10px; color:rgba(240,244,255,.22); line-height:1.6; }}
 
   .btn-dwa {{
     background: none; border: 1px solid var(--border); color: var(--muted);
@@ -975,68 +1040,186 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
         <div class="equip-grid" id="m-equip"></div>
       </div>
       <div class="modal-financiacion" id="m-financiacion">
-        <div class="calc-title">💰 Calculadora de Financiación</div>
-        <div id="calc-campaign-badge" class="calc-campaign-badge"></div>
-        <div class="calc-slider-label">
-          <span>Entrada <span id="calc-entrada-max-lbl" style="font-size:11px;opacity:0.55;font-weight:400"></span></span>
-          <span class="calc-slider-val" id="calc-entrada-display">0 €</span>
-        </div>
-        <input type="range" class="calc-slider" id="calc-entrada-slider"
-          min="0" max="0" step="100" value="0"
-          oninput="calcSliderMove(this.value)">
-        <div class="calc-chips-label">Plazo (meses)</div>
-        <div class="calc-chips" id="calc-plazo-chips"></div>
-        <div class="calc-km-row visible" id="calc-km-row">
-          <div class="calc-chips-label">Km / año</div>
-          <div class="calc-chips" id="calc-km-chips"></div>
-        </div>
-        <div class="calc-result">
-          <!-- CUOTA MENSUAL — protagonista, igual que DWA -->
-          <div class="calc-cuota-featured">
-            <div class="calc-cuota-featured-lbl">Cuota mensual</div>
-            <div class="calc-cuota-featured-val" id="cr-cuota">—</div>
-          </div>
-          <!-- Desglose — mismo orden y campos que Das WeltAuto -->
-          <div class="calc-desglose">
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Precio al contado</span>
-              <span class="calc-result-val" id="cr-precio">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Descuento por financiar</span>
-              <span class="calc-result-val cr-muted">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Entrada inicial</span>
-              <span class="calc-result-val" id="cr-entrada">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">T.I.N.</span>
-              <span class="calc-result-val" id="cr-tin">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">T.A.E.</span>
-              <span class="calc-result-val" id="cr-tae">—</span>
-            </div>
-            <div class="calc-result-row">
-              <span class="calc-result-lbl">Nº de cuotas</span>
-              <span class="calc-result-val" id="cr-ncuotas">—</span>
-            </div>
-            <div class="calc-result-row" id="cr-vr-row" style="display:none">
-              <span class="calc-result-lbl" id="cr-vr-lbl">Cuota final mes N</span>
-              <span class="calc-result-val cr-vr-val" id="cr-vr">—</span>
-            </div>
-            <div class="calc-result-row cr-total-row">
-              <span class="calc-result-lbl">Precio total a plazos</span>
-              <span class="calc-result-val cr-total-val" id="cr-total">—</span>
+        <!-- Car info bar (auto-populated) -->
+        <div class="cv2-car-bar">
+          <div>
+            <div class="cv2-car-modelo" id="cv2-modelo">—</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+              <span class="cv2-car-precio" id="cv2-precio">—</span>
+              <span class="cv2-cat-badge" id="cv2-cat-badge"></span>
             </div>
           </div>
+          <div style="font-size:10px;color:rgba(240,244,255,0.28);text-align:right;line-height:1.6;letter-spacing:.5px;text-transform:uppercase;">Calculadora<br>Financiación VWFS</div>
         </div>
-        <a class="btn-calc-cta" id="calc-cta-link" href="#" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Solicitar financiación con Andrés
-        </a>
-        <div class="calc-legal" id="calc-legal">* Cálculo orientativo. Condiciones exactas sujetas a aprobación de VW Financial Services.</div>
+
+        <!-- Inputs panel -->
+        <div class="cv2-panel">
+          <!-- Modalidad -->
+          <div class="cv2-slbl">Modalidad de pago</div>
+          <div class="cv2-mode-tabs">
+            <button class="cv2-mode-tab active" id="cv2-tab-lineal" onclick="cv2SetMode('lineal')">LINEAL</button>
+            <button class="cv2-mode-tab" id="cv2-tab-flex" onclick="cv2SetMode('flex')">FLEX</button>
+          </div>
+          <div class="cv2-flex-note" id="cv2-flex-note">⚠ FLEX no disponible para vehículos VU (&gt;60 meses)</div>
+
+          <!-- Campaña -->
+          <div class="cv2-slbl" style="margin-top:16px;">Campaña</div>
+          <div class="cv2-camp-pills" id="cv2-camp-seat" style="display:none">
+            <button class="cv2-camp-pill active" id="cv2-entry" onclick="cv2SetCampana('ENTRY')">ENTRY · 6,99%</button>
+            <button class="cv2-camp-pill" id="cv2-gama-seat" onclick="cv2SetCampana('GAMA')">GAMA · 8,99%</button>
+          </div>
+          <div class="cv2-camp-pills" id="cv2-camp-cupra" style="display:none">
+            <button class="cv2-camp-pill active" id="cv2-gama-cupra" onclick="cv2SetCampana('GAMA')">GAMA · 8,99%</button>
+            <button class="cv2-camp-pill" id="cv2-approved" onclick="cv2SetCampana('APPROVED')">APPROVED · 5,50%</button>
+          </div>
+          <div id="cv2-camp-otra" style="display:none">
+            <div class="cv2-camp-auto" id="cv2-otra-label">Automático según importe financiado</div>
+          </div>
+
+          <!-- TIN -->
+          <div style="margin-top:14px;">
+            <div class="cv2-tin-block">
+              <div>
+                <span class="cv2-tin-val" id="cv2-tin-val">6,99</span>
+                <span class="cv2-tin-sfx"> % TIN</span>
+              </div>
+              <div class="cv2-tin-lbl" id="cv2-tin-lbl">ENTRY · SEAT</div>
+            </div>
+            <button class="cv2-tin-link" id="cv2-tin-btn" onclick="cv2ToggleTin()">✎ personalizar TIN</button>
+            <div class="cv2-tin-manual" id="cv2-tin-manual">
+              <input type="number" id="cv2-tin-input" value="6.99" min="0" max="30" step="0.01"
+                inputmode="decimal" oninput="cv2TinInput(this.value)">
+              <span class="cv2-tin-sfx">% TIN</span>
+            </div>
+            <button class="cv2-tin-restore" id="cv2-tin-restore" onclick="cv2RestoreTin()">↩ restaurar TIN automático</button>
+          </div>
+
+          <!-- Entrada -->
+          <div style="margin-top:18px;">
+            <div class="cv2-flbl">Entrada inicial <span id="cv2-disp-entrada">0 €</span></div>
+            <input type="range" class="cv2-slider" id="cv2-sl-entrada"
+              min="0" max="0" step="100" value="0" oninput="cv2SliderMove(this.value)">
+            <div class="cv2-slider-row">
+              <span>0 €</span>
+              <span id="cv2-lbl-max">máx. — €</span>
+            </div>
+          </div>
+
+          <!-- Plazo -->
+          <div style="margin-top:16px;">
+            <div class="cv2-flbl">Plazo <span id="cv2-disp-meses">60 meses</span></div>
+            <div class="cv2-pills" id="cv2-pills-meses">
+              <button class="cv2-pill" id="cv2-pl-24" onclick="cv2SetMeses(24)">24m</button>
+              <button class="cv2-pill" id="cv2-pl-36" onclick="cv2SetMeses(36)">36m</button>
+              <button class="cv2-pill" id="cv2-pl-48" onclick="cv2SetMeses(48)">48m</button>
+              <button class="cv2-pill active" id="cv2-pl-60" onclick="cv2SetMeses(60)">60m</button>
+              <button class="cv2-pill" id="cv2-pl-72" onclick="cv2SetMeses(72)">72m</button>
+              <button class="cv2-pill" id="cv2-pl-84" onclick="cv2SetMeses(84)">84m</button>
+              <button class="cv2-pill" id="cv2-pl-96" onclick="cv2SetMeses(96)">96m</button>
+            </div>
+          </div>
+
+          <!-- Km (FLEX only) -->
+          <div id="cv2-field-km" style="display:none;margin-top:16px;">
+            <div class="cv2-flbl">Km / año <span id="cv2-disp-km">15.000 km</span></div>
+            <div class="cv2-pills" id="cv2-pills-km">
+              <button class="cv2-pill" onclick="cv2SetKm(10000)">10k</button>
+              <button class="cv2-pill active" onclick="cv2SetKm(15000)">15k</button>
+              <button class="cv2-pill" onclick="cv2SetKm(20000)">20k</button>
+              <button class="cv2-pill" onclick="cv2SetKm(25000)">25k</button>
+              <button class="cv2-pill" onclick="cv2SetKm(30000)">30k</button>
+            </div>
+          </div>
+
+          <!-- Mantenimiento -->
+          <div style="margin-top:16px;" id="cv2-field-mant">
+            <div class="cv2-flbl">
+              Mantenimiento VWFS
+              <span id="cv2-disp-mant" style="font-size:12px;color:#F59E0B;font-weight:700;letter-spacing:0;text-transform:none;"></span>
+            </div>
+            <div id="cv2-cupra-tipo-wrap" style="display:none;margin-bottom:10px;">
+              <div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(240,244,255,0.35);margin-bottom:6px;">Tipo motor CUPRA</div>
+              <div class="cv2-pills" id="cv2-pills-cupra-tipo">
+                <button class="cv2-pill active" id="cv2-ct-termico" onclick="cv2SetCupraTipo('TERMICO')">Térmico / Híbrido</button>
+                <button class="cv2-pill" id="cv2-ct-electrico" onclick="cv2SetCupraTipo('ELECTRICO')">Eléctrico</button>
+              </div>
+            </div>
+            <div class="cv2-mant-badge" id="cv2-mant-badge">
+              ✓ 2 años / 40.000 km incluidos gratis (APPROVED) + Coche de sustitución
+            </div>
+            <div class="cv2-pills" id="cv2-pills-mant">
+              <button class="cv2-pill active" id="cv2-mt-0" onclick="cv2SetMant(0)">Sin mant.</button>
+              <button class="cv2-pill" id="cv2-mt-2" onclick="cv2SetMant(2)">2 años</button>
+              <button class="cv2-pill" id="cv2-mt-4" onclick="cv2SetMant(4)">4 años</button>
+            </div>
+            <div class="cv2-mant-info" id="cv2-mant-info"></div>
+            <div class="cv2-mant-unavail" id="cv2-mant-unavail">⚠ Mantenimiento no disponible para VU o marcas ajenas al grupo</div>
+          </div>
+        </div>
+
+        <!-- Info chips -->
+        <div class="cv2-info-chips">
+          <span class="cv2-chip" id="cv2-chip-cat" style="display:none"></span>
+          <span class="cv2-chip green" id="cv2-chip-camp"></span>
+          <span class="cv2-chip red" id="cv2-chip-tin"></span>
+        </div>
+
+        <!-- Credit warning -->
+        <div class="cv2-credit-warn" id="cv2-credit-warn"></div>
+
+        <!-- Cuota hero -->
+        <div class="cv2-cuota-hero">
+          <div class="cv2-cuota-lbl" id="cv2-cuota-lbl">Cuota mensual estimada</div>
+          <div>
+            <span class="cv2-cuota-val" id="cv2-cuota-val">—</span>
+            <span class="cv2-cuota-unit">€ / mes</span>
+          </div>
+          <div class="cv2-cuota-final" id="cv2-cuota-final">
+            <span class="cv2-cf-lbl" id="cv2-cf-lbl">Cuota final</span>
+            <span class="cv2-cf-val" id="cv2-cf-val">—</span>
+          </div>
+        </div>
+
+        <!-- Breakdown -->
+        <div class="cv2-breakdown">
+          <div class="cv2-br-row">
+            <span class="cv2-br-lbl">Precio al contado</span>
+            <span class="cv2-br-val" id="cv2-br-precio">—</span>
+          </div>
+          <div class="cv2-br-row bonif hidden" id="cv2-br-bonif-row">
+            <span class="cv2-br-lbl">Bonificación VWFS</span>
+            <span class="cv2-br-val" id="cv2-br-bonif">—</span>
+          </div>
+          <div class="cv2-br-row">
+            <span class="cv2-br-lbl">Entrada inicial</span>
+            <span class="cv2-br-val" id="cv2-br-entrada">—</span>
+          </div>
+          <div class="cv2-br-row">
+            <span class="cv2-br-lbl">T.I.N.</span>
+            <span class="cv2-br-val" id="cv2-br-tin">—</span>
+          </div>
+          <div class="cv2-br-row">
+            <span class="cv2-br-lbl">Nº de cuotas</span>
+            <span class="cv2-br-val" id="cv2-br-ncuotas">—</span>
+          </div>
+          <div class="cv2-br-row mant hidden" id="cv2-br-mant-row">
+            <span class="cv2-br-lbl" id="cv2-br-mant-lbl">Mantenimiento</span>
+            <span class="cv2-br-val" id="cv2-br-mant-v">—</span>
+          </div>
+          <div class="cv2-br-row total">
+            <span class="cv2-br-lbl">Precio total a plazos</span>
+            <span class="cv2-br-val" id="cv2-br-total">—</span>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cv2-cta">
+          <a class="cv2-btn-wa" id="cv2-btn-wa" href="#" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Solicitar financiación · WhatsApp
+          </a>
+          <div class="cv2-legal" id="cv2-legal"></div>
+        </div>
       </div>
       <div class="modal-cta">
         <a class="btn-cta" id="m-link" href="#" target="_blank" rel="noopener">
@@ -1218,7 +1401,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {{
 searchInput.addEventListener('input', e => {{ busqueda = e.target.value; render(); }});
 document.getElementById('sort-select').addEventListener('change', e => {{ ordenActivo = e.target.value; render(); }});
 
-// ── Calculadora Auto-Campaña VWFS ────────────────────────────────────────────
+// ── Calculadora VWFS — Motor completo (portado de calculadora.html) ───────────
 
 // Tabla VR% calibrada con datos reales DWA (63% para 60m/15k)
 const VR_TABLE = {{
@@ -1229,294 +1412,667 @@ const VR_TABLE = {{
   72: {{10000:63,15000:59,20000:54,25000:49,30000:44}},
 }};
 
-function parsePrecio(v) {{
-  return typeof v === 'number' ? v : (parseInt(String(v||'0').replace(/[^\d]/g,''))||0);
+// ── Estado CV2 ────────────────────────────────────────────────────────────────
+const CV2 = {{
+  precio:        0,
+  entrada:       0,
+  meses:         60,
+  tab:           'lineal',    // 'lineal' | 'flex'
+  km:            15000,
+  marca:         'SEAT',      // 'SEAT' | 'CUPRA' | 'OTRA'
+  matriculaMes:  null,
+  matriculaAnio: null,
+  campana:       'ENTRY',     // 'ENTRY' | 'GAMA' | 'APPROVED'
+  tinOverride:   null,
+  mantAnios:     0,
+  cupraTipo:     'TERMICO',   // 'TERMICO' | 'ELECTRICO'
+  modelo:        '',
+}};
+
+const CV2_ALL_PLAZOS = [24, 36, 48, 60, 72, 84, 96];
+
+// ── Precios de mantenimiento VWFS ─────────────────────────────────────────────
+const CV2_MANT = {{
+  SEAT:                 {{ 2: 250,  4: 499, mandatory: false }},
+  CUPRA_APPROVED:       {{ 2: 0,    4: 400, mandatory: true  }},
+  CUPRA_GAMA_TERMICO:   {{ 2: 350,  4: 750, mandatory: true  }},
+  CUPRA_GAMA_ELECTRICO: {{ 2: 100,  4: 450, mandatory: true  }},
+}};
+
+function cv2GetMantKey() {{
+  const {{ marca, campana, cupraTipo }} = CV2;
+  if (marca === 'SEAT')  return 'SEAT';
+  if (marca === 'OTRA')  return null;
+  if (campana === 'APPROVED') return 'CUPRA_APPROVED';
+  return cupraTipo === 'ELECTRICO' ? 'CUPRA_GAMA_ELECTRICO' : 'CUPRA_GAMA_TERMICO';
 }}
 
-function computeAntiq(fechaIso) {{
-  if (!fechaIso) return null;
-  const parts = fechaIso.split('-').map(Number);
-  if (parts.length < 2) return null;
-  const [y, m] = parts;
-  const now = new Date();
-  return (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m);
+function cv2GetMantInfo() {{
+  const {{ meses }} = CV2;
+  const rules = cv2GetRules();
+  const key   = cv2GetMantKey();
+  const tbl   = key ? CV2_MANT[key] : null;
+  const isVU  = rules.categoria === 'VU';
+  const isAvail = !!tbl && !isVU;
+  if (!isAvail) return {{ precioTotal:0, mensual:0, label:'', isAvail:false, mandatory:false, has4y:false, free:false, activeMeses:0 }};
+  if (tbl.mandatory && CV2.mantAnios === 0) CV2.mantAnios = 2;
+  const activeMeses = CV2.mantAnios > 0 ? CV2.mantAnios : 0;
+  const precioTotal = activeMeses > 0 ? (tbl[activeMeses] ?? 0) : 0;
+  const mensual     = activeMeses > 0 && meses > 0 ? Math.round(precioTotal / meses * 100) / 100 : 0;
+  const kms         = activeMeses === 4 ? '60.000' : '40.000';
+  const label       = activeMeses > 0 ? `Mantenimiento ${{activeMeses}} años / ${{kms}} km` : '';
+  const free        = activeMeses > 0 && precioTotal === 0;
+  const has4y       = tbl[4] !== null && tbl[4] !== undefined;
+  return {{ precioTotal, mensual, label, isAvail:true, mandatory:tbl.mandatory, has4y, free, activeMeses, key }};
 }}
 
-function getFinancingRulesAuto(marca, antigMeses, importeNeto, producto, campana) {{
-  const cat = (antigMeses === null || antigMeses < 0) ? 'VS'
-            : antigMeses <= 24 ? 'VS'
-            : antigMeses <= 60 ? 'VO' : 'VU';
-  const maxGlobal = producto === 'FLEX' ? 120 : 144;
-  const mDesde = antigMeses !== null && antigMeses >= 0 ? antigMeses : 0;
-  function fp(raw) {{ return raw.filter(p => mDesde + p <= maxGlobal); }}
+// ── Formato números ───────────────────────────────────────────────────────────
+const cv2Fmt  = n => Math.round(n).toLocaleString('es-ES');
+const cv2Fmt2 = n => n.toLocaleString('es-ES', {{ minimumFractionDigits:2, maximumFractionDigits:2 }});
+
+// ── Motor de reglas VWFS ──────────────────────────────────────────────────────
+function cv2GetRules() {{
+  const {{ marca, matriculaMes, matriculaAnio, tab, precio, entrada, campana }} = CV2;
+
+  let antigMeses = null;
+  if (matriculaMes && matriculaAnio && matriculaAnio >= 2000) {{
+    const now = new Date();
+    const diff = (now.getFullYear() - matriculaAnio) * 12 + (now.getMonth() + 1 - matriculaMes);
+    antigMeses = Math.max(0, diff);
+  }}
+
+  const categoria = antigMeses === null ? null
+    : antigMeses <= 24 ? 'VS'
+    : antigMeses <= 60 ? 'VO' : 'VU';
+
+  const producto   = tab === 'lineal' ? 'LINEAL' : 'FLEX';
+  const importeNeto = Math.max(0, precio - entrada);
+  const maxGlobal  = producto === 'FLEX' ? 120 : 144;
+
+  let plazosDisp = [...CV2_ALL_PLAZOS];
+  if (antigMeses !== null) {{
+    plazosDisp = plazosDisp.filter(p => antigMeses + p <= maxGlobal);
+  }}
+
+  if (producto === 'FLEX') {{
+    if (categoria === 'VU') {{
+      plazosDisp = [];
+    }} else {{
+      plazosDisp = plazosDisp.filter(p => p <= 60);
+    }}
+  }} else {{
+    if (categoria === 'VS') {{ plazosDisp = plazosDisp.filter(p => p <= 96); }}
+    else if (categoria === 'VO') {{ plazosDisp = plazosDisp.filter(p => p <= 84); }}
+    else if (categoria === 'VU') {{ plazosDisp = plazosDisp.filter(p => p <= 48); }}
+  }}
+
+  let creditoMinimo = 0, bonificacion = 0, tin_auto = 6.99, campanaLabel = '';
 
   if (marca === 'SEAT') {{
-    if (campana === 'ENTRY' && producto === 'FLEX' && (cat==='VS'||cat==='VO'))
-      return {{tin:6.99,bonificacion:0,mesesDisponibles:fp([36,48,60]),creditoMinimo:10000,campanaLabel:'SEAT ENTRY · FLEX',categoria:cat}};
-    if (campana === 'ENTRY' && producto === 'LINEAL' && (cat==='VS'||cat==='VO'))
-      return {{tin:6.99,bonificacion:0,mesesDisponibles:fp([48,60,72,84,96]),creditoMinimo:10000,campanaLabel:'SEAT ENTRY · LINEAL',categoria:cat}};
-    if (campana === 'GAMA' && producto === 'FLEX' && (cat==='VS'||cat==='VO'))
-      return {{tin:8.99,bonificacion:750,mesesDisponibles:fp([36,48,60]),creditoMinimo:10000,campanaLabel:'SEAT GAMA · FLEX',categoria:cat}};
-    if (campana === 'GAMA' && producto === 'LINEAL') {{
-      if (cat==='VS') return {{tin:8.99,bonificacion:750,mesesDisponibles:fp([60,72,84,96]),creditoMinimo:13000,campanaLabel:'SEAT GAMA · LINEAL',categoria:cat}};
-      if (cat==='VO') return {{tin:8.99,bonificacion:750,mesesDisponibles:fp([60,72,84]),creditoMinimo:9500,campanaLabel:'SEAT GAMA · LINEAL',categoria:cat}};
-      if (cat==='VU') return {{tin:8.99,bonificacion:400,mesesDisponibles:fp([36,48]),creditoMinimo:7000,campanaLabel:'SEAT GAMA · LINEAL',categoria:cat}};
+    if (campana === 'ENTRY' && categoria !== 'VU') {{
+      tin_auto = 6.99; bonificacion = 0; creditoMinimo = 10000; campanaLabel = 'ENTRY · SEAT';
+      if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 48);
+    }} else {{
+      tin_auto = 8.99;
+      if (categoria === 'VU') {{
+        bonificacion = 400; creditoMinimo = 7000; campanaLabel = 'GAMA · SEAT · VU';
+        plazosDisp = plazosDisp.filter(p => p <= 48);
+      }} else if (categoria === 'VO') {{
+        bonificacion = 750; creditoMinimo = producto === 'LINEAL' ? 9500 : 10000; campanaLabel = 'GAMA · SEAT · VO';
+        if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 60 && p <= 84);
+      }} else {{
+        bonificacion = 750; creditoMinimo = producto === 'LINEAL' ? 13000 : 10000;
+        campanaLabel = categoria ? 'GAMA · SEAT · VS' : 'GAMA · SEAT';
+        if (producto === 'LINEAL' && categoria === 'VS') plazosDisp = plazosDisp.filter(p => p >= 60 && p <= 96);
+      }}
     }}
-  }}
-  if (marca === 'CUPRA') {{
-    if (campana === 'APPROVED' && producto === 'FLEX' && cat==='VS')
-      return {{tin:5.50,bonificacion:0,mesesDisponibles:fp([36,48,60]),creditoMinimo:13500,campanaLabel:'CUPRA APPROVED · FLEX',categoria:cat}};
-    if (campana === 'APPROVED' && producto === 'LINEAL' && cat==='VS')
-      return {{tin:5.50,bonificacion:0,mesesDisponibles:fp([36,48,60,72,84,96]),creditoMinimo:10000,campanaLabel:'CUPRA APPROVED · LINEAL',categoria:cat}};
-    if (campana === 'GAMA' && producto === 'FLEX' && (cat==='VS'||cat==='VO'))
-      return {{tin:8.99,bonificacion:1800,mesesDisponibles:fp([36,48,60]),creditoMinimo:16500,campanaLabel:'CUPRA GAMA · FLEX',categoria:cat}};
-    if (campana === 'GAMA' && producto === 'LINEAL') {{
-      if (cat==='VS') return {{tin:8.99,bonificacion:1800,mesesDisponibles:fp([48,60,72,84,96]),creditoMinimo:13500,campanaLabel:'CUPRA GAMA · LINEAL',categoria:cat}};
-      if (cat==='VO') return {{tin:8.99,bonificacion:1400,mesesDisponibles:fp([48,60,72,84,96]),creditoMinimo:13500,campanaLabel:'CUPRA GAMA · LINEAL',categoria:cat}};
+  }} else if (marca === 'CUPRA') {{
+    if (campana === 'APPROVED' && (categoria === 'VS' || categoria === null)) {{
+      tin_auto = 5.50; bonificacion = 0;
+      creditoMinimo = producto === 'FLEX' ? 13500 : 10000; campanaLabel = 'APPROVED · CUPRA';
+      if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 36);
+    }} else {{
+      tin_auto = 8.99; bonificacion = 1800;
+      creditoMinimo = producto === 'FLEX' ? 16500 : 13500;
+      campanaLabel = categoria ? 'GAMA · CUPRA · ' + (categoria || '') : 'GAMA · CUPRA';
+      if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 48);
     }}
+  }} else {{
+    plazosDisp = plazosDisp.filter(p => p >= 48 && p <= 96);
+    if (importeNeto >= 20000) {{ tin_auto = 8.99; bonificacion = 1200; creditoMinimo = 20000; campanaLabel = 'TOP · Otras Marcas'; }}
+    else if (importeNeto >= 15000) {{ tin_auto = 8.99; bonificacion = 800;  creditoMinimo = 15000; campanaLabel = 'Premium · Otras Marcas'; }}
+    else if (importeNeto >= 10000) {{ tin_auto = 8.99; bonificacion = 400;  creditoMinimo = 10000; campanaLabel = 'Entry · Otras Marcas'; }}
+    else {{ tin_auto = 7.50; bonificacion = 0; creditoMinimo = 6000; campanaLabel = 'Básica · Otras Marcas'; }}
   }}
-  if (marca === 'OTRA' && producto === 'LINEAL' && campana === 'OTRA') {{
-    let tin, bonif;
-    if      (importeNeto < 10000) {{ tin=7.50; bonif=0;    }}
-    else if (importeNeto < 15000) {{ tin=8.99; bonif=400;  }}
-    else if (importeNeto < 20000) {{ tin=8.99; bonif=800;  }}
-    else                          {{ tin=8.99; bonif=1200; }}
-    return {{tin,bonificacion:bonif,mesesDisponibles:fp([48,60,72,84,96]),creditoMinimo:6000,campanaLabel:'Financiación · LINEAL',categoria:cat}};
-  }}
-  return null;
+
+  const tinFinal = CV2.tinOverride !== null ? CV2.tinOverride : tin_auto;
+  return {{ tinFinal, tin_auto, bonificacion, creditoMinimo, campanaLabel, plazosDisp, categoria, antigMeses }};
 }}
 
-function calcCuotaAuto(precio, entrada, meses, km, tin, bonif, producto, seguroBase) {{
-  const precioEf = precio - bonif;
-  const r  = tin / 100 / 12;
+// ── Cálculo cuota ─────────────────────────────────────────────────────────────
+function cv2Calc() {{
+  const {{ precio, entrada, meses, tab, km }} = CV2;
+  const rules = cv2GetRules();
+  const tin   = rules.tinFinal;
+  const bonif = rules.bonificacion;
+  const r = tin / 100 / 12;
   const rn = Math.pow(1 + r, meses);
-  const neto = precioEf - entrada;
-  const seg0 = seguroBase || Math.round(precio * 0.061545);
-  const seg = precio > 0 ? Math.round(seg0 * Math.pow(Math.max(0,neto) / precio, 1.5) * 100) / 100 : seg0;
-  const base = neto + seg;
+  const precioEf = Math.max(0, precio - bonif);
+  const neto     = Math.max(0, precioEf - entrada);
+  const seg0     = precioEf * 0.061545;
+  const seg      = precioEf > 0 ? Math.round(seg0 * Math.pow(neto / precioEf, 1.5) * 100) / 100 : 0;
+  const base     = neto + seg;
   const capital  = Math.round(base * 1.035 * 100) / 100;
   const comision = Math.round((capital - base) * 100) / 100;
   let vr = 0, cuota = 0;
-  if (producto === 'FLEX') {{
+  if (tab === 'flex') {{
     const tbl = VR_TABLE[meses] || VR_TABLE[60];
-    const pct = tbl[km] !== undefined ? tbl[km] : 63;
-    vr = Math.round(precioEf * pct / 100);
+    const pct = tbl[km] !== undefined ? tbl[km] : 46;
+    vr = Math.round(precio * pct / 100);
     cuota = (rn > 1 && r > 0) ? (capital * r * rn - vr * r) / (rn - 1) : capital / meses;
   }} else {{
-    cuota = (rn > 1 && r > 0) ? capital * r / (1 - 1/rn) : capital / meses;
+    cuota = (rn > 1 && r > 0) ? capital * r / (1 - 1 / rn) : capital / meses;
   }}
   cuota = Math.round(cuota * 100) / 100;
   const total = Math.round((cuota * meses + entrada + vr) * 100) / 100;
-  return {{ cuota, capital, comision, seg, vr, total, entrada }};
+  return {{ seg, comision, capital, cuota, total, vr, bonif, precioEf, rules }};
 }}
 
-function getBestOption(car, entrada, meses, km) {{
-  const precio = parsePrecio(car.precio);
-  const modelo = car.modelo || '';
-  const marca = modelo.includes('CUPRA') ? 'CUPRA' : modelo.includes('SEAT') ? 'SEAT' : 'OTRA';
-  const antigMeses = computeAntiq(car.fin_fecha_iso || '');
-  const seguroBase = (car.fin_seguro && car.fin_seguro > 0) ? car.fin_seguro : Math.round(precio * 0.061545);
-  const combos = marca === 'OTRA'
-    ? [{{campana:'OTRA',    producto:'LINEAL'}}]
-    : [
-        {{campana:'APPROVED',producto:'FLEX'}},  {{campana:'APPROVED',producto:'LINEAL'}},
-        {{campana:'ENTRY',   producto:'FLEX'}},  {{campana:'ENTRY',   producto:'LINEAL'}},
-        {{campana:'GAMA',    producto:'FLEX'}},  {{campana:'GAMA',    producto:'LINEAL'}},
-      ];
-  let best = null;
-  for (const {{campana, producto}} of combos) {{
-    const rules = getFinancingRulesAuto(marca, antigMeses, precio - entrada, producto, campana);
-    if (!rules) continue;
-    if (!rules.mesesDisponibles.includes(meses)) continue;
-    const impNeto = precio - rules.bonificacion - entrada;
-    if (impNeto < rules.creditoMinimo) continue;
-    const res = calcCuotaAuto(precio, entrada, meses, km, rules.tin, rules.bonificacion, producto, seguroBase);
-    if (!best || res.cuota < best.cuota) {{
-      best = {{ ...res, campana, producto, rules, tin: rules.tin, bonif: rules.bonificacion,
-               marca, campanaLabel: rules.campanaLabel, categoria: rules.categoria }};
-    }}
+// ── Actualizar UI de campaña ──────────────────────────────────────────────────
+function cv2UpdateCampanaUI() {{
+  const {{ marca, campana }} = CV2;
+  const rules = cv2GetRules();
+  const cat   = rules.categoria;
+
+  document.getElementById('cv2-camp-seat').style.display  = marca === 'SEAT'  ? 'flex' : 'none';
+  document.getElementById('cv2-camp-cupra').style.display = marca === 'CUPRA' ? 'flex' : 'none';
+  document.getElementById('cv2-camp-otra').style.display  = marca === 'OTRA'  ? 'block' : 'none';
+
+  if (marca === 'SEAT') {{
+    const entryBtn = document.getElementById('cv2-entry');
+    const gamaBtn  = document.getElementById('cv2-gama-seat');
+    const isVU     = cat === 'VU';
+    entryBtn.disabled = isVU;
+    if (isVU && campana === 'ENTRY') CV2.campana = 'GAMA';
+    const ac = CV2.campana;
+    entryBtn.classList.toggle('active', ac === 'ENTRY' && !isVU);
+    gamaBtn.classList.toggle('active', ac === 'GAMA' || isVU);
   }}
-  return best;
-}}
-
-function getValidPlazos(car, entrada) {{
-  const precio = parsePrecio(car.precio);
-  const modelo = car.modelo || '';
-  const marca = modelo.includes('CUPRA') ? 'CUPRA' : modelo.includes('SEAT') ? 'SEAT' : 'OTRA';
-  const antigMeses = computeAntiq(car.fin_fecha_iso || '');
-  const valid = new Set();
-  const combos = marca === 'OTRA'
-    ? [{{campana:'OTRA',    producto:'LINEAL'}}]
-    : [
-        {{campana:'APPROVED',producto:'FLEX'}},  {{campana:'APPROVED',producto:'LINEAL'}},
-        {{campana:'ENTRY',   producto:'FLEX'}},  {{campana:'ENTRY',   producto:'LINEAL'}},
-        {{campana:'GAMA',    producto:'FLEX'}},  {{campana:'GAMA',    producto:'LINEAL'}},
-      ];
-  for (const {{campana, producto}} of combos) {{
-    const rules = getFinancingRulesAuto(marca, antigMeses, precio - entrada, producto, campana);
-    if (!rules) continue;
-    if ((precio - rules.bonificacion - entrada) < rules.creditoMinimo) continue;
-    rules.mesesDisponibles.forEach(p => valid.add(p));
+  if (marca === 'CUPRA') {{
+    const gamaBtn     = document.getElementById('cv2-gama-cupra');
+    const approvedBtn = document.getElementById('cv2-approved');
+    const canApproved = cat === 'VS' || cat === null;
+    approvedBtn.disabled = !canApproved;
+    if (!canApproved && campana === 'APPROVED') CV2.campana = 'GAMA';
+    const ac = CV2.campana;
+    gamaBtn.classList.toggle('active', ac === 'GAMA');
+    approvedBtn.classList.toggle('active', ac === 'APPROVED' && canApproved);
   }}
-  // fallback si nada aplica: todos los plazos
-  if (valid.size === 0) [36,48,60,72,84,96].forEach(p => valid.add(p));
-  return valid;
-}}
-
-let calcState = {{ car: null, precio: 0, entrada: 0, meses: 60, km: 15000, best: null }};
-
-function fmtEur(v) {{
-  return Number(v).toLocaleString('es-ES', {{minimumFractionDigits:2,maximumFractionDigits:2}}) + ' €';
-}}
-
-function renderCalc() {{
-  const s = calcState;
-  if (!s.car) return;
-  const best = getBestOption(s.car, s.entrada, s.meses, s.km);
-  s.best = best;
-
-  const badge = document.getElementById('calc-campaign-badge');
-  if (!best) {{
-    document.getElementById('cr-cuota').textContent    = 'Sin financiación disponible';
-    document.getElementById('cr-precio').textContent   = '—';
-    document.getElementById('cr-entrada').textContent  = '—';
-    document.getElementById('cr-tin').textContent      = '—';
-    document.getElementById('cr-tae').textContent      = '—';
-    document.getElementById('cr-ncuotas').textContent  = s.meses;
-    document.getElementById('cr-total').textContent    = '—';
-    document.getElementById('cr-vr-row').style.display = 'none';
-    if (badge) badge.innerHTML = '<span class="camp-badge camp-none">Sin campaña disponible para este plazo/entrada</span>';
-    return;
-  }}
-
-  document.getElementById('cr-precio').textContent   = fmtEur(s.precio);
-  document.getElementById('cr-entrada').textContent  = fmtEur(best.entrada);
-  document.getElementById('cr-tin').textContent      = Number(best.tin).toFixed(2).replace('.',',') + ' %';
-  document.getElementById('cr-tae').textContent      = '—';
-  document.getElementById('cr-ncuotas').textContent  = s.meses;
-  document.getElementById('cr-total').textContent    = fmtEur(best.total);
-  document.getElementById('cr-cuota').textContent    = fmtEur(best.cuota) + '/mes';
-
-  const vrRow = document.getElementById('cr-vr-row');
-  if (best.producto === 'FLEX') {{
-    vrRow.style.display = '';
-    document.getElementById('cr-vr-lbl').textContent = `Cuota final mes ${{s.meses}}`;
-    document.getElementById('cr-vr').textContent     = fmtEur(best.vr);
-  }} else {{
-    vrRow.style.display = 'none';
-  }}
-
-  // Badge campaña (info, el cliente no elige)
-  if (badge) {{
-    const bonifTxt = best.bonif > 0 ? ` · Dto. ${{best.bonif.toLocaleString('es-ES')}} €` : '';
-    badge.innerHTML = `<span class="camp-badge">${{best.campanaLabel}}${{bonifTxt}}</span>`
-      + `<span class="camp-cat">Vehículo ${{best.categoria || ''}}</span>`;
-  }}
-
-  // Texto legal dinámico
-  const legal = document.getElementById('calc-legal');
-  if (legal) {{
-    const tinStr = Number(best.tin).toFixed(2).replace('.',',');
-    legal.textContent = `Cálculo orientativo: ${{fmtEur(best.cuota)}}/mes · ${{s.meses}} meses · TIN ${{tinStr}}% · Entrada ${{fmtEur(best.entrada)}}. Sujeto a aprobación de VW Financial Services. Condiciones exactas con {COMERCIAL_NOMBRE} · {COMERCIAL_TELEFONO}.`;
+  if (marca === 'OTRA') {{
+    const r2 = cv2GetRules();
+    document.getElementById('cv2-otra-label').textContent = r2.campanaLabel + ' · mín. ' + cv2Fmt(r2.creditoMinimo) + ' €';
   }}
 }}
 
-function calcSliderMove(val) {{
-  const slider = document.getElementById('calc-entrada-slider');
-  const max = parseInt(slider.max) || 1;
-  const eur = parseInt(val) || 0;
-  const pct = max > 0 ? (eur / max * 100) : 0;
-  slider.style.setProperty('--pct', pct + '%');
-  calcState.entrada = eur;
-  document.getElementById('calc-entrada-display').textContent = eur.toLocaleString('es-ES') + ' €';
-  // Actualizar pills según nueva entrada
-  const valid = getValidPlazos(calcState.car, eur);
-  updatePlazoPills(valid, calcState.meses);
-  renderCalc();
+// ── Actualizar TIN display ────────────────────────────────────────────────────
+function cv2UpdateTinUI(rules) {{
+  const tinDisp = rules.tinFinal.toFixed(2).replace('.', ',');
+  document.getElementById('cv2-tin-val').textContent = tinDisp;
+  document.getElementById('cv2-tin-lbl').textContent = rules.campanaLabel;
+  const inp = document.getElementById('cv2-tin-input');
+  if (inp) inp.value = rules.tinFinal.toFixed(2);
 }}
 
-function calcChipMeses(m, el) {{
-  calcState.meses = m;
-  el.closest('.calc-chips').querySelectorAll('.calc-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  renderCalc();
-}}
-
-function calcChipKm(k, el) {{
-  calcState.km = k;
-  el.closest('.calc-chips').querySelectorAll('.calc-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  renderCalc();
-}}
-
-function updatePlazoPills(validSet, mesSel) {{
-  const chips = document.getElementById('calc-plazo-chips');
-  if (!chips) return;
-  chips.querySelectorAll('.calc-chip').forEach(btn => {{
-    const m = parseInt(btn.dataset.meses);
-    const avail = validSet.has(m);
-    btn.disabled = !avail;
-    btn.classList.toggle('disabled', !avail);
-    btn.classList.toggle('active', m === mesSel && avail);
+// ── Actualizar pills de plazo ─────────────────────────────────────────────────
+function cv2UpdatePlazoPills(plazosDisp) {{
+  CV2_ALL_PLAZOS.forEach(p => {{
+    const el = document.getElementById('cv2-pl-' + p);
+    if (!el) return;
+    const avail = plazosDisp.includes(p);
+    el.disabled = !avail;
+    el.classList.toggle('active', CV2.meses === p);
+    el.style.opacity = avail ? '' : '0.25';
+    el.style.cursor  = avail ? '' : 'not-allowed';
+    el.style.pointerEvents = avail ? '' : 'none';
   }});
-  if (!validSet.has(mesSel)) {{
-    const first = [36,48,60,72,84,96].find(p => validSet.has(p));
-    if (first) {{
-      calcState.meses = first;
-      chips.querySelectorAll('.calc-chip').forEach(btn => {{
-        btn.classList.toggle('active', parseInt(btn.dataset.meses) === first);
-      }});
+  if (!plazosDisp.includes(CV2.meses) && plazosDisp.length > 0) {{
+    const newMeses = plazosDisp[plazosDisp.length - 1];
+    CV2.meses = newMeses;
+    document.getElementById('cv2-disp-meses').textContent = newMeses + ' meses';
+    CV2_ALL_PLAZOS.forEach(p => {{
+      const el = document.getElementById('cv2-pl-' + p);
+      if (el) el.classList.toggle('active', p === newMeses);
+    }});
+  }}
+  // Note FLEX no disponible para VU
+  const isVU = cv2GetRules().categoria === 'VU';
+  const flexNote = document.getElementById('cv2-flex-note');
+  if (flexNote) flexNote.classList.toggle('visible', CV2.tab === 'lineal' && isVU);
+}}
+
+// ── Render principal ──────────────────────────────────────────────────────────
+function cv2Render() {{
+  const {{ precio, entrada, meses, tab, km, marca, campana, mantAnios, cupraTipo }} = CV2;
+  const res      = cv2Calc();
+  const rules    = res.rules;
+  const mantInfo = cv2GetMantInfo();
+  const cuotaTotal = Math.round((res.cuota + mantInfo.mensual) * 100) / 100;
+
+  cv2UpdateCampanaUI();
+  cv2UpdateTinUI(rules);
+  cv2UpdatePlazoPills(rules.plazosDisp);
+
+  // FLEX tab disabled si VU
+  const flexTab = document.getElementById('cv2-tab-flex');
+  if (rules.categoria === 'VU') {{
+    flexTab.disabled = true;
+    if (tab === 'flex') {{
+      CV2.tab = 'lineal';
+      document.getElementById('cv2-tab-lineal').classList.add('active');
+      flexTab.classList.remove('active');
+      document.getElementById('cv2-field-km').style.display = 'none';
     }}
+  }} else {{
+    flexTab.disabled = false;
+  }}
+
+  // Categoria badge (car bar)
+  const catEl = document.getElementById('cv2-cat-badge');
+  if (rules.categoria) {{
+    const catNames = {{ VS:'VS · '+rules.antigMeses+'m', VO:'VO · '+rules.antigMeses+'m', VU:'VU · '+rules.antigMeses+'m' }};
+    catEl.textContent = catNames[rules.categoria];
+    catEl.className   = 'cv2-cat-badge ' + rules.categoria.toLowerCase();
+  }} else {{
+    catEl.textContent = '';
+    catEl.className   = 'cv2-cat-badge';
+  }}
+
+  // ── Mantenimiento UI ──────────────────────────────────────────────────────
+  const mantKey  = cv2GetMantKey();
+  const mantTbl  = mantKey ? CV2_MANT[mantKey] : null;
+  const isVU     = rules.categoria === 'VU';
+  const mantAvail = !!mantTbl && !isVU;
+
+  if (!mantAvail) CV2.mantAnios = 0;
+
+  const showCupraTipo = marca === 'CUPRA' && campana !== 'APPROVED';
+  const cupraTipoWrap = document.getElementById('cv2-cupra-tipo-wrap');
+  if (cupraTipoWrap) cupraTipoWrap.style.display = showCupraTipo ? 'block' : 'none';
+  const ctTerm = document.getElementById('cv2-ct-termico');
+  const ctElec = document.getElementById('cv2-ct-electrico');
+  if (ctTerm) ctTerm.classList.toggle('active', cupraTipo === 'TERMICO');
+  if (ctElec) ctElec.classList.toggle('active', cupraTipo === 'ELECTRICO');
+
+  const isApprovedFixed = marca === 'CUPRA' && campana === 'APPROVED' && mantAvail;
+
+  // APPROVED free badge
+  const mantBadge = document.getElementById('cv2-mant-badge');
+  if (mantBadge) mantBadge.classList.toggle('visible', isApprovedFixed && CV2.mantAnios === 2);
+
+  if (!isApprovedFixed && mantAvail && mantTbl) {{
+    const p0 = document.getElementById('cv2-mt-0');
+    const p2 = document.getElementById('cv2-mt-2');
+    const p4 = document.getElementById('cv2-mt-4');
+    if (p2) {{ p2.style.display = ''; p2.textContent = mantTbl[2] === 0 ? '2 años · GRATIS' : `2 años · ${{cv2Fmt(mantTbl[2])}} €`; }}
+    if (p4) {{ p4.textContent = mantTbl[4] != null ? `4 años · ${{cv2Fmt(mantTbl[4])}} €` : '4 años'; p4.disabled = mantTbl[4] == null; p4.style.opacity = p4.disabled ? '0.3' : ''; p4.style.pointerEvents = p4.disabled ? 'none' : ''; }}
+    if (p0) p0.style.display = mantTbl.mandatory ? 'none' : '';
+  }} else if (isApprovedFixed) {{
+    const p0 = document.getElementById('cv2-mt-0');
+    const p2 = document.getElementById('cv2-mt-2');
+    const p4 = document.getElementById('cv2-mt-4');
+    if (p2) p2.style.display = 'none';
+    if (p0) p0.style.display = 'none';
+    if (p4) {{ p4.textContent = `4 años · ${{cv2Fmt(CV2_MANT.CUPRA_APPROVED[4])}} € (ampliar)`; p4.disabled = false; p4.style.opacity = ''; p4.style.pointerEvents = ''; }}
+  }}
+
+  [0, 2, 4].forEach(v => {{
+    const el2 = document.getElementById('cv2-mt-' + v);
+    if (el2) el2.classList.toggle('active', v === CV2.mantAnios);
+  }});
+
+  const mantUnavail = document.getElementById('cv2-mant-unavail');
+  if (mantUnavail) mantUnavail.classList.toggle('visible', !mantAvail);
+
+  const mantInfoEl = document.getElementById('cv2-mant-info');
+  const dispMant   = document.getElementById('cv2-disp-mant');
+  if (!isApprovedFixed && mantInfo.precioTotal > 0) {{
+    if (mantInfoEl) {{ mantInfoEl.classList.add('visible'); mantInfoEl.innerHTML = `<strong style="color:#F59E0B">${{cv2Fmt2(mantInfo.mensual)}} €/mes</strong> durante ${{CV2.meses}} meses · Total: ${{cv2Fmt2(mantInfo.precioTotal)}} €`; }}
+    if (dispMant) dispMant.textContent = `+${{cv2Fmt2(mantInfo.mensual)}} €/mes`;
+  }} else if (isApprovedFixed && CV2.mantAnios === 2) {{
+    if (mantInfoEl) mantInfoEl.classList.remove('visible');
+    if (dispMant) dispMant.textContent = '✓ 2 años gratis';
+  }} else {{
+    if (mantInfoEl) mantInfoEl.classList.remove('visible');
+    if (dispMant) dispMant.textContent = '';
+  }}
+
+  // Cuota hero label
+  const heroLbl = document.getElementById('cv2-cuota-lbl');
+  if (heroLbl) heroLbl.textContent = mantInfo.mensual > 0 ? 'Cuota total (financiación + mantenimiento)' : 'Cuota mensual estimada';
+
+  // Hero cuota (flash)
+  const cuotaEl = document.getElementById('cv2-cuota-val');
+  if (cuotaEl) {{ cuotaEl.classList.remove('cv2-updating'); void cuotaEl.offsetWidth; cuotaEl.textContent = cv2Fmt2(cuotaTotal); cuotaEl.classList.add('cv2-updating'); }}
+
+  // Cuota final FLEX
+  const cfRow = document.getElementById('cv2-cuota-final');
+  if (cfRow) {{
+    cfRow.classList.toggle('visible', tab === 'flex' && res.vr > 0);
+    const cfLbl = document.getElementById('cv2-cf-lbl');
+    const cfVal = document.getElementById('cv2-cf-val');
+    if (cfLbl) cfLbl.textContent = 'Cuota final mes ' + CV2.meses;
+    if (cfVal) cfVal.textContent = cv2Fmt2(res.vr) + ' €';
+  }}
+
+  // Info chips
+  const chipCat  = document.getElementById('cv2-chip-cat');
+  const chipCamp = document.getElementById('cv2-chip-camp');
+  const chipTin  = document.getElementById('cv2-chip-tin');
+  if (chipCat) {{
+    if (rules.categoria) {{
+      chipCat.textContent = rules.categoria + ' · ' + rules.antigMeses + 'm';
+      chipCat.style.display = '';
+      chipCat.className = 'cv2-chip ' + (rules.categoria === 'VS' ? 'green' : rules.categoria === 'VO' ? 'amber' : '');
+    }} else {{
+      chipCat.style.display = 'none';
+    }}
+  }}
+  if (chipCamp) chipCamp.textContent = rules.campanaLabel;
+  if (chipTin)  chipTin.textContent  = 'TIN ' + rules.tinFinal.toFixed(2).replace('.', ',') + '%';
+
+  // Breakdown
+  const gId = id => document.getElementById(id);
+  if (gId('cv2-br-precio'))   gId('cv2-br-precio').textContent   = cv2Fmt(precio) + ' €';
+  if (gId('cv2-br-entrada'))  gId('cv2-br-entrada').textContent  = cv2Fmt(entrada) + ' €';
+  if (gId('cv2-br-tin'))      gId('cv2-br-tin').textContent      = rules.tinFinal.toFixed(2).replace('.', ',') + ' %';
+  if (gId('cv2-br-ncuotas')) gId('cv2-br-ncuotas').textContent  = CV2.meses;
+  const totalConMant = Math.round((res.total + mantInfo.precioTotal) * 100) / 100;
+  if (gId('cv2-br-total'))    gId('cv2-br-total').textContent    = cv2Fmt2(totalConMant) + ' €';
+
+  // Mant row
+  const mantRow = gId('cv2-br-mant-row');
+  if (mantRow) {{
+    mantRow.classList.toggle('hidden', mantInfo.precioTotal <= 0);
+    if (gId('cv2-br-mant-lbl')) gId('cv2-br-mant-lbl').textContent = mantInfo.label;
+    if (gId('cv2-br-mant-v'))   gId('cv2-br-mant-v').textContent   = '+' + cv2Fmt2(mantInfo.mensual) + ' €/mes';
+  }}
+
+  // Bonif row
+  const bonifRow = gId('cv2-br-bonif-row');
+  if (bonifRow) {{
+    bonifRow.classList.toggle('hidden', res.bonif <= 0);
+    if (gId('cv2-br-bonif')) gId('cv2-br-bonif').textContent = '−' + cv2Fmt(res.bonif) + ' €';
+  }}
+
+  // Crédito mínimo warning
+  const importeFinanciado = Math.max(0, res.precioEf - entrada);
+  const warnEl = gId('cv2-credit-warn');
+  if (warnEl) {{
+    if (rules.creditoMinimo > 0 && importeFinanciado < rules.creditoMinimo) {{
+      warnEl.classList.add('visible');
+      warnEl.textContent = '⚠ Importe financiado (' + cv2Fmt(importeFinanciado) + ' €) inferior al mínimo de la campaña ' + rules.campanaLabel + ' (' + cv2Fmt(rules.creditoMinimo) + ' €). Consulta condiciones con Andrés.';
+    }} else {{
+      warnEl.classList.remove('visible');
+    }}
+  }}
+
+  // Texto legal
+  const modeStr2 = tab === 'lineal' ? 'francés' : 'francés con cuota final';
+  let legalTxt = `Ejemplo de cuota a ${{CV2.meses}} meses: ${{cv2Fmt2(res.cuota)}} €`;
+  if (tab === 'flex' && res.vr > 0) {{
+    const anos = Math.round(CV2.meses / 12);
+    legalTxt += `, y si lo deseas, al cabo de ${{anos}} año${{anos !== 1 ? 's' : ''}} podrás cambiarlo, devolverlo o quedártelo pagando una cuota final en el mes ${{CV2.meses}} de ${{cv2Fmt2(res.vr)}} € (calculada con ${{Math.round(km/1000)}}.000 km anuales)`;
+  }}
+  legalTxt += `. Campaña: ${{rules.campanaLabel}}. `;
+  if (res.bonif > 0) legalTxt += `Bonificación VWFS: ${{cv2Fmt(res.bonif)}} €. `;
+  legalTxt += `Entrada inicial: ${{cv2Fmt(entrada)}} €. Seguro de Protección Plus opcional y financiado: ${{cv2Fmt2(res.seg)}} €. Comisión de apertura financiada: ${{cv2Fmt2(res.comision)}} €. Importe total financiado: ${{cv2Fmt2(res.capital)}} €. TIN ${{rules.tinFinal.toFixed(2).replace('.', ',')}}\%. Precio total a plazos: ${{cv2Fmt2(res.total)}} €. Sistema de amortización ${{modeStr2}}. `;
+  if (mantInfo.precioTotal > 0) {{
+    legalTxt += `${{mantInfo.label}}: ${{cv2Fmt2(mantInfo.precioTotal)}} € (${{cv2Fmt2(mantInfo.mensual)}} €/mes dividido en ${{CV2.meses}} cuotas). Cuota total mensual incluyendo mantenimiento: ${{cv2Fmt2(cuotaTotal)}} €. `;
+  }}
+  legalTxt += `Condiciones exactas con Andrés · 610 02 90 56.`;
+  const legalEl = gId('cv2-legal');
+  if (legalEl) legalEl.textContent = legalTxt;
+
+  // WhatsApp link
+  cv2BuildWaLink(res, rules, mantInfo, cuotaTotal);
+}}
+
+// ── WhatsApp mensaje ──────────────────────────────────────────────────────────
+function cv2BuildWaLink(res, rules, mantInfo, cuotaTotal) {{
+  const {{ precio, entrada, marca, tab }} = CV2;
+  const modeStr = tab === 'lineal' ? 'LINEAL' : 'FLEX';
+  const modeloStr = CV2.modelo || 'el vehículo';
+  let msg = `🚗 *Simulación Financiación — ${{modeloStr}}*\n`;
+  msg += `━━━━━━━━━━━━━━━\n`;
+  msg += `Marca: *${{marca}}*${{rules.categoria ? ' · ' + rules.categoria : ''}}\n`;
+  msg += `Campaña: *${{rules.campanaLabel}}*\n`;
+  msg += `Precio al contado: *${{cv2Fmt(precio)}} €*\n`;
+  if (res.bonif > 0) msg += `Bonificación VWFS: *−${{cv2Fmt(res.bonif)}} €*\n`;
+  msg += `Entrada inicial: *${{cv2Fmt(entrada)}} €*\n`;
+  msg += `Modalidad: *${{modeStr}}*\n`;
+  msg += `Plazo: *${{CV2.meses}} meses*\n`;
+  msg += `TIN: *${{rules.tinFinal.toFixed(2).replace('.', ',')}}\%*\n`;
+  msg += `Seguro Protección Plus: *${{cv2Fmt2(res.seg)}} €*\n`;
+  msg += `Comisión apertura (3,5\%): *${{cv2Fmt2(res.comision)}} €*\n`;
+  msg += `Importe financiado: *${{cv2Fmt2(res.capital)}} €*\n`;
+  msg += `━━━━━━━━━━━━━━━\n`;
+  msg += `📅 *Cuota financiación: ${{cv2Fmt2(res.cuota)}} €/mes*\n`;
+  if (tab === 'flex' && res.vr > 0) msg += `🔑 Cuota final mes ${{CV2.meses}}: *${{cv2Fmt2(res.vr)}} €*\n`;
+  if (mantInfo && mantInfo.precioTotal > 0) {{
+    msg += `🔧 ${{mantInfo.label}}: *+${{cv2Fmt2(mantInfo.mensual)}} €/mes* (${{cv2Fmt2(mantInfo.precioTotal)}} € total)\n`;
+    msg += `📅 *CUOTA TOTAL: ${{cv2Fmt2(cuotaTotal)}} €/mes*\n`;
+  }}
+  const totalConMant = Math.round(((res.total || 0) + (mantInfo ? mantInfo.precioTotal : 0)) * 100) / 100;
+  msg += `💰 Total a plazos: *${{cv2Fmt2(totalConMant)}} €*\n`;
+  msg += `━━━━━━━━━━━━━━━\n`;
+  msg += `_Cálculo orientativo. Condiciones exactas con Andrés · 610 02 90 56_`;
+  const waEl = document.getElementById('cv2-btn-wa');
+  if (waEl) waEl.href = `https://wa.me/34610029056?text=${{encodeURIComponent(msg)}}`;
+}}
+
+// ── Handlers de usuario ───────────────────────────────────────────────────────
+function cv2SetMode(m) {{
+  if (m === 'flex') {{
+    const rules = cv2GetRules();
+    if (rules.categoria === 'VU') return;
+    if (CV2.marca === 'OTRA') return;
+  }}
+  CV2.tab = m;
+  document.getElementById('cv2-tab-lineal').classList.toggle('active', m === 'lineal');
+  document.getElementById('cv2-tab-flex').classList.toggle('active', m === 'flex');
+  document.getElementById('cv2-field-km').style.display = m === 'flex' ? 'block' : 'none';
+  cv2Render();
+}}
+
+function cv2SetCampana(c) {{
+  CV2.campana = c;
+  CV2.tinOverride = null;
+  if (CV2.marca === 'CUPRA') {{
+    if (CV2.mantAnios === 0) CV2.mantAnios = 2;
+    if (c === 'APPROVED' && CV2.mantAnios === 4) CV2.mantAnios = 2;
+  }}
+  const manualWrap = document.getElementById('cv2-tin-manual');
+  if (manualWrap) manualWrap.classList.remove('visible');
+  const tinBtn = document.getElementById('cv2-tin-btn');
+  if (tinBtn) tinBtn.textContent = '✎ personalizar TIN';
+  cv2Render();
+}}
+
+function cv2SetMeses(m) {{
+  CV2.meses = m;
+  CV2_ALL_PLAZOS.forEach(p => {{
+    const el = document.getElementById('cv2-pl-' + p);
+    if (el) el.classList.toggle('active', p === m);
+  }});
+  const dispMeses = document.getElementById('cv2-disp-meses');
+  if (dispMeses) dispMeses.textContent = m + ' meses';
+  cv2Render();
+}}
+
+function cv2SetKm(k) {{
+  CV2.km = k;
+  document.querySelectorAll('#cv2-pills-km .cv2-pill').forEach((el, i) => {{
+    el.classList.toggle('active', [10000,15000,20000,25000,30000][i] === k);
+  }});
+  const dispKm = document.getElementById('cv2-disp-km');
+  if (dispKm) dispKm.textContent = k.toLocaleString('es-ES') + ' km';
+  cv2Render();
+}}
+
+function cv2SetMant(n) {{
+  CV2.mantAnios = n;
+  [0,2,4].forEach(v => {{
+    const el = document.getElementById('cv2-mt-' + v);
+    if (el) el.classList.toggle('active', v === n);
+  }});
+  cv2Render();
+}}
+
+function cv2SetCupraTipo(t) {{
+  CV2.cupraTipo = t;
+  cv2Render();
+}}
+
+function cv2SliderMove(val) {{
+  const slider = document.getElementById('cv2-sl-entrada');
+  const eur = parseInt(val) || 0;
+  const max = parseInt(slider.max) || 1;
+  const pct = max > 0 ? (eur / max * 100) : 0;
+  slider.style.setProperty('--pct', pct + '\%');
+  CV2.entrada = eur;
+  const dispE = document.getElementById('cv2-disp-entrada');
+  if (dispE) dispE.textContent = eur.toLocaleString('es-ES') + ' €';
+  cv2Render();
+}}
+
+function cv2ToggleTin() {{
+  const manualWrap = document.getElementById('cv2-tin-manual');
+  const btn = document.getElementById('cv2-tin-btn');
+  const restore = document.getElementById('cv2-tin-restore');
+  if (manualWrap.classList.contains('visible')) {{
+    manualWrap.classList.remove('visible');
+    if (restore) restore.style.display = 'none';
+    if (btn) btn.textContent = '✎ personalizar TIN';
+    CV2.tinOverride = null;
+    cv2Render();
+  }} else {{
+    manualWrap.classList.add('visible');
+    if (restore) restore.style.display = '';
+    if (btn) btn.textContent = '✕ cerrar personalización';
+    const rules = cv2GetRules();
+    const inp = document.getElementById('cv2-tin-input');
+    if (inp) inp.value = rules.tin_auto.toFixed(2);
+    CV2.tinOverride = rules.tin_auto;
+    cv2Render();
   }}
 }}
 
-function initCalc(c) {{
-  calcState.car    = c;
-  calcState.precio = parsePrecio(c.precio);
-  calcState.entrada = 0;
-  calcState.km     = 15000;
+function cv2TinInput(val) {{
+  const v = parseFloat(val);
+  if (!isNaN(v) && v >= 0 && v <= 30) {{ CV2.tinOverride = v; cv2Render(); }}
+}}
 
-  // Plazo por defecto: 60m si disponible, si no el menor disponible
-  const valid = getValidPlazos(c, 0);
-  calcState.meses = valid.has(60) ? 60 : valid.has(48) ? 48 : ([36,48,60,72,84,96].find(p => valid.has(p)) || 60);
+function cv2RestoreTin() {{
+  CV2.tinOverride = null;
+  const manualWrap = document.getElementById('cv2-tin-manual');
+  const btn = document.getElementById('cv2-tin-btn');
+  const restore = document.getElementById('cv2-tin-restore');
+  if (manualWrap) manualWrap.classList.remove('visible');
+  if (restore) restore.style.display = 'none';
+  if (btn) btn.textContent = '✎ personalizar TIN';
+  cv2Render();
+}}
+
+// ── Bootstrap por coche ───────────────────────────────────────────────────────
+function initCalc(c) {{
+  const precio = typeof c.precio === 'number' ? c.precio : (parseInt(String(c.precio||'0').replace(/[^\d]/g,''))||0);
+  CV2.precio   = precio;
+  CV2.entrada  = 0;
+  CV2.km       = 15000;
+  CV2.tab      = 'lineal';
+  CV2.tinOverride = null;
+  CV2.modelo   = ((c.modelo||'') + ' ' + (c.version||'')).trim();
+
+  // Auto-detect marca
+  const modeloStr = c.modelo || '';
+  if (modeloStr.includes('CUPRA')) {{
+    CV2.marca   = 'CUPRA';
+    CV2.campana = 'GAMA';
+    CV2.mantAnios = 2;
+  }} else if (modeloStr.includes('SEAT')) {{
+    CV2.marca   = 'SEAT';
+    CV2.campana = 'ENTRY';
+    CV2.mantAnios = 2;
+  }} else {{
+    CV2.marca   = 'OTRA';
+    CV2.campana = 'GAMA';
+    CV2.mantAnios = 0;
+  }}
+
+  // Auto-detect cupraTipo
+  const comb = (c.combustible||'').toLowerCase();
+  CV2.cupraTipo = /el[eé]ctric/.test(comb) ? 'ELECTRICO' : 'TERMICO';
+
+  // Auto-detect fecha matrícula desde fin_fecha_iso ("YYYY-MM")
+  CV2.matriculaMes  = null;
+  CV2.matriculaAnio = null;
+  if (c.fin_fecha_iso && c.fin_fecha_iso.includes('-')) {{
+    const parts = c.fin_fecha_iso.split('-').map(Number);
+    if (parts.length === 2 && parts[0] >= 2000) {{
+      CV2.matriculaAnio = parts[0];
+      CV2.matriculaMes  = parts[1];
+    }}
+  }}
+
+  // Car bar
+  const modeloEl = document.getElementById('cv2-modelo');
+  const precioEl = document.getElementById('cv2-precio');
+  if (modeloEl) modeloEl.textContent = c.modelo || '—';
+  if (precioEl) precioEl.textContent = Number(precio).toLocaleString('es-ES') + ' €';
 
   // Slider entrada
-  const slider = document.getElementById('calc-entrada-slider');
-  const maxEntrada = Math.max(0, Math.floor((calcState.precio - 10000) / 100) * 100);
+  const slider = document.getElementById('cv2-sl-entrada');
+  const maxEntrada = Math.max(0, Math.floor((precio - 10000) / 100) * 100);
   slider.min   = 0;
   slider.max   = maxEntrada;
   slider.step  = 100;
   slider.value = 0;
-  slider.style.setProperty('--pct', '0%');
-  document.getElementById('calc-entrada-display').textContent = '0 €';
-  const maxLbl = document.getElementById('calc-entrada-max-lbl');
-  if (maxLbl) maxLbl.textContent = maxEntrada > 0 ? `(máx. ${{maxEntrada.toLocaleString('es-ES')}} €)` : '';
+  slider.style.setProperty('--pct', '0\%');
+  const dispE = document.getElementById('cv2-disp-entrada');
+  if (dispE) dispE.textContent = '0 €';
+  const maxLbl = document.getElementById('cv2-lbl-max');
+  if (maxLbl) maxLbl.textContent = maxEntrada > 0 ? `máx. ${{Number(maxEntrada).toLocaleString('es-ES')}} €` : 'máx. — €';
 
-  // Plazo chips con data-meses
-  const plazos = [36,48,60,72,84,96];
-  document.getElementById('calc-plazo-chips').innerHTML = plazos.map(m =>
-    `<button class="calc-chip ${{m===calcState.meses?'active':''}} ${{!valid.has(m)?'disabled':''}}"
-      ${{!valid.has(m)?'disabled':''}} data-meses="${{m}}"
-      onclick="calcChipMeses(${{m}},this)">${{m}}</button>`
-  ).join('');
+  // Plazo por defecto: 60m si disponible
+  const rules0 = cv2GetRules();
+  const pd0    = rules0.plazosDisp;
+  CV2.meses    = pd0.includes(60) ? 60 : pd0.includes(48) ? 48 : (pd0[pd0.length-1] || 60);
+  const dispM  = document.getElementById('cv2-disp-meses');
+  if (dispM) dispM.textContent = CV2.meses + ' meses';
 
-  // Km chips
-  const kms = [10000,15000,20000,25000,30000];
-  document.getElementById('calc-km-chips').innerHTML = kms.map(k =>
-    `<button class="calc-chip ${{k===calcState.km?'active':''}}" onclick="calcChipKm(${{k}},this)">${{Math.round(k/1000)}}k</button>`
-  ).join('');
+  // km display
+  const dispKm = document.getElementById('cv2-disp-km');
+  if (dispKm) dispKm.textContent = '15.000 km';
 
-  // Asegurar km row visible
-  const kmRow = document.getElementById('calc-km-row');
-  if (kmRow) kmRow.classList.add('visible');
+  // FLEX tab: hide km row initially (lineal mode)
+  const kmRow = document.getElementById('cv2-field-km');
+  if (kmRow) kmRow.style.display = 'none';
 
-  // WhatsApp CTA
-  const modelo = ((c.modelo||'') + ' ' + (c.version||'')).trim();
-  const preciof = calcState.precio.toLocaleString('es-ES');
-  const msg = encodeURIComponent(`Hola Andrés, me interesa el ${{modelo}} (${{preciof}} €). ¿Podéis informarme sobre la financiación?`);
-  document.getElementById('calc-cta-link').href = `https://wa.me/34610029056?text=${{msg}}`;
+  // Tab UI reset
+  const tabLin = document.getElementById('cv2-tab-lineal');
+  const tabFlex = document.getElementById('cv2-tab-flex');
+  if (tabLin) {{ tabLin.classList.add('active'); }}
+  if (tabFlex) {{ tabFlex.classList.remove('active'); tabFlex.disabled = false; }}
 
-  renderCalc();
+  // TIN manual reset
+  const manualWrap = document.getElementById('cv2-tin-manual');
+  const tinBtn     = document.getElementById('cv2-tin-btn');
+  const tinRestore = document.getElementById('cv2-tin-restore');
+  if (manualWrap) manualWrap.classList.remove('visible');
+  if (tinBtn) tinBtn.textContent = '✎ personalizar TIN';
+  if (tinRestore) tinRestore.style.display = 'none';
+
+  cv2Render();
 }}
 
 function abrirModal(n) {{
