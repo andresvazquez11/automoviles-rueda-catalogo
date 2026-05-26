@@ -894,37 +894,49 @@ const VR_TABLE = {
   72: {10000:46,15000:42,20000:37,25000:32,30000:27},
 };
 
-// ── Maintenance Prices (con IVA) ─────────────────────────────────────────────
-// SEAT: precio unificado todos los modelos, VS & VO (PDF pág 10)
-// CUPRA Térmico (Ateca/Formentor/Terramar/León): sin IVA × 1.21 (PDF pág 7)
-// CUPRA Eléctrico (Born/Tavascan): sin IVA × 1.21 (PDF pág 7)
+// ── Maintenance Prices — precios subvencionados (con IVA) ────────────────────
+// Fuente: PDF CUPRA pág 4-5, PDF SEAT pág 6-7
+// CUPRA APPROVED VS: 2 años GRATUITO (obligatorio, sin opción 4a)
+// CUPRA GAMA Térmico (Ateca/Formentor/Terramar/León): 350€(2a) 750€(4a) — obligatorio
+// CUPRA GAMA Eléctrico (Born/Tavascan): 100€(2a) 450€(4a) — obligatorio
+// SEAT ENTRY/GAMA: 250€(2a) 499€(4a) — opcional
 const MANT_PRECIOS = {
-  SEAT:  { 2: 514.86,  4: 1148.94 },
-  CUPRA: {
-    TERMICO:   { 2: 723.04,  4: 1491.94 },
-    ELECTRICO: { 2: 228.69,  4: 457.38  },
-  },
+  SEAT:                 { 2: 250, 4: 499,  mandatory: false },
+  CUPRA_APPROVED:       { 2: 0,   4: null, mandatory: true  },
+  CUPRA_GAMA_TERMICO:   { 2: 350, 4: 750,  mandatory: true  },
+  CUPRA_GAMA_ELECTRICO: { 2: 100, 4: 450,  mandatory: true  },
 };
 
+function getMantKey() {
+  const { marca, campana, cupraTipo } = S;
+  if (marca === 'SEAT')  return 'SEAT';
+  if (marca === 'OTRA')  return null;
+  if (campana === 'APPROVED') return 'CUPRA_APPROVED';
+  return cupraTipo === 'ELECTRICO' ? 'CUPRA_GAMA_ELECTRICO' : 'CUPRA_GAMA_TERMICO';
+}
+
 function getMantInfo() {
-  const { marca, mantAnios, cupraTipo, meses } = S;
-  const rules = getFinancingRules();
-  // Not available for VU or OTRA
-  const isAvail = marca !== 'OTRA' && rules.categoria !== 'VU';
-  if (!isAvail || mantAnios === 0) {
-    return { precioTotal: 0, mensual: 0, label: '', kms: '', isAvail };
-  }
-  let precioTotal = 0;
-  if (marca === 'SEAT') {
-    precioTotal = MANT_PRECIOS.SEAT[mantAnios] || 0;
-  } else if (marca === 'CUPRA') {
-    const tbl = MANT_PRECIOS.CUPRA[cupraTipo] || MANT_PRECIOS.CUPRA.TERMICO;
-    precioTotal = tbl[mantAnios] || 0;
-  }
-  const mensual    = Math.round(precioTotal / meses * 100) / 100;
-  const kms        = mantAnios === 2 ? '40.000' : '60.000';
-  const label      = `Mantenimiento ${mantAnios} años / ${kms} km`;
-  return { precioTotal, mensual, label, kms, isAvail };
+  const { meses } = S;
+  const rules   = getFinancingRules();
+  const key     = getMantKey();
+  const tbl     = key ? MANT_PRECIOS[key] : null;
+  const isVU    = rules.categoria === 'VU';
+  const isAvail = !!tbl && !isVU;
+
+  if (!isAvail) return { precioTotal: 0, mensual: 0, label: '', isAvail: false, mandatory: false, has4y: false, free: false, activeMeses: 0 };
+
+  // Enforce mandatory minimum (can't be 0 for CUPRA campaigns)
+  if (tbl.mandatory && S.mantAnios === 0) S.mantAnios = 2;
+
+  const activeMeses = S.mantAnios > 0 ? S.mantAnios : 0;
+  const precioTotal = activeMeses > 0 ? (tbl[activeMeses] ?? 0) : 0;
+  const mensual     = activeMeses > 0 && meses > 0 ? Math.round(precioTotal / meses * 100) / 100 : 0;
+  const kms         = activeMeses === 4 ? '60.000' : '40.000';
+  const label       = activeMeses > 0 ? `Mantenimiento ${activeMeses} años / ${kms} km` : '';
+  const free        = activeMeses > 0 && precioTotal === 0;
+  const has4y       = tbl[4] !== null && tbl[4] !== undefined;
+
+  return { precioTotal, mensual, label, isAvail: true, mandatory: tbl.mandatory, has4y, free, activeMeses, key };
 }
 
 // ── Formatting ───────────────────────────────────────────────────────────────
@@ -1242,48 +1254,82 @@ function render() {
     catEl.className   = 'cat-badge empty';
   }
 
-  // Mantenimiento UI
-  const isVU   = rules.categoria === 'VU';
-  const isOTRA = marca === 'OTRA';
-  const mantAvail = !isVU && !isOTRA;
+  // ── Mantenimiento UI ─────────────────────────────────────────────────────────
+  const mantKey   = getMantKey();
+  const mantTbl   = mantKey ? MANT_PRECIOS[mantKey] : null;
+  const isVU      = rules.categoria === 'VU';
+  const isOTRA    = marca === 'OTRA';
+  const mantAvail = !!mantTbl && !isVU;
 
-  // Show/hide CUPRA tipo selector
-  document.getElementById('cupra-tipo-wrap').style.display = marca === 'CUPRA' ? 'block' : 'none';
+  // If not available, reset to 0
+  if (!mantAvail) S.mantAnios = 0;
+
+  // Show/hide CUPRA tipo selector (only for CUPRA GAMA)
+  const showCupraTipo = marca === 'CUPRA' && campana !== 'APPROVED';
+  document.getElementById('cupra-tipo-wrap').style.display = showCupraTipo ? 'block' : 'none';
   document.getElementById('ct-termico').classList.toggle('active',   cupraTipo === 'TERMICO');
   document.getElementById('ct-electrico').classList.toggle('active', cupraTipo === 'ELECTRICO');
 
-  // Update pill labels with prices
-  if (marca === 'SEAT') {
-    document.getElementById('mt-2').textContent = `2 años · ${fmt(MANT_PRECIOS.SEAT[2])} €`;
-    document.getElementById('mt-4').textContent = `4 años · ${fmt(MANT_PRECIOS.SEAT[4])} €`;
-  } else if (marca === 'CUPRA') {
-    const tbl = MANT_PRECIOS.CUPRA[cupraTipo] || MANT_PRECIOS.CUPRA.TERMICO;
-    document.getElementById('mt-2').textContent = `2 años · ${fmt(tbl[2])} €`;
-    document.getElementById('mt-4').textContent = `4 años · ${fmt(tbl[4])} €`;
+  // CUPRA APPROVED: fixed display, hide pills entirely
+  const isApprovedFixed = marca === 'CUPRA' && campana === 'APPROVED' && mantAvail;
+  document.getElementById('pills-mant').style.display = isApprovedFixed ? 'none' : 'flex';
+
+  if (isApprovedFixed) {
+    // Show GRATUITO badge instead of pills
+    let infoEl = document.getElementById('mant-approved-badge');
+    if (!infoEl) {
+      infoEl = document.createElement('div');
+      infoEl.id = 'mant-approved-badge';
+      infoEl.style.cssText = 'font-family:var(--font-num);font-size:13px;font-weight:700;color:var(--green);padding:8px 12px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.08);letter-spacing:0.5px;';
+      document.getElementById('pills-mant').after(infoEl);
+    }
+    infoEl.style.display = 'block';
+    infoEl.textContent = '✓ 2 años / 40.000 km — INCLUIDO GRATUITO + Coche de sustitución';
   } else {
-    document.getElementById('mt-2').textContent = '2 años';
-    document.getElementById('mt-4').textContent = '4 años';
+    const badge = document.getElementById('mant-approved-badge');
+    if (badge) badge.style.display = 'none';
   }
 
-  // Disable mant pills if not available
-  document.getElementById('mt-2').disabled = !mantAvail;
-  document.getElementById('mt-4').disabled = !mantAvail;
-  if (!mantAvail && S.mantAnios > 0) { S.mantAnios = 0; }
-  [0,2,4].forEach(v => {
+  if (!isApprovedFixed && mantAvail) {
+    // Update pill labels with correct prices
+    const p2 = document.getElementById('mt-2');
+    const p4 = document.getElementById('mt-4');
+    if (mantTbl[2] === 0) {
+      p2.textContent = '2 años · GRATIS';
+    } else {
+      p2.textContent = mantTbl[2] != null ? `2 años · ${fmt(mantTbl[2])} €` : '2 años';
+    }
+    p4.textContent = mantTbl[4] != null ? `4 años · ${fmt(mantTbl[4])} €` : '4 años';
+
+    // "Sin mant." pill: hide if mandatory (CUPRA GAMA)
+    const sinBtn = document.getElementById('mt-0');
+    sinBtn.style.display = mantTbl.mandatory ? 'none' : '';
+    // disable 4 years if not available
+    p4.disabled = mantTbl[4] === null || mantTbl[4] === undefined;
+    p4.style.opacity  = p4.disabled ? '0.3' : '';
+    p4.style.pointerEvents = p4.disabled ? 'none' : '';
+    // Disable interaction on unavailable pills
+    p2.disabled = false;
+  }
+
+  // Sync active state on pills
+  [0, 2, 4].forEach(v => {
     const el2 = document.getElementById('mt-' + v);
     if (el2) el2.classList.toggle('active', v === S.mantAnios);
   });
 
   // Show unavail notice
-  document.getElementById('mant-unavail').style.display = (!mantAvail && (isVU || isOTRA)) ? 'block' : 'none';
+  document.getElementById('mant-unavail').style.display = (!mantAvail) ? 'block' : 'none';
 
-  // Show info text when maintenance selected
+  // Info bar below pills
   const mantInfoEl = document.getElementById('mant-info');
-  if (mantInfo.precioTotal > 0) {
-    const kms = mantInfo.mantAnios === 4 ? '60.000' : '40.000';
+  if (!isApprovedFixed && mantInfo.precioTotal > 0) {
     mantInfoEl.style.display = 'block';
-    mantInfoEl.innerHTML = `<strong style="color:var(--amber)">${fmt2(mantInfo.mensual)} €/mes</strong> · Precio total: ${fmt2(mantInfo.precioTotal)} € · ${mantInfo.label}`;
+    mantInfoEl.innerHTML = `<strong style="color:var(--amber)">${fmt2(mantInfo.mensual)} €/mes</strong> durante ${S.meses} meses · Total: ${fmt2(mantInfo.precioTotal)} €`;
     document.getElementById('disp-mant').textContent = `+${fmt2(mantInfo.mensual)} €/mes`;
+  } else if (isApprovedFixed) {
+    mantInfoEl.style.display = 'none';
+    document.getElementById('disp-mant').textContent = '✓ incluido gratis';
   } else {
     mantInfoEl.style.display = 'none';
     document.getElementById('disp-mant').textContent = '';
@@ -1470,10 +1516,10 @@ function setPrice(p) {
 
 function setMarca(m) {
   S.marca = m;
-  // Reset campaign defaults
-  if (m === 'SEAT')  S.campana = 'ENTRY';
-  if (m === 'CUPRA') S.campana = 'GAMA';
-  if (m === 'OTRA')  { S.campana = 'GAMA'; S.tab = 'lineal'; }
+  // Reset campaign defaults + maintenance
+  if (m === 'SEAT')  { S.campana = 'ENTRY'; S.mantAnios = 2; }
+  if (m === 'CUPRA') { S.campana = 'GAMA';  S.mantAnios = 2; }
+  if (m === 'OTRA')  { S.campana = 'GAMA';  S.tab = 'lineal'; S.mantAnios = 0; }
   // Reset TIN override
   S.tinOverride = null;
   document.getElementById('tin-manual-wrap').classList.remove('visible');
@@ -1498,6 +1544,13 @@ function setMode(m) {
 function setCampana(c) {
   S.campana = c;
   S.tinOverride = null;
+  // Sync maintenance defaults on campaign change
+  if (S.marca === 'CUPRA') {
+    // APPROVED & GAMA both have mandatory 2 years minimum
+    if (S.mantAnios === 0) S.mantAnios = 2;
+    // APPROVED has no 4-year option
+    if (c === 'APPROVED' && S.mantAnios === 4) S.mantAnios = 2;
+  }
   document.getElementById('tin-manual-wrap').classList.remove('visible');
   document.getElementById('tin-auto-wrap').style.display = '';
   render();
