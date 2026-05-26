@@ -742,6 +742,18 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
     font-size:12px; color:#F59E0B; line-height:1.5;
   }}
   .cv2-credit-warn.visible {{ display:block; }}
+  /* Arona BB/REMA toggle */
+  .cv2-arona-wrap {{ display:none; margin-top:10px; }}
+  .cv2-arona-wrap.visible {{ display:flex; align-items:center; gap:8px; }}
+  .cv2-arona-btn {{
+    display:inline-flex; align-items:center; gap:5px;
+    padding:5px 10px; border-radius:4px; border:1px dashed rgba(34,197,94,.35);
+    background:rgba(34,197,94,.05); color:rgba(240,244,255,.45);
+    font-size:11px; font-weight:600; letter-spacing:.4px; cursor:pointer; transition:all .15s;
+  }}
+  .cv2-arona-btn:hover {{ border-color:rgba(34,197,94,.6); color:rgba(240,244,255,.8); }}
+  .cv2-arona-btn.active {{ border-style:solid; border-color:#22C55E; background:rgba(34,197,94,.12); color:#22C55E; }}
+  .cv2-arona-lbl {{ font-size:10px; color:rgba(240,244,255,.28); }}
   /* Cuota hero */
   .cv2-cuota-hero {{
     padding:24px 20px 16px; text-align:center;
@@ -1074,6 +1086,14 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
           </div>
           <div id="cv2-camp-otra" style="display:none">
             <div class="cv2-camp-auto" id="cv2-otra-label">Automático según importe financiado</div>
+          </div>
+
+          <!-- Arona Buy Back / REMA (solo visible en Arona, activación manual) -->
+          <div class="cv2-arona-wrap" id="cv2-arona-wrap">
+            <button class="cv2-arona-btn" id="cv2-arona-btn" onclick="cv2ToggleAronaBB()">
+              ⬡ ARONA BB/REMA
+            </button>
+            <span class="cv2-arona-lbl" id="cv2-arona-lbl">descuento especial inactivo</span>
           </div>
 
           <!-- TIN -->
@@ -1427,6 +1447,7 @@ const CV2 = {{
   mantAnios:     0,
   cupraTipo:     'TERMICO',   // 'TERMICO' | 'ELECTRICO'
   modelo:        '',
+  aronaBB:       false,       // toggle manual — campaña especial Arona BB/REMA
 }};
 
 const CV2_ALL_PLAZOS = [24, 36, 48, 60, 72, 84, 96];
@@ -1545,6 +1566,19 @@ function cv2GetRules() {{
     else {{ tin_auto = 7.50; bonificacion = 0; creditoMinimo = 6000; campanaLabel = 'Básica · Otras Marcas'; }}
   }}
 
+  // ── Arona BB/REMA override (solo SEAT Arona, activado manualmente) ────────
+  if (CV2.aronaBB && CV2.modelo && CV2.modelo.toLowerCase().includes('arona') && marca === 'SEAT') {{
+    if (campana === 'ENTRY') {{
+      // ENTRY Arona BB: 1.000€ VS+VO
+      if (categoria !== 'VU') bonificacion = 1000;
+    }} else {{
+      // GAMA Arona BB: 2.000€ VS / 1.600€ VO (VU sin cambio)
+      if (categoria === 'VS' || categoria === null) bonificacion = 2000;
+      else if (categoria === 'VO') bonificacion = 1600;
+    }}
+    campanaLabel = campanaLabel + ' · Arona BB/REMA';
+  }}
+
   const tinFinal = CV2.tinOverride !== null ? CV2.tinOverride : tin_auto;
   return {{ tinFinal, tin_auto, bonificacion, creditoMinimo, campanaLabel, plazosDisp, categoria, antigMeses }};
 }}
@@ -1661,6 +1695,15 @@ function cv2Render() {{
   cv2UpdateCampanaUI();
   cv2UpdateTinUI(rules);
   cv2UpdatePlazoPills(rules.plazosDisp);
+
+  // Arona BB label: actualiza el descuento mostrado si está activo
+  if (CV2.aronaBB) {{
+    const aLbl = document.getElementById('cv2-arona-lbl');
+    if (aLbl) {{
+      const bonifStr = rules.bonificacion > 0 ? '−' + cv2Fmt(rules.bonificacion) + ' €' : '—';
+      aLbl.textContent = 'activo · descuento ' + bonifStr;
+    }}
+  }}
 
   // FLEX tab disabled si VU
   const flexTab = document.getElementById('cv2-tab-flex');
@@ -1933,6 +1976,23 @@ function cv2SetCupraTipo(t) {{
   cv2Render();
 }}
 
+function cv2ToggleAronaBB() {{
+  CV2.aronaBB = !CV2.aronaBB;
+  const btn = document.getElementById('cv2-arona-btn');
+  const lbl = document.getElementById('cv2-arona-lbl');
+  if (CV2.aronaBB) {{
+    btn.classList.add('active');
+    // Calcular bonificación que aplica según campaña/categoría actual
+    const rules = cv2GetRules(); // ya incluye el override activo
+    const bonifStr = rules.bonificacion > 0 ? '−' + cv2Fmt(rules.bonificacion) + ' €' : '—';
+    if (lbl) lbl.textContent = 'activo · descuento ' + bonifStr;
+  }} else {{
+    btn.classList.remove('active');
+    if (lbl) lbl.textContent = 'descuento especial inactivo';
+  }}
+  cv2Render();
+}}
+
 function cv2SliderMove(val) {{
   const slider = document.getElementById('cv2-sl-entrada');
   const eur = parseInt(val) || 0;
@@ -1992,6 +2052,7 @@ function initCalc(c) {{
   CV2.tab      = 'lineal';
   CV2.tinOverride = null;
   CV2.modelo   = ((c.modelo||'') + ' ' + (c.version||'')).trim();
+  CV2.aronaBB  = false;  // siempre empieza desactivado
 
   // Auto-detect marca
   const modeloStr = c.modelo || '';
@@ -2053,6 +2114,15 @@ function initCalc(c) {{
   // km display
   const dispKm = document.getElementById('cv2-disp-km');
   if (dispKm) dispKm.textContent = '15.000 km';
+
+  // Arona BB/REMA toggle — visible solo si es SEAT Arona
+  const aronaBBWrap = document.getElementById('cv2-arona-wrap');
+  const aronaBBBtn  = document.getElementById('cv2-arona-btn');
+  const aronaBBLbl  = document.getElementById('cv2-arona-lbl');
+  const isArona = (c.modelo||'').toLowerCase().includes('arona') && (c.modelo||'').toLowerCase().includes('seat');
+  if (aronaBBWrap) aronaBBWrap.classList.toggle('visible', isArona);
+  if (aronaBBBtn)  aronaBBBtn.classList.remove('active');
+  if (aronaBBLbl)  aronaBBLbl.textContent = 'descuento especial inactivo';
 
   // FLEX tab: hide km row initially (lineal mode)
   const kmRow = document.getElementById('cv2-field-km');
