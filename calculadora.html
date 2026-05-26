@@ -747,6 +747,34 @@ input[type=range].calc-slider::-moz-range-thumb {
           <button class="pill" onclick="setKm(30000)">30k</button>
         </div>
       </div>
+
+      <!-- Mantenimiento VWFS -->
+      <div class="field" id="field-mant">
+        <div class="field-label">
+          Mantenimiento VWFS
+          <span id="disp-mant" style="font-size:12px;color:var(--muted2);font-weight:400;letter-spacing:0;text-transform:none;"></span>
+        </div>
+        <!-- Tipo motor CUPRA (solo visible cuando marca=CUPRA) -->
+        <div id="cupra-tipo-wrap" style="display:none; margin-bottom:10px;">
+          <div style="font-family:var(--font-num);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Tipo motor CUPRA</div>
+          <div class="pills" id="pills-cupra-tipo">
+            <button class="pill active" id="ct-termico" onclick="setCupraTipo('TERMICO')">Térmico / Híbrido</button>
+            <button class="pill" id="ct-electrico" onclick="setCupraTipo('ELECTRICO')">Eléctrico (Born/Tavascan)</button>
+          </div>
+        </div>
+        <!-- 0 / 2 / 4 años -->
+        <div class="pills" id="pills-mant">
+          <button class="pill active" id="mt-0" onclick="setMant(0)">Sin mant.</button>
+          <button class="pill" id="mt-2" onclick="setMant(2)">2 años</button>
+          <button class="pill" id="mt-4" onclick="setMant(4)">4 años</button>
+        </div>
+        <!-- Info dinámica del precio elegido -->
+        <div id="mant-info" style="display:none;font-family:var(--font-num);font-size:11px;color:var(--muted);margin-top:8px;line-height:1.6;border-left:2px solid var(--border2);padding-left:10px;"></div>
+        <!-- Aviso VU / OTRA -->
+        <div id="mant-unavail" style="display:none;font-family:var(--font-num);font-size:11px;color:var(--muted2);margin-top:6px;">
+          ⚠ Mantenimiento no disponible para vehículos VU o marcas ajenas al grupo
+        </div>
+      </div>
     </div>
   </div>
 
@@ -799,6 +827,11 @@ input[type=range].calc-slider::-moz-range-thumb {
         <span class="lbl">Nº de cuotas</span>
         <span class="val" id="br-ncuotas">—</span>
       </div>
+      <!-- Mantenimiento mensual row -->
+      <div class="breakdown-row hidden" id="br-mant-row">
+        <span class="lbl" id="br-mant-lbl">Mantenimiento 2 años</span>
+        <span class="val" id="br-mant-v" style="color:var(--amber)">+— €/mes</span>
+      </div>
       <div class="breakdown-row total-row">
         <span class="lbl">Precio total a plazos</span>
         <span class="val" id="br-total">—</span>
@@ -845,6 +878,8 @@ const S = {
   matriculaAnio: null,      // e.g. 2022
   campana:       'ENTRY',   // 'ENTRY' | 'GAMA' | 'APPROVED'
   tinOverride:   null,      // null = auto | number = manual override
+  mantAnios:     0,         // 0 | 2 | 4 años de mantenimiento
+  cupraTipo:     'TERMICO', // 'TERMICO' | 'ELECTRICO' (solo CUPRA)
 };
 
 // ── All plazo options ────────────────────────────────────────────────────────
@@ -858,6 +893,39 @@ const VR_TABLE = {
   60: {10000:50,15000:46,20000:41,25000:36,30000:31},
   72: {10000:46,15000:42,20000:37,25000:32,30000:27},
 };
+
+// ── Maintenance Prices (con IVA) ─────────────────────────────────────────────
+// SEAT: precio unificado todos los modelos, VS & VO (PDF pág 10)
+// CUPRA Térmico (Ateca/Formentor/Terramar/León): sin IVA × 1.21 (PDF pág 7)
+// CUPRA Eléctrico (Born/Tavascan): sin IVA × 1.21 (PDF pág 7)
+const MANT_PRECIOS = {
+  SEAT:  { 2: 514.86,  4: 1148.94 },
+  CUPRA: {
+    TERMICO:   { 2: 723.04,  4: 1491.94 },
+    ELECTRICO: { 2: 228.69,  4: 457.38  },
+  },
+};
+
+function getMantInfo() {
+  const { marca, mantAnios, cupraTipo, meses } = S;
+  const rules = getFinancingRules();
+  // Not available for VU or OTRA
+  const isAvail = marca !== 'OTRA' && rules.categoria !== 'VU';
+  if (!isAvail || mantAnios === 0) {
+    return { precioTotal: 0, mensual: 0, label: '', kms: '', isAvail };
+  }
+  let precioTotal = 0;
+  if (marca === 'SEAT') {
+    precioTotal = MANT_PRECIOS.SEAT[mantAnios] || 0;
+  } else if (marca === 'CUPRA') {
+    const tbl = MANT_PRECIOS.CUPRA[cupraTipo] || MANT_PRECIOS.CUPRA.TERMICO;
+    precioTotal = tbl[mantAnios] || 0;
+  }
+  const mensual    = Math.round(precioTotal / meses * 100) / 100;
+  const kms        = mantAnios === 2 ? '40.000' : '60.000';
+  const label      = `Mantenimiento ${mantAnios} años / ${kms} km`;
+  return { precioTotal, mensual, label, kms, isAvail };
+}
 
 // ── Formatting ───────────────────────────────────────────────────────────────
 const fmt  = (n) => Math.round(n).toLocaleString('es-ES');
@@ -1129,9 +1197,11 @@ function updatePlazoPills(plazosDisp) {
 
 // ── Render ───────────────────────────────────────────────────────────────────
 function render() {
-  const { precio, entrada, meses, tab, km, marca } = S;
-  const res   = calcFinanciacion();
-  const rules = res.rules;
+  const { precio, entrada, meses, tab, km, marca, mantAnios, cupraTipo } = S;
+  const res      = calcFinanciacion();
+  const rules    = res.rules;
+  const mantInfo = getMantInfo();
+  const cuotaTotal = Math.round((res.cuota + mantInfo.mensual) * 100) / 100;
 
   // Update campaign UI
   updateCampanaUI();
@@ -1172,11 +1242,62 @@ function render() {
     catEl.className   = 'cat-badge empty';
   }
 
+  // Mantenimiento UI
+  const isVU   = rules.categoria === 'VU';
+  const isOTRA = marca === 'OTRA';
+  const mantAvail = !isVU && !isOTRA;
+
+  // Show/hide CUPRA tipo selector
+  document.getElementById('cupra-tipo-wrap').style.display = marca === 'CUPRA' ? 'block' : 'none';
+  document.getElementById('ct-termico').classList.toggle('active',   cupraTipo === 'TERMICO');
+  document.getElementById('ct-electrico').classList.toggle('active', cupraTipo === 'ELECTRICO');
+
+  // Update pill labels with prices
+  if (marca === 'SEAT') {
+    document.getElementById('mt-2').textContent = `2 años · ${fmt(MANT_PRECIOS.SEAT[2])} €`;
+    document.getElementById('mt-4').textContent = `4 años · ${fmt(MANT_PRECIOS.SEAT[4])} €`;
+  } else if (marca === 'CUPRA') {
+    const tbl = MANT_PRECIOS.CUPRA[cupraTipo] || MANT_PRECIOS.CUPRA.TERMICO;
+    document.getElementById('mt-2').textContent = `2 años · ${fmt(tbl[2])} €`;
+    document.getElementById('mt-4').textContent = `4 años · ${fmt(tbl[4])} €`;
+  } else {
+    document.getElementById('mt-2').textContent = '2 años';
+    document.getElementById('mt-4').textContent = '4 años';
+  }
+
+  // Disable mant pills if not available
+  document.getElementById('mt-2').disabled = !mantAvail;
+  document.getElementById('mt-4').disabled = !mantAvail;
+  if (!mantAvail && S.mantAnios > 0) { S.mantAnios = 0; }
+  [0,2,4].forEach(v => {
+    const el2 = document.getElementById('mt-' + v);
+    if (el2) el2.classList.toggle('active', v === S.mantAnios);
+  });
+
+  // Show unavail notice
+  document.getElementById('mant-unavail').style.display = (!mantAvail && (isVU || isOTRA)) ? 'block' : 'none';
+
+  // Show info text when maintenance selected
+  const mantInfoEl = document.getElementById('mant-info');
+  if (mantInfo.precioTotal > 0) {
+    const kms = mantInfo.mantAnios === 4 ? '60.000' : '40.000';
+    mantInfoEl.style.display = 'block';
+    mantInfoEl.innerHTML = `<strong style="color:var(--amber)">${fmt2(mantInfo.mensual)} €/mes</strong> · Precio total: ${fmt2(mantInfo.precioTotal)} € · ${mantInfo.label}`;
+    document.getElementById('disp-mant').textContent = `+${fmt2(mantInfo.mensual)} €/mes`;
+  } else {
+    mantInfoEl.style.display = 'none';
+    document.getElementById('disp-mant').textContent = '';
+  }
+
+  // Cuota hero label
+  document.querySelector('.cuota-hero-label').textContent =
+    mantInfo.mensual > 0 ? 'Cuota mensual total (financiación + mantenimiento)' : 'Cuota mensual estimada';
+
   // Hero cuota — flash animation
   const el = document.getElementById('cuota-display');
   el.classList.remove('updating');
   void el.offsetWidth;
-  el.textContent = fmt2(res.cuota);
+  el.textContent = fmt2(cuotaTotal);
   el.classList.add('updating');
 
   // Info chips
@@ -1198,7 +1319,18 @@ function render() {
   document.getElementById('br-entrada').textContent = fmt(entrada) + ' €';
   document.getElementById('br-tin').textContent     = rules.tinFinal.toFixed(2).replace('.', ',') + ' %';
   document.getElementById('br-ncuotas').textContent = S.meses;
-  document.getElementById('br-total').textContent   = fmt2(res.total) + ' €';
+  const totalConMant = Math.round((res.total + mantInfo.precioTotal) * 100) / 100;
+  document.getElementById('br-total').textContent   = fmt2(totalConMant) + ' €';
+
+  // Mantenimiento row
+  const mantRow = document.getElementById('br-mant-row');
+  if (mantInfo.precioTotal > 0) {
+    mantRow.classList.remove('hidden');
+    document.getElementById('br-mant-lbl').textContent = mantInfo.label;
+    document.getElementById('br-mant-v').textContent   = '+' + fmt2(mantInfo.mensual) + ' €/mes';
+  } else {
+    mantRow.classList.add('hidden');
+  }
 
   // Bonificación row
   const bonifRow = document.getElementById('br-bonif-row');
@@ -1238,8 +1370,11 @@ function render() {
     `Importe total financiado: ${fmt2(res.capital)} €. ` +
     `TIN ${rules.tinFinal.toFixed(2).replace('.', ',')}%. ` +
     `Precio total a plazos: ${fmt2(res.total)} €. ` +
-    `Sistema de amortización ${modeStr2}. Incompatible con otras ofertas financieras. ` +
-    `Consulta condiciones exactas con Andrés · 610 02 90 56.`;
+    `Sistema de amortización ${modeStr2}. Incompatible con otras ofertas financieras. `;
+  if (mantInfo.precioTotal > 0) {
+    legalTxt += `${mantInfo.label}: ${fmt2(mantInfo.precioTotal)} € (${fmt2(mantInfo.mensual)} €/mes dividido en ${S.meses} cuotas). Cuota total mensual incluyendo mantenimiento: ${fmt2(cuotaTotal)} €. `;
+  }
+  legalTxt += `Consulta condiciones exactas con Andrés · 610 02 90 56.`;
   document.getElementById('legal-note').textContent = legalTxt;
 
   // Cuota final (FLEX)
@@ -1256,14 +1391,14 @@ function render() {
   document.getElementById('sb-precio').textContent = fmt(precio) + ' €';
   document.getElementById('sb-marca').textContent  = marca + (rules.categoria ? ' · ' + rules.categoria : '');
   document.getElementById('sb-tin').textContent    = rules.tinFinal.toFixed(2).replace('.', ',') + '%';
-  document.getElementById('sb-cuota').textContent  = fmt2(res.cuota) + ' €';
+  document.getElementById('sb-cuota').textContent  = fmt2(cuotaTotal) + ' €' + (mantInfo.mensual > 0 ? ' (incl. mant.)' : '');
 
   // WhatsApp link
-  buildWhatsAppLink(res, rules);
+  buildWhatsAppLink(res, rules, mantInfo, cuotaTotal);
 }
 
 // ── WhatsApp message ─────────────────────────────────────────────────────────
-function buildWhatsAppLink(res, rules) {
+function buildWhatsAppLink(res, rules, mantInfo, cuotaTotal) {
   const { precio, entrada, marca, tab } = S;
   const modeStr = tab === 'lineal' ? 'LINEAL' : 'FLEX';
   let msg = `🚗 *Simulación Financiación VWFS*\n`;
@@ -1280,11 +1415,16 @@ function buildWhatsAppLink(res, rules) {
   msg += `Comisión apertura (3,5%): *${fmt2(res.comision)} €*\n`;
   msg += `Importe financiado: *${fmt2(res.capital)} €*\n`;
   msg += `━━━━━━━━━━━━━━━\n`;
-  msg += `📅 *CUOTA: ${fmt2(res.cuota)} €/mes*\n`;
+  msg += `📅 *Cuota financiación: ${fmt2(res.cuota)} €/mes*\n`;
   if (tab === 'flex' && res.vr > 0) {
     msg += `🔑 Cuota final mes ${S.meses}: *${fmt2(res.vr)} €*\n`;
   }
-  msg += `💰 Total a plazos: *${fmt2(res.total)} €*\n`;
+  if (mantInfo && mantInfo.precioTotal > 0) {
+    msg += `🔧 ${mantInfo.label}: *+${fmt2(mantInfo.mensual)} €/mes* (${fmt2(mantInfo.precioTotal)} € total)\n`;
+    msg += `📅 *CUOTA TOTAL: ${fmt2(cuotaTotal)} €/mes*\n`;
+  }
+  const totalConMant = Math.round(((res.total || 0) + (mantInfo ? mantInfo.precioTotal : 0)) * 100) / 100;
+  msg += `💰 Total a plazos: *${fmt2(totalConMant)} €*\n`;
   msg += `━━━━━━━━━━━━━━━\n`;
   msg += `_Cálculo orientativo. Condiciones exactas con Andrés · 610 02 90 56_`;
 
@@ -1417,6 +1557,20 @@ function restoreTin() {
   document.getElementById('tin-manual-wrap').classList.remove('visible');
   document.getElementById('tin-auto-wrap').style.display = '';
   document.getElementById('tin-override-btn').textContent = '✎ personalizar TIN';
+  render();
+}
+
+function setMant(n) {
+  S.mantAnios = n;
+  [0,2,4].forEach(v => {
+    const el = document.getElementById('mt-' + v);
+    if (el) el.classList.toggle('active', v === n);
+  });
+  render();
+}
+
+function setCupraTipo(t) {
+  S.cupraTipo = t;
   render();
 }
 
