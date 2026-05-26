@@ -267,11 +267,10 @@ header {
 }
 .fecha-row select::-webkit-outer-spin-button,
 .fecha-row select::-webkit-inner-spin-button { -webkit-appearance: none; }
-.fecha-row select { width: 120px; cursor: pointer; }
-.fecha-row input[type=number] { width: 86px; }
-.fecha-row select:focus, .fecha-row input[type=number]:focus { border-color: var(--red); }
-.fecha-row input[type=number]::-webkit-outer-spin-button,
-.fecha-row input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+.fecha-row select { cursor: pointer; }
+.fecha-row select#inp-mes  { width: 130px; }
+.fecha-row select#inp-anio { width: 90px; }
+.fecha-row select:focus { border-color: var(--red); }
 
 .cat-badge {
   font-family: var(--font-num); font-size: 12px; font-weight: 700;
@@ -594,8 +593,20 @@ input[type=range].calc-slider::-moz-range-thumb {
             <option value="12">Diciembre</option>
           </select>
           <span style="color:var(--muted);font-family:var(--font-num)">/</span>
-          <input type="number" id="inp-anio" min="2010" max="2035" placeholder="Año"
-                 onchange="onFechaChange()" oninput="onFechaChange()" style="width:80px">
+          <select id="inp-anio" onchange="onFechaChange()">
+            <option value="">Año</option>
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+          </select>
           <span style="font-family:var(--font-num);font-size:11px;color:var(--muted2);flex:1">
             ← define VS / VO / VU
           </span>
@@ -902,7 +913,7 @@ const VR_TABLE = {
 // SEAT ENTRY/GAMA: 250€(2a) 499€(4a) — opcional
 const MANT_PRECIOS = {
   SEAT:                 { 2: 250, 4: 499,  mandatory: false },
-  CUPRA_APPROVED:       { 2: 0,   4: null, mandatory: true  },
+  CUPRA_APPROVED:       { 2: 0,   4: 400,  mandatory: true  },
   CUPRA_GAMA_TERMICO:   { 2: 350, 4: 750,  mandatory: true  },
   CUPRA_GAMA_ELECTRICO: { 2: 100, 4: 450,  mandatory: true  },
 };
@@ -1270,46 +1281,55 @@ function render() {
   document.getElementById('ct-termico').classList.toggle('active',   cupraTipo === 'TERMICO');
   document.getElementById('ct-electrico').classList.toggle('active', cupraTipo === 'ELECTRICO');
 
-  // CUPRA APPROVED: fixed display, hide pills entirely
+  // CUPRA APPROVED: show badge + allow 4-year upgrade
   const isApprovedFixed = marca === 'CUPRA' && campana === 'APPROVED' && mantAvail;
-  document.getElementById('pills-mant').style.display = isApprovedFixed ? 'none' : 'flex';
+  document.getElementById('pills-mant').style.display = 'flex'; // always visible when mantAvail
 
+  // Show/hide APPROVED badge
+  let infoEl = document.getElementById('mant-approved-badge');
+  if (!infoEl) {
+    infoEl = document.createElement('div');
+    infoEl.id = 'mant-approved-badge';
+    infoEl.style.cssText = 'font-family:var(--font-num);font-size:12px;font-weight:700;color:var(--green);padding:6px 10px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.08);letter-spacing:0.4px;margin-bottom:6px;';
+    document.getElementById('pills-mant').before(infoEl);
+  }
   if (isApprovedFixed) {
-    // Show GRATUITO badge instead of pills
-    let infoEl = document.getElementById('mant-approved-badge');
-    if (!infoEl) {
-      infoEl = document.createElement('div');
-      infoEl.id = 'mant-approved-badge';
-      infoEl.style.cssText = 'font-family:var(--font-num);font-size:13px;font-weight:700;color:var(--green);padding:8px 12px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.08);letter-spacing:0.5px;';
-      document.getElementById('pills-mant').after(infoEl);
-    }
     infoEl.style.display = 'block';
-    infoEl.textContent = '✓ 2 años / 40.000 km — INCLUIDO GRATUITO + Coche de sustitución';
+    infoEl.textContent = '✓ 2 años / 40.000 km incluidos gratis (APPROVED) + Coche de sustitución';
   } else {
-    const badge = document.getElementById('mant-approved-badge');
-    if (badge) badge.style.display = 'none';
+    infoEl.style.display = 'none';
   }
 
   if (!isApprovedFixed && mantAvail) {
     // Update pill labels with correct prices
     const p2 = document.getElementById('mt-2');
     const p4 = document.getElementById('mt-4');
-    if (mantTbl[2] === 0) {
-      p2.textContent = '2 años · GRATIS';
-    } else {
-      p2.textContent = mantTbl[2] != null ? `2 años · ${fmt(mantTbl[2])} €` : '2 años';
-    }
-    p4.textContent = mantTbl[4] != null ? `4 años · ${fmt(mantTbl[4])} €` : '4 años';
-
-    // "Sin mant." pill: hide if mandatory (CUPRA GAMA)
     const sinBtn = document.getElementById('mt-0');
-    sinBtn.style.display = mantTbl.mandatory ? 'none' : '';
-    // disable 4 years if not available
-    p4.disabled = mantTbl[4] === null || mantTbl[4] === undefined;
-    p4.style.opacity  = p4.disabled ? '0.3' : '';
-    p4.style.pointerEvents = p4.disabled ? 'none' : '';
-    // Disable interaction on unavailable pills
-    p2.disabled = false;
+
+    if (isApprovedFixed) {
+      // APPROVED: 2 años gratis ya incluido → ocultar pill "2 años", mostrar solo "4 años (upgrade)"
+      p2.style.display = 'none';
+      sinBtn.style.display = 'none';
+      p4.textContent = `4 años · ${fmt(mantTbl[4])} € (ampliar)`;
+      p4.disabled = false;
+      p4.style.opacity = '';
+      p4.style.pointerEvents = '';
+    } else {
+      p2.style.display = '';
+      if (mantTbl[2] === 0) {
+        p2.textContent = '2 años · GRATIS';
+      } else {
+        p2.textContent = mantTbl[2] != null ? `2 años · ${fmt(mantTbl[2])} €` : '2 años';
+      }
+      p4.textContent = mantTbl[4] != null ? `4 años · ${fmt(mantTbl[4])} €` : '4 años';
+      // "Sin mant." pill: hide if mandatory (CUPRA GAMA)
+      sinBtn.style.display = mantTbl.mandatory ? 'none' : '';
+      // disable 4 years if not available
+      p4.disabled = mantTbl[4] === null || mantTbl[4] === undefined;
+      p4.style.opacity  = p4.disabled ? '0.3' : '';
+      p4.style.pointerEvents = p4.disabled ? 'none' : '';
+      p2.disabled = false;
+    }
   }
 
   // Sync active state on pills
@@ -1327,9 +1347,9 @@ function render() {
     mantInfoEl.style.display = 'block';
     mantInfoEl.innerHTML = `<strong style="color:var(--amber)">${fmt2(mantInfo.mensual)} €/mes</strong> durante ${S.meses} meses · Total: ${fmt2(mantInfo.precioTotal)} €`;
     document.getElementById('disp-mant').textContent = `+${fmt2(mantInfo.mensual)} €/mes`;
-  } else if (isApprovedFixed) {
+  } else if (isApprovedFixed && S.mantAnios === 2) {
     mantInfoEl.style.display = 'none';
-    document.getElementById('disp-mant').textContent = '✓ incluido gratis';
+    document.getElementById('disp-mant').textContent = '✓ 2 años gratis';
   } else {
     mantInfoEl.style.display = 'none';
     document.getElementById('disp-mant').textContent = '';
