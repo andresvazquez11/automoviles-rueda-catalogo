@@ -62,10 +62,9 @@ def find_car_folder(n: int, modelo: str, precio: str = ""):
 def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
     WEB_FOTOS.mkdir(exist_ok=True)
     rutas: dict[int, list[str]] = {}
-    for coche in coches:
-        n = coche["n"]
-        carpeta = find_car_folder(n, coche["modelo"], coche.get("precio", ""))
-        dest = WEB_FOTOS / f"{n:02d}"
+    for idx, coche in enumerate(coches, start=1):  # idx único, ignora duplicados de c["n"]
+        carpeta = find_car_folder(coche["n"], coche["modelo"], coche.get("precio", ""))
+        dest = WEB_FOTOS / f"{idx:02d}"
         dest.mkdir(exist_ok=True)
         urls: list[str] = []
         if carpeta and carpeta.exists():
@@ -73,8 +72,8 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
             for i, foto in enumerate(fotos_src[:8], start=1):
                 dst = dest / f"foto_{i:02d}.jpg"
                 shutil.copy2(foto, dst)
-                urls.append(f"web_fotos/{n:02d}/foto_{i:02d}.jpg")
-        rutas[n] = urls
+                urls.append(f"web_fotos/{idx:02d}/foto_{i:02d}.jpg")
+        rutas[idx] = urls
     return rutas
 
 # ── Generar HTML ─────────────────────────────────────────────────────────────
@@ -189,7 +188,7 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
         return precio_maximo_historico(url, p, _hist)
 
     cars_js = json.dumps([{
-        "n":           c["n"],
+        "n":           idx,          # secuencial único — evita duplicados del JSON
         "modelo":      c["modelo"],
         "version":     c["version"],
         "combustible": c["combustible"],
@@ -218,8 +217,8 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
         "url":         DASWELTAUTO + c["url"] if c.get("url") else "",
         "foto_main":   dwa_foto_url(c.get("url", "")),  # siempre exterior
         "equipamiento":c.get("equipamiento", []),
-        "fotos":       rutas.get(c["n"], []),
-    } for c in visibles], ensure_ascii=False, indent=2)
+        "fotos":       rutas.get(idx, []),   # idx coincide con copiar_fotos()
+    } for idx, c in enumerate(visibles, start=1)], ensure_ascii=False, indent=2)
 
     return f"""<!DOCTYPE html>
 <html lang="es">
