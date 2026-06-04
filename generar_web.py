@@ -6,6 +6,7 @@ Lee datos_coches.json, copia fotos a web_fotos/ y genera index.html
 """
 
 import json, shutil, sys
+from datetime import datetime
 from pathlib import Path
 
 BASE_DIR   = Path(__file__).parent
@@ -214,10 +215,15 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
         "fin_fecha_iso": (lambda f: f"{f.split('/')[1]}-{f.split('/')[0]}" if f and "/" in f and len(f.split("/"))==2 else "")(c.get("fecha", "")),
         "etiqueta":    etiqueta_dgt(c.get("combustible", "")),
         "estado":      c["estado"],          # "Disponible" o "No disponible"
-        "url":         DASWELTAUTO + c["url"] if c.get("url") else "",
-        "foto_main":   dwa_foto_url(c.get("url", "")),  # siempre exterior
+        "fuente":      c.get("fuente", "dwa"),   # "dwa" o "motorflash"
+        "url":         (c.get("url_motorflash") or "") if c.get("fuente") == "motorflash"
+                       else (DASWELTAUTO + c["url"] if c.get("url") else ""),
+        "foto_main":   (c.get("fotos", [None])[0] if c.get("fotos") else "")
+                       if c.get("fuente") == "motorflash"
+                       else dwa_foto_url(c.get("url", "")),
         "equipamiento":c.get("equipamiento", []),
-        "fotos":       rutas.get(idx, []),   # idx coincide con copiar_fotos()
+        "fotos":       c.get("fotos", []) if c.get("fuente") == "motorflash"
+                       else rutas.get(idx, []),
     } for idx, c in enumerate(visibles, start=1)], ensure_ascii=False, indent=2)
 
     return f"""<!DOCTYPE html>
@@ -815,6 +821,8 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
     transition: all 0.15s; white-space: nowrap;
   }}
   .btn-dwa:hover {{ border-color: var(--red); color: var(--red); }}
+  .btn-mf {{ border-color: #E87722 !important; color: #E87722 !important; }}
+  .btn-mf:hover {{ border-color: #c45e0e !important; color: #c45e0e !important; }}
 
   /* ── Modal ── */
   .modal-backdrop {{
@@ -1262,6 +1270,9 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
   <p style="margin-top:12px; font-size:11px; color:#9aa8c0;">
     * Cuotas orientativas calculadas con TIN 6,99%, 48 meses y sin entrada (VW Financial Services). Sujeto a aprobación financiera. Consulta condiciones exactas con {COMERCIAL_NOMBRE}.
   </p>
+  <p style="margin-top:10px; font-size:10px; color:#6b7a99; letter-spacing:0.3px;">
+    🔄 Última actualización: {datetime.now().strftime('%d/%m/%Y — %H:%M')} h
+  </p>
 </footer>
 
 <!-- Botón flotante WhatsApp (siempre visible, especialmente en móvil) -->
@@ -1370,7 +1381,7 @@ function cardHTML(c) {{
           ` : `<div class="card-price">${{c.precio}}<span>€</span></div>`}}
           ${{c.cuota ? `<div class="card-cuota">Desde <strong>${{fmtCuota(c.cuota)}} €/mes</strong>${{c.fin_tipo ? ` <span class="fin-tipo-badge">${{c.fin_tipo}}</span>` : ''}} *</div>` : ''}}
         </div>
-        ${{c.url ? `<a class="btn-dwa" href="${{c.url}}" target="_blank" rel="noopener" onclick="event.stopPropagation()">DWA ↗</a>` : ''}}
+        ${{c.url ? `<a class="btn-dwa${{c.fuente==='motorflash' ? ' btn-mf' : ''}}" href="${{c.url}}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${{c.fuente==='motorflash' ? 'MF ↗' : 'DWA ↗'}}</a>` : ''}}
       </div>
     </div>
   </article>`;
