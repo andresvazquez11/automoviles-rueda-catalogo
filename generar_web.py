@@ -220,6 +220,11 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
                        else (DASWELTAUTO + c["url"] if c.get("url") else ""),
         "foto_main":   (c.get("fotos", [None])[0] if c.get("fotos") else "")
                        if c.get("fuente") == "motorflash"
+                       # Coches "No disponible": el anuncio ya no existe en DWA y la URL
+                       # de fotos en su CDN puede haber sido reciclada para OTRO coche →
+                       # usar la foto local descargada en su día, no la CDN en vivo.
+                       else (rutas.get(idx, [None])[0] or dwa_foto_url(c.get("url", "")))
+                            if c["estado"] == "No disponible" and rutas.get(idx)
                        else dwa_foto_url(c.get("url", "")),
         "equipamiento":c.get("equipamiento", []),
         "fotos":       c.get("fotos", []) if c.get("fuente") == "motorflash"
