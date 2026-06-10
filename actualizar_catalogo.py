@@ -343,13 +343,51 @@ async def main():
         # Construir lista completa: vivos + anteriores que desaparecieron → No disponible
         # Se preservan en JSON para mostrarse como RESERVADO en la web
         vivos_ids = {id_coche(c) for c in actuales_vivos}
+
+        # Identidad física del coche (independiente del URL): misma versión, km y precio
+        # DWA a veces re-publica el mismo coche físico con un nuevo anuncio (nuevo URL/ID).
+        # Si el coche "desaparecido" coincide en identidad física con uno vivo, NO se preserva.
+        def _id_fisico(c):
+            return (c.get("modelo",""), c.get("version",""), c.get("km",""), c.get("precio",""))
+
+        vivos_fisicos = {_id_fisico(c) for c in actuales_vivos}
+
+        # Caducidad: un coche "No disponible" se muestra máximo 2 días, luego desaparece
+        from datetime import date, timedelta
+        hoy_str   = date.today().isoformat()
+        limite_str = (date.today() - timedelta(days=2)).isoformat()
+
         preservados = []
+        preservados_vistos = set()  # deduplicar preservados por identidad física
+        expirados = 0
         for ant in anteriores:
-            if id_coche(ant) not in vivos_ids:
-                copia = dict(ant)
-                if copia.get("estado") == "Disponible":
-                    copia["estado"] = "No disponible"
-                preservados.append(copia)
+            if id_coche(ant) in vivos_ids:
+                continue  # URL aún activo, ya está en actuales_vivos
+            fis = _id_fisico(ant)
+            if fis in vivos_fisicos:
+                continue  # mismo coche físico re-publicado con nuevo URL
+            if fis in preservados_vistos:
+                continue  # evitar preservados duplicados entre sí
+
+            copia = dict(ant)
+            if copia.get("estado") == "Disponible":
+                copia["estado"] = "No disponible"
+
+            # Registrar cuándo desapareció de DWA (solo la primera vez)
+            if not copia.get("fecha_reservado"):
+                copia["fecha_reservado"] = hoy_str
+
+            # Expirar coches que llevan más de 2 días sin aparecer en DWA
+            if copia["fecha_reservado"] < limite_str:
+                expirados += 1
+                continue
+
+            preservados_vistos.add(fis)
+            preservados.append(copia)
+
+        if expirados:
+            print(f"  🗑️  {expirados} coche(s) expirado(s) eliminados (>2 días sin aparecer en DWA)")
+
         actuales = actuales_vivos + preservados
         coches_a_regenerar = {id_coche(c) for c in nuevos}
         coches_a_regenerar |= {id_coche(e["coche"]) for e in cambios}
@@ -462,6 +500,21 @@ async def main():
     CACHE.write_text(json.dumps(actuales, ensure_ascii=False, indent=2), encoding="utf-8")
     actualizar_historial_precios(actuales)   # registro rolling 10 días para web
 
+    # 5c) Integrar coches exclusivos de MotorFlash
+    print("\n" + "─" * 60)
+    try:
+        import subprocess, sys as _sys
+        _base = Path.home() / "Desktop" / "catalogo_automoviles_rueda"
+        result = subprocess.run(
+            [_sys.executable, str(_base / "integrar_motorflash.py")],
+            check=False, capture_output=False
+        )
+        if result.returncode != 0:
+            print("  ⚠️  integrar_motorflash.py terminó con error — continuando sin MF")
+    except Exception as _e:
+        print(f"  ⚠️  Error al integrar MotorFlash: {_e} — continuando sin MF")
+    print("─" * 60)
+
     # 5b) Verificar integridad de fotos SIEMPRE y ANTES del PDF
     # Esto garantiza que el PDF y la web nunca usen fotos de otro coche,
     # independientemente de si hubo cambios en el catálogo o no.
@@ -518,7 +571,10 @@ async def main():
     _archivadas = 0
     for _d in list(PHOTOS_DIR.iterdir()):
         if _d.is_dir() and not _d.name.startswith("_") and _d.name not in _valid:
-            _shutil.move(str(_d), str(_archivo / _d.name))
+            _destino = _archivo / _d.name
+            if _destino.exists():
+                _destino = _archivo / f"{_d.name} ({hoy_str})"
+            _shutil.move(str(_d), str(_destino))
             _archivadas += 1
     if _archivadas:
         print(f"  🗂  {_archivadas} carpeta(s) huérfana(s) archivadas automáticamente")
