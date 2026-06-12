@@ -337,8 +337,14 @@ async def main():
         for c in actuales_vivos:
             c["_total"] = total
 
+        # Los coches "fuente=motorflash" no tienen URL de DWA, así que nunca
+        # coinciden con actuales_vivos (scrapeados de DWA) → integrar_motorflash.py
+        # (paso 5c) gestiona su ciclo de vida de forma independiente. Se excluyen
+        # aquí para que no aparezcan como "vendidos" en cada actualización.
+        anteriores_dwa = [c for c in anteriores if c.get("fuente") != "motorflash"]
+
         # 3a) Comparar SOLO coches vivos (detección de nuevos/cambios/vendidos reales)
-        nuevos, vendidos, cambios = comparar(anteriores, actuales_vivos)
+        nuevos, vendidos, cambios = comparar(anteriores_dwa, actuales_vivos)
 
         # Construir lista completa: vivos + anteriores que desaparecieron → No disponible
         # Se preservan en JSON para mostrarse como RESERVADO en la web
@@ -360,7 +366,7 @@ async def main():
         preservados = []
         preservados_vistos = set()  # deduplicar preservados por identidad física
         expirados = 0
-        for ant in anteriores:
+        for ant in anteriores_dwa:
             if id_coche(ant) in vivos_ids:
                 continue  # URL aún activo, ya está en actuales_vivos
             fis = _id_fisico(ant)
@@ -408,7 +414,8 @@ async def main():
                         break
 
         # 3b) Comparar contra el snapshot de AYER (para acumular historial diario)
-        nuevos_vs_ayer, vendidos_vs_ayer, cambios_vs_ayer = comparar(ayer, actuales)
+        ayer_dwa = [c for c in ayer if c.get("fuente") != "motorflash"]
+        nuevos_vs_ayer, vendidos_vs_ayer, cambios_vs_ayer = comparar(ayer_dwa, actuales)
         cambios_hoy_acum = acumular_cambios_hoy(
             nuevos_vs_ayer, vendidos_vs_ayer, cambios_vs_ayer
         )
@@ -514,6 +521,11 @@ async def main():
     except Exception as _e:
         print(f"  ⚠️  Error al integrar MotorFlash: {_e} — continuando sin MF")
     print("─" * 60)
+
+    # 5d) Recargar actuales desde disco: integrar_motorflash.py puede haber
+    # añadido/renumerado coches (fuente=motorflash) que no estaban en el
+    # `actuales` en memoria. El PDF debe reflejar el estado final en disco.
+    actuales = json.loads(CACHE.read_text(encoding="utf-8"))
 
     # 5b) Verificar integridad de fotos SIEMPRE y ANTES del PDF
     # Esto garantiza que el PDF y la web nunca usen fotos de otro coche,

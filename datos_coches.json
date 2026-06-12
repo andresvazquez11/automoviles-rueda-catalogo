@@ -265,14 +265,15 @@
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/06 - SEAT Ateca - 26.500€/foto_07.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/06 - SEAT Ateca - 26.500€/foto_08.jpg"
     ],
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/06 - SEAT Ateca - 26.500€",
     "financiacion": {
-      "cuota": "406.13",
+      "cuota": "346.07",
       "tin": "6.99",
-      "tae": "8.23",
+      "tae": "8.30",
       "meses": "60",
       "entrada": "0",
       "tipo": "Autocredit",
-      "ejemplo": "Ejemplo de cuota a 96 meses: 406,13 €. Entrada inicial: 0,00 €. Comisión de apertura financiada: 1.007,71 €. Importe total financiado 29.799,38 €. Importe total de los intereses: 9.189,10 €. Coste total del crédito: 10.196,81 €. Precio total a plazos 38.988,48 €. Importe total adeudado: 38.988,48 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar"
+      "ejemplo": "Ejemplo de cuota a 60 meses: 346,07 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 16.484,61 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 984,59 €. Importe total financiado 29.115,53 €. Importe total de los intereses: 8.133,28 €. Coste total del crédito: 9.117,87 €. Precio total a plazos 37.248,81 €. Importe total adeudado: 37.248,81 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar"
     }
   },
   {
@@ -909,14 +910,15 @@
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/20 - SEAT Arona - 18.300€/foto_07.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/20 - SEAT Arona - 18.300€/foto_08.jpg"
     ],
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/20 - SEAT Arona - 18.300€",
     "financiacion": {
-      "cuota": "246.45",
-      "tin": "6.99",
-      "tae": "8.32",
-      "meses": "60",
+      "cuota": "227.79",
+      "tin": "8.99",
+      "tae": "10.49",
+      "meses": "96",
       "entrada": "0",
       "tipo": "Autocredit",
-      "ejemplo": "Ejemplo de cuota a 60 meses: 246,45 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.849,19 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 679,92 €. Importe total financiado 20.106,19 €. Importe total de los intereses: 5.530,00 €. Coste total del crédito: 6.209,92 €. Precio total a plazos 25.636,19 €. Importe total adeudado: 25.636,19 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar"
+      "ejemplo": "Ejemplo de cuota a 60 meses: 227,79 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.849,19 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura financiada: 605,61 €. Importe total financiado 17.908,79 €. Importe total de los intereses: 6.607,80 €. Coste total del crédito: 7.213,41 €. Precio total a plazos 24.516,59 €. Importe total adeudado: 24.516,59 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Seat. Cerrar"
     }
   },
   {
@@ -1229,7 +1231,6 @@
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/27 - CUPRA Born - 28.500€/foto_07.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/27 - CUPRA Born - 28.500€/foto_08.jpg"
     ],
-    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/27 - CUPRA Born - 28.500€",
     "financiacion": {
       "cuota": "457.48",
       "tin": "5.50",
@@ -1322,6 +1323,7 @@
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/29 - SEAT León - 21.500€/foto_07.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/29 - SEAT León - 21.500€/foto_08.jpg"
     ],
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/29 - SEAT León - 21.500€",
     "financiacion": {
       "cuota": "258.47",
       "tin": "6.99",
