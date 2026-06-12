@@ -466,7 +466,7 @@ async def main():
                 n_new   = car["n"]
                 modelo  = car["modelo"]
                 if n_ant != n_new:
-                    nombre_nuevo = nombre_carpeta(n_new, modelo, car.get("precio", ""))
+                    nombre_nuevo = nombre_carpeta(n_new, modelo, car.get("precio", ""), car.get("estado", "Disponible"))
                     dir_new = PHOTOS_DIR / nombre_nuevo
                     prefijo_modelo = f"{n_ant:02d} - {modelo}"
                     for candidata in PHOTOS_DIR.iterdir():
