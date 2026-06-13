@@ -162,12 +162,12 @@ def _cuota_display(c: dict) -> float:
     return calcular_cuota(c["precio"])
 
 def calcular_cuota(precio) -> float:
-    """Cuota mensual estimada — TIN 6,99%, 48 meses, sin entrada (VW Financial Services)."""
+    """Cuota mensual estimada — TIN 7,5%, 48 meses, sin entrada (VW Financial Services)."""
     try:
         p = int(str(precio).replace(".", "").replace(",", "").split()[0])
     except Exception:
         return 0.0
-    TIN, MESES = 0.0699, 48
+    TIN, MESES = 0.075, 48
     r = TIN / 12
     return round(p * r * (1 + r) ** MESES / ((1 + r) ** MESES - 1), 2)
 
@@ -1089,7 +1089,7 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
           <!-- Campaña -->
           <div class="cv2-slbl" style="margin-top:16px;">Campaña</div>
           <div class="cv2-camp-pills" id="cv2-camp-seat" style="display:none">
-            <button class="cv2-camp-pill active" id="cv2-entry" onclick="cv2SetCampana('ENTRY')">ENTRY · 6,99%</button>
+            <button class="cv2-camp-pill active" id="cv2-entry" onclick="cv2SetCampana('ENTRY')">ENTRY · 7,5%</button>
             <button class="cv2-camp-pill" id="cv2-gama-seat" onclick="cv2SetCampana('GAMA')">GAMA · 8,99%</button>
           </div>
           <div class="cv2-camp-pills" id="cv2-camp-cupra" style="display:none">
@@ -1112,14 +1112,14 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
           <div style="margin-top:14px;">
             <div class="cv2-tin-block">
               <div>
-                <span class="cv2-tin-val" id="cv2-tin-val">6,99</span>
+                <span class="cv2-tin-val" id="cv2-tin-val">7,5</span>
                 <span class="cv2-tin-sfx"> % TIN</span>
               </div>
               <div class="cv2-tin-lbl" id="cv2-tin-lbl">ENTRY · SEAT</div>
             </div>
             <button class="cv2-tin-link" id="cv2-tin-btn" onclick="cv2ToggleTin()">✎ personalizar TIN</button>
             <div class="cv2-tin-manual" id="cv2-tin-manual">
-              <input type="number" id="cv2-tin-input" value="6.99" min="0" max="30" step="0.01"
+              <input type="number" id="cv2-tin-input" value="7.5" min="0" max="30" step="0.01"
                 inputmode="decimal" oninput="cv2TinInput(this.value)">
               <span class="cv2-tin-sfx">% TIN</span>
             </div>
@@ -1273,7 +1273,7 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
   <p style="margin-top:12px; font-size:11px; color:#9aa8c0;">
-    * Cuotas orientativas calculadas con TIN 6,99%, 48 meses y sin entrada (VW Financial Services). Sujeto a aprobación financiera. Consulta condiciones exactas con {COMERCIAL_NOMBRE}.
+    * Cuotas orientativas calculadas con TIN 7,5%, 48 meses y sin entrada (VW Financial Services). Sujeto a aprobación financiera. Consulta condiciones exactas con {COMERCIAL_NOMBRE}.
   </p>
   <p style="margin-top:10px; font-size:10px; color:#6b7a99; letter-spacing:0.3px;">
     🔄 Última actualización: {datetime.now().strftime('%d/%m/%Y — %H:%M')} h
@@ -1542,11 +1542,11 @@ function cv2GetRules() {{
     else if (categoria === 'VU') {{ plazosDisp = plazosDisp.filter(p => p <= 48); }}
   }}
 
-  let creditoMinimo = 0, bonificacion = 0, tin_auto = 6.99, campanaLabel = '';
+  let creditoMinimo = 0, bonificacion = 0, tin_auto = 7.50, campanaLabel = '';
 
   if (marca === 'SEAT') {{
     if (campana === 'ENTRY' && categoria !== 'VU') {{
-      tin_auto = 6.99; bonificacion = 0; creditoMinimo = 10000; campanaLabel = 'ENTRY · SEAT';
+      tin_auto = 7.50; bonificacion = 0; creditoMinimo = 10000; campanaLabel = 'ENTRY · SEAT';
       if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 48);
     }} else {{
       tin_auto = 8.99;
