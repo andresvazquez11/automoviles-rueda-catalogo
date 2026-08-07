@@ -149,3 +149,60 @@ img { max-width: 100%; display: block; }
 .rd-card-modelo  { font-size: 16px; font-weight: 800; letter-spacing: -0.2px; }
 .rd-card-version { font-size: 12px; color: var(--rd-muted); margin-top: 2px; height: 32px; overflow: hidden; }
 .rd-card-precio  { font-size: 20px; font-weight: 800; color: var(--rd-red); margin-top: 8px; }
+
+/* ── Card: galería con flechas, badges y pastillas de specs ── */
+.rd-card-media { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--rd-bg); }
+.rd-card-photos { position: relative; width: 100%; height: 100%; }
+.rd-card-photos img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+.rd-card-photos img.activa { display: block; }
+.rd-card-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 30px; height: 30px; border-radius: 50%; border: none;
+  background: rgba(11,14,20,0.55); color: #fff; font-size: 16px; line-height: 1;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  opacity: 0; transition: opacity .15s ease, background .15s ease; z-index: 3;
+}
+.rd-card-media:hover .rd-card-nav { opacity: 1; }
+.rd-card-nav.prev { left: 8px; }
+.rd-card-nav.next { right: 8px; }
+.rd-card-nav:hover { background: var(--rd-red); }
+.rd-card-dots { position: absolute; bottom: 8px; left: 0; right: 0; display: flex; justify-content: center; gap: 4px; z-index: 3; }
+.rd-card-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.6); transition: width .15s ease; }
+.rd-card-dot.activa { background: #fff; width: 14px; border-radius: 3px; }
+
+.rd-badge-estado {
+  position: absolute; top: 10px; left: 10px; z-index: 3;
+  font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 20px;
+  color: #fff; letter-spacing: 0.2px;
+}
+.rd-badge-estado.disponible { background: var(--rd-green); }
+.rd-badge-estado.reservado  { background: #e08a1e; }
+.rd-badge-oferta {
+  position: absolute; top: 10px; right: 10px; z-index: 3;
+  background: var(--rd-red); color: #fff; font-size: 10px; font-weight: 800;
+  padding: 4px 8px; border-radius: 6px; letter-spacing: 0.3px;
+}
+.rd-badge-fotos {
+  position: absolute; bottom: 8px; right: 8px; z-index: 3;
+  background: rgba(11,14,20,0.6); color: #fff; font-size: 11px; font-weight: 700;
+  padding: 3px 8px; border-radius: 20px;
+}
+.rd-badge-dgt {
+  position: absolute; bottom: 8px; left: 8px; z-index: 3;
+  font-size: 10px; font-weight: 800; padding: 3px 7px; border-radius: 5px;
+  color: #fff;
+}
+.rd-badge-dgt.cero { background: #1c9a5b; }
+.rd-badge-dgt.eco  { background: #4c8c3c; }
+.rd-badge-dgt.c    { background: #6a7688; }
+
+.rd-card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.rd-pill {
+  font-size: 11px; font-weight: 600; color: var(--rd-ink-soft);
+  background: var(--rd-bg); border: 1px solid var(--rd-border);
+  padding: 3px 8px; border-radius: 20px; white-space: nowrap;
+}
+.rd-card-price-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; flex-wrap: wrap; gap: 4px; }
+.rd-card-precio-old { font-size: 12px; color: var(--rd-muted); text-decoration: line-through; margin-right: 6px; font-weight: 600; }
+.rd-card-cuota { font-size: 12px; color: var(--rd-ink-soft); }
+.rd-card-cuota strong { color: var(--rd-ink); }
