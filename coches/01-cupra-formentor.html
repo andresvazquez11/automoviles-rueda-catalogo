@@ -616,7 +616,7 @@ function esReservado(estado) {
 // NOTA: esta constante no estaba incluida en /tmp/extracto_calculadora.txt bajo
 // ningún encabezado "=== ... ===" (omisión de la extracción del Task 2), pero es
 // referenciada por cv2Calc() en modo FLEX (VR_TABLE[meses]). Copiada verbatim
-// (solo des-escapando {{ }} → { }) desde generar_web.py líneas 1442-1448, la
+// (solo des-escapando las dobles llaves de Python a llaves simples) desde generar_web.py líneas 1442-1448, la
 // misma fuente validada en producción de la que salió el resto de este bloque.
 const VR_TABLE = {
   24: {10000:79,15000:75,20000:70,25000:65,30000:60},
@@ -1376,6 +1376,7 @@ const COCHE = {
   "n": 1, "modelo": "CUPRA Formentor",
   "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
   "combustible": "Híbrido", "km": "60", "fecha": "05/2026",
+  "fin_fecha_iso": "2026-05",
   "cambio": "Automático", "color": "", "precio": "36.900",
   "ubicacion": "Málaga", "estado": "Disponible",
   "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/176586541",
