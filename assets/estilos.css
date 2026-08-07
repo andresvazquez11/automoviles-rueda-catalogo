@@ -172,29 +172,36 @@ img { max-width: 100%; display: block; }
 
 .rd-badge-estado {
   position: absolute; top: 10px; left: 10px; z-index: 3;
-  font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 20px;
-  color: #fff; letter-spacing: 0.2px;
+  font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+  letter-spacing: 0.4px; text-transform: uppercase;
 }
-.rd-badge-estado.disponible { background: var(--rd-green); }
-.rd-badge-estado.reservado  { background: #e08a1e; }
+.rd-badge-estado.disponible { background: rgba(22,163,74,0.12); color: #15803d; border: 1px solid rgba(22,163,74,0.3); }
+.rd-badge-estado.reservado  { background: rgba(234,88,12,0.12); color: #c2410c; border: 1px solid rgba(234,88,12,0.3); }
 .rd-badge-oferta {
   position: absolute; top: 10px; right: 10px; z-index: 3;
-  background: var(--rd-red); color: #fff; font-size: 10px; font-weight: 800;
-  padding: 4px 8px; border-radius: 6px; letter-spacing: 0.3px;
+  background: var(--rd-red); color: #fff; font-size: 11px; font-weight: 800;
+  letter-spacing: 1px; text-transform: uppercase; padding: 4px 9px; border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(200,35,43,0.5);
+  animation: rd-oferta-pulse 2s ease-in-out infinite;
+}
+@keyframes rd-oferta-pulse {
+  0%,100% { transform: scale(1);     box-shadow: 0 2px 8px rgba(200,35,43,0.5); }
+  50%     { transform: scale(1.06);  box-shadow: 0 4px 16px rgba(200,35,43,0.7); }
 }
 .rd-badge-fotos {
   position: absolute; bottom: 8px; right: 8px; z-index: 3;
-  background: rgba(11,14,20,0.6); color: #fff; font-size: 11px; font-weight: 700;
-  padding: 3px 8px; border-radius: 20px;
+  background: rgba(0,0,0,0.45); color: #fff;
+  font-size: 11px; padding: 3px 8px; border-radius: 10px;
+  backdrop-filter: blur(4px);
 }
+/* Etiqueta ambiental DGT — icono oficial real (0/ECO/C), no texto */
 .rd-badge-dgt {
   position: absolute; bottom: 8px; left: 8px; z-index: 3;
-  font-size: 10px; font-weight: 800; padding: 3px 7px; border-radius: 5px;
-  color: #fff;
+  width: 34px; height: 34px; border-radius: 6px;
+  background: rgba(255,255,255,0.92); box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  padding: 3px;
 }
-.rd-badge-dgt.cero { background: #1c9a5b; }
-.rd-badge-dgt.eco  { background: #4c8c3c; }
-.rd-badge-dgt.c    { background: #6a7688; }
+.rd-badge-dgt img { width: 100%; height: 100%; object-fit: contain; }
 
 .rd-card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
 .rd-pill {
