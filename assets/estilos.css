@@ -123,8 +123,7 @@ img { max-width: 100%; display: block; }
   color: var(--rd-red); letter-spacing: 0.2px; line-height: 1;
 }
 
-/* ── Botones de acción — fila compacta debajo del precio, no sidebar ── */
-.rd-cta-row { display: flex; gap: 8px; flex-wrap: wrap; }
+/* ── Botones de acción ── */
 .rd-btn {
   display: flex; align-items: center; justify-content: center; gap: 8px;
   flex: 1 1 auto; min-width: 140px;
@@ -151,6 +150,11 @@ img { max-width: 100%; display: block; }
   .rd-sticky-mobile .precio { font-family: var(--rd-display); font-size: 20px; font-weight: 600; color: var(--rd-red); }
   .rd-sticky-mobile .rd-btn { flex: 0 0 auto; min-width: 0; padding: 11px 18px; }
 }
+
+/* ── Enlace pequeño al anuncio original (no compite con el WhatsApp) ── */
+.rd-footnote { text-align: center; padding: 4px 0 2px; }
+.rd-footnote a { font-size: 12px; color: var(--rd-muted); font-weight: 500; }
+.rd-footnote a:hover { color: var(--rd-ink-soft); text-decoration: underline; }
 
 /* ── Franja de specs con icono ── */
 .rd-spec-badges {
