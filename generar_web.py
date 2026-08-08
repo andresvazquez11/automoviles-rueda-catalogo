@@ -1094,7 +1094,7 @@ def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
           </div>
           <div class="cv2-camp-pills" id="cv2-camp-cupra" style="display:none">
             <button class="cv2-camp-pill active" id="cv2-gama-cupra" onclick="cv2SetCampana('GAMA')">GAMA · 8,99%</button>
-            <button class="cv2-camp-pill" id="cv2-approved" onclick="cv2SetCampana('APPROVED')">APPROVED · 5,50%</button>
+            <button class="cv2-camp-pill" id="cv2-approved" onclick="cv2SetCampana('APPROVED')">APPROVED · 5,95%</button>
           </div>
           <div id="cv2-camp-otra" style="display:none">
             <div class="cv2-camp-auto" id="cv2-otra-label">Automático según importe financiado</div>
@@ -1564,11 +1564,15 @@ function cv2GetRules() {{
     }}
   }} else if (marca === 'CUPRA') {{
     if (campana === 'APPROVED' && (categoria === 'VS' || categoria === null)) {{
-      tin_auto = 5.50; bonificacion = 0;
+      // VWFS Campaña CUPRA VO · Agosto 2026 (pág. 5) + confirmado en vivo en dasweltauto.es: TIN 5,95% (antes 5,50%)
+      tin_auto = 5.95; bonificacion = 0;
       creditoMinimo = producto === 'FLEX' ? 13500 : 10000; campanaLabel = 'APPROVED · CUPRA';
       if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 36);
     }} else {{
-      tin_auto = 8.99; bonificacion = 1800;
+      // VWFS Campaña CUPRA VO · Agosto 2026 (pág. 4): bonificación pasó de 1.800€ fijo a escalonada
+      // FLEX: 1.300€ · LINEAL: 1.000€ (48-71 meses) / 1.300€ (72-96 meses)
+      tin_auto = 8.99;
+      bonificacion = producto === 'FLEX' ? 1300 : (CV2.meses >= 72 ? 1300 : 1000);
       creditoMinimo = producto === 'FLEX' ? 16500 : 13500;
       campanaLabel = categoria ? 'GAMA · CUPRA · ' + (categoria || '') : 'GAMA · CUPRA';
       if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 48);
@@ -1586,9 +1590,12 @@ function cv2GetRules() {{
     if (campana === 'ENTRY') {{
       // ENTRY Arona BB: 1.000€ VS+VO
       if (categoria !== 'VU') bonificacion = 1000;
+    }} else if (producto === 'FLEX') {{
+      // GAMA Arona BB FLEX: 2.000€ VS y VO (VWFS Agosto 2026, pág. 8)
+      if (categoria === 'VS' || categoria === null || categoria === 'VO') bonificacion = 2000;
     }} else {{
-      // GAMA Arona BB: 2.000€ VS / 1.600€ VO (VU sin cambio)
-      if (categoria === 'VS' || categoria === null) bonificacion = 2000;
+      // GAMA Arona BB LINEAL: 1.650€ VS / 1.600€ VO (VWFS Agosto 2026, pág. 8)
+      if (categoria === 'VS' || categoria === null) bonificacion = 1650;
       else if (categoria === 'VO') bonificacion = 1600;
     }}
     campanaLabel = campanaLabel + ' · Arona BB/REMA';
@@ -2264,6 +2271,8 @@ def main():
         sys.exit(1)
 
     coches = json.loads(JSON_PATH.read_text(encoding="utf-8"))
+    # Los coches "Retirado" ya no están publicados en Das WeltAuto → no se publican
+    coches = [c for c in coches if c.get("estado") != "Retirado"]
     print(f"✅  {len(coches)} coches cargados de datos_coches.json")
 
     print("📸  Copiando fotos a web_fotos/ …")
