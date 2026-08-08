@@ -1,23 +1,28 @@
 /* ══════════════════════════════════════════════════════════════════
    Automóviles Rueda — Sistema visual compartido (index + fichas)
+   Dirección: "concesionario de rendimiento" — condensado, denso,
+   práctico. Tipografía con carácter automotriz, rojo de marca sobre
+   negro cálido, tarjetas compactas (no paneles gigantes).
    ══════════════════════════════════════════════════════════════════ */
 
 :root {
-  --rd-bg:        #f4f5f8;
+  --rd-bg:        #f2f1ed;
   --rd-surface:   #ffffff;
-  --rd-ink:       #0b0e14;
-  --rd-ink-soft:  #4a5468;
-  --rd-muted:     #8a93a6;
-  --rd-border:    #e5e8ef;
+  --rd-ink:       #14110f;
+  --rd-ink-soft:  #55524c;
+  --rd-muted:     #8b8780;
+  --rd-border:    #e6e3dc;
   --rd-red:       #c8232b;
-  --rd-red-dark:  #a01c23;
-  --rd-green:     #1c9a5b;
-  --rd-radius-lg: 20px;
-  --rd-radius-md: 14px;
-  --rd-radius-sm: 10px;
-  --rd-shadow:    0 8px 24px rgba(11,14,20,0.08), 0 2px 6px rgba(11,14,20,0.05);
-  --rd-shadow-lg: 0 20px 50px rgba(11,14,20,0.16), 0 6px 16px rgba(11,14,20,0.08);
-  --rd-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --rd-red-dark:  #9c1b21;
+  --rd-copper:    #a8641f;
+  --rd-green:     #1c7a4a;
+  --rd-radius-lg: 18px;
+  --rd-radius-md: 12px;
+  --rd-radius-sm: 8px;
+  --rd-shadow:    0 6px 20px rgba(20,17,15,0.08), 0 1px 4px rgba(20,17,15,0.05);
+  --rd-shadow-lg: 0 24px 56px rgba(20,17,15,0.20), 0 6px 18px rgba(20,17,15,0.10);
+  --rd-display: 'Oswald', 'Arial Narrow', sans-serif;
+  --rd-font:    'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -31,7 +36,7 @@ body {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
-/* ── Header ── */
+/* ── Header: negro cálido + filo rojo en diagonal ── */
 .rd-header {
   background: var(--rd-ink);
   color: #fff;
@@ -40,39 +45,47 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  border-bottom: 3px solid var(--rd-red);
   position: sticky;
   top: 0;
   z-index: 40;
+  box-shadow: 0 2px 0 var(--rd-red), 0 6px 20px rgba(0,0,0,0.18);
 }
 .rd-header-brand { display: flex; align-items: baseline; gap: 10px; }
-.rd-header-brand strong { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
-.rd-header-brand span { font-size: 12px; color: #aab2c5; }
+.rd-header-brand strong {
+  font-family: var(--rd-display); font-size: 21px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.rd-header-brand span { font-size: 12px; color: #b7b2a8; }
 
 /* ── Volver / breadcrumb ── */
 .rd-back {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--rd-ink-soft);
-  padding: 10px 24px;
+  padding: 12px 20px 0;
+  max-width: 880px;
+  margin: 0 auto;
 }
 .rd-back:hover { color: var(--rd-red); }
 
-/* ── Layout de ficha de coche ── */
+/* ══════════════════════════════════════════════════════════
+   FICHA DE COCHE — columna única compacta, tipo "tarjeta"
+   (no dos columnas gigantes; máx. 880px, como pidió Andrés)
+   ══════════════════════════════════════════════════════════ */
 .rd-coche-wrap {
-  max-width: 1180px;
+  max-width: 880px;
   margin: 0 auto;
-  padding: 8px 24px 60px;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 28px;
-  align-items: start;
+  padding: 12px 20px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
-@media (max-width: 900px) {
-  .rd-coche-wrap { grid-template-columns: 1fr; padding: 8px 16px 40px; }
+@media (max-width: 640px) {
+  .rd-coche-wrap { padding: 8px 12px 96px; gap: 12px; }
+  .rd-back { padding: 10px 12px 0; }
 }
 
 /* ── Galería hero ── */
@@ -83,82 +96,154 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--rd-shadow);
 }
 
+/* ── Encabezado de precio — fila compacta, NO panel lateral gigante ── */
+.rd-price-panel {
+  background: var(--rd-surface);
+  border-radius: var(--rd-radius-lg);
+  box-shadow: var(--rd-shadow);
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 3px solid var(--rd-red);
+}
+.rd-price-panel .modelo {
+  font-family: var(--rd-display); font-size: 25px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.2px; line-height: 1.1;
+}
+.rd-price-panel .version  { font-size: 13px; color: var(--rd-muted); margin-top: 4px; }
+.rd-price-panel .estado   { display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.4px; }
+.rd-price-panel .estado.disponible { background: rgba(28,122,74,0.1); color: var(--rd-green); border: 1px solid rgba(28,122,74,0.25); }
+.rd-price-panel .estado.reservado  { background: rgba(200,120,20,0.1); color: #a8641f; border: 1px solid rgba(200,120,20,0.25); }
+.rd-price-panel .precio-block { text-align: right; flex-shrink: 0; }
+.rd-price-panel .precio {
+  font-family: var(--rd-display); font-size: 32px; font-weight: 600;
+  color: var(--rd-red); letter-spacing: 0.2px; line-height: 1;
+}
+
+/* ── Botones de acción — fila compacta debajo del precio, no sidebar ── */
+.rd-cta-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.rd-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  flex: 1 1 auto; min-width: 140px;
+  padding: 13px 16px;
+  border-radius: var(--rd-radius-sm); font-weight: 700; font-size: 14px;
+  border: none; cursor: pointer; transition: transform .12s ease, background .12s ease;
+}
+.rd-btn:active { transform: scale(0.97); }
+.rd-btn-primary { background: var(--rd-red); color: #fff; }
+.rd-btn-primary:hover { background: var(--rd-red-dark); }
+.rd-btn-secondary { background: var(--rd-surface); color: var(--rd-ink); border: 1px solid var(--rd-border); }
+.rd-btn-secondary:hover { background: var(--rd-bg); }
+
+/* ── Barra fija inferior en móvil (precio + WhatsApp siempre a mano) ── */
+.rd-sticky-mobile { display: none; }
+@media (max-width: 640px) {
+  .rd-sticky-mobile {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+    background: var(--rd-surface); padding: 10px 14px;
+    box-shadow: 0 -8px 24px rgba(20,17,15,0.15);
+    border-top: 1px solid var(--rd-border);
+  }
+  .rd-sticky-mobile .precio { font-family: var(--rd-display); font-size: 20px; font-weight: 600; color: var(--rd-red); }
+  .rd-sticky-mobile .rd-btn { flex: 0 0 auto; min-width: 0; padding: 11px 18px; }
+}
+
 /* ── Franja de specs con icono ── */
 .rd-spec-badges {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-  margin: 18px 0;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
 }
 .rd-spec-badge {
   background: var(--rd-surface);
   border: 1px solid var(--rd-border);
   border-radius: var(--rd-radius-sm);
-  padding: 12px 14px;
+  padding: 10px 12px;
 }
-.rd-spec-badge .lbl { font-size: 11px; color: var(--rd-muted); text-transform: uppercase; letter-spacing: 0.4px; }
-.rd-spec-badge .val { font-size: 15px; font-weight: 700; margin-top: 2px; }
+.rd-spec-badge .lbl { font-size: 10px; color: var(--rd-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.rd-spec-badge .val { font-size: 14px; font-weight: 700; margin-top: 2px; }
 
-/* ── Panel de precio fijo (sticky) ── */
-.rd-price-panel {
+/* ── Equipamiento ── */
+.rd-section {
   background: var(--rd-surface);
   border-radius: var(--rd-radius-lg);
-  box-shadow: var(--rd-shadow-lg);
-  padding: 24px;
-  position: sticky;
-  top: 84px;
+  box-shadow: var(--rd-shadow);
+  padding: 18px 20px;
 }
-.rd-price-panel .modelo   { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; line-height: 1.15; }
-.rd-price-panel .version  { font-size: 13px; color: var(--rd-muted); margin-top: 4px; }
-.rd-price-panel .precio   { font-size: 34px; font-weight: 800; color: var(--rd-red); margin-top: 16px; letter-spacing: -0.6px; }
-.rd-price-panel .estado   { display: inline-block; margin-top: 6px; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
-.rd-price-panel .estado.disponible { background: #e7f8ef; color: var(--rd-green); }
-.rd-price-panel .estado.reservado  { background: #fff2e0; color: #b3620a; }
-
-.rd-btn {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 14px 18px; margin-top: 10px;
-  border-radius: var(--rd-radius-sm); font-weight: 700; font-size: 15px;
-  border: none; cursor: pointer;
+.rd-section h3 {
+  font-family: var(--rd-display); font-size: 14px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.6px; color: var(--rd-ink-soft);
+  margin: 0 0 10px;
 }
-.rd-btn-primary { background: var(--rd-red); color: #fff; }
-.rd-btn-primary:hover { background: var(--rd-red-dark); }
-.rd-btn-secondary { background: var(--rd-bg); color: var(--rd-ink); border: 1px solid var(--rd-border); }
-.rd-btn-secondary:hover { background: #ebedf2; }
 
-/* ── Grid de catálogo (index) ── */
+/* ── Calculadora — contenida en la misma columna, tipo tarjeta ──
+   (el motor CV2 y su CSS interno ya están pensados para un ancho
+   compacto de ~820px; con .rd-coche-wrap a 880px vuelve a verse
+   como antes, sin tocar la lógica financiera) */
+.modal-financiacion {
+  background: var(--rd-surface);
+  border-radius: var(--rd-radius-lg);
+  box-shadow: var(--rd-shadow);
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════
+   CATÁLOGO — grid de tarjetas
+   ═══════════════════════════════════════════════ */
 .rd-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
+  gap: 18px;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 20px;
 }
 .rd-card {
   background: var(--rd-surface);
   border-radius: var(--rd-radius-md);
   overflow: hidden;
   box-shadow: var(--rd-shadow);
-  transition: transform .15s ease, box-shadow .15s ease;
+  transition: transform .18s ease, box-shadow .18s ease;
   display: block;
+  opacity: 0;
+  animation: rd-card-in .5s ease forwards;
 }
-.rd-card:hover { transform: translateY(-4px); box-shadow: var(--rd-shadow-lg); }
+@keyframes rd-card-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rd-grid .rd-card:nth-child(1)  { animation-delay: .00s; }
+.rd-grid .rd-card:nth-child(2)  { animation-delay: .03s; }
+.rd-grid .rd-card:nth-child(3)  { animation-delay: .06s; }
+.rd-grid .rd-card:nth-child(4)  { animation-delay: .09s; }
+.rd-grid .rd-card:nth-child(5)  { animation-delay: .12s; }
+.rd-grid .rd-card:nth-child(6)  { animation-delay: .15s; }
+.rd-grid .rd-card:nth-child(7)  { animation-delay: .18s; }
+.rd-grid .rd-card:nth-child(8)  { animation-delay: .21s; }
+.rd-grid .rd-card:hover { transform: translateY(-4px); box-shadow: var(--rd-shadow-lg); }
 .rd-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: var(--rd-bg); }
-.rd-card-body { padding: 14px 16px 18px; }
-.rd-card-modelo  { font-size: 16px; font-weight: 800; letter-spacing: -0.2px; }
+.rd-card-body { padding: 13px 15px 16px; }
+.rd-card-modelo  {
+  font-family: var(--rd-display); font-size: 17px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.2px;
+}
 .rd-card-version { font-size: 12px; color: var(--rd-muted); margin-top: 2px; height: 32px; overflow: hidden; }
-.rd-card-precio  { font-size: 20px; font-weight: 800; color: var(--rd-red); margin-top: 8px; }
+.rd-card-precio  { font-family: var(--rd-display); font-size: 21px; font-weight: 600; color: var(--rd-red); }
 
 /* ── Card: galería con flechas, badges y pastillas de specs ── */
 .rd-card-media { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--rd-bg); }
 .rd-card-photos { position: relative; width: 100%; height: 100%; }
-.rd-card-photos img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+.rd-card-photos img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; transition: transform .3s ease; }
 .rd-card-photos img.activa { display: block; }
+.rd-card:hover .rd-card-photos img.activa { transform: scale(1.04); }
 .rd-card-nav {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 30px; height: 30px; border-radius: 50%; border: none;
-  background: rgba(11,14,20,0.55); color: #fff; font-size: 16px; line-height: 1;
+  background: rgba(20,17,15,0.55); color: #fff; font-size: 16px; line-height: 1;
   display: flex; align-items: center; justify-content: center; cursor: pointer;
   opacity: 0; transition: opacity .15s ease, background .15s ease; z-index: 3;
 }
@@ -172,14 +257,15 @@ img { max-width: 100%; display: block; }
 
 .rd-badge-estado {
   position: absolute; top: 10px; left: 10px; z-index: 3;
-  font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
-  letter-spacing: 0.4px; text-transform: uppercase;
+  font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 20px;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(4px);
 }
-.rd-badge-estado.disponible { background: rgba(22,163,74,0.12); color: #15803d; border: 1px solid rgba(22,163,74,0.3); }
-.rd-badge-estado.reservado  { background: rgba(234,88,12,0.12); color: #c2410c; border: 1px solid rgba(234,88,12,0.3); }
+.rd-badge-estado.disponible { color: var(--rd-green); box-shadow: inset 0 0 0 1px rgba(28,122,74,0.35); }
+.rd-badge-estado.reservado  { color: var(--rd-copper); box-shadow: inset 0 0 0 1px rgba(168,100,31,0.35); }
 .rd-badge-oferta {
   position: absolute; top: 10px; right: 10px; z-index: 3;
-  background: var(--rd-red); color: #fff; font-size: 11px; font-weight: 800;
+  background: var(--rd-red); color: #fff; font-size: 10px; font-weight: 800;
   letter-spacing: 1px; text-transform: uppercase; padding: 4px 9px; border-radius: 4px;
   box-shadow: 0 2px 8px rgba(200,35,43,0.5);
   animation: rd-oferta-pulse 2s ease-in-out infinite;
@@ -190,14 +276,14 @@ img { max-width: 100%; display: block; }
 }
 .rd-badge-fotos {
   position: absolute; bottom: 8px; right: 8px; z-index: 3;
-  background: rgba(0,0,0,0.45); color: #fff;
+  background: rgba(20,17,15,0.5); color: #fff;
   font-size: 11px; padding: 3px 8px; border-radius: 10px;
   backdrop-filter: blur(4px);
 }
 /* Etiqueta ambiental DGT — icono oficial real (0/ECO/C), no texto */
 .rd-badge-dgt {
   position: absolute; bottom: 8px; left: 8px; z-index: 3;
-  width: 34px; height: 34px; border-radius: 6px;
+  width: 32px; height: 32px; border-radius: 6px;
   background: rgba(255,255,255,0.92); box-shadow: 0 1px 4px rgba(0,0,0,0.2);
   padding: 3px;
 }
@@ -209,7 +295,7 @@ img { max-width: 100%; display: block; }
   background: var(--rd-bg); border: 1px solid var(--rd-border);
   padding: 3px 8px; border-radius: 20px; white-space: nowrap;
 }
-.rd-card-price-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; flex-wrap: wrap; gap: 4px; }
+.rd-card-price-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: 9px; flex-wrap: wrap; gap: 4px; }
 .rd-card-precio-old { font-size: 12px; color: var(--rd-muted); text-decoration: line-through; margin-right: 6px; font-weight: 600; }
-.rd-card-cuota { font-size: 12px; color: var(--rd-ink-soft); }
+.rd-card-cuota { font-size: 11px; color: var(--rd-ink-soft); }
 .rd-card-cuota strong { color: var(--rd-ink); }

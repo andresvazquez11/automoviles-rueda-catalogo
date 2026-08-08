@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://andresvazquez11.github.io/automoviles-rueda-catalogo/coches/01-cupra-formentor.html">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/estilos.css">
 <style>
 /* Puente de variables: la calculadora (portada de generar_web.py) usa nombres
@@ -384,19 +384,38 @@
 <a class="rd-back" href="../index-prototipo.html">&#8249; Volver al catálogo</a>
 
 <div class="rd-coche-wrap">
-  <div>
-    <div class="rd-gallery-frame modal-gallery" id="modal-gallery">
-      <div class="gallery-slides" id="gallery-slides"></div>
-      <button class="gallery-btn prev" id="gallery-prev">&#8249;</button>
-      <button class="gallery-btn next" id="gallery-next">&#8250;</button>
-      <div class="gallery-dots" id="gallery-dots"></div>
+  <div class="rd-gallery-frame modal-gallery" id="modal-gallery">
+    <div class="gallery-slides" id="gallery-slides"></div>
+    <button class="gallery-btn prev" id="gallery-prev">&#8249;</button>
+    <button class="gallery-btn next" id="gallery-next">&#8250;</button>
+    <div class="gallery-dots" id="gallery-dots"></div>
+  </div>
+
+  <div class="rd-price-panel">
+    <div>
+      <div class="modelo" id="m-modelo"></div>
+      <div class="version" id="m-version"></div>
+      <div class="estado" id="m-estado-pill"></div>
     </div>
-    <div class="rd-spec-badges" id="m-specs"></div>
-    <div class="equip-section" id="equip-section">
-      <h3>Equipamiento</h3>
-      <div class="equip-grid" id="m-equip"></div>
+    <div class="precio-block">
+      <div class="precio" id="m-precio"></div>
     </div>
-    <div class="modal-financiacion" id="m-financiacion">
+  </div>
+
+  <div class="rd-cta-row">
+    <a class="rd-btn rd-btn-primary" href="https://wa.me/34610029056" target="_blank" rel="noopener">Reservar por WhatsApp</a>
+    <a class="rd-btn rd-btn-secondary" href="tel:610029056">Llamar</a>
+    <a class="rd-btn rd-btn-secondary" id="m-link" href="#" target="_blank" rel="noopener">Ver en Das WeltAuto</a>
+  </div>
+
+  <div class="rd-spec-badges" id="m-specs"></div>
+
+  <div class="rd-section equip-section" id="equip-section">
+    <h3>Equipamiento</h3>
+    <div class="equip-grid" id="m-equip"></div>
+  </div>
+
+  <div class="modal-financiacion" id="m-financiacion">
       <!-- Car info bar (auto-populated) -->
       <div class="cv2-car-bar">
         <div>
@@ -586,17 +605,11 @@
         <div class="cv2-legal" id="cv2-legal"></div>
       </div>
     </div>
-  </div>
+</div>
 
-  <div class="rd-price-panel">
-    <div class="modelo" id="m-modelo"></div>
-    <div class="version" id="m-version"></div>
-    <div class="precio" id="m-precio"></div>
-    <div class="estado" id="m-estado-pill"></div>
-    <a class="rd-btn rd-btn-primary" href="https://wa.me/34610029056" target="_blank" rel="noopener">Reservar por WhatsApp</a>
-    <a class="rd-btn rd-btn-secondary" href="tel:610029056">Llamar</a>
-    <a class="rd-btn rd-btn-secondary" id="m-link" href="#" target="_blank" rel="noopener">Ver en Das WeltAuto</a>
-  </div>
+<div class="rd-sticky-mobile">
+  <div class="precio" id="m-precio-sticky"></div>
+  <a class="rd-btn rd-btn-primary" href="https://wa.me/34610029056" target="_blank" rel="noopener">WhatsApp</a>
 </div>
 
 <script>
@@ -1422,6 +1435,7 @@ function cargarFicha(c) {
   document.getElementById('m-modelo').textContent = c.modelo;
   document.getElementById('m-version').textContent = c.version;
   document.getElementById('m-precio').textContent = c.precio + ' €';
+  document.getElementById('m-precio-sticky').textContent = c.precio + ' €';
   const pill = document.getElementById('m-estado-pill');
   const reservado = esReservado(c.estado);
   pill.textContent = reservado ? '🟠 Reservado' : '✅ Disponible';
