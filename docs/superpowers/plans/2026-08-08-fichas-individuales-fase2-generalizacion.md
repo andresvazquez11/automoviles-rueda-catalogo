@@ -87,23 +87,49 @@ Expected: sin salida. Si aparece algo como `{COMERCIAL_NOMBRE}` o `{cars_js}`, D
 
 Crear el archivo con este contenido: primero un comentario de cabecera, después el contenido completo de `/tmp/calculadora_extraida.js` (generado en el Step 1 — pegalo tal cual, sin modificarlo), y al final la función `cargarFicha` (nueva, generalizada a partir de la que ya funciona en `coches/01-cupra-formentor.html` — agrega el manejo del estado "vendido" que esa versión de prueba no necesitaba porque el coche de ejemplo estaba Disponible):
 
+**IMPORTANTE — orden de declaraciones (bug ya detectado y corregido una vez, no reintroducirlo):** el contenido extraído en el Step 1 termina con la función `goSlide(i) {...}` seguida del bloque de swipe táctil (`let touchStartX = 0; slides.addEventListener('touchstart', ...); slides.addEventListener('touchend', ...);`), y ese bloque de swipe usa `slides`/`slideActual` por nombre. Los 6 `const`/`let` (`slides`, `dotsEl`, `prevBtn`, `nextBtn`, `fotosModal`, `slideActual`) **NO van inmediatamente después del marcador `PEGAR AQUÍ`** (eso los deja después del bloque de swipe en el archivo final, violando temporal-dead-zone: `slides.addEventListener(...)` se ejecutaría antes de que `const slides` exista, y el script entero lanza `ReferenceError` al cargar — ninguna ficha se pintaría). Van **pegados después del cierre de la función `goSlide(i) {...}` extraída, y ANTES del bloque `let touchStartX = 0; ...` del mismo contenido extraído** — es decir, hay que insertarlos DENTRO del bloque pegado tal cual, no antes de él. Ver más abajo dónde exactamente.
+
 ```javascript
 /* ══════════════════════════════════════════════════════════════════
    Automóviles Rueda — Motor de calculadora de financiación (compartido)
    Extraído de generar_web.py — condiciones VWFS Agosto 2026.
-   NO modificar la lógica de cv2*/initCalc a mano: si cambian las
+   NO modificar la lógica de cv2* / initCalc a mano: si cambian las
    condiciones, se actualiza generar_web.py y se re-ejecuta la
    extracción (Task 1 de docs/superpowers/plans/2026-08-08-fichas-individuales-fase2-generalizacion.md).
    ══════════════════════════════════════════════════════════════════ */
 
 /* PEGAR AQUÍ: el contenido completo de /tmp/calculadora_extraida.js generado en el Step 1 */
 
+/* ...contenido extraído... termina así (NO modificar la lógica, solo referencia para ubicar el punto de inserción):
+
+function goSlide(i) {
+  if (!fotosModal.length) return;
+  slideActual = (i + fotosModal.length) % fotosModal.length;
+  slides.style.transform = `translateX(${-slideActual * 100}%)`;
+  dotsEl.querySelectorAll('.gallery-dot').forEach((d,idx) =>
+    d.classList.toggle('active', idx === slideActual));
+}
+
+*/
+
+// ── Aquí, justo después del cierre de goSlide() y ANTES de "let touchStartX" ──
 const slides   = document.getElementById('gallery-slides');
 const dotsEl   = document.getElementById('gallery-dots');
 const prevBtn  = document.getElementById('gallery-prev');
 const nextBtn  = document.getElementById('gallery-next');
 let fotosModal = [];
 let slideActual = 0;
+
+/* ...y recién ahora sigue el resto del contenido extraído tal cual, el bloque de swipe táctil:
+
+let touchStartX = 0;
+slides.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+slides.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 50) goSlide(slideActual + (dx < 0 ? 1 : -1));
+});
+
+*/
 
 // Rellena la ficha con los datos del único coche embebido en la página (COCHE).
 // Si el coche está Retirado (vendido), oculta precio/CTA y muestra el aviso.

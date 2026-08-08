@@ -757,18 +757,19 @@ function goSlide(i) {
     d.classList.toggle('active', idx === slideActual));
 }
 
-let touchStartX = 0;
-slides.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
-slides.addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(dx) > 50) goSlide(slideActual + (dx < 0 ? 1 : -1));
-});
 const slides   = document.getElementById('gallery-slides');
 const dotsEl   = document.getElementById('gallery-dots');
 const prevBtn  = document.getElementById('gallery-prev');
 const nextBtn  = document.getElementById('gallery-next');
 let fotosModal = [];
 let slideActual = 0;
+
+let touchStartX = 0;
+slides.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+slides.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 50) goSlide(slideActual + (dx < 0 ? 1 : -1));
+});
 
 // Rellena la ficha con los datos del único coche embebido en la página (COCHE).
 // Si el coche está Retirado (vendido), oculta precio/CTA y muestra el aviso.
