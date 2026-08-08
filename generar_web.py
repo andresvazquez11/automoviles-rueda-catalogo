@@ -842,6 +842,126 @@ cargarFicha(COCHE);
 '''
 
 
+def etiqueta_dgt_badge(combustible: str) -> tuple[str, str]:
+    c = (combustible or "").lower()
+    if "eléctrico" in c or "electrico" in c: return "CERO", "cero"
+    if "mild" in c: return "ECO", "eco"
+    if "híbrido" in c or "hibrido" in c: return "CERO", "cero"
+    return "C", "c"
+
+DGT_URLS = {
+    "CERO": "https://commons.wikimedia.org/wiki/Special:FilePath/DistAmbDGT_CeroEmisiones.svg",
+    "ECO":  "https://commons.wikimedia.org/wiki/Special:FilePath/DistAmbDGT_ECO.svg",
+    "C":    "https://commons.wikimedia.org/wiki/Special:FilePath/DistAmbDGT_C.svg",
+}
+
+def build_card_html(car: dict, hist: dict, fotos: list[str]) -> str:
+    n = car["n"]
+    slug = slug_coche(car["modelo"])
+    href = f"coches/{n:02d}-{slug}.html"
+    # `fotos` la resuelve quien llama (ver Task 4): rutas.get(idx, []) para DWA,
+    # car.get("fotos", []) para MotorFlash. NUNCA leer car["fotos"] acá directo
+    # (para DWA es una ruta absoluta del disco local, no web) ni reconstruir desde n.
+
+    reservado = car["estado"] == "No disponible"
+    estado_cls = "reservado" if reservado else "disponible"
+    estado_lbl = "Reservado" if reservado else "Disponible"
+    dgt_txt, dgt_cls = etiqueta_dgt_badge(car.get("combustible", ""))
+    cuota = _cuota_display(car)
+    p_ant = precio_maximo_historico(car.get("url",""), int(str(car["precio"]).replace(".","").replace(",","").split()[0]), hist)
+
+    fotos_html = "".join(
+        f'<img src="{f}" alt="{car["modelo"]}" loading="lazy" class="{"activa" if i==0 else ""}">'
+        for i, f in enumerate(fotos)
+    )
+    dots_html = "".join(f'<span class="rd-card-dot {"activa" if i==0 else ""}"></span>' for i in range(len(fotos))) if len(fotos) > 1 else ""
+    nav_html = '<button class="rd-card-nav prev" aria-label="Foto anterior">&#8249;</button><button class="rd-card-nav next" aria-label="Foto siguiente">&#8250;</button>' if len(fotos) > 1 else ""
+    precio_row = (
+        f'<span class="rd-card-precio-old">{p_ant:,.0f} €</span><span class="rd-card-precio">{car["precio"]} €</span>'.replace(",", ".")
+        if p_ant else f'<span class="rd-card-precio">{car["precio"]} €</span>'
+    )
+
+    return f'''<a class="rd-card" href="{href}">
+  <div class="rd-card-media">
+    <div class="rd-card-photos">{fotos_html}</div>
+    {nav_html}
+    <div class="rd-card-dots">{dots_html}</div>
+    <span class="rd-badge-estado {estado_cls}">{estado_lbl}</span>
+    {'<span class="rd-badge-oferta">OFERTA</span>' if p_ant else ''}
+    <span class="rd-badge-dgt"><img src="{DGT_URLS[dgt_txt]}" alt="Etiqueta {dgt_txt}" loading="lazy"></span>
+    {f'<span class="rd-badge-fotos">📷 {len(fotos)}</span>' if len(fotos) > 1 else ''}
+  </div>
+  <div class="rd-card-body">
+    <div class="rd-card-modelo">{car["modelo"]}</div>
+    <div class="rd-card-version">{car["version"]}</div>
+    <div class="rd-card-pills">
+      {f'<span class="rd-pill">⛽ {car["combustible"]}</span>' if car.get("combustible") else ''}
+      {f'<span class="rd-pill">🛣️ {car["km"]} km</span>' if car.get("km") else ''}
+      {f'<span class="rd-pill">📅 {car["fecha"]}</span>' if car.get("fecha") else ''}
+      {f'<span class="rd-pill">⚙️ {car["cambio"]}</span>' if car.get("cambio") else ''}
+    </div>
+    <div class="rd-card-price-row">
+      <div>{precio_row}</div>
+      <div class="rd-card-cuota">Desde <strong>{cuota:.0f} €/mes</strong></div>
+    </div>
+  </div>
+</a>'''
+
+def build_index_html(cars: list[dict], rutas: dict[int, list[str]]) -> str:
+    hist = _cargar_historial_precios()
+    visibles = [c for c in cars if c.get("estado") != "Retirado"]
+    tarjetas = "\n".join(
+        build_card_html(
+            car, hist,
+            car.get("fotos", []) if car.get("fuente") == "motorflash" else rutas.get(idx, [])
+        )
+        for idx, car in enumerate(cars, start=1)
+        if car.get("estado") != "Retirado"
+    )
+
+    return f'''<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automóviles Rueda — Coches seminuevos SEAT · CUPRA · Volkswagen</title>
+<meta name="description" content="Catálogo de vehículos seminuevos con garantía oficial Das WeltAuto. {len(visibles)} coches disponibles en Málaga.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estilos.css">
+</head>
+<body>
+<header class="rd-header">
+  <div class="rd-header-brand">
+    <strong>Automóviles Rueda</strong>
+    <span>{COMERCIAL_NOMBRE} · {COMERCIAL_TELEFONO}</span>
+  </div>
+</header>
+<div class="rd-grid">
+{tarjetas}
+</div>
+<script>
+document.querySelectorAll('.rd-card-nav').forEach(btn => {{
+  btn.addEventListener('click', e => {{
+    e.preventDefault();
+    e.stopPropagation();
+    const media = btn.closest('.rd-card-media');
+    const imgs  = [...media.querySelectorAll('.rd-card-photos img')];
+    const dots  = [...media.querySelectorAll('.rd-card-dot')];
+    let idx = imgs.findIndex(img => img.classList.contains('activa'));
+    idx = btn.classList.contains('next')
+      ? (idx + 1) % imgs.length
+      : (idx - 1 + imgs.length) % imgs.length;
+    imgs.forEach((img, i) => img.classList.toggle('activa', i === idx));
+    dots.forEach((d, i) => d.classList.toggle('activa', i === idx));
+  }});
+}});
+</script>
+</body>
+</html>
+'''
+
+
 def build_html(coches: list[dict], rutas: dict[int, list[str]]) -> str:
     # Todos menos vendidos (actualmente "Disponible" o "No disponible")
     visibles = [c for c in coches if c.get("estado") not in ("Vendido",)]
