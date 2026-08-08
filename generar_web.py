@@ -726,13 +726,12 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
         <div class="cv2-legal" id="cv2-legal"></div>
       </div>'''
 
-def build_coche_html(car: dict) -> str:
+def build_coche_html(car: dict, fotos_urls: list[str]) -> str:
     n = car["n"]
     slug = slug_coche(car["modelo"])
     vendido = car["estado"] == "Retirado"
-    fotos_raw = car.get("fotos") or []
-    fotos = [f"../{f}" for f in fotos_raw]   # la ficha vive en coches/, un nivel más abajo que el root
-    foto_principal_root = fotos_raw[0] if fotos_raw else f"web_fotos/{n:02d}/foto_01.jpg"
+    fotos = [f"../{f}" for f in fotos_urls]   # la ficha vive en coches/, un nivel más abajo que el root
+    foto_principal_root = fotos_urls[0] if fotos_urls else f"web_fotos/{n:02d}/foto_01.jpg"
     url_externa = car.get("url_motorflash") or (f"{DASWELTAUTO}{car['url']}" if car.get("url") else "")
 
     titulo = f'{car["modelo"]} {car["version"]} · {car["precio"]}€ · Automóviles Rueda' if not vendido \
