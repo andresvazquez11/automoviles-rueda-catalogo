@@ -63,9 +63,10 @@ def find_car_folder(n: int, modelo: str, precio: str = ""):
 def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
     WEB_FOTOS.mkdir(exist_ok=True)
     rutas: dict[int, list[str]] = {}
-    for idx, coche in enumerate(coches, start=1):  # idx único, ignora duplicados de c["n"]
+    for coche in coches:
+        n = coche["n"]
         carpeta = find_car_folder(coche["n"], coche["modelo"], coche.get("precio", ""))
-        dest = WEB_FOTOS / f"{idx:02d}"
+        dest = WEB_FOTOS / f"{n:02d}"
         dest.mkdir(exist_ok=True)
         urls: list[str] = []
         if carpeta and carpeta.exists():
@@ -73,8 +74,8 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
             for i, foto in enumerate(fotos_src[:8], start=1):
                 dst = dest / f"foto_{i:02d}.jpg"
                 shutil.copy2(foto, dst)
-                urls.append(f"web_fotos/{idx:02d}/foto_{i:02d}.jpg")
-        rutas[idx] = urls
+                urls.append(f"web_fotos/{n:02d}/foto_{i:02d}.jpg")
+        rutas[n] = urls
     return rutas
 
 # ── Generar HTML ─────────────────────────────────────────────────────────────
@@ -913,9 +914,9 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]]) -> str:
     tarjetas = "\n".join(
         build_card_html(
             car, hist,
-            car.get("fotos", []) if car.get("fuente") == "motorflash" else rutas.get(idx, [])
+            car.get("fotos", []) if car.get("fuente") == "motorflash" else rutas.get(car["n"], [])
         )
-        for idx, car in enumerate(cars, start=1)
+        for car in cars
         if car.get("estado") != "Retirado"
     )
 
@@ -3072,11 +3073,6 @@ def main():
     total_fotos = sum(len(v) for v in rutas.values())
     print(f"    {total_fotos} fotos copiadas")
 
-    # idx (posición 1-based) de cada coche NO retirado, en el mismo orden que
-    # usó copiar_fotos() para armar `rutas` — necesario para poder buscar
-    # rutas.get(idx) más abajo con el idx correcto, no con car["n"].
-    idx_por_n = {c["n"]: idx for idx, c in enumerate(coches, start=1)}
-
     coches_dir = BASE_DIR / "coches"
     coches_dir.mkdir(exist_ok=True)
 
@@ -3096,8 +3092,7 @@ def main():
         elif car.get("fuente") == "motorflash":
             fotos_urls = car.get("fotos", [])
         else:
-            idx = idx_por_n.get(n)
-            fotos_urls = rutas.get(idx, []) if idx else []
+            fotos_urls = rutas.get(n, [])
 
         html_coche = build_coche_html(car, fotos_urls)
         (coches_dir / f"{n:02d}-{slug}.html").write_text(html_coche, encoding="utf-8")
