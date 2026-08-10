@@ -65,6 +65,10 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
     rutas: dict[int, list[str]] = {}
     for coche in coches:
         n = coche["n"]
+        if n in rutas:
+            print(f"  ⚠️  n={n} duplicado en la lista de coches activos — {coche['modelo']} "
+                  f"pisaría las fotos de otro coche con el mismo número, se omite")
+            continue
         carpeta = find_car_folder(coche["n"], coche["modelo"], coche.get("precio", ""))
         dest = WEB_FOTOS / f"{n:02d}"
         dest.mkdir(exist_ok=True)
