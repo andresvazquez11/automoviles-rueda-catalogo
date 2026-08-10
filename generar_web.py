@@ -72,12 +72,25 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
         dest = WEB_FOTOS / f"{n:02d}"
         dest.mkdir(exist_ok=True)
         urls: list[str] = []
-        if carpeta and carpeta.exists():
-            fotos_src = sorted(carpeta.glob("foto_*.jpg"))
+        fotos_src = sorted(carpeta.glob("foto_*.jpg")) if (carpeta and carpeta.exists()) else []
+        if fotos_src:
             for i, foto in enumerate(fotos_src[:8], start=1):
                 dst = dest / f"foto_{i:02d}.jpg"
                 shutil.copy2(foto, dst)
                 urls.append(f"web_fotos/{n:02d}/foto_{i:02d}.jpg")
+        else:
+            # No se encontró carpeta local con fotos (puede no existir, o existir
+            # pero sin foto_*.jpg dentro — p.ej. quedó archivada por error como
+            # huérfana en un cambio de estado/renumeración de actualizar_catalogo.py,
+            # o solo le quedó contenido de marketing sin las fotos crudas).
+            # En vez de dejar la tarjeta sin fotos, reusar lo que ya esté copiado
+            # de una corrida anterior en web_fotos/{n:02d}/ — mejor mostrar una
+            # foto de ayer que ninguna.
+            existentes = sorted(dest.glob("foto_*.jpg"))
+            if existentes:
+                urls = [f"web_fotos/{n:02d}/{f.name}" for f in existentes]
+                print(f"  ⚠️  n={n} {coche['modelo']}: sin fotos crudas en la carpeta local "
+                      f"— reusando {len(urls)} foto(s) ya copiada(s) de una corrida anterior")
         rutas[n] = urls
     return rutas
 
