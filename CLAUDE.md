@@ -54,12 +54,15 @@ Construida desde la `url` del anuncio:
 ### Archivos clave del catálogo web
 | Archivo | Función |
 |---|---|
-| `generar_web.py` | Lee JSON → copia fotos a `web_fotos/` → genera `index.html` |
+| `generar_web.py` | Lee JSON → copia fotos a `web_fotos/` → genera `index.html` + `coches/*.html` |
 | `actualizar_catalogo.py` | Scraping Das WeltAuto → actualiza JSON + PDF |
 | `descargar_fotos_galeria.py` | Descarga fotos nuevas de Das WeltAuto |
 | `datos_coches.json` | Inventario actual (fuente de verdad) |
 | `index.html` | Catálogo web generado (NO editar manualmente) |
-| `web_fotos/{n:02d}/foto_XX.jpg` | Fotos sin caracteres especiales para GitHub Pages |
+| `coches/{n:02d}-{slug}.html` | Ficha individual de cada coche — URL propia, compartible, con vista previa de WhatsApp (Open Graph) |
+| `assets/estilos.css` | Sistema visual compartido (index + fichas) |
+| `assets/calculadora.js` | Motor de la calculadora de financiación, compartido por todas las fichas — se regenera desde `generar_web.py`, no editar a mano |
+| `web_fotos/{n:02d}/foto_XX.jpg` | Fotos sin caracteres especiales para GitHub Pages — `{n:02d}` es estable (car["n"]), no una posición en lista |
 
 ### Ejecutables (en `/Desktop/ejecutable redes/`)
 - `1️⃣ Actualizar Todo — Cambios + Fotos.command`: scraping + fotos + PDF + web + git push (todo en uno, ~2 min)
@@ -70,17 +73,19 @@ Construida desde la `url` del anuncio:
 ### Git / GitHub
 - Repo: `git@github.com:andresvazquez11/automoviles-rueda-catalogo.git`
 - SSH key: `~/.ssh/github_rueda`
-- Solo se commitean `index.html` y `web_fotos/` (no scripts ni JSON)
+- Se commitean `index.html`, `web_fotos/`, `coches/` y `assets/` (no scripts ni JSON — el PDF tampoco, pesa >100MB)
 - GitHub Pages: rama `main`, raíz `/`
 
-### Estilo visual de la web
-- Header: `#0d1b35` (azul marino oscuro) con borde rojo `#C8232B`
-- Fondo: `#eef1f7` (gris-azulado claro, estilo Das WeltAuto)
-- Tarjetas: blancas con sombra suave
+### Estilo visual de la web (Fase 2 — fichas individuales, agosto 2026)
+- Header: negro cálido `#14110f` con filo rojo `#C8232B`
+- Fondo: `#f2f1ed` (crudo claro)
+- Tipografía: Oswald (títulos/precios, condensada) + Work Sans (cuerpo/pastillas) — reemplazó a Inter
+- Tarjetas del catálogo: badges de estado, etiqueta DGT real (ícono oficial), pastillas de specs, navegación de fotos con flechas
+- Ficha de coche: columna única compacta (máx. 880px) — la calculadora vive como tarjeta contenida, no como panel de ancho completo
+- Barra fija en móvil: precio + "Ver financiación" (scroll a la calculadora)
 - Acento: rojo `#C8232B` (marca Rueda)
-- Fuente: Inter
 - Header muestra: "Automóviles Rueda" + "Andrés Vázquez · 610 02 90 56"
-- Botón WhatsApp flotante en móvil: `https://wa.me/34610029056`
+- CTA principal de la ficha: el botón "Solicitar financiación · WhatsApp" DENTRO de la calculadora (arma resumen completo de la cuota) — no hay botón genérico de "Reservar" aparte, y el enlace a Das WeltAuto es chico y al final (a propósito, para no restar ventas)
 
 ### Decisiones técnicas importantes (web)
 1. Foto principal = CDN DWA (`x01.jpg`), no la local → siempre exterior
@@ -454,3 +459,52 @@ const VR_MES_ADJ = {24:+18, 36:+11, 48:+5, 60:0, 72:-6, 84:-12};
 - `calcFinanciacion(precio, tin, entradaPct, meses, tab, km, vrBase, seguro)` → objeto con resultados
 - `renderCalc()` → actualiza el DOM con los valores calculados
 - `initCalc(c)` → inicializa la calculadora al abrir el modal de un coche
+
+---
+
+## ⚠️ Reglas críticas — Magnific MCP (NO ignorar)
+
+### Caso de soporte abierto
+- **Caso #01649949** — abierto el 06/06/2026 con Magnific Support
+- Motivo: WAF bloqueó la cuenta por peticiones concurrentes excesivas
+- Estado: bajo revisión por equipo humano
+- Seguimiento: si no resuelven en 24h, escalar desde magnific.com/support
+
+### Por qué ocurrió
+El 05/06/2026 se enviaron **9 peticiones simultáneas** al MCP de Magnific + 12 uploads en paralelo.
+El WAF de Akamai detectó esto como tráfico sospechoso y bloqueó la cuenta (no la IP).
+El bloqueo afectó a todas las redes del usuario (trabajo, móvil, casa) porque es cuenta-based.
+
+### Reglas de uso — OBLIGATORIAS desde ahora
+1. **NUNCA enviar más de 1 petición simultánea** al MCP de Magnific
+2. **Esperar a que cada imagen complete** antes de lanzar la siguiente
+3. **Límite oficial**: 10 requests/segundo promedio en 2 minutos (por API key)
+4. **Para lotes grandes** (>4 imágenes): pausa de 3-5 segundos entre cada una
+5. **Uploads**: subir de 1 en 1, no en batch con `count > 1`
+
+### Reglas de créditos — OBLIGATORIAS (nunca saltarse)
+
+#### Antes de generar CUALQUIER cosa con Magnific MCP:
+1. **Siempre informar el coste en créditos** antes de ejecutar la generación
+2. **Si el coste es > 1.000 créditos → PARAR y pedir aprobación explícita** al usuario antes de continuar
+3. **Nunca asumir que el usuario aprueba** — confirmar siempre cuando supera el umbral
+
+#### Jerarquía de modelos (de menor a mayor coste) — SEGUIR EN ESTE ORDEN:
+1. **PRIMERO: modelos gratuitos / generación infinita** → siempre probar estos primero:
+   - Imágenes: `mystic` (Freepik Mystic) — sin coste de crédito
+   - Vídeo: `kling-25` (Kling 2.5) — sin coste de crédito
+   - Vídeo: `nano-banano-2` (Nano Banano 2) — sin coste de crédito
+2. **SOLO si el resultado gratuito no es suficiente** → pasar a modelos de pago:
+   - Para presentación final o efectos especiales: `kling-26`, `kling-30`, etc.
+   - Siempre informar el coste antes y pedir aprobación si > 1.000 créditos
+
+#### Motivo de esta regla
+En una sola sesión se pueden consumir miles de créditos sin darse cuenta.
+Los modelos gratuitos producen resultados muy buenos para pruebas y borradores.
+Los modelos premium solo se justifican para el producto final definitivo.
+
+### Alternativa de emergencia
+Si Magnific vuelve a bloquearse: `generar_con_falai.py` en `/Desktop/personajes_freepik/`
+- Requiere cuenta gratuita en fal.ai + API key (export FAL_KEY="...")
+- Usa FLUX-PuLID para consistencia de cara con fotos de referencia
+- Coste: ~0.05€/imagen
