@@ -3062,6 +3062,7 @@ def main():
         sys.exit(1)
 
     coches = json.loads(JSON_PATH.read_text(encoding="utf-8"))
+    todos_los_coches = json.loads(JSON_PATH.read_text(encoding="utf-8"))
     # Los coches "Retirado" ya no están publicados en Das WeltAuto → no se publican
     coches = [c for c in coches if c.get("estado") != "Retirado"]
     print(f"✅  {len(coches)} coches cargados de datos_coches.json")
@@ -3071,12 +3072,50 @@ def main():
     total_fotos = sum(len(v) for v in rutas.values())
     print(f"    {total_fotos} fotos copiadas")
 
-    print("🌐  Generando index.html …")
-    html = build_html(coches, rutas)
-    HTML_PATH.write_text(html, encoding="utf-8")
-    print(f"    ✅  {HTML_PATH}")
+    # idx (posición 1-based) de cada coche NO retirado, en el mismo orden que
+    # usó copiar_fotos() para armar `rutas` — necesario para poder buscar
+    # rutas.get(idx) más abajo con el idx correcto, no con car["n"].
+    idx_por_n = {c["n"]: idx for idx, c in enumerate(coches, start=1)}
+
+    coches_dir = BASE_DIR / "coches"
+    coches_dir.mkdir(exist_ok=True)
+
+    slugs_validos = set()
+    for car in todos_los_coches:
+        n = car["n"]
+        slug = slug_coche(car["modelo"])
+        slugs_validos.add(f"{n:02d}-{slug}.html")
+
+        if car.get("estado") == "Retirado":
+            # Ya no se scrapea ni se copian fotos nuevas para estos — si la carpeta
+            # de una corrida anterior todavía existe, se reusa tal cual; si no, sin fotos.
+            carpeta_vieja = WEB_FOTOS / f"{n:02d}"
+            fotos_urls = sorted(
+                f"web_fotos/{n:02d}/{p.name}" for p in carpeta_vieja.glob("foto_*.jpg")
+            ) if carpeta_vieja.exists() else []
+        elif car.get("fuente") == "motorflash":
+            fotos_urls = car.get("fotos", [])
+        else:
+            idx = idx_por_n.get(n)
+            fotos_urls = rutas.get(idx, []) if idx else []
+
+        html_coche = build_coche_html(car, fotos_urls)
+        (coches_dir / f"{n:02d}-{slug}.html").write_text(html_coche, encoding="utf-8")
+    print(f"  {len(todos_los_coches)} fichas individuales generadas en coches/")
+
+    archivadas = 0
+    for f in coches_dir.glob("*.html"):
+        if f.name not in slugs_validos:
+            f.unlink()
+            archivadas += 1
+    if archivadas:
+        print(f"  {archivadas} ficha(s) huérfana(s) eliminada(s) de coches/ (coche ya no existe)")
+
+    html_index = build_index_html(coches, rutas)
+    HTML_PATH.write_text(html_index, encoding="utf-8")
+    print(f"  index.html regenerado con el catálogo nuevo")
     print()
-    print("  Listo. Sube index.html y web_fotos/ a GitHub Pages para compartirlo.")
+    print("  Listo. Sube index.html, coches/ y web_fotos/ a GitHub Pages para compartirlo.")
 
 if __name__ == "__main__":
     main()
