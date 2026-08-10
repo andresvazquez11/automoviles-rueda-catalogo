@@ -196,6 +196,50 @@ img { max-width: 100%; display: block; }
 }
 
 /* ═══════════════════════════════════════════════
+   CATÁLOGO — buscador, filtros y orden
+   ═══════════════════════════════════════════════ */
+.rd-controls {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  max-width: 1280px; margin: 0 auto; padding: 18px 20px 0;
+}
+.rd-filter-tabs { display: flex; gap: 6px; }
+.rd-filter-btn {
+  background: var(--rd-surface); border: 1px solid var(--rd-border);
+  color: var(--rd-ink-soft); font-weight: 700; font-size: 13px;
+  padding: 9px 14px; border-radius: 20px; cursor: pointer;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.rd-filter-btn:hover { background: var(--rd-bg); }
+.rd-filter-btn.activo { background: var(--rd-red); border-color: var(--rd-red); color: #fff; }
+
+.rd-search-wrap { position: relative; flex: 1 1 220px; min-width: 180px; }
+.rd-search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--rd-muted); }
+.rd-search-input {
+  width: 100%; padding: 10px 14px 10px 36px;
+  border: 1px solid var(--rd-border); border-radius: 20px;
+  background: var(--rd-surface); font-family: var(--rd-font); font-size: 14px; color: var(--rd-ink);
+}
+.rd-search-input:focus { outline: none; border-color: var(--rd-red); }
+
+.rd-sort-select {
+  padding: 10px 14px; border: 1px solid var(--rd-border); border-radius: 20px;
+  background: var(--rd-surface); font-family: var(--rd-font); font-size: 13px; font-weight: 600;
+  color: var(--rd-ink-soft); cursor: pointer;
+}
+.rd-sort-select:focus { outline: none; border-color: var(--rd-red); }
+
+.rd-counter { font-size: 13px; color: var(--rd-muted); width: 100%; }
+.rd-counter strong { color: var(--rd-ink); font-weight: 700; }
+
+.rd-empty-state { grid-column: 1/-1; text-align: center; padding: 70px 24px; color: var(--rd-muted); }
+.rd-empty-state div { font-size: 42px; margin-bottom: 12px; }
+
+@media (max-width: 640px) {
+  .rd-controls { padding: 14px 14px 0; }
+  .rd-search-wrap { flex-basis: 100%; }
+}
+
+/* ═══════════════════════════════════════════════
    CATÁLOGO — grid de tarjetas
    ═══════════════════════════════════════════════ */
 .rd-grid {
@@ -214,20 +258,16 @@ img { max-width: 100%; display: block; }
   transition: transform .18s ease, box-shadow .18s ease;
   display: block;
   opacity: 0;
-  animation: rd-card-in .5s ease forwards;
+  animation: rd-card-in .4s ease forwards;
 }
 @keyframes rd-card-in {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.rd-grid .rd-card:nth-child(1)  { animation-delay: .00s; }
-.rd-grid .rd-card:nth-child(2)  { animation-delay: .03s; }
-.rd-grid .rd-card:nth-child(3)  { animation-delay: .06s; }
-.rd-grid .rd-card:nth-child(4)  { animation-delay: .09s; }
-.rd-grid .rd-card:nth-child(5)  { animation-delay: .12s; }
-.rd-grid .rd-card:nth-child(6)  { animation-delay: .15s; }
-.rd-grid .rd-card:nth-child(7)  { animation-delay: .18s; }
-.rd-grid .rd-card:nth-child(8)  { animation-delay: .21s; }
+/* Sin animation-delay por :nth-child a propósito: el buscador/orden reordena
+   las tarjetas moviendo los mismos nodos (appendChild), y un delay basado en
+   posición se recalcula al reordenar — provoca un parpadeo visible cada vez
+   que se cambia el orden. Con delay fijo (0), reordenar nunca re-dispara nada. */
 .rd-grid .rd-card:hover { transform: translateY(-4px); box-shadow: var(--rd-shadow-lg); }
 .rd-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: var(--rd-bg); }
 .rd-card-body { padding: 13px 15px 16px; }

@@ -830,7 +830,11 @@ def build_card_html(car: dict, hist: dict, fotos: list[str]) -> str:
         if p_ant else f'<span class="rd-card-precio">{car["precio"]} €</span>'
     )
 
-    return f'''<a class="rd-card" href="{href}">
+    precio_num = int(str(car["precio"]).replace(".", "").replace(",", "").split()[0])
+    km_num = int(str(car.get("km", "0")).replace(".", "").replace(",", "").split()[0] or 0)
+    buscar_txt = f'{car["modelo"]} {car["version"]}'.lower()
+
+    return f'''<a class="rd-card" href="{href}" data-precio="{precio_num}" data-km="{km_num}" data-estado="{estado_lbl}" data-buscar="{buscar_txt}">
   <div class="rd-card-media">
     <div class="rd-card-photos">{fotos_html}</div>
     {nav_html}
@@ -859,6 +863,8 @@ def build_card_html(car: dict, hist: dict, fotos: list[str]) -> str:
 def build_index_html(cars: list[dict], rutas: dict[int, list[str]]) -> str:
     hist = _cargar_historial_precios()
     visibles = [c for c in cars if c.get("estado") != "Retirado"]
+    total_disp = sum(1 for c in visibles if c["estado"] == "Disponible")
+    total_res  = sum(1 for c in visibles if c["estado"] == "No disponible")
     tarjetas = "\n".join(
         build_card_html(
             car, hist,
@@ -886,9 +892,31 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]]) -> str:
     <span>{COMERCIAL_NOMBRE} · {COMERCIAL_TELEFONO}</span>
   </div>
 </header>
-<div class="rd-grid">
+
+<div class="rd-controls">
+  <div class="rd-filter-tabs">
+    <button class="rd-filter-btn activo" data-filter="todos">Todos ({total_disp + total_res})</button>
+    <button class="rd-filter-btn" data-filter="Disponible">Disponible ({total_disp})</button>
+    <button class="rd-filter-btn" data-filter="Reservado">Reservado ({total_res})</button>
+  </div>
+  <div class="rd-search-wrap">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input class="rd-search-input" id="rd-search" type="text" placeholder="Buscar modelo..." autocomplete="off">
+  </div>
+  <select class="rd-sort-select" id="rd-sort">
+    <option value="default">Ordenar</option>
+    <option value="precio-asc">Precio ↑ menor primero</option>
+    <option value="precio-desc">Precio ↓ mayor primero</option>
+    <option value="km-asc">Km ↑ menos km</option>
+    <option value="km-desc">Km ↓ más km</option>
+  </select>
+  <div class="rd-counter">Mostrando <strong id="rd-cnt">{total_disp + total_res}</strong> vehículos</div>
+</div>
+
+<div class="rd-grid" id="rd-grid">
 {tarjetas}
 </div>
+
 <script>
 document.querySelectorAll('.rd-card-nav').forEach(btn => {{
   btn.addEventListener('click', e => {{
@@ -905,6 +933,58 @@ document.querySelectorAll('.rd-card-nav').forEach(btn => {{
     dots.forEach((d, i) => d.classList.toggle('activa', i === idx));
   }});
 }});
+
+// ── Buscador / filtro / orden — opera sobre las tarjetas ya generadas
+// (enlaces reales), sin re-renderizar nada por JS. ──────────────────
+(function() {{
+  const grid = document.getElementById('rd-grid');
+  const cards = [...grid.querySelectorAll('.rd-card')];
+  const cntEl = document.getElementById('rd-cnt');
+  const emptyMsg = document.createElement('div');
+  emptyMsg.className = 'rd-empty-state';
+  emptyMsg.innerHTML = '<div>🔍</div><p>No se encontraron vehículos.</p>';
+
+  let filtro = 'todos';
+  let busqueda = '';
+  let orden = 'default';
+
+  function norm(str) {{
+    return (str || '').normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase();
+  }}
+
+  function aplicar() {{
+    const q = norm(busqueda);
+    let visibles = cards.filter(c => {{
+      const matchFiltro = filtro === 'todos' || c.dataset.estado === filtro;
+      const matchBusqueda = !q || norm(c.dataset.buscar).includes(q);
+      return matchFiltro && matchBusqueda;
+    }});
+
+    if (orden === 'precio-asc')  visibles.sort((a,b) => +a.dataset.precio - +b.dataset.precio);
+    if (orden === 'precio-desc') visibles.sort((a,b) => +b.dataset.precio - +a.dataset.precio);
+    if (orden === 'km-asc')      visibles.sort((a,b) => +a.dataset.km - +b.dataset.km);
+    if (orden === 'km-desc')     visibles.sort((a,b) => +b.dataset.km - +a.dataset.km);
+
+    cards.forEach(c => c.style.display = 'none');
+    visibles.forEach(c => {{ c.style.display = ''; grid.appendChild(c); }});
+
+    if (emptyMsg.parentNode) emptyMsg.remove();
+    if (!visibles.length) grid.appendChild(emptyMsg);
+
+    cntEl.textContent = visibles.length;
+  }}
+
+  document.querySelectorAll('.rd-filter-btn').forEach(btn => {{
+    btn.addEventListener('click', () => {{
+      document.querySelectorAll('.rd-filter-btn').forEach(b => b.classList.remove('activo'));
+      btn.classList.add('activo');
+      filtro = btn.dataset.filter;
+      aplicar();
+    }});
+  }});
+  document.getElementById('rd-search').addEventListener('input', e => {{ busqueda = e.target.value; aplicar(); }});
+  document.getElementById('rd-sort').addEventListener('change', e => {{ orden = e.target.value; aplicar(); }});
+}})();
 </script>
 </body>
 </html>
