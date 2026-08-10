@@ -29,14 +29,17 @@
   - `goSlide(i)`: `2234`–`2240`
   - Swipe táctil (`let touchStartX` + `touchstart`/`touchend`): `2253`–`2258`
   - Helpers `estadoLabel`/`fmtCuota`/`esReservado`: `1295`–`1306`
-- **CORRECCIÓN (encontrada durante la Task 2 — leé esto con cuidado, la primera versión de este párrafo estaba mal):** `car["fotos"]` en `datos_coches.json` **NO** es una ruta web utilizable para la mayoría de los coches. Para los coches de Das WeltAuto (la gran mayoría), `car["fotos"]` contiene **rutas absolutas del disco local** (ej. `/Users/.../fotos/01 - CUPRA Formentor - 36.900€/foto_01.jpg`), puestas ahí por `actualizar_catalogo.py` solo para que `copiar_fotos()` sepa de dónde copiar — no son válidas para un `<img src>`. La ruta web correcta para esos coches sale de `copiar_fotos(coches)` (función que ya existe en `generar_web.py`, línea ~63), que copia las fotos a `web_fotos/{idx:02d}/` y devuelve un dict `{idx: ["web_fotos/{idx:02d}/foto_01.jpg", ...]}`, **con `idx` = la posición 1-based al recorrer la lista con `enumerate(coches, start=1)`** (no necesariamente igual a `car["n"]`). Para los coches de MotorFlash sí es correcto usar `car["fotos"]` directamente (ya vienen con ruta web relativa correcta). Patrón exacto a usar en todo este plan (ya usado por el `build_html()` viejo — buscalo con `grep -n '"fotos":.*motorflash'` para confirmarlo antes de escribir código nuevo):
+- **CORRECCIÓN #1 (encontrada durante la Task 2):** `car["fotos"]` en `datos_coches.json` **NO** es una ruta web utilizable para la mayoría de los coches. Para los coches de Das WeltAuto (la gran mayoría), `car["fotos"]` contiene **rutas absolutas del disco local** (ej. `/Users/.../fotos/01 - CUPRA Formentor - 36.900€/foto_01.jpg`), puestas ahí por `actualizar_catalogo.py` solo para que `copiar_fotos()` sepa de dónde copiar — no son válidas para un `<img src>`. La ruta web correcta sale de `copiar_fotos(coches)` (función existente en `generar_web.py`, línea ~63). Para los coches de MotorFlash sí es correcto usar `car["fotos"]` directamente (ya vienen con ruta web relativa correcta).
+- **CORRECCIÓN #2 (encontrada durante la Task 4 — reemplaza lo que decía antes sobre `idx`):** `copiar_fotos()` originalmente guardaba las fotos en `web_fotos/{idx:02d}/` con `idx` = posición 1-based del coche en la lista de coches activos (`enumerate(coches, start=1)`) — **no** `car["n"]`. Esto es un bug real: como `idx` depende de qué coches están activos ESE día, cuando un coche se retira, TODOS los coches que venían después de él en la lista se corren de número de carpeta — no solo el retirado, cualquier coche activo puede terminar con las fotos de otro. La corrección ya aplicada: `copiar_fotos()` ahora guarda y devuelve `rutas` con clave `car["n"]` (estable), no `idx` posicional — `web_fotos/{n:02d}/` significa siempre "fotos del coche actualmente numerado n", sin importar qué pasa con los demás coches. Patrón final correcto a usar en todo este plan:
   ```python
   rutas = copiar_fotos(coches)   # llamar UNA vez en main(), antes de generar fichas/índice
-  for idx, car in enumerate(coches, start=1):
-      fotos_urls = car.get("fotos", []) if car.get("fuente") == "motorflash" else rutas.get(idx, [])
+                                  # rutas: dict[int, list[str]], clave = car["n"] (NO posición/idx)
+  for car in coches:
+      n = car["n"]
+      fotos_urls = car.get("fotos", []) if car.get("fuente") == "motorflash" else rutas.get(n, [])
       # pasar fotos_urls (no car["fotos"]) a build_coche_html() y a la tarjeta del índice
   ```
-  Nunca reconstruyas la ruta a mano combinando `f"web_fotos/{n:02d}/..."` — usá siempre el resultado de esta resolución (`fotos_urls`), sea que venga de `rutas` o de `car["fotos"]` (caso MotorFlash).
+  Nunca reconstruyas la ruta a mano combinando `f"web_fotos/{n:02d}/..."` — usá siempre el resultado de esta resolución (`fotos_urls`), sea que venga de `rutas` (clave `n`) o de `car["fotos"]` (caso MotorFlash). No uses `idx`/`enumerate` para esto en ningún lado.
 - `datos_coches.json` es la fuente de datos. Un coche con `"estado": "Retirado"` ya no está publicado en Das WeltAuto (vendido) — según el diseño aprobado, su ficha **no se borra**: se genera igual, mostrando un aviso "Vendido" en vez del precio/CTA de reserva.
 - **Dos fuentes de datos con campos distintos:** la mayoría de coches vienen de Das WeltAuto (`car.get("fuente")` ausente o `"dwa"`, con `car["url"]` = ruta relativa a `dasweltauto.es`). 2 coches actualmente vienen de MotorFlash (`car.get("fuente") == "motorflash"`, con `car["url_motorflash"]` = URL absoluta completa, y `car.get("url")` es `None`). El campo `"url"` final para el enlace "Ver ficha original" y para `og:url`/link externo debe resolverse así (igual que ya lo hacía el generador viejo — buscá `DASWELTAUTO + c["url"]` con `grep -n` para confirmarlo antes de escribir el nuevo código):
   ```python
@@ -463,7 +466,7 @@ def build_card_html(car: dict, hist: dict, fotos: list[str]) -> str:
     n = car["n"]
     slug = slug_coche(car["modelo"])
     href = f"coches/{n:02d}-{slug}.html"
-    # `fotos` la resuelve quien llama (ver Task 4): rutas.get(idx, []) para DWA,
+    # `fotos` la resuelve quien llama (ver Task 4): rutas.get(car["n"], []) para DWA,
     # car.get("fotos", []) para MotorFlash. NUNCA leer car["fotos"] acá directo
     # (para DWA es una ruta absoluta del disco local, no web) ni reconstruir desde n.
 
@@ -512,14 +515,16 @@ def build_card_html(car: dict, hist: dict, fotos: list[str]) -> str:
 </a>'''
 
 def build_index_html(cars: list[dict], rutas: dict[int, list[str]]) -> str:
+    # NOTA (Corrección #2): `rutas` está keyed por car["n"] estable, no por
+    # posición/idx — ver "CORRECCIÓN #2" en la sección de contexto arriba.
     hist = _cargar_historial_precios()
     visibles = [c for c in cars if c.get("estado") != "Retirado"]
     tarjetas = "\n".join(
         build_card_html(
             car, hist,
-            car.get("fotos", []) if car.get("fuente") == "motorflash" else rutas.get(idx, [])
+            car.get("fotos", []) if car.get("fuente") == "motorflash" else rutas.get(car["n"], [])
         )
-        for idx, car in enumerate(cars, start=1)
+        for car in cars
         if car.get("estado") != "Retirado"
     )
 
@@ -592,7 +597,7 @@ git commit -m "Fase 2: agregar build_index_html() — genera el catálogo con ta
 
 Run: `grep -n "^def main" "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/generar_web.py"` para ubicarla, y leela completa con la herramienta Read.
 
-**IMPORTANTE — esto ya no es lo que dice la versión vieja de este párrafo, léelo con cuidado:** en `main()`, la variable `coches` se carga con `json.loads(...)` y **enseguida se filtra** con `coches = [c for c in coches if c.get("estado") != "Retirado"]` (esto ya está en el código, no lo agregaste vos, no lo toques). O sea, `coches` NUNCA incluye los coches vendidos. `copiar_fotos(coches)` se llama con esa lista YA FILTRADA, y el `idx` que usa (`enumerate(coches, start=1)`) es la posición dentro de esa lista filtrada — **no** es lo mismo que `car["n"]` necesariamente, y no incluye a los coches Retirado en absoluto.
+**IMPORTANTE:** en `main()`, la variable `coches` se carga con `json.loads(...)` y **enseguida se filtra** con `coches = [c for c in coches if c.get("estado") != "Retirado"]` (esto ya está en el código, no lo agregaste vos, no lo toques). O sea, `coches` NUNCA incluye los coches vendidos, y no incluye a los coches Retirado en absoluto. `copiar_fotos(coches)` se llama con esa lista filtrada y devuelve `rutas` **keyed por `car["n"]`** (ver "CORRECCIÓN #2" en el contexto de arriba — no por posición/idx).
 
 Como esta Fase 2 sí necesita generar una ficha para los coches Retirado (con el aviso de "Vendido"), hace falta la lista COMPLETA sin filtrar además de la filtrada. Guardá ambas antes de tocar nada más — agregá esta línea INMEDIATAMENTE DESPUÉS de donde hoy se hace `coches = json.loads(JSON_PATH.read_text(...))` (antes del filtro que le sigue):
 
@@ -607,11 +612,6 @@ Dejá el resto tal cual está (el `coches = [c for c in coches if ...]` que sigu
 Dentro de `main()`, reemplazar la línea que hoy escribe `index.html` usando `build_html(...)` por esto:
 
 ```python
-    # idx (posición 1-based) de cada coche NO retirado, en el mismo orden que
-    # usó copiar_fotos() para armar `rutas` — necesario para poder buscar
-    # rutas.get(idx) más abajo con el idx correcto, no con car["n"].
-    idx_por_n = {c["n"]: idx for idx, c in enumerate(coches, start=1)}
-
     coches_dir = OUTPUT_DIR / "coches"
     coches_dir.mkdir(exist_ok=True)
 
@@ -624,6 +624,8 @@ Dentro de `main()`, reemplazar la línea que hoy escribe `index.html` usando `bu
         if car.get("estado") == "Retirado":
             # Ya no se scrapea ni se copian fotos nuevas para estos — si la carpeta
             # de una corrida anterior todavía existe, se reusa tal cual; si no, sin fotos.
+            # web_fotos/{n:02d}/ es estable (rutas keyed por n, no por idx — Corrección #2),
+            # así que esta carpeta sigue siendo del MISMO coche aunque otros se retiren.
             carpeta_vieja = OUTPUT_DIR / "web_fotos" / f"{n:02d}"
             fotos_urls = sorted(
                 f"web_fotos/{n:02d}/{p.name}" for p in carpeta_vieja.glob("foto_*.jpg")
@@ -631,8 +633,7 @@ Dentro de `main()`, reemplazar la línea que hoy escribe `index.html` usando `bu
         elif car.get("fuente") == "motorflash":
             fotos_urls = car.get("fotos", [])
         else:
-            idx = idx_por_n.get(n)
-            fotos_urls = rutas.get(idx, []) if idx else []
+            fotos_urls = rutas.get(n, [])
 
         html_coche = build_coche_html(car, fotos_urls)
         (coches_dir / f"{n:02d}-{slug}.html").write_text(html_coche, encoding="utf-8")
