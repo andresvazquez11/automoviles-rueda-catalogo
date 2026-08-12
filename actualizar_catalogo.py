@@ -6,7 +6,7 @@ Actualización automática del catálogo Automóviles Rueda
 - Historial diario: acumula todos los cambios del día aunque actualices varias veces
 - Regeneración de PDF, fotos y prompts solo de los coches afectados
 """
-import asyncio, json, shutil
+import asyncio, copy, json, shutil
 from pathlib import Path
 from datetime import datetime
 
@@ -201,9 +201,12 @@ def comparar(anteriores: list, actuales: list):
         if k in ant_map:
             ant = ant_map[k]
             diffs = []
-            # Estado: disponible → reservado
+            # Estado: disponible → reservado / retirado
             if ant["estado"] != act["estado"]:
-                diffs.append(f"Estado: '{ant['estado']}' -> '{act['estado']}'")
+                if act["estado"] == "Retirado":
+                    diffs.append(f"Estado: '{ant['estado']}' -> 'Retirado de la venta'")
+                else:
+                    diffs.append(f"Estado: '{ant['estado']}' -> '{act['estado']}'")
             # Precio bajado o subido
             try:
                 p_ant = float(ant["precio"].replace(".","").replace(",","."))
@@ -295,9 +298,10 @@ def generar_informe(nuevos, vendidos, cambios, anteriores, actuales,
 
     lines += [
         "-" * 60,
-        f"  RESUMEN ACTUAL ({len(actuales)} coches):",
+        f"  RESUMEN ACTUAL ({sum(1 for c in actuales if c['estado'] != 'Retirado')} coches):",
         f"  Disponibles:    {sum(1 for c in actuales if c['estado']=='Disponible')}",
-        f"  No disponibles: {sum(1 for c in actuales if c['estado']!='Disponible')}",
+        f"  No disponibles: {sum(1 for c in actuales if c['estado']=='No disponible')}",
+        f"  Retirados:      {sum(1 for c in actuales if c['estado']=='Retirado')}",
         f"  SEAT:           {sum(1 for c in actuales if 'SEAT' in c['modelo'])}",
         f"  CUPRA:          {sum(1 for c in actuales if 'CUPRA' in c['modelo'])}",
         f"  Volkswagen:     {sum(1 for c in actuales if 'Volkswagen' in c['modelo'])}",
@@ -376,8 +380,27 @@ async def main():
                 continue  # evitar preservados duplicados entre sí
 
             copia = dict(ant)
-            if copia.get("estado") == "Disponible":
-                copia["estado"] = "No disponible"
+
+            # Margen de seguridad: la primera vez que un coche no aparece en
+            # el scraping puede ser un fallo transitorio de carga de Das
+            # WeltAuto (el botón "Ver más" no terminó de cargar todos los
+            # anuncios). No lo marcamos "No disponible"/Reservado todavía —
+            # solo si sigue desaparecido en la SIGUIENTE actualización se
+            # considera vendido de verdad. Si el coche reaparece en
+            # actuales_vivos, este contador no se copia (parte de cero).
+            intentos = copia.get("_intentos_desaparecido", 0) + 1
+            copia["_intentos_desaparecido"] = intentos
+            if intentos < 2:
+                preservados_vistos.add(fis)
+                preservados.append(copia)
+                continue
+
+            # Ya no aparece publicado en DWA (ni siquiera como "Reservado") →
+            # estado "Retirado": no se publica en la web ni se muestra como
+            # RESERVADO en el PDF, solo se reporta como "Retirado de la venta"
+            # en los cambios del informe.
+            if copia.get("estado") in ("Disponible", "No disponible"):
+                copia["estado"] = "Retirado"
 
             # Registrar cuándo desapareció de DWA (solo la primera vez)
             if not copia.get("fecha_reservado"):
@@ -460,7 +483,13 @@ async def main():
         for car in actuales_vivos:
             key = id_coche(car)
             fin_ant = ant_map.get(key, {}).get("financiacion")
-            necesita_financiacion = not fin_ant or not fin_ant.get('tipo')  # sin financiación o sin tipo/ejemplo
+            # 'cuota' es el dato real de financiación (siempre presente si la extracción
+            # funcionó). 'tipo' NO sirve como señal: solo vale 'Autocredit'/'Lineal' si el
+            # texto de DWA contiene esas palabras literales, y la campaña actual no las usa
+            # — quedaba '' para TODOS los coches, forzando "necesita_financiacion=True"
+            # siempre y por tanto una revisita completa (con redescarga de fotos) en cada
+            # ejecución aunque nada hubiera cambiado.
+            necesita_financiacion = not fin_ant or not fin_ant.get('cuota')
 
             if key not in coches_a_regenerar and key in ant_map and not necesita_financiacion:
                 # Reutilizar equipamiento y financiación anteriores
@@ -503,6 +532,13 @@ async def main():
 
         await browser.close()
 
+    # Snapshot ANTES de integrar MotorFlash: integrar_motorflash.py renumera
+    # TODOS los coches 1..N (puede desplazar el "n" de coches DWA si se
+    # añaden/quitan coches exclusivos de MotorFlash). Las carpetas de fotos
+    # ya están sincronizadas (pasos 3c/4) con este "n" ANTERIOR — este
+    # snapshot permite re-sincronizarlas con el "n" FINAL más abajo.
+    actuales_pre_mf = copy.deepcopy(actuales)
+
     # 5) Guardar JSON actualizado
     CACHE.write_text(json.dumps(actuales, ensure_ascii=False, indent=2), encoding="utf-8")
     actualizar_historial_precios(actuales)   # registro rolling 10 días para web
@@ -527,6 +563,38 @@ async def main():
     # `actuales` en memoria. El PDF debe reflejar el estado final en disco.
     actuales = json.loads(CACHE.read_text(encoding="utf-8"))
 
+    # 5e) Re-sincronizar carpetas de fotos tras la renumeración de MotorFlash.
+    # integrar_motorflash.py puede haber cambiado el "n" de coches DWA (al
+    # insertar/quitar coches exclusivos de MotorFlash y renumerar 1..N). Sus
+    # carpetas en fotos/ todavía tienen el nombre con el "n" ANTERIOR
+    # (sincronizado en los pasos 3c/4) → hay que renombrarlas al "n" NUEVO
+    # ANTES de que el paso 7b las archive como "huérfanas".
+    pre_mf_por_fisico = {_id_fisico(c): c for c in actuales_pre_mf}
+    _resincronizadas = 0
+    for car in actuales:
+        if car.get("fuente") == "motorflash":
+            continue
+        pre = pre_mf_por_fisico.get(_id_fisico(car))
+        if not pre:
+            continue
+        n_pre, n_new = pre["n"], car["n"]
+        if n_pre == n_new:
+            continue
+        estado = car.get("estado", "Disponible")
+        nombre_actual = nombre_carpeta(n_pre, car["modelo"], car.get("precio", ""), estado)
+        nombre_final  = nombre_carpeta(n_new, car["modelo"], car.get("precio", ""), estado)
+        if nombre_actual == nombre_final:
+            continue
+        origen  = PHOTOS_DIR / nombre_actual
+        destino = PHOTOS_DIR / nombre_final
+        if origen.is_dir() and not destino.exists():
+            origen.rename(destino)
+            car["fotos"] = sorted(str(f) for f in destino.glob("foto_*.jpg"))
+            _resincronizadas += 1
+    if _resincronizadas:
+        print(f"  🔄 {_resincronizadas} carpeta(s) re-sincronizada(s) tras renumeración de MotorFlash")
+        CACHE.write_text(json.dumps(actuales, ensure_ascii=False, indent=2), encoding="utf-8")
+
     # 5b) Verificar integridad de fotos SIEMPRE y ANTES del PDF
     # Esto garantiza que el PDF y la web nunca usen fotos de otro coche,
     # independientemente de si hubo cambios en el catálogo o no.
@@ -543,9 +611,9 @@ async def main():
         "cambios_hoy": cambios_hoy_acum,   # historial acumulado del día
         "n_actualizacion": n_actualizacion,
         "totales": {
-            "actual":      len(actuales),
+            "actual":      sum(1 for c in actuales if c["estado"] != "Retirado"),
             "disponibles": sum(1 for c in actuales if c["estado"] == "Disponible"),
-            "no_disp":     sum(1 for c in actuales if c["estado"] != "Disponible"),
+            "no_disp":     sum(1 for c in actuales if c["estado"] == "No disponible"),
         }
     }
     crear_pdf(actuales, resumen)
@@ -559,9 +627,11 @@ async def main():
     # 7) Regenerar todos los prompts y archivos de contenido
     if hay_cambios:
         print("\n  Regenerando prompts y textos...")
-        subprocess.run([sys.executable, str(base / "generar_prompts_gemini.py")], check=False)
-        subprocess.run([sys.executable, str(base / "generar_textos_redes.py")],   check=False)
-        subprocess.run([sys.executable, str(base / "generar_prompts_video.py")],  check=False)
+        subprocess.run([sys.executable, str(base / "generar_prompts_gemini.py")],     check=False)
+        subprocess.run([sys.executable, str(base / "generar_textos_redes.py")],       check=False)
+        subprocess.run([sys.executable, str(base / "generar_prompts_video.py")],      check=False)
+        subprocess.run([sys.executable, str(base / "generar_prompts_storyboard.py")], check=False)
+        subprocess.run([sys.executable, str(base / "generar_prompts_estilos.py")],    check=False)
 
     # Siempre regenerar archivos Freepik Spaces (actualizados con cada cambio de catálogo)
     print("  Actualizando archivos Freepik Spaces...")
@@ -575,10 +645,14 @@ async def main():
     for _c in actuales:
         _n  = _c["n"]; _p = _c.get("precio", "")
         _nm = f"{_n:02d} - {_c['modelo']} - {_p}€" if _p else f"{_n:02d} - {_c['modelo']}"
-        # Solo añadir la versión correcta según el estado (no ambas)
-        if _c.get("estado", "Disponible") == "Disponible":
+        _estado_c = _c.get("estado", "Disponible")
+        # Solo añadir la versión correcta según el estado (no ambas).
+        # "Retirado" (vendido / ya no publicado en DWA) NO se añade a _valid
+        # a propósito — su carpeta debe archivarse, no conservarse como si
+        # fuera un "Reservado" (No disponible) más.
+        if _estado_c == "Disponible":
             _valid.add(_nm)               # disponible → carpeta sin RESERVADO
-        else:
+        elif _estado_c == "No disponible":
             _valid.add(_nm + " · RESERVADO")  # reservado → carpeta con RESERVADO
     _archivadas = 0
     for _d in list(PHOTOS_DIR.iterdir()):

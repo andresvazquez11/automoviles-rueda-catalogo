@@ -171,22 +171,73 @@ async def scrape_motorflash():
 
 # ── Comparación DWA vs MF ────────────────────────────────────
 
-def encontrar_exclusivos_mf(dwa_coches, mf_coches):
-    """Devuelve coches de MF que no están en DWA (por precio+km)."""
-    dwa_claves = {}
+def enriquecer_dwa_con_mf(dwa_sin_km, mf_coches):
+    """
+    Para coches DWA sin km/fecha, busca su equivalente en MF por precio
+    y copia km/fecha/cambio. Devuelve el conjunto de índices MF ya usados.
+    """
+    mf_usados = set()
+    for dwa_c in dwa_sin_km:
+        precio = norm_precio(dwa_c.get("precio", "0"))
+        for i, mf_c in enumerate(mf_coches):
+            if i in mf_usados:
+                continue
+            if norm_precio(mf_c.get("precio", "0")) != precio:
+                continue
+            # Coincidencia por precio → enriquecer DWA con datos de MF
+            dwa_c["km"]    = mf_c.get("km", "")
+            dwa_c["fecha"] = mf_c.get("fecha", "")
+            if not dwa_c.get("cambio"):
+                dwa_c["cambio"] = mf_c.get("cambio", "")
+            mf_usados.add(i)
+            break
+    return mf_usados
+
+
+def encontrar_exclusivos_mf(dwa_coches, mf_coches, mf_ya_usados=None):
+    """Devuelve coches de MF que no están en DWA.
+
+    Usa clave exacta (precio+km) para coches DWA con km, y solo precio
+    para coches DWA sin km (ya enriquecidos o que no pudieron serlo).
+    mf_ya_usados: índices MF ya consumidos por enriquecer_dwa_con_mf.
+    """
+    if mf_ya_usados is None:
+        mf_ya_usados = set()
+
+    # Separar DWA con km y sin km
+    dwa_con_km = {}
+    dwa_sin_km_precios = {}
     for c in dwa_coches:
-        k = clave_mf(c)
-        dwa_claves[k] = dwa_claves.get(k, 0) + 1
+        precio = norm_precio(c.get("precio", "0"))
+        if c.get("km"):
+            k = (precio, round(norm_km(c["km"]), -1))
+            dwa_con_km[k] = dwa_con_km.get(k, 0) + 1
+        else:
+            dwa_sin_km_precios[precio] = dwa_sin_km_precios.get(precio, 0) + 1
 
     exclusivos = []
-    contados = {}
-    for c in mf_coches:
-        k = clave_mf(c)
-        usados = contados.get(k, 0)
-        disponibles_dwa = dwa_claves.get(k, 0)
-        if usados >= disponibles_dwa:
-            exclusivos.append(c)
-        contados[k] = usados + 1
+    contados_exactos = {}
+    contados_precio  = {}
+    for i, c in enumerate(mf_coches):
+        if i in mf_ya_usados:
+            continue  # ya asignado a un coche DWA para enriquecimiento
+        precio = norm_precio(c.get("precio", "0"))
+        km     = round(norm_km(c.get("km", "0")), -1)
+        k_exact = (precio, km)
+
+        # 1) Coincidencia exacta precio+km
+        usados_e = contados_exactos.get(k_exact, 0)
+        if usados_e < dwa_con_km.get(k_exact, 0):
+            contados_exactos[k_exact] = usados_e + 1
+            continue
+
+        # 2) Coincidencia solo precio (para DWA que aún sin km tras enriquecimiento)
+        usados_p = contados_precio.get(precio, 0)
+        if usados_p < dwa_sin_km_precios.get(precio, 0):
+            contados_precio[precio] = usados_p + 1
+            continue
+
+        exclusivos.append(c)
 
     return exclusivos
 
@@ -241,19 +292,48 @@ def main():
     dwa_coches = json.loads(DWA_JSON.read_text(encoding="utf-8"))
     dwa_solo = [c for c in dwa_coches if c.get("fuente") != "motorflash"]
 
-    # 3) Exclusivos de MF
-    exclusivos = encontrar_exclusivos_mf(dwa_solo, mf_coches)
+    # 3a) Enriquecer coches DWA sin km/fecha con datos de MF
+    dwa_sin_km = [c for c in dwa_solo if not c.get("km")]
+    mf_ya_usados = enriquecer_dwa_con_mf(dwa_sin_km, mf_coches)
+    enriquecidos = sum(1 for c in dwa_sin_km if c.get("km"))
+    print(f"  DWA enriquecidos con km/fecha de MF: {enriquecidos}/{len(dwa_sin_km)}")
+
+    # 3b) Exclusivos de MF (excluyendo los ya usados para enriquecer DWA)
+    exclusivos = encontrar_exclusivos_mf(dwa_solo, mf_coches, mf_ya_usados)
     print(f"  Exclusivos MotorFlash (no en DWA): {len(exclusivos)}")
 
     # 4) Construir lista final: DWA (solo DWA) + exclusivos MF
     #    Los MF que ya no están en MotorFlash simplemente no se añaden (desaparecen)
     lista_final = list(dwa_solo)  # copia de coches DWA
 
+    # Coches MF ya conocidos de la ejecución anterior, indexados por su ID
+    # ESTABLE de MotorFlash (motorflash_id). El "n"/idx que ocupan NO es estable
+    # — depende de cuántos coches DWA haya ahora mismo (n_start cambia cada
+    # ejecución) — así que nunca se usa como clave, solo motorflash_id.
+    mf_previos = {c.get("motorflash_id"): c
+                  for c in dwa_coches if c.get("fuente") == "motorflash"}
+
     n_start = max((c["n"] for c in lista_final), default=0) + 1
     for i, c in enumerate(exclusivos):
         idx = n_start + i
-        print(f"  + [{idx:02d}] {c['modelo']} {c['precio']}€ ({c['tipo']}) — descargando fotos...")
-        fotos = preparar_fotos_mf(c, idx)
+        previo = mf_previos.get(c.get("motorflash_id"))
+        carpeta_previa = (WEB_FOTOS / f"{previo['n']:02d}") if previo else None
+        fotos_previas = sorted(carpeta_previa.glob("foto_*.jpg")) if carpeta_previa and carpeta_previa.exists() else []
+
+        if fotos_previas:
+            # Mismo coche que la ejecución anterior (mismo motorflash_id) — reutilizar
+            # sus fotos ya descargadas en vez de volver a bajarlas de MotorFlash.
+            # Solo hay que renombrar la carpeta si el "n" cambió.
+            carpeta_nueva = WEB_FOTOS / f"{idx:02d}"
+            if previo["n"] != idx and not carpeta_nueva.exists():
+                carpeta_previa.rename(carpeta_nueva)
+            elif previo["n"] == idx:
+                carpeta_nueva = carpeta_previa
+            fotos = sorted(f"web_fotos/{idx:02d}/{f.name}" for f in carpeta_nueva.glob("foto_*.jpg"))
+            print(f"  = [{idx:02d}] {c['modelo']} {c['precio']}€ ({c['tipo']}) — fotos ya existentes, reutilizadas")
+        else:
+            print(f"  + [{idx:02d}] {c['modelo']} {c['precio']}€ ({c['tipo']}) — descargando fotos...")
+            fotos = preparar_fotos_mf(c, idx)
         c["n"]    = idx
         c["fotos"] = fotos
         c.pop("_data_srcs", None)

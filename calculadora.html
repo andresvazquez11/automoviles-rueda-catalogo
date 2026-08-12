@@ -1014,30 +1014,31 @@ function getFinancingRules() {
   let tin_auto      = 6.99;
   let campanaLabel  = '';
 
+  // Campaña AGO 26 (verificada 05/08/2026 contra 6 anuncios reales en dasweltauto.es:
+  // SEAT Ibiza/Arona/León ST y CUPRA Terramar/Formentor/León — TIN plano por marca,
+  // sin bonificación activa. Sustituye a la campaña ABR 26 (SEAT CREDIT ABR 26.pdf),
+  // que ya no coincide con lo publicado. Los tramos ENTRY/GAMA/APPROVED se mantienen
+  // solo para plazosDisp/creditoMinimo (sin verificar), no para el TIN.
   if (marca === 'SEAT') {
+    tin_auto     = 7.50;
+    bonificacion = 0;
     if (campana === 'ENTRY' && categoria !== 'VU') {
-      tin_auto      = 6.99;
-      bonificacion  = 0;
       creditoMinimo = 10000;
       campanaLabel  = 'ENTRY · SEAT';
       // ENTRY: LINEAL min 48m
       if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 48);
     } else {
       // GAMA or forced GAMA (VU)
-      tin_auto = 8.99;
       if (categoria === 'VU') {
-        bonificacion  = 400;
         creditoMinimo = 7000;
         campanaLabel  = 'GAMA · SEAT · VU';
         plazosDisp = plazosDisp.filter(p => p <= 48);
       } else if (categoria === 'VO') {
-        bonificacion  = 750;
         creditoMinimo = producto === 'LINEAL' ? 9500 : 10000;
         campanaLabel  = 'GAMA · SEAT · VO';
         if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 60 && p <= 84);
       } else {
         // VS or null
-        bonificacion  = 750;
         creditoMinimo = producto === 'LINEAL' ? 13000 : 10000;
         campanaLabel  = categoria ? 'GAMA · SEAT · VS' : 'GAMA · SEAT';
         if (producto === 'LINEAL' && categoria === 'VS') plazosDisp = plazosDisp.filter(p => p >= 60 && p <= 96);
@@ -1045,16 +1046,14 @@ function getFinancingRules() {
     }
 
   } else if (marca === 'CUPRA') {
+    tin_auto     = 5.50;
+    bonificacion = 0;
     if (campana === 'APPROVED' && (categoria === 'VS' || categoria === null)) {
-      tin_auto      = 5.50;
-      bonificacion  = 0;
       creditoMinimo = producto === 'FLEX' ? 13500 : 10000;
       campanaLabel  = 'APPROVED · CUPRA';
       if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 36);
     } else {
       // GAMA
-      tin_auto     = 8.99;
-      bonificacion = 1800;
       creditoMinimo = producto === 'FLEX' ? 16500 : 13500;
       campanaLabel  = categoria ? 'GAMA · CUPRA · ' + (categoria || '') : 'GAMA · CUPRA';
       if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 48);
@@ -1082,7 +1081,7 @@ function getFinancingRules() {
 
 // ── Core calculation ─────────────────────────────────────────────────────────
 function calcFinanciacion() {
-  const { precio, entrada, meses, tab, km } = S;
+  const { precio, entrada, meses, tab, km, marca } = S;
   const rules = getFinancingRules();
   const tin   = rules.tinFinal;
   const bonif = rules.bonificacion;
@@ -1094,8 +1093,13 @@ function calcFinanciacion() {
   const precioEf = Math.max(0, precio - bonif);
   const neto     = Math.max(0, precioEf - entrada);
 
-  // Insurance: Seguro de Protección Plus (VWFS product, scales with neto)
-  const seg0 = precioEf * 0.061545;
+  // Insurance/fee factor on precioEf — recalibrado 05/08/2026 contra capital
+  // financiado real de 5 anuncios en dasweltauto.es (0€ de entrada, 60 meses):
+  // SEAT 2,3517% (Ibiza 20.900€, Arona 22.500€, León ST 22.500€ — 0,00€ de error)
+  // CUPRA 4,0852% (Terramar 40.500€, Formentor 36.900€, León 41.300€ — 0,00€ de error)
+  // Sustituye al 6,1545% plano de la campaña ABR 26, ya obsoleto.
+  const FACTOR_SEGURO = marca === 'CUPRA' ? 0.040852 : 0.023517;
+  const seg0 = precioEf * FACTOR_SEGURO;
   const seg  = precioEf > 0
     ? Math.round(seg0 * Math.pow(neto / precioEf, 1.5) * 100) / 100
     : 0;

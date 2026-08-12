@@ -37,10 +37,12 @@ for d in [OUTPUT_DIR, PHOTOS_DIR]:
     d.mkdir(exist_ok=True)
 
 def nombre_carpeta(n: int, modelo: str, precio: str = "", estado: str = "Disponible") -> str:
-    """Genera el nombre de carpeta: '01 - SEAT León - 18.900€' o '01 - SEAT León - 18.900€ · RESERVADO'"""
+    """Genera el nombre de carpeta: '01 - SEAT León - 18.900€', '... · RESERVADO' o '... · RETIRADO'"""
     base = f"{n:02d} - {modelo}"
     nombre = f"{base} - {precio}€" if precio else base
-    if estado and estado != "Disponible":
+    if estado == "Retirado":
+        nombre += " · RETIRADO"
+    elif estado and estado != "Disponible":
         nombre += " · RESERVADO"
     return nombre
 
@@ -60,6 +62,7 @@ def sincronizar_estado_carpeta(n: int, modelo: str, precio: str, estado: str) ->
     Renombra la carpeta del coche para reflejar su estado actual:
     - Disponible  → sin sufijo   '01 - SEAT Arona - 22.900€'
     - RESERVADO   → con sufijo   '01 - SEAT Arona - 22.900€ · RESERVADO'
+    - RETIRADO    → con sufijo   '01 - SEAT Arona - 22.900€ · RETIRADO'
     Devuelve la carpeta (renombrada o no). No crea carpeta si no existe.
     """
     nombre_correcto = nombre_carpeta(n, modelo, precio, estado)
@@ -225,7 +228,11 @@ def color_marca(modelo: str):
 async def obtener_coches_del_listado(page) -> list[dict]:
     """Navega al listado, carga todos los coches y extrae datos básicos + URL."""
     print("  Accediendo al listado de Automóviles Rueda...")
-    await page.goto(LISTING, wait_until="domcontentloaded", timeout=30000)
+    try:
+        await page.goto(LISTING, wait_until="domcontentloaded", timeout=90000)
+    except Exception:
+        print("  ⚠️  Timeout a 90s, reintentando una vez más...")
+        await page.goto(LISTING, wait_until="domcontentloaded", timeout=90000)
     await page.wait_for_timeout(2500)
 
     # Cerrar cookies si aparecen
@@ -283,7 +290,8 @@ async def obtener_coches_del_listado(page) -> list[dict]:
                 seen.add(url);
 
                 const priceM = text.match(/PVP\\s+([\\d.]+)\\s*€\\s*IVA inc/);
-                const kmM    = text.match(/([\\d.]+)\\s*km\\s+(\\d{2}\\/\\d{4})/);
+                const kmValM = text.match(/Kilometros\\s+([\\d.]+)\\s*km/);
+                const fechaM = text.match(/Matriculaci.n\\s+(\\d{2}\\/\\d{4})/);
                 const fuelM  = text.match(/(Gasolina|Di[eé]sel|El[eé]ctrico|H[ií]brido|Mild Hybrid)/);
                 const transM = text.match(/(Manual|Autom[aá]tico)/);
                 const colorM = text.match(/Tracci[oó]n\\s+(?:Delantera|Trasera|Total|4x4)\\s+(\\w+)/);
@@ -294,8 +302,8 @@ async def obtener_coches_del_listado(page) -> list[dict]:
                     modelo:     h2.textContent.replace(/\\s+/g,' ').trim().split(' ').slice(0,2).join(' '),
                     version:    h2.textContent.replace(/\\s+/g,' ').trim().split(' ').slice(2).join(' '),
                     combustible:fuelM  ? fuelM[1]  : '',
-                    km:         kmM    ? kmM[1]    : '',
-                    fecha:      kmM    ? kmM[2]    : '',
+                    km:         kmValM ? kmValM[1] : '',
+                    fecha:      fechaM ? fechaM[1] : '',
                     cambio:     transM ? transM[1] : '',
                     color:      colorM ? colorM[1] : '',
                     precio:     priceM ? priceM[1] : '',
@@ -485,72 +493,113 @@ async def enriquecer_coche(page, car: dict):
         print(f"      Equipamiento: {len(car['equipamiento'])} ítems destacados")
 
         # ── Extraer financiación de Das WeltAuto ───────────────
-        # Esperar a que el JS de la calculadora rellene la cuota
-        await page.wait_for_timeout(2500)
-        fin = await page.evaluate("""
-            () => {
-                const body = document.body.textContent || '';
-                const result = {};
-
-                // Cuota mensual: buscar el valor numérico junto a "€/mes"
-                // DWA renderiza algo como "249,00 €/mes" o "249 €/mes"
-                const cuotaPatterns = [
-                    /cuota mensual[\\s\\S]{0,100}?(\\d{1,4}[.,]\\d{2})\\s*€\\/mes/i,
-                    /(\\d{1,4}[.,]\\d{2})\\s*€\\/mes/i,
-                    /€\\/mes[\\s\\S]{0,20}?(\\d{1,4}[.,]\\d{2})/i,
-                ];
-                for (const re of cuotaPatterns) {
-                    const m = body.match(re);
-                    if (m) { result.cuota = m[1].replace(',', '.'); break; }
-                }
-
-                // TIN
-                const tinM = body.match(/T\\.I\\.N\\.?[:\\s]*(\\d+[,.]\\d+)\\s*%/i);
-                if (tinM) result.tin = tinM[1].replace(',', '.');
-
-                // TAE
-                const taeM = body.match(/T\\.A\\.E\\.?[:\\s]*(\\d+[,.]\\d+)\\s*%/i);
-                if (taeM) result.tae = taeM[1].replace(',', '.');
-
-                // Número de cuotas / meses
-                const mesesM = body.match(/(\\d+)\\s+cuotas?\\s+de/i)
-                             || body.match(/Meses de financiaci[oó]n[:\\s]*(\\d+)/i);
-                if (mesesM) result.meses = mesesM[1];
-
-                // Entrada
-                const entradaM = body.match(/Entrada[:\\s]*(\\d+[.,]\\d{2})[\\s€]/i)
-                               || body.match(/Sin entrada/i);
-                result.entrada = entradaM
-                    ? (typeof entradaM[1] !== 'undefined' ? entradaM[1].replace(',','.') : '0')
-                    : null;
-
-                // Tipo de financiación: Autocredit primero (más específico)
-                result.tipo = body.match(/Autocredit/i) ? 'Autocredit'
-                            : body.match(/Lineal/i)     ? 'Lineal'
-                            : '';
-
-                // Ejemplo verbatim: copiar el párrafo completo de condiciones de DWA
-                const ejIdx = body.indexOf('Ejemplo de cuota');
-                if (ejIdx > -1) {
-                    result.ejemplo = body.substring(ejIdx, ejIdx + 700)
-                                         .replace(/\\s+/g, ' ').trim();
-                }
-
-                return result;
-            }
-        """)
-
-        if fin and fin.get("cuota"):
-            car["financiacion"] = fin
-            print(f"      Financiación: {fin.get('cuota')}€/mes · {fin.get('tipo','?')} · TIN {fin.get('tin','?')}% · {fin.get('meses','?')} meses")
-        else:
-            car["financiacion"] = {}
-            print(f"      Financiación: no disponible")
+        await extraer_financiacion(page, car)
 
     except Exception as e:
         print(f"      ⚠️  Error: {e}")
         car["equipamiento"] = []
         car["financiacion"] = {}
+
+
+async def extraer_financiacion(page, car: dict):
+    """Lee el bloque de financiación real (cuota, TIN, TAE, cuota final...)
+    de la ficha ya cargada en `page`. Asume que page ya está en la URL del
+    coche (page.goto ya ejecutado) — se puede llamar desde enriquecer_coche()
+    o de forma independiente para refrescar solo financiación.
+
+    IMPORTANTE: la página incluye un carrusel de "vehículos similares" con
+    su propio bloque de financiación (mismo formato de texto), así que puede
+    haber varios bloques "PVPR con campaña de X€" en document.body — uno de
+    ellos es el de ESTE coche, el resto son de otros vehículos recomendados.
+    No hay un contenedor CSS fiable que aísle solo el bloque correcto en una
+    carga headless sin interacción (probado: .ficha-content no siempre lo
+    contiene todavía en el primer render). Por eso recogemos TODOS los
+    bloques candidatos y nos quedamos con el que tenga el precio de campaña
+    más parecido a car["precio"] — es la única validación robusta posible.
+
+    El bloque tarda en aparecer un tiempo variable según el coche — esperamos
+    a que el texto exista en vez de un timeout fijo, hasta 10s.
+    """
+    try:
+        await page.wait_for_function(
+            "document.body.textContent.includes('PVPR con campaña')",
+            timeout=10000
+        )
+    except Exception:
+        pass  # seguimos igual; el intento de extracción de abajo fallará limpio
+    candidatos = await page.evaluate("""
+        () => {
+            const toNum = s => parseFloat(s.replace(/\\./g, '').replace(',', '.'));
+            const body = document.body.textContent || '';
+            // Ventana amplia: el bloque de CUPRA incluye una cláusula de seguro
+            // extra ("SEGURO PROTECCION DE MOVILIDAD") que lo alarga a ~970
+            // caracteres — 900 se quedaba corto y perdía el bloque entero.
+            const reBloque = /\\*\\s*PVPR con campa[ñn]a de\\s*([\\d.,]+)\\s*€[\\s\\S]{0,1500}?(?:Consulta condiciones|Sistema de amortizaci[oó]n franc[eé]s)/gi;
+            const out = [];
+            let m;
+            while ((m = reBloque.exec(body)) !== null) {
+                const bloque = m[0];
+                const result = { precio_bloque: toNum(m[1]) };
+
+                const cuotaM = bloque.match(/Ejemplo de cuota a (\\d+) meses:\\s*([\\d.,]+)\\s*€/i);
+                if (cuotaM) { result.meses = cuotaM[1]; result.cuota = toNum(cuotaM[2]).toFixed(2); }
+
+                const tinM = bloque.match(/TIN:\\s*([\\d,]+)\\s*%/i);
+                if (tinM) result.tin = tinM[1].replace(',', '.');
+
+                const taeM = bloque.match(/TAE:\\s*([\\d,]+)\\s*%/i);
+                if (taeM) result.tae = taeM[1].replace(',', '.');
+
+                const vrM = bloque.match(/cuota final en el mes \\d+ de\\s*([\\d.,]+)\\s*€/i);
+                if (vrM) result.cuota_final = toNum(vrM[1]).toFixed(2);
+
+                const entradaM = bloque.match(/Entrada inicial:\\s*([\\d.,]+)\\s*€/i);
+                if (entradaM) result.entrada = toNum(entradaM[1]).toFixed(2);
+
+                const comisionM = bloque.match(/Comisi[oó]n de apertura (al contado|financiada):\\s*([\\d.,]+)\\s*€/i);
+                if (comisionM) { result.comision_tipo = comisionM[1]; result.comision = toNum(comisionM[2]).toFixed(2); }
+
+                const capitalM = bloque.match(/Importe total financiado\\s*([\\d.,]+)\\s*€/i);
+                if (capitalM) result.capital = toNum(capitalM[1]).toFixed(2);
+
+                result.tipo = bloque.match(/Autocredit/i) ? 'Autocredit'
+                            : bloque.match(/Lineal/i)     ? 'Lineal'
+                            : '';
+                result.ejemplo = bloque.replace(/\\s+/g, ' ').trim();
+                out.push(result);
+            }
+            return out;
+        }
+    """)
+
+    # Elegir, de todos los bloques candidatos de la página, el que tiene el
+    # precio de campaña más cercano a car["precio"] (margen de 1€ por
+    # redondeos de céntimos de campaña).
+    try:
+        precio_car = float(str(car.get("precio", "0")).replace(".", "").replace(",", "."))
+    except Exception:
+        precio_car = None
+
+    # Puede haber varios bloques casi idénticos con el precio de ESTE coche
+    # (la página los repite en distinto sitio) — alguno puede haber fallado
+    # al parsear la cuota (p.ej. formato ligeramente distinto). Nos quedamos
+    # con los que coinciden en precio Y tienen cuota parseada, y de esos
+    # preferimos el ejemplo a 60 meses (el estándar que usamos en toda la web).
+    fin = None
+    if candidatos and precio_car is not None:
+        coinciden = [c for c in candidatos
+                     if abs(c.get("precio_bloque", 1e9) - precio_car) < 1 and c.get("cuota")]
+        if coinciden:
+            fin = next((c for c in coinciden if c.get("meses") == "60"), coinciden[0])
+
+    if fin:
+        fin.pop("precio_bloque", None)
+        car["financiacion"] = fin
+        print(f"      Financiación: {fin.get('cuota')}€/mes · {fin.get('tipo','?')} · TIN {fin.get('tin','?')}% · {fin.get('meses','?')} meses")
+    else:
+        car["financiacion"] = {}
+        motivo = "ningún bloque coincide en precio" if candidatos else "bloque no encontrado"
+        print(f"      Financiación: no disponible ({motivo})")
 
 # ── Imagen para redes sociales (1080×1080) ─────────────────
 def crear_imagen_social(car: dict, foto_path: Path) -> Path:
@@ -834,6 +883,9 @@ def _cargar_fuentes(pdf):
 
 # ── Crear PDF ──────────────────────────────────────────────
 def crear_pdf(cars: list[dict], resumen: dict = None):
+    # Los coches "Retirado" (ya no publicados en DWA) no tienen página propia
+    # en el catálogo — solo se reflejan como cambio en el resumen.
+    cars = [c for c in cars if c.get("estado") != "Retirado"]
     print(f"\n  Generando PDF con {len(cars)} coches...")
     pdf = FPDF(orientation="L", unit="mm", format="A4")
     pdf.set_auto_page_break(False)
