@@ -64,6 +64,12 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
     rutas: dict[int, list[str]] = {}
     for coche in coches:
         n = coche["n"]
+        if coche.get("fuente") == "motorflash":
+            # Los coches de MotorFlash no tienen carpeta en fotos/ (esa es solo
+            # para lo scrapeado de DWA) — sus fotos ya están en web_fotos/{n:02d}/
+            # puestas por integrar_motorflash.py, con su propio control de
+            # identidad por motorflash_id. No tocar esa carpeta aquí.
+            continue
         if n in rutas:
             print(f"  ⚠️  n={n} duplicado en la lista de coches activos — {coche['modelo']} "
                   f"pisaría las fotos de otro coche con el mismo número, se omite")
@@ -79,18 +85,18 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
                 shutil.copy2(foto, dst)
                 urls.append(f"web_fotos/{n:02d}/foto_{i:02d}.jpg")
         else:
-            # No se encontró carpeta local con fotos (puede no existir, o existir
-            # pero sin foto_*.jpg dentro — p.ej. quedó archivada por error como
-            # huérfana en un cambio de estado/renumeración de actualizar_catalogo.py,
-            # o solo le quedó contenido de marketing sin las fotos crudas).
-            # En vez de dejar la tarjeta sin fotos, reusar lo que ya esté copiado
-            # de una corrida anterior en web_fotos/{n:02d}/ — mejor mostrar una
-            # foto de ayer que ninguna.
-            existentes = sorted(dest.glob("foto_*.jpg"))
-            if existentes:
-                urls = [f"web_fotos/{n:02d}/{f.name}" for f in existentes]
-                print(f"  ⚠️  n={n} {coche['modelo']}: sin fotos crudas en la carpeta local "
-                      f"— reusando {len(urls)} foto(s) ya copiada(s) de una corrida anterior")
+            # No se encontró carpeta local con fotos para ESTE coche. IMPORTANTE:
+            # "n" no es un identificador estable — casi todos los coches cambian de
+            # número en cada actualización (ver investigación de redescarga de fotos),
+            # así que web_fotos/{n:02d}/ puede contener las fotos de OTRO coche que
+            # tuvo ese mismo número en una corrida anterior. Reusarlas "porque están
+            # ahí" (como se hacía antes) mostraba fotos de un coche distinto — el
+            # mismo error de fondo que catalogo_rueda_v2.py ya documenta evitar en
+            # buscar_carpeta_coche(): "NO usar fallback por número solo". Aquí es
+            # mejor no mostrar foto que mostrar la de otro coche.
+            for _viejo in dest.glob("foto_*.jpg"):
+                _viejo.unlink()
+            print(f"  ⚠️  n={n} {coche['modelo']}: sin fotos verificadas para este coche — sin foto en la web")
         rutas[n] = urls
     return rutas
 
@@ -693,7 +699,9 @@ def build_coche_html(car: dict, fotos_urls: list[str]) -> str:
     slug = slug_coche(car["modelo"])
     vendido = car["estado"] == "Retirado"
     fotos = [f"../{f}" for f in fotos_urls]   # la ficha vive en coches/, un nivel más abajo que el root
-    foto_principal_root = fotos_urls[0] if fotos_urls else f"web_fotos/{n:02d}/foto_01.jpg"
+    # OJO: no adivinar f"web_fotos/{n:02d}/foto_01.jpg" cuando no hay fotos_urls —
+    # "n" no es estable entre corridas y esa carpeta puede pertenecer a OTRO coche.
+    foto_principal_root = fotos_urls[0] if fotos_urls else ""
     url_externa = car.get("url_motorflash") or (f"{DASWELTAUTO}{car['url']}" if car.get("url") else "")
 
     titulo = f'{car["modelo"]} {car["version"]} · {car["precio"]}€ · Automóviles Rueda' if not vendido \
@@ -718,6 +726,9 @@ def build_coche_html(car: dict, fotos_urls: list[str]) -> str:
     <a href="../index.html">Ver coches disponibles →</a>
   </div>'''
 
+    og_image_tag = (f'<meta property="og:image" content="{DOMINIO_WEB}/{foto_principal_root}">'
+                     if foto_principal_root else '')
+
     return f'''<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -729,7 +740,7 @@ def build_coche_html(car: dict, fotos_urls: list[str]) -> str:
 <meta property="og:type" content="product">
 <meta property="og:title" content="{titulo}">
 <meta property="og:description" content="{descripcion}">
-<meta property="og:image" content="{DOMINIO_WEB}/{foto_principal_root}">
+{og_image_tag}
 <meta property="og:url" content="{DOMINIO_WEB}/coches/{n:02d}-{slug}.html">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1032,12 +1043,25 @@ def main():
         slugs_validos.add(f"{n:02d}-{slug}.html")
 
         if car.get("estado") == "Retirado":
-            # Ya no se scrapea ni se copian fotos nuevas para estos — si la carpeta
-            # de una corrida anterior todavía existe, se reusa tal cual; si no, sin fotos.
-            carpeta_vieja = WEB_FOTOS / f"{n:02d}"
-            fotos_urls = sorted(
-                f"web_fotos/{n:02d}/{p.name}" for p in carpeta_vieja.glob("foto_*.jpg")
-            ) if carpeta_vieja.exists() else []
+            # Ya no se scrapea ni se copian fotos nuevas para estos. Buscar su
+            # carpeta VERIFICADA en fotos/ (por número+modelo+precio, igual que
+            # copiar_fotos) en vez de asumir que web_fotos/{n:02d}/ es suya — "n"
+            # no es estable y esa carpeta puede ser de otro coche que la ocupó
+            # en una corrida anterior.
+            carpeta_vieja = find_car_folder(n, car["modelo"], car.get("precio", ""))
+            fotos_src = sorted(carpeta_vieja.glob("foto_*.jpg")) if carpeta_vieja else []
+            dest_retirado = WEB_FOTOS / f"{n:02d}"
+            dest_retirado.mkdir(exist_ok=True)
+            if fotos_src:
+                fotos_urls = []
+                for i, foto in enumerate(fotos_src[:8], start=1):
+                    dst = dest_retirado / f"foto_{i:02d}.jpg"
+                    shutil.copy2(foto, dst)
+                    fotos_urls.append(f"web_fotos/{n:02d}/{dst.name}")
+            else:
+                for _viejo in dest_retirado.glob("foto_*.jpg"):
+                    _viejo.unlink()
+                fotos_urls = []
         elif car.get("fuente") == "motorflash":
             fotos_urls = car.get("fotos", [])
         else:
