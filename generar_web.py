@@ -7,6 +7,7 @@ Lee datos_coches.json, copia fotos a web_fotos/ y genera index.html
 
 import json, shutil, sys
 from pathlib import Path
+import requests
 
 BASE_DIR   = Path(__file__).parent
 JSON_PATH  = BASE_DIR / "datos_coches.json"
@@ -32,6 +33,22 @@ def dwa_foto_url(url_relativa: str) -> str:
     padded = listing_id.zfill(11)
     path = '/'.join(padded[i:i+2] for i in range(0, len(padded), 2))
     return f"{DASWELTAUTO}/esp/fotos_anuncios/{path}/x01.jpg"
+
+def descargar_portada_dwa(url_relativa: str, destino: Path) -> bool:
+    """Descarga solo la foto de portada (x01.jpg) directamente de DWA por la
+    URL del anuncio — identidad segura (no depende de "n"). Sirve para coches
+    reservados: DWA sigue mostrando su foto aunque ya no estén en venta."""
+    foto_url = dwa_foto_url(url_relativa)
+    if not foto_url:
+        return False
+    try:
+        r = requests.get(foto_url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
+        if r.status_code == 200 and len(r.content) > 20000:
+            destino.write_bytes(r.content)
+            return True
+    except Exception:
+        pass
+    return False
 
 # ── Utilidades de carpeta ────────────────────────────────────────────────────
 
@@ -96,7 +113,14 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
             # mejor no mostrar foto que mostrar la de otro coche.
             for _viejo in dest.glob("foto_*.jpg"):
                 _viejo.unlink()
-            print(f"  ⚠️  n={n} {coche['modelo']}: sin fotos verificadas para este coche — sin foto en la web")
+            # Último intento: DWA sigue publicando la foto de portada de coches
+            # reservados aunque ya no estén a la venta — la bajamos directo por
+            # la URL propia del anuncio (identidad segura, no por "n").
+            if descargar_portada_dwa(coche.get("url", ""), dest / "foto_01.jpg"):
+                urls = [f"web_fotos/{n:02d}/foto_01.jpg"]
+                print(f"  📸 n={n} {coche['modelo']}: foto de portada recuperada de DWA")
+            else:
+                print(f"  ⛔ n={n} {coche['modelo']}: sin ninguna foto verificable — no se publica")
         rutas[n] = urls
     return rutas
 
@@ -1036,9 +1060,22 @@ def main():
     coches_dir = BASE_DIR / "coches"
     coches_dir.mkdir(exist_ok=True)
 
+    # Sin foto verificada = no se publica (ni en el índice ni con ficha propia).
+    # Los "Retirado" se tratan aparte más abajo (ya estaban excluidos del índice).
+    sin_foto = set()
+    for c in coches:
+        tiene_foto = (c.get("fotos") if c.get("fuente") == "motorflash" else rutas.get(c["n"]))
+        if not tiene_foto:
+            sin_foto.add(c["n"])
+    if sin_foto:
+        coches = [c for c in coches if c["n"] not in sin_foto]
+        print(f"  ⛔ {len(sin_foto)} coche(s) sin foto verificada, no publicado(s) en la web")
+
     slugs_validos = set()
     for car in todos_los_coches:
         n = car["n"]
+        if n in sin_foto:
+            continue  # sin foto verificada → sin ficha individual tampoco
         slug = slug_coche(car["modelo"])
         slugs_validos.add(f"{n:02d}-{slug}.html")
 
