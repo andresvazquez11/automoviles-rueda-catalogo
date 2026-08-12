@@ -351,4 +351,44 @@ img { max-width: 100%; display: block; }
   border-radius: var(--rd-radius-sm); padding: 12px 16px; margin-top: 8px;
   font-size: 14px; font-weight: 600; text-align: center;
 }
+
+/* ── Pie de página: contacto + enlace DWA + última actualización ── */
+.rd-footer {
+  max-width: 880px; margin: 40px auto 0; padding: 24px 20px 90px;
+  border-top: 1px solid var(--rd-border); text-align: center;
+}
+.rd-footer p { margin: 0; font-size: 13px; color: var(--rd-ink-soft); }
+.rd-footer a { font-weight: 600; color: var(--rd-ink); }
+.rd-footer a:hover { color: var(--rd-red); }
+.rd-footer .rd-footer-dwa { margin-top: 8px; }
+.rd-footer .rd-footer-dwa a { font-weight: 500; color: var(--rd-muted); }
+.rd-footer .rd-footer-dwa a:hover { color: var(--rd-ink-soft); }
+.rd-footer .rd-footer-updated {
+  margin-top: 12px; font-size: 11px; color: var(--rd-muted); letter-spacing: 0.3px;
+}
+
+/* ── Botón flotante WhatsApp (siempre a mano, sobre todo en móvil) ── */
+.rd-whatsapp-float {
+  position: fixed; bottom: 22px; right: 22px; z-index: 150;
+  display: flex; align-items: center; gap: 9px;
+  background: #25D366; color: #fff;
+  font-family: var(--rd-font); font-size: 14px; font-weight: 700;
+  padding: 13px 20px 13px 16px; border-radius: 50px;
+  box-shadow: 0 4px 18px rgba(37,211,102,0.5);
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.rd-whatsapp-float:hover {
+  background: #128C7E; color: #fff;
+  transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.45);
+}
+.rd-whatsapp-float svg { flex-shrink: 0; }
+@media (min-width: 641px) {
+  .rd-whatsapp-float { padding: 12px; border-radius: 50%; }
+  .rd-whatsapp-float .rd-wa-label { display: none; }
+}
+@media (max-width: 640px) {
+  /* En fichas de coche hay una barra fija inferior (precio/financiación) —
+     subir el botón para que no quede tapado por ella. */
+  body.rd-has-sticky .rd-whatsapp-float { bottom: 78px; }
+}
 .rd-vendido-banner a { color: var(--rd-red); text-decoration: underline; margin-left: 8px; }

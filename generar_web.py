@@ -6,6 +6,7 @@ Lee datos_coches.json, copia fotos a web_fotos/ y genera index.html
 """
 
 import json, shutil, sys
+from datetime import datetime
 from pathlib import Path
 import requests
 
@@ -33,6 +34,31 @@ def dwa_foto_url(url_relativa: str) -> str:
     padded = listing_id.zfill(11)
     path = '/'.join(padded[i:i+2] for i in range(0, len(padded), 2))
     return f"{DASWELTAUTO}/esp/fotos_anuncios/{path}/x01.jpg"
+
+def footer_whatsapp_html(link_dwa: str = "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda") -> str:
+    """Pie de página (contacto + enlace DWA + última actualización) y botón
+    flotante de WhatsApp — compartidos entre index.html y las fichas de coche."""
+    ahora = datetime.now().strftime('%d/%m/%Y — %H:%M')
+    return f'''
+<footer class="rd-footer">
+  <p>
+    <strong>Automóviles Rueda</strong> · {COMERCIAL_NOMBRE} ·
+    <a href="tel:{COMERCIAL_TELEFONO.replace(' ', '')}">{COMERCIAL_TELEFONO}</a> ·
+    <a href="mailto:{COMERCIAL_EMAIL}">{COMERCIAL_EMAIL}</a>
+  </p>
+  <p class="rd-footer-dwa">
+    <a href="{link_dwa}" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
+  </p>
+  <p class="rd-footer-updated">🔄 Última actualización: {ahora} h</p>
+</footer>
+
+<a class="rd-whatsapp-float"
+   href="https://wa.me/34610029056?text=Hola%20Andr%C3%A9s%2C%20te%20escribo%20desde%20el%20cat%C3%A1logo%20de%20coches.%20Me%20interesa%20uno%20de%20los%20veh%C3%ADculos."
+   target="_blank" rel="noopener" aria-label="Enviar WhatsApp a {COMERCIAL_NOMBRE}">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+  <span class="rd-wa-label">WhatsApp</span>
+</a>
+'''
 
 def descargar_portada_dwa(url_relativa: str, destino: Path) -> bool:
     """Descarga solo la foto de portada (x01.jpg) directamente de DWA por la
@@ -774,7 +800,7 @@ def build_coche_html(car: dict, fotos_urls: list[str]) -> str:
 {CALCULADORA_CSS}
 </style>
 </head>
-<body>
+<body class="rd-has-sticky">
 
 <header class="rd-header">
   <div class="rd-header-brand">
@@ -834,6 +860,7 @@ def build_coche_html(car: dict, fotos_urls: list[str]) -> str:
 const COCHE = {coche_json};
 cargarFicha(COCHE);
 </script>
+{footer_whatsapp_html()}
 </body>
 </html>
 '''
@@ -1034,6 +1061,7 @@ document.querySelectorAll('.rd-card-nav').forEach(btn => {{
   document.getElementById('rd-sort').addEventListener('change', e => {{ orden = e.target.value; aplicar(); }});
 }})();
 </script>
+{footer_whatsapp_html()}
 </body>
 </html>
 '''
