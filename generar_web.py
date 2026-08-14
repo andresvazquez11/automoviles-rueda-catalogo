@@ -5,7 +5,7 @@ Automóviles Rueda — Generador de Catálogo Web
 Lee datos_coches.json, copia fotos a web_fotos/ y genera index.html
 """
 
-import json, shutil, sys
+import hashlib, json, shutil, sys
 from datetime import datetime
 from pathlib import Path
 import requests
@@ -60,21 +60,22 @@ def footer_whatsapp_html(link_dwa: str = "https://www.dasweltauto.es/esp/concesi
 </a>
 '''
 
-def descargar_portada_dwa(url_relativa: str, destino: Path) -> bool:
-    """Descarga solo la foto de portada (x01.jpg) directamente de DWA por la
-    URL del anuncio — identidad segura (no depende de "n"). Sirve para coches
-    reservados: DWA sigue mostrando su foto aunque ya no estén en venta."""
+def obtener_portada_dwa_bytes(url_relativa: str) -> "bytes | None":
+    """Descarga la foto de portada (x01.jpg) directamente de DWA por la URL
+    del anuncio — identidad segura (no depende de "n" ni de si la carpeta
+    local tiene el nombre "correcto"). DWA sigue sirviendo esta foto aunque
+    el coche ya esté reservado/no disponible, mientras el anuncio siga
+    publicado (solo deja de existir cuando pasa a "Retirado")."""
     foto_url = dwa_foto_url(url_relativa)
     if not foto_url:
-        return False
+        return None
     try:
         r = requests.get(foto_url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
         if r.status_code == 200 and len(r.content) > 20000:
-            destino.write_bytes(r.content)
-            return True
+            return r.content
     except Exception:
         pass
-    return False
+    return None
 
 # ── Utilidades de carpeta ────────────────────────────────────────────────────
 
@@ -122,31 +123,42 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
         dest.mkdir(exist_ok=True)
         urls: list[str] = []
         fotos_src = sorted(carpeta.glob("foto_*.jpg")) if (carpeta and carpeta.exists()) else []
+
+        # Una carpeta con el NOMBRE correcto (número+modelo+precio) no garantiza
+        # que el CONTENIDO sea del coche correcto — puede haber quedado
+        # contaminada en una descarga antigua (otro coche con el mismo
+        # modelo+precio en algún momento, misma carpeta). Confirmado: un CUPRA
+        # Formentor reservado a 22.900€ tenía fotos de OTRO Formentor (negro en
+        # vez de blanco) guardadas así desde hacía días. Por eso, si hay URL de
+        # DWA, se verifica SIEMPRE la portada contra la foto real de DWA antes
+        # de confiar en la carpeta local, en vez de solo cuando falta.
+        portada_dwa = obtener_portada_dwa_bytes(coche.get("url", "")) if coche.get("url") else None
+
+        if fotos_src and portada_dwa and hashlib.sha256(fotos_src[0].read_bytes()).digest() != hashlib.sha256(portada_dwa).digest():
+            print(f"  ⚠️  n={n} {coche['modelo']}: la carpeta local NO coincide con la foto real de DWA "
+                  f"— descartada, se usa solo la portada verificada")
+            fotos_src = []
+            for _viejo in dest.glob("foto_*.jpg"):
+                _viejo.unlink()
+
         if fotos_src:
+            # Carpeta local verificada (coincide con DWA, o no hay URL para
+            # verificar pero es el mejor dato disponible) — usar la galería completa.
             for i, foto in enumerate(fotos_src[:8], start=1):
                 dst = dest / f"foto_{i:02d}.jpg"
                 shutil.copy2(foto, dst)
                 urls.append(f"web_fotos/{n:02d}/foto_{i:02d}.jpg")
+        elif portada_dwa:
+            # Sin carpeta local válida, pero DWA sigue publicando la foto de
+            # portada del anuncio (identidad segura: por URL, no por "n") —
+            # coches reservados incluidos, mientras el anuncio siga activo.
+            (dest / "foto_01.jpg").write_bytes(portada_dwa)
+            urls = [f"web_fotos/{n:02d}/foto_01.jpg"]
+            print(f"  📸 n={n} {coche['modelo']}: foto de portada verificada de DWA")
         else:
-            # No se encontró carpeta local con fotos para ESTE coche. IMPORTANTE:
-            # "n" no es un identificador estable — casi todos los coches cambian de
-            # número en cada actualización (ver investigación de redescarga de fotos),
-            # así que web_fotos/{n:02d}/ puede contener las fotos de OTRO coche que
-            # tuvo ese mismo número en una corrida anterior. Reusarlas "porque están
-            # ahí" (como se hacía antes) mostraba fotos de un coche distinto — el
-            # mismo error de fondo que catalogo_rueda_v2.py ya documenta evitar en
-            # buscar_carpeta_coche(): "NO usar fallback por número solo". Aquí es
-            # mejor no mostrar foto que mostrar la de otro coche.
             for _viejo in dest.glob("foto_*.jpg"):
                 _viejo.unlink()
-            # Último intento: DWA sigue publicando la foto de portada de coches
-            # reservados aunque ya no estén a la venta — la bajamos directo por
-            # la URL propia del anuncio (identidad segura, no por "n").
-            if descargar_portada_dwa(coche.get("url", ""), dest / "foto_01.jpg"):
-                urls = [f"web_fotos/{n:02d}/foto_01.jpg"]
-                print(f"  📸 n={n} {coche['modelo']}: foto de portada recuperada de DWA")
-            else:
-                print(f"  ⛔ n={n} {coche['modelo']}: sin ninguna foto verificable — no se publica")
+            print(f"  ⛔ n={n} {coche['modelo']}: sin ninguna foto verificable — no se publica")
         rutas[n] = urls
     return rutas
 
