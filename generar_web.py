@@ -60,6 +60,14 @@ def footer_whatsapp_html(link_dwa: str = "https://www.dasweltauto.es/esp/concesi
 </a>
 '''
 
+def goatcounter_script_html() -> str:
+    """Contador de visitas GoatCounter — compartido entre index.html y cada
+    ficha de coche, para que cada página cuente sus propias visitas.
+    (Se añadió a mano en index.html el 18/05/2026, pero se perdió al pasar a
+    fichas individuales generadas por script — ahora vive aquí para que
+    sobreviva a cada regeneración.)"""
+    return '<script data-goatcounter="https://andresvazquez11.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'
+
 def obtener_portada_dwa_bytes(url_relativa: str) -> "bytes | None":
     """Descarga la foto de portada (x01.jpg) directamente de DWA por la URL
     del anuncio — identidad segura (no depende de "n" ni de si la carpeta
@@ -873,6 +881,7 @@ const COCHE = {coche_json};
 cargarFicha(COCHE);
 </script>
 {footer_whatsapp_html()}
+{goatcounter_script_html()}
 </body>
 </html>
 '''
@@ -1074,6 +1083,7 @@ document.querySelectorAll('.rd-card-nav').forEach(btn => {{
 }})();
 </script>
 {footer_whatsapp_html()}
+{goatcounter_script_html()}
 </body>
 </html>
 '''
