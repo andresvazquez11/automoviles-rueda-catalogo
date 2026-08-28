@@ -171,11 +171,12 @@ function cv2GetRules() {
       // ENTRY Arona BB: 1.000€ VS+VO
       if (categoria !== 'VU') bonificacion = 1000;
     } else if (producto === 'FLEX') {
-      // GAMA Arona BB FLEX: 2.000€ VS y VO (VWFS Agosto 2026, pág. 8)
-      if (categoria === 'VS' || categoria === null || categoria === 'VO') bonificacion = 2000;
+      // GAMA Arona BB FLEX: 2.000€ VS / 1.650€ VO (VWFS Agosto 2026, pág. 8)
+      if (categoria === 'VS' || categoria === null) bonificacion = 2000;
+      else if (categoria === 'VO') bonificacion = 1650;
     } else {
-      // GAMA Arona BB LINEAL: 1.650€ VS / 1.600€ VO (VWFS Agosto 2026, pág. 8)
-      if (categoria === 'VS' || categoria === null) bonificacion = 1650;
+      // GAMA Arona BB LINEAL: 2.000€ VS / 1.600€ VO (VWFS Agosto 2026, pág. 8)
+      if (categoria === 'VS' || categoria === null) bonificacion = 2000;
       else if (categoria === 'VO') bonificacion = 1600;
     }
     campanaLabel = campanaLabel + ' · Arona BB/REMA';

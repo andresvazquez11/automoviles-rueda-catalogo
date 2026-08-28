@@ -149,6 +149,7 @@
   .cv2-pill.active { background:#C8232B; border-color:#C8232B; color:#fff; }
   .cv2-pill:hover:not(.active):not(:disabled) { border-color:rgba(255,255,255,.3); color:#fff; }
   .cv2-pill:disabled { opacity:.25; cursor:not-allowed; pointer-events:none; }
+  .cv2-pill-yr { display:block; font-size:9px; font-weight:500; letter-spacing:0; text-transform:none; opacity:.55; margin-top:2px; }
   /* Slider */
   .cv2-slider-row {
     display:flex; justify-content:space-between;
@@ -375,6 +376,7 @@
   }
   .bbva-pill.active { background: #1479C9; border-color: #1479C9; color: #fff; }
   .bbva-pill:hover:not(.active) { border-color: rgba(255,255,255,.3); color: #fff; }
+  .bbva-pill-yr { display: block; font-size: 9px; font-weight: 500; letter-spacing: 0; text-transform: none; opacity: .55; margin-top: 2px; }
   .bbva-slider-row { display: flex; justify-content: space-between; font-size: 11px; color: rgba(240,244,255,.3); margin-top: 6px; }
   input[type=range].bbva-slider {
     -webkit-appearance: none; appearance: none;
@@ -559,13 +561,13 @@
         <div style="margin-top:16px;">
           <div class="cv2-flbl">Plazo <span id="cv2-disp-meses">60 meses</span></div>
           <div class="cv2-pills" id="cv2-pills-meses">
-            <button class="cv2-pill" id="cv2-pl-24" onclick="cv2SetMeses(24)">24m</button>
-            <button class="cv2-pill" id="cv2-pl-36" onclick="cv2SetMeses(36)">36m</button>
-            <button class="cv2-pill" id="cv2-pl-48" onclick="cv2SetMeses(48)">48m</button>
-            <button class="cv2-pill active" id="cv2-pl-60" onclick="cv2SetMeses(60)">60m</button>
-            <button class="cv2-pill" id="cv2-pl-72" onclick="cv2SetMeses(72)">72m</button>
-            <button class="cv2-pill" id="cv2-pl-84" onclick="cv2SetMeses(84)">84m</button>
-            <button class="cv2-pill" id="cv2-pl-96" onclick="cv2SetMeses(96)">96m</button>
+            <button class="cv2-pill" id="cv2-pl-24" onclick="cv2SetMeses(24)">24m<span class="cv2-pill-yr">2 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-36" onclick="cv2SetMeses(36)">36m<span class="cv2-pill-yr">3 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-48" onclick="cv2SetMeses(48)">48m<span class="cv2-pill-yr">4 años</span></button>
+            <button class="cv2-pill active" id="cv2-pl-60" onclick="cv2SetMeses(60)">60m<span class="cv2-pill-yr">5 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-72" onclick="cv2SetMeses(72)">72m<span class="cv2-pill-yr">6 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-84" onclick="cv2SetMeses(84)">84m<span class="cv2-pill-yr">7 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-96" onclick="cv2SetMeses(96)">96m<span class="cv2-pill-yr">8 años</span></button>
           </div>
         </div>
 
@@ -688,15 +690,15 @@
     <div class="bbva-body">
       <div class="bbva-flbl">Plazo <span id="bbva-disp-meses">60 meses</span></div>
       <div class="bbva-pills" id="bbva-pills-meses">
-        <button class="bbva-pill" id="bbva-pl-24" onclick="bbvaSetMeses(24)">24m</button>
-        <button class="bbva-pill" id="bbva-pl-36" onclick="bbvaSetMeses(36)">36m</button>
-        <button class="bbva-pill" id="bbva-pl-48" onclick="bbvaSetMeses(48)">48m</button>
-        <button class="bbva-pill active" id="bbva-pl-60" onclick="bbvaSetMeses(60)">60m</button>
-        <button class="bbva-pill" id="bbva-pl-72" onclick="bbvaSetMeses(72)">72m</button>
-        <button class="bbva-pill" id="bbva-pl-84" onclick="bbvaSetMeses(84)">84m</button>
-        <button class="bbva-pill" id="bbva-pl-96" onclick="bbvaSetMeses(96)">96m</button>
-        <button class="bbva-pill" id="bbva-pl-108" onclick="bbvaSetMeses(108)">108m</button>
-        <button class="bbva-pill" id="bbva-pl-120" onclick="bbvaSetMeses(120)">120m</button>
+        <button class="bbva-pill" id="bbva-pl-24" onclick="bbvaSetMeses(24)">24m<span class="bbva-pill-yr">2 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-36" onclick="bbvaSetMeses(36)">36m<span class="bbva-pill-yr">3 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-48" onclick="bbvaSetMeses(48)">48m<span class="bbva-pill-yr">4 años</span></button>
+        <button class="bbva-pill active" id="bbva-pl-60" onclick="bbvaSetMeses(60)">60m<span class="bbva-pill-yr">5 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-72" onclick="bbvaSetMeses(72)">72m<span class="bbva-pill-yr">6 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-84" onclick="bbvaSetMeses(84)">84m<span class="bbva-pill-yr">7 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-96" onclick="bbvaSetMeses(96)">96m<span class="bbva-pill-yr">8 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-108" onclick="bbvaSetMeses(108)">108m<span class="bbva-pill-yr">9 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-120" onclick="bbvaSetMeses(120)">120m<span class="bbva-pill-yr">10 años</span></button>
       </div>
 
       <div class="bbva-flbl" style="margin-top:18px;">Entrada inicial
@@ -772,7 +774,7 @@ cargarFicha(COCHE);
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 28/08/2026 — 11:04 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 28/08/2026 — 11:12 h</p>
 </footer>
 
 <a class="rd-whatsapp-float"

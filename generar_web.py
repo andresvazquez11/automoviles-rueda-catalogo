@@ -407,6 +407,7 @@ CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_
   .cv2-pill.active { background:#C8232B; border-color:#C8232B; color:#fff; }
   .cv2-pill:hover:not(.active):not(:disabled) { border-color:rgba(255,255,255,.3); color:#fff; }
   .cv2-pill:disabled { opacity:.25; cursor:not-allowed; pointer-events:none; }
+  .cv2-pill-yr { display:block; font-size:9px; font-weight:500; letter-spacing:0; text-transform:none; opacity:.55; margin-top:2px; }
   /* Slider */
   .cv2-slider-row {
     display:flex; justify-content:space-between;
@@ -573,7 +574,116 @@ CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_
   }
   .equip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 6px; }
   .equip-item { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; color: #4a5568; line-height: 1.4; }
-  .equip-check { color: var(--green); font-size: 13px; flex-shrink: 0; margin-top: 1px; }'''
+  .equip-check { color: var(--green); font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Entrada: input numérico manual junto al slider (VWFS + BBVA) ── */
+  .cv2-entrada-wrap, .bbva-entrada-wrap { display: inline-flex; align-items: baseline; gap: 3px; }
+  .cv2-entrada-input, .bbva-entrada-input {
+    background: transparent; border: none; border-bottom: 1px dashed rgba(255,255,255,.25);
+    outline: none; font-family: inherit; font-size: 13px; font-weight: 700;
+    color: #fff; width: 6ch; text-align: right; -moz-appearance: textfield; padding: 0 0 1px;
+  }
+  .cv2-entrada-input:focus { border-bottom-color: #C8232B; }
+  .bbva-entrada-input:focus { border-bottom-color: #1479C9; }
+  .cv2-entrada-input::-webkit-outer-spin-button, .cv2-entrada-input::-webkit-inner-spin-button,
+  .bbva-entrada-input::-webkit-outer-spin-button, .bbva-entrada-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  /* ── Selector de financiera (VWFS / BBVA) — dos botones grandes ── */
+  .financiera-tabs { display: flex; gap: 10px; margin-bottom: 12px; }
+  .financiera-tab {
+    flex: 1; background: #0d1120; border: 2px solid rgba(255,255,255,0.1);
+    color: rgba(240,244,255,.45); cursor: pointer;
+    font-family: inherit; font-size: 19px; font-weight: 800;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 18px 12px; text-align: center; transition: all 0.15s;
+  }
+  .financiera-tab:hover:not(.active) { border-color: rgba(255,255,255,.25); color: #fff; }
+  .financiera-tab .fin-sub {
+    display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.5px;
+    text-transform: none; color: rgba(240,244,255,.3); margin-top: 5px;
+  }
+  #fin-vwfs.active { background: rgba(200,35,43,.14); border-color: #C8232B; color: #C8232B; }
+  #fin-bbva.active { background: rgba(20,121,201,.14); border-color: #1479C9; color: #1479C9; }
+
+  /* ── Panel BBVA (Préstamo Vehículo — TIN 5,50% fijo) ── */
+  .bbva-panel { background: #0d1120; border-top: 2px solid rgba(20,121,201,0.5); color: #f0f4ff; overflow: hidden; }
+  .bbva-bar {
+    padding: 14px 20px 12px; border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  .bbva-bar-title { font-weight: 700; font-size: 14px; color: #fff; }
+  .bbva-bar-sub { font-size: 11px; color: rgba(240,244,255,.4); margin-top: 3px; }
+  .bbva-tin-pill {
+    font-family: inherit; font-size: 18px; font-weight: 800; color: #1479C9;
+    background: rgba(20,121,201,.1); border: 1px solid rgba(20,121,201,.35); padding: 6px 12px;
+  }
+  .bbva-tin-pill span { font-size: 11px; font-weight: 400; color: rgba(240,244,255,.4); margin-left: 3px; }
+  .bbva-body { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .bbva-flbl {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(240,244,255,.35); margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .bbva-flbl span { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0; text-transform: none; }
+  .bbva-pills { display: flex; gap: 5px; flex-wrap: wrap; }
+  .bbva-pill {
+    background: transparent; border: 1px solid rgba(255,255,255,.1);
+    color: rgba(240,244,255,.45); cursor: pointer;
+    font-family: inherit; font-size: 12px; font-weight: 700;
+    padding: 6px 8px; transition: all 0.15s; flex: 1; min-width: 52px; text-align: center;
+  }
+  .bbva-pill.active { background: #1479C9; border-color: #1479C9; color: #fff; }
+  .bbva-pill:hover:not(.active) { border-color: rgba(255,255,255,.3); color: #fff; }
+  .bbva-pill-yr { display: block; font-size: 9px; font-weight: 500; letter-spacing: 0; text-transform: none; opacity: .55; margin-top: 2px; }
+  .bbva-slider-row { display: flex; justify-content: space-between; font-size: 11px; color: rgba(240,244,255,.3); margin-top: 6px; }
+  input[type=range].bbva-slider {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 4px; outline: none; cursor: pointer; border-radius: 0;
+    background: linear-gradient(90deg, #1479C9 var(--pct,0%), rgba(255,255,255,.1) var(--pct,0%));
+    margin-top: 14px;
+  }
+  input[type=range].bbva-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 18px; background: #1479C9; border-radius: 50%;
+    cursor: pointer; border: none; transition: transform 0.1s;
+  }
+  input[type=range].bbva-slider::-webkit-slider-thumb:hover { transform: scale(1.3); }
+  input[type=range].bbva-slider::-moz-range-thumb { width: 18px; height: 18px; background: #1479C9; border: none; border-radius: 50%; cursor: pointer; }
+  .bbva-cuota-hero {
+    padding: 24px 20px 16px; text-align: center;
+    background: linear-gradient(180deg, rgba(20,121,201,.09) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .bbva-cuota-lbl { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(240,244,255,.4); margin-bottom: 8px; }
+  .bbva-cuota-val { font-weight: 800; font-size: clamp(36px,8vw,52px); color: #1479C9; line-height: 1; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  .bbva-cuota-unit { font-size: 17px; font-weight: 400; color: rgba(240,244,255,.4); margin-left: 4px; }
+  .bbva-breakdown { padding: 0 20px 4px; }
+  .bbva-br-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.04); font-size: 13px; }
+  .bbva-br-row:last-child { border-bottom: none; }
+  .bbva-br-row span:first-child { color: rgba(240,244,255,.4); font-size: 12px; }
+  .bbva-br-row span:last-child { font-weight: 600; font-size: 13px; color: rgba(240,244,255,.9); font-variant-numeric: tabular-nums; }
+  .bbva-br-row.total { background: rgba(20,121,201,.08); margin: 6px -20px 0; padding: 11px 20px; border-bottom: none; }
+  .bbva-br-row.total span:first-child { color: #fff; font-weight: 700; }
+  .bbva-br-row.total span:last-child { font-size: 15px; font-weight: 700; color: #1479C9; }
+  .bbva-cta { padding: 16px 20px 20px; border-top: 1px solid rgba(255,255,255,.07); display: flex; flex-direction: column; gap: 10px; }
+  .bbva-btn-wa {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    width: 100%; padding: 13px 16px; background: #25D366; color: #fff;
+    font-family: inherit; font-size: 13px; font-weight: 700;
+    letter-spacing: .5px; text-transform: uppercase;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background .2s, transform .12s;
+  }
+  .bbva-btn-wa:hover { background: #1ebe57; transform: translateY(-1px); }
+  .bbva-legal { font-size: 10px; color: rgba(240,244,255,.22); line-height: 1.6; }
+  .btn-phone {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 13px 20px; font-family: inherit;
+    font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none; cursor: pointer;
+    background: transparent; border: 1px solid rgba(255,255,255,.15); color: #fff;
+    transition: all 0.15s;
+  }
+  .btn-phone:hover { border-color: #C8232B; color: #C8232B; }'''
 
 CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
       <div class="cv2-car-bar">
@@ -639,7 +749,12 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
 
         <!-- Entrada -->
         <div style="margin-top:18px;">
-          <div class="cv2-flbl">Entrada inicial <span id="cv2-disp-entrada">0 €</span></div>
+          <div class="cv2-flbl">Entrada inicial
+            <span class="cv2-entrada-wrap">
+              <input type="number" id="cv2-entrada-input" class="cv2-entrada-input" value="0" min="0" step="100" inputmode="numeric" oninput="cv2EntradaInput(this.value)">
+              <span>€</span>
+            </span>
+          </div>
           <input type="range" class="cv2-slider" id="cv2-sl-entrada"
             min="0" max="0" step="100" value="0" oninput="cv2SliderMove(this.value)">
           <div class="cv2-slider-row">
@@ -652,13 +767,13 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
         <div style="margin-top:16px;">
           <div class="cv2-flbl">Plazo <span id="cv2-disp-meses">60 meses</span></div>
           <div class="cv2-pills" id="cv2-pills-meses">
-            <button class="cv2-pill" id="cv2-pl-24" onclick="cv2SetMeses(24)">24m</button>
-            <button class="cv2-pill" id="cv2-pl-36" onclick="cv2SetMeses(36)">36m</button>
-            <button class="cv2-pill" id="cv2-pl-48" onclick="cv2SetMeses(48)">48m</button>
-            <button class="cv2-pill active" id="cv2-pl-60" onclick="cv2SetMeses(60)">60m</button>
-            <button class="cv2-pill" id="cv2-pl-72" onclick="cv2SetMeses(72)">72m</button>
-            <button class="cv2-pill" id="cv2-pl-84" onclick="cv2SetMeses(84)">84m</button>
-            <button class="cv2-pill" id="cv2-pl-96" onclick="cv2SetMeses(96)">96m</button>
+            <button class="cv2-pill" id="cv2-pl-24" onclick="cv2SetMeses(24)">24m<span class="cv2-pill-yr">2 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-36" onclick="cv2SetMeses(36)">36m<span class="cv2-pill-yr">3 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-48" onclick="cv2SetMeses(48)">48m<span class="cv2-pill-yr">4 años</span></button>
+            <button class="cv2-pill active" id="cv2-pl-60" onclick="cv2SetMeses(60)">60m<span class="cv2-pill-yr">5 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-72" onclick="cv2SetMeses(72)">72m<span class="cv2-pill-yr">6 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-84" onclick="cv2SetMeses(84)">84m<span class="cv2-pill-yr">7 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-96" onclick="cv2SetMeses(96)">96m<span class="cv2-pill-yr">8 años</span></button>
           </div>
         </div>
 
@@ -761,8 +876,77 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Solicitar financiación · WhatsApp
         </a>
+        <a class="btn-phone" href="tel:+34610029056">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          610 02 90 56 · Andrés
+        </a>
         <div class="cv2-legal" id="cv2-legal"></div>
       </div>'''
+
+BBVA_HTML_INTERIOR = '''    <div class="bbva-bar">
+      <div>
+        <div class="bbva-bar-title">BBVA · Préstamo Vehículo</div>
+        <div class="bbva-bar-sub">Nuevo / Seminuevo hasta 72 meses de antigüedad</div>
+      </div>
+      <div class="bbva-tin-pill">5,50<span>% TIN</span></div>
+    </div>
+
+    <div class="bbva-body">
+      <div class="bbva-flbl">Plazo <span id="bbva-disp-meses">60 meses</span></div>
+      <div class="bbva-pills" id="bbva-pills-meses">
+        <button class="bbva-pill" id="bbva-pl-24" onclick="bbvaSetMeses(24)">24m<span class="bbva-pill-yr">2 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-36" onclick="bbvaSetMeses(36)">36m<span class="bbva-pill-yr">3 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-48" onclick="bbvaSetMeses(48)">48m<span class="bbva-pill-yr">4 años</span></button>
+        <button class="bbva-pill active" id="bbva-pl-60" onclick="bbvaSetMeses(60)">60m<span class="bbva-pill-yr">5 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-72" onclick="bbvaSetMeses(72)">72m<span class="bbva-pill-yr">6 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-84" onclick="bbvaSetMeses(84)">84m<span class="bbva-pill-yr">7 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-96" onclick="bbvaSetMeses(96)">96m<span class="bbva-pill-yr">8 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-108" onclick="bbvaSetMeses(108)">108m<span class="bbva-pill-yr">9 años</span></button>
+        <button class="bbva-pill" id="bbva-pl-120" onclick="bbvaSetMeses(120)">120m<span class="bbva-pill-yr">10 años</span></button>
+      </div>
+
+      <div class="bbva-flbl" style="margin-top:18px;">Entrada inicial
+        <span class="bbva-entrada-wrap">
+          <input type="number" id="bbva-entrada-input" class="bbva-entrada-input" value="0" min="0" step="100" inputmode="numeric" oninput="bbvaEntradaInput(this.value)">
+          <span>€</span>
+        </span>
+      </div>
+      <input type="range" class="bbva-slider" id="bbva-sl-entrada"
+        min="0" max="0" step="100" value="0" oninput="bbvaSliderMove(this.value)">
+      <div class="bbva-slider-row">
+        <span>0 €</span>
+        <span id="bbva-lbl-max">máx. — €</span>
+      </div>
+    </div>
+
+    <div class="bbva-cuota-hero">
+      <div class="bbva-cuota-lbl">Cuota mensual estimada</div>
+      <div>
+        <span class="bbva-cuota-val" id="bbva-cuota-val">—</span>
+        <span class="bbva-cuota-unit">€ / mes</span>
+      </div>
+    </div>
+
+    <div class="bbva-breakdown">
+      <div class="bbva-br-row"><span>Precio al contado</span><span id="bbva-br-precio">—</span></div>
+      <div class="bbva-br-row"><span>Entrada inicial</span><span id="bbva-br-entrada">—</span></div>
+      <div class="bbva-br-row"><span>Importe financiado</span><span id="bbva-br-importe">—</span></div>
+      <div class="bbva-br-row"><span>T.I.N.</span><span>5,50 %</span></div>
+      <div class="bbva-br-row"><span>Nº de cuotas</span><span id="bbva-br-ncuotas">—</span></div>
+      <div class="bbva-br-row total"><span>Precio total a plazos</span><span id="bbva-br-total">—</span></div>
+    </div>
+
+    <div class="bbva-cta">
+      <a class="bbva-btn-wa" id="bbva-btn-wa" href="#" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Solicitar financiación BBVA · WhatsApp
+      </a>
+      <a class="btn-phone" href="tel:+34610029056">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        610 02 90 56 · Andrés
+      </a>
+      <div class="bbva-legal" id="bbva-legal"></div>
+    </div>'''
 
 def build_coche_html(car: dict, fotos_urls: list[str]) -> str:
     n = car["n"]
@@ -857,8 +1041,21 @@ def build_coche_html(car: dict, fotos_urls: list[str]) -> str:
     <div class="equip-grid" id="m-equip"></div>
   </div>
 
+  <div class="financiera-tabs" id="financiera-tabs">
+    <button class="financiera-tab active" id="fin-vwfs" onclick="setFinanciera('VWFS', this)">
+      VWFS <span class="fin-sub">Volkswagen Finance</span>
+    </button>
+    <button class="financiera-tab" id="fin-bbva" onclick="setFinanciera('BBVA', this)">
+      BBVA <span class="fin-sub">Préstamo Vehículo</span>
+    </button>
+  </div>
+
   <div class="modal-financiacion" id="m-financiacion">
 {CALCULADORA_HTML_INTERIOR}
+  </div>
+
+  <div class="bbva-panel" id="bbva-financiacion" style="display:none">
+{BBVA_HTML_INTERIOR}
   </div>
 
   <div class="rd-footnote">
