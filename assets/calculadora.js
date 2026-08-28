@@ -602,8 +602,20 @@ function cv2SliderMove(val) {
   const pct = max > 0 ? (eur / max * 100) : 0;
   slider.style.setProperty('--pct', pct + '\%');
   CV2.entrada = eur;
-  const dispE = document.getElementById('cv2-disp-entrada');
-  if (dispE) dispE.textContent = eur.toLocaleString('es-ES') + ' €';
+  const dispE = document.getElementById('cv2-entrada-input');
+  if (dispE) dispE.value = eur;
+  cv2Render();
+}
+
+function cv2EntradaInput(val) {
+  const slider = document.getElementById('cv2-sl-entrada');
+  const max = parseInt(slider.max) || 0;
+  let eur = parseInt(val) || 0;
+  if (eur < 0) eur = 0;
+  if (eur > max) eur = max;
+  CV2.entrada = eur;
+  slider.value = eur;
+  slider.style.setProperty('--pct', (max > 0 ? (eur / max * 100) : 0) + '\%');
   cv2Render();
 }
 
@@ -702,8 +714,8 @@ function initCalc(c) {
   slider.step  = 100;
   slider.value = 0;
   slider.style.setProperty('--pct', '0\%');
-  const dispE = document.getElementById('cv2-disp-entrada');
-  if (dispE) dispE.textContent = '0 €';
+  const dispE = document.getElementById('cv2-entrada-input');
+  if (dispE) dispE.value = 0;
   const maxLbl = document.getElementById('cv2-lbl-max');
   if (maxLbl) maxLbl.textContent = maxEntrada > 0 ? `máx. ${Number(maxEntrada).toLocaleString('es-ES')} €` : 'máx. — €';
 
@@ -817,6 +829,10 @@ function cargarFicha(c) {
     pill.textContent = '🚫 Vendido';
     pill.classList.add('reservado');
     document.getElementById('m-financiacion').style.display = 'none';
+    const finTabs = document.getElementById('financiera-tabs');
+    const bbvaPanel = document.getElementById('bbva-financiacion');
+    if (finTabs) finTabs.style.display = 'none';
+    if (bbvaPanel) bbvaPanel.style.display = 'none';
     document.getElementById('m-vendido-banner').style.display = '';
     document.getElementById('m-vendido-sticky').style.display = 'flex';
     document.getElementById('m-sticky-financiacion').style.display = 'none';
@@ -831,6 +847,7 @@ function cargarFicha(c) {
   pill.classList.add(reservado ? 'reservado' : 'disponible');
 
   initCalc(c);
+  bbvaRender();
 
   const link = document.getElementById('m-link');
   if (c.url) { link.href = c.url; link.style.display = ''; } else { link.style.display = 'none'; }
@@ -838,3 +855,101 @@ function cargarFicha(c) {
 
 prevBtn.addEventListener('click', () => goSlide(slideActual - 1));
 nextBtn.addEventListener('click', () => goSlide(slideActual + 1));
+
+// ── BBVA — Préstamo Vehículo Nuevo/Seminuevo, TIN 5,50% fijo (Zona 1032 R2) ──
+// Fuente: SIMULADOR en TARIFA -ZONA 1032 -R2, hoja "VN-VSN" / "Dat VN".
+// Coeficiente = cuota mensual por cada 1€ financiado (ya incluye comisión de
+// apertura y seguro Vida-PPP). Cuota = coeficiente × (precio - entrada).
+const BBVA_COEF = {
+  24:  0.0464956463856695,
+  36:  0.03209879220957684,
+  48:  0.024948740818316117,
+  60:  0.0207026547831431,
+  72:  0.017912982448589146,
+  84:  0.015959816476707085,
+  96:  0.014534102300133184,
+  108: 0.013465001026338819,
+  120: 0.012650941824302054,
+};
+const BBVA_PLAZOS = [24, 36, 48, 60, 72, 84, 96, 108, 120];
+const BBVA = { meses: 60, entrada: 0 };
+
+function bbvaFmt(n) { return Math.round(n).toLocaleString('es-ES'); }
+function bbvaFmt2(n) { return n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+function bbvaRender() {
+  const precio = CV2.precio || 0;
+  const maxEntrada = Math.max(0, Math.floor((precio - 500) / 100) * 100);
+  BBVA.entrada = Math.min(Math.max(0, BBVA.entrada), maxEntrada);
+
+  const slider = document.getElementById('bbva-sl-entrada');
+  if (!slider) return; // panel BBVA no presente en esta página
+  slider.min = 0; slider.max = maxEntrada; slider.step = 100; slider.value = BBVA.entrada;
+  slider.style.setProperty('--pct', (maxEntrada > 0 ? (BBVA.entrada / maxEntrada * 100) : 0) + '\%');
+  const entradaInput = document.getElementById('bbva-entrada-input');
+  if (entradaInput) entradaInput.value = BBVA.entrada;
+  const lblMax = document.getElementById('bbva-lbl-max');
+  if (lblMax) lblMax.textContent = maxEntrada > 0 ? ('máx. ' + bbvaFmt(maxEntrada) + ' €') : 'máx. — €';
+
+  BBVA_PLAZOS.forEach(p => {
+    const el = document.getElementById('bbva-pl-' + p);
+    if (el) el.classList.toggle('active', p === BBVA.meses);
+  });
+  const dispMeses = document.getElementById('bbva-disp-meses');
+  if (dispMeses) dispMeses.textContent = BBVA.meses + ' meses';
+
+  const importe = Math.max(0, precio - BBVA.entrada);
+  const cuota   = Math.round(BBVA_COEF[BBVA.meses] * importe * 100) / 100;
+  const total   = Math.round((cuota * BBVA.meses + BBVA.entrada) * 100) / 100;
+
+  const cuotaVal = document.getElementById('bbva-cuota-val');
+  if (cuotaVal) cuotaVal.textContent = bbvaFmt2(cuota);
+  const brPrecio = document.getElementById('bbva-br-precio');
+  if (brPrecio) brPrecio.textContent = bbvaFmt(precio) + ' €';
+  const brEntrada = document.getElementById('bbva-br-entrada');
+  if (brEntrada) brEntrada.textContent = bbvaFmt(BBVA.entrada) + ' €';
+  const brImporte = document.getElementById('bbva-br-importe');
+  if (brImporte) brImporte.textContent = bbvaFmt(importe) + ' €';
+  const brNcuotas = document.getElementById('bbva-br-ncuotas');
+  if (brNcuotas) brNcuotas.textContent = BBVA.meses;
+  const brTotal = document.getElementById('bbva-br-total');
+  if (brTotal) brTotal.textContent = bbvaFmt2(total) + ' €';
+
+  const modeloEl = document.getElementById('cv2-modelo');
+  const modelo = modeloEl && modeloEl.textContent !== '—' ? modeloEl.textContent : 'un vehículo';
+  const waBtn = document.getElementById('bbva-btn-wa');
+  if (waBtn) {
+    const msg = `Hola Andrés, te escribo desde la calculadora de financiación. Me interesa ${modelo} de ${bbvaFmt(precio)} € financiado con BBVA a ${BBVA.meses} meses (TIN 5,50%). Cuota estimada: ${bbvaFmt2(cuota)} €/mes.`;
+    waBtn.href = 'https://wa.me/34610029056?text=' + encodeURIComponent(msg);
+  }
+
+  const legalEl = document.getElementById('bbva-legal');
+  if (legalEl) {
+    legalEl.textContent =
+      `Ejemplo de cuota a ${BBVA.meses} meses: ${bbvaFmt2(cuota)} €. TIN 5,50% fijo. Entrada inicial: ${bbvaFmt(BBVA.entrada)} €. Importe financiado: ${bbvaFmt(importe)} €. Comisión de apertura financiada en la cuota. Precio total a plazos: ${bbvaFmt2(total)} €. Condiciones sujetas a modificación por parte de BBVA. Condiciones exactas con Andrés · 610 02 90 56.`;
+  }
+}
+
+function bbvaSetMeses(m) { BBVA.meses = m; bbvaRender(); }
+function bbvaSliderMove(v) { BBVA.entrada = parseFloat(v) || 0; bbvaRender(); }
+function bbvaEntradaInput(val) {
+  const slider = document.getElementById('bbva-sl-entrada');
+  const max = parseInt(slider.max) || 0;
+  let eur = parseInt(val) || 0;
+  if (eur < 0) eur = 0;
+  if (eur > max) eur = max;
+  BBVA.entrada = eur;
+  slider.value = eur;
+  slider.style.setProperty('--pct', (max > 0 ? (eur / max * 100) : 0) + '\%');
+  bbvaRender();
+}
+
+function setFinanciera(f, btn) {
+  document.querySelectorAll('#financiera-tabs .financiera-tab').forEach(el => el.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const vwfsPanel = document.getElementById('m-financiacion');
+  const bbvaPanel = document.getElementById('bbva-financiacion');
+  if (vwfsPanel) vwfsPanel.style.display = f === 'VWFS' ? '' : 'none';
+  if (bbvaPanel) bbvaPanel.style.display = f === 'BBVA' ? '' : 'none';
+  if (f === 'BBVA') bbvaRender();
+}
