@@ -57,6 +57,15 @@ img { max-width: 100%; display: block; }
 }
 .rd-header-brand span { font-size: 12px; color: #b7b2a8; }
 
+.rd-header-social { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.rd-header-social a {
+  display: inline-flex;
+  opacity: 0.9;
+  transition: opacity .15s ease, transform .15s ease;
+}
+.rd-header-social a:hover { opacity: 1; transform: scale(1.1); }
+.rd-header-social svg { display: block; }
+
 /* ── Volver / breadcrumb ── */
 .rd-back {
   display: inline-flex;

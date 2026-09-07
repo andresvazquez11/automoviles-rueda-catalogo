@@ -23,6 +23,11 @@ COMERCIAL_NOMBRE   = "Andrés Vázquez"
 COMERCIAL_TELEFONO = "610 02 90 56"
 COMERCIAL_EMAIL    = "andres.vazquez@automovilesrueda.com"
 
+# Redes sociales
+INSTAGRAM_URL = "https://www.instagram.com/seat_cupra_velezmalaga_ar/"
+FACEBOOK_URL  = "https://www.facebook.com/profile.php?id=61560676831246"
+TIKTOK_URL    = "https://www.tiktok.com/@automoviles.rueda"
+
 # ── URL foto principal Das WeltAuto (siempre exterior) ───────────────────────
 
 def dwa_foto_url(url_relativa: str) -> str:
@@ -34,6 +39,47 @@ def dwa_foto_url(url_relativa: str) -> str:
     padded = listing_id.zfill(11)
     path = '/'.join(padded[i:i+2] for i in range(0, len(padded), 2))
     return f"{DASWELTAUTO}/esp/fotos_anuncios/{path}/x01.jpg"
+
+def header_social_html() -> str:
+    """Iconos de redes sociales del header (Instagram, Facebook, TikTok),
+    compartidos entre index.html y las fichas de coche."""
+    return f'''<div class="rd-header-social">
+  <a href="{INSTAGRAM_URL}" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#FED576"/>
+          <stop offset="26%" stop-color="#F47133"/>
+          <stop offset="61%" stop-color="#BC3081"/>
+          <stop offset="100%" stop-color="#4F5BD5"/>
+        </linearGradient>
+      </defs>
+      <rect x="1" y="1" width="22" height="22" rx="6" fill="url(#igGrad)"/>
+      <rect x="6.5" y="6.5" width="11" height="11" rx="3.5" fill="none" stroke="#fff" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="3.1" fill="none" stroke="#fff" stroke-width="1.6"/>
+      <circle cx="16" cy="8" r="1.05" fill="#fff"/>
+    </svg>
+  </a>
+  <a href="{FACEBOOK_URL}" target="_blank" rel="noopener" aria-label="Facebook">
+    <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="11" fill="#1877F2"/>
+      <path d="M15.4 12.5h-2.2V20h-3v-7.5H8.6v-2.6h1.6V8.3c0-1.7 1-2.9 3.1-2.9h2.1v2.6h-1.3c-.7 0-.9.3-.9.9v1.4h2.3l-.3 2.6z" fill="#fff"/>
+    </svg>
+  </a>
+  <a href="{TIKTOK_URL}" target="_blank" rel="noopener" aria-label="TikTok">
+    <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="22" height="22" rx="6" fill="#010101"/>
+      <g transform="translate(0.6,-0.4)">
+        <path d="M15.6 5.5c.5 1.4 1.6 2.5 3.1 2.8v2.4c-1.1 0-2.1-.3-3-1v5.1c0 2.6-2.1 4.7-4.7 4.7S6.3 17 6.3 14.4s2.1-4.7 4.7-4.7c.2 0 .4 0 .6.1v2.5c-.2-.1-.4-.1-.6-.1-1.2 0-2.2 1-2.2 2.2s1 2.2 2.2 2.2 2.2-1 2.2-2.2V4h2.4c.1.5.2 1 .4 1.5z" fill="#25F4EE"/>
+      </g>
+      <g transform="translate(-0.6,0.4)">
+        <path d="M15.6 5.5c.5 1.4 1.6 2.5 3.1 2.8v2.4c-1.1 0-2.1-.3-3-1v5.1c0 2.6-2.1 4.7-4.7 4.7S6.3 17 6.3 14.4s2.1-4.7 4.7-4.7c.2 0 .4 0 .6.1v2.5c-.2-.1-.4-.1-.6-.1-1.2 0-2.2 1-2.2 2.2s1 2.2 2.2 2.2 2.2-1 2.2-2.2V4h2.4c.1.5.2 1 .4 1.5z" fill="#FE2C55"/>
+      </g>
+      <path d="M15.6 5.5c.5 1.4 1.6 2.5 3.1 2.8v2.4c-1.1 0-2.1-.3-3-1v5.1c0 2.6-2.1 4.7-4.7 4.7S6.3 17 6.3 14.4s2.1-4.7 4.7-4.7c.2 0 .4 0 .6.1v2.5c-.2-.1-.4-.1-.6-.1-1.2 0-2.2 1-2.2 2.2s1 2.2 2.2 2.2 2.2-1 2.2-2.2V4h2.4c.1.5.2 1 .4 1.5z" fill="#fff"/>
+    </svg>
+  </a>
+</div>'''
+
 
 def footer_whatsapp_html(link_dwa: str = "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda") -> str:
     """Pie de página (contacto + enlace DWA + última actualización) y botón
@@ -1011,6 +1057,7 @@ def build_coche_html(car: dict, fotos_urls: list[str]) -> str:
     <strong>Automóviles Rueda</strong>
     <span>{COMERCIAL_NOMBRE} · {COMERCIAL_TELEFONO}</span>
   </div>
+  {header_social_html()}
 </header>
 <a class="rd-back" href="../index.html">&#8249; Volver al catálogo</a>
 {vendido_banner}
@@ -1184,6 +1231,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]]) -> str:
     <strong>Automóviles Rueda</strong>
     <span>{COMERCIAL_NOMBRE} · {COMERCIAL_TELEFONO}</span>
   </div>
+  {header_social_html()}
 </header>
 
 <div class="rd-controls">
