@@ -44,9 +44,42 @@ def norm_km(k):
     limpio = re.sub(r"[^\d]", "", str(k))
     return int(limpio) if limpio else 0
 
+def norm_modelo(m):
+    """Normaliza el modelo para comparar sin distinguir mayúsculas/acentos/espacios."""
+    s = str(m or "").strip().lower()
+    s = "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c))
+    return re.sub(r"\s+", " ", s)
+
+def tokens_modelo_version(modelo, version):
+    """Bolsa de palabras normalizada de modelo+version, insensible a en qué
+    campo caiga cada palabra.
+
+    DWA y MotorFlash no reparten igual el nombre del coche entre "modelo" y
+    "version": p.ej. un SEAT León ST llega de DWA como modelo="SEAT León",
+    version="ST 1.5 eTSI..." pero de MotorFlash como modelo="SEAT León ST",
+    version="1.5 eTSI..." (el "ST"/"Sportstourer" queda pegado al nombre
+    mostrado en la tarjeta). Comparar solo "modelo" con "modelo" no detecta
+    que es el mismo coche y lo duplica. Comparando el conjunto de palabras de
+    modelo+version combinados, el reparto entre campos deja de importar.
+    """
+    s = f"{modelo or ''} {version or ''}".lower()
+    s = "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c))
+    s = re.sub(r"[^a-z0-9]+", " ", s)
+    return tuple(sorted(s.split()))
+
 def clave_mf(c):
-    """Clave única por coche: precio + km redondeado a decena."""
-    return (norm_precio(c.get("precio", "0")), round(norm_km(c.get("km", "0")), -1))
+    """Clave única por coche: modelo+version (bolsa de palabras) + precio +
+    km redondeado a decena.
+
+    IMPORTANTE: el nombre del coche forma parte de la clave a propósito. Sin
+    él, dos coches distintos que coincidan en precio (y km redondeado) —
+    algo muy habitual, p.ej. un SEAT Ibiza y un SEAT Arona al mismo precio —
+    se confundían entre sí: un coche de MotorFlash que no era nuestro podía
+    "emparejarse" con uno nuestro y publicarse como si lo fuera, o pisar su
+    km/fecha real con los de un coche completamente distinto.
+    """
+    return (tokens_modelo_version(c.get("modelo", ""), c.get("version", "")),
+            norm_precio(c.get("precio", "0")), round(norm_km(c.get("km", "0")), -1))
 
 def extraer_url_foto(data_src):
     if not data_src:
@@ -178,13 +211,16 @@ def enriquecer_dwa_con_mf(dwa_sin_km, mf_coches):
     """
     mf_usados = set()
     for dwa_c in dwa_sin_km:
+        clave = tokens_modelo_version(dwa_c.get("modelo", ""), dwa_c.get("version", ""))
         precio = norm_precio(dwa_c.get("precio", "0"))
         for i, mf_c in enumerate(mf_coches):
             if i in mf_usados:
                 continue
+            if tokens_modelo_version(mf_c.get("modelo", ""), mf_c.get("version", "")) != clave:
+                continue
             if norm_precio(mf_c.get("precio", "0")) != precio:
                 continue
-            # Coincidencia por precio → enriquecer DWA con datos de MF
+            # Coincidencia por modelo + precio → enriquecer DWA con datos de MF
             dwa_c["km"]    = mf_c.get("km", "")
             dwa_c["fecha"] = mf_c.get("fecha", "")
             if not dwa_c.get("cambio"):
@@ -197,9 +233,13 @@ def enriquecer_dwa_con_mf(dwa_sin_km, mf_coches):
 def encontrar_exclusivos_mf(dwa_coches, mf_coches, mf_ya_usados=None):
     """Devuelve coches de MF que no están en DWA.
 
-    Usa clave exacta (precio+km) para coches DWA con km, y solo precio
-    para coches DWA sin km (ya enriquecidos o que no pudieron serlo).
-    mf_ya_usados: índices MF ya consumidos por enriquecer_dwa_con_mf.
+    Usa clave exacta (modelo+precio+km) para coches DWA con km, y modelo+precio
+    para coches DWA sin km (ya enriquecidos o que no pudieron serlo). El modelo
+    va SIEMPRE en la clave: sin él, un coche de MotorFlash que no es nuestro
+    pero coincide en precio/km con uno nuestro de otro modelo se daba por
+    "ya existente" y no se detectaba como exclusivo (o, peor, un exclusivo real
+    podía camuflarse como coincidencia de un coche nuestro completamente
+    distinto). mf_ya_usados: índices MF ya consumidos por enriquecer_dwa_con_mf.
     """
     if mf_ya_usados is None:
         mf_ya_usados = set()
@@ -208,12 +248,14 @@ def encontrar_exclusivos_mf(dwa_coches, mf_coches, mf_ya_usados=None):
     dwa_con_km = {}
     dwa_sin_km_precios = {}
     for c in dwa_coches:
+        clave = tokens_modelo_version(c.get("modelo", ""), c.get("version", ""))
         precio = norm_precio(c.get("precio", "0"))
         if c.get("km"):
-            k = (precio, round(norm_km(c["km"]), -1))
+            k = (clave, precio, round(norm_km(c["km"]), -1))
             dwa_con_km[k] = dwa_con_km.get(k, 0) + 1
         else:
-            dwa_sin_km_precios[precio] = dwa_sin_km_precios.get(precio, 0) + 1
+            k = (clave, precio)
+            dwa_sin_km_precios[k] = dwa_sin_km_precios.get(k, 0) + 1
 
     exclusivos = []
     contados_exactos = {}
@@ -221,20 +263,22 @@ def encontrar_exclusivos_mf(dwa_coches, mf_coches, mf_ya_usados=None):
     for i, c in enumerate(mf_coches):
         if i in mf_ya_usados:
             continue  # ya asignado a un coche DWA para enriquecimiento
+        clave = tokens_modelo_version(c.get("modelo", ""), c.get("version", ""))
         precio = norm_precio(c.get("precio", "0"))
         km     = round(norm_km(c.get("km", "0")), -1)
-        k_exact = (precio, km)
+        k_exact = (clave, precio, km)
+        k_precio = (clave, precio)
 
-        # 1) Coincidencia exacta precio+km
+        # 1) Coincidencia exacta modelo+precio+km
         usados_e = contados_exactos.get(k_exact, 0)
         if usados_e < dwa_con_km.get(k_exact, 0):
             contados_exactos[k_exact] = usados_e + 1
             continue
 
-        # 2) Coincidencia solo precio (para DWA que aún sin km tras enriquecimiento)
-        usados_p = contados_precio.get(precio, 0)
-        if usados_p < dwa_sin_km_precios.get(precio, 0):
-            contados_precio[precio] = usados_p + 1
+        # 2) Coincidencia modelo+precio (para DWA que aún sin km tras enriquecimiento)
+        usados_p = contados_precio.get(k_precio, 0)
+        if usados_p < dwa_sin_km_precios.get(k_precio, 0):
+            contados_precio[k_precio] = usados_p + 1
             continue
 
         exclusivos.append(c)
