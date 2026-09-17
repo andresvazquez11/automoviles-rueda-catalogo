@@ -383,6 +383,7 @@ img { max-width: 100%; display: block; }
   background: #25D366; color: #fff;
   font-family: var(--rd-font); font-size: 14px; font-weight: 700;
   padding: 13px 20px 13px 16px; border-radius: 50px;
+  border: none; cursor: pointer;
   box-shadow: 0 4px 18px rgba(37,211,102,0.5);
   transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
 }
@@ -399,5 +400,53 @@ img { max-width: 100%; display: block; }
   /* En fichas de coche hay una barra fija inferior (precio/financiación) —
      subir el botón para que no quede tapado por ella. */
   body.rd-has-sticky .rd-whatsapp-float { bottom: 78px; }
+}
+
+/* ── Ventanita de chat de WhatsApp (se abre al hacer clic en el botón) ── */
+.rd-wa-popup {
+  position: fixed; z-index: 149; right: 22px; bottom: 88px;
+  width: 290px; max-width: calc(100vw - 32px);
+  background: var(--rd-surface); border-radius: var(--rd-radius-lg);
+  box-shadow: var(--rd-shadow-lg);
+  overflow: hidden;
+  opacity: 0; visibility: hidden; transform: translateY(12px) scale(0.97);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+.rd-wa-popup.activo { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+.rd-wa-popup-header {
+  background: #075E54; color: #fff;
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px;
+}
+.rd-wa-popup-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: #25D366; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--rd-display); font-size: 16px; font-weight: 600;
+}
+.rd-wa-popup-info { flex: 1; min-width: 0; }
+.rd-wa-popup-info strong { display: block; font-size: 14px; line-height: 1.3; }
+.rd-wa-popup-info span { display: block; font-size: 11.5px; opacity: 0.85; }
+.rd-wa-popup-close {
+  background: none; border: none; color: #fff; opacity: 0.8; cursor: pointer;
+  font-size: 22px; line-height: 1; padding: 2px 4px; flex-shrink: 0;
+}
+.rd-wa-popup-close:hover { opacity: 1; }
+.rd-wa-popup-body { padding: 14px 16px; background: #ECE5DD; }
+.rd-wa-popup-bubble {
+  background: #fff; border-radius: var(--rd-radius-md); border-top-left-radius: 4px;
+  padding: 10px 12px; font-size: 13.5px; line-height: 1.45; color: var(--rd-ink);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.rd-wa-popup-cta {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: #25D366; color: #fff; font-weight: 700; font-size: 14px;
+  font-family: var(--rd-font);
+  padding: 12px 16px; text-decoration: none;
+}
+.rd-wa-popup-cta:hover { background: #128C7E; }
+@media (max-width: 640px) {
+  .rd-wa-popup { bottom: 82px; }
+  body.rd-has-sticky .rd-wa-popup { bottom: 138px; }
 }
 .rd-vendido-banner a { color: var(--rd-red); text-decoration: underline; margin-left: 8px; }
