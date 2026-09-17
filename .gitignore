@@ -1,3 +1,6 @@
 # El PDF supera a menudo el límite de 100MB de GitHub — se genera local
 # cada día pero no se versiona en el repo (no lo necesita la web).
 catalogo_automoviles_rueda.pdf
+
+# Metadatos de Finder (macOS) — nunca deberían versionarse
+.DS_Store
