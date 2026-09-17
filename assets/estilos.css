@@ -6,7 +6,7 @@
    ══════════════════════════════════════════════════════════════════ */
 
 :root {
-  --rd-bg:        #f7ece1;
+  --rd-bg:        #f2f1ed;
   --rd-surface:   #ffffff;
   --rd-ink:       #14110f;
   --rd-ink-soft:  #55524c;
@@ -40,22 +40,6 @@ img { max-width: 100%; display: block; }
 /* ── Fondo con el logo de Das WeltAuto, muy tenue y difuminado — textura
    sutil detrás de las tarjetas/paneles (todos opacos), no compite con el
    contenido. ── */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(232,80,30,0.13), rgba(232,80,30,0.13)),
-    url('/assets/dasweltauto-logo.svg');
-  background-repeat: repeat, repeat;
-  background-size: auto, 420px auto;
-  background-position: center, center;
-  opacity: 0.55;
-  filter: blur(3px);
-  pointer-events: none;
-}
-
 /* ── Header: negro cálido + filo rojo en diagonal ── */
 .rd-header {
   background: var(--rd-ink);
@@ -86,18 +70,26 @@ body::before {
   font-style: normal; font-weight: 700; text-transform: uppercase;
   letter-spacing: 1px; font-size: 10.5px; color: #b7b2a8; margin-right: 6px;
 }
+.rd-header-tel { white-space: nowrap; }
 
+.rd-header-social-wrap {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  flex-shrink: 0;
+}
 .rd-header-social {
-  grid-column: 3; justify-self: end;
-  display: flex; align-items: center; gap: 16px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 18px;
 }
 .rd-header-social a {
   display: inline-flex;
   opacity: 0.9;
   transition: opacity .15s ease, transform .15s ease;
 }
+.rd-header-social-caption {
+  font-family: var(--rd-font); font-size: 11px; font-weight: 500;
+  color: #b7b2a8; letter-spacing: 0.3px; text-align: right;
+}
 .rd-header-social a:hover { opacity: 1; transform: scale(1.1); }
-.rd-header-social svg { display: block; width: 28px; height: 28px; }
+.rd-header-social svg { display: block; width: 34px; height: 34px; }
 
 @media (max-width: 640px) {
   .rd-header { padding: 14px 16px; gap: 8px; }
@@ -105,7 +97,8 @@ body::before {
   .rd-header-asesor { font-size: 11px; }
   .rd-header-asesor em { font-size: 9px; margin-right: 4px; }
   .rd-header-social { gap: 10px; }
-  .rd-header-social svg { width: 22px; height: 22px; }
+  .rd-header-social svg { width: 26px; height: 26px; }
+  .rd-header-social-caption { font-size: 9px; }
 }
 
 /* ── Volver / breadcrumb ── */
@@ -305,8 +298,9 @@ body::before {
   background: var(--rd-surface);
   border-radius: var(--rd-radius-md);
   overflow: hidden;
-  box-shadow: var(--rd-shadow);
-  transition: transform .18s ease, box-shadow .18s ease;
+  border: 1px solid rgba(200,35,43,0.16);
+  box-shadow: var(--rd-shadow), 0 0 16px rgba(200,35,43,0.10);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   display: block;
   opacity: 0;
   animation: rd-card-in .4s ease forwards;
@@ -319,7 +313,11 @@ body::before {
    las tarjetas moviendo los mismos nodos (appendChild), y un delay basado en
    posición se recalcula al reordenar — provoca un parpadeo visible cada vez
    que se cambia el orden. Con delay fijo (0), reordenar nunca re-dispara nada. */
-.rd-grid .rd-card:hover { transform: translateY(-4px); box-shadow: var(--rd-shadow-lg); }
+.rd-grid .rd-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200,35,43,0.55);
+  box-shadow: var(--rd-shadow-lg), 0 0 30px rgba(200,35,43,0.32);
+}
 .rd-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: var(--rd-bg); }
 .rd-card-body { padding: 13px 15px 16px; }
 .rd-card-modelo  {

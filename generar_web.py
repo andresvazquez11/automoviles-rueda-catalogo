@@ -117,14 +117,19 @@ _ICONOS_REDES = {
 }
 
 def header_social_html(redes: list) -> str:
-    """Iconos de redes sociales del header — compartida entre index.html y
-    las fichas de coche, pero las redes en sí son propias de cada perfil
-    (`perfil["redes"]`, lista de tuplas (tipo, url))."""
-    enlaces = "\n  ".join(
-        f'<a href="{url}" target="_blank" rel="noopener" aria-label="{_ICONOS_REDES[tipo][0]}">\n    {_ICONOS_REDES[tipo][1]}\n  </a>'
+    """Iconos de redes sociales del header (con leyenda debajo) — compartida
+    entre index.html y las fichas de coche, pero las redes en sí son propias
+    de cada perfil (`perfil["redes"]`, lista de tuplas (tipo, url))."""
+    enlaces = "\n    ".join(
+        f'<a href="{url}" target="_blank" rel="noopener" aria-label="{_ICONOS_REDES[tipo][0]}">\n      {_ICONOS_REDES[tipo][1]}\n    </a>'
         for tipo, url in redes
     )
-    return f'<div class="rd-header-social">\n  {enlaces}\n</div>'
+    return f'''<div class="rd-header-social-wrap">
+  <div class="rd-header-social">
+    {enlaces}
+  </div>
+  <span class="rd-header-social-caption">Síguenos en nuestras redes sociales</span>
+</div>'''
 
 
 def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda") -> str:
@@ -1160,7 +1165,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict) -> str:
 <header class="rd-header">
   <div class="rd-header-brand">
     <strong>Automóviles Rueda</strong>
-    <span class="rd-header-asesor"><em>Asesor comercial</em>{nombre} · {telefono}</span>
+    <span class="rd-header-asesor"><em>Asesor comercial</em>{nombre} · <span class="rd-header-tel">{telefono}</span></span>
   </div>
   {header_social_html(perfil["redes"])}
 </header>
@@ -1341,7 +1346,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 <header class="rd-header">
   <div class="rd-header-brand">
     <strong>Automóviles Rueda</strong>
-    <span class="rd-header-asesor"><em>Asesor comercial</em>{perfil["nombre"]} · {perfil["telefono"]}</span>
+    <span class="rd-header-asesor"><em>Asesor comercial</em>{perfil["nombre"]} · <span class="rd-header-tel">{perfil["telefono"]}</span></span>
   </div>
   {header_social_html(perfil["redes"])}
 </header>
