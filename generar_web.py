@@ -27,12 +27,21 @@ PERFILES = [
         "nombre": "Andrés Vázquez",
         "telefono": "610 02 90 56",
         "email": "andres.vazquez@automovilesrueda.com",
+        "redes": [
+            ("instagram", "https://www.instagram.com/seat_cupra_velezmalaga_ar/"),
+            ("facebook", "https://www.facebook.com/profile.php?id=61560676831246"),
+            ("tiktok", "https://www.tiktok.com/@automoviles.rueda"),
+        ],
     },
     {
         "carpeta": "alejandro",
         "nombre": "Alejandro Morales Pájaro",
         "telefono": "685 90 77 41",
         "email": "alejandro.morales@automovilesrueda.com",
+        "redes": [
+            ("facebook", "https://www.facebook.com/alejandroautomovilesrueda"),
+            ("instagram", "https://www.instagram.com/alejandroautomovilesrueda/"),
+        ],
     },
 ]
 
@@ -56,11 +65,6 @@ def datos_perfil(perfil: dict) -> dict:
         "dominio_pagina": dominio_pagina,
     }
 
-# Redes sociales (compartidas por todos los perfiles — son del concesionario)
-INSTAGRAM_URL = "https://www.instagram.com/seat_cupra_velezmalaga_ar/"
-FACEBOOK_URL  = "https://www.facebook.com/profile.php?id=61560676831246"
-TIKTOK_URL    = "https://www.tiktok.com/@automoviles.rueda"
-
 # ── URL foto principal Das WeltAuto (siempre exterior) ───────────────────────
 
 def dwa_foto_url(url_relativa: str) -> str:
@@ -73,12 +77,7 @@ def dwa_foto_url(url_relativa: str) -> str:
     path = '/'.join(padded[i:i+2] for i in range(0, len(padded), 2))
     return f"{DASWELTAUTO}/esp/fotos_anuncios/{path}/x01.jpg"
 
-def header_social_html() -> str:
-    """Iconos de redes sociales del header (Instagram, Facebook, TikTok),
-    compartidos entre index.html y las fichas de coche."""
-    return f'''<div class="rd-header-social">
-  <a href="{INSTAGRAM_URL}" target="_blank" rel="noopener" aria-label="Instagram">
-    <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+_ICONO_INSTAGRAM = '''<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#FED576"/>
@@ -91,16 +90,14 @@ def header_social_html() -> str:
       <rect x="6.5" y="6.5" width="11" height="11" rx="3.5" fill="none" stroke="#fff" stroke-width="1.6"/>
       <circle cx="12" cy="12" r="3.1" fill="none" stroke="#fff" stroke-width="1.6"/>
       <circle cx="16" cy="8" r="1.05" fill="#fff"/>
-    </svg>
-  </a>
-  <a href="{FACEBOOK_URL}" target="_blank" rel="noopener" aria-label="Facebook">
-    <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    </svg>'''
+
+_ICONO_FACEBOOK = '''<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="12" r="11" fill="#1877F2"/>
       <path d="M15.4 12.5h-2.2V20h-3v-7.5H8.6v-2.6h1.6V8.3c0-1.7 1-2.9 3.1-2.9h2.1v2.6h-1.3c-.7 0-.9.3-.9.9v1.4h2.3l-.3 2.6z" fill="#fff"/>
-    </svg>
-  </a>
-  <a href="{TIKTOK_URL}" target="_blank" rel="noopener" aria-label="TikTok">
-    <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    </svg>'''
+
+_ICONO_TIKTOK = '''<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <rect x="1" y="1" width="22" height="22" rx="6" fill="#010101"/>
       <g transform="translate(0.6,-0.4)">
         <path d="M15.6 5.5c.5 1.4 1.6 2.5 3.1 2.8v2.4c-1.1 0-2.1-.3-3-1v5.1c0 2.6-2.1 4.7-4.7 4.7S6.3 17 6.3 14.4s2.1-4.7 4.7-4.7c.2 0 .4 0 .6.1v2.5c-.2-.1-.4-.1-.6-.1-1.2 0-2.2 1-2.2 2.2s1 2.2 2.2 2.2 2.2-1 2.2-2.2V4h2.4c.1.5.2 1 .4 1.5z" fill="#25F4EE"/>
@@ -109,9 +106,23 @@ def header_social_html() -> str:
         <path d="M15.6 5.5c.5 1.4 1.6 2.5 3.1 2.8v2.4c-1.1 0-2.1-.3-3-1v5.1c0 2.6-2.1 4.7-4.7 4.7S6.3 17 6.3 14.4s2.1-4.7 4.7-4.7c.2 0 .4 0 .6.1v2.5c-.2-.1-.4-.1-.6-.1-1.2 0-2.2 1-2.2 2.2s1 2.2 2.2 2.2 2.2-1 2.2-2.2V4h2.4c.1.5.2 1 .4 1.5z" fill="#FE2C55"/>
       </g>
       <path d="M15.6 5.5c.5 1.4 1.6 2.5 3.1 2.8v2.4c-1.1 0-2.1-.3-3-1v5.1c0 2.6-2.1 4.7-4.7 4.7S6.3 17 6.3 14.4s2.1-4.7 4.7-4.7c.2 0 .4 0 .6.1v2.5c-.2-.1-.4-.1-.6-.1-1.2 0-2.2 1-2.2 2.2s1 2.2 2.2 2.2 2.2-1 2.2-2.2V4h2.4c.1.5.2 1 .4 1.5z" fill="#fff"/>
-    </svg>
-  </a>
-</div>'''
+    </svg>'''
+
+_ICONOS_REDES = {
+    "instagram": ("Instagram", _ICONO_INSTAGRAM),
+    "facebook": ("Facebook", _ICONO_FACEBOOK),
+    "tiktok": ("TikTok", _ICONO_TIKTOK),
+}
+
+def header_social_html(redes: list) -> str:
+    """Iconos de redes sociales del header — compartida entre index.html y
+    las fichas de coche, pero las redes en sí son propias de cada perfil
+    (`perfil["redes"]`, lista de tuplas (tipo, url))."""
+    enlaces = "\n  ".join(
+        f'<a href="{url}" target="_blank" rel="noopener" aria-label="{_ICONOS_REDES[tipo][0]}">\n    {_ICONOS_REDES[tipo][1]}\n  </a>'
+        for tipo, url in redes
+    )
+    return f'<div class="rd-header-social">\n  {enlaces}\n</div>'
 
 
 def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda") -> str:
@@ -1106,7 +1117,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict) -> str:
     <strong>Automóviles Rueda</strong>
     <span>{nombre} · {telefono}</span>
   </div>
-  {header_social_html()}
+  {header_social_html(perfil["redes"])}
 </header>
 <a class="rd-back" href="../index.html">&#8249; Volver al catálogo</a>
 {vendido_banner}
@@ -1287,7 +1298,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
     <strong>Automóviles Rueda</strong>
     <span>{perfil["nombre"]} · {perfil["telefono"]}</span>
   </div>
-  {header_social_html()}
+  {header_social_html(perfil["redes"])}
 </header>
 
 <div class="rd-controls">

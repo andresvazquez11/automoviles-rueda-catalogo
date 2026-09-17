@@ -365,18 +365,38 @@ def main():
         carpeta_previa = (WEB_FOTOS / f"{previo['n']:02d}") if previo else None
         fotos_previas = sorted(carpeta_previa.glob("foto_*.jpg")) if carpeta_previa and carpeta_previa.exists() else []
 
-        if fotos_previas:
-            # Mismo coche que la ejecución anterior (mismo motorflash_id) — reutilizar
+        if fotos_previas and previo["n"] == idx:
+            # Mismo coche, misma carpeta que la ejecución anterior — reutilizar
             # sus fotos ya descargadas en vez de volver a bajarlas de MotorFlash.
-            # Solo hay que renombrar la carpeta si el "n" cambió.
-            carpeta_nueva = WEB_FOTOS / f"{idx:02d}"
-            if previo["n"] != idx and not carpeta_nueva.exists():
-                carpeta_previa.rename(carpeta_nueva)
-            elif previo["n"] == idx:
-                carpeta_nueva = carpeta_previa
-            fotos = sorted(f"web_fotos/{idx:02d}/{f.name}" for f in carpeta_nueva.glob("foto_*.jpg"))
+            fotos = sorted(f"web_fotos/{idx:02d}/{f.name}" for f in carpeta_previa.glob("foto_*.jpg"))
             print(f"  = [{idx:02d}] {c['modelo']} {c['precio']}€ ({c['tipo']}) — fotos ya existentes, reutilizadas")
+        elif fotos_previas:
+            # Mismo coche, pero cambió de número de carpeta — mover sus fotos
+            # reales a la carpeta nueva. Si esa carpeta nueva ya tenía archivos
+            # (huérfanos de OTRO coche de un día anterior — nunca se limpian
+            # solos), se borran primero: nunca hay que quedarse con fotos de
+            # una carpeta que no se acaba de escribir/mover uno mismo en esta
+            # misma corrida — eso fue el bug real del Nissan Qashqai con fotos
+            # de otro coche (heredó una carpeta huérfana sin verificar).
+            carpeta_nueva = WEB_FOTOS / f"{idx:02d}"
+            if carpeta_nueva.exists():
+                for _viejo in carpeta_nueva.glob("*"):
+                    _viejo.unlink()
+            else:
+                carpeta_nueva.mkdir(parents=True, exist_ok=True)
+            for foto in carpeta_previa.glob("foto_*.jpg"):
+                shutil.move(str(foto), str(carpeta_nueva / foto.name))
+            carpeta_previa.rmdir()
+            fotos = sorted(f"web_fotos/{idx:02d}/{f.name}" for f in carpeta_nueva.glob("foto_*.jpg"))
+            print(f"  = [{idx:02d}] {c['modelo']} {c['precio']}€ ({c['tipo']}) — fotos movidas desde carpeta anterior")
         else:
+            # Coche nuevo (o sin fotos previas verificables) — descargar de cero.
+            # Limpiar antes cualquier resto huérfano en la carpeta destino, por
+            # la misma razón de arriba.
+            carpeta_destino = WEB_FOTOS / f"{idx:02d}"
+            if carpeta_destino.exists():
+                for _viejo in carpeta_destino.glob("*"):
+                    _viejo.unlink()
             print(f"  + [{idx:02d}] {c['modelo']} {c['precio']}€ ({c['tipo']}) — descargando fotos...")
             fotos = preparar_fotos_mf(c, idx)
         c["n"]    = idx
@@ -412,6 +432,21 @@ def main():
 
     DWA_JSON.write_text(json.dumps(lista_final, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  ✓ datos_coches.json actualizado: {len(dwa_solo)} DWA + {len(exclusivos)} MF = {len(lista_final)} total")
+
+    # Limpieza de carpetas huérfanas en web_fotos/: con la numeración
+    # secuencial 1..N sin huecos, cualquier carpeta con número mayor al total
+    # de coches actuales no pertenece a ningún coche vigente. Si se dejan,
+    # un coche futuro que caiga en ese número hereda fotos de otro coche sin
+    # que nadie lo note (la causa real del bug de fotos del Nissan Qashqai).
+    total_coches = len(lista_final)
+    if WEB_FOTOS.exists():
+        huerfanas = 0
+        for carpeta in WEB_FOTOS.iterdir():
+            if carpeta.is_dir() and carpeta.name.isdigit() and int(carpeta.name) > total_coches:
+                shutil.rmtree(carpeta)
+                huerfanas += 1
+        if huerfanas:
+            print(f"  🧹 {huerfanas} carpeta(s) de fotos huérfana(s) eliminada(s) de web_fotos/")
 
     # 6) Guardar comparacion.json actualizado (para referencia; el PDF lo recalcula en vivo)
     comp_out = MF_JSON.parent / "comparacion.json"
