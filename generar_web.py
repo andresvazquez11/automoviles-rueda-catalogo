@@ -1408,9 +1408,6 @@ def main():
     total_fotos = sum(len(v) for v in rutas.values())
     print(f"    {total_fotos} fotos copiadas")
 
-    coches_dir = BASE_DIR / "coches"
-    coches_dir.mkdir(exist_ok=True)
-
     # Sin foto verificada = no se publica (ni en el índice ni con ficha propia).
     # Los "Retirado" se tratan aparte más abajo (ya estaban excluidos del índice).
     sin_foto = set()
@@ -1425,7 +1422,10 @@ def main():
         coches = [c for c in coches if c["n"] not in sin_foto]
         print(f"  ⛔ {len(sin_foto)} coche(s) sin foto verificada, no publicado(s) en la web")
 
-    slugs_validos = set()
+    # ── Paso 1 (una sola vez, compartido entre perfiles): resolver las fotos
+    # de cada coche, incluyendo el respaldo de fotos para "Retirado". ────────
+    slugs_validos: set[str] = set()
+    fotos_por_coche: dict[int, list[str]] = {}
     for car in todos_los_coches:
         n = car["n"]
         if n in sin_foto:
@@ -1448,33 +1448,49 @@ def main():
                 for i, foto in enumerate(fotos_src[:8], start=1):
                     dst = dest_retirado / f"foto_{i:02d}.jpg"
                     shutil.copy2(foto, dst)
-                    fotos_urls.append(f"web_fotos/{n:02d}/{dst.name}")
+                    fotos_urls.append(f"/web_fotos/{n:02d}/{dst.name}")
             else:
                 for _viejo in dest_retirado.glob("foto_*.jpg"):
                     _viejo.unlink()
                 fotos_urls = []
         elif car.get("fuente") == "motorflash":
-            fotos_urls = [f for f in car.get("fotos", []) if (BASE_DIR / f).exists()]
+            fotos_urls = [f"/{f.lstrip('/')}" for f in car.get("fotos", []) if (BASE_DIR / f).exists()]
         else:
             fotos_urls = rutas.get(n, [])
+        fotos_por_coche[n] = fotos_urls
 
-        html_coche = build_coche_html(car, fotos_urls)
-        (coches_dir / f"{n:02d}-{slug}.html").write_text(html_coche, encoding="utf-8")
-    print(f"  {len(todos_los_coches)} fichas individuales generadas en coches/")
+    # ── Paso 2: generar el sitio completo (index + fichas) una vez por cada
+    # perfil de asesor, en su propia carpeta de salida — compartiendo las
+    # mismas fotos/CSS/JS (rutas absolutas desde la raíz del dominio). ──────
+    for perfil in PERFILES:
+        datos = datos_perfil(perfil)
+        out_dir = datos["out_dir"]
+        coches_dir = out_dir / "coches"
+        coches_dir.mkdir(parents=True, exist_ok=True)
 
-    archivadas = 0
-    for f in coches_dir.glob("*.html"):
-        if f.name not in slugs_validos:
-            f.unlink()
-            archivadas += 1
-    if archivadas:
-        print(f"  {archivadas} ficha(s) huérfana(s) eliminada(s) de coches/ (coche ya no existe)")
+        for car in todos_los_coches:
+            n = car["n"]
+            if n in sin_foto:
+                continue
+            slug = slug_coche(car["modelo"])
+            html_coche = build_coche_html(car, fotos_por_coche[n], perfil)
+            (coches_dir / f"{n:02d}-{slug}.html").write_text(html_coche, encoding="utf-8")
 
-    html_index = build_index_html(coches, rutas)
-    HTML_PATH.write_text(html_index, encoding="utf-8")
-    print(f"  index.html regenerado con el catálogo nuevo")
+        archivadas = 0
+        for f in coches_dir.glob("*.html"):
+            if f.name not in slugs_validos:
+                f.unlink()
+                archivadas += 1
+        if archivadas:
+            print(f"  {archivadas} ficha(s) huérfana(s) eliminada(s) de {coches_dir} (coche ya no existe)")
+
+        html_index = build_index_html(coches, rutas, perfil)
+        (out_dir / "index.html").write_text(html_index, encoding="utf-8")
+        print(f"  index.html regenerado para {perfil['nombre']} en {out_dir}")
+
+    print(f"  {len(todos_los_coches)} fichas individuales generadas por perfil")
     print()
-    print("  Listo. Sube index.html, coches/ y web_fotos/ a GitHub Pages para compartirlo.")
+    print("  Listo. Sube index.html, coches/, alejandro/ y web_fotos/ a GitHub Pages para compartirlo.")
 
 if __name__ == "__main__":
     main()
