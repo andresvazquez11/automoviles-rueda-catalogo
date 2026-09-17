@@ -5,7 +5,7 @@ Automóviles Rueda — Generador de Catálogo Web
 Lee datos_coches.json, copia fotos a web_fotos/ y genera index.html
 """
 
-import hashlib, json, shutil, sys
+import hashlib, json, shutil, sys, urllib.parse
 from datetime import datetime
 from pathlib import Path
 import requests
@@ -18,12 +18,45 @@ HTML_PATH  = BASE_DIR / "index.html"
 
 DASWELTAUTO = "https://www.dasweltauto.es"
 
-# Datos del comercial
-COMERCIAL_NOMBRE   = "Andrés Vázquez"
-COMERCIAL_TELEFONO = "610 02 90 56"
-COMERCIAL_EMAIL    = "andres.vazquez@automovilesrueda.com"
+# Perfiles de asesor — cada uno genera su propia copia del sitio (mismos
+# coches y fotos, compartidos) en su propia carpeta de salida.
+# "carpeta": "" => se genera en la raíz del repo (BASE_DIR).
+PERFILES = [
+    {
+        "carpeta": "",
+        "nombre": "Andrés Vázquez",
+        "telefono": "610 02 90 56",
+        "email": "andres.vazquez@automovilesrueda.com",
+    },
+    {
+        "carpeta": "alejandro",
+        "nombre": "Alejandro Morales Pájaro",
+        "telefono": "685 90 77 41",
+        "email": "alejandro.morales@automovilesrueda.com",
+    },
+]
 
-# Redes sociales
+def datos_perfil(perfil: dict) -> dict:
+    """Deriva los valores calculados (nombre corto, teléfono en formatos
+    wa.me/tel:, carpeta de salida, dominio de la página) a partir de un
+    perfil de PERFILES. Centraliza el cálculo para no repetirlo en cada
+    función que necesita estos datos."""
+    telefono_digits = perfil["telefono"].replace(" ", "")
+    telefono_wa = "34" + telefono_digits
+    out_dir = BASE_DIR / perfil["carpeta"] if perfil["carpeta"] else BASE_DIR
+    dominio_pagina = f"{DOMINIO_BASE}/{perfil['carpeta']}" if perfil["carpeta"] else DOMINIO_BASE
+    return {
+        "nombre": perfil["nombre"],
+        "nombre_corto": perfil["nombre"].split()[0],
+        "telefono": perfil["telefono"],
+        "telefono_wa": telefono_wa,
+        "telefono_tel_href": "+" + telefono_wa,
+        "email": perfil["email"],
+        "out_dir": out_dir,
+        "dominio_pagina": dominio_pagina,
+    }
+
+# Redes sociales (compartidas por todos los perfiles — son del concesionario)
 INSTAGRAM_URL = "https://www.instagram.com/seat_cupra_velezmalaga_ar/"
 FACEBOOK_URL  = "https://www.facebook.com/profile.php?id=61560676831246"
 TIKTOK_URL    = "https://www.tiktok.com/@automoviles.rueda"
@@ -1359,7 +1392,10 @@ def main():
     # Los "Retirado" se tratan aparte más abajo (ya estaban excluidos del índice).
     sin_foto = set()
     for c in coches:
-        tiene_foto = (c.get("fotos") if c.get("fuente") == "motorflash" else rutas.get(c["n"]))
+        if c.get("fuente") == "motorflash":
+            tiene_foto = [f for f in c.get("fotos", []) if (BASE_DIR / f).exists()]
+        else:
+            tiene_foto = rutas.get(c["n"])
         if not tiene_foto:
             sin_foto.add(c["n"])
     if sin_foto:
@@ -1395,7 +1431,7 @@ def main():
                     _viejo.unlink()
                 fotos_urls = []
         elif car.get("fuente") == "motorflash":
-            fotos_urls = car.get("fotos", [])
+            fotos_urls = [f for f in car.get("fotos", []) if (BASE_DIR / f).exists()]
         else:
             fotos_urls = rutas.get(n, [])
 
