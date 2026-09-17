@@ -27,6 +27,7 @@ PERFILES = [
         "nombre": "Andrés Vázquez",
         "telefono": "610 02 90 56",
         "email": "andres.vazquez@automovilesrueda.com",
+        "avatar": "/assets/asesor-andres.jpg",
         "redes": [
             ("instagram", "https://www.instagram.com/seat_cupra_velezmalaga_ar/"),
             ("facebook", "https://www.facebook.com/profile.php?id=61560676831246"),
@@ -38,6 +39,7 @@ PERFILES = [
         "nombre": "Alejandro Morales Pájaro",
         "telefono": "685 90 77 41",
         "email": "alejandro.morales@automovilesrueda.com",
+        "avatar": "/assets/asesor-alejandro.jpg",
         "redes": [
             ("facebook", "https://www.facebook.com/alejandroautomovilesrueda"),
             ("instagram", "https://www.instagram.com/alejandroautomovilesrueda/"),
@@ -139,6 +141,8 @@ def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.
     )
     nombre_corto = nombre.split()[0]
     inicial = nombre_corto[0]
+    avatar_url = perfil.get("avatar", "")
+    avatar_html = (f'<img src="{avatar_url}" alt="{nombre}">' if avatar_url else inicial)
     return f'''
 <footer class="rd-footer">
   <p>
@@ -154,7 +158,7 @@ def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.
 
 <div class="rd-wa-popup" id="rd-wa-popup">
   <div class="rd-wa-popup-header">
-    <div class="rd-wa-popup-avatar">{inicial}</div>
+    <div class="rd-wa-popup-avatar">{avatar_html}</div>
     <div class="rd-wa-popup-info">
       <strong>{nombre}</strong>
       <span>Automóviles Rueda</span>
