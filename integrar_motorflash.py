@@ -358,6 +358,7 @@ def main():
                   for c in dwa_coches if c.get("fuente") == "motorflash"}
 
     n_start = max((c["n"] for c in lista_final), default=0) + 1
+    nuevos_mf = []  # (coche, idx_usado_para_su_carpeta_web_fotos) — para resync tras el paso 5
     for i, c in enumerate(exclusivos):
         idx = n_start + i
         previo = mf_previos.get(c.get("motorflash_id"))
@@ -382,10 +383,32 @@ def main():
         c["fotos"] = fotos
         c.pop("_data_srcs", None)
         lista_final.append(c)
+        nuevos_mf.append((c, idx))
 
     # 5) Re-numerar todo secuencialmente y guardar
     for i, c in enumerate(lista_final, 1):
         c["n"] = i
+
+    # 5a) Re-sincronizar carpetas web_fotos/ de MotorFlash: el "idx" usado arriba
+    # para nombrar la carpeta de fotos es el hueco disponible ANTES de esta
+    # renumeración secuencial — si la renumeración le asignó un "n" final
+    # distinto (p.ej. porque el número de coches DWA cambió), hay que mover la
+    # carpeta y reescribir "fotos" para que apunten al "n" definitivo. Si no se
+    # hace, "fotos" queda apuntando a una carpeta que ya no es la suya.
+    for c, idx in nuevos_mf:
+        n_final = c["n"]
+        if n_final == idx or not c.get("fotos"):
+            continue
+        origen  = WEB_FOTOS / f"{idx:02d}"
+        destino = WEB_FOTOS / f"{n_final:02d}"
+        if origen.is_dir():
+            if destino.exists():
+                for f in origen.glob("foto_*.jpg"):
+                    shutil.move(str(f), str(destino / f.name))
+                origen.rmdir()
+            else:
+                origen.rename(destino)
+        c["fotos"] = [f"web_fotos/{n_final:02d}/{Path(p).name}" for p in c["fotos"]]
 
     DWA_JSON.write_text(json.dumps(lista_final, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  ✓ datos_coches.json actualizado: {len(dwa_solo)} DWA + {len(exclusivos)} MF = {len(lista_final)} total")
