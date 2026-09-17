@@ -6,7 +6,7 @@
    ══════════════════════════════════════════════════════════════════ */
 
 :root {
-  --rd-bg:        #f2f1ed;
+  --rd-bg:        #f7ece1;
   --rd-surface:   #ffffff;
   --rd-ink:       #14110f;
   --rd-ink-soft:  #55524c;
@@ -45,12 +45,14 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url('/assets/dasweltauto-logo.svg');
-  background-repeat: repeat;
-  background-size: 320px auto;
-  background-position: center;
-  opacity: 0.06;
-  filter: blur(2px);
+  background-image:
+    linear-gradient(rgba(232,80,30,0.13), rgba(232,80,30,0.13)),
+    url('/assets/dasweltauto-logo.svg');
+  background-repeat: repeat, repeat;
+  background-size: auto, 420px auto;
+  background-position: center, center;
+  opacity: 0.55;
+  filter: blur(3px);
   pointer-events: none;
 }
 

@@ -180,10 +180,26 @@ def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.
 </button>
 
 <script>
-setTimeout(function() {{
-  var popup = document.getElementById('rd-wa-popup');
-  if (popup) popup.classList.add('activo');
-}}, 3500);
+(function() {{
+  function abrirPopupWa() {{
+    var popup = document.getElementById('rd-wa-popup');
+    if (popup) popup.classList.add('activo');
+  }}
+  // Si la pestaña está en segundo plano al cargar (link abierto desde otra
+  // app/pestaña), los navegadores retrasan o bloquean el setTimeout — se
+  // espera a que la pestaña esté realmente visible antes de contar los
+  // segundos, para que la burbuja no tarde minutos en aparecer (o nunca).
+  if (document.visibilityState === 'visible') {{
+    setTimeout(abrirPopupWa, 3500);
+  }} else {{
+    document.addEventListener('visibilitychange', function onVis() {{
+      if (document.visibilityState === 'visible') {{
+        document.removeEventListener('visibilitychange', onVis);
+        setTimeout(abrirPopupWa, 3500);
+      }}
+    }});
+  }}
+}})();
 </script>
 '''
 

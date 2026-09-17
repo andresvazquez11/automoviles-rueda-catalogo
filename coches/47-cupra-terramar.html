@@ -813,7 +813,7 @@ cargarFicha(COCHE);
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 17/09/2026 — 13:35 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 17/09/2026 — 16:16 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">
@@ -840,10 +840,26 @@ cargarFicha(COCHE);
 </button>
 
 <script>
-setTimeout(function() {
-  var popup = document.getElementById('rd-wa-popup');
-  if (popup) popup.classList.add('activo');
-}, 3500);
+(function() {
+  function abrirPopupWa() {
+    var popup = document.getElementById('rd-wa-popup');
+    if (popup) popup.classList.add('activo');
+  }
+  // Si la pestaña está en segundo plano al cargar (link abierto desde otra
+  // app/pestaña), los navegadores retrasan o bloquean el setTimeout — se
+  // espera a que la pestaña esté realmente visible antes de contar los
+  // segundos, para que la burbuja no tarde minutos en aparecer (o nunca).
+  if (document.visibilityState === 'visible') {
+    setTimeout(abrirPopupWa, 3500);
+  } else {
+    document.addEventListener('visibilitychange', function onVis() {
+      if (document.visibilityState === 'visible') {
+        document.removeEventListener('visibilitychange', onVis);
+        setTimeout(abrirPopupWa, 3500);
+      }
+    });
+  }
+})();
 </script>
 
 <script data-goatcounter="https://andresvazquez11.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
