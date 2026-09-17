@@ -242,13 +242,13 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
             for i, foto in enumerate(fotos_src[:8], start=1):
                 dst = dest / f"foto_{i:02d}.jpg"
                 shutil.copy2(foto, dst)
-                urls.append(f"web_fotos/{n:02d}/foto_{i:02d}.jpg")
+                urls.append(f"/web_fotos/{n:02d}/foto_{i:02d}.jpg")
         elif portada_dwa:
             # Sin carpeta local válida, pero DWA sigue publicando la foto de
             # portada del anuncio (identidad segura: por URL, no por "n") —
             # coches reservados incluidos, mientras el anuncio siga activo.
             (dest / "foto_01.jpg").write_bytes(portada_dwa)
-            urls = [f"web_fotos/{n:02d}/foto_01.jpg"]
+            urls = [f"/web_fotos/{n:02d}/foto_01.jpg"]
             print(f"  📸 n={n} {coche['modelo']}: foto de portada verificada de DWA")
         else:
             for _viejo in dest.glob("foto_*.jpg"):
@@ -359,7 +359,7 @@ def slug_coche(modelo: str) -> str:
     s = _re_slug.sub(r'[^a-z0-9]+', '-', s).strip('-')
     return s
 
-DOMINIO_WEB = "https://andresvazquez11.github.io/automoviles-rueda-catalogo"
+DOMINIO_BASE = "https://automovilesruedaocasion.com"
 
 CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_web.py) usa nombres
    de variable "cortos" (--surface, --text, --red, ...) definidos originalmente
