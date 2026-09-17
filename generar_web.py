@@ -1256,7 +1256,7 @@ def build_card_html(car: dict, hist: dict, fotos: list[str]) -> str:
   </div>
 </a>'''
 
-def build_index_html(cars: list[dict], rutas: dict[int, list[str]]) -> str:
+def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict) -> str:
     hist = _cargar_historial_precios()
     visibles = [c for c in cars if c.get("estado") != "Retirado"]
     total_disp = sum(1 for c in visibles if c["estado"] == "Disponible")
@@ -1279,13 +1279,13 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]]) -> str:
 <meta name="description" content="Catálogo de vehículos seminuevos con garantía oficial Das WeltAuto. {len(visibles)} coches disponibles en Málaga.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/estilos.css">
+<link rel="stylesheet" href="/assets/estilos.css">
 </head>
 <body>
 <header class="rd-header">
   <div class="rd-header-brand">
     <strong>Automóviles Rueda</strong>
-    <span>{COMERCIAL_NOMBRE} · {COMERCIAL_TELEFONO}</span>
+    <span>{perfil["nombre"]} · {perfil["telefono"]}</span>
   </div>
   {header_social_html()}
 </header>
@@ -1383,7 +1383,7 @@ document.querySelectorAll('.rd-card-nav').forEach(btn => {{
   document.getElementById('rd-sort').addEventListener('change', e => {{ orden = e.target.value; aplicar(); }});
 }})();
 </script>
-{footer_whatsapp_html()}
+{footer_whatsapp_html(perfil)}
 {goatcounter_script_html()}
 </body>
 </html>
