@@ -456,7 +456,7 @@ function cv2Render() {
   if (warnEl) {
     if (rules.creditoMinimo > 0 && importeFinanciado < rules.creditoMinimo) {
       warnEl.classList.add('visible');
-      warnEl.textContent = '⚠ Importe financiado (' + cv2Fmt(importeFinanciado) + ' €) inferior al mínimo de la campaña ' + rules.campanaLabel + ' (' + cv2Fmt(rules.creditoMinimo) + ' €). Consulta condiciones con Andrés.';
+      warnEl.textContent = '⚠ Importe financiado (' + cv2Fmt(importeFinanciado) + ' €) inferior al mínimo de la campaña ' + rules.campanaLabel + ' (' + cv2Fmt(rules.creditoMinimo) + ' €). Consulta condiciones con ' + ASESOR.nombreCorto + '.';
     } else {
       warnEl.classList.remove('visible');
     }
@@ -475,7 +475,7 @@ function cv2Render() {
   if (mantInfo.precioTotal > 0) {
     legalTxt += `${mantInfo.label}: ${cv2Fmt2(mantInfo.precioTotal)} € (${cv2Fmt2(mantInfo.mensual)} €/mes dividido en ${CV2.meses} cuotas). Cuota total mensual incluyendo mantenimiento: ${cv2Fmt2(cuotaTotal)} €. `;
   }
-  legalTxt += `Condiciones exactas con Andrés · 610 02 90 56.`;
+  legalTxt += `Condiciones exactas con ${ASESOR.nombreCorto} · ${ASESOR.telefonoDisplay}.`;
   const legalEl = gId('cv2-legal');
   if (legalEl) legalEl.textContent = legalTxt;
 
@@ -511,9 +511,9 @@ function cv2BuildWaLink(res, rules, mantInfo, cuotaTotal) {
   const totalConMant = Math.round(((res.total || 0) + (mantInfo ? mantInfo.precioTotal : 0)) * 100) / 100;
   msg += `💰 Total a plazos: *${cv2Fmt2(totalConMant)} €*\n`;
   msg += `━━━━━━━━━━━━━━━\n`;
-  msg += `_Cálculo orientativo. Condiciones exactas con Andrés · 610 02 90 56_`;
+  msg += `_Cálculo orientativo. Condiciones exactas con ${ASESOR.nombreCorto} · ${ASESOR.telefonoDisplay}_`;
   const waEl = document.getElementById('cv2-btn-wa');
-  if (waEl) waEl.href = `https://wa.me/34610029056?text=${encodeURIComponent(msg)}`;
+  if (waEl) waEl.href = `https://wa.me/${ASESOR.telefonoWa}?text=${encodeURIComponent(msg)}`;
 }
 
 // ── Handlers de usuario ───────────────────────────────────────────────────────
@@ -920,14 +920,14 @@ function bbvaRender() {
   const modelo = modeloEl && modeloEl.textContent !== '—' ? modeloEl.textContent : 'un vehículo';
   const waBtn = document.getElementById('bbva-btn-wa');
   if (waBtn) {
-    const msg = `Hola Andrés, te escribo desde la calculadora de financiación. Me interesa ${modelo} de ${bbvaFmt(precio)} € financiado con BBVA a ${BBVA.meses} meses (TIN 5,50%). Cuota estimada: ${bbvaFmt2(cuota)} €/mes.`;
-    waBtn.href = 'https://wa.me/34610029056?text=' + encodeURIComponent(msg);
+    const msg = `Hola ${ASESOR.nombreCorto}, te escribo desde la calculadora de financiación. Me interesa ${modelo} de ${bbvaFmt(precio)} € financiado con BBVA a ${BBVA.meses} meses (TIN 5,50%). Cuota estimada: ${bbvaFmt2(cuota)} €/mes.`;
+    waBtn.href = 'https://wa.me/' + ASESOR.telefonoWa + '?text=' + encodeURIComponent(msg);
   }
 
   const legalEl = document.getElementById('bbva-legal');
   if (legalEl) {
     legalEl.textContent =
-      `Ejemplo de cuota a ${BBVA.meses} meses: ${bbvaFmt2(cuota)} €. TIN 5,50% fijo. Entrada inicial: ${bbvaFmt(BBVA.entrada)} €. Importe financiado: ${bbvaFmt(importe)} €. Comisión de apertura financiada en la cuota. Precio total a plazos: ${bbvaFmt2(total)} €. Condiciones sujetas a modificación por parte de BBVA. Condiciones exactas con Andrés · 610 02 90 56.`;
+      `Ejemplo de cuota a ${BBVA.meses} meses: ${bbvaFmt2(cuota)} €. TIN 5,50% fijo. Entrada inicial: ${bbvaFmt(BBVA.entrada)} €. Importe financiado: ${bbvaFmt(importe)} €. Comisión de apertura financiada en la cuota. Precio total a plazos: ${bbvaFmt2(total)} €. Condiciones sujetas a modificación por parte de BBVA. Condiciones exactas con ${ASESOR.nombreCorto} · ${ASESOR.telefonoDisplay}.`;
   }
 }
 
