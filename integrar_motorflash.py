@@ -102,6 +102,34 @@ def descargar_foto(url, destino):
 
 # ── Scraper MotorFlash ──────────────────────────────────────
 
+# Nombres de categoría que MotorFlash intercala como <li> sueltos dentro de
+# la lista de equipamiento de la ficha de detalle (p.ej. "Exterior",
+# "Confort") — se descartan porque no son ítems de equipamiento en sí.
+_EQUIPO_CATEGORIAS = {"Exterior", "Interior", "Confort", "Seguridad", "Multimedia", "Motor", "Techo"}
+
+async def _equipamiento_desde_detalle(page, url_relativa: str) -> list:
+    """Respaldo cuando la tarjeta del listado no trae "Equipamiento
+    destacado" (le pasa a algunos anuncios de MotorFlash — viene vacío en el
+    propio HTML del listado, no es un fallo de scraping). La ficha de
+    detalle del coche sí trae equipamiento de serie completo, sin necesidad
+    de expandir "Ver más"."""
+    try:
+        await page.goto(f"https://www.motorflash.com{url_relativa}", wait_until="networkidle", timeout=60000)
+        await page.wait_for_timeout(1500)
+        items = await page.evaluate("""() => {
+            const headings = Array.from(document.querySelectorAll('h2,h3,h4'))
+                .filter(el => el.textContent.trim() === 'Equipamiento de serie');
+            if (!headings.length) return [];
+            const box = headings[0].closest('.shadowBox');
+            if (!box) return [];
+            const ul = box.querySelector('ul.borderList');
+            if (!ul) return [];
+            return Array.from(ul.children).map(li => li.textContent.trim()).filter(t => t.length > 0);
+        }""")
+        return [t for t in items if t not in _EQUIPO_CATEGORIAS]
+    except Exception:
+        return []
+
 async def scrape_motorflash():
     from playwright.async_api import async_playwright
 
@@ -172,6 +200,18 @@ async def scrape_motorflash():
             hay_siguiente = await page.query_selector(f'a[href*="pagina={num_pagina + 1}"]')
             if not hay_siguiente:
                 break
+
+        # Respaldo: algunos anuncios no traen "Equipamiento destacado" en su
+        # tarjeta del listado (viene vacío en el propio HTML de MotorFlash,
+        # no es un fallo del scraping), aunque sí tienen equipamiento de
+        # serie completo en su página de detalle. Se rellena visitando esa
+        # página solo para los que vinieron vacíos, no para todos, así no se
+        # ralentiza el scraping diario de forma innecesaria.
+        sin_equipo = [c for c in coches_raw if not c["equipamiento"] and c.get("urlRel")]
+        if sin_equipo:
+            print(f"  🔧 {len(sin_equipo)} anuncio(s) sin equipamiento en la tarjeta — buscando en su ficha de detalle...")
+            for c in sin_equipo:
+                c["equipamiento"] = await _equipamiento_desde_detalle(page, c["urlRel"])
 
         await browser.close()
 
