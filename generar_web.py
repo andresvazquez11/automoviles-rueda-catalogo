@@ -1275,7 +1275,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
     tarjetas = "\n".join(
         build_card_html(
             car, hist,
-            car.get("fotos", []) if car.get("fuente") == "motorflash" else rutas.get(car["n"], [])
+            [f"/{f.lstrip('/')}" for f in car.get("fotos", [])] if car.get("fuente") == "motorflash" else rutas.get(car["n"], [])
         )
         for car in cars
         if car.get("estado") != "Retirado"
