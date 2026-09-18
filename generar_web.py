@@ -251,12 +251,28 @@ def maps_button_html(maps_url: str) -> str:
     <span class="rd-maps-btn-label">Cómo llegar</span>
   </a>'''
 
+_BANDERA_ES = '''<svg width="20" height="14" viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg">
+      <rect width="20" height="14" fill="#AA151B"/>
+      <rect y="3.5" width="20" height="7" fill="#F1BF00"/>
+    </svg>'''
+
+_BANDERA_GB = '''<svg width="20" height="14" viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg">
+      <rect width="20" height="14" fill="#012169"/>
+      <path d="M0 0 L20 14 M20 0 L0 14" stroke="#FFFFFF" stroke-width="2.8"/>
+      <path d="M0 0 L20 14 M20 0 L0 14" stroke="#C8102E" stroke-width="1.4"/>
+      <path d="M10 0 V14 M0 7 H20" stroke="#FFFFFF" stroke-width="4.6"/>
+      <path d="M10 0 V14 M0 7 H20" stroke="#C8102E" stroke-width="2.6"/>
+    </svg>'''
+
 def lang_toggle_html() -> str:
     """Botones de bandera para cambiar el idioma visible — comparten el
-    mismo assets/idioma.js en index.html y en cada ficha de coche."""
-    return '''<div class="rd-lang-toggle">
-    <button type="button" class="rd-lang-btn activo" data-lang="es" aria-label="Ver en español">🇪🇸</button>
-    <button type="button" class="rd-lang-btn" data-lang="en" aria-label="View in English">🇬🇧</button>
+    mismo assets/idioma.js en index.html y en cada ficha de coche.
+    Banderas como SVG inline (no emoji): Windows/Edge no renderiza los
+    emoji de bandera regional-indicator como banderas — se ven como texto
+    o un cuadro vacío. SVG evita depender de la fuente de emoji del SO."""
+    return f'''<div class="rd-lang-toggle">
+    <button type="button" class="rd-lang-btn activo" data-lang="es" aria-label="Ver en español">{_BANDERA_ES}</button>
+    <button type="button" class="rd-lang-btn" data-lang="en" aria-label="View in English">{_BANDERA_GB}</button>
   </div>'''
 
 
