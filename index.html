@@ -1544,7 +1544,8 @@ document.addEventListener('click', e => {
       const featured = [];
       lista.forEach(item => {
         const original = grid.querySelector('.rd-card[data-n="' + item.n + '"]');
-        if (!original) return; // coche vendido/retirado desde que se marcó → se ignora
+        if (!original) return; // coche retirado del catálogo desde que se marcó → se ignora
+        if (original.dataset.estado !== 'Disponible') return; // reservado/vendido desde que se marcó → se ignora
         const clone = original.cloneNode(true);
         clone.classList.add('rd-card-featured');
         const badge = document.createElement('span');
@@ -1572,7 +1573,7 @@ document.addEventListener('click', e => {
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 10:31 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 10:39 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">

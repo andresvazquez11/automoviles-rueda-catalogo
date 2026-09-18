@@ -1606,7 +1606,8 @@ document.addEventListener('click', e => {{
       const featured = [];
       lista.forEach(item => {{
         const original = grid.querySelector('.rd-card[data-n="' + item.n + '"]');
-        if (!original) return; // coche vendido/retirado desde que se marcó → se ignora
+        if (!original) return; // coche retirado del catálogo desde que se marcó → se ignora
+        if (original.dataset.estado !== 'Disponible') return; // reservado/vendido desde que se marcó → se ignora
         const clone = original.cloneNode(true);
         clone.classList.add('rd-card-featured');
         const badge = document.createElement('span');
