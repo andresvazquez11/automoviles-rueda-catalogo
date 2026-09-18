@@ -23,6 +23,7 @@ DASWELTAUTO = "https://www.dasweltauto.es"
 # "carpeta": "" => se genera en la raíz del repo (BASE_DIR).
 PERFILES = [
     {
+        "id": "andres",
         "carpeta": "",
         "nombre": "Andrés Vázquez",
         "telefono": "610 02 90 56",
@@ -35,6 +36,7 @@ PERFILES = [
         ],
     },
     {
+        "id": "alejandro",
         "carpeta": "alejandro",
         "nombre": "Alejandro Morales Pájaro",
         "telefono": "685 90 77 41",
@@ -1291,7 +1293,7 @@ def build_card_html(car: dict, hist: dict, fotos: list[str]) -> str:
     km_num = int(str(car.get("km", "0")).replace(".", "").replace(",", "").split()[0] or 0)
     buscar_txt = f'{car["modelo"]} {car["version"]}'.lower()
 
-    return f'''<a class="rd-card" href="{href}" data-precio="{precio_num}" data-km="{km_num}" data-estado="{estado_lbl}" data-buscar="{buscar_txt}">
+    return f'''<a class="rd-card" href="{href}" data-n="{n}" data-precio="{precio_num}" data-km="{km_num}" data-estado="{estado_lbl}" data-buscar="{buscar_txt}">
   <div class="rd-card-media">
     <div class="rd-card-photos">{fotos_html}</div>
     {nav_html}
