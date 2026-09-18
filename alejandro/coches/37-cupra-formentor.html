@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/estilos.css">
+<script src="/assets/idioma.js"></script>
 <style>
 /* Puente de variables: la calculadora (portada de generar_web.py) usa nombres
    de variable "cortos" (--surface, --text, --red, ...) definidos originalmente
@@ -462,8 +463,12 @@
   </div>
   <span class="rd-header-social-caption">Síguenos en nuestras redes sociales</span>
 </div>
+  <div class="rd-lang-toggle">
+    <button type="button" class="rd-lang-btn activo" data-lang="es" aria-label="Ver en español">🇪🇸</button>
+    <button type="button" class="rd-lang-btn" data-lang="en" aria-label="View in English">🇬🇧</button>
+  </div>
 </header>
-<a class="rd-back" href="../index.html">&#8249; Volver al catálogo</a>
+<a class="rd-back" href="../index.html">&#8249; <span class="rd-i18n" data-es="Volver al catálogo" data-en="Back to catalog">Volver al catálogo</span></a>
 
 
 <div class="rd-coche-wrap">
@@ -488,7 +493,7 @@
   <div class="rd-spec-badges" id="m-specs"></div>
 
   <div class="rd-section equip-section" id="equip-section">
-    <h3>Equipamiento</h3>
+    <h3><span class="rd-i18n" data-es="Equipamiento" data-en="Equipment">Equipamiento</span></h3>
     <div class="equip-grid" id="m-equip"></div>
   </div>
 
@@ -769,17 +774,17 @@
   </div>
 
   <div class="rd-footnote">
-    <a id="m-link" href="#" target="_blank" rel="noopener">Ver ficha original en Das WeltAuto ↗</a>
+    <a id="m-link" href="#" target="_blank" rel="noopener"><span class="rd-i18n" data-es="Ver ficha original en Das WeltAuto ↗" data-en="See original listing on Das WeltAuto ↗">Ver ficha original en Das WeltAuto ↗</span></a>
   </div>
 </div>
 
 <div class="rd-sticky-mobile" id="m-vendido-sticky" style="display:none">
-  <div>Vendido</div>
-  <a class="rd-btn rd-btn-secondary" href="../index.html">Ver disponibles</a>
+  <div><span class="rd-i18n" data-es="Vendido" data-en="Sold">Vendido</span></div>
+  <a class="rd-btn rd-btn-secondary" href="../index.html"><span class="rd-i18n" data-es="Ver disponibles" data-en="See available">Ver disponibles</span></a>
 </div>
 <div class="rd-sticky-mobile" id="m-sticky-financiacion">
   <div class="precio" id="m-precio-sticky"></div>
-  <a class="rd-btn rd-btn-primary" href="#m-financiacion">Ver financiación</a>
+  <a class="rd-btn rd-btn-primary" href="#m-financiacion"><span class="rd-i18n" data-es="Ver financiación" data-en="View financing">Ver financiación</span></a>
 </div>
 
 <script>
@@ -787,8 +792,9 @@ const ASESOR = {"nombreCorto": "Alejandro", "telefonoDisplay": "685 90 77 41", "
 </script>
 <script src="/assets/calculadora.js"></script>
 <script>
-const COCHE = {"n": 37, "modelo": "CUPRA Formentor", "version": "1.5 TSI 110 kW (150 CV)", "combustible": "Gasolina", "km": "14.172", "fecha": "02/2025", "fin_fecha_iso": "2025-02", "cambio": "Manual", "color": "", "precio": "29.900", "estado": "Disponible", "vendido": false, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/151394958", "equipamiento": ["Asientos de tela (material principal) y de cuero sintético (material secundario)", "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros", "Aire acondicionado trizona con mandos traseros para el climatizador de automático", "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED", "Velocidad máxima: 205 km/h", "Negro (tela/piel)", "Edge Pack", "Llantas aleación 48cm (19\") - Sanstorm", "Sistema de cierre y arranque sin llave", "Cámara de marcha atrás"], "fotos": ["/web_fotos/37/foto_01.jpg", "/web_fotos/37/foto_02.jpg", "/web_fotos/37/foto_03.jpg", "/web_fotos/37/foto_04.jpg", "/web_fotos/37/foto_05.jpg", "/web_fotos/37/foto_06.jpg", "/web_fotos/37/foto_07.jpg", "/web_fotos/37/foto_08.jpg"]};
+const COCHE = {"n": 37, "modelo": "CUPRA Formentor", "version": "1.5 TSI 110 kW (150 CV)", "version_en": "1.5 TSI 110 kW (150 hp)", "combustible": "Gasolina", "km": "14.172", "fecha": "02/2025", "fin_fecha_iso": "2025-02", "cambio": "Manual", "color": "", "color_en": "", "precio": "29.900", "estado": "Disponible", "vendido": false, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/151394958", "equipamiento": ["Asientos de tela (material principal) y de cuero sintético (material secundario)", "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros", "Aire acondicionado trizona con mandos traseros para el climatizador de automático", "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED", "Velocidad máxima: 205 km/h", "Negro (tela/piel)", "Edge Pack", "Llantas aleación 48cm (19\") - Sanstorm", "Sistema de cierre y arranque sin llave", "Cámara de marcha atrás"], "equipamiento_en": ["Cloth upholstery with synthetic leather trim", "Independent climate controls for driver, front passenger, and rear seats", "Three-zone automatic climate control with rear controls", "Full LED lighting (brake lights, front fog lights, low/high beams, side indicators, DRLs, and tail lights)", "Top speed: 205 km/h", "Black (cloth/leather)", "Edge Pack", "19\" 'Sanstorm' alloy wheels", "Keyless entry and start system", "Reversing camera"], "fotos": ["/web_fotos/37/foto_01.jpg", "/web_fotos/37/foto_02.jpg", "/web_fotos/37/foto_03.jpg", "/web_fotos/37/foto_04.jpg", "/web_fotos/37/foto_05.jpg", "/web_fotos/37/foto_06.jpg", "/web_fotos/37/foto_07.jpg", "/web_fotos/37/foto_08.jpg"]};
 cargarFicha(COCHE);
+window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
 </script>
 
 <footer class="rd-footer">
@@ -800,7 +806,7 @@ cargarFicha(COCHE);
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 09:24 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 10:33 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">

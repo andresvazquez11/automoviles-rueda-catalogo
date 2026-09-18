@@ -1211,7 +1211,7 @@ BBVA_HTML_INTERIOR = '''    <div class="bbva-bar">
       <div class="bbva-legal" id="bbva-legal"></div>
     </div>'''
 
-def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict) -> str:
+def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict) -> str:
     n = car["n"]
     slug = slug_coche(car["modelo"])
     vendido = car["estado"] == "Retirado"
@@ -1229,13 +1229,16 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict) -> str:
 
     coche_json = json.dumps({
         "n": n, "modelo": car["modelo"], "version": car["version"],
+        "version_en": trad["version_en"],
         "combustible": car.get("combustible",""), "km": car.get("km",""),
         "fecha": car.get("fecha",""), "fin_fecha_iso":
             (lambda f: f"{f.split('/')[1]}-{f.split('/')[0]}" if f and "/" in f and len(f.split("/"))==2 else "")(car.get("fecha","")),
         "cambio": car.get("cambio",""), "color": car.get("color",""),
+        "color_en": trad["color_en"],
         "precio": car["precio"], "estado": car["estado"], "vendido": vendido,
         "url": url_externa,
         "equipamiento": car.get("equipamiento", []),
+        "equipamiento_en": trad["equipamiento_en"],
         "fotos": fotos,
     }, ensure_ascii=False)
 
@@ -1245,10 +1248,10 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict) -> str:
         "telefonoWa": datos["telefono_wa"],
     }, ensure_ascii=False)
 
-    vendido_banner = '' if not vendido else '''
+    vendido_banner = '' if not vendido else f'''
   <div class="rd-vendido-banner" id="m-vendido-banner">
-    Este vehículo ya no está disponible.
-    <a href="../index.html">Ver coches disponibles →</a>
+    {i18n_span("Este vehículo ya no está disponible.", "This vehicle is no longer available.")}
+    <a href="../index.html">{i18n_span("Ver coches disponibles →", "See available cars →")}</a>
   </div>'''
 
     og_image_tag = (f'<meta property="og:image" content="{datos["dominio_pagina"]}{foto_principal_root}">'
@@ -1286,7 +1289,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict) -> str:
   {header_social_html(perfil["redes"])}
   {lang_toggle_html()}
 </header>
-<a class="rd-back" href="../index.html">&#8249; Volver al catálogo</a>
+<a class="rd-back" href="../index.html">&#8249; {i18n_span("Volver al catálogo", "Back to catalog")}</a>
 {vendido_banner}
 
 <div class="rd-coche-wrap">
@@ -1311,7 +1314,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict) -> str:
   <div class="rd-spec-badges" id="m-specs"></div>
 
   <div class="rd-section equip-section" id="equip-section">
-    <h3>Equipamiento</h3>
+    <h3>{i18n_span("Equipamiento", "Equipment")}</h3>
     <div class="equip-grid" id="m-equip"></div>
   </div>
 
@@ -1333,17 +1336,17 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict) -> str:
   </div>
 
   <div class="rd-footnote">
-    <a id="m-link" href="#" target="_blank" rel="noopener">Ver ficha original en Das WeltAuto ↗</a>
+    <a id="m-link" href="#" target="_blank" rel="noopener">{i18n_span("Ver ficha original en Das WeltAuto ↗", "See original listing on Das WeltAuto ↗")}</a>
   </div>
 </div>
 
 <div class="rd-sticky-mobile" id="m-vendido-sticky" style="display:none">
-  <div>Vendido</div>
-  <a class="rd-btn rd-btn-secondary" href="../index.html">Ver disponibles</a>
+  <div>{i18n_span("Vendido", "Sold")}</div>
+  <a class="rd-btn rd-btn-secondary" href="../index.html">{i18n_span("Ver disponibles", "See available")}</a>
 </div>
 <div class="rd-sticky-mobile" id="m-sticky-financiacion">
   <div class="precio" id="m-precio-sticky"></div>
-  <a class="rd-btn rd-btn-primary" href="#m-financiacion">Ver financiación</a>
+  <a class="rd-btn rd-btn-primary" href="#m-financiacion">{i18n_span("Ver financiación", "View financing")}</a>
 </div>
 
 <script>
@@ -1353,6 +1356,7 @@ const ASESOR = {asesor_json};
 <script>
 const COCHE = {coche_json};
 cargarFicha(COCHE);
+window.rdAlCambiarIdioma = function() {{ cargarFicha(COCHE); }};
 </script>
 {footer_whatsapp_html(perfil)}
 {goatcounter_script_html()}
@@ -1726,7 +1730,7 @@ def main():
             if n in sin_foto:
                 continue
             slug = slug_coche(car["modelo"])
-            html_coche = build_coche_html(car, fotos_por_coche[n], perfil)
+            html_coche = build_coche_html(car, fotos_por_coche[n], perfil, traducciones[n])
             (coches_dir / f"{n:02d}-{slug}.html").write_text(html_coche, encoding="utf-8")
 
         archivadas = 0

@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/estilos.css">
+<script src="/assets/idioma.js"></script>
 <style>
 /* Puente de variables: la calculadora (portada de generar_web.py) usa nombres
    de variable "cortos" (--surface, --text, --red, ...) definidos originalmente
@@ -462,12 +463,16 @@
   </div>
   <span class="rd-header-social-caption">Síguenos en nuestras redes sociales</span>
 </div>
+  <div class="rd-lang-toggle">
+    <button type="button" class="rd-lang-btn activo" data-lang="es" aria-label="Ver en español">🇪🇸</button>
+    <button type="button" class="rd-lang-btn" data-lang="en" aria-label="View in English">🇬🇧</button>
+  </div>
 </header>
-<a class="rd-back" href="../index.html">&#8249; Volver al catálogo</a>
+<a class="rd-back" href="../index.html">&#8249; <span class="rd-i18n" data-es="Volver al catálogo" data-en="Back to catalog">Volver al catálogo</span></a>
 
   <div class="rd-vendido-banner" id="m-vendido-banner">
-    Este vehículo ya no está disponible.
-    <a href="../index.html">Ver coches disponibles →</a>
+    <span class="rd-i18n" data-es="Este vehículo ya no está disponible." data-en="This vehicle is no longer available.">Este vehículo ya no está disponible.</span>
+    <a href="../index.html"><span class="rd-i18n" data-es="Ver coches disponibles →" data-en="See available cars →">Ver coches disponibles →</span></a>
   </div>
 
 <div class="rd-coche-wrap">
@@ -492,7 +497,7 @@
   <div class="rd-spec-badges" id="m-specs"></div>
 
   <div class="rd-section equip-section" id="equip-section">
-    <h3>Equipamiento</h3>
+    <h3><span class="rd-i18n" data-es="Equipamiento" data-en="Equipment">Equipamiento</span></h3>
     <div class="equip-grid" id="m-equip"></div>
   </div>
 
@@ -773,17 +778,17 @@
   </div>
 
   <div class="rd-footnote">
-    <a id="m-link" href="#" target="_blank" rel="noopener">Ver ficha original en Das WeltAuto ↗</a>
+    <a id="m-link" href="#" target="_blank" rel="noopener"><span class="rd-i18n" data-es="Ver ficha original en Das WeltAuto ↗" data-en="See original listing on Das WeltAuto ↗">Ver ficha original en Das WeltAuto ↗</span></a>
   </div>
 </div>
 
 <div class="rd-sticky-mobile" id="m-vendido-sticky" style="display:none">
-  <div>Vendido</div>
-  <a class="rd-btn rd-btn-secondary" href="../index.html">Ver disponibles</a>
+  <div><span class="rd-i18n" data-es="Vendido" data-en="Sold">Vendido</span></div>
+  <a class="rd-btn rd-btn-secondary" href="../index.html"><span class="rd-i18n" data-es="Ver disponibles" data-en="See available">Ver disponibles</span></a>
 </div>
 <div class="rd-sticky-mobile" id="m-sticky-financiacion">
   <div class="precio" id="m-precio-sticky"></div>
-  <a class="rd-btn rd-btn-primary" href="#m-financiacion">Ver financiación</a>
+  <a class="rd-btn rd-btn-primary" href="#m-financiacion"><span class="rd-i18n" data-es="Ver financiación" data-en="View financing">Ver financiación</span></a>
 </div>
 
 <script>
@@ -791,8 +796,9 @@ const ASESOR = {"nombreCorto": "Alejandro", "telefonoDisplay": "685 90 77 41", "
 </script>
 <script src="/assets/calculadora.js"></script>
 <script>
-const COCHE = {"n": 47, "modelo": "CUPRA Terramar", "version": "1.5 eTSI Beyond DSG 110 kW (150 CV)", "combustible": "Mild Hybrid", "km": "5.600", "fecha": "03/2026", "fin_fecha_iso": "2026-03", "cambio": "Automático", "color": "", "precio": "36.500", "estado": "Retirado", "vendido": true, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-terramar-gasolina-150-cv-del-2026-en-malaga/175069951", "equipamiento": ["Sistema de cierre y arranque sin llave \"Keyless Advanced\" sin cierre de seguridad", "CUPRA Matrix LED Ultra", "Asientos de ante sintético (material principal) y de cuero sintético (material secundario) comercializado como sostenible/vegano", "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros", "Aire acondicionado trizona con mandos traseros para el climatizador de automático", "Sistema de distancia de aparcamiento delanteros, traseros y en los lados con sensor y cámara", "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED", "Velocidad máxima: 205 km/h", "Volante multifuncional deportivo de cuero, térmico con tiptronic", "Anclaje asientos infantiles para sistema asientos"], "fotos": []};
+const COCHE = {"n": 47, "modelo": "CUPRA Terramar", "version": "1.5 eTSI Beyond DSG 110 kW (150 CV)", "version_en": "1.5 eTSI Beyond DSG 110 kW (150 hp)", "combustible": "Mild Hybrid", "km": "5.600", "fecha": "03/2026", "fin_fecha_iso": "2026-03", "cambio": "Automático", "color": "", "color_en": "", "precio": "36.500", "estado": "Retirado", "vendido": true, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-terramar-gasolina-150-cv-del-2026-en-malaga/175069951", "equipamiento": ["Sistema de cierre y arranque sin llave \"Keyless Advanced\" sin cierre de seguridad", "CUPRA Matrix LED Ultra", "Asientos de ante sintético (material principal) y de cuero sintético (material secundario) comercializado como sostenible/vegano", "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros", "Aire acondicionado trizona con mandos traseros para el climatizador de automático", "Sistema de distancia de aparcamiento delanteros, traseros y en los lados con sensor y cámara", "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED", "Velocidad máxima: 205 km/h", "Volante multifuncional deportivo de cuero, térmico con tiptronic", "Anclaje asientos infantiles para sistema asientos"], "equipamiento_en": ["\"Keyless Advanced\" keyless entry and start system without safelock", "CUPRA Matrix LED Ultra", "Synthetic suede (main material) and synthetic leather (secondary material) seats, marketed as sustainable/vegan", "Separate climate controls for driver/front passenger and front/rear seats", "Three-zone automatic climate control with rear controls", "Front, rear, and side park distance control system with sensors and camera", "Brake lights, front fog lights, low beams, side indicators, daytime running lights, taillights, and high beams with LED technology", "Top speed: 205 km/h", "Heated leather sports multifunction steering wheel with Tiptronic", "Child seat anchor system"], "fotos": []};
 cargarFicha(COCHE);
+window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
 </script>
 
 <footer class="rd-footer">
@@ -804,7 +810,7 @@ cargarFicha(COCHE);
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 09:24 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 10:33 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">

@@ -480,7 +480,7 @@
     <button type="button" class="rd-lang-btn" data-lang="en" aria-label="View in English">🇬🇧</button>
   </div>
 </header>
-<a class="rd-back" href="../index.html">&#8249; Volver al catálogo</a>
+<a class="rd-back" href="../index.html">&#8249; <span class="rd-i18n" data-es="Volver al catálogo" data-en="Back to catalog">Volver al catálogo</span></a>
 
 
 <div class="rd-coche-wrap">
@@ -505,7 +505,7 @@
   <div class="rd-spec-badges" id="m-specs"></div>
 
   <div class="rd-section equip-section" id="equip-section">
-    <h3>Equipamiento</h3>
+    <h3><span class="rd-i18n" data-es="Equipamiento" data-en="Equipment">Equipamiento</span></h3>
     <div class="equip-grid" id="m-equip"></div>
   </div>
 
@@ -786,17 +786,17 @@
   </div>
 
   <div class="rd-footnote">
-    <a id="m-link" href="#" target="_blank" rel="noopener">Ver ficha original en Das WeltAuto ↗</a>
+    <a id="m-link" href="#" target="_blank" rel="noopener"><span class="rd-i18n" data-es="Ver ficha original en Das WeltAuto ↗" data-en="See original listing on Das WeltAuto ↗">Ver ficha original en Das WeltAuto ↗</span></a>
   </div>
 </div>
 
 <div class="rd-sticky-mobile" id="m-vendido-sticky" style="display:none">
-  <div>Vendido</div>
-  <a class="rd-btn rd-btn-secondary" href="../index.html">Ver disponibles</a>
+  <div><span class="rd-i18n" data-es="Vendido" data-en="Sold">Vendido</span></div>
+  <a class="rd-btn rd-btn-secondary" href="../index.html"><span class="rd-i18n" data-es="Ver disponibles" data-en="See available">Ver disponibles</span></a>
 </div>
 <div class="rd-sticky-mobile" id="m-sticky-financiacion">
   <div class="precio" id="m-precio-sticky"></div>
-  <a class="rd-btn rd-btn-primary" href="#m-financiacion">Ver financiación</a>
+  <a class="rd-btn rd-btn-primary" href="#m-financiacion"><span class="rd-i18n" data-es="Ver financiación" data-en="View financing">Ver financiación</span></a>
 </div>
 
 <script>
@@ -804,8 +804,9 @@ const ASESOR = {"nombreCorto": "Andrés", "telefonoDisplay": "610 02 90 56", "te
 </script>
 <script src="/assets/calculadora.js"></script>
 <script>
-const COCHE = {"n": 12, "modelo": "SEAT León", "version": "ST 1.5 TSI S&S FR Special Edition 110 kW (150 CV)", "combustible": "Gasolina", "km": "50", "fecha": "06/2026", "fin_fecha_iso": "2026-06", "cambio": "Manual", "color": "", "precio": "27.900", "estado": "Disponible", "vendido": false, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-st-gasolina-150-cv-del-2026-en-malaga/173779507", "equipamiento": ["Paquete \"Vision Plus\": cámara de marcha atrás + PLA (asistente de aparcamiento incluye sensores delanteros y traseros)", "Asistente salida, aparcamiento y cambio carril y sistema de aviso para salir del vehículo", "Sistema de cierre y arranque sin llave \"Keyless Advanced\" sin cierre de seguridad", "Asistente de mantenimiento de carril", "\"Connectivity box\": estación de carga inalámbrica para teléfono móvil 15W + BT", "Matrix Full LED", "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros", "Aire acondicionado trizona con mandos traseros para el climatizador de automático", "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados con sensor", "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED"], "fotos": ["/web_fotos/12/foto_01.jpg", "/web_fotos/12/foto_02.jpg", "/web_fotos/12/foto_03.jpg", "/web_fotos/12/foto_04.jpg", "/web_fotos/12/foto_05.jpg", "/web_fotos/12/foto_06.jpg", "/web_fotos/12/foto_07.jpg", "/web_fotos/12/foto_08.jpg"]};
+const COCHE = {"n": 12, "modelo": "SEAT León", "version": "ST 1.5 TSI S&S FR Special Edition 110 kW (150 CV)", "version_en": "ST 1.5 TSI S&S FR Special Edition 110 kW (150 HP)", "combustible": "Gasolina", "km": "50", "fecha": "06/2026", "fin_fecha_iso": "2026-06", "cambio": "Manual", "color": "", "color_en": "", "precio": "27.900", "estado": "Disponible", "vendido": false, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-leon-st-gasolina-150-cv-del-2026-en-malaga/173779507", "equipamiento": ["Paquete \"Vision Plus\": cámara de marcha atrás + PLA (asistente de aparcamiento incluye sensores delanteros y traseros)", "Asistente salida, aparcamiento y cambio carril y sistema de aviso para salir del vehículo", "Sistema de cierre y arranque sin llave \"Keyless Advanced\" sin cierre de seguridad", "Asistente de mantenimiento de carril", "\"Connectivity box\": estación de carga inalámbrica para teléfono móvil 15W + BT", "Matrix Full LED", "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros", "Aire acondicionado trizona con mandos traseros para el climatizador de automático", "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados con sensor", "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED"], "equipamiento_en": ["\"Vision Plus\" Package: Rear-view camera + PLA (Park Assist including front and rear sensors)", "Exit Assist, Park Assist, Lane Change Assist, and Exit Warning System", "\"Keyless Advanced\" keyless entry and start system without safelock", "Lane Keep Assist", "\"Connectivity Box\": 15W wireless smartphone charging pad + Bluetooth", "Matrix Full LED headlights", "Individual climate controls for driver/passenger and front/rear seats", "Three-zone automatic climate control with rear controls", "Front, rear, and side parking sensors with rear-view camera", "Full LED lighting: brake lights, front fog lights, low/high beams, side indicators, daytime running lights, and taillights"], "fotos": ["/web_fotos/12/foto_01.jpg", "/web_fotos/12/foto_02.jpg", "/web_fotos/12/foto_03.jpg", "/web_fotos/12/foto_04.jpg", "/web_fotos/12/foto_05.jpg", "/web_fotos/12/foto_06.jpg", "/web_fotos/12/foto_07.jpg", "/web_fotos/12/foto_08.jpg"]};
 cargarFicha(COCHE);
+window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
 </script>
 
 <footer class="rd-footer">
@@ -817,7 +818,7 @@ cargarFicha(COCHE);
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 10:31 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 10:33 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">

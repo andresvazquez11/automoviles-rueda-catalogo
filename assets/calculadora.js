@@ -804,18 +804,28 @@ function cargarFicha(c) {
   prevBtn.style.display = showNav ? '' : 'none';
   nextBtn.style.display = showNav ? '' : 'none';
 
-  document.getElementById('m-modelo').textContent = c.modelo;
-  document.getElementById('m-version').textContent = c.version;
+  const idioma = (window.rdIdiomaActual ? window.rdIdiomaActual() : 'es');
+  const en = idioma === 'en';
 
+  document.getElementById('m-modelo').textContent = c.modelo;
+  document.getElementById('m-version').textContent = (en && c.version_en) ? c.version_en : c.version;
+
+  const specsLabelsEn = { 'Combustible': 'Fuel', 'Kilómetros': 'Mileage', 'Matrícula': 'Registered', 'Cambio': 'Gearbox', 'Color': 'Color', 'Ubicación': 'Location' };
+  const combustibleEn = { 'Gasolina': 'Petrol', 'Diésel': 'Diesel', 'Híbrido': 'Hybrid', 'Eléctrico': 'Electric' };
+  const cambioEn = { 'Manual': 'Manual', 'Automático': 'Automatic' };
   const specs = [
-    ['Combustible', c.combustible], ['Kilómetros', c.km + ' km'],
-    ['Matrícula', c.fecha], ['Cambio', c.cambio],
-    ['Color', c.color], ['Ubicación', c.ubicacion],
+    ['Combustible', en ? (combustibleEn[c.combustible] || c.combustible) : c.combustible],
+    ['Kilómetros', c.km + ' km'],
+    ['Matrícula', c.fecha],
+    ['Cambio', en ? (cambioEn[c.cambio] || c.cambio) : c.cambio],
+    ['Color', (en && c.color_en) ? c.color_en : c.color],
+    ['Ubicación', c.ubicacion],
   ].filter(([,v]) => v);
   document.getElementById('m-specs').innerHTML = specs.map(([l,v]) =>
-    `<div class="rd-spec-badge"><div class="lbl">${l}</div><div class="val">${v}</div></div>`).join('');
+    `<div class="rd-spec-badge"><div class="lbl">${en ? (specsLabelsEn[l] || l) : l}</div><div class="val">${v}</div></div>`).join('');
 
-  const equip = c.equipamiento || [];
+  const equip = (en && c.equipamiento_en && c.equipamiento_en.length === (c.equipamiento || []).length)
+    ? c.equipamiento_en : (c.equipamiento || []);
   const equipSection = document.getElementById('equip-section');
   if (equip.length) {
     document.getElementById('m-equip').innerHTML = equip.map(e =>
@@ -827,7 +837,7 @@ function cargarFicha(c) {
     document.getElementById('m-precio').textContent = '';
     document.getElementById('m-precio-sticky').textContent = '';
     const pill = document.getElementById('m-estado-pill');
-    pill.textContent = '🚫 Vendido';
+    pill.textContent = en ? '🚫 Sold' : '🚫 Vendido';
     pill.classList.add('reservado');
     document.getElementById('m-financiacion').style.display = 'none';
     const finTabs = document.getElementById('financiera-tabs');
@@ -844,7 +854,7 @@ function cargarFicha(c) {
   document.getElementById('m-precio-sticky').textContent = c.precio + ' €';
   const pill = document.getElementById('m-estado-pill');
   const reservado = esReservado(c.estado);
-  pill.textContent = reservado ? '🟠 Reservado' : '✅ Disponible';
+  pill.textContent = reservado ? (en ? '🟠 Reserved' : '🟠 Reservado') : (en ? '✅ Available' : '✅ Disponible');
   pill.classList.add(reservado ? 'reservado' : 'disponible');
 
   initCalc(c);

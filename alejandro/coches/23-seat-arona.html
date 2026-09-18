@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/estilos.css">
+<script src="/assets/idioma.js"></script>
 <style>
 /* Puente de variables: la calculadora (portada de generar_web.py) usa nombres
    de variable "cortos" (--surface, --text, --red, ...) definidos originalmente
@@ -462,8 +463,12 @@
   </div>
   <span class="rd-header-social-caption">Síguenos en nuestras redes sociales</span>
 </div>
+  <div class="rd-lang-toggle">
+    <button type="button" class="rd-lang-btn activo" data-lang="es" aria-label="Ver en español">🇪🇸</button>
+    <button type="button" class="rd-lang-btn" data-lang="en" aria-label="View in English">🇬🇧</button>
+  </div>
 </header>
-<a class="rd-back" href="../index.html">&#8249; Volver al catálogo</a>
+<a class="rd-back" href="../index.html">&#8249; <span class="rd-i18n" data-es="Volver al catálogo" data-en="Back to catalog">Volver al catálogo</span></a>
 
 
 <div class="rd-coche-wrap">
@@ -488,7 +493,7 @@
   <div class="rd-spec-badges" id="m-specs"></div>
 
   <div class="rd-section equip-section" id="equip-section">
-    <h3>Equipamiento</h3>
+    <h3><span class="rd-i18n" data-es="Equipamiento" data-en="Equipment">Equipamiento</span></h3>
     <div class="equip-grid" id="m-equip"></div>
   </div>
 
@@ -769,17 +774,17 @@
   </div>
 
   <div class="rd-footnote">
-    <a id="m-link" href="#" target="_blank" rel="noopener">Ver ficha original en Das WeltAuto ↗</a>
+    <a id="m-link" href="#" target="_blank" rel="noopener"><span class="rd-i18n" data-es="Ver ficha original en Das WeltAuto ↗" data-en="See original listing on Das WeltAuto ↗">Ver ficha original en Das WeltAuto ↗</span></a>
   </div>
 </div>
 
 <div class="rd-sticky-mobile" id="m-vendido-sticky" style="display:none">
-  <div>Vendido</div>
-  <a class="rd-btn rd-btn-secondary" href="../index.html">Ver disponibles</a>
+  <div><span class="rd-i18n" data-es="Vendido" data-en="Sold">Vendido</span></div>
+  <a class="rd-btn rd-btn-secondary" href="../index.html"><span class="rd-i18n" data-es="Ver disponibles" data-en="See available">Ver disponibles</span></a>
 </div>
 <div class="rd-sticky-mobile" id="m-sticky-financiacion">
   <div class="precio" id="m-precio-sticky"></div>
-  <a class="rd-btn rd-btn-primary" href="#m-financiacion">Ver financiación</a>
+  <a class="rd-btn rd-btn-primary" href="#m-financiacion"><span class="rd-i18n" data-es="Ver financiación" data-en="View financing">Ver financiación</span></a>
 </div>
 
 <script>
@@ -787,8 +792,9 @@ const ASESOR = {"nombreCorto": "Alejandro", "telefonoDisplay": "685 90 77 41", "
 </script>
 <script src="/assets/calculadora.js"></script>
 <script>
-const COCHE = {"n": 23, "modelo": "SEAT Arona", "version": "1.0 TSI Style Special Edition 85 kW (115 CV)", "combustible": "Gasolina", "km": "10.643", "fecha": "05/2025", "fin_fecha_iso": "2025-05", "cambio": "Manual", "color": "", "precio": "18.900", "estado": "Disponible", "vendido": false, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/165438064", "equipamiento": ["Asistente frontal incluido función frenada de emergencia para ACC High", "Asistente de mantenimiento de carril", "Asistente de cambio de carril", "\"Connectivity box\": Estación de carga inalámbrica para teléfono móvil", "Luces frontales antiniebla, luces de cruce, Luces de día y luces de carretera con tecnología LED", "Velocidad máxima: 193 km/h", "Volante multifunción deportivo de cuero", "Climatronic bizona", "Llantas de aleación ligera 6j x 16\" pulgadas", "Con cámara multifuncional"], "fotos": ["/web_fotos/23/foto_01.jpg", "/web_fotos/23/foto_02.jpg", "/web_fotos/23/foto_03.jpg", "/web_fotos/23/foto_04.jpg", "/web_fotos/23/foto_05.jpg", "/web_fotos/23/foto_06.jpg", "/web_fotos/23/foto_07.jpg", "/web_fotos/23/foto_08.jpg"]};
+const COCHE = {"n": 23, "modelo": "SEAT Arona", "version": "1.0 TSI Style Special Edition 85 kW (115 CV)", "version_en": "1.0 TSI Style Special Edition 85 kW (115 HP)", "combustible": "Gasolina", "km": "10.643", "fecha": "05/2025", "fin_fecha_iso": "2025-05", "cambio": "Manual", "color": "", "color_en": "", "precio": "18.900", "estado": "Disponible", "vendido": false, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/165438064", "equipamiento": ["Asistente frontal incluido función frenada de emergencia para ACC High", "Asistente de mantenimiento de carril", "Asistente de cambio de carril", "\"Connectivity box\": Estación de carga inalámbrica para teléfono móvil", "Luces frontales antiniebla, luces de cruce, Luces de día y luces de carretera con tecnología LED", "Velocidad máxima: 193 km/h", "Volante multifunción deportivo de cuero", "Climatronic bizona", "Llantas de aleación ligera 6j x 16\" pulgadas", "Con cámara multifuncional"], "equipamiento_en": ["Front Assist including emergency braking function for ACC High", "Lane Keeping Assist", "Lane Change Assist", "\"Connectivity Box\": Wireless smartphone charging station", "Front fog lights, low beam, daytime running lights and high beam with LED technology", "Top speed: 193 km/h", "Leather sports multifunction steering wheel", "Dual-zone Climatronic climate control", "16\" 6J light alloy wheels", "With multifunction camera"], "fotos": ["/web_fotos/23/foto_01.jpg", "/web_fotos/23/foto_02.jpg", "/web_fotos/23/foto_03.jpg", "/web_fotos/23/foto_04.jpg", "/web_fotos/23/foto_05.jpg", "/web_fotos/23/foto_06.jpg", "/web_fotos/23/foto_07.jpg", "/web_fotos/23/foto_08.jpg"]};
 cargarFicha(COCHE);
+window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
 </script>
 
 <footer class="rd-footer">
@@ -800,7 +806,7 @@ cargarFicha(COCHE);
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 09:24 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 10:33 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">

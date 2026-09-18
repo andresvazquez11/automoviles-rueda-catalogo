@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/estilos.css">
+<script src="/assets/idioma.js"></script>
 <style>
 /* Puente de variables: la calculadora (portada de generar_web.py) usa nombres
    de variable "cortos" (--surface, --text, --red, ...) definidos originalmente
@@ -462,8 +463,12 @@
   </div>
   <span class="rd-header-social-caption">Síguenos en nuestras redes sociales</span>
 </div>
+  <div class="rd-lang-toggle">
+    <button type="button" class="rd-lang-btn activo" data-lang="es" aria-label="Ver en español">🇪🇸</button>
+    <button type="button" class="rd-lang-btn" data-lang="en" aria-label="View in English">🇬🇧</button>
+  </div>
 </header>
-<a class="rd-back" href="../index.html">&#8249; Volver al catálogo</a>
+<a class="rd-back" href="../index.html">&#8249; <span class="rd-i18n" data-es="Volver al catálogo" data-en="Back to catalog">Volver al catálogo</span></a>
 
 
 <div class="rd-coche-wrap">
@@ -488,7 +493,7 @@
   <div class="rd-spec-badges" id="m-specs"></div>
 
   <div class="rd-section equip-section" id="equip-section">
-    <h3>Equipamiento</h3>
+    <h3><span class="rd-i18n" data-es="Equipamiento" data-en="Equipment">Equipamiento</span></h3>
     <div class="equip-grid" id="m-equip"></div>
   </div>
 
@@ -769,17 +774,17 @@
   </div>
 
   <div class="rd-footnote">
-    <a id="m-link" href="#" target="_blank" rel="noopener">Ver ficha original en Das WeltAuto ↗</a>
+    <a id="m-link" href="#" target="_blank" rel="noopener"><span class="rd-i18n" data-es="Ver ficha original en Das WeltAuto ↗" data-en="See original listing on Das WeltAuto ↗">Ver ficha original en Das WeltAuto ↗</span></a>
   </div>
 </div>
 
 <div class="rd-sticky-mobile" id="m-vendido-sticky" style="display:none">
-  <div>Vendido</div>
-  <a class="rd-btn rd-btn-secondary" href="../index.html">Ver disponibles</a>
+  <div><span class="rd-i18n" data-es="Vendido" data-en="Sold">Vendido</span></div>
+  <a class="rd-btn rd-btn-secondary" href="../index.html"><span class="rd-i18n" data-es="Ver disponibles" data-en="See available">Ver disponibles</span></a>
 </div>
 <div class="rd-sticky-mobile" id="m-sticky-financiacion">
   <div class="precio" id="m-precio-sticky"></div>
-  <a class="rd-btn rd-btn-primary" href="#m-financiacion">Ver financiación</a>
+  <a class="rd-btn rd-btn-primary" href="#m-financiacion"><span class="rd-i18n" data-es="Ver financiación" data-en="View financing">Ver financiación</span></a>
 </div>
 
 <script>
@@ -787,8 +792,9 @@ const ASESOR = {"nombreCorto": "Alejandro", "telefonoDisplay": "685 90 77 41", "
 </script>
 <script src="/assets/calculadora.js"></script>
 <script>
-const COCHE = {"n": 3, "modelo": "SEAT Ibiza", "version": "1.0 TSI S&S FR XS 85 kW (115 CV)", "combustible": "Gasolina", "km": "23.295", "fecha": "06/2025", "fin_fecha_iso": "2025-06", "cambio": "Manual", "color": "", "precio": "17.900", "estado": "No disponible", "vendido": false, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/190151308", "equipamiento": ["Velocidad máxima: 198 km/h", "Pack Vision Plus", "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 6,5 pulgadas de ancho 40,6, 16,5 y PG4", "Faros con lente de superficie compleja, bombilla LED y luz larga con bombilla LED", "Acabados de lujo: pomo de la palanca de cambios en aluminio y cuero, puertas en negro piano y tablero en cuero sintético", "Toma/s de 12v en los asientos delanteros", "Asientos de tela (material principal) y de tela (material secundario)", "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual y ajuste manual en altura con ajuste manual del respaldo", "Asientos traseros de tres plazas de tipo banco partido de orientación delantera con banqueta partida y respaldo abatible asimétrico", "Volante multi-función revestido de cuero ajustable en altura y en profundidad"], "fotos": ["/web_fotos/03/foto_01.jpg", "/web_fotos/03/foto_02.jpg", "/web_fotos/03/foto_03.jpg", "/web_fotos/03/foto_04.jpg", "/web_fotos/03/foto_05.jpg", "/web_fotos/03/foto_06.jpg", "/web_fotos/03/foto_07.jpg", "/web_fotos/03/foto_08.jpg"]};
+const COCHE = {"n": 3, "modelo": "SEAT Ibiza", "version": "1.0 TSI S&S FR XS 85 kW (115 CV)", "version_en": "1.0 TSI S&S FR XS 85 kW (115 HP)", "combustible": "Gasolina", "km": "23.295", "fecha": "06/2025", "fin_fecha_iso": "2025-06", "cambio": "Manual", "color": "", "color_en": "", "precio": "17.900", "estado": "No disponible", "vendido": false, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/190151308", "equipamiento": ["Velocidad máxima: 198 km/h", "Pack Vision Plus", "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 6,5 pulgadas de ancho 40,6, 16,5 y PG4", "Faros con lente de superficie compleja, bombilla LED y luz larga con bombilla LED", "Acabados de lujo: pomo de la palanca de cambios en aluminio y cuero, puertas en negro piano y tablero en cuero sintético", "Toma/s de 12v en los asientos delanteros", "Asientos de tela (material principal) y de tela (material secundario)", "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual y ajuste manual en altura con ajuste manual del respaldo", "Asientos traseros de tres plazas de tipo banco partido de orientación delantera con banqueta partida y respaldo abatible asimétrico", "Volante multi-función revestido de cuero ajustable en altura y en profundidad"], "equipamiento_en": ["Top speed: 198 km/h", "Vision Plus Package", "16-inch front and rear alloy wheels, 6.5 inches wide (40.6 cm, 16.5 cm, PG4)", "Headlights with complex surface lens, LED bulbs, and LED high beams", "Luxury trim: aluminium and leather gear shift knob, piano black door panels, and synthetic leather dashboard", "12V power outlet(s) in the front seats", "Cloth upholstery (primary and secondary material)", "Sport driver and front passenger seats with manual fore/aft, height, and backrest adjustment", "Three-seater forward-facing split-bench rear seats with asymmetric folding backrest", "Leather-wrapped multifunction steering wheel adjustable for height and reach"], "fotos": ["/web_fotos/03/foto_01.jpg", "/web_fotos/03/foto_02.jpg", "/web_fotos/03/foto_03.jpg", "/web_fotos/03/foto_04.jpg", "/web_fotos/03/foto_05.jpg", "/web_fotos/03/foto_06.jpg", "/web_fotos/03/foto_07.jpg", "/web_fotos/03/foto_08.jpg"]};
 cargarFicha(COCHE);
+window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
 </script>
 
 <footer class="rd-footer">
@@ -800,7 +806,7 @@ cargarFicha(COCHE);
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 09:24 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 10:33 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">
