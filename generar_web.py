@@ -1467,6 +1467,37 @@ document.addEventListener('click', e => {{
   document.getElementById('rd-search').addEventListener('input', e => {{ busqueda = e.target.value; aplicar(); }});
   document.getElementById('rd-sort').addEventListener('change', e => {{ orden = e.target.value; aplicar(); }});
 }})();
+
+// ── Destacados: franja de coches marcados desde /admin/ ──────────────
+(function() {{
+  const PERFIL_ID = '{perfil["id"]}';
+  fetch('/destacados.json')
+    .then(r => r.ok ? r.json() : {{}})
+    .catch(() => ({{}}))
+    .then(data => {{
+      const lista = (data[PERFIL_ID] || []).slice(0, 3);
+      if (!lista.length) return;
+      const grid = document.getElementById('rd-grid');
+      const featured = [];
+      lista.forEach(item => {{
+        const original = grid.querySelector('.rd-card[data-n="' + item.n + '"]');
+        if (!original) return; // coche vendido/retirado desde que se marcó → se ignora
+        const clone = original.cloneNode(true);
+        clone.classList.add('rd-card-featured');
+        const badge = document.createElement('span');
+        badge.className = 'rd-badge-destacado';
+        badge.textContent = item.etiqueta;
+        clone.querySelector('.rd-card-media').appendChild(badge);
+        featured.push(clone);
+      }});
+      if (!featured.length) return;
+      const strip = document.createElement('section');
+      strip.className = 'rd-featured-strip';
+      strip.innerHTML = '<h2 class="rd-featured-title">🌟 Destacados</h2><div class="rd-featured-grid"></div>';
+      strip.querySelector('.rd-featured-grid').append(...featured);
+      document.querySelector('.rd-controls').insertAdjacentElement('beforebegin', strip);
+    }});
+}})();
 </script>
 {footer_whatsapp_html(perfil)}
 {goatcounter_script_html()}

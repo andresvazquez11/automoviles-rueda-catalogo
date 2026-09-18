@@ -382,6 +382,44 @@ img { max-width: 100%; display: block; }
 }
 .rd-badge-dgt img { width: 100%; height: 100%; object-fit: contain; }
 
+/* ── Franja de coches destacados (marcados desde /admin/) ── */
+.rd-featured-strip {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 20px 0;
+}
+.rd-featured-title {
+  font-family: var(--rd-display); font-size: 18px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.6px; color: var(--rd-ink);
+  margin: 0 0 12px;
+}
+.rd-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+.rd-card-featured {
+  border-color: var(--rd-red);
+  box-shadow: var(--rd-shadow-lg), 0 0 24px rgba(200,35,43,0.28);
+}
+.rd-card-featured .rd-card-modelo { font-size: 20px; }
+.rd-card-featured .rd-card-precio { font-size: 25px; }
+/* La franja ya deja claro que el coche está disponible y en oferta —
+   se ocultan los badges de estado/oferta del original para no competir
+   visualmente con la tirita de destacado. */
+.rd-card-featured .rd-badge-estado,
+.rd-card-featured .rd-badge-oferta { display: none; }
+.rd-badge-destacado {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 4;
+  background: var(--rd-red); color: #fff;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase;
+  text-align: center; padding: 6px 10px;
+}
+@media (max-width: 640px) {
+  .rd-featured-strip { padding: 14px 14px 0; }
+  .rd-featured-grid { grid-template-columns: 1fr; }
+}
+
 .rd-card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
 .rd-pill {
   font-size: 11px; font-weight: 600; color: var(--rd-ink-soft);
