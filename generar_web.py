@@ -1378,20 +1378,20 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 </div>
 
 <script>
-document.querySelectorAll('.rd-card-nav').forEach(btn => {{
-  btn.addEventListener('click', e => {{
-    e.preventDefault();
-    e.stopPropagation();
-    const media = btn.closest('.rd-card-media');
-    const imgs  = [...media.querySelectorAll('.rd-card-photos img')];
-    const dots  = [...media.querySelectorAll('.rd-card-dot')];
-    let idx = imgs.findIndex(img => img.classList.contains('activa'));
-    idx = btn.classList.contains('next')
-      ? (idx + 1) % imgs.length
-      : (idx - 1 + imgs.length) % imgs.length;
-    imgs.forEach((img, i) => img.classList.toggle('activa', i === idx));
-    dots.forEach((d, i) => d.classList.toggle('activa', i === idx));
-  }});
+document.addEventListener('click', e => {{
+  const btn = e.target.closest('.rd-card-nav');
+  if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const media = btn.closest('.rd-card-media');
+  const imgs  = [...media.querySelectorAll('.rd-card-photos img')];
+  const dots  = [...media.querySelectorAll('.rd-card-dot')];
+  let idx = imgs.findIndex(img => img.classList.contains('activa'));
+  idx = btn.classList.contains('next')
+    ? (idx + 1) % imgs.length
+    : (idx - 1 + imgs.length) % imgs.length;
+  imgs.forEach((img, i) => img.classList.toggle('activa', i === idx));
+  dots.forEach((d, i) => d.classList.toggle('activa', i === idx));
 }});
 
 // ── Buscador / filtro / orden — opera sobre las tarjetas ya generadas
