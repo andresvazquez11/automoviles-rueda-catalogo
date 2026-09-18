@@ -12,5 +12,19 @@
       "n": 55,
       "etiqueta": "Oferta especial"
     }
+  ],
+  "alejandro": [
+    {
+      "n": 1,
+      "etiqueta": "Oferta del mes"
+    },
+    {
+      "n": 17,
+      "etiqueta": "Últimas unidades"
+    },
+    {
+      "n": 42,
+      "etiqueta": "Precio rebajado"
+    }
   ]
 }
