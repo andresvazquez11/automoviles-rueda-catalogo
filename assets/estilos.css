@@ -101,6 +101,18 @@ img { max-width: 100%; display: block; }
   .rd-header-social-caption { font-size: 7.5px; white-space: normal; text-align: center; max-width: 90px; }
 }
 
+.rd-lang-toggle { display: flex; gap: 6px; flex-shrink: 0; }
+.rd-lang-btn {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px; padding: 6px 9px; font-size: 17px; line-height: 1;
+  cursor: pointer; opacity: 0.55; transition: opacity .15s ease, border-color .15s ease;
+}
+.rd-lang-btn:hover { opacity: 0.85; }
+.rd-lang-btn.activo { opacity: 1; border-color: var(--rd-red); background: rgba(200,35,43,0.18); }
+@media (max-width: 640px) {
+  .rd-lang-btn { padding: 5px 7px; font-size: 14px; }
+}
+
 /* ── Volver / breadcrumb ── */
 .rd-back {
   display: inline-flex;

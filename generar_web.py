@@ -238,6 +238,14 @@ def header_social_html(redes: list) -> str:
   <span class="rd-header-social-caption">Síguenos en nuestras redes sociales</span>
 </div>'''
 
+def lang_toggle_html() -> str:
+    """Botones de bandera para cambiar el idioma visible — comparten el
+    mismo assets/idioma.js en index.html y en cada ficha de coche."""
+    return '''<div class="rd-lang-toggle">
+    <button type="button" class="rd-lang-btn activo" data-lang="es" aria-label="Ver en español">🇪🇸</button>
+    <button type="button" class="rd-lang-btn" data-lang="en" aria-label="View in English">🇬🇧</button>
+  </div>'''
+
 
 def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda") -> str:
     """Pie de página (contacto + enlace DWA + última actualización) y botón
@@ -1263,6 +1271,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict) -> str:
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/estilos.css">
+<script src="/assets/idioma.js"></script>
 <style>
 {CALCULADORA_CSS}
 </style>
@@ -1275,6 +1284,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict) -> str:
     <span class="rd-header-asesor"><em>Asesor comercial</em>{nombre} · <span class="rd-header-tel">{telefono}</span></span>
   </div>
   {header_social_html(perfil["redes"])}
+  {lang_toggle_html()}
 </header>
 <a class="rd-back" href="../index.html">&#8249; Volver al catálogo</a>
 {vendido_banner}
@@ -1471,6 +1481,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/estilos.css">
+<script src="/assets/idioma.js"></script>
 </head>
 <body>
 <header class="rd-header">
@@ -1479,6 +1490,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
     <span class="rd-header-asesor"><em>Asesor comercial</em>{perfil["nombre"]} · <span class="rd-header-tel">{perfil["telefono"]}</span></span>
   </div>
   {header_social_html(perfil["redes"])}
+  {lang_toggle_html()}
 </header>
 
 <div class="rd-controls">
