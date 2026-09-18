@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · Coches Destacados · Automóviles Rueda</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root {
+    --bg: #f2f1ed; --surface: #fff; --ink: #14110f; --muted: #8b8780;
+    --border: #e6e3dc; --red: #c8232b; --green: #1c7a4a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg); color: var(--ink); padding: 16px; max-width: 520px; margin-inline: auto;
+  }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  p.sub { color: var(--muted); font-size: 13px; margin: 0 0 20px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; margin-bottom: 16px;
+  }
+  label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  input[type=password], select {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px;
+    font-size: 15px; margin-bottom: 10px;
+  }
+  button {
+    background: var(--red); color: #fff; border: none; border-radius: 8px;
+    padding: 11px 16px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%;
+  }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.secundario { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  details { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  details summary { cursor: pointer; font-weight: 600; }
+  details ol { padding-left: 18px; }
+  .perfil-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .perfil-tabs button { width: auto; flex: 1; background: var(--surface); color: var(--ink); border: 1px solid var(--border); }
+  .perfil-tabs button.activo { background: var(--red); color: #fff; border-color: var(--red); }
+  .coche-row {
+    display: flex; align-items: flex-start; gap: 10px; padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .coche-row:last-child { border-bottom: none; }
+  .coche-row img { width: 56px; height: 42px; object-fit: cover; border-radius: 6px; background: var(--bg); flex-shrink: 0; margin-top: 2px; }
+  .coche-check { flex-shrink: 0; margin-top: 6px; width: 18px; height: 18px; }
+  .coche-info { flex: 1; min-width: 0; }
+  .coche-info .modelo { font-weight: 700; font-size: 14px; }
+  .coche-info .precio { color: var(--muted); font-size: 12px; }
+  .coche-info select { margin: 6px 0 0; }
+  .estado-msg { font-size: 13px; margin-top: 10px; text-align: center; min-height: 18px; }
+  .estado-msg.ok { color: var(--green); }
+  .estado-msg.error { color: var(--red); }
+  .contador { font-size: 12px; color: var(--muted); text-align: right; margin-bottom: 8px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<h1>🌟 Coches destacados</h1>
+<p class="sub">Panel interno — Automóviles Rueda</p>
+
+<div class="card" id="auth-card">
+  <label for="token-input">Token de acceso de GitHub</label>
+  <input type="password" id="token-input" placeholder="github_pat_..." autocomplete="off">
+  <button id="btn-guardar-token">Entrar</button>
+  <details>
+    <summary>¿No tienes un token todavía?</summary>
+    <ol>
+      <li>Entra a <strong>github.com → Settings → Developer settings → Personal access tokens → Fine-grained tokens</strong></li>
+      <li>"Generate new token" → dale un nombre, ej. "Admin destacados"</li>
+      <li>Repository access → "Only select repositories" → elige <strong>automoviles-rueda-catalogo</strong></li>
+      <li>Permissions → Repository permissions → <strong>Contents: Read and write</strong></li>
+      <li>Generate token, y pégalo aquí arriba (queda guardado solo en este dispositivo)</li>
+    </ol>
+  </details>
+</div>
+
+<div id="panel" hidden>
+  <div class="perfil-tabs" id="perfil-tabs"></div>
+  <div class="contador" id="contador">0 / 3 seleccionados</div>
+  <div class="card" id="lista-coches">Cargando coches…</div>
+  <button id="btn-guardar" disabled>Guardar</button>
+  <div class="estado-msg" id="estado-msg"></div>
+  <button class="secundario" id="btn-cambiar-token" style="margin-top:10px">Cambiar token</button>
+</div>
+
+<script>
+(function() {
+  const OWNER = 'andresvazquez11';
+  const REPO = 'automoviles-rueda-catalogo';
+  const BRANCH = 'main';
+  const MAX_DESTACADOS = 3;
+  const FRASES = ['Oferta especial', 'Oferta del mes', 'Precio rebajado', 'Últimas unidades', 'Recomendado por el asesor'];
+  const PERFILES = [{ id: 'andres', nombre: 'Andrés' }, { id: 'alejandro', nombre: 'Alejandro' }];
+  const TOKEN_KEY = 'rd_admin_token';
+
+  const authCard = document.getElementById('auth-card');
+  const panel = document.getElementById('panel');
+  const tokenInput = document.getElementById('token-input');
+  const perfilTabs = document.getElementById('perfil-tabs');
+  const listaCoches = document.getElementById('lista-coches');
+  const contador = document.getElementById('contador');
+  const btnGuardar = document.getElementById('btn-guardar');
+  const estadoMsg = document.getElementById('estado-msg');
+
+  let cochesDisponibles = [];
+  let destacadosActuales = {};
+  let destacadosSha = null;
+  let perfilActivo = 'andres';
+  let seleccion = {}; // { n: etiqueta }
+
+  function getToken() { return localStorage.getItem(TOKEN_KEY); }
+
+  function mostrarEstado(texto, esError) {
+    estadoMsg.textContent = texto;
+    estadoMsg.className = 'estado-msg ' + (esError ? 'error' : 'ok');
+  }
+
+  async function ghGet(path) {
+    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`, {
+      headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' }
+    });
+    if (res.status === 404) return { sha: null, data: {} };
+    if (!res.ok) throw new Error('GitHub API error ' + res.status);
+    const json = await res.json();
+    const content = decodeURIComponent(escape(atob(json.content)));
+    return { sha: json.sha, data: JSON.parse(content) };
+  }
+
+  async function ghPut(path, dataObj, sha, message) {
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(dataObj, null, 2))));
+    const body = { message, content, branch: BRANCH };
+    if (sha) body.sha = sha;
+    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || ('Error ' + res.status));
+    }
+    return res.json();
+  }
+
+  function renderPerfilTabs() {
+    perfilTabs.innerHTML = '';
+    PERFILES.forEach(p => {
+      const btn = document.createElement('button');
+      btn.textContent = p.nombre;
+      btn.className = p.id === perfilActivo ? 'activo' : '';
+      btn.addEventListener('click', () => {
+        perfilActivo = p.id;
+        cargarSeleccionDePerfil();
+        renderPerfilTabs();
+        renderLista();
+      });
+      perfilTabs.appendChild(btn);
+    });
+  }
+
+  function cargarSeleccionDePerfil() {
+    seleccion = {};
+    (destacadosActuales[perfilActivo] || []).forEach(item => { seleccion[item.n] = item.etiqueta; });
+  }
+
+  function renderLista() {
+    const seleccionados = Object.keys(seleccion).length;
+    contador.textContent = `${seleccionados} / ${MAX_DESTACADOS} seleccionados`;
+    listaCoches.innerHTML = '';
+    cochesDisponibles.forEach(coche => {
+      const marcado = coche.n in seleccion;
+      const limiteAlcanzado = !marcado && seleccionados >= MAX_DESTACADOS;
+      const row = document.createElement('div');
+      row.className = 'coche-row';
+      row.innerHTML = `
+        <input type="checkbox" class="coche-check" ${marcado ? 'checked' : ''} ${limiteAlcanzado ? 'disabled' : ''}>
+        <img src="${coche.foto}" alt="">
+        <div class="coche-info">
+          <div class="modelo">${coche.modelo}</div>
+          <div class="precio">${coche.precio} €</div>
+          <select ${marcado ? '' : 'hidden'}>
+            ${FRASES.map(f => `<option value="${f}" ${seleccion[coche.n] === f ? 'selected' : ''}>${f}</option>`).join('')}
+          </select>
+        </div>`;
+      const check = row.querySelector('.coche-check');
+      const select = row.querySelector('select');
+      check.addEventListener('change', () => {
+        if (check.checked) {
+          seleccion[coche.n] = select.value || FRASES[0];
+        } else {
+          delete seleccion[coche.n];
+        }
+        renderLista();
+      });
+      select.addEventListener('change', () => { seleccion[coche.n] = select.value; });
+      listaCoches.appendChild(row);
+    });
+  }
+
+  async function cargarTodo() {
+    listaCoches.textContent = 'Cargando coches…';
+    try {
+      const [lista, dest] = await Promise.all([
+        fetch('/coches_lista.json').then(r => r.json()),
+        ghGet('destacados.json')
+      ]);
+      cochesDisponibles = lista;
+      destacadosActuales = dest.data || {};
+      destacadosSha = dest.sha;
+      cargarSeleccionDePerfil();
+      renderPerfilTabs();
+      renderLista();
+      btnGuardar.disabled = false;
+      authCard.hidden = true;
+      panel.hidden = false;
+    } catch (e) {
+      mostrarEstado('No se pudo cargar: revisa el token. (' + e.message + ')', true);
+      authCard.hidden = false;
+      panel.hidden = true;
+    }
+  }
+
+  document.getElementById('btn-guardar-token').addEventListener('click', () => {
+    const t = tokenInput.value.trim();
+    if (!t) return;
+    localStorage.setItem(TOKEN_KEY, t);
+    cargarTodo();
+  });
+
+  document.getElementById('btn-cambiar-token').addEventListener('click', () => {
+    localStorage.removeItem(TOKEN_KEY);
+    tokenInput.value = '';
+    panel.hidden = true;
+    authCard.hidden = false;
+  });
+
+  document.getElementById('btn-guardar').addEventListener('click', async () => {
+    btnGuardar.disabled = true;
+    mostrarEstado('Guardando…', false);
+    try {
+      const lista = Object.keys(seleccion).map(n => ({ n: Number(n), etiqueta: seleccion[n] }));
+      const nuevo = Object.assign({}, destacadosActuales, { [perfilActivo]: lista });
+      const fecha = new Date().toISOString().slice(0, 10);
+      const resultado = await ghPut('destacados.json', nuevo, destacadosSha, `Actualizar destacados (${perfilActivo}) — ${fecha}`);
+      destacadosActuales = nuevo;
+      destacadosSha = resultado.content.sha;
+      mostrarEstado('Guardado. Puede tardar hasta un minuto en verse en la web.', false);
+    } catch (e) {
+      mostrarEstado('No se pudo guardar: ' + e.message, true);
+    }
+    btnGuardar.disabled = false;
+  });
+
+  if (getToken()) cargarTodo();
+})();
+</script>
+</body>
+</html>
