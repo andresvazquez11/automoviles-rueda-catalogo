@@ -1319,6 +1319,28 @@ def build_card_html(car: dict, hist: dict, fotos: list[str]) -> str:
   </div>
 </a>'''
 
+def build_coches_lista_json(cars: list[dict], rutas: dict[int, list[str]]) -> str:
+    """Lista pública resumida de coches disponibles — la usa /admin/ para
+    mostrar fotos+modelo+precio al elegir destacados. No expone
+    datos_coches.json completo (equipamiento, urls internas de DWA, etc.).
+    Solo coches 'Disponible' — no tiene sentido destacar uno ya reservado."""
+    items = []
+    for car in cars:
+        if car["estado"] != "Disponible":
+            continue
+        n = car["n"]
+        fotos = (
+            [f"/{f.lstrip('/')}" for f in car.get("fotos", [])]
+            if car.get("fuente") == "motorflash" else rutas.get(n, [])
+        )
+        items.append({
+            "n": n,
+            "modelo": car["modelo"],
+            "precio": car["precio"],
+            "foto": fotos[0] if fotos else "",
+        })
+    return json.dumps(items, ensure_ascii=False, indent=2)
+
 def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict) -> str:
     hist = _cargar_historial_precios()
     visibles = [c for c in cars if c.get("estado") != "Retirado"]
@@ -1470,6 +1492,10 @@ def main():
     rutas = copiar_fotos(coches)
     total_fotos = sum(len(v) for v in rutas.values())
     print(f"    {total_fotos} fotos copiadas")
+
+    lista_json = build_coches_lista_json(coches, rutas)
+    (BASE_DIR / "coches_lista.json").write_text(lista_json, encoding="utf-8")
+    print(f"  coches_lista.json generado ({len(json.loads(lista_json))} coches disponibles)")
 
     # Sin foto verificada = no se publica (ni en el índice ni con ficha propia).
     # Los "Retirado" se tratan aparte más abajo (ya estaban excluidos del índice).
