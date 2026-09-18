@@ -24,7 +24,7 @@
       "Asientos de tela (material principal) y de tela (material secundario)",
       "Asientos traseros de tres plazas de tipo banco de orientación delantera abatibles en el suelo con banqueta fija y respaldo abatible asimétrico"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/01 - SEAT Arona - 15.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/01 - SEAT Arona - 15.900€/foto_02.jpg",
@@ -74,7 +74,7 @@
       "Negro (tela/piel)",
       "Llantas aleación 46cm (18\") - Sonora"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/02 - CUPRA Formentor - 37.500€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/02 - CUPRA Formentor - 37.500€/foto_02.jpg",
@@ -110,7 +110,7 @@
     "color": "",
     "precio": "17.900",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/190151308",
     "equipamiento": [
       "Velocidad máxima: 198 km/h",
@@ -124,7 +124,7 @@
       "Asientos traseros de tres plazas de tipo banco partido de orientación delantera con banqueta partida y respaldo abatible asimétrico",
       "Volante multi-función revestido de cuero ajustable en altura y en profundidad"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/03 - SEAT Ibiza - 17.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/03 - SEAT Ibiza - 17.900€/foto_02.jpg",
@@ -135,19 +135,8 @@
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/03 - SEAT Ibiza - 17.900€/foto_07.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/03 - SEAT Ibiza - 17.900€/foto_08.jpg"
     ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "226.32",
-      "tin": "7.50",
-      "tae": "8.89",
-      "cuota_final": "11143.24",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "663.68",
-      "capital": "18962.19",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 17.900,00 €. Precio financiando: 17.900,00 €. Precio al contado 17.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,89%. La oferta incluye Seg. Protección Plus Ampliado por 1.062,19€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 226,32 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.143,24 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 663,68 €. Importe total financiado 18.962,19 €. Importe total de los intereses: 5.760,25 €. Coste total del crédito: 6.423,93 €. Precio total a plazos 24.722,44 €. Importe total adeudado: 24.722,44 €. Sistema de amortización francés"
-    }
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/03 - SEAT Ibiza - 17.900€",
+    "financiacion": {}
   },
   {
     "n": 4,
@@ -174,7 +163,7 @@
       "Volante multi-función revestido de cuero ajustable en altura y en profundidad",
       "Retrovisor interior/cámara con oscurecimiento progresivo automático"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/04 - SEAT Arona - 18.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/04 - SEAT Arona - 18.900€/foto_02.jpg",
@@ -224,7 +213,7 @@
       "Con sistema de cámara de marcha atrás",
       "Cámara multifuncional"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/05 - SEAT Ibiza - 20.600€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/05 - SEAT Ibiza - 20.600€/foto_02.jpg",
@@ -274,7 +263,7 @@
       "Cierre centralizado \"Keyless-Entry\"",
       "Sistema de aparcamiento asistido"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/06 - SEAT Arona - 24.500€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/06 - SEAT Arona - 24.500€/foto_02.jpg",
@@ -324,7 +313,7 @@
       "Asientos de ante sintético (material principal) y de cuero sintético (material secundario) comercializado como sostenible/vegano",
       "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/07 - CUPRA Terramar - 37.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/07 - CUPRA Terramar - 37.900€/foto_02.jpg",
@@ -374,7 +363,7 @@
       "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
       "Velocidad máxima: 205 km/h"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/08 - CUPRA Formentor - 33.500€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/08 - CUPRA Formentor - 33.500€/foto_02.jpg",
@@ -424,7 +413,7 @@
       "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 8,0 pulgadas de ancho 45,7 y 20,3",
       "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/09 - CUPRA Formentor - 36.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/09 - CUPRA Formentor - 36.900€/foto_02.jpg",
@@ -474,7 +463,7 @@
       "Asientos traseros de tres plazas de tipo banco de orientación delantera abatibles en el suelo con banqueta fija y respaldo abatible asimétrico",
       "Volante multi-función revestido de cuero ajustable en altura y en profundidad"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/10 - SEAT Arona - 18.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/10 - SEAT Arona - 18.900€/foto_02.jpg",
@@ -524,7 +513,7 @@
       "Asientos traseros de tres plazas de tipo banco de orientación delantera abatibles en el suelo con banqueta fija y respaldo abatible asimétrico",
       "Volante multi-función revestido de cuero ajustable en altura y en profundidad"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/11 - SEAT Arona - 18.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/11 - SEAT Arona - 18.900€/foto_02.jpg",
@@ -574,7 +563,7 @@
       "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados con sensor",
       "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/12 - SEAT León - 27.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/12 - SEAT León - 27.900€/foto_02.jpg",
@@ -624,7 +613,7 @@
       "Negro (tela/piel)",
       "Edge Pack"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/13 - CUPRA Formentor - 32.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/13 - CUPRA Formentor - 32.900€/foto_02.jpg",
@@ -675,7 +664,7 @@
       "Cámara de visión superior",
       "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 7,0 pulgadas de ancho 45,7 y 17,8"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/14 - SEAT Ateca - 32.900€ · RESERVADO/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/14 - SEAT Ateca - 32.900€ · RESERVADO/foto_02.jpg",
@@ -725,7 +714,7 @@
       "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
       "Toma/s de 12v en los asientos delanteros"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/15 - CUPRA Terramar - 40.500€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/15 - CUPRA Terramar - 40.500€/foto_02.jpg",
@@ -775,7 +764,7 @@
       "Asientos traseros de tres plazas de tipo banco partido de orientación delantera con banqueta partida y respaldo abatible asimétrico",
       "Volante multi-función revestido de cuero ajustable en altura y en profundidad"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/16 - SEAT Ibiza - 20.700€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/16 - SEAT Ibiza - 20.700€/foto_02.jpg",
@@ -825,7 +814,7 @@
       "Reconocimiento de señales de trafico",
       "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 6,5 pulgadas de ancho 40,6, 16,5 y PG4"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/17 - SEAT Ibiza - 20.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/17 - SEAT Ibiza - 20.900€/foto_02.jpg",
@@ -875,7 +864,7 @@
       "Con ayuda de esquiva con asistente de giro",
       "Cierre centralizado \"Keyless-Go\" sin cierre de seguridad"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/18 - SEAT León - 22.700€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/18 - SEAT León - 22.700€/foto_02.jpg",
@@ -911,7 +900,7 @@
     "color": "",
     "precio": "22.700",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/seat-leon-diesel-116-cv-del-2025-en-malaga/168559741",
     "equipamiento": [
       "Comfort Pack: Climatizador 3 zonas + Reposabrazos central delantero + 2 USB tipo C traseros",
@@ -925,7 +914,7 @@
       "Faros antiniebla LED con función cornering",
       "Volante multifunción deportivo de cuero"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/19 - SEAT León - 22.700€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/19 - SEAT León - 22.700€/foto_02.jpg",
@@ -936,18 +925,19 @@
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/19 - SEAT León - 22.700€/foto_07.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/19 - SEAT León - 22.700€/foto_08.jpg"
     ],
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/19 - SEAT León - 22.700€",
     "financiacion": {
       "meses": "60",
-      "cuota": "279.32",
+      "cuota": "281.59",
       "tin": "7.50",
       "tae": "8.88",
-      "cuota_final": "14689.44",
+      "cuota_final": "14524.65",
       "entrada": "0.00",
       "comision_tipo": "al contado",
       "comision": "841.65",
       "capital": "24047.02",
       "tipo": "",
-      "ejemplo": "* PVPR con campaña de 22.700,00 €. Precio financiando: 22.700,00 €. Precio al contado 22.700,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,88%. La oferta incluye Seg. Protección Plus Ampliado por 1.347,02€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 279,32 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.689,44 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 841,65 €. Importe total financiado 24.047,02 €. Importe total de los intereses: 7.401,62 €. Coste total del crédito: 8.243,27 €. Precio total a plazos 31.448,64 €. Importe total adeudado: 31.448,64 €. Sistema de amortización francés"
+      "ejemplo": "* PVPR con campaña de 22.700,00 €. Precio financiando: 22.700,00 €. Precio al contado 22.700,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,88%. La oferta incluye Seg. Protección Plus Ampliado por 1.347,02€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 281,59 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.524,65 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 841,65 €. Importe total financiado 24.047,02 €. Importe total de los intereses: 7.373,03 €. Coste total del crédito: 8.214,68 €. Precio total a plazos 31.420,05 €. Importe total adeudado: 31.420,05 €. Sistema de amortización francés"
     }
   },
   {
@@ -975,7 +965,7 @@
       "Banco trasero de asientos no divididos, respaldo abatible por separado",
       "Apertura de confort del portón del maletero (pedal virtual)"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/20 - CUPRA Tavascan - 43.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/20 - CUPRA Tavascan - 43.900€/foto_02.jpg",
@@ -1025,7 +1015,7 @@
       "Sujetavasos en los asientos delanteros y los asientos traseros",
       "Sistema de ventilación con filtro de pólen combustión y calefacción del motor"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/21 - Abarth 500 - 18.500€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/21 - Abarth 500 - 18.500€/foto_02.jpg",
@@ -1064,7 +1054,7 @@
       "Llantas de aleación ligera 6j x 16\" pulgadas",
       "Con cámara multifuncional"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/22 - SEAT Arona - 18.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/22 - SEAT Arona - 18.900€/foto_02.jpg",
@@ -1114,7 +1104,7 @@
       "Llantas de aleación ligera 6j x 16\" pulgadas",
       "Con cámara multifuncional"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/23 - SEAT Arona - 18.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/23 - SEAT Arona - 18.900€/foto_02.jpg",
@@ -1164,7 +1154,7 @@
       "Sistema de aparcamiento asistido",
       "Climatronic bizona"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/24 - SEAT Arona - 19.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/24 - SEAT Arona - 19.900€/foto_02.jpg",
@@ -1214,7 +1204,7 @@
       "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
       "Acabados de lujo: pomo de la palanca de cambios en aluminio y cuero, consola central en aluminio simil, tablero en aluminio simil y empuñadura del freno de mano en cuero"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/25 - SEAT Arona - 16.500€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/25 - SEAT Arona - 16.500€/foto_02.jpg",
@@ -1264,7 +1254,7 @@
       "Velocidad máxima: 205 km/h",
       "Edge Pack"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/26 - CUPRA Terramar - 37.500€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/26 - CUPRA Terramar - 37.500€/foto_02.jpg",
@@ -1314,7 +1304,7 @@
       "Retrovisor interior/cámara",
       "Limitador de velocidad"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/27 - Renault Clio - 19.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/27 - Renault Clio - 19.900€/foto_02.jpg",
@@ -1353,7 +1343,7 @@
       "Con ayuda de esquiva con asistente de giro",
       "Cierre centralizado \"Keyless-Go\" sin cierre de seguridad"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/28 - SEAT León - 22.700€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/28 - SEAT León - 22.700€/foto_02.jpg",
@@ -1403,7 +1393,7 @@
       "Limitador de velocidad",
       "Dirección asistida eléctrica con endurecimiento progresivo s/velocidad y desmultiplicación variable"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/29 - CUPRA Tavascan - 35.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/29 - CUPRA Tavascan - 35.900€/foto_02.jpg",
@@ -1453,7 +1443,7 @@
       "Sistema de asistencia de aparcamiento",
       "Conexión de aplicaciones inalámbrica y por cable"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/30 - SEAT Arona - 22.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/30 - SEAT Arona - 22.900€/foto_02.jpg",
@@ -1503,7 +1493,7 @@
       "Matrix-beam",
       "Conexión de aplicaciones inalámbrica y por cable"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/31 - SEAT León - 27.900€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/31 - SEAT León - 27.900€/foto_02.jpg",
@@ -1553,7 +1543,7 @@
       "Cuadro de mandos digital cockpit",
       "Externo, Usb tipo C"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/32 - SEAT León - 22.500€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/32 - SEAT León - 22.500€/foto_02.jpg",
@@ -1564,7 +1554,6 @@
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/32 - SEAT León - 22.500€/foto_07.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/32 - SEAT León - 22.500€/foto_08.jpg"
     ],
-    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/32 - SEAT León - 22.500€",
     "financiacion": {
       "meses": "60",
       "cuota": "279.41",
@@ -1604,7 +1593,7 @@
       "Matrix-beam",
       "Conexión de aplicaciones inalámbrica y por cable"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/33 - SEAT León - 28.500€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/33 - SEAT León - 28.500€/foto_02.jpg",
@@ -1654,7 +1643,7 @@
       "Blanco (sólido) Techo Negro",
       "Llantas de aleación de 46cm (18\") PERFORMANCE AERO"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/34 - SEAT Arona - 17.500€ · RESERVADO/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/34 - SEAT Arona - 17.500€ · RESERVADO/foto_02.jpg",
@@ -1704,7 +1693,7 @@
       "Climatronic bizona",
       "Con sistema de cámara de marcha atrás"
     ],
-    "_total": 46,
+    "_total": 45,
     "fotos": [
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/35 - SEAT Ibiza - 20.500€/foto_01.jpg",
       "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/35 - SEAT Ibiza - 20.500€/foto_02.jpg",
@@ -1731,6 +1720,460 @@
   },
   {
     "n": 36,
+    "modelo": "CUPRA Leon",
+    "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "combustible": "Híbrido",
+    "km": "150",
+    "fecha": "01/2026",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "41.300",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/151395102",
+    "equipamiento": [
+      "Driving Performance pack: DCC + Llantas aleación 48cm (19\") - Polar Copper",
+      "Asientos calefaccionados",
+      "Asistente de aparcamiento inteligente",
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 220 km/h",
+      "Edge Pack",
+      "Intelligent Drive Pack"
+    ],
+    "_total": 45,
+    "fotos": [
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - CUPRA Leon - 41.300€/foto_01.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - CUPRA Leon - 41.300€/foto_02.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - CUPRA Leon - 41.300€/foto_03.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - CUPRA Leon - 41.300€/foto_04.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - CUPRA Leon - 41.300€/foto_05.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - CUPRA Leon - 41.300€/foto_06.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - CUPRA Leon - 41.300€/foto_07.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - CUPRA Leon - 41.300€/foto_08.jpg"
+    ],
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - CUPRA Leon - 41.300€",
+    "financiacion": {
+      "meses": "60",
+      "cuota": "533.24",
+      "tin": "8.99",
+      "tae": "10.54",
+      "cuota_final": "25273.13",
+      "entrada": "0.00",
+      "comision_tipo": "al contado",
+      "comision": "1464.54",
+      "capital": "41843.93",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 41.300,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 39.500,00 €. Precio al contado 41.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,54%. La oferta incluye Seg. Protección Plus Ampliado por 2.343,93€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 533,24 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 25.273,13 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.464,54 €. Importe total financiado 41.843,93 €. Importe total de los intereses: 15.423,60 €. Coste total del crédito: 16.888,14 €. Precio total a plazos 57.267,53 €. Importe total adeudado: 57.267,53 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 37,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI 110 kW (150 CV)",
+    "combustible": "Gasolina",
+    "km": "14.172",
+    "fecha": "02/2025",
+    "cambio": "Manual",
+    "color": "",
+    "precio": "29.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/151394958",
+    "equipamiento": [
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 205 km/h",
+      "Negro (tela/piel)",
+      "Edge Pack",
+      "Llantas aleación 48cm (19\") - Sanstorm",
+      "Sistema de cierre y arranque sin llave",
+      "Cámara de marcha atrás"
+    ],
+    "_total": 45,
+    "fotos": [
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Formentor - 29.900€/foto_01.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Formentor - 29.900€/foto_02.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Formentor - 29.900€/foto_03.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Formentor - 29.900€/foto_04.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Formentor - 29.900€/foto_05.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Formentor - 29.900€/foto_06.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Formentor - 29.900€/foto_07.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Formentor - 29.900€/foto_08.jpg"
+    ],
+    "financiacion": {
+      "meses": "60",
+      "cuota": "369.72",
+      "tin": "5.95",
+      "tae": "7.22",
+      "cuota_final": "17577.42",
+      "entrada": "0.00",
+      "comision_tipo": "al contado",
+      "comision": "1127.37",
+      "capital": "32210.71",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 29.900,00 €. Precio financiando: 29.900,00 €. Precio al contado 29.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,22%. La oferta incluye Seg. Protección Plus Ampliado por 1.804,32€ y SEGURO PROTECCION DE MOVILIDAD por 506,39€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 369,72 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.577,42 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.127,37 €. Importe total financiado 32.210,71 €. Importe total de los intereses: 7.549,91 €. Coste total del crédito: 8.677,28 €. Precio total a plazos 39.760,62 €. Importe total adeudado: 39.760,62 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 38,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "combustible": "Híbrido",
+    "km": "100",
+    "fecha": "10/2025",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "35.500",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656699",
+    "equipamiento": [
+      "Asistente de mantenimiento de carril",
+      "Asistente de aparcamiento",
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 210 km/h",
+      "Negro (tela/piel)",
+      "Edge Pack",
+      "Intelligent Drive Pack"
+    ],
+    "_total": 45,
+    "fotos": [
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 35.500€/foto_01.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 35.500€/foto_02.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 35.500€/foto_03.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 35.500€/foto_04.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 35.500€/foto_05.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 35.500€/foto_06.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 35.500€/foto_07.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 35.500€/foto_08.jpg"
+    ],
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 35.500€",
+    "financiacion": {}
+  },
+  {
+    "n": 39,
+    "modelo": "CUPRA Leon",
+    "version": "Sportstourer 1.5 eTSI DSG 110 kW (150 CV)",
+    "combustible": "Mild Hybrid",
+    "km": "19.946",
+    "fecha": "03/2025",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "29.800",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-gasolina-150-cv-del-2025-en-malaga/156969010",
+    "equipamiento": [
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 216 km/h",
+      "Edge Pack",
+      "Sistema de cierre y arranque sin llave",
+      "Cámara de marcha atrás",
+      "Paquete de luces ambiente plus",
+      "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 7,5 pulgadas de ancho bi-tono, 45,7 y 19,0"
+    ],
+    "_total": 45,
+    "fotos": [
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Leon - 29.800€/foto_01.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Leon - 29.800€/foto_02.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Leon - 29.800€/foto_03.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Leon - 29.800€/foto_04.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Leon - 29.800€/foto_05.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Leon - 29.800€/foto_06.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Leon - 29.800€/foto_07.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Leon - 29.800€/foto_08.jpg"
+    ],
+    "financiacion": {
+      "meses": "60",
+      "cuota": "345.69",
+      "tin": "5.95",
+      "tae": "7.19",
+      "cuota_final": "19106.50",
+      "entrada": "0.00",
+      "comision_tipo": "al contado",
+      "comision": "1123.60",
+      "capital": "32102.98",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 29.800,00 €. Precio financiando: 29.800,00 €. Precio al contado 29.800,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,19%. La oferta incluye Seg. Protección Plus Ampliado por 1.798,28€ y SEGURO PROTECCION DE MOVILIDAD por 504,70€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 345,69 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 19.106,50 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.123,60 €. Importe total financiado 32.102,98 €. Importe total de los intereses: 7.744,92 €. Coste total del crédito: 8.868,52 €. Precio total a plazos 39.847,90 €. Importe total adeudado: 39.847,90 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 40,
+    "modelo": "CUPRA Formentor",
+    "version": "2.5 TSI VZ5 Taiga Grey 4Drive DSG 287 kW (390 CV)",
+    "combustible": "Gasolina",
+    "km": "30.747",
+    "fecha": "02/2023",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "46.500",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-390-cv-del-2023-en-malaga/151395159",
+    "equipamiento": [
+      "Asistente de salida aparcamiento y cambio carril y sistema aviso para salir del vehículo",
+      "Calefacción en los asientos delanteros regulables por separado",
+      "Sistema de cierre y arranque sin llave \"Keyless Advanced\" sin cierre de seguridad",
+      "Sistema de aviso de mantenimiento de carril, con asistencia de emergencia y asistente en atascos",
+      "Con sistema de cámaras frontal y de marcha atrás, y dos cámaras laterales",
+      "Climatronic (3 zonas) con panel de mandos del climatizador detrás",
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Sistema de distancia de aparcamiento delanteros con sensor y cámara, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados"
+    ],
+    "_total": 45,
+    "fotos": [
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Formentor - 46.500€/foto_01.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Formentor - 46.500€/foto_02.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Formentor - 46.500€/foto_03.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Formentor - 46.500€/foto_04.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Formentor - 46.500€/foto_05.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Formentor - 46.500€/foto_06.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Formentor - 46.500€/foto_07.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Formentor - 46.500€/foto_08.jpg"
+    ],
+    "financiacion": {
+      "meses": "60",
+      "cuota": "598.03",
+      "tin": "5.95",
+      "tae": "7.25",
+      "cuota_final": "24607.67",
+      "entrada": "0.00",
+      "comision_tipo": "al contado",
+      "comision": "1724.08",
+      "capital": "49259.31",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 46.500,00 €. Precio financiando: 46.500,00 €. Precio al contado 46.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,25%. La oferta incluye Seg. Protección Plus Ampliado por 2.759,31€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 598,03 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 24.607,67 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.724,08 €. Importe total financiado 49.259,31 €. Importe total de los intereses: 11.230,16 €. Coste total del crédito: 12.954,24 €. Precio total a plazos 60.489,47 €. Importe total adeudado: 60.489,47 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 41,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI DSG 110 kW (150 CV)",
+    "combustible": "Gasolina",
+    "km": "70.529",
+    "fecha": "08/2021",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "22.900",
+    "ubicacion": "Málaga",
+    "estado": "No disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2021-en-malaga/155656843",
+    "equipamiento": [
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 203 km/h",
+      "Negro (tela/piel)",
+      "Advertencia de colisión frontal",
+      "Control de crucero adaptativo",
+      "Aire acondicionado Climatronic",
+      "Cámara multifunción"
+    ],
+    "_total": 45,
+    "fotos": [
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 22.900€ · RESERVADO/foto_01.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 22.900€ · RESERVADO/foto_02.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 22.900€ · RESERVADO/foto_03.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 22.900€ · RESERVADO/foto_04.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 22.900€ · RESERVADO/foto_05.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 22.900€ · RESERVADO/foto_06.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 22.900€ · RESERVADO/foto_07.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 22.900€ · RESERVADO/foto_08.jpg"
+    ],
+    "financiacion": {
+      "cuota": "355.98",
+      "tin": "5.50",
+      "tae": "6.79",
+      "meses": "60",
+      "entrada": "0",
+      "tipo": "Autocredit",
+      "ejemplo": "Ejemplo de cuota a 84 meses: 355,98 €. Entrada inicial: 0,00 €. Comisión de apertura al contado: 867,03 €. Importe total financiado 24.772,21 €. Importe total de los intereses: 5.130,11 €. Coste total del crédito: 5.130,11 €. Precio total a plazos 29.902,32 €. Importe total adeudado: 29.902,32 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar"
+    }
+  },
+  {
+    "n": 42,
+    "modelo": "CUPRA León",
+    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "combustible": "Híbrido",
+    "km": "3.600",
+    "fecha": "08/2025",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "34.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/151395138",
+    "equipamiento": [
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 220 km/h",
+      "Edge Pack",
+      "Advertencia de colisión frontal",
+      "Caja automática 6 velocidades",
+      "Aire acondicionado Climatronic",
+      "Cámara multifunción"
+    ],
+    "_total": 45,
+    "fotos": [
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA León - 34.900€/foto_01.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA León - 34.900€/foto_02.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA León - 34.900€/foto_03.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA León - 34.900€/foto_04.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA León - 34.900€/foto_05.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA León - 34.900€/foto_06.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA León - 34.900€/foto_07.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA León - 34.900€/foto_08.jpg"
+    ],
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA León - 34.900€",
+    "financiacion": {}
+  },
+  {
+    "n": 43,
+    "modelo": "CUPRA León",
+    "version": "1.4 e-Hybrid DSG 180 kW (245 CV)",
+    "combustible": "Híbrido",
+    "km": "65.890",
+    "fecha": "10/2021",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "25.500",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-245-cv-del-2021-en-malaga/155656894",
+    "equipamiento": [
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 225 km/h",
+      "Llantas delanteras y traseras en aluminio de 19 pulgadas de diámetro y 8,0 pulgadas de ancho bi-tono, 48,3 y 20,3",
+      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
+      "Toma/s de 12v en los asientos delanteros",
+      "Asientos de tela (material principal) y de vinilo (material secundario)",
+      "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual, ajuste manual en altura y ajuste lumbar manual con ajuste manual del respaldo"
+    ],
+    "_total": 45,
+    "fotos": [
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 25.500€/foto_01.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 25.500€/foto_02.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 25.500€/foto_03.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 25.500€/foto_04.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 25.500€/foto_05.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 25.500€/foto_06.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 25.500€/foto_07.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 25.500€/foto_08.jpg"
+    ],
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 25.500€",
+    "financiacion": {}
+  },
+  {
+    "n": 44,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "combustible": "Híbrido",
+    "km": "9.519",
+    "fecha": "04/2025",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "33.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656777",
+    "equipamiento": [
+      "Asistente de mantenimiento de carril",
+      "Asistente de aparcamiento",
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 210 km/h",
+      "Negro (tela/piel)",
+      "Edge Pack",
+      "Intelligent Drive Pack"
+    ],
+    "_total": 45,
+    "fotos": [
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA Formentor - 33.900€/foto_01.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA Formentor - 33.900€/foto_02.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA Formentor - 33.900€/foto_03.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA Formentor - 33.900€/foto_04.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA Formentor - 33.900€/foto_05.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA Formentor - 33.900€/foto_06.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA Formentor - 33.900€/foto_07.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA Formentor - 33.900€/foto_08.jpg"
+    ],
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA Formentor - 33.900€",
+    "financiacion": {}
+  },
+  {
+    "n": 45,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "combustible": "Híbrido",
+    "km": "5.250",
+    "fecha": "03/2025",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "33.500",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656639",
+    "equipamiento": [
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 210 km/h",
+      "Negro (tela/piel)",
+      "Edge Pack",
+      "Llantas aleación 46cm (18\") - Sonora",
+      "Apertura de maletero por pedal virtual",
+      "Advertencia de colisión frontal"
+    ],
+    "_total": 45,
+    "fotos": [
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 33.500€/foto_01.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 33.500€/foto_02.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 33.500€/foto_03.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 33.500€/foto_04.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 33.500€/foto_05.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 33.500€/foto_06.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 33.500€/foto_07.jpg",
+      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 33.500€/foto_08.jpg"
+    ],
+    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 33.500€",
+    "financiacion": {
+      "meses": "60",
+      "cuota": "412.84",
+      "tin": "8.99",
+      "tae": "10.52",
+      "cuota_final": "21421.27",
+      "entrada": "0.00",
+      "comision_tipo": "al contado",
+      "comision": "1175.34",
+      "capital": "33581.08",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 33.500,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.700,00 €. Precio al contado 33.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,52%. La oferta incluye Seg. Protección Plus Ampliado por 1.881,08€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 412,84 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.421,27 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.175,34 €. Importe total financiado 33.581,08 €. Importe total de los intereses: 12.610,59 €. Coste total del crédito: 13.785,93 €. Precio total a plazos 46.191,67 €. Importe total adeudado: 46.191,67 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 46,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1755,16 +2198,7 @@
       "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 6,0 pulgadas de ancho 40,6 y 15,2"
     ],
     "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - SEAT Arona - 18.500€/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - SEAT Arona - 18.500€/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - SEAT Arona - 18.500€/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - SEAT Arona - 18.500€/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - SEAT Arona - 18.500€/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - SEAT Arona - 18.500€/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - SEAT Arona - 18.500€/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - SEAT Arona - 18.500€/foto_08.jpg"
-    ],
+    "fotos": [],
     "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/36 - SEAT Arona - 18.500€",
     "financiacion": {
       "meses": "60",
@@ -1778,504 +2212,8 @@
       "capital": "19597.79",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.500,00 €. Precio financiando: 18.500,00 €. Precio al contado 18.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,91%. La oferta incluye Seg. Protección Plus Ampliado por 1.097,79€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 240,97 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.004,75 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 685,92 €. Importe total financiado 19.597,79 €. Importe total de los intereses: 5.865,16 €. Coste total del crédito: 6.551,08 €. Precio total a plazos 25.462,95 €. Importe total adeudado: 25.462,95 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 37,
-    "modelo": "CUPRA Leon",
-    "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
-    "combustible": "Híbrido",
-    "km": "150",
-    "fecha": "01/2026",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "41.300",
-    "ubicacion": "Málaga",
-    "estado": "No disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/151395102",
-    "equipamiento": [
-      "Driving Performance pack: DCC + Llantas aleación 48cm (19\") - Polar Copper",
-      "Asientos calefaccionados",
-      "Asistente de aparcamiento inteligente",
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 220 km/h",
-      "Edge Pack",
-      "Intelligent Drive Pack"
-    ],
-    "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Leon - 41.300€/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Leon - 41.300€/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Leon - 41.300€/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Leon - 41.300€/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Leon - 41.300€/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Leon - 41.300€/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Leon - 41.300€/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Leon - 41.300€/foto_08.jpg"
-    ],
-    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/37 - CUPRA Leon - 41.300€",
-    "financiacion": {
-      "meses": "60",
-      "cuota": "533.24",
-      "tin": "8.99",
-      "tae": "10.54",
-      "cuota_final": "25273.13",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1464.54",
-      "capital": "41843.93",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 41.300,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 39.500,00 €. Precio al contado 41.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,54%. La oferta incluye Seg. Protección Plus Ampliado por 2.343,93€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 533,24 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 25.273,13 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.464,54 €. Importe total financiado 41.843,93 €. Importe total de los intereses: 15.423,60 €. Coste total del crédito: 16.888,14 €. Precio total a plazos 57.267,53 €. Importe total adeudado: 57.267,53 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 38,
-    "modelo": "CUPRA Formentor",
-    "version": "1.5 TSI 110 kW (150 CV)",
-    "combustible": "Gasolina",
-    "km": "14.172",
-    "fecha": "02/2025",
-    "cambio": "Manual",
-    "color": "",
-    "precio": "29.900",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/151394958",
-    "equipamiento": [
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 205 km/h",
-      "Negro (tela/piel)",
-      "Edge Pack",
-      "Llantas aleación 48cm (19\") - Sanstorm",
-      "Sistema de cierre y arranque sin llave",
-      "Cámara de marcha atrás"
-    ],
-    "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 29.900€/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 29.900€/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 29.900€/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 29.900€/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 29.900€/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 29.900€/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 29.900€/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/38 - CUPRA Formentor - 29.900€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "369.72",
-      "tin": "5.95",
-      "tae": "7.22",
-      "cuota_final": "17577.42",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1127.37",
-      "capital": "32210.71",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 29.900,00 €. Precio financiando: 29.900,00 €. Precio al contado 29.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,22%. La oferta incluye Seg. Protección Plus Ampliado por 1.804,32€ y SEGURO PROTECCION DE MOVILIDAD por 506,39€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 369,72 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.577,42 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.127,37 €. Importe total financiado 32.210,71 €. Importe total de los intereses: 7.549,91 €. Coste total del crédito: 8.677,28 €. Precio total a plazos 39.760,62 €. Importe total adeudado: 39.760,62 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 39,
-    "modelo": "CUPRA Formentor",
-    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
-    "combustible": "Híbrido",
-    "km": "100",
-    "fecha": "10/2025",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "36.500",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656699",
-    "equipamiento": [
-      "Asistente de mantenimiento de carril",
-      "Asistente de aparcamiento",
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 210 km/h",
-      "Negro (tela/piel)",
-      "Edge Pack",
-      "Intelligent Drive Pack"
-    ],
-    "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Formentor - 36.500€/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Formentor - 36.500€/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Formentor - 36.500€/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Formentor - 36.500€/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Formentor - 36.500€/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Formentor - 36.500€/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Formentor - 36.500€/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Formentor - 36.500€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "424.31",
-      "tin": "5.95",
-      "tae": "7.19",
-      "cuota_final": "23339.76",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1376.23",
-      "capital": "39320.77",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 36.500,00 €. Precio financiando: 36.500,00 €. Precio al contado 36.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,19%. La oferta incluye Seg. Protección Plus Ampliado por 2.202,59€ y SEGURO PROTECCION DE MOVILIDAD por 618,18€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 424,31 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.339,76 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.376,23 €. Importe total financiado 39.320,77 €. Importe total de los intereses: 9.477,59 €. Coste total del crédito: 10.853,82 €. Precio total a plazos 48.798,36 €. Importe total adeudado: 48.798,36 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 40,
-    "modelo": "CUPRA Leon",
-    "version": "Sportstourer 1.5 eTSI DSG 110 kW (150 CV)",
-    "combustible": "Mild Hybrid",
-    "km": "19.946",
-    "fecha": "03/2025",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "29.800",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-gasolina-150-cv-del-2025-en-malaga/156969010",
-    "equipamiento": [
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 216 km/h",
-      "Edge Pack",
-      "Sistema de cierre y arranque sin llave",
-      "Cámara de marcha atrás",
-      "Paquete de luces ambiente plus",
-      "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 7,5 pulgadas de ancho bi-tono, 45,7 y 19,0"
-    ],
-    "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Leon - 29.800€/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Leon - 29.800€/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Leon - 29.800€/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Leon - 29.800€/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Leon - 29.800€/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Leon - 29.800€/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Leon - 29.800€/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/40 - CUPRA Leon - 29.800€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "345.69",
-      "tin": "5.95",
-      "tae": "7.19",
-      "cuota_final": "19106.50",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1123.60",
-      "capital": "32102.98",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 29.800,00 €. Precio financiando: 29.800,00 €. Precio al contado 29.800,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,19%. La oferta incluye Seg. Protección Plus Ampliado por 1.798,28€ y SEGURO PROTECCION DE MOVILIDAD por 504,70€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 345,69 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 19.106,50 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.123,60 €. Importe total financiado 32.102,98 €. Importe total de los intereses: 7.744,92 €. Coste total del crédito: 8.868,52 €. Precio total a plazos 39.847,90 €. Importe total adeudado: 39.847,90 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 41,
-    "modelo": "CUPRA Formentor",
-    "version": "2.5 TSI VZ5 Taiga Grey 4Drive DSG 287 kW (390 CV)",
-    "combustible": "Gasolina",
-    "km": "30.747",
-    "fecha": "02/2023",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "46.500",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-390-cv-del-2023-en-malaga/151395159",
-    "equipamiento": [
-      "Asistente de salida aparcamiento y cambio carril y sistema aviso para salir del vehículo",
-      "Calefacción en los asientos delanteros regulables por separado",
-      "Sistema de cierre y arranque sin llave \"Keyless Advanced\" sin cierre de seguridad",
-      "Sistema de aviso de mantenimiento de carril, con asistencia de emergencia y asistente en atascos",
-      "Con sistema de cámaras frontal y de marcha atrás, y dos cámaras laterales",
-      "Climatronic (3 zonas) con panel de mandos del climatizador detrás",
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Sistema de distancia de aparcamiento delanteros con sensor y cámara, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados"
-    ],
-    "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 46.500€/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 46.500€/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 46.500€/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 46.500€/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 46.500€/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 46.500€/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 46.500€/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/41 - CUPRA Formentor - 46.500€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "598.03",
-      "tin": "5.95",
-      "tae": "7.25",
-      "cuota_final": "24607.67",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1724.08",
-      "capital": "49259.31",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 46.500,00 €. Precio financiando: 46.500,00 €. Precio al contado 46.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,25%. La oferta incluye Seg. Protección Plus Ampliado por 2.759,31€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 598,03 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 24.607,67 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.724,08 €. Importe total financiado 49.259,31 €. Importe total de los intereses: 11.230,16 €. Coste total del crédito: 12.954,24 €. Precio total a plazos 60.489,47 €. Importe total adeudado: 60.489,47 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 42,
-    "modelo": "CUPRA Formentor",
-    "version": "1.5 TSI DSG 110 kW (150 CV)",
-    "combustible": "Gasolina",
-    "km": "70.529",
-    "fecha": "08/2021",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "22.900",
-    "ubicacion": "Málaga",
-    "estado": "No disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2021-en-malaga/155656843",
-    "equipamiento": [
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 203 km/h",
-      "Negro (tela/piel)",
-      "Advertencia de colisión frontal",
-      "Control de crucero adaptativo",
-      "Aire acondicionado Climatronic",
-      "Cámara multifunción"
-    ],
-    "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA Formentor - 22.900€ · RESERVADO/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA Formentor - 22.900€ · RESERVADO/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA Formentor - 22.900€ · RESERVADO/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA Formentor - 22.900€ · RESERVADO/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA Formentor - 22.900€ · RESERVADO/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA Formentor - 22.900€ · RESERVADO/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA Formentor - 22.900€ · RESERVADO/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/42 - CUPRA Formentor - 22.900€ · RESERVADO/foto_08.jpg"
-    ],
-    "financiacion": {
-      "cuota": "355.98",
-      "tin": "5.50",
-      "tae": "6.79",
-      "meses": "60",
-      "entrada": "0",
-      "tipo": "Autocredit",
-      "ejemplo": "Ejemplo de cuota a 84 meses: 355,98 €. Entrada inicial: 0,00 €. Comisión de apertura al contado: 867,03 €. Importe total financiado 24.772,21 €. Importe total de los intereses: 5.130,11 €. Coste total del crédito: 5.130,11 €. Precio total a plazos 29.902,32 €. Importe total adeudado: 29.902,32 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar"
-    }
-  },
-  {
-    "n": 43,
-    "modelo": "CUPRA León",
-    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
-    "combustible": "Híbrido",
-    "km": "3.600",
-    "fecha": "08/2025",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "36.500",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/151395138",
-    "equipamiento": [
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 220 km/h",
-      "Edge Pack",
-      "Advertencia de colisión frontal",
-      "Caja automática 6 velocidades",
-      "Aire acondicionado Climatronic",
-      "Cámara multifunción"
-    ],
-    "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 36.500€/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 36.500€/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 36.500€/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 36.500€/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 36.500€/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 36.500€/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 36.500€/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/43 - CUPRA León - 36.500€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "417.53",
-      "tin": "5.95",
-      "tae": "7.18",
-      "cuota_final": "23812.04",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1376.23",
-      "capital": "39320.77",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 36.500,00 €. Precio financiando: 36.500,00 €. Precio al contado 36.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,18%. La oferta incluye Seg. Protección Plus Ampliado por 2.202,59€ y SEGURO PROTECCION DE MOVILIDAD por 618,18€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 417,53 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.812,04 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.376,23 €. Importe total financiado 39.320,77 €. Importe total de los intereses: 9.543,07 €. Coste total del crédito: 10.919,30 €. Precio total a plazos 48.863,84 €. Importe total adeudado: 48.863,84 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 44,
-    "modelo": "CUPRA León",
-    "version": "1.4 e-Hybrid DSG 180 kW (245 CV)",
-    "combustible": "Híbrido",
-    "km": "65.890",
-    "fecha": "10/2021",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "25.900",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-245-cv-del-2021-en-malaga/155656894",
-    "equipamiento": [
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 225 km/h",
-      "Llantas delanteras y traseras en aluminio de 19 pulgadas de diámetro y 8,0 pulgadas de ancho bi-tono, 48,3 y 20,3",
-      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
-      "Toma/s de 12v en los asientos delanteros",
-      "Asientos de tela (material principal) y de vinilo (material secundario)",
-      "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual, ajuste manual en altura y ajuste lumbar manual con ajuste manual del respaldo"
-    ],
-    "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA León - 25.900€/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA León - 25.900€/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA León - 25.900€/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA León - 25.900€/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA León - 25.900€/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA León - 25.900€/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA León - 25.900€/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/44 - CUPRA León - 25.900€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "349.94",
-      "tin": "5.95",
-      "tae": "7.27",
-      "cuota_final": "12532.42",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "960.29",
-      "capital": "27436.91",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 25.900,00 €. Precio financiando: 25.900,00 €. Precio al contado 25.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,27%. La oferta incluye Seg. Protección Plus Ampliado por 1.536,91€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 349,94 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 12.532,42 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 960,29 €. Importe total financiado 27.436,91 €. Importe total de los intereses: 6.091,91 €. Coste total del crédito: 7.052,20 €. Precio total a plazos 33.528,82 €. Importe total adeudado: 33.528,82 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 45,
-    "modelo": "CUPRA Formentor",
-    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
-    "combustible": "Híbrido",
-    "km": "5.438",
-    "fecha": "04/2025",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "34.900",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656777",
-    "equipamiento": [
-      "Asistente de mantenimiento de carril",
-      "Asistente de aparcamiento",
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 210 km/h",
-      "Negro (tela/piel)",
-      "Edge Pack",
-      "Intelligent Drive Pack"
-    ],
-    "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 34.900€/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 34.900€/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 34.900€/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 34.900€/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 34.900€/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 34.900€/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 34.900€/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/45 - CUPRA Formentor - 34.900€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "400.55",
-      "tin": "5.95",
-      "tae": "7.18",
-      "cuota_final": "22676.05",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1315.90",
-      "capital": "37597.12",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 34.900,01 €. Precio financiando: 34.900,01 €. Precio al contado 34.900,01 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,18%. La oferta incluye Seg. Protección Plus Ampliado por 2.106,04€ y SEGURO PROTECCION DE MOVILIDAD por 591,07€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 400,55 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.676,05 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.315,90 €. Importe total financiado 37.597,12 €. Importe total de los intereses: 9.111,93 €. Coste total del crédito: 10.427,83 €. Precio total a plazos 46.709,05 €. Importe total adeudado: 46.709,05 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 46,
-    "modelo": "CUPRA Formentor",
-    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
-    "combustible": "Híbrido",
-    "km": "250",
-    "fecha": "03/2025",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "33.900",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656639",
-    "equipamiento": [
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 210 km/h",
-      "Negro (tela/piel)",
-      "Edge Pack",
-      "Llantas aleación 46cm (18\") - Sonora",
-      "Apertura de maletero por pedal virtual",
-      "Advertencia de colisión frontal"
-    ],
-    "_total": 46,
-    "fotos": [
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/46 - CUPRA Formentor - 33.900€/foto_01.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/46 - CUPRA Formentor - 33.900€/foto_02.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/46 - CUPRA Formentor - 33.900€/foto_03.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/46 - CUPRA Formentor - 33.900€/foto_04.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/46 - CUPRA Formentor - 33.900€/foto_05.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/46 - CUPRA Formentor - 33.900€/foto_06.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/46 - CUPRA Formentor - 33.900€/foto_07.jpg",
-      "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/46 - CUPRA Formentor - 33.900€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "384.44",
-      "tin": "5.95",
-      "tae": "7.18",
-      "cuota_final": "22349.18",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1278.19",
-      "capital": "36519.84",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 33.900,00 €. Precio financiando: 33.900,00 €. Precio al contado 33.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,18%. La oferta incluye Seg. Protección Plus Ampliado por 2.045,70€ y SEGURO PROTECCION DE MOVILIDAD por 574,14€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 384,44 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.349,18 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.278,19 €. Importe total financiado 36.519,84 €. Importe total de los intereses: 8.895,74 €. Coste total del crédito: 10.173,93 €. Precio total a plazos 45.415,58 €. Importe total adeudado: 45.415,58 €. Sistema de amortización francés"
-    }
+    },
+    "_intentos_desaparecido": 1
   },
   {
     "n": 47,
@@ -2318,128 +2256,168 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 36.500,00 €. Precio financiando: 36.500,00 €. Precio al contado 36.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,17%. La oferta incluye Seg. Protección Plus Ampliado por 2.202,59€ y SEGURO PROTECCION DE MOVILIDAD por 618,18€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 409,63 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 24.362,74 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.376,23 €. Importe total financiado 39.320,77 €. Importe total de los intereses: 9.619,77 €. Coste total del crédito: 10.996,00 €. Precio total a plazos 48.940,54 €. Importe total adeudado: 48.940,54 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 3,
+    "_intentos_desaparecido": 4,
     "fecha_reservado": "2026-09-17"
   },
   {
-    "n": 48,
-    "modelo": "SEAT Ibiza",
-    "version": "1.0 TSI S&S FR+ 85 kW (115 CV)",
-    "combustible": "Gasolina",
-    "km": "50",
-    "fecha": "05/2026",
-    "cambio": "Manual",
-    "color": "",
-    "precio": "20.900",
-    "ubicacion": "Málaga",
-    "estado": "Retirado",
-    "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2026-en-malaga/169786807",
-    "equipamiento": [
-      "Asistente frontal incluido función frenada de emergencia para ACC High",
-      "Asistente de mantenimiento de carril y asistente para atascos",
-      "Asistente de cambio de carril",
-      "\"Keyless\" (acceso al vehículo sin llave) sin \"SAFE\" (bloqueo automático)",
-      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara",
-      "Velocidad máxima: 200 km/h",
-      "Tapicería premium Nuance",
-      "Llantas de aleación de 41cm 16\" machined Design",
-      "Volante multifunción deportivo de cuero",
-      "Cierre centralizado \"Keyless-Entry\""
-    ],
-    "_total": 48,
-    "fotos": [],
-    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/16 - SEAT Ibiza - 20.900€",
-    "financiacion": {
-      "meses": "60",
-      "cuota": "262.01",
-      "tin": "7.50",
-      "tae": "8.88",
-      "cuota_final": "13173.22",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "774.91",
-      "capital": "22140.21",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 20.900,00 €. Precio financiando: 20.900,00 €. Precio al contado 20.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,88%. La oferta incluye Seg. Protección Plus Ampliado por 1.240,21€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 262,01 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 13.173,22 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 774,91 €. Importe total financiado 22.140,21 €. Importe total de los intereses: 6.753,61 €. Coste total del crédito: 7.528,52 €. Precio total a plazos 28.893,82 €. Importe total adeudado: 28.893,82 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 5,
-    "fecha_reservado": "2026-09-15"
-  },
-  {
-    "n": 49,
-    "modelo": "SEAT León",
-    "version": "1.5 eTSI FR XS DSG 85 kW (116 CV)",
-    "combustible": "Mild Hybrid",
-    "km": "50",
-    "fecha": "03/2026",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "25.900",
-    "ubicacion": "Málaga",
-    "estado": "Retirado",
-    "url": "/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-116-cv-del-2026-en-malaga/166039483",
-    "equipamiento": [
-      "Paquete Visión Plus: Asistente aparcamiento automático Park Assist + Sensor de parking delantero + Cámara trasera",
-      "Safe and Driving Pack L: Control de crucero adaptativo y predictivo + Asistente de luces de carretera cortas / largas + Detector de ángulo muerto + Alerta de tráfico posterior + Asistente de salida segura",
-      "Asistente salida, aparcamiento y cambio carril y sistema de aviso para salir del vehículo",
-      "Iluminación interior envolvente",
-      "SEAT Matrix LED con ajuste automático de faros Luces LED delanteras + luces traseras Full LED + Luz de bienvenida + Intermitentes dinámicos",
-      "Asistente de mantenimiento de carril",
-      "\"Connectivity box\": estación de carga inalámbrica para teléfono móvil 15W + BT",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED"
-    ],
-    "_total": 48,
-    "fotos": [],
-    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/21 - SEAT León - 25.900€",
-    "financiacion": {
-      "meses": "60",
-      "cuota": "307.07",
-      "tin": "7.50",
-      "tae": "8.86",
-      "cuota_final": "17603.09",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "960.29",
-      "capital": "27436.91",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 25.900,00 €. Precio financiando: 25.900,00 €. Precio al contado 25.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,86%. La oferta incluye Seg. Protección Plus Ampliado por 1.536,91€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 307,07 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.603,09 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 960,29 €. Importe total financiado 27.436,91 €. Importe total de los intereses: 8.590,38 €. Coste total del crédito: 9.550,67 €. Precio total a plazos 36.027,29 €. Importe total adeudado: 36.027,29 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 5,
-    "fecha_reservado": "2026-09-15"
-  },
-  {
-    "n": 50,
+    "fuente": "motorflash",
+    "motorflash_id": "193600939",
+    "tipo": "KM0",
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
-    "combustible": "Híbrido",
-    "km": "26.935",
-    "fecha": "07/2025",
-    "cambio": "Automático",
+    "combustible": "Híbrido Electro/Gasolina",
+    "km": "50",
+    "fecha": "2026",
+    "cambio": "Automatico",
     "color": "",
-    "precio": "31.900",
+    "precio": "37.900",
     "ubicacion": "Málaga",
-    "estado": "Retirado",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/151394703",
+    "estado": "Disponible",
+    "url_motorflash": "https://www.motorflash.com/coche-segunda-mano/cupra-formentor-1_5_tsi_e_hybrid_dsg_150_kw_204_cv/ocasion/193600939-es/",
     "equipamiento": [
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 210 km/h",
-      "Negro (tela/piel)",
-      "Edge Pack",
-      "Llantas aleación 46cm (18\") - Sonora",
-      "Apertura de maletero por pedal virtual",
-      "Advertencia de colisión frontal"
+      "Start/Stop automático",
+      "Luz direccional",
+      "Luz diurna",
+      "Control de velocidad",
+      "Volante multifunción",
+      "Bluetooth",
+      "Asientos deportivos",
+      "Llantas de aleación",
+      "Llantas de aleación de 19\"",
+      "Baca",
+      "Ordenador",
+      "Alarma",
+      "Faros antiniebla",
+      "Aire Acondicionado",
+      "Climatizador",
+      "Airbag",
+      "Airbag para el acompañante",
+      "Airbag para el conductor",
+      "Airbags laterales",
+      "Frenos ABS antibloqueo",
+      "ESP",
+      "Dirección asistida",
+      "Elevalunas eléctrico",
+      "Cierre centralizado",
+      "Reposabrazos central",
+      "Control remoto para cierre centralizado",
+      "Servodirección",
+      "Control de crucero adaptativo",
+      "Asistente de cambio de carril",
+      "Asistente de mantenimiento de carril",
+      "Asistente de aparcamiento",
+      "Asistente para las luces de carretera",
+      "Conexión eléctrica",
+      "Portón del maletero eléctrico",
+      "Asistente de arranque en pendiente",
+      "Faros delanteros led",
+      "Faros autodireccionables",
+      "Faros traseros led",
+      "Isofix",
+      "Sensor de lluvia",
+      "Encendido automático de faros",
+      "Arranque por botón",
+      "Sensor de presión de neumáticos",
+      "Freno de estacionamiento eléctrico",
+      "Reconocimiento señales de tráfico",
+      "Car Play",
+      "Limitador de velocidad"
     ],
-    "_total": 48,
-    "fotos": [],
-    "carpeta": "/Users/hectorandresvazquezriquelme/Desktop/catalogo_automoviles_rueda/fotos/39 - CUPRA Formentor - 31.900€",
-    "financiacion": {},
-    "_intentos_desaparecido": 5,
-    "fecha_reservado": "2026-09-15"
+    "n": 48,
+    "fotos": [
+      "web_fotos/48/foto_01.jpg",
+      "web_fotos/48/foto_02.jpg",
+      "web_fotos/48/foto_03.jpg",
+      "web_fotos/48/foto_04.jpg",
+      "web_fotos/48/foto_05.jpg",
+      "web_fotos/48/foto_06.jpg",
+      "web_fotos/48/foto_07.jpg",
+      "web_fotos/48/foto_08.jpg"
+    ]
+  },
+  {
+    "fuente": "motorflash",
+    "motorflash_id": "193539157",
+    "tipo": "VO",
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 eTSI DSG 110 kW (150 CV)",
+    "combustible": "Gasolina",
+    "km": "11.387",
+    "fecha": "2025",
+    "cambio": "Automatico",
+    "color": "",
+    "precio": "35.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url_motorflash": "https://www.motorflash.com/coche-segunda-mano/cupra-formentor-1_5_etsi_dsg_110_kw_150_cv/ocasion/193539157-es/",
+    "equipamiento": [
+      "Carrocería tipo todoterreno con 5 puertas, batalla corta, volante al lado izquierdo, código de plataforma: MQB-evo, carrocería & puertas (local): todoterreno de 5 puertas",
+      "Puerta conductor, trasera (lado conductor), pasajero y trasera (lado pasajero) con bisagras delanteras",
+      "Retrovisor exterior del conductor en color combinado con carrocería con ajuste eléctrico desempañable con intermitente integrado, retrovisor exterior del acompañante en color combinado con carrocería con ajuste eléctrico desempañable con ajuste hacia el suelo en marcha atrás automático y intermitente integrado",
+      "Retrovisores plegables",
+      "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 8,0 pulgadas de ancho 45,7 y 20,3",
+      "Luces antiniebla delanteras",
+      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
+      "Pintura solida",
+      "Acabados de lujo: consola central en símil aluminio, puertas en símil aluminio y tablero en símil aluminio y cuero sintético",
+      "Toma/s de 12v en los asientos delanteros",
+      "Cinco plazas  ( 2+3 )",
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Apoyabrazos central delantero",
+      "Apoyabrazos trasero",
+      "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual, ajuste manual en altura y ajuste lumbar manual con ajuste manual del respaldo",
+      "Asientos traseros de tres plazas de tipo banco de orientación delantera con banqueta fija, respaldo abatible asimétrico y comunicado con el maletero",
+      "Volante multi-función térmico revestido de cuero ajustable en altura y en profundidad",
+      "Cierre centralizado con mando a distancia",
+      "Luneta trasera fija con limpialuneta trasera intermitente",
+      "Retrovisor interior/cámara con oscurecimiento progresivo automático",
+      "Limitador de velocidad",
+      "Elevalunas eléctricos delanteros y traseros con dos de ellos de un solo toque",
+      "Dirección asistida eléctrica con endurecimiento progresivo s/velocidad y desmultiplicación variable",
+      "Sujetavasos en los asientos delanteros y los asientos traseros",
+      "Sistema de ventilación con filtro de carbón activo controles en pantalla táctil y calefacción del motor",
+      "Controles de climatización diferenciados para  conductor/acompañante y  asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Siete altavoces",
+      "Equipo de audio con radio AM/FM, radio digital y pantalla táctil",
+      "Control remoto de audio en el volante",
+      "Regulación de los faros con sensor de oscuridad y sensor de vehículos en sentido contrario",
+      "Control de crucero con control de crucero adaptativo (ACC) y función stop/go",
+      "Espejo de cortesía iluminado en conductor en acompañante",
+      "Ordenador de viaje con consumo medio",
+      "Sistema de distancia de aparcamiento delanteros y traseros con sensor",
+      "Tarjeta / llave inteligente con arranque sin llave",
+      "Cuatro frenos de disco siendo dos ventilados",
+      "ABS",
+      "Control electrónico de tracción",
+      "Airbag lateral de cortina delantero y trasero",
+      "Sujeción de carga",
+      "Suspensión delantera tipo McPherson o similar con barra estabilizadora mediante muelle helicoidal con ruedas independientes, suspensión trasera de multibrazo (multi-link) con barra estabilizadora mediante muelle helicoidal con ruedas independientes",
+      "Airbag frontal del conductor, airbag frontal del acompañante desconectable",
+      "Airbags laterales delanteros",
+      "Dos reposacabezas en asientos delanteros ajustables en altura, tres reposacabezas en asientos traseros ajustables en altura",
+      "Cinturón de seguridad delantero en asiento conductor y acompañante",
+      "Cinturón de seguridad trasero en lado conductor, cinturón de seguridad trasero en lado acompañante, cinturón de seguridad trasero en asiento central de 3 puntos",
+      "Limpiaparabrisas delantero con sensor de lluvia",
+      "Rueda de repuesto con llanta en acero de menor tamaño que el resto",
+      "Control de estabilidad",
+      "Sistema de servofreno de emergencia",
+      "Indicador de baja presión de los neumáticos",
+      "Preparación Isofix",
+      "Control de arranque en pendiente",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED"
+    ],
+    "n": 49,
+    "fotos": [
+      "web_fotos/49/foto_01.jpg",
+      "web_fotos/49/foto_02.jpg",
+      "web_fotos/49/foto_03.jpg",
+      "web_fotos/49/foto_04.jpg",
+      "web_fotos/49/foto_05.jpg",
+      "web_fotos/49/foto_06.jpg",
+      "web_fotos/49/foto_07.jpg",
+      "web_fotos/49/foto_08.jpg"
+    ]
   },
   {
     "fuente": "motorflash",
@@ -2498,16 +2476,16 @@
       "Car Play",
       "Limitador de velocidad"
     ],
-    "n": 51,
+    "n": 50,
     "fotos": [
-      "web_fotos/51/foto_01.jpg",
-      "web_fotos/51/foto_02.jpg",
-      "web_fotos/51/foto_03.jpg",
-      "web_fotos/51/foto_04.jpg",
-      "web_fotos/51/foto_05.jpg",
-      "web_fotos/51/foto_06.jpg",
-      "web_fotos/51/foto_07.jpg",
-      "web_fotos/51/foto_08.jpg"
+      "web_fotos/50/foto_01.jpg",
+      "web_fotos/50/foto_02.jpg",
+      "web_fotos/50/foto_03.jpg",
+      "web_fotos/50/foto_04.jpg",
+      "web_fotos/50/foto_05.jpg",
+      "web_fotos/50/foto_06.jpg",
+      "web_fotos/50/foto_07.jpg",
+      "web_fotos/50/foto_08.jpg"
     ]
   },
   {
@@ -2569,16 +2547,16 @@
       "Car Play",
       "Limitador de velocidad"
     ],
-    "n": 52,
+    "n": 51,
     "fotos": [
-      "web_fotos/52/foto_01.jpg",
-      "web_fotos/52/foto_02.jpg",
-      "web_fotos/52/foto_03.jpg",
-      "web_fotos/52/foto_04.jpg",
-      "web_fotos/52/foto_05.jpg",
-      "web_fotos/52/foto_06.jpg",
-      "web_fotos/52/foto_07.jpg",
-      "web_fotos/52/foto_08.jpg"
+      "web_fotos/51/foto_01.jpg",
+      "web_fotos/51/foto_02.jpg",
+      "web_fotos/51/foto_03.jpg",
+      "web_fotos/51/foto_04.jpg",
+      "web_fotos/51/foto_05.jpg",
+      "web_fotos/51/foto_06.jpg",
+      "web_fotos/51/foto_07.jpg",
+      "web_fotos/51/foto_08.jpg"
     ]
   },
   {
@@ -2640,16 +2618,16 @@
       "Car Play",
       "Limitador de velocidad"
     ],
-    "n": 53,
+    "n": 52,
     "fotos": [
-      "web_fotos/53/foto_01.jpg",
-      "web_fotos/53/foto_02.jpg",
-      "web_fotos/53/foto_03.jpg",
-      "web_fotos/53/foto_04.jpg",
-      "web_fotos/53/foto_05.jpg",
-      "web_fotos/53/foto_06.jpg",
-      "web_fotos/53/foto_07.jpg",
-      "web_fotos/53/foto_08.jpg"
+      "web_fotos/52/foto_01.jpg",
+      "web_fotos/52/foto_02.jpg",
+      "web_fotos/52/foto_03.jpg",
+      "web_fotos/52/foto_04.jpg",
+      "web_fotos/52/foto_05.jpg",
+      "web_fotos/52/foto_06.jpg",
+      "web_fotos/52/foto_07.jpg",
+      "web_fotos/52/foto_08.jpg"
     ]
   },
   {
@@ -2724,16 +2702,16 @@
       "Control de arranque en pendiente",
       "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED"
     ],
-    "n": 54,
+    "n": 53,
     "fotos": [
-      "web_fotos/54/foto_01.jpg",
-      "web_fotos/54/foto_02.jpg",
-      "web_fotos/54/foto_03.jpg",
-      "web_fotos/54/foto_04.jpg",
-      "web_fotos/54/foto_05.jpg",
-      "web_fotos/54/foto_06.jpg",
-      "web_fotos/54/foto_07.jpg",
-      "web_fotos/54/foto_08.jpg"
+      "web_fotos/53/foto_01.jpg",
+      "web_fotos/53/foto_02.jpg",
+      "web_fotos/53/foto_03.jpg",
+      "web_fotos/53/foto_04.jpg",
+      "web_fotos/53/foto_05.jpg",
+      "web_fotos/53/foto_06.jpg",
+      "web_fotos/53/foto_07.jpg",
+      "web_fotos/53/foto_08.jpg"
     ]
   },
   {
@@ -2810,16 +2788,16 @@
       "Control de arranque en pendiente",
       "Luces de freno, luces de cruce, Luces de día, Luces traseras y luces de carretera con tecnología LED"
     ],
-    "n": 55,
+    "n": 54,
     "fotos": [
-      "web_fotos/55/foto_01.jpg",
-      "web_fotos/55/foto_02.jpg",
-      "web_fotos/55/foto_03.jpg",
-      "web_fotos/55/foto_04.jpg",
-      "web_fotos/55/foto_05.jpg",
-      "web_fotos/55/foto_06.jpg",
-      "web_fotos/55/foto_07.jpg",
-      "web_fotos/55/foto_08.jpg"
+      "web_fotos/54/foto_01.jpg",
+      "web_fotos/54/foto_02.jpg",
+      "web_fotos/54/foto_03.jpg",
+      "web_fotos/54/foto_04.jpg",
+      "web_fotos/54/foto_05.jpg",
+      "web_fotos/54/foto_06.jpg",
+      "web_fotos/54/foto_07.jpg",
+      "web_fotos/54/foto_08.jpg"
     ]
   },
   {
@@ -2879,16 +2857,16 @@
       "Car Play",
       "Limitador de velocidad"
     ],
-    "n": 56,
+    "n": 55,
     "fotos": [
-      "web_fotos/56/foto_01.jpg",
-      "web_fotos/56/foto_02.jpg",
-      "web_fotos/56/foto_03.jpg",
-      "web_fotos/56/foto_04.jpg",
-      "web_fotos/56/foto_05.jpg",
-      "web_fotos/56/foto_06.jpg",
-      "web_fotos/56/foto_07.jpg",
-      "web_fotos/56/foto_08.jpg"
+      "web_fotos/55/foto_01.jpg",
+      "web_fotos/55/foto_02.jpg",
+      "web_fotos/55/foto_03.jpg",
+      "web_fotos/55/foto_04.jpg",
+      "web_fotos/55/foto_05.jpg",
+      "web_fotos/55/foto_06.jpg",
+      "web_fotos/55/foto_07.jpg",
+      "web_fotos/55/foto_08.jpg"
     ]
   },
   {
@@ -2969,16 +2947,16 @@
       "Control de arranque en pendiente",
       "Luces de freno, luces intermitentes laterales, Luces de día y Luces traseras con tecnología LED"
     ],
-    "n": 57,
+    "n": 56,
     "fotos": [
-      "web_fotos/57/foto_01.jpg",
-      "web_fotos/57/foto_02.jpg",
-      "web_fotos/57/foto_03.jpg",
-      "web_fotos/57/foto_04.jpg",
-      "web_fotos/57/foto_05.jpg",
-      "web_fotos/57/foto_06.jpg",
-      "web_fotos/57/foto_07.jpg",
-      "web_fotos/57/foto_08.jpg"
+      "web_fotos/56/foto_01.jpg",
+      "web_fotos/56/foto_02.jpg",
+      "web_fotos/56/foto_03.jpg",
+      "web_fotos/56/foto_04.jpg",
+      "web_fotos/56/foto_05.jpg",
+      "web_fotos/56/foto_06.jpg",
+      "web_fotos/56/foto_07.jpg",
+      "web_fotos/56/foto_08.jpg"
     ]
   }
 ]
