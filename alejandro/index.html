@@ -46,22 +46,22 @@
 
 <div class="rd-controls">
   <div class="rd-filter-tabs">
-    <button class="rd-filter-btn activo" data-filter="todos">Todos (55)</button>
-    <button class="rd-filter-btn" data-filter="Disponible">Disponible (47)</button>
-    <button class="rd-filter-btn" data-filter="Reservado">Reservado (8)</button>
+    <button class="rd-filter-btn activo" data-filter="todos"><span class="rd-i18n" data-es="Todos" data-en="All">Todos</span> (55)</button>
+    <button class="rd-filter-btn" data-filter="Disponible"><span class="rd-i18n" data-es="Disponible" data-en="Available">Disponible</span> (47)</button>
+    <button class="rd-filter-btn" data-filter="Reservado"><span class="rd-i18n" data-es="Reservado" data-en="Reserved">Reservado</span> (8)</button>
   </div>
   <div class="rd-search-wrap">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input class="rd-search-input" id="rd-search" type="text" placeholder="Buscar modelo..." autocomplete="off">
+    <input class="rd-search-input" id="rd-search" type="text" placeholder="Buscar modelo..." data-es-placeholder="Buscar modelo..." data-en-placeholder="Search model..." autocomplete="off">
   </div>
   <select class="rd-sort-select" id="rd-sort">
-    <option value="default">Ordenar</option>
-    <option value="precio-asc">Precio ↑ menor primero</option>
-    <option value="precio-desc">Precio ↓ mayor primero</option>
-    <option value="km-asc">Km ↑ menos km</option>
-    <option value="km-desc">Km ↓ más km</option>
+    <option value="default" class="rd-i18n" data-es="Ordenar" data-en="Sort by">Ordenar</option>
+    <option value="precio-asc" class="rd-i18n" data-es="Precio ↑ menor primero" data-en="Price ↑ lowest first">Precio ↑ menor primero</option>
+    <option value="precio-desc" class="rd-i18n" data-es="Precio ↓ mayor primero" data-en="Price ↓ highest first">Precio ↓ mayor primero</option>
+    <option value="km-asc" class="rd-i18n" data-es="Km ↑ menos km" data-en="Mileage ↑ lowest first">Km ↑ menos km</option>
+    <option value="km-desc" class="rd-i18n" data-es="Km ↓ más km" data-en="Mileage ↓ highest first">Km ↓ más km</option>
   </select>
-  <div class="rd-counter">Mostrando <strong id="rd-cnt">55</strong> vehículos</div>
+  <div class="rd-counter"><span class="rd-i18n" data-es="Mostrando" data-en="Showing">Mostrando</span> <strong id="rd-cnt">55</strong> <span class="rd-i18n" data-es="vehículos" data-en="vehicles">vehículos</span></div>
 </div>
 
 <div class="rd-grid" id="rd-grid">
@@ -1467,7 +1467,7 @@ document.addEventListener('click', e => {
   const cntEl = document.getElementById('rd-cnt');
   const emptyMsg = document.createElement('div');
   emptyMsg.className = 'rd-empty-state';
-  emptyMsg.innerHTML = '<div>🔍</div><p>No se encontraron vehículos.</p>';
+  emptyMsg.innerHTML = '<div>🔍</div><p class="rd-i18n" data-es="No se encontraron vehículos." data-en="No vehicles found.">No se encontraron vehículos.</p>';
 
   let filtro = 'todos';
   let busqueda = '';
@@ -1494,7 +1494,10 @@ document.addEventListener('click', e => {
     visibles.forEach(c => { c.style.display = ''; grid.appendChild(c); });
 
     if (emptyMsg.parentNode) emptyMsg.remove();
-    if (!visibles.length) grid.appendChild(emptyMsg);
+    if (!visibles.length) {
+      grid.appendChild(emptyMsg);
+      if (window.rdAplicarIdioma) window.rdAplicarIdioma(window.rdIdiomaActual());
+    }
 
     cntEl.textContent = visibles.length;
   }
@@ -1552,7 +1555,7 @@ document.addEventListener('click', e => {
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 10:29 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 18/09/2026 — 10:30 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">

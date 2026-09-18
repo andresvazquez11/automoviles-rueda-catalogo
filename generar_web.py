@@ -1483,22 +1483,22 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 
 <div class="rd-controls">
   <div class="rd-filter-tabs">
-    <button class="rd-filter-btn activo" data-filter="todos">Todos ({total_disp + total_res})</button>
-    <button class="rd-filter-btn" data-filter="Disponible">Disponible ({total_disp})</button>
-    <button class="rd-filter-btn" data-filter="Reservado">Reservado ({total_res})</button>
+    <button class="rd-filter-btn activo" data-filter="todos">{i18n_span("Todos", "All")} ({total_disp + total_res})</button>
+    <button class="rd-filter-btn" data-filter="Disponible">{i18n_span("Disponible", "Available")} ({total_disp})</button>
+    <button class="rd-filter-btn" data-filter="Reservado">{i18n_span("Reservado", "Reserved")} ({total_res})</button>
   </div>
   <div class="rd-search-wrap">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input class="rd-search-input" id="rd-search" type="text" placeholder="Buscar modelo..." autocomplete="off">
+    <input class="rd-search-input" id="rd-search" type="text" placeholder="Buscar modelo..." data-es-placeholder="Buscar modelo..." data-en-placeholder="Search model..." autocomplete="off">
   </div>
   <select class="rd-sort-select" id="rd-sort">
-    <option value="default">Ordenar</option>
-    <option value="precio-asc">Precio ↑ menor primero</option>
-    <option value="precio-desc">Precio ↓ mayor primero</option>
-    <option value="km-asc">Km ↑ menos km</option>
-    <option value="km-desc">Km ↓ más km</option>
+    <option value="default" class="rd-i18n" data-es="Ordenar" data-en="Sort by">Ordenar</option>
+    <option value="precio-asc" class="rd-i18n" data-es="Precio ↑ menor primero" data-en="Price ↑ lowest first">Precio ↑ menor primero</option>
+    <option value="precio-desc" class="rd-i18n" data-es="Precio ↓ mayor primero" data-en="Price ↓ highest first">Precio ↓ mayor primero</option>
+    <option value="km-asc" class="rd-i18n" data-es="Km ↑ menos km" data-en="Mileage ↑ lowest first">Km ↑ menos km</option>
+    <option value="km-desc" class="rd-i18n" data-es="Km ↓ más km" data-en="Mileage ↓ highest first">Km ↓ más km</option>
   </select>
-  <div class="rd-counter">Mostrando <strong id="rd-cnt">{total_disp + total_res}</strong> vehículos</div>
+  <div class="rd-counter">{i18n_span("Mostrando", "Showing")} <strong id="rd-cnt">{total_disp + total_res}</strong> {i18n_span("vehículos", "vehicles")}</div>
 </div>
 
 <div class="rd-grid" id="rd-grid">
@@ -1530,7 +1530,7 @@ document.addEventListener('click', e => {{
   const cntEl = document.getElementById('rd-cnt');
   const emptyMsg = document.createElement('div');
   emptyMsg.className = 'rd-empty-state';
-  emptyMsg.innerHTML = '<div>🔍</div><p>No se encontraron vehículos.</p>';
+  emptyMsg.innerHTML = '<div>🔍</div><p class="rd-i18n" data-es="No se encontraron vehículos." data-en="No vehicles found.">No se encontraron vehículos.</p>';
 
   let filtro = 'todos';
   let busqueda = '';
@@ -1557,7 +1557,10 @@ document.addEventListener('click', e => {{
     visibles.forEach(c => {{ c.style.display = ''; grid.appendChild(c); }});
 
     if (emptyMsg.parentNode) emptyMsg.remove();
-    if (!visibles.length) grid.appendChild(emptyMsg);
+    if (!visibles.length) {{
+      grid.appendChild(emptyMsg);
+      if (window.rdAplicarIdioma) window.rdAplicarIdioma(window.rdIdiomaActual());
+    }}
 
     cntEl.textContent = visibles.length;
   }}
