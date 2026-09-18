@@ -101,6 +101,19 @@ img { max-width: 100%; display: block; }
   .rd-header-social-caption { font-size: 7.5px; white-space: normal; text-align: center; max-width: 90px; }
 }
 
+.rd-maps-btn {
+  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 20px; padding: 8px 14px; color: #fff;
+  font-family: var(--rd-font); font-size: 12px; font-weight: 700;
+  white-space: nowrap; transition: background .15s ease, border-color .15s ease;
+}
+.rd-maps-btn:hover { background: rgba(200,35,43,0.25); border-color: var(--rd-red); }
+@media (max-width: 640px) {
+  .rd-maps-btn { padding: 6px 8px; }
+  .rd-maps-btn-label { display: none; }
+}
+
 .rd-lang-toggle { display: flex; gap: 6px; flex-shrink: 0; }
 .rd-lang-btn {
   background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);

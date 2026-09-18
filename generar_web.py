@@ -34,6 +34,8 @@ PERFILES = [
             ("facebook", "https://www.facebook.com/profile.php?id=61560676831246"),
             ("tiktok", "https://www.tiktok.com/@automoviles.rueda"),
         ],
+        # DasWeltAuto - Automóviles Rueda, Av. del Rey Juan Carlos I, 27, Vélez-Málaga
+        "maps_url": "https://www.google.com/maps/dir/?api=1&destination=36.7643057,-4.0985743",
     },
     {
         "id": "alejandro",
@@ -46,6 +48,8 @@ PERFILES = [
             ("facebook", "https://www.facebook.com/alejandroautomovilesrueda"),
             ("instagram", "https://www.instagram.com/alejandroautomovilesrueda/"),
         ],
+        # Automóviles Rueda Ocasión | Das WeltAuto, Av. de Velázquez, 103, Málaga
+        "maps_url": "https://www.google.com/maps/dir/?api=1&destination=36.6913379,-4.455824",
     },
 ]
 
@@ -237,6 +241,15 @@ def header_social_html(redes: list) -> str:
   </div>
   <span class="rd-header-social-caption">Síguenos en nuestras redes sociales</span>
 </div>'''
+
+def maps_button_html(maps_url: str) -> str:
+    """Botón 'Cómo llegar' del header — enlace directo a indicaciones de
+    Google Maps hacia el local de este perfil. En mobile se colapsa a solo
+    el ícono (ver CSS .rd-maps-btn-label) para no saturar el header."""
+    return f'''<a class="rd-maps-btn" href="{maps_url}" target="_blank" rel="noopener" aria-label="Cómo llegar">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    <span class="rd-maps-btn-label">Cómo llegar</span>
+  </a>'''
 
 def lang_toggle_html() -> str:
     """Botones de bandera para cambiar el idioma visible — comparten el
@@ -1287,6 +1300,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict)
     <span class="rd-header-asesor"><em>Asesor comercial</em>{nombre} · <span class="rd-header-tel">{telefono}</span></span>
   </div>
   {header_social_html(perfil["redes"])}
+  {maps_button_html(perfil["maps_url"])}
   {lang_toggle_html()}
 </header>
 <a class="rd-back" href="../index.html">&#8249; {i18n_span("Volver al catálogo", "Back to catalog")}</a>
@@ -1494,6 +1508,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
     <span class="rd-header-asesor"><em>Asesor comercial</em>{perfil["nombre"]} · <span class="rd-header-tel">{perfil["telefono"]}</span></span>
   </div>
   {header_social_html(perfil["redes"])}
+  {maps_button_html(perfil["maps_url"])}
   {lang_toggle_html()}
 </header>
 
