@@ -138,6 +138,54 @@ COMBUSTIBLE_EN = {
 CAMBIO_EN = {"Manual": "Manual", "Automático": "Automatic", "Automatico": "Automatic"}
 ESTADO_EN = {"Disponible": "Available", "Reservado": "Reserved"}
 
+def _hash_coche_traducible(car: dict) -> str:
+    contenido = (car.get("version", "") + "\n" +
+                 "\n".join(car.get("equipamiento", [])) + "\n" +
+                 car.get("color", ""))
+    return hashlib.sha256(contenido.encode("utf-8")).hexdigest()[:16]
+
+def traducir_coche(car: dict, cache: dict, client) -> dict:
+    """Traduce version + equipamiento + color de un coche al inglés en una
+    sola llamada a Gemini, cacheada por hash del contenido combinado — si
+    nada de eso cambió desde la corrida anterior, no se vuelve a llamar a
+    la API. Si falla la API (o no hay client), devuelve los mismos textos
+    en español: el toggle de idioma sigue funcionando, solo no traduce ese
+    texto libre ese día."""
+    version = car.get("version", "")
+    equipamiento = car.get("equipamiento", [])
+    color = car.get("color", "")
+    h = _hash_coche_traducible(car)
+    if h in cache:
+        return cache[h]
+    fallback = {"version_en": version, "equipamiento_en": list(equipamiento), "color_en": color}
+    if client is None:
+        return fallback
+    payload = {"version": version, "equipamiento": equipamiento, "color": color}
+    prompt = (
+        "Traduce al inglés este JSON de una ficha de coche usado (concesionario "
+        "en España), tono comercial y natural para un comprador angloparlante. "
+        "Devuelve SOLO un JSON con las mismas claves (version, equipamiento "
+        "como lista en el mismo orden, color), sin explicaciones ni markdown:\n\n"
+        + json.dumps(payload, ensure_ascii=False)
+    )
+    try:
+        response = client.models.generate_content(model="gemini-3.6-flash", contents=prompt)
+        texto = (response.text or "").strip()
+        texto = texto.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        datos = json.loads(texto)
+        resultado = {
+            "version_en": datos.get("version") or version,
+            "equipamiento_en": datos.get("equipamiento") or list(equipamiento),
+            "color_en": datos.get("color") or color,
+        }
+        if len(resultado["equipamiento_en"]) != len(equipamiento):
+            resultado["equipamiento_en"] = list(equipamiento)  # desalineado → mejor español que roto
+        cache[h] = resultado
+        return resultado
+    except Exception as e:
+        print(f"  ⚠️  Traducción falló para coche #{car.get('n')}: {e}")
+        return fallback
+
 _ICONO_INSTAGRAM = '''<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
@@ -1598,6 +1646,18 @@ def main():
     if sin_foto:
         coches = [c for c in coches if c["n"] not in sin_foto]
         print(f"  ⛔ {len(sin_foto)} coche(s) sin foto verificada, no publicado(s) en la web")
+
+    print("🌐  Traduciendo texto libre al inglés (con caché)…")
+    cache_trad = _cargar_cache_traducciones()
+    tam_inicial = len(cache_trad)
+    cliente_trad = _cliente_gemini_o_none()
+    traducciones: dict[int, dict] = {}
+    for car in todos_los_coches:
+        if car["n"] in sin_foto:
+            continue
+        traducciones[car["n"]] = traducir_coche(car, cache_trad, cliente_trad)
+    _guardar_cache_traducciones(cache_trad)
+    print(f"    {len(cache_trad) - tam_inicial} coche(s) traducido(s) de nuevo, {tam_inicial} ya en caché")
 
     # ── Paso 1 (una sola vez, compartido entre perfiles): resolver las fotos
     # de cada coche, incluyendo el respaldo de fotos para "Retirado". ────────
