@@ -5,7 +5,7 @@ Automóviles Rueda — Generador de Catálogo Web
 Lee datos_coches.json, copia fotos a web_fotos/ y genera index.html
 """
 
-import hashlib, json, shutil, sys, urllib.parse
+import hashlib, html, json, shutil, sys, urllib.parse
 from datetime import datetime
 from pathlib import Path
 import requests
@@ -80,6 +80,63 @@ def dwa_foto_url(url_relativa: str) -> str:
     padded = listing_id.zfill(11)
     path = '/'.join(padded[i:i+2] for i in range(0, len(padded), 2))
     return f"{DASWELTAUTO}/esp/fotos_anuncios/{path}/x01.jpg"
+
+# ── Traducción ES/EN — texto libre cacheado, vocabulario fijo por diccionario ─
+
+CONFIG_PATH = BASE_DIR / "config.txt"
+TRADUCCIONES_PATH = BASE_DIR / "traducciones_cache.json"
+
+def _leer_google_api_key() -> "str | None":
+    """Misma convención que generar_imagenes_gemini.py: GOOGLE_API_KEY=... en config.txt."""
+    if not CONFIG_PATH.exists():
+        return None
+    for linea in CONFIG_PATH.read_text(encoding="utf-8").splitlines():
+        if linea.strip().startswith("GOOGLE_API_KEY="):
+            key = linea.split("=", 1)[1].strip()
+            return key or None
+    return None
+
+def _cliente_gemini_o_none():
+    """Cliente de Gemini para traducir texto libre, o None si no hay API key
+    o falta el paquete — en ese caso el texto libre se queda en español (el
+    toggle de idioma sigue funcionando para el resto de la página, solo no
+    traduce ese texto ese día)."""
+    key = _leer_google_api_key()
+    if not key:
+        print("  ⚠️  Sin GOOGLE_API_KEY en config.txt — el texto libre no se traduce hoy.")
+        return None
+    try:
+        from google import genai
+        return genai.Client(api_key=key)
+    except ImportError:
+        print("  ⚠️  Falta el paquete google-genai — el texto libre no se traduce hoy.")
+        return None
+
+def _cargar_cache_traducciones() -> dict:
+    if TRADUCCIONES_PATH.exists():
+        return json.loads(TRADUCCIONES_PATH.read_text(encoding="utf-8"))
+    return {}
+
+def _guardar_cache_traducciones(cache: dict) -> None:
+    TRADUCCIONES_PATH.write_text(
+        json.dumps(cache, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+def i18n_span(es: str, en: str, cls: str = "") -> str:
+    """Envuelve un texto para el toggle de idioma del header: se ve el
+    español por defecto, con el inglés guardado en data-en para cuando el
+    visitante toca la bandera 🇬🇧 (ver assets/idioma.js, Task 5)."""
+    es_attr = html.escape(es, quote=True)
+    en_attr = html.escape(en, quote=True)
+    extra = f" {cls}" if cls else ""
+    return f'<span class="rd-i18n{extra}" data-es="{es_attr}" data-en="{en_attr}">{html.escape(es)}</span>'
+
+COMBUSTIBLE_EN = {
+    "Gasolina": "Petrol", "Diésel": "Diesel", "Diesel": "Diesel",
+    "Híbrido": "Hybrid", "Hibrido": "Hybrid", "Eléctrico": "Electric", "Electrico": "Electric",
+}
+CAMBIO_EN = {"Manual": "Manual", "Automático": "Automatic", "Automatico": "Automatic"}
+ESTADO_EN = {"Disponible": "Available", "Reservado": "Reserved"}
 
 _ICONO_INSTAGRAM = '''<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <defs>
