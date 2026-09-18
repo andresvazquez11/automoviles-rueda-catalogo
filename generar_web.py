@@ -1368,7 +1368,7 @@ DGT_URLS = {
     "C":    "https://commons.wikimedia.org/wiki/Special:FilePath/DistAmbDGT_C.svg",
 }
 
-def build_card_html(car: dict, hist: dict, fotos: list[str]) -> str:
+def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict) -> str:
     n = car["n"]
     slug = slug_coche(car["modelo"])
     href = f"coches/{n:02d}-{slug}.html"
@@ -1403,23 +1403,23 @@ def build_card_html(car: dict, hist: dict, fotos: list[str]) -> str:
     <div class="rd-card-photos">{fotos_html}</div>
     {nav_html}
     <div class="rd-card-dots">{dots_html}</div>
-    <span class="rd-badge-estado {estado_cls}">{estado_lbl}</span>
-    {'<span class="rd-badge-oferta">OFERTA</span>' if p_ant else ''}
+    <span class="rd-badge-estado {estado_cls}">{i18n_span(estado_lbl, ESTADO_EN[estado_lbl])}</span>
+    {'<span class="rd-badge-oferta">' + i18n_span("OFERTA", "PRICE DROP") + '</span>' if p_ant else ''}
     <span class="rd-badge-dgt"><img src="{DGT_URLS[dgt_txt]}" alt="Etiqueta {dgt_txt}" loading="lazy"></span>
     {f'<span class="rd-badge-fotos">📷 {len(fotos)}</span>' if len(fotos) > 1 else ''}
   </div>
   <div class="rd-card-body">
     <div class="rd-card-modelo">{car["modelo"]}</div>
-    <div class="rd-card-version">{car["version"]}</div>
+    <div class="rd-card-version">{i18n_span(car["version"], trad["version_en"])}</div>
     <div class="rd-card-pills">
-      {f'<span class="rd-pill">⛽ {car["combustible"]}</span>' if car.get("combustible") else ''}
+      {f'<span class="rd-pill">⛽ {i18n_span(car["combustible"], COMBUSTIBLE_EN.get(car["combustible"], car["combustible"]))}</span>' if car.get("combustible") else ''}
       {f'<span class="rd-pill">🛣️ {car["km"]} km</span>' if car.get("km") else ''}
       {f'<span class="rd-pill">📅 {car["fecha"]}</span>' if car.get("fecha") else ''}
-      {f'<span class="rd-pill">⚙️ {car["cambio"]}</span>' if car.get("cambio") else ''}
+      {f'<span class="rd-pill">⚙️ {i18n_span(car["cambio"], CAMBIO_EN.get(car["cambio"], car["cambio"]))}</span>' if car.get("cambio") else ''}
     </div>
     <div class="rd-card-price-row">
       <div>{precio_row}</div>
-      <div class="rd-card-cuota">Desde <strong>{cuota:.0f} €/mes</strong></div>
+      <div class="rd-card-cuota">{i18n_span("Desde", "From")} <strong>{cuota:.0f} €/mes</strong></div>
     </div>
   </div>
 </a>'''
@@ -1446,7 +1446,7 @@ def build_coches_lista_json(cars: list[dict], rutas: dict[int, list[str]]) -> st
         })
     return json.dumps(items, ensure_ascii=False, indent=2)
 
-def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict) -> str:
+def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict, traducciones: dict[int, dict]) -> str:
     hist = _cargar_historial_precios()
     visibles = [c for c in cars if c.get("estado") != "Retirado"]
     total_disp = sum(1 for c in visibles if c["estado"] == "Disponible")
@@ -1454,7 +1454,8 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
     tarjetas = "\n".join(
         build_card_html(
             car, hist,
-            [f"/{f.lstrip('/')}" for f in car.get("fotos", [])] if car.get("fuente") == "motorflash" else rutas.get(car["n"], [])
+            [f"/{f.lstrip('/')}" for f in car.get("fotos", [])] if car.get("fuente") == "motorflash" else rutas.get(car["n"], []),
+            traducciones[car["n"]]
         )
         for car in cars
         if car.get("estado") != "Retirado"
@@ -1721,7 +1722,7 @@ def main():
         if archivadas:
             print(f"  {archivadas} ficha(s) huérfana(s) eliminada(s) de {coches_dir} (coche ya no existe)")
 
-        html_index = build_index_html(coches, rutas, perfil)
+        html_index = build_index_html(coches, rutas, perfil, traducciones)
         (out_dir / "index.html").write_text(html_index, encoding="utf-8")
         print(f"  index.html regenerado para {perfil['nombre']} en {out_dir}")
 
