@@ -547,7 +547,7 @@ async def main():
     print("\n" + "─" * 60)
     try:
         import subprocess, sys as _sys
-        _base = Path.home() / "Desktop" / "catalogo_automoviles_rueda"
+        _base = Path(__file__).parent
         result = subprocess.run(
             [_sys.executable, str(_base / "integrar_motorflash.py")],
             check=False, capture_output=False
@@ -599,7 +599,7 @@ async def main():
     # Esto garantiza que el PDF y la web nunca usen fotos de otro coche,
     # independientemente de si hubo cambios en el catálogo o no.
     import subprocess, sys
-    base = Path.home() / "Desktop" / "catalogo_automoviles_rueda"
+    base = Path(__file__).parent
     print("\n  Verificando integridad de fotos (siempre, antes del PDF)...")
     subprocess.run([sys.executable, str(base / "reparar_fotos_contaminadas.py")], check=False)
 

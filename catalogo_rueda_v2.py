@@ -27,7 +27,7 @@ import requests
 
 # ── Rutas ─────────────────────────────────────────────────
 LISTING    = "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda"
-OUTPUT_DIR = Path.home() / "Desktop" / "catalogo_automoviles_rueda"
+OUTPUT_DIR = Path(__file__).parent
 PDF_PATH   = OUTPUT_DIR / "catalogo_automoviles_rueda.pdf"
 PHOTOS_DIR = OUTPUT_DIR / "fotos"
 
