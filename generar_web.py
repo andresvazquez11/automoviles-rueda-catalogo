@@ -85,6 +85,23 @@ def dwa_foto_url(url_relativa: str) -> str:
     path = '/'.join(padded[i:i+2] for i in range(0, len(padded), 2))
     return f"{DASWELTAUTO}/esp/fotos_anuncios/{path}/x01.jpg"
 
+def id_estable_coche(car: dict) -> str:
+    """Identificador que NO cambia entre corridas — a diferencia de "n",
+    que es solo la posición del coche en la lista y se reasigna cada vez
+    que se vuelve a scrapear el catálogo (ahora dos veces al día, vía la
+    automatización en la nube). Se usa para que /admin y los destacados
+    sigan apuntando al mismo coche real aunque el catálogo se reordene.
+    Confirmado en producción: un "n" reciclado hizo que un BMW heredara la
+    etiqueta de destacado — y la carpeta de fotos — de otro coche."""
+    if car.get("motorflash_id"):
+        return f"mf-{car['motorflash_id']}"
+    url = car.get("url", "")
+    if url:
+        listing_id = url.rstrip("/").split("/")[-1]
+        if listing_id.isdigit():
+            return f"dwa-{listing_id}"
+    return f"n-{car['n']}"
+
 # ── Traducción ES/EN — texto libre cacheado, vocabulario fijo por diccionario ─
 
 CONFIG_PATH = BASE_DIR / "config.txt"
@@ -1442,7 +1459,8 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict) -> str:
     km_num = int(str(car.get("km", "0")).replace(".", "").replace(",", "").split()[0] or 0)
     buscar_txt = f'{car["modelo"]} {car["version"]}'.lower()
 
-    return f'''<a class="rd-card" href="{href}" data-n="{n}" data-precio="{precio_num}" data-km="{km_num}" data-estado="{estado_lbl}" data-buscar="{buscar_txt}">
+    id_estable = id_estable_coche(car)
+    return f'''<a class="rd-card" href="{href}" data-n="{n}" data-id="{id_estable}" data-precio="{precio_num}" data-km="{km_num}" data-estado="{estado_lbl}" data-buscar="{buscar_txt}">
   <div class="rd-card-media">
     <div class="rd-card-photos">{fotos_html}</div>
     {nav_html}
@@ -1483,7 +1501,7 @@ def build_coches_lista_json(cars: list[dict], rutas: dict[int, list[str]]) -> st
             if car.get("fuente") == "motorflash" else rutas.get(n, [])
         )
         items.append({
-            "n": n,
+            "id": id_estable_coche(car),
             "modelo": car["modelo"],
             "precio": car["precio"],
             "foto": fotos[0] if fotos else "",
@@ -1636,7 +1654,7 @@ document.addEventListener('click', e => {{
       const grid = document.getElementById('rd-grid');
       const featured = [];
       lista.forEach(item => {{
-        const original = grid.querySelector('.rd-card[data-n="' + item.n + '"]');
+        const original = grid.querySelector('.rd-card[data-id="' + item.id + '"]');
         if (!original) return; // coche retirado del catálogo desde que se marcó → se ignora
         if (original.dataset.estado !== 'Disponible') return; // reservado/vendido desde que se marcó → se ignora
         const clone = original.cloneNode(true);

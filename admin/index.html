@@ -109,7 +109,7 @@
   let destacadosActuales = {};
   let destacadosSha = null;
   let perfilActivo = 'andres';
-  let seleccion = {}; // { n: etiqueta }
+  let seleccion = {}; // { id_estable: etiqueta }
 
   function getToken() { return localStorage.getItem(TOKEN_KEY); }
 
@@ -163,7 +163,7 @@
 
   function cargarSeleccionDePerfil() {
     seleccion = {};
-    (destacadosActuales[perfilActivo] || []).forEach(item => { seleccion[item.n] = item.etiqueta; });
+    (destacadosActuales[perfilActivo] || []).forEach(item => { seleccion[item.id] = item.etiqueta; });
   }
 
   function renderLista() {
@@ -171,7 +171,7 @@
     contador.textContent = `${seleccionados} / ${MAX_DESTACADOS} seleccionados`;
     listaCoches.innerHTML = '';
     cochesDisponibles.forEach(coche => {
-      const marcado = coche.n in seleccion;
+      const marcado = coche.id in seleccion;
       const limiteAlcanzado = !marcado && seleccionados >= MAX_DESTACADOS;
       const row = document.createElement('div');
       row.className = 'coche-row';
@@ -182,20 +182,20 @@
           <div class="modelo">${coche.modelo}</div>
           <div class="precio">${coche.precio} €</div>
           <select ${marcado ? '' : 'hidden'}>
-            ${FRASES.map(f => `<option value="${f}" ${seleccion[coche.n] === f ? 'selected' : ''}>${f}</option>`).join('')}
+            ${FRASES.map(f => `<option value="${f}" ${seleccion[coche.id] === f ? 'selected' : ''}>${f}</option>`).join('')}
           </select>
         </div>`;
       const check = row.querySelector('.coche-check');
       const select = row.querySelector('select');
       check.addEventListener('change', () => {
         if (check.checked) {
-          seleccion[coche.n] = select.value || FRASES[0];
+          seleccion[coche.id] = select.value || FRASES[0];
         } else {
-          delete seleccion[coche.n];
+          delete seleccion[coche.id];
         }
         renderLista();
       });
-      select.addEventListener('change', () => { seleccion[coche.n] = select.value; });
+      select.addEventListener('change', () => { seleccion[coche.id] = select.value; });
       listaCoches.appendChild(row);
     });
   }
@@ -241,7 +241,7 @@
     btnGuardar.disabled = true;
     mostrarEstado('Guardando…', false);
     try {
-      const lista = Object.keys(seleccion).map(n => ({ n: Number(n), etiqueta: seleccion[n] }));
+      const lista = Object.keys(seleccion).map(id => ({ id, etiqueta: seleccion[id] }));
       const nuevo = Object.assign({}, destacadosActuales, { [perfilActivo]: lista });
       const fecha = new Date().toISOString().slice(0, 10);
       const resultado = await ghPut('destacados.json', nuevo, destacadosSha, `Actualizar destacados (${perfilActivo}) — ${fecha}`);
