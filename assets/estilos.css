@@ -384,6 +384,23 @@ img { max-width: 100%; display: block; }
 }
 .rd-badge-estado.disponible { color: var(--rd-green); box-shadow: inset 0 0 0 1px rgba(28,122,74,0.35); }
 .rd-badge-estado.reservado  { color: var(--rd-copper); box-shadow: inset 0 0 0 1px rgba(168,100,31,0.35); }
+/* Coche reservado: foto apagada + banda diagonal — mucho más fácil de
+   distinguir de un vistazo que la pastilla chica de antes. */
+.rd-card[data-estado="Reservado"] .rd-card-photos img { filter: grayscale(70%) brightness(0.75); }
+.rd-band-reservado {
+  position: absolute; inset: 0; z-index: 3;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.rd-band-reservado span {
+  transform: rotate(-18deg);
+  background: var(--rd-red); color: #fff;
+  font-family: var(--rd-display); font-size: 15px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 5px 22px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+  white-space: nowrap;
+}
 .rd-badge-oferta {
   position: absolute; top: 10px; right: 10px; z-index: 3;
   background: var(--rd-red); color: #fff; font-size: 10px; font-weight: 800;

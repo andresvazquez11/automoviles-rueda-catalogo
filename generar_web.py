@@ -1465,8 +1465,9 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict) -> str:
     <div class="rd-card-photos">{fotos_html}</div>
     {nav_html}
     <div class="rd-card-dots">{dots_html}</div>
-    <span class="rd-badge-estado {estado_cls}">{i18n_span(estado_lbl, ESTADO_EN[estado_lbl])}</span>
-    {'<span class="rd-badge-oferta">' + i18n_span("OFERTA", "PRICE DROP") + '</span>' if p_ant else ''}
+    {'' if reservado else f'<span class="rd-badge-estado {estado_cls}">' + i18n_span(estado_lbl, ESTADO_EN[estado_lbl]) + '</span>'}
+    {'<div class="rd-band-reservado"><span>' + i18n_span(estado_lbl, ESTADO_EN[estado_lbl]) + '</span></div>' if reservado else ''}
+    {'<span class="rd-badge-oferta">' + i18n_span("OFERTA", "PRICE DROP") + '</span>' if p_ant and not reservado else ''}
     <span class="rd-badge-dgt"><img src="{DGT_URLS[dgt_txt]}" alt="Etiqueta {dgt_txt}" loading="lazy"></span>
     {f'<span class="rd-badge-fotos">📷 {len(fotos)}</span>' if len(fotos) > 1 else ''}
   </div>
