@@ -1,0 +1,155 @@
+name: Actualizar catálogo
+
+on:
+  schedule:
+    - cron: '0 8 * * 1-6'   # 10:00 hora España en verano (CEST, UTC+2)
+    - cron: '0 9 * * 1-6'   # 10:00 hora España en invierno (CET, UTC+1)
+    - cron: '0 14 * * 1-6'  # 16:00 hora España en verano (CEST, UTC+2)
+    - cron: '0 15 * * 1-6'  # 16:00 hora España en invierno (CET, UTC+1)
+  workflow_dispatch: {}
+
+jobs:
+  check-hora:
+    runs-on: ubuntu-latest
+    outputs:
+      correr: ${{ steps.hora.outputs.correr }}
+    steps:
+      - id: hora
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Disparo manual — se ejecuta sin importar la hora."
+            echo "correr=si" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          HORA_MADRID=$(TZ=Europe/Madrid date +%H)
+          echo "Hora actual en Madrid: ${HORA_MADRID}h"
+          if [ "$HORA_MADRID" = "10" ] || [ "$HORA_MADRID" = "16" ]; then
+            echo "correr=si" >> "$GITHUB_OUTPUT"
+          else
+            echo "No es una de las horas objetivo (10h/16h) — se omite esta corrida."
+            echo "correr=no" >> "$GITHUB_OUTPUT"
+          fi
+
+  actualizar:
+    needs: check-hora
+    if: needs.check-hora.outputs.correr == 'si'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Restaurar caché de fotos
+        uses: actions/cache/restore@v4
+        with:
+          path: fotos
+          key: fotos-${{ github.run_id }}
+          restore-keys: |
+            fotos-
+
+      - name: Preparar config.txt
+        run: echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" > config.txt
+
+      - name: Revisar cambios en Das WeltAuto y regenerar PDFs
+        run: python3 actualizar_catalogo.py
+
+      - name: Descargar fotos nuevas
+        run: python3 descargar_fotos_galeria.py
+
+      - name: Descartar fotos archivadas (coches vendidos) antes de cachear
+        run: rm -rf fotos/_archivo
+
+      - name: Generar la web
+        run: python3 generar_web.py
+
+      - name: Guardar caché de fotos actualizado
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: fotos
+          key: fotos-${{ github.run_id }}
+
+      - name: Configurar identidad de git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Commitear y subir cambios
+        run: |
+          git add index.html web_fotos/ coches/ assets/ alejandro/ \
+                  datos_coches.json historial_precios.json coches_lista.json \
+                  traducciones_cache.json
+          git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M')" || echo "Sin cambios que subir"
+          git push origin main
+
+      - name: Preparar resumen para el correo
+        id: resumen
+        if: success()
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          ruta = Path("resumen_hoy.json")
+          if ruta.exists():
+              r = json.loads(ruta.read_text(encoding="utf-8"))
+              t = r.get("totales", {})
+              cuerpo = (
+                  f"Coches disponibles: {t.get('disponibles', '?')}\n"
+                  f"Reservados: {t.get('no_disp', '?')}\n"
+                  f"Nuevos hoy: {len(r.get('nuevos', []))}\n"
+                  f"Vendidos hoy: {len(r.get('vendidos', []))}\n"
+              )
+          else:
+              cuerpo = "(no se encontró resumen_hoy.json — revisar el log de esta corrida)"
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write("cuerpo<<EOF\n")
+              f.write(cuerpo + "\n")
+              f.write("EOF\n")
+          PY
+
+      - name: Calcular fecha para el asunto del correo
+        id: fecha
+        if: success()
+        run: echo "fecha=$(TZ=Europe/Madrid date '+%d/%m/%Y %H:%M')" >> "$GITHUB_OUTPUT"
+
+      - name: Enviar correo de éxito
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: andrescovidelpi@gmail.com
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          from: Catálogo Automóviles Rueda <andrescovidelpi@gmail.com>
+          to: andrescovidelpi@gmail.com
+          subject: "✅ Catálogo actualizado — ${{ steps.fecha.outputs.fecha }}"
+          body: ${{ steps.resumen.outputs.cuerpo }}
+          attachments: catalogo_automoviles_rueda_liviano.pdf
+
+      - name: Enviar correo de error
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: andrescovidelpi@gmail.com
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          from: Catálogo Automóviles Rueda <andrescovidelpi@gmail.com>
+          to: andrescovidelpi@gmail.com
+          subject: "⚠️ Falló la actualización del catálogo"
+          body: |
+            Algo falló durante la actualización automática de hoy.
+
+            Revisá el detalle acá:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
