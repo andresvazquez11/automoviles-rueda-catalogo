@@ -1,1 +1,16 @@
-{}
+{
+  "andres": [
+    {
+      "n": 1,
+      "etiqueta": "Oferta especial"
+    },
+    {
+      "n": 4,
+      "etiqueta": "Oferta del mes"
+    },
+    {
+      "n": 34,
+      "etiqueta": "Precio rebajado"
+    }
+  ]
+}
