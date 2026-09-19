@@ -617,6 +617,17 @@ async def main():
         }
     }
     crear_pdf(actuales, resumen)
+    crear_pdf(actuales, resumen, liviano=True)
+
+    resumen_path = Path(__file__).parent / "resumen_hoy.json"
+    resumen_serializable = {
+        "nuevos":   [{"n": c["n"], "modelo": c["modelo"]} for c in nuevos],
+        "vendidos": [{"n": c["n"], "modelo": c["modelo"]} for c in vendidos],
+        "totales":  resumen["totales"],
+    }
+    resumen_path.write_text(
+        json.dumps(resumen_serializable, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
 
     # Copiar PDF a la carpeta de ejecutables
     ejecutables_dir = Path.home() / "Desktop" / "ejecutable redes"
