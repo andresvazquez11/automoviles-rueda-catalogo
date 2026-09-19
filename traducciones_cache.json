@@ -95,6 +95,22 @@
     ],
     "version_en": "2.5 TSI VZ5 Taiga Grey 4Drive DSG 287 kW (390 HP)"
   },
+  "359e9bf627fe1e70": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Front parking sensors, rear parking sensors with camera, and side parking sensors",
+      "Top speed: 193 km/h",
+      "Sentinel Pack: blind spot monitor + rear cross-traffic alert",
+      "18-inch front and rear alloy wheels, 7.0 inches wide",
+      "Ellipsoidal LED headlights and LED high beams",
+      "Luxury trim: aluminum and leather gear shift knob, piano black center console, piano black door trim, and aluminum and leather dashboard",
+      "12V power outlet(s) in the front",
+      "Cloth upholstery (primary and secondary material)",
+      "Driver and front passenger sports seats with manual fore/aft, height, and recline adjustments",
+      "Three-passenger forward-facing rear bench seat with fixed cushion and asymmetrical split-folding backrest"
+    ],
+    "version_en": "1.0 TSI FR Special Edition 85 kW (115 hp)"
+  },
   "3ad613a4f3bba66f": {
     "color_en": "",
     "equipamiento_en": [
@@ -158,6 +174,22 @@
       "18\" PERFORMANCE AERO alloy wheels"
     ],
     "version_en": "1.0 TSI S&S FR Plus DSG 81 kW (110 HP)"
+  },
+  "564cdee7019e0b2a": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Front radar parking sensors, rear radar parking sensors with camera, and side radar parking sensors",
+      "Dual-zone digital climate control for driver and passenger",
+      "LED brake lights, front fog lights, low beam, daytime running lights, taillights, and high beam",
+      "Top speed: 210 km/h",
+      "LUXE PACK",
+      "18\" PERFORMANCE AERO alloy wheels",
+      "Digital Cockpit instrument cluster",
+      "Safe & Driving Pack XL",
+      "17-inch front and rear light alloy wheels, 6.5 inches wide",
+      "Ellipsoidal lens headlights with LED low and high beams"
+    ],
+    "version_en": "1.5 TSI FR DSG 110 kW (150 HP)"
   },
   "568437a2c394781d": {
     "color_en": "",
@@ -283,6 +315,22 @@
       "Full LED lighting: brake lights, front fog lights, low beam, side indicators, daytime running lights, tail lights, and high beam"
     ],
     "version_en": "1.5 eTSI DSG 110 kW (150 HP)"
+  },
+  "675d5889fa1e7413": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Front parking sensors with radar, rear parking sensors with radar and reversing camera",
+      "Seat upholstery - Suedia/Leather",
+      "VARIOFLEX seats, removable LED flashlight, and boot cargo securing elements",
+      "Lane Keep Assist",
+      "Dual-zone digital climate control for driver and passenger",
+      "Top speed: -",
+      "LED Package",
+      "17\" SCUTUS Aero alloy wheels with matte black aero trims",
+      "Multimedia Pack L",
+      "Front center armrest \"JUMBO BOX\" with 230V power inverter and 2x rear USB ports"
+    ],
+    "version_en": "2.0 TDI Ambition 85 kW (115 hp)"
   },
   "687a8f8cc2c076f7": {
     "color_en": "",
@@ -520,6 +568,22 @@
       "Dual-zone Climatronic climate control"
     ],
     "version_en": "1.0 TSI Xperience Special Edition 85 kW (115 HP)"
+  },
+  "8be06c9b2efed4da": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Petrol Blue leather upholstery + Power-adjustable driver seat + Heated front seats",
+      "Cloth seats (primary material) with synthetic leather trim (secondary material)",
+      "Individual climate controls for driver, front passenger, and rear seats",
+      "Three-zone automatic climate control with rear seat controls",
+      "Full LED technology: brake lights, front fog lights, low beams, side indicators, daytime running lights, tail lights, and high beams",
+      "Top speed: 203 km/h",
+      "Matte Petrol Blue (Leather)",
+      "18-inch front and rear alloy wheels (8.0-inch width)",
+      "Ellipsoidal projector headlights with full LED low and high beams",
+      "Luxury interior finishes: aluminum-effect center console and door trim, with aluminum-effect and synthetic leather dashboard"
+    ],
+    "version_en": "1.5 TSI DSG 110 kW (150 HP)"
   },
   "8c0b1afa0ce469a2": {
     "color_en": "",
@@ -788,6 +852,22 @@
     ],
     "version_en": "77kWh Endurance First Edition 210 kW (286 HP)"
   },
+  "a945c120f5a5ef52": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Front and rear parking sensors with rear-view camera",
+      "Top speed: 198 km/h",
+      "16-inch front and rear alloy wheels (6.5\" width, PG4)",
+      "Full LED headlights with ellipsoidal lenses and LED high beams",
+      "Luxury trim: leather and aluminium gear knob",
+      "12V power socket in the front area",
+      "Fabric upholstery (primary and secondary material) marketed as sustainable/vegan",
+      "Individual driver and front passenger seats with manual fore/aft, height, and backrest adjustment",
+      "Three-seater forward-facing split bench rear seats with asymmetric folding backrest",
+      "Multifunction leather-wrapped steering wheel, height and reach adjustable"
+    ],
+    "version_en": "1.0 TSI Special Edition 85 kW (115 hp)"
+  },
   "abbde4a4b94d994f": {
     "color_en": "",
     "equipamiento_en": [
@@ -936,6 +1016,53 @@
       "Top speed: 205 km/h"
     ],
     "version_en": "1.5 eTSI DSG 110 kW (150 HP)"
+  },
+  "cbecfbcccef48659": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Sports suspension",
+      "Navigation system",
+      "Auto Start/Stop",
+      "Daytime running lights",
+      "Heated seats",
+      "Cruise control",
+      "Multifunction steering wheel",
+      "Bluetooth",
+      "Sports seats",
+      "Alloy wheels",
+      "17\" alloy wheels",
+      "Trip computer",
+      "Fog lights",
+      "Air conditioning",
+      "Automatic climate control",
+      "Airbag",
+      "Passenger airbag",
+      "Driver airbag",
+      "Side airbags",
+      "ABS anti-lock brakes",
+      "ESP",
+      "Power steering",
+      "Electric windows",
+      "Central locking",
+      "Center armrest",
+      "Power steering",
+      "Lane change assist",
+      "Lane keep assist",
+      "Parking assist",
+      "Radio with navigation system",
+      "Power socket",
+      "Hill start assist",
+      "LED headlights",
+      "LED taillights",
+      "ISOFIX",
+      "Rain sensor",
+      "Automatic headlights",
+      "Push-button start",
+      "Tyre pressure monitoring system",
+      "Apple CarPlay",
+      "Speed limiter"
+    ],
+    "version_en": "118d Business 110 kW (150 hp)"
   },
   "d99912d7a8121265": {
     "color_en": "",
