@@ -88,6 +88,17 @@
 
 <script>
 (function() {
+  // GitHub Pages cachea esta página hasta ~10 min. Si alguien la abre justo
+  // después de que se actualice, puede quedarse con una versión vieja del
+  // código — y guardar con una lógica desactualizada, sin ningún error
+  // visible (ya pasó: un guardado así escribió destacados.json en un
+  // formato que la web ya no entendía). Forzar una recarga sin caché la
+  // primera vez que se abre evita que esto se repita.
+  if (!window.location.search.includes('_v=')) {
+    window.location.replace(window.location.pathname + '?_v=' + Date.now());
+    return;
+  }
+
   const OWNER = 'andresvazquez11';
   const REPO = 'automoviles-rueda-catalogo';
   const BRANCH = 'main';
