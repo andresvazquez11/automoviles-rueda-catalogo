@@ -869,17 +869,31 @@ def _pagina_resumen(pdf, resumen: dict):
     pdf.set_xy(10, 204)
     pdf.cell(277, 4, "Av. Rey Juan Carlos I, 15  ·  Vélez-Málaga  |  610 029 056  |  dasweltauto.es/esp/concesionario-seat-automoviles-rueda", align="C")
 
-# ── Fuente moderna (Avenir Next — macOS) ───────────────────
+# ── Fuente moderna (Avenir Next en macOS; DejaVu Sans en CI/Linux) ──
+# Helvetica (fallback histórico) es una fuente "core" de FPDF sin soporte
+# Unicode — rompe con "—", tildes fuera de latin-1, etc. Se necesita una
+# fuente TTF real en cualquier entorno donde se genere el PDF.
 FONT_PATH_REG  = "/System/Library/Fonts/Avenir Next.ttc"
 FONT_PATH_BOLD = "/System/Library/Fonts/Avenir Next.ttc"
 
+FONT_CANDIDATES = [
+    (FONT_PATH_REG, FONT_PATH_BOLD),
+    (
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    ),
+]
+
 def _cargar_fuentes(pdf):
-    """Carga Avenir Next (TTF, unicode). Fallback a Helvetica si no existe."""
+    """Carga una fuente Unicode (Avenir Next en macOS, DejaVu Sans en
+    Linux/CI). Fallback a Helvetica (sin soporte Unicode) si no se
+    encuentra ninguna de las candidatas."""
     from pathlib import Path as _P
-    if _P(FONT_PATH_REG).exists():
-        pdf.add_font("AR",  "",  FONT_PATH_REG,  uni=True)
-        pdf.add_font("AR",  "B", FONT_PATH_BOLD, uni=True)
-        return "AR"
+    for reg, bold in FONT_CANDIDATES:
+        if _P(reg).exists() and _P(bold).exists():
+            pdf.add_font("AR",  "",  reg,  uni=True)
+            pdf.add_font("AR",  "B", bold, uni=True)
+            return "AR"
     return "Helvetica"   # fallback si no está en el sistema
 
 # ── Crear PDF ──────────────────────────────────────────────
