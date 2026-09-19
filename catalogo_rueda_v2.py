@@ -29,6 +29,7 @@ import requests
 LISTING    = "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda"
 OUTPUT_DIR = Path(__file__).parent
 PDF_PATH   = OUTPUT_DIR / "catalogo_automoviles_rueda.pdf"
+PDF_PATH_LIVIANO = OUTPUT_DIR / "catalogo_automoviles_rueda_liviano.pdf"
 PHOTOS_DIR = OUTPUT_DIR / "fotos"
 
 CACHE_PATH = OUTPUT_DIR / "datos_coches.json"
@@ -882,7 +883,11 @@ def _cargar_fuentes(pdf):
     return "Helvetica"   # fallback si no está en el sistema
 
 # ── Crear PDF ──────────────────────────────────────────────
-def crear_pdf(cars: list[dict], resumen: dict = None):
+def crear_pdf(cars: list[dict], resumen: dict = None, liviano: bool = False):
+    """`liviano=True` genera una versión mucho más chica para mandar por
+    correo: redimensiona la foto principal al tamaño real en que se ve en
+    la página (en vez de la resolución de cámara) y omite las miniaturas.
+    Sin esto, cada llamada de generación completa (148 MB) sigue igual."""
     # Los coches "Retirado" (ya no publicados en DWA) no tienen página propia
     # en el catálogo — solo se reflejan como cambio en el resumen.
     cars = [c for c in cars if c.get("estado") != "Retirado"]
@@ -932,11 +937,13 @@ def crear_pdf(cars: list[dict], resumen: dict = None):
         if foto_path.exists():
             try:
                 pi        = Image.open(foto_path).convert("RGB")
+                if liviano:
+                    pi.thumbnail((1000, 1000))
                 img_w, img_h = pi.size
                 # Altura proporcional: mantiene ratio sin deformar
                 main_h    = MAIN_W * (img_h / img_w)
                 buf = BytesIO()
-                pi.save(buf, format="JPEG", quality=88)
+                pi.save(buf, format="JPEG", quality=82 if liviano else 88)
                 buf.seek(0)
                 tmp = PHOTOS_DIR / f"tmp_{car['n']:02d}.jpg"
                 tmp.write_bytes(buf.read())
@@ -954,7 +961,7 @@ def crear_pdf(cars: list[dict], resumen: dict = None):
         ROW_GAP   = 2.5    # espacio entre fila 1 y fila 2
         ROW_Y1    = main_bottom + 3.0  # fila 1 empieza justo debajo de la foto principal
 
-        if len(todas_fotos) > 1:
+        if len(todas_fotos) > 1 and not liviano:
             miniaturas = todas_fotos[1:]   # excluir foto_01 (ya mostrada grande)
             fila1 = miniaturas[:4]
             fila2 = miniaturas[4:7]
@@ -1131,8 +1138,9 @@ def crear_pdf(cars: list[dict], resumen: dict = None):
         pdf.set_xy(272, 205)
         pdf.cell(20, 4, f"{car['n']}/{len(cars)}")
 
-    pdf.output(str(PDF_PATH))
-    print(f"  PDF guardado: {PDF_PATH}")
+    ruta_salida = PDF_PATH_LIVIANO if liviano else PDF_PATH
+    pdf.output(str(ruta_salida))
+    print(f"  PDF guardado: {ruta_salida}")
 
     # Limpiar archivos temporales de procesamiento de imágenes
     for tmp in PHOTOS_DIR.glob("tmp_*.jpg"):
