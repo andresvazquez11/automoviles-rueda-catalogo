@@ -2,33 +2,62 @@ name: Actualizar catálogo
 
 on:
   schedule:
-    - cron: '0 8 * * 1-6'   # 10:00 hora España en verano (CEST, UTC+2)
-    - cron: '0 9 * * 1-6'   # 10:00 hora España en invierno (CET, UTC+1)
-    - cron: '0 14 * * 1-6'  # 16:00 hora España en verano (CEST, UTC+2)
-    - cron: '0 15 * * 1-6'  # 16:00 hora España en invierno (CET, UTC+1)
+    - cron: '*/15 * * * *'  # revisa cada 15 min; la ventana+dedupe de abajo
+                             # decide si de verdad corresponde actualizar.
+                             # GitHub no garantiza el minuto exacto de un cron
+                             # (puede demorarse horas en época de carga alta),
+                             # así que en vez de pedir una hora exacta se
+                             # revisa seguido si ya entramos en la franja.
   workflow_dispatch: {}
 
 jobs:
   check-hora:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       correr: ${{ steps.hora.outputs.correr }}
     steps:
       - id: hora
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "Disparo manual — se ejecuta sin importar la hora."
             echo "correr=si" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          HORA_MADRID=$(TZ=Europe/Madrid date +%H)
-          echo "Hora actual en Madrid: ${HORA_MADRID}h"
-          if [ "$HORA_MADRID" = "10" ] || [ "$HORA_MADRID" = "16" ]; then
-            echo "correr=si" >> "$GITHUB_OUTPUT"
-          else
-            echo "No es una de las horas objetivo (10h/16h) — se omite esta corrida."
+
+          HORA=$(TZ=Europe/Madrid date +%H)
+          echo "Hora actual en Madrid: ${HORA}h"
+
+          EN_VENTANA=no
+          if [ "$HORA" -ge 8 ] && [ "$HORA" -le 13 ]; then EN_VENTANA=si; fi
+          if [ "$HORA" -ge 14 ] && [ "$HORA" -le 20 ]; then EN_VENTANA=si; fi
+
+          if [ "$EN_VENTANA" = "no" ]; then
+            echo "Fuera de las franjas mañana (8-13h) / tarde (14-20h) — se omite."
             echo "correr=no" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+
+          ULTIMO=$(gh api "repos/${{ github.repository }}/commits?per_page=20" \
+            --jq '[.[] | select(.commit.message | startswith("Actualización automática del catálogo"))][0].commit.committer.date' \
+            2>/dev/null || echo "")
+
+          if [ -n "$ULTIMO" ]; then
+            AHORA_EPOCH=$(date -u +%s)
+            ULTIMO_EPOCH=$(date -u -d "$ULTIMO" +%s)
+            DIFF=$(( AHORA_EPOCH - ULTIMO_EPOCH ))
+            if [ "$DIFF" -lt 14400 ]; then
+              echo "Ya se actualizó hace menos de 4h (última: $ULTIMO) — se omite para no duplicar."
+              echo "correr=no" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+
+          echo "Corresponde actualizar (dentro de franja, sin actualización reciente)."
+          echo "correr=si" >> "$GITHUB_OUTPUT"
 
   actualizar:
     needs: check-hora
