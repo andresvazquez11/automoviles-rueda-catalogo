@@ -10,6 +10,8 @@ from datetime import datetime
 from pathlib import Path
 import requests
 
+from catalogo_rueda_v2 import _es_foto_exterior
+
 BASE_DIR   = Path(__file__).parent
 JSON_PATH  = BASE_DIR / "datos_coches.json"
 FOTOS_DIR  = BASE_DIR / "fotos"
@@ -461,7 +463,14 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
         if fotos_src:
             # Carpeta local verificada (coincide con DWA, o no hay URL para
             # verificar pero es el mejor dato disponible) — usar la galería completa.
-            for i, foto in enumerate(fotos_src[:8], start=1):
+            # La portada debe ser una foto EXTERIOR (fondo claro de showroom),
+            # no simplemente la que quedó primera al ordenar por nombre — DWA
+            # a veces publica una foto de interior en la primera posición del
+            # anuncio, y eso no debe terminar siendo la portada del catálogo.
+            candidatas = fotos_src[:8]
+            portada = next((f for f in candidatas if _es_foto_exterior(f)), candidatas[0])
+            ordenadas = [portada] + [f for f in candidatas if f != portada]
+            for i, foto in enumerate(ordenadas, start=1):
                 dst = dest / f"foto_{i:02d}.jpg"
                 shutil.copy2(foto, dst)
                 urls.append(f"/web_fotos/{n:02d}/foto_{i:02d}.jpg")
