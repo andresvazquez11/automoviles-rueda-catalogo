@@ -604,9 +604,17 @@ async def main():
     subprocess.run([sys.executable, str(base / "reparar_fotos_contaminadas.py")], check=False)
 
     # 6) Regenerar PDF completo con resumen de cambios del día
+    # "vendidos" (crudo, comparado contra el scrapeo en vivo de ESTA corrida)
+    # NO se usa para informar al usuario: un fallo transitorio de carga en
+    # Das WeltAuto (p.ej. "Ver más" no termina de cargar todos los coches a
+    # tiempo) hace que el scrapeo devuelva menos coches de los reales, y eso
+    # se confundiría con ventas masivas. Para reportar (PDF/email) usamos
+    # vendidos_vs_ayer, que compara contra "actuales" — la lista YA protegida
+    # por el margen de 2 intentos antes de dar un coche por retirado — así
+    # que solo cuenta coches genuinamente confirmados como vendidos.
     resumen = {
         "nuevos":   nuevos,
-        "vendidos": vendidos,
+        "vendidos": vendidos_vs_ayer,
         "cambios":  cambios,
         "cambios_hoy": cambios_hoy_acum,   # historial acumulado del día
         "n_actualizacion": n_actualizacion,
@@ -622,7 +630,7 @@ async def main():
     resumen_path = Path(__file__).parent / "resumen_hoy.json"
     resumen_serializable = {
         "nuevos":   [{"n": c["n"], "modelo": c["modelo"]} for c in nuevos],
-        "vendidos": [{"n": c["n"], "modelo": c["modelo"]} for c in vendidos],
+        "vendidos": [{"n": c["n"], "modelo": c["modelo"]} for c in vendidos_vs_ayer],
         "totales":  resumen["totales"],
     }
     resumen_path.write_text(
