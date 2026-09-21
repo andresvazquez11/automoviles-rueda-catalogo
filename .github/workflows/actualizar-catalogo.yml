@@ -28,15 +28,22 @@ jobs:
             exit 0
           fi
 
+          DIA=$(TZ=Europe/Madrid date +%u)   # 1=lunes … 7=domingo
+          if [ "$DIA" = "7" ]; then
+            echo "Domingo — no se actualiza ese día."
+            echo "correr=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           HORA=$(TZ=Europe/Madrid date +%H)
-          echo "Hora actual en Madrid: ${HORA}h"
+          echo "Hora actual en Madrid: ${HORA}h (día ISO ${DIA})"
 
           EN_VENTANA=no
-          if [ "$HORA" -ge 8 ] && [ "$HORA" -le 13 ]; then EN_VENTANA=si; fi
-          if [ "$HORA" -ge 14 ] && [ "$HORA" -le 20 ]; then EN_VENTANA=si; fi
+          if [ "$HORA" -ge 10 ] && [ "$HORA" -le 12 ]; then EN_VENTANA=si; fi
+          if [ "$HORA" -ge 16 ] && [ "$HORA" -le 19 ]; then EN_VENTANA=si; fi
 
           if [ "$EN_VENTANA" = "no" ]; then
-            echo "Fuera de las franjas mañana (8-13h) / tarde (14-20h) — se omite."
+            echo "Fuera de las franjas mañana (10-12h) / tarde (16-19h) — se omite."
             echo "correr=no" >> "$GITHUB_OUTPUT"
             exit 0
           fi
