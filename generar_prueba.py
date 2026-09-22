@@ -294,7 +294,21 @@ def inyectar_prueba(html_real: str, hero: str, ficha_prefix: str) -> str:
         '  <button id="rd-dark-toggle" class="rd-dark-toggle"><span id="rd-dark-label">🌙 Modo oscuro</span></button>\n'
         "</header>\n" + hero,
     )
-    html = html.replace("</body>", f"<script>{EXTRA_JS}</script>\n</body>")
+    comparador_html = '''
+<div id="rd-tray" class="rd-tray"></div>
+<div id="rd-overlay" class="rd-overlay">
+  <div class="rd-overlay-panel">
+    <div class="rd-overlay-head">
+      <div class="rd-overlay-title">Comparar coches</div>
+      <button id="rd-overlay-close" class="rd-overlay-close" type="button">✕</button>
+    </div>
+    <div class="rd-cmp-wrap">
+      <div id="rd-cmp-cols" class="rd-cmp-cols"></div>
+    </div>
+  </div>
+</div>
+'''
+    html = html.replace("</body>", f"{comparador_html}<script>{EXTRA_JS}</script>\n</body>")
     html = html.replace(
         "<body>",
         '<body>\n<div class="rd-banner-prueba">🧪 PÁGINA DE PRUEBA — rediseño en exploración, no es la versión en producción</div>',
