@@ -400,6 +400,31 @@ def obtener_portada_dwa_bytes(url_relativa: str) -> "bytes | None":
         pass
     return None
 
+def obtener_galeria_dwa_bytes(url_relativa: str, max_fotos: int = 8) -> list[bytes]:
+    """Descarga hasta max_fotos fotos (x01, x02, ...) directamente de DWA por
+    la URL del anuncio — misma identidad segura que obtener_portada_dwa_bytes,
+    pero trayendo la galería completa en vez de solo la portada. Se usa cuando
+    la carpeta local no puede confiarse (la portada guardada no coincide con
+    la real de DWA), para no perder todas las fotos por ese motivo — antes se
+    descartaba la carpeta entera y quedaba solo 1 foto publicada."""
+    if not url_relativa:
+        return []
+    listing_id = str(url_relativa).rstrip("/").split("/")[-1]
+    padded = listing_id.zfill(11)
+    path = "/".join(padded[i:i+2] for i in range(0, len(padded), 2))
+    fotos: list[bytes] = []
+    for i in range(1, max_fotos + 1):
+        foto_url = f"{DASWELTAUTO}/esp/fotos_anuncios/{path}/x{i:02d}.jpg"
+        try:
+            r = requests.get(foto_url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
+            if r.status_code == 200 and len(r.content) > 20000:
+                fotos.append(r.content)
+            else:
+                break  # la galería de DWA es secuencial sin huecos
+        except Exception:
+            break
+    return fotos
+
 # ── Utilidades de carpeta ────────────────────────────────────────────────────
 
 def find_car_folder(n: int, modelo: str, precio: str = ""):
@@ -458,11 +483,26 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
         portada_dwa = obtener_portada_dwa_bytes(coche.get("url", "")) if coche.get("url") else None
 
         if fotos_src and portada_dwa and hashlib.sha256(fotos_src[0].read_bytes()).digest() != hashlib.sha256(portada_dwa).digest():
+            # La carpeta local no es confiable (portada no coincide — puede
+            # estar contaminada, o simplemente desactualizada/desordenada).
+            # En vez de descartarla y quedarnos con 1 sola foto, se trae la
+            # galería completa directo de DWA por la URL del anuncio (misma
+            # identidad segura que la portada, x01.jpg, x02.jpg...).
+            for _viejo in dest.glob("foto_*.jpg"):
+                _viejo.unlink()
+            galeria_dwa = obtener_galeria_dwa_bytes(coche.get("url", ""))
+            if galeria_dwa:
+                print(f"  ⚠️  n={n} {coche['modelo']}: la carpeta local NO coincide con la foto real de DWA "
+                      f"— descartada, se descarga la galería completa directo de DWA ({len(galeria_dwa)} fotos)")
+                for i, contenido in enumerate(galeria_dwa, start=1):
+                    dst = dest / f"foto_{i:02d}.jpg"
+                    dst.write_bytes(contenido)
+                    urls.append(f"/web_fotos/{n:02d}/foto_{i:02d}.jpg")
+                rutas[n] = urls
+                continue
             print(f"  ⚠️  n={n} {coche['modelo']}: la carpeta local NO coincide con la foto real de DWA "
                   f"— descartada, se usa solo la portada verificada")
             fotos_src = []
-            for _viejo in dest.glob("foto_*.jpg"):
-                _viejo.unlink()
 
         if fotos_src:
             # Carpeta local verificada (coincide con DWA, o no hay URL para
