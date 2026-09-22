@@ -705,6 +705,49 @@ body.rd-dark .rd-card { box-shadow: 0 10px 26px rgba(0,0,0,0.5), 0 2px 8px rgba(
   display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; color: var(--rd-ink-soft);
   border-top: 1px solid var(--rd-border); padding-top: 10px;
 }
+/* ── Historial de precios ────────────────────────────────────────── */
+.rd-hist-wrap { max-width: 780px; margin: 0 auto; padding: 32px 20px 60px; }
+.rd-hist-titulo {
+  font-family: var(--rd-display); font-weight: 700; font-size: 32px;
+  text-transform: uppercase; margin: 0 0 6px 0;
+}
+.rd-hist-sub { color: var(--rd-ink-soft); margin: 0 0 20px 0; }
+.rd-hist-buscador {
+  width: 100%; padding: 12px 16px; margin-bottom: 24px;
+  border: 1px solid var(--rd-border); border-radius: var(--rd-radius-md);
+  font-size: 15px; font-family: var(--rd-font); background: var(--rd-surface); color: var(--rd-ink);
+}
+.rd-hist-vacio { color: var(--rd-muted); padding: 40px 0; text-align: center; }
+.rd-hist-lista { display: flex; flex-direction: column; gap: 14px; }
+.rd-hist-card {
+  background: var(--rd-surface); border: 1px solid var(--rd-border);
+  border-radius: var(--rd-radius-md); padding: 16px 18px; box-shadow: var(--rd-shadow);
+}
+.rd-hist-card-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  flex-wrap: wrap; gap: 6px 16px; margin-bottom: 10px;
+}
+.rd-hist-modelo { font-family: var(--rd-display); font-weight: 700; font-size: 17px; text-transform: uppercase; }
+.rd-hist-modelo a { color: var(--rd-ink); text-decoration: none; }
+.rd-hist-modelo a:hover { color: var(--rd-red); }
+.rd-hist-noactivo { font-size: 12.5px; color: var(--rd-muted); text-transform: none; font-weight: 400; }
+.rd-hist-actual { font-size: 13.5px; color: var(--rd-ink-soft); white-space: nowrap; }
+.rd-hist-actual strong { color: var(--rd-ink); }
+.rd-hist-timeline {
+  display: flex; flex-direction: column; gap: 6px;
+  border-top: 1px solid var(--rd-border); padding-top: 10px;
+}
+.rd-hist-fila {
+  display: flex; align-items: center; gap: 14px; font-size: 13.5px;
+  flex-wrap: wrap;
+}
+.rd-hist-fecha { color: var(--rd-muted); min-width: 78px; }
+.rd-hist-precios { color: var(--rd-ink-soft); }
+.rd-hist-baja { color: var(--rd-green); font-weight: 600; }
+.rd-hist-sube { color: var(--rd-red); font-weight: 600; }
+body.rd-dark .rd-hist-buscador,
+body.rd-dark .rd-hist-card { background: var(--rd-surface); border-color: var(--rd-border); }
+
 @media (max-width: 640px) {
   .rd-overlay { padding: 12px; }
   .rd-overlay-panel { padding: 18px; max-height: 92vh; }

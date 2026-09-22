@@ -30,6 +30,11 @@ CAMBIOS_HOY_FILE   = OUTPUT_DIR / "cambios_hoy.json"
 HISTORIAL_PRECIOS  = OUTPUT_DIR / "historial_precios.json"
 CONTADOR_HOY_FILE  = OUTPUT_DIR / "actualizaciones_hoy.txt"
 
+# Registro PERMANENTE de cambios de precio (a diferencia de HISTORIAL_PRECIOS,
+# que se purga a los 10 días — este no se purga nunca) — para la página
+# "Historial de precios" del catálogo web.
+HISTORIAL_CAMBIOS_PRECIO = OUTPUT_DIR / "historial_cambios_precio.json"
+
 def hoy_str():
     return datetime.now().strftime("%Y-%m-%d")
 
@@ -208,6 +213,7 @@ def comparar(anteriores: list, actuales: list):
                 else:
                     diffs.append(f"Estado: '{ant['estado']}' -> '{act['estado']}'")
             # Precio bajado o subido
+            precio_evento = None
             try:
                 p_ant = float(ant["precio"].replace(".","").replace(",","."))
                 p_act = float(act["precio"].replace(".","").replace(",","."))
@@ -218,12 +224,50 @@ def comparar(anteriores: list, actuales: list):
                     else:
                         cambio_txt = f"BAJA -{abs(diff_e):,.0f} EUR  ({ant['precio']}€ -> {act['precio']}€)"
                     diffs.append(f"Precio: {cambio_txt}")
+                    precio_evento = {"precio_anterior": p_ant, "precio_nuevo": p_act}
             except Exception:
                 pass
             if diffs:
-                cambios.append({"coche": act, "cambios": diffs})
+                entry = {"coche": act, "cambios": diffs}
+                if precio_evento:
+                    entry.update(precio_evento)
+                cambios.append(entry)
 
     return nuevos, vendidos, cambios
+
+def registrar_historial_cambios_precio(cambios: list):
+    """Agrega al registro PERMANENTE (HISTORIAL_CAMBIOS_PRECIO) un evento por
+    cada cambio de precio detectado en esta corrida — nunca se purga, a
+    diferencia de HISTORIAL_PRECIOS (10 días). Alimenta la página "Historial
+    de precios" del catálogo web, para poder ver cuándo bajó/subió el precio
+    de cada coche y de cuánto a cuánto."""
+    eventos = []
+    if HISTORIAL_CAMBIOS_PRECIO.exists():
+        try:
+            eventos = json.loads(HISTORIAL_CAMBIOS_PRECIO.read_text(encoding="utf-8"))
+        except Exception:
+            eventos = []
+
+    ahora = datetime.now()
+    for entry in cambios:
+        if "precio_anterior" not in entry:
+            continue
+        c = entry["coche"]
+        eventos.append({
+            "fecha_iso":       ahora.isoformat(timespec="seconds"),
+            "fecha":           ahora.strftime("%d/%m/%Y"),
+            "n":               c.get("n"),
+            "modelo":          c.get("modelo", ""),
+            "version":         c.get("version", ""),
+            "url":             c.get("url", ""),
+            "precio_anterior": entry["precio_anterior"],
+            "precio_nuevo":    entry["precio_nuevo"],
+        })
+
+    if eventos:
+        HISTORIAL_CAMBIOS_PRECIO.write_text(
+            json.dumps(eventos, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
 
 def generar_informe(nuevos, vendidos, cambios, anteriores, actuales,
                     cambios_hoy_acum=None, n_actualizacion=1):
@@ -349,6 +393,7 @@ async def main():
 
         # 3a) Comparar SOLO coches vivos (detección de nuevos/cambios/vendidos reales)
         nuevos, vendidos, cambios = comparar(anteriores_dwa, actuales_vivos)
+        registrar_historial_cambios_precio(cambios)
 
         # Construir lista completa: vivos + anteriores que desaparecieron → No disponible
         # Se preservan en JSON para mostrarse como RESERVADO en la web

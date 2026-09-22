@@ -1416,6 +1416,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict)
   </div>
   {header_social_html(perfil["redes"])}
   {maps_button_html(perfil["maps_url"])}
+  {historial_precios_btn_html(perfil)}
   {lang_toggle_html()}
 </header>
 <a class="rd-back" href="../index.html">&#8249; {i18n_span("Volver al catálogo", "Back to catalog")}</a>
@@ -1627,6 +1628,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
   </div>
   {header_social_html(perfil["redes"])}
   {maps_button_html(perfil["maps_url"])}
+  {historial_precios_btn_html(perfil)}
   {lang_toggle_html()}
   <button id="rd-dark-toggle" class="rd-dark-toggle" type="button"><span id="rd-dark-label">🌙 {i18n_span("Modo oscuro", "Dark mode")}</span></button>
 </header>
@@ -1928,6 +1930,122 @@ document.querySelectorAll('.rd-card-media').forEach(media => {{
 '''
 
 
+# ── Historial de precios ─────────────────────────────────────────────────────
+
+HISTORIAL_CAMBIOS_PRECIO_PATH = BASE_DIR / "historial_cambios_precio.json"
+
+def historial_precios_btn_html(perfil: dict) -> str:
+    """Enlace del header hacia la página de historial de precios — mismo
+    estilo que maps_button_html (icono + texto que se colapsa en mobile)."""
+    prefix = f"/{perfil['carpeta']}" if perfil.get("carpeta") else ""
+    return f'''<a class="rd-maps-btn" href="{prefix}/historial-precios/index.html" aria-label="Historial de precios">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-4 4"/></svg>
+    <span class="rd-maps-btn-label">{i18n_span("Historial de precios", "Price history")}</span>
+  </a>'''
+
+def _formato_eur(valor: float) -> str:
+    return f"{valor:,.0f}".replace(",", ".") + "€"
+
+def build_historial_precios_html(historial: list[dict], perfil: dict, fichas_por_url: dict) -> str:
+    """Página con el registro permanente de cambios de precio, agrupado por
+    coche — para poder ver cuándo y cuánto bajó/subió cada uno."""
+    datos = datos_perfil(perfil)
+    nombre = datos["nombre"]
+    telefono = datos["telefono"]
+
+    grupos: dict[str, dict] = {}
+    orden_grupos: list[str] = []
+    for ev in historial:
+        clave = ev.get("url") or f"{ev.get('modelo','')}_{ev.get('version','')}"
+        if clave not in grupos:
+            grupos[clave] = {"modelo": ev.get("modelo", ""), "version": ev.get("version", ""),
+                              "url": ev.get("url", ""), "eventos": []}
+            orden_grupos.append(clave)
+        grupos[clave]["eventos"].append(ev)
+
+    # Coche más recientemente cambiado primero
+    orden_grupos.sort(key=lambda k: grupos[k]["eventos"][-1]["fecha_iso"], reverse=True)
+
+    if not grupos:
+        cuerpo = f'<p class="rd-hist-vacio">{i18n_span("Todavía no hay cambios de precio registrados.", "No price changes recorded yet.")}</p>'
+    else:
+        tarjetas = []
+        for clave in orden_grupos:
+            g = grupos[clave]
+            eventos = sorted(g["eventos"], key=lambda e: e["fecha_iso"], reverse=True)
+            ficha = fichas_por_url.get(g["url"])
+            precio_actual = eventos[0]["precio_nuevo"]
+
+            if ficha:
+                titulo_html = f'<a href="{ficha["href"]}">{html.escape(g["modelo"])} {html.escape(g["version"])}</a>'
+            else:
+                titulo_html = (f'{html.escape(g["modelo"])} {html.escape(g["version"])} '
+                                f'<span class="rd-hist-noactivo">{i18n_span("(ya no disponible)", "(no longer available)")}</span>')
+
+            filas = []
+            for ev in eventos:
+                p_ant, p_act = ev["precio_anterior"], ev["precio_nuevo"]
+                baja = p_act < p_ant
+                signo = "▼" if baja else "▲"
+                clase = "rd-hist-baja" if baja else "rd-hist-sube"
+                filas.append(
+                    f'<div class="rd-hist-fila"><span class="rd-hist-fecha">{ev["fecha"]}</span>'
+                    f'<span class="rd-hist-precios">{_formato_eur(p_ant)} → {_formato_eur(p_act)}</span>'
+                    f'<span class="{clase}">{signo} {_formato_eur(abs(p_act - p_ant))}</span></div>'
+                )
+
+            tarjetas.append(f'''<div class="rd-hist-card" data-buscar="{html.escape((g["modelo"]+" "+g["version"]).lower())}">
+    <div class="rd-hist-card-head">
+      <div class="rd-hist-modelo">{titulo_html}</div>
+      <div class="rd-hist-actual">{i18n_span("Precio actual", "Current price")}: <strong>{_formato_eur(precio_actual)}</strong></div>
+    </div>
+    <div class="rd-hist-timeline">
+      {"".join(filas)}
+    </div>
+  </div>''')
+        cuerpo = f'<div class="rd-hist-lista" id="rd-hist-lista">{"".join(tarjetas)}</div>'
+
+    html_out = f'''<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historial de precios · Automóviles Rueda</title>
+<meta name="description" content="Registro de cambios de precio de los coches del catálogo de Automóviles Rueda.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/estilos.css">
+<script src="/assets/idioma.js"></script>
+</head>
+<body class="rd-has-sticky">
+
+<header class="rd-header">
+  <div class="rd-header-brand">
+    <strong>Automóviles Rueda</strong>
+    <span class="rd-header-asesor"><em>Asesor comercial</em>{nombre} · <span class="rd-header-tel">{telefono}</span></span>
+  </div>
+  {header_social_html(perfil["redes"])}
+  {maps_button_html(perfil["maps_url"])}
+  {lang_toggle_html()}
+</header>
+<a class="rd-back" href="../index.html">&#8249; {i18n_span("Volver al catálogo", "Back to catalog")}</a>
+
+<div class="rd-hist-wrap">
+  <h1 class="rd-hist-titulo">{i18n_span("Historial de precios", "Price history")}</h1>
+  <p class="rd-hist-sub">{i18n_span("Cuándo y cuánto cambió el precio de cada coche.", "When and how much each car's price changed.")}</p>
+  <input type="text" id="rd-hist-buscar" class="rd-hist-buscador"
+         placeholder="Buscar por modelo…" data-es-placeholder="Buscar por modelo…" data-en-placeholder="Search by model…"
+         oninput="document.querySelectorAll('.rd-hist-card').forEach(function(c){{c.style.display = c.dataset.buscar.includes(this.value.toLowerCase()) ? '' : 'none';}}, this)">
+  {cuerpo}
+</div>
+
+{footer_whatsapp_html(perfil)}
+{goatcounter_script_html()}
+</body>
+</html>
+'''
+    return html_out
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 def main():
@@ -2013,6 +2131,22 @@ def main():
             fotos_urls = rutas.get(n, [])
         fotos_por_coche[n] = fotos_urls
 
+    # Historial de precios: registro permanente (no se purga), agrupado por
+    # coche en build_historial_precios_html — cargado una sola vez acá.
+    historial_precios = []
+    if HISTORIAL_CAMBIOS_PRECIO_PATH.exists():
+        try:
+            historial_precios = json.loads(HISTORIAL_CAMBIOS_PRECIO_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            historial_precios = []
+    fichas_por_url: dict[str, dict] = {}
+    for car in todos_los_coches:
+        n = car["n"]
+        if n in sin_foto or not car.get("url"):
+            continue
+        slug = slug_coche(car["modelo"])
+        fichas_por_url[car["url"]] = {"href": f"../coches/{n:02d}-{slug}.html"}
+
     # ── Paso 2: generar el sitio completo (index + fichas) una vez por cada
     # perfil de asesor, en su propia carpeta de salida — compartiendo las
     # mismas fotos/CSS/JS (rutas absolutas desde la raíz del dominio). ──────
@@ -2041,6 +2175,11 @@ def main():
         html_index = build_index_html(coches, rutas, perfil, traducciones)
         (out_dir / "index.html").write_text(html_index, encoding="utf-8")
         print(f"  index.html regenerado para {perfil['nombre']} en {out_dir}")
+
+        hist_dir = out_dir / "historial-precios"
+        hist_dir.mkdir(parents=True, exist_ok=True)
+        html_historial = build_historial_precios_html(historial_precios, perfil, fichas_por_url)
+        (hist_dir / "index.html").write_text(html_historial, encoding="utf-8")
 
     print(f"  {len(todos_los_coches)} fichas individuales generadas por perfil")
     print()

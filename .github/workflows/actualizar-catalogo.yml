@@ -129,8 +129,9 @@ jobs:
       - name: Commitear y subir cambios
         run: |
           git add index.html web_fotos/ coches/ assets/ alejandro/ \
+                  historial-precios/ \
                   datos_coches.json historial_precios.json coches_lista.json \
-                  traducciones_cache.json
+                  traducciones_cache.json historial_cambios_precio.json
           git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M')" || echo "Sin cambios que subir"
           git push origin main
 
