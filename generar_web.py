@@ -7,6 +7,7 @@ Lee datos_coches.json, copia fotos a web_fotos/ y genera index.html
 
 import hashlib, html, json, shutil, sys, urllib.parse
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 import requests
 
@@ -299,7 +300,10 @@ def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.
     """Pie de página (contacto + enlace DWA + última actualización) y botón
     flotante de WhatsApp — compartidos entre index.html y las fichas de coche.
     `perfil` trae los datos de contacto del asesor de PERFILES."""
-    ahora = datetime.now().strftime('%d/%m/%Y — %H:%M')
+    # datetime.now() sin tz da la hora UTC del runner de GitHub Actions, no la
+    # de Madrid — por eso el pie mostraba 2h menos que el correo (que sí usa
+    # TZ=Europe/Madrid). Mismo huso horario acá para que coincidan.
+    ahora = datetime.now(ZoneInfo("Europe/Madrid")).strftime('%d/%m/%Y — %H:%M')
     nombre = perfil["nombre"]
     telefono = perfil["telefono"]
     email = perfil["email"]
