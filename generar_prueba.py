@@ -80,7 +80,7 @@ def hero_html(total_disponible: int) -> str:
   </div>
   <div class="rd-hero-bar">
     <div class="rd-hero-count">{total_disponible} coches disponibles ahora</div>
-    <a href="#rd-grid" class="rd-hero-cta">Ver catálogo completo</a>
+    <a href="#rd-catalogo-inicio" class="rd-hero-cta">Ver catálogo completo</a>
   </div>
 </div>
 '''
@@ -172,8 +172,16 @@ body.rd-dark .rd-card { box-shadow: 0 10px 26px rgba(0,0,0,0.5), 0 2px 8px rgba(
 }
 
 /* Etiqueta DGT: solo el círculo, sin el cuadrado blanco de fondo, al doble
-   de tamaño para que se lea qué distintivo es (C, ECO, CERO...). */
+   de tamaño para que se lea qué distintivo es (C, ECO, CERO...). El propio
+   SVG de la pegatina (Wikimedia) trae relleno blanco detrás del círculo —
+   quitar el fondo del contenedor no alcanza, hay que recortar la imagen
+   misma a círculo para que no dependa de qué traiga el archivo. */
 .rd-badge-dgt { width: 64px; height: 64px; background: none; box-shadow: none; padding: 0; border-radius: 0; }
+.rd-badge-dgt img { clip-path: circle(50% at 50% 50%); }
+
+/* El botón "Ver catálogo completo" saltaba a un punto que el header fijo
+   (86px de alto) tapaba parcialmente. */
+#rd-catalogo-inicio { scroll-margin-top: 100px; }
 '''
 
 
@@ -185,10 +193,15 @@ EXTRA_JS = '''
   document.querySelectorAll('.rd-card-media').forEach((media) => {
     const imgs = [...media.querySelectorAll('.rd-card-photos img')];
     const dots = [...media.querySelectorAll('.rd-card-dot')];
+    // Reutiliza la insignia "📷 N" que ya existe en la tarjeta real (hoy es
+    // un total fijo) y la vuelve "posición/total" mientras se recorre.
+    const contador = media.querySelector('.rd-badge-fotos');
+    const totalFotos = imgs.length;
     if (imgs.length < 2) return;
     const setZone = (zone) => {
       imgs.forEach((img, i) => img.classList.toggle('activa', i === zone));
       dots.forEach((d, i) => d.classList.toggle('activa', i === zone));
+      if (contador) contador.textContent = '📷 ' + (zone + 1) + '/' + totalFotos;
     };
     media.addEventListener('mousemove', (e) => {
       const rect = media.getBoundingClientRect();
@@ -196,6 +209,7 @@ EXTRA_JS = '''
       setZone(Math.min(imgs.length - 1, Math.max(0, Math.floor(ratio * imgs.length))));
     });
     media.addEventListener('mouseleave', () => setZone(0));
+    setZone(0); // arranca en "1/N" en vez del "N" fijo que traía la tarjeta
   });
 
   // Modo oscuro
@@ -336,6 +350,9 @@ def inyectar_prueba(html_real: str, hero: str, ficha_prefix: str) -> str:
         '  <button id="rd-dark-toggle" class="rd-dark-toggle"><span id="rd-dark-label">🌙 Modo oscuro</span></button>\n'
         "</header>\n" + hero,
     )
+    # El CTA del hero salta acá — con scroll-margin-top en el CSS extra para
+    # no quedar tapado por el header sticky (86px).
+    html = html.replace('<div class="rd-controls">', '<div class="rd-controls" id="rd-catalogo-inicio">', 1)
     comparador_html = '''
 <div id="rd-tray" class="rd-tray"></div>
 <div id="rd-overlay" class="rd-overlay">

@@ -96,8 +96,16 @@ body.rd-dark .rd-card { box-shadow: 0 10px 26px rgba(0,0,0,0.5), 0 2px 8px rgba(
 }
 
 /* Etiqueta DGT: solo el círculo, sin el cuadrado blanco de fondo, al doble
-   de tamaño para que se lea qué distintivo es (C, ECO, CERO...). */
+   de tamaño para que se lea qué distintivo es (C, ECO, CERO...). El propio
+   SVG de la pegatina (Wikimedia) trae relleno blanco detrás del círculo —
+   quitar el fondo del contenedor no alcanza, hay que recortar la imagen
+   misma a círculo para que no dependa de qué traiga el archivo. */
 .rd-badge-dgt { width: 64px; height: 64px; background: none; box-shadow: none; padding: 0; border-radius: 0; }
+.rd-badge-dgt img { clip-path: circle(50% at 50% 50%); }
+
+/* El botón "Ver catálogo completo" saltaba a un punto que el header fijo
+   (86px de alto) tapaba parcialmente. */
+#rd-catalogo-inicio { scroll-margin-top: 100px; }
 </style>
 </head>
 <body>
@@ -163,12 +171,12 @@ body.rd-dark .rd-card { box-shadow: 0 10px 26px rgba(0,0,0,0.5), 0 2px 8px rgba(
   </div>
   <div class="rd-hero-bar">
     <div class="rd-hero-count">44 coches disponibles ahora</div>
-    <a href="#rd-grid" class="rd-hero-cta">Ver catálogo completo</a>
+    <a href="#rd-catalogo-inicio" class="rd-hero-cta">Ver catálogo completo</a>
   </div>
 </div>
 
 
-<div class="rd-controls">
+<div class="rd-controls" id="rd-catalogo-inicio">
   <div class="rd-filter-tabs">
     <button class="rd-filter-btn activo" data-filter="todos"><span class="rd-i18n" data-es="Todos" data-en="All">Todos</span> (55)</button>
     <button class="rd-filter-btn" data-filter="Disponible"><span class="rd-i18n" data-es="Disponible" data-en="Available">Disponible</span> (44)</button>
@@ -1735,7 +1743,7 @@ document.addEventListener('click', e => {
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 22/09/2026 — 10:11 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 22/09/2026 — 10:35 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">
@@ -1806,10 +1814,15 @@ document.addEventListener('click', e => {
   document.querySelectorAll('.rd-card-media').forEach((media) => {
     const imgs = [...media.querySelectorAll('.rd-card-photos img')];
     const dots = [...media.querySelectorAll('.rd-card-dot')];
+    // Reutiliza la insignia "📷 N" que ya existe en la tarjeta real (hoy es
+    // un total fijo) y la vuelve "posición/total" mientras se recorre.
+    const contador = media.querySelector('.rd-badge-fotos');
+    const totalFotos = imgs.length;
     if (imgs.length < 2) return;
     const setZone = (zone) => {
       imgs.forEach((img, i) => img.classList.toggle('activa', i === zone));
       dots.forEach((d, i) => d.classList.toggle('activa', i === zone));
+      if (contador) contador.textContent = '📷 ' + (zone + 1) + '/' + totalFotos;
     };
     media.addEventListener('mousemove', (e) => {
       const rect = media.getBoundingClientRect();
@@ -1817,6 +1830,7 @@ document.addEventListener('click', e => {
       setZone(Math.min(imgs.length - 1, Math.max(0, Math.floor(ratio * imgs.length))));
     });
     media.addEventListener('mouseleave', () => setZone(0));
+    setZone(0); // arranca en "1/N" en vez del "N" fijo que traía la tarjeta
   });
 
   // Modo oscuro
