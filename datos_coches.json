@@ -7,10 +7,10 @@
     "km": "17.235",
     "fecha": "03/2025",
     "cambio": "Automático",
-    "color": "",
+    "color": "Gris",
     "precio": "21.900",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-116-cv-del-2025-en-malaga/195025777",
     "equipamiento": [
       "Paquete \"Vision Plus\": cámara de marcha atrás + PLA (asistente de aparcamiento incluye sensores delanteros y traseros)",
@@ -35,6 +35,7 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT León - 21.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT León - 21.900€/foto_08.jpg"
     ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT León - 21.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "263.37",
