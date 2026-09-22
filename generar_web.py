@@ -521,12 +521,18 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
                 shutil.copy2(foto, dst)
                 urls.append(f"/web_fotos/{n:02d}/foto_{i:02d}.jpg")
         elif portada_dwa:
-            # Sin carpeta local válida, pero DWA sigue publicando la foto de
-            # portada del anuncio (identidad segura: por URL, no por "n") —
-            # coches reservados incluidos, mientras el anuncio siga activo.
-            (dest / "foto_01.jpg").write_bytes(portada_dwa)
-            urls = [f"/web_fotos/{n:02d}/foto_01.jpg"]
-            print(f"  📸 n={n} {coche['modelo']}: foto de portada verificada de DWA")
+            # Sin carpeta local válida (coche nuevo o carpeta no encontrada),
+            # pero DWA sigue publicando el anuncio (identidad segura: por
+            # URL, no por "n") — coches reservados incluidos, mientras el
+            # anuncio siga activo. Se trae la galería completa, no solo la
+            # portada, para no publicar el coche con 1 sola foto.
+            galeria_dwa = obtener_galeria_dwa_bytes(coche.get("url", ""))
+            if not galeria_dwa:
+                galeria_dwa = [portada_dwa]
+            for i, contenido in enumerate(galeria_dwa, start=1):
+                (dest / f"foto_{i:02d}.jpg").write_bytes(contenido)
+                urls.append(f"/web_fotos/{n:02d}/foto_{i:02d}.jpg")
+            print(f"  📸 n={n} {coche['modelo']}: galería verificada de DWA ({len(galeria_dwa)} fotos)")
         else:
             for _viejo in dest.glob("foto_*.jpg"):
                 _viejo.unlink()
