@@ -38,12 +38,16 @@ jobs:
           HORA=$(TZ=Europe/Madrid date +%H)
           echo "Hora actual en Madrid: ${HORA}h (día ISO ${DIA})"
 
-          EN_VENTANA=no
-          if [ "$HORA" -ge 10 ] && [ "$HORA" -le 12 ]; then EN_VENTANA=si; fi
-          if [ "$HORA" -ge 16 ] && [ "$HORA" -le 19 ]; then EN_VENTANA=si; fi
-
-          if [ "$EN_VENTANA" = "no" ]; then
-            echo "Fuera de las franjas mañana (10-12h) / tarde (16-19h) — se omite."
+          # Revisado el historial real de corridas (gh run list): GitHub
+          # dispara este cron cada 2-7h de forma irregular, no cada 15 min
+          # como está configurado — con dos franjas angostas (10-12h/16-19h)
+          # un salto entre disparos alcanza para dejar AMBAS sin ejecutar el
+          # mismo día (pasó el 21/09: disparos a las 8:25, 15:14 y 20:46,
+          # ninguno cayó dentro de ninguna franja). Por eso es una sola
+          # franja ancha de 9 a 20h: con el peor salto observado (~6h49m)
+          # es prácticamente imposible que una franja de 11h quede vacía.
+          if [ "$HORA" -lt 9 ] || [ "$HORA" -ge 20 ]; then
+            echo "Fuera de la franja 9-20h — se omite."
             echo "correr=no" >> "$GITHUB_OUTPUT"
             exit 0
           fi
