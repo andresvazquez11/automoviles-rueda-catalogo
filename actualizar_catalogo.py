@@ -370,6 +370,15 @@ async def main():
         preservados = []
         preservados_vistos = set()  # deduplicar preservados por identidad física
         expirados = 0
+        # "vendidos" (de comparar(), más abajo) compara contra el scrapeo en
+        # vivo de ESTA corrida — un fallo transitorio de carga en Das
+        # WeltAuto (p.ej. "Ver más" no termina de cargar todos los coches a
+        # tiempo) hace que ESE scrapeo devuelva menos coches de los reales,
+        # y "vendidos" confundiría eso con una venta masiva. retirados_confirmados
+        # es la lista real de coches que la web/PDF/email deben reportar como
+        # vendidos: solo los que el margen de 2 intentos de abajo confirma
+        # genuinamente ausentes, no cualquier desaparición de un solo scrapeo.
+        retirados_confirmados = []
         for ant in anteriores_dwa:
             if id_coche(ant) in vivos_ids:
                 continue  # URL aún activo, ya está en actuales_vivos
@@ -401,6 +410,7 @@ async def main():
             # en los cambios del informe.
             if copia.get("estado") in ("Disponible", "No disponible"):
                 copia["estado"] = "Retirado"
+                retirados_confirmados.append(copia)
 
             # Registrar cuándo desapareció de DWA (solo la primera vez)
             if not copia.get("fecha_reservado"):
@@ -685,8 +695,13 @@ async def main():
         print(f"  🗂  {_archivadas} carpeta(s) huérfana(s) archivadas automáticamente")
 
     # 8) Escribir informe
+    # Usa retirados_confirmados en vez de vendidos (crudo): vendidos compara
+    # contra el scrapeo en vivo de ESTA sola corrida, así que un fallo
+    # transitorio de carga de Das WeltAuto reporta una "venta masiva" falsa.
+    # retirados_confirmados son los que el margen de 2 intentos confirmó
+    # genuinamente ausentes — lo mismo que ya se usa para el email/PDF.
     informe_txt = generar_informe(
-        nuevos, vendidos, cambios, anteriores, actuales,
+        nuevos, retirados_confirmados, cambios, anteriores, actuales,
         cambios_hoy_acum=cambios_hoy_acum,
         n_actualizacion=n_actualizacion
     )
