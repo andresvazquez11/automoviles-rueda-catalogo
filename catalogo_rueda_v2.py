@@ -493,6 +493,23 @@ async def enriquecer_coche(page, car: dict):
         car["equipamiento"] = filtrar_equipamiento(lineas)
         print(f"      Equipamiento: {len(car['equipamiento'])} ítems destacados")
 
+        # ── Extraer color real desde "Datos generales" (ul.generalDates) ──
+        # car["color"] quedaba siempre vacío: se llenaba con una regex sobre
+        # el listado que en realidad capturaba la tracción, no el color. Acá
+        # se lee directo el mismo bloque de specs que ya muestra "Color: X"
+        # en la ficha (icono + <b>Color</b> + <span> con el valor).
+        color_real = await page.evaluate("""
+            () => {
+                const b = [...document.querySelectorAll('ul.generalDates b')]
+                    .find(el => el.textContent.trim() === 'Color');
+                if (!b) return '';
+                const spans = b.closest('li')?.querySelectorAll('span') || [];
+                return spans[1] ? spans[1].textContent.trim() : '';
+            }
+        """)
+        if color_real:
+            car["color"] = color_real
+
         # ── Extraer financiación de Das WeltAuto ───────────────
         await extraer_financiacion(page, car)
 
