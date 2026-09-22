@@ -191,7 +191,7 @@ img { max-width: 100%; display: block; }
 .rd-price-panel .estado.reservado  { background: rgba(200,120,20,0.1); color: #a8641f; border: 1px solid rgba(200,120,20,0.25); }
 .rd-price-panel .precio-block { text-align: right; flex-shrink: 0; }
 .rd-price-panel .precio {
-  font-family: var(--rd-display); font-size: 32px; font-weight: 600;
+  font-family: var(--rd-display); font-size: 42px; font-weight: 600;
   color: var(--rd-red); letter-spacing: 0.2px; line-height: 1;
 }
 
