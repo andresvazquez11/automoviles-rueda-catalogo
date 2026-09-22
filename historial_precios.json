@@ -330,5 +330,17 @@
       "fecha": "2026-09-22",
       "precio": 37900
     }
+  ],
+  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/193535071": [
+    {
+      "fecha": "2026-09-22",
+      "precio": 35900
+    }
+  ],
+  "/esp/concesionario-seat-automoviles-rueda/bmw-serie-1-diesel-150-cv-del-2021-en-malaga/193180663": [
+    {
+      "fecha": "2026-09-22",
+      "precio": 22500
+    }
   ]
 }

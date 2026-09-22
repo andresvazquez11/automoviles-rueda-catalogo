@@ -47,6 +47,22 @@
     ],
     "version_en": "1.0 TSI S&S FR 85 kW (115 HP)"
   },
+  "1c133fb31265f4f5": {
+    "color_en": "Black",
+    "equipamiento_en": [
+      "Heated front seats",
+      "Automatic climate control with automatic air recirculation",
+      "Dual-zone digital climate control for driver and passenger",
+      "Front and rear parking sensors with radar",
+      "Front fog lights, low beam headlights, side indicators, daytime running lights, tail lights, and high beam headlights with LED technology",
+      "Top speed: 218 km/h",
+      "Lighting Package",
+      "Connected Package Professional",
+      "M Sport trim",
+      "M leather steering wheel"
+    ],
+    "version_en": "1 Series 118d Business 110 kW (150 HP)"
+  },
   "1fb000dce1dab542": {
     "color_en": "Grey",
     "equipamiento_en": [
@@ -277,6 +293,22 @@
     ],
     "version_en": "1.0 TSI S&S FR Plus DSG 81 kW (110 HP)"
   },
+  "562d38ce336f6b90": {
+    "color_en": "Black",
+    "equipamiento_en": [
+      "Rear parking sensors",
+      "Top speed: 190 km/h",
+      "Spring Pack",
+      "Digital Cockpit instrument cluster",
+      "16-inch front and rear alloy wheels (6.0-inch width)",
+      "Ellipsoidal LED headlights and LED high beams",
+      "Luxury trim: leather and aluminium gear knob, aluminium-effect center console and dashboard",
+      "12V front power socket(s)",
+      "Cloth seat upholstery (primary and secondary material)",
+      "Three-seater forward-facing rear bench with fixed base and split-folding backrest"
+    ],
+    "version_en": "1.0 TSI Style XM 81 kW (110 hp)"
+  },
   "564cdee7019e0b2a": {
     "color_en": "",
     "equipamiento_en": [
@@ -356,6 +388,22 @@
       "\"Keyless-Go\" central locking without safe lock"
     ],
     "version_en": "2.0 TDI S&S Style XS 85 kW (116 hp)"
+  },
+  "628f15146e41b116": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Park Exit Assist, Lane Change Assist, and Exit Warning System",
+      "Keyless Advanced entry and start system without safelock",
+      "Lane Keeping System with Emergency Assist and Traffic Jam Assist",
+      "Digital sound package",
+      "Front and rear camera system with two side cameras",
+      "3-zone Climatronic climate control with rear control panel",
+      "Cloth upholstery with synthetic leather trim",
+      "Independent climate controls for driver/passenger and front/rear seats",
+      "Tri-zone climate control with rear automatic controls",
+      "Full LED lighting (brake lights, front fog lights, low beam, side indicators, daytime running lights, tail lights, and high beam)"
+    ],
+    "version_en": "1.5 eTSI DSG 110 kW (150 hp)"
   },
   "62cccfea70209b13": {
     "color_en": "",
