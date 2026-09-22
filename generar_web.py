@@ -467,13 +467,15 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
         if fotos_src:
             # Carpeta local verificada (coincide con DWA, o no hay URL para
             # verificar pero es el mejor dato disponible) — usar la galería completa.
-            # La portada debe ser una foto EXTERIOR (fondo claro de showroom),
-            # no simplemente la que quedó primera al ordenar por nombre — DWA
-            # a veces publica una foto de interior en la primera posición del
-            # anuncio, y eso no debe terminar siendo la portada del catálogo.
+            # TODAS las fotos publicadas deben ser EXTERIORES (fondo claro de
+            # showroom) — no solo la portada: la galería completa se usa para
+            # recorrer ángulos del coche (flechas ‹ › y hover), y una foto de
+            # interior/salpicadero mezclada ahí no le sirve al cliente. Si
+            # ninguna de las descargadas pasa el filtro, se usan todas para no
+            # publicar el coche sin foto.
             candidatas = fotos_src[:8]
-            portada = next((f for f in candidatas if _es_foto_exterior(f)), candidatas[0])
-            ordenadas = [portada] + [f for f in candidatas if f != portada]
+            exteriores = [f for f in candidatas if _es_foto_exterior(f)]
+            ordenadas = exteriores if exteriores else candidatas
             for i, foto in enumerate(ordenadas, start=1):
                 dst = dest / f"foto_{i:02d}.jpg"
                 shutil.copy2(foto, dst)
@@ -1497,6 +1499,7 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict) -> str:
       <div>{precio_row}</div>
       <div class="rd-card-cuota">{i18n_span("Desde", "From")} <strong>{cuota:.0f} €/mes</strong></div>
     </div>
+    <button type="button" class="rd-compare-btn">{i18n_span("+ Comparar", "+ Compare")}</button>
   </div>
 </a>'''
 
@@ -1558,9 +1561,23 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
   {header_social_html(perfil["redes"])}
   {maps_button_html(perfil["maps_url"])}
   {lang_toggle_html()}
+  <button id="rd-dark-toggle" class="rd-dark-toggle" type="button"><span id="rd-dark-label">🌙 {i18n_span("Modo oscuro", "Dark mode")}</span></button>
 </header>
 
-<div class="rd-controls">
+<div class="rd-hero">
+  <div class="rd-hero-overlay"></div>
+  <div class="rd-hero-copy">
+    <div class="rd-hero-eyebrow">{i18n_span("Seminuevos con garantía oficial", "Certified pre-owned")}</div>
+    <h1>{i18n_span("Encontrá tu", "Find your")}<br>{i18n_span("próximo coche", "next car")}</h1>
+    <p>{i18n_span("Seminuevos SEAT, CUPRA y Multimarca en Vélez-Málaga, revisados, con garantía oficial y financiación a medida.", "Certified pre-owned SEAT, CUPRA and multi-brand cars in Vélez-Málaga, inspected, with official warranty and tailored financing.")}</p>
+  </div>
+  <div class="rd-hero-bar">
+    <div class="rd-hero-count">{total_disp + total_res} {i18n_span("coches disponibles ahora", "cars available now")}</div>
+    <a href="#rd-catalogo-inicio" class="rd-hero-cta">{i18n_span("Ver catálogo completo", "See full catalog")}</a>
+  </div>
+</div>
+
+<div class="rd-controls" id="rd-catalogo-inicio">
   <div class="rd-filter-tabs">
     <button class="rd-filter-btn activo" data-filter="todos">{i18n_span("Todos", "All")} ({total_disp + total_res})</button>
     <button class="rd-filter-btn" data-filter="Disponible">{i18n_span("Disponible", "Available")} ({total_disp})</button>
@@ -1582,6 +1599,19 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 
 <div class="rd-grid" id="rd-grid">
 {tarjetas}
+</div>
+
+<div id="rd-tray" class="rd-tray"></div>
+<div id="rd-overlay" class="rd-overlay">
+  <div class="rd-overlay-panel">
+    <div class="rd-overlay-head">
+      <div class="rd-overlay-title">{i18n_span("Comparar coches", "Compare cars")}</div>
+      <button id="rd-overlay-close" class="rd-overlay-close" type="button">✕</button>
+    </div>
+    <div class="rd-cmp-wrap">
+      <div id="rd-cmp-cols" class="rd-cmp-cols"></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1686,6 +1716,142 @@ document.addEventListener('click', e => {{
       strip.querySelector('.rd-featured-grid').append(...featured);
       document.querySelector('.rd-controls').insertAdjacentElement('beforebegin', strip);
     }});
+}})();
+
+// ── Modo oscuro ────────────────────────────────────────────────────
+(function() {{
+  const toggle = document.getElementById('rd-dark-toggle');
+  const label = document.getElementById('rd-dark-label');
+  toggle.addEventListener('click', () => {{
+    document.body.classList.toggle('rd-dark');
+    const en = window.rdIdiomaActual && window.rdIdiomaActual() === 'en';
+    label.textContent = document.body.classList.contains('rd-dark')
+      ? (en ? '☀️ Light mode' : '☀️ Modo claro')
+      : (en ? '🌙 Dark mode' : '🌙 Modo oscuro');
+  }});
+}})();
+
+// ── Hover: recorre las fotos exteriores de la tarjeta (flechas ‹ › y
+// dots ya existían; acá se suma pasar el mouse) + contador "pos/total"
+// reutilizando la insignia "📷 N" que antes mostraba solo el total. ──
+document.querySelectorAll('.rd-card-media').forEach(media => {{
+  const imgs = [...media.querySelectorAll('.rd-card-photos img')];
+  const dots = [...media.querySelectorAll('.rd-card-dot')];
+  const contador = media.querySelector('.rd-badge-fotos');
+  const total = imgs.length;
+  if (total < 2) return;
+  const setZone = zone => {{
+    imgs.forEach((img, i) => img.classList.toggle('activa', i === zone));
+    dots.forEach((d, i) => d.classList.toggle('activa', i === zone));
+    if (contador) contador.textContent = '📷 ' + (zone + 1) + '/' + total;
+  }};
+  media.addEventListener('mousemove', e => {{
+    const rect = media.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    setZone(Math.min(total - 1, Math.max(0, Math.floor(ratio * total))));
+  }});
+  media.addEventListener('mouseleave', () => setZone(0));
+  setZone(0);
+}});
+
+// ── Comparador (hasta 3 coches) — funciona también con las tarjetas que
+// clona la franja de Destacados de más arriba, porque el clic se maneja
+// por delegación en <body> en vez de un listener por botón (cloneNode no
+// copia listeners). ──────────────────────────────────────────────────
+(function() {{
+  let compareIds = new Set();
+  const tray = document.getElementById('rd-tray');
+  const overlay = document.getElementById('rd-overlay');
+  const cmpCols = document.getElementById('rd-cmp-cols');
+
+  function datosDeTarjeta(card) {{
+    const img = card.querySelector('.rd-card-photos img.activa') || card.querySelector('.rd-card-photos img');
+    return {{
+      modelo: card.querySelector('.rd-card-modelo').textContent,
+      version: card.querySelector('.rd-card-version').textContent,
+      precio: card.querySelector('.rd-card-precio').textContent,
+      pills: [...card.querySelectorAll('.rd-pill')].map(p => p.textContent),
+      foto: img ? img.src : '',
+    }};
+  }}
+
+  function tarjetaConId(id) {{
+    return document.querySelector('.rd-card[data-id="' + id + '"]');
+  }}
+
+  function toggleCompare(card) {{
+    const id = card.dataset.id;
+    const btn = card.querySelector('.rd-compare-btn');
+    if (compareIds.has(id)) {{
+      compareIds.delete(id);
+      btn.textContent = '+ Comparar';
+      btn.classList.remove('activo');
+    }} else {{
+      if (compareIds.size >= 3) {{ alert('Máximo 3 coches para comparar'); return; }}
+      compareIds.add(id);
+      btn.textContent = '✓ Comparando';
+      btn.classList.add('activo');
+    }}
+    renderTray();
+  }}
+
+  function renderTray() {{
+    if (compareIds.size === 0) {{ tray.style.display = 'none'; tray.innerHTML = ''; return; }}
+    tray.style.display = 'flex';
+    const chips = [...compareIds].map(id => {{
+      const card = tarjetaConId(id);
+      const modelo = card ? card.querySelector('.rd-card-modelo').textContent : id;
+      return '<span class="rd-tray-chip">' + modelo + ' <span data-id="' + id + '" class="rd-tray-x">✕</span></span>';
+    }}).join('');
+    tray.innerHTML =
+      '<span class="rd-tray-label">Comparando ' + compareIds.size + '</span>' +
+      '<div class="rd-tray-chips">' + chips + '</div>' +
+      '<button id="rd-tray-btn" class="rd-tray-btn" type="button">Ver comparación</button>' +
+      '<button id="rd-tray-clear" class="rd-tray-clear" type="button" title="Vaciar comparación" aria-label="Vaciar comparación">✕</button>';
+    tray.querySelectorAll('.rd-tray-x').forEach(x => x.addEventListener('click', e => {{
+      e.preventDefault();
+      const card = tarjetaConId(e.target.dataset.id);
+      if (card) toggleCompare(card); else {{ compareIds.delete(e.target.dataset.id); renderTray(); }}
+    }}));
+    document.getElementById('rd-tray-clear').addEventListener('click', () => {{
+      [...compareIds].forEach(id => {{
+        const card = tarjetaConId(id);
+        if (!card) return;
+        const btn = card.querySelector('.rd-compare-btn');
+        btn.textContent = '+ Comparar';
+        btn.classList.remove('activo');
+      }});
+      compareIds.clear();
+      overlay.style.display = 'none';
+      renderTray();
+    }});
+    document.getElementById('rd-tray-btn').addEventListener('click', () => {{
+      const datos = [...compareIds].map(id => tarjetaConId(id)).filter(Boolean).map(datosDeTarjeta);
+      cmpCols.innerHTML = datos.map(c => (
+        '<div class="rd-cmp-col">' +
+          '<img src="' + c.foto + '">' +
+          '<div class="rd-cmp-col-body">' +
+            '<div class="rd-cmp-modelo">' + c.modelo + '</div>' +
+            '<div class="rd-cmp-version">' + c.version + '</div>' +
+            '<div class="rd-cmp-precio">' + c.precio + '</div>' +
+            '<div class="rd-cmp-pills">' + c.pills.map(p => '<span>' + p + '</span>').join('') + '</div>' +
+          '</div>' +
+        '</div>'
+      )).join('');
+      overlay.style.display = 'flex';
+    }});
+  }}
+
+  document.getElementById('rd-overlay-close').addEventListener('click', () => {{ overlay.style.display = 'none'; }});
+
+  document.body.addEventListener('click', e => {{
+    const btn = e.target.closest('.rd-compare-btn');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const card = btn.closest('.rd-card');
+    if (card) toggleCompare(card);
+  }});
 }})();
 </script>
 {footer_whatsapp_html(perfil)}

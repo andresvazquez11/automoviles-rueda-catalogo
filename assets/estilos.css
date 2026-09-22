@@ -575,3 +575,137 @@ img { max-width: 100%; display: block; }
   body.rd-has-sticky .rd-wa-popup { bottom: 138px; }
 }
 .rd-vendido-banner a { color: var(--rd-red); text-decoration: underline; margin-left: 8px; }
+
+/* ══════════════════════════════════════════════════════════════════
+   Rediseño del catálogo (hero, comparador, modo oscuro) — probado
+   primero en /prueba/ antes de pasar acá.
+   ══════════════════════════════════════════════════════════════════ */
+
+.rd-dark-toggle {
+  cursor: pointer; border: none; background: rgba(255,255,255,0.14); color: #fff;
+  padding: 8px 14px; border-radius: 999px; font-family: var(--rd-font);
+  font-size: 12.5px; font-weight: 600; white-space: nowrap;
+}
+
+/* ── Hero ── */
+.rd-hero {
+  position: relative; width: 100%; height: 560px; overflow: hidden;
+  background-image: url(/assets/hero-portada.jpg); background-size: cover;
+  background-position: center 40%; background-attachment: fixed;
+}
+.rd-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(100deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 38%, rgba(0,0,0,.05) 62%, rgba(0,0,0,0) 78%);
+}
+.rd-hero-copy { position: relative; z-index: 2; max-width: 600px; padding: 80px 0 0 48px; }
+.rd-hero-eyebrow {
+  color: var(--rd-red); font-family: var(--rd-display); font-weight: 600; font-size: 14px;
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;
+}
+.rd-hero h1 {
+  margin: 0 0 18px 0; font-family: var(--rd-display); font-weight: 700; font-size: 58px;
+  line-height: .98; letter-spacing: -1px; text-transform: uppercase; color: #fff;
+}
+.rd-hero p { margin: 0; font-size: 17px; line-height: 1.5; color: #e8e8e8; max-width: 440px; }
+.rd-hero-bar {
+  position: absolute; z-index: 3; bottom: 32px; right: 48px; width: 260px;
+  background: rgba(13,13,13,.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.18); border-radius: 16px; padding: 16px 18px;
+}
+.rd-hero-count { font-size: 12.5px; color: #d9d9d9; margin-bottom: 12px; }
+.rd-hero-cta {
+  display: block; text-align: center; text-decoration: none; background: var(--rd-red);
+  color: #fff; font-weight: 700; font-size: 14px; padding: 11px 0; border-radius: 10px;
+}
+#rd-catalogo-inicio { scroll-margin-top: 100px; }
+@media (max-width: 640px) {
+  .rd-hero { height: 460px; background-attachment: scroll; }
+  .rd-hero-copy { padding: 48px 20px 0; max-width: 100%; }
+  .rd-hero h1 { font-size: 40px; }
+  .rd-hero-bar { left: 20px; right: 20px; width: auto; bottom: 20px; }
+}
+
+/* ── Tarjetas: separar el fondo de página del blanco de las tarjetas
+   (antes casi no se distinguían) + botón de comparar ── */
+:root { --rd-bg: #e7e4db; }
+.rd-card { box-shadow: 0 10px 26px rgba(20,17,15,0.14), 0 2px 8px rgba(20,17,15,0.08); }
+.rd-compare-btn {
+  cursor: pointer; width: calc(100% - 28px); margin: 10px 14px 14px 14px; background: transparent;
+  color: var(--rd-ink); border: 1px solid var(--rd-border); border-radius: 10px; padding: 9px 0;
+  font-family: var(--rd-font); font-size: 12.5px; font-weight: 600;
+}
+.rd-compare-btn.activo { background: var(--rd-red); color: #fff; border-color: var(--rd-red); }
+
+/* Navegar fotos en mobile/touch: sin mouse no hay hover, y las flechas
+   ‹ › solo se mostraban al pasar el mouse — invisibles siempre en un
+   dispositivo táctil. Acá se muestran fijas cuando el navegador ya avisa
+   que no hay hover real. */
+@media (hover: none) {
+  .rd-card-nav { opacity: 1; }
+}
+
+/* Etiqueta DGT: solo el círculo — el SVG de Wikimedia trae relleno blanco
+   detrás del círculo, así que hay que recortar la imagen, no solo sacarle
+   el fondo al contenedor. */
+.rd-badge-dgt { width: 64px; height: 64px; background: none; box-shadow: none; padding: 0; border-radius: 0; }
+.rd-badge-dgt img { clip-path: circle(50% at 50% 50%); }
+
+/* ── Modo oscuro: sobreescribe las mismas variables que ya usa todo el
+   resto de esta hoja de estilos, así header, buscador, tarjetas,
+   destacados y pie de página cambian juntos. Única excepción: el header
+   usa --rd-ink como FONDO (siempre oscuro), así que se fija aparte. ── */
+body.rd-dark {
+  --rd-bg: #0d0d0d; --rd-surface: #1a1a1a; --rd-ink: #f2f2f2;
+  --rd-ink-soft: #c9c6c0; --rd-muted: #8f8b85; --rd-border: #2e2e2e;
+}
+body.rd-dark .rd-header { background: #14110f; }
+body.rd-dark .rd-card { box-shadow: 0 10px 26px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3); }
+
+/* ── Comparador ── */
+.rd-tray {
+  display: none; position: fixed; z-index: 60; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: #14110f; border-radius: 999px; padding: 10px 10px 10px 20px; align-items: center; gap: 14px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.35);
+}
+.rd-tray-label { color: #cfcfcf; font-size: 13px; white-space: nowrap; }
+.rd-tray-chips { display: flex; gap: 6px; }
+.rd-tray-chip {
+  background: #2a2622; color: #fff; font-size: 12px; padding: 6px 10px; border-radius: 999px;
+  display: flex; align-items: center; gap: 6px; white-space: nowrap;
+}
+.rd-tray-x { cursor: pointer; opacity: .6; }
+.rd-tray-btn {
+  background: var(--rd-red); color: #fff; border: none; border-radius: 999px; padding: 10px 18px;
+  font-family: var(--rd-font); font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap;
+}
+.rd-tray-clear { background: none; border: none; color: #cfcfcf; font-size: 20px; line-height: 1; cursor: pointer; padding: 4px 2px; }
+.rd-tray-clear:hover { color: #fff; }
+
+.rd-overlay {
+  display: none; position: fixed; inset: 0; z-index: 70; background: rgba(0,0,0,.6);
+  align-items: center; justify-content: center; padding: 40px;
+}
+.rd-overlay-panel {
+  background: var(--rd-surface); color: var(--rd-ink); border-radius: 20px; max-width: 860px;
+  width: 100%; max-height: 86vh; overflow: auto; padding: 28px;
+}
+.rd-overlay-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.rd-overlay-title { font-family: var(--rd-display); font-weight: 700; font-size: 22px; text-transform: uppercase; }
+.rd-overlay-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--rd-ink); }
+.rd-cmp-wrap { display: flex; align-items: flex-start; overflow-x: auto; }
+.rd-cmp-cols { display: flex; align-items: flex-start; }
+.rd-cmp-col { width: 220px; flex-shrink: 0; border-left: 1px solid var(--rd-border); }
+.rd-cmp-col:first-child { border-left: none; }
+.rd-cmp-col img { width: 100%; height: 150px; object-fit: cover; display: block; border-radius: 10px 10px 0 0; }
+.rd-cmp-col-body { padding: 12px 14px; }
+.rd-cmp-modelo { font-family: var(--rd-display); font-weight: 700; font-size: 16px; text-transform: uppercase; }
+.rd-cmp-version { font-size: 12px; color: var(--rd-ink-soft); margin: 2px 0 10px 0; }
+.rd-cmp-precio { font-family: var(--rd-display); font-weight: 700; font-size: 20px; color: var(--rd-red); margin-bottom: 10px; }
+.rd-cmp-pills {
+  display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; color: var(--rd-ink-soft);
+  border-top: 1px solid var(--rd-border); padding-top: 10px;
+}
+@media (max-width: 640px) {
+  .rd-overlay { padding: 12px; }
+  .rd-overlay-panel { padding: 18px; max-height: 92vh; }
+}
