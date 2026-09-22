@@ -467,15 +467,15 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
         if fotos_src:
             # Carpeta local verificada (coincide con DWA, o no hay URL para
             # verificar pero es el mejor dato disponible) — usar la galería completa.
-            # TODAS las fotos publicadas deben ser EXTERIORES (fondo claro de
-            # showroom) — no solo la portada: la galería completa se usa para
-            # recorrer ángulos del coche (flechas ‹ › y hover), y una foto de
-            # interior/salpicadero mezclada ahí no le sirve al cliente. Si
-            # ninguna de las descargadas pasa el filtro, se usan todas para no
-            # publicar el coche sin foto.
+            # La PORTADA debe ser exterior (fondo claro de showroom), pero el
+            # resto de la galería se conserva igual aunque incluya interiores:
+            # descartarlas dejaba a muchos coches con 1 sola foto publicada,
+            # porque DWA suele intercalar interiores entre las primeras 8 fotos.
+            # Solo se reordena para que las exteriores vayan primero.
             candidatas = fotos_src[:8]
             exteriores = [f for f in candidatas if _es_foto_exterior(f)]
-            ordenadas = exteriores if exteriores else candidatas
+            interiores = [f for f in candidatas if f not in exteriores]
+            ordenadas = exteriores + interiores if exteriores else candidatas
             for i, foto in enumerate(ordenadas, start=1):
                 dst = dest / f"foto_{i:02d}.jpg"
                 shutil.copy2(foto, dst)
