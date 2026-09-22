@@ -11,7 +11,7 @@ from zoneinfo import ZoneInfo
 from pathlib import Path
 import requests
 
-from catalogo_rueda_v2 import _es_foto_exterior
+from catalogo_rueda_v2 import _es_foto_exterior, nombre_carpeta
 
 BASE_DIR   = Path(__file__).parent
 JSON_PATH  = BASE_DIR / "datos_coches.json"
@@ -425,6 +425,25 @@ def obtener_galeria_dwa_bytes(url_relativa: str, max_fotos: int = 8) -> list[byt
             break
     return fotos
 
+def _guardar_galeria_en_cache(coche: dict, galeria_dwa: list[bytes]) -> None:
+    """Guarda la galería verificada también en fotos/ — la carpeta que se
+    restaura como caché entre corridas del workflow en la nube (GitHub
+    Actions cache), no una carpeta en la computadora de nadie. Si esto no se
+    guarda acá, la comparación de portada de la próxima actualización vuelve
+    a fallar contra la misma carpeta vieja, y cada actualización repetiría la
+    descarga completa de 8 fotos por coche en vez de reusar la caché."""
+    try:
+        nombre = nombre_carpeta(coche["n"], coche["modelo"], coche.get("precio", ""),
+                                 coche.get("estado", "Disponible"))
+        carpeta_cache = FOTOS_DIR / nombre
+        carpeta_cache.mkdir(parents=True, exist_ok=True)
+        for _viejo in carpeta_cache.glob("foto_*.jpg"):
+            _viejo.unlink()
+        for i, contenido in enumerate(galeria_dwa, start=1):
+            (carpeta_cache / f"foto_{i:02d}.jpg").write_bytes(contenido)
+    except Exception:
+        pass  # la caché es una optimización — si falla, no debe romper la publicación
+
 # ── Utilidades de carpeta ────────────────────────────────────────────────────
 
 def find_car_folder(n: int, modelo: str, precio: str = ""):
@@ -494,6 +513,7 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
             if galeria_dwa:
                 print(f"  ⚠️  n={n} {coche['modelo']}: la carpeta local NO coincide con la foto real de DWA "
                       f"— descartada, se descarga la galería completa directo de DWA ({len(galeria_dwa)} fotos)")
+                _guardar_galeria_en_cache(coche, galeria_dwa)
                 for i, contenido in enumerate(galeria_dwa, start=1):
                     dst = dest / f"foto_{i:02d}.jpg"
                     dst.write_bytes(contenido)
@@ -529,6 +549,7 @@ def copiar_fotos(coches: list[dict]) -> dict[int, list[str]]:
             galeria_dwa = obtener_galeria_dwa_bytes(coche.get("url", ""))
             if not galeria_dwa:
                 galeria_dwa = [portada_dwa]
+            _guardar_galeria_en_cache(coche, galeria_dwa)
             for i, contenido in enumerate(galeria_dwa, start=1):
                 (dest / f"foto_{i:02d}.jpg").write_bytes(contenido)
                 urls.append(f"/web_fotos/{n:02d}/foto_{i:02d}.jpg")
