@@ -244,23 +244,5 @@
     "modelo": "CUPRA Formentor",
     "precio": "33.500",
     "foto": "/web_fotos/52/foto_01.jpg"
-  },
-  {
-    "id": "mf-193539157",
-    "modelo": "CUPRA Formentor",
-    "precio": "35.900",
-    "foto": "/web_fotos/53/foto_01.jpg"
-  },
-  {
-    "id": "mf-193187299",
-    "modelo": "BMW Serie 1",
-    "precio": "22.500",
-    "foto": "/web_fotos/54/foto_01.jpg"
-  },
-  {
-    "id": "mf-168212671",
-    "modelo": "Nissan Qashqai",
-    "precio": "17.500",
-    "foto": "/web_fotos/55/foto_01.jpg"
   }
 ]
