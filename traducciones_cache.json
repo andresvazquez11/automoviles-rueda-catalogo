@@ -47,6 +47,22 @@
     ],
     "version_en": "1.0 TSI S&S FR 85 kW (115 HP)"
   },
+  "1fb000dce1dab542": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Top speed: 180 km/h",
+      "Grey upholstery with 3D pattern",
+      "16-inch front and rear steel wheels (6.5\" width)",
+      "LED headlights with complex surface lens and LED high beam",
+      "12V front power socket",
+      "Cloth seats (primary and secondary material)",
+      "Three-passenger rear bench seat with fixed cushion and split-folding backrest",
+      "Height- and reach-adjustable synthetic leather multifunction steering wheel",
+      "Rearview mirror / camera",
+      "Speed limiter"
+    ],
+    "version_en": "Evolution E-Tech full hybrid 145 105 kW (143 hp)"
+  },
   "204ec81c37babde9": {
     "color_en": "",
     "equipamiento_en": [
@@ -126,6 +142,22 @@
       "Three-passenger forward-facing rear bench seat with fixed cushion and asymmetrical split-folding backrest"
     ],
     "version_en": "1.0 TSI FR Special Edition 85 kW (115 hp)"
+  },
+  "36b2a651d5fac70c": {
+    "color_en": "Blue",
+    "equipamiento_en": [
+      "Petrol Blue leather upholstery + Power adjustable driver's seat + Heated front seats",
+      "Cloth seats (primary material) with synthetic leather trim (secondary material)",
+      "Individual climate control settings for driver, front passenger, and rear passengers",
+      "Tri-zone automatic climate control with rear digital controls",
+      "Full LED lighting: brake lights, front fog lights, low beams, side indicators, daytime running lights, tail lights, and high beams",
+      "Top speed: 203 km/h",
+      "Matte Petrol Blue (Leather)",
+      "18-inch front and rear alloy wheels (8.0-inch width)",
+      "Ellipsoidal headlights with full LED low and high beams",
+      "Luxury interior finishes: aluminum-look center console and door panels, synthetic leather and aluminum-effect dashboard"
+    ],
+    "version_en": "1.5 TSI DSG 110 kW (150 HP)"
   },
   "3ad613a4f3bba66f": {
     "color_en": "",
@@ -386,6 +418,22 @@
     ],
     "version_en": "1.5 eTSI DSG 110 kW (150 HP)"
   },
+  "641765d74a36a4ac": {
+    "color_en": "Blue",
+    "equipamiento_en": [
+      "Front radar parking sensors, rear radar parking sensors and camera",
+      "Seat upholstery - Suedia/Leather",
+      "VARIOFLEX seats, removable LED light, and boot cargo securing features",
+      "Lane Keeping Assist",
+      "Dual-zone digital climate control for driver and front passenger",
+      "Top speed: -",
+      "LED Package",
+      "17\" SCUTUS Aero alloy wheels with matte black aerodynamic trim",
+      "Multimedia Pack L",
+      "Front centre armrest \"JUMBO BOX\" with 230V power inverter and 2x rear USB ports"
+    ],
+    "version_en": "2.0 TDI Ambition 85 kW (115 hp)"
+  },
   "675d5889fa1e7413": {
     "color_en": "",
     "equipamiento_en": [
@@ -623,6 +671,22 @@
     ],
     "version_en": "1.5 TSI e-Hybrid DSG 150 kW (204 HP)"
   },
+  "7ae096a2819e3c22": {
+    "color_en": "Blue",
+    "equipamiento_en": [
+      "Top speed: 198 km/h",
+      "Vision Plus Pack",
+      "16-inch front and rear alloy wheels, 6.5 inches wide (40.6, 16.5, PG4)",
+      "Headlights with complex surface lenses, LED main bulbs, and LED high beams",
+      "Luxury finishes: aluminium and leather gear shift knob, piano black door panels, and synthetic leather dashboard",
+      "12V power outlet(s) in front seats",
+      "Cloth upholstery (primary material) and cloth (secondary material)",
+      "Driver and front passenger sports seats with manual fore-aft, height, and backrest adjustment",
+      "Three-passenger forward-facing rear bench with split seat base and asymmetric folding backrest",
+      "Leather-wrapped multifunction steering wheel with height and reach adjustment"
+    ],
+    "version_en": "1.0 TSI S&S FR XS 85 kW (115 hp)"
+  },
   "7dc6865a12da40f9": {
     "color_en": "",
     "equipamiento_en": [
@@ -732,6 +796,22 @@
       "Traffic Sign Recognition",
       "CarPlay",
       "Speed Limiter"
+    ],
+    "version_en": "1.0 TSI FR Special Edition 85 kW (115 HP)"
+  },
+  "8e99f5f8d0f2d75d": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Front, rear, and side parking sensors with rear-view camera",
+      "Top speed: 193 km/h",
+      "Sentinel Pack: Blind spot detection + Rear cross-traffic alert",
+      "18-inch front and rear alloy wheels (7.0 inches wide)",
+      "Full LED headlights with ellipsoidal lenses and LED high beam",
+      "Luxury interior trim: leather and aluminium gear shift knob, piano black centre console and door inserts, leather and aluminium dashboard trim",
+      "12V power outlet in the front",
+      "Cloth upholstery (primary and secondary material)",
+      "Driver and front passenger sports seats with manual fore-aft, height, and backrest adjustment",
+      "3-seater forward-facing fold-flat rear bench seat with fixed cushion and split-folding backrest"
     ],
     "version_en": "1.0 TSI FR Special Edition 85 kW (115 HP)"
   },
@@ -1006,6 +1086,22 @@
       "Speed limiter"
     ],
     "version_en": "1.5 TSI e-Hybrid DSG 150 kW (204 HP)"
+  },
+  "af1a713f6b22877a": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Rear parking sensors",
+      "Top speed: 218 km/h",
+      "16-inch front and rear alloy wheels (6.5-inch width, 40.6, 16.5 and 5EV)",
+      "12V power outlet(s) for front seats",
+      "Cloth upholstery (primary and secondary fabric)",
+      "Two-seater front-facing rear sport bench with fixed base and split-folding backrest",
+      "Height-adjustable leather and aluminum multifunction steering wheel",
+      "Speed-sensitive electric power steering",
+      "Front and rear cup holders",
+      "Ventilation system with pollen filter and engine heater"
+    ],
+    "version_en": "1.4 16v T-Jet 595 121 kW (165 hp)"
   },
   "bbc14f1efe4482b3": {
     "color_en": "",
@@ -1312,6 +1408,22 @@
       "Park Assist system"
     ],
     "version_en": "1.0 TSI S&S FR 85 kW (115 hp)"
+  },
+  "f71fd7605adf6653": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Independent climate controls for driver, front passenger, and rear seats",
+      "Tri-zone automatic climate control with rear controls",
+      "Front and rear parking sensors with backup camera and side parking assist",
+      "Full LED lighting: brake lights, front fog lights, low and high beams, side indicators, daytime running lights, and tail lights",
+      "Top speed: 225 km/h",
+      "19-inch two-tone alloy wheels (19\" x 8.0\" front and rear)",
+      "Ellipsoidal headlights with LED low and high beams",
+      "12V power outlet(s) in the front seating area",
+      "Cloth upholstery with vinyl trim",
+      "Front sports seats for driver and passenger with manual fore/aft, height, lumbar, and backrest adjustment"
+    ],
+    "version_en": "1.4 e-Hybrid DSG 180 kW (245 hp)"
   },
   "f9a74a78981a463b": {
     "color_en": "",
