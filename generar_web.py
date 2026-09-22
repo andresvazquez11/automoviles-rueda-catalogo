@@ -1416,7 +1416,6 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict)
   </div>
   {header_social_html(perfil["redes"])}
   {maps_button_html(perfil["maps_url"])}
-  {historial_precios_btn_html(perfil)}
   {lang_toggle_html()}
 </header>
 <a class="rd-back" href="../index.html">&#8249; {i18n_span("Volver al catálogo", "Back to catalog")}</a>
@@ -1628,7 +1627,6 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
   </div>
   {header_social_html(perfil["redes"])}
   {maps_button_html(perfil["maps_url"])}
-  {historial_precios_btn_html(perfil)}
   {lang_toggle_html()}
   <button id="rd-dark-toggle" class="rd-dark-toggle" type="button"><span id="rd-dark-label">🌙 {i18n_span("Modo oscuro", "Dark mode")}</span></button>
 </header>
@@ -1934,21 +1932,15 @@ document.querySelectorAll('.rd-card-media').forEach(media => {{
 
 HISTORIAL_CAMBIOS_PRECIO_PATH = BASE_DIR / "historial_cambios_precio.json"
 
-def historial_precios_btn_html(perfil: dict) -> str:
-    """Enlace del header hacia la página de historial de precios — mismo
-    estilo que maps_button_html (icono + texto que se colapsa en mobile)."""
-    prefix = f"/{perfil['carpeta']}" if perfil.get("carpeta") else ""
-    return f'''<a class="rd-maps-btn" href="{prefix}/historial-precios/index.html" aria-label="Historial de precios">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-4 4"/></svg>
-    <span class="rd-maps-btn-label">{i18n_span("Historial de precios", "Price history")}</span>
-  </a>'''
-
 def _formato_eur(valor: float) -> str:
     return f"{valor:,.0f}".replace(",", ".") + "€"
 
 def build_historial_precios_html(historial: list[dict], perfil: dict, fichas_por_url: dict) -> str:
     """Página con el registro permanente de cambios de precio, agrupado por
-    coche — para poder ver cuándo y cuánto bajó/subió cada uno."""
+    coche — para poder ver cuándo y cuánto bajó/subió cada uno. De uso
+    INTERNO: no lleva enlace desde ningún lado del catálogo público (solo
+    accesible por quien tenga la URL directa) y se marca noindex para que
+    no aparezca en buscadores."""
     datos = datos_perfil(perfil)
     nombre = datos["nombre"]
     telefono = datos["telefono"]
@@ -2012,6 +2004,7 @@ def build_historial_precios_html(historial: list[dict], perfil: dict, fichas_por
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Historial de precios · Automóviles Rueda</title>
 <meta name="description" content="Registro de cambios de precio de los coches del catálogo de Automóviles Rueda.">
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/estilos.css">
