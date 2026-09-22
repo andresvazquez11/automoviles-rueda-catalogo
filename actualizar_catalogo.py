@@ -264,10 +264,13 @@ def registrar_historial_cambios_precio(cambios: list):
             "precio_nuevo":    entry["precio_nuevo"],
         })
 
-    if eventos:
-        HISTORIAL_CAMBIOS_PRECIO.write_text(
-            json.dumps(eventos, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
+    # Se escribe SIEMPRE (aunque no haya eventos nuevos esta corrida) para que
+    # el archivo exista desde la primera corrida — si no, "git add" del
+    # workflow falla con "pathspec did not match any files" cuando todavía
+    # no hubo ningún cambio de precio, y aborta el commit de TODO lo demás.
+    HISTORIAL_CAMBIOS_PRECIO.write_text(
+        json.dumps(eventos, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
 
 def generar_informe(nuevos, vendidos, cambios, anteriores, actuales,
                     cambios_hoy_acum=None, n_actualizacion=1):
