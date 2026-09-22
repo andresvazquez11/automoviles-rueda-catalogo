@@ -139,24 +139,25 @@ jobs:
         if: success()
         run: |
           python3 - <<'PY'
-          import json, os
+          import os, uuid
           from pathlib import Path
-          ruta = Path("resumen_hoy.json")
+          # informe_cambios.txt trae el detalle coche por coche (nuevo,
+          # vendido, reservado, subida/bajada de precio) — lo mismo que
+          # aparece en la página 1 del PDF, pero en texto plano para leer
+          # en el correo sin tener que abrirlo.
+          ruta = Path("informe_cambios.txt")
           if ruta.exists():
-              r = json.loads(ruta.read_text(encoding="utf-8"))
-              t = r.get("totales", {})
-              cuerpo = (
-                  f"Coches disponibles: {t.get('disponibles', '?')}\n"
-                  f"Reservados: {t.get('no_disp', '?')}\n"
-                  f"Nuevos hoy: {len(r.get('nuevos', []))}\n"
-                  f"Vendidos hoy: {len(r.get('vendidos', []))}\n"
-              )
+              cuerpo = ruta.read_text(encoding="utf-8")
           else:
-              cuerpo = "(no se encontró resumen_hoy.json — revisar el log de esta corrida)"
+              cuerpo = "(no se encontró informe_cambios.txt — revisar el log de esta corrida)"
+          # Delimitador aleatorio: si el informe alguna vez contuviera la
+          # palabra "EOF" en una línea propia, un delimitador fijo cortaría
+          # el cuerpo del correo a la mitad.
+          delim = f"EOF_{uuid.uuid4().hex}"
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
-              f.write("cuerpo<<EOF\n")
+              f.write(f"cuerpo<<{delim}\n")
               f.write(cuerpo + "\n")
-              f.write("EOF\n")
+              f.write(f"{delim}\n")
           PY
 
       - name: Calcular fecha para el asunto del correo
