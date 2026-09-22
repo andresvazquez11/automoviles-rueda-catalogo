@@ -354,6 +354,23 @@ initCards();
 """
 
 
-if __name__ == "__main__":
+def main():
     coches = cargar_coches()
     print(f"Coches cargados para la página de prueba: {len(coches)}")
+
+    OUT_DIR.mkdir(exist_ok=True)
+    (OUT_DIR / "assets").mkdir(exist_ok=True)
+
+    if HERO_SRC.exists():
+        shutil.copy(HERO_SRC, OUT_DIR / "assets" / "hero.jpg")
+        print("Foto del hero copiada a prueba/assets/hero.jpg")
+    else:
+        print(f"⚠️  No se encontró {HERO_SRC} — prueba/assets/hero.jpg no se va a generar, el hero va a quedar sin foto de fondo.")
+
+    html = construir_html(coches)
+    (OUT_DIR / "index.html").write_text(html, encoding="utf-8")
+    print(f"✅ prueba/index.html generado ({len(html)} caracteres, {len(coches)} coches)")
+
+
+if __name__ == "__main__":
+    main()

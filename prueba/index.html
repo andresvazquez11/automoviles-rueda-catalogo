@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PRUEBA — Automóviles Rueda (rediseño)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+body { margin: 0; box-sizing: border-box; font-family: 'Work Sans', sans-serif; background: #ffffff; color: #141414; }
+*, *::before, *::after { box-sizing: inherit; }
+
+.rd-banner-prueba { background: #ffb020; color: #1a1400; text-align: center; font-size: 13px; font-weight: 700; padding: 8px 0; }
+
+.rd-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: #0d0d0d; }
+.rd-logo { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 22px; color: #fff; text-transform: uppercase; }
+.rd-header-right { display: flex; align-items: center; gap: 28px; }
+.rd-header-sub { color: #cfcfcf; font-size: 14px; }
+.rd-toggle { cursor: pointer; border: none; background: #1c1c1c; color: #fff; padding: 9px 16px; border-radius: 999px; font-family: 'Work Sans', sans-serif; font-size: 13px; font-weight: 600; }
+
+.rd-hero { position: relative; width: 100%; height: 640px; overflow: hidden;
+  background-image: url(assets/hero.jpg); background-size: cover; background-position: center 40%;
+  background-attachment: fixed; }
+.rd-hero-overlay { position: absolute; inset: 0;
+  background: linear-gradient(100deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 38%, rgba(0,0,0,.05) 62%, rgba(0,0,0,0) 78%); }
+.rd-hero-copy { position: relative; z-index: 2; max-width: 620px; padding: 96px 0 0 56px; }
+.rd-hero-eyebrow { color: #c8102e; font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px; }
+.rd-hero h1 { margin: 0 0 20px 0; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 64px; line-height: .98; letter-spacing: -1px; text-transform: uppercase; color: #fff; }
+.rd-hero p { margin: 0; font-size: 18px; line-height: 1.5; color: #e8e8e8; max-width: 460px; }
+.rd-hero-bar { position: absolute; z-index: 3; bottom: 40px; right: 56px; width: 280px;
+  background: rgba(13,13,13,.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.18); border-radius: 16px; padding: 18px 20px; }
+.rd-hero-chips { display: flex; gap: 6px; margin-bottom: 12px; }
+.rd-chip { padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.4); }
+.rd-chip-on { background: #0d0d0d; border-color: #0d0d0d; }
+.rd-hero-count { font-size: 12.5px; color: #d9d9d9; margin-bottom: 12px; }
+.rd-cta { display: block; text-align: center; text-decoration: none; background: #c8102e; color: #fff; font-weight: 700; font-size: 14px; padding: 12px 0; border-radius: 10px; }
+
+.rd-catalogo { padding: 72px 56px 140px 56px; }
+.rd-catalogo h2 { margin: 0 0 8px 0; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 34px; text-transform: uppercase; letter-spacing: -.5px; }
+.rd-catalogo-sub { margin: 0 0 40px 0; color: #6b6b6b; font-size: 15px; }
+.rd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 28px; }
+
+.rd-card { background: #fff; border: 1px solid #e7e7e7; border-radius: 16px; overflow: hidden; transition: transform .2s, box-shadow .2s; display: flex; flex-direction: column; }
+.rd-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,.16); }
+.rd-card-photo { position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden; cursor: pointer; }
+.rd-card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rd-counter { position: absolute; top: 10px; left: 10px; background: rgba(13,13,13,.75); color: #fff; font-size: 12px; font-weight: 600; padding: 4px 9px; border-radius: 999px; }
+.rd-dots { position: absolute; top: 10px; left: 0; right: 0; display: flex; gap: 4px; padding: 0 10px; }
+.rd-dot { flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,.6); }
+.rd-dot-on { background: #c8102e; }
+.rd-card-body { display: block; padding: 18px 18px 0 18px; text-decoration: none; color: inherit; }
+.rd-card-modelo { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 18px; text-transform: uppercase; }
+.rd-card-version { font-size: 13px; color: #6b6b6b; margin: 2px 0 12px 0; }
+.rd-card-precio { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 24px; color: #c8102e; margin-bottom: 12px; }
+.rd-card-specs { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: #6b6b6b; border-top: 1px solid #e7e7e7; padding-top: 12px; }
+.rd-compare-btn { cursor: pointer; width: calc(100% - 36px); margin: 12px 18px 18px 18px; background: transparent; color: #141414; border: 1px solid #dcdcdc; border-radius: 10px; padding: 10px 0; font-family: 'Work Sans', sans-serif; font-size: 13px; font-weight: 600; }
+.rd-compare-btn.activo { background: #c8102e; color: #fff; border-color: #c8102e; }
+
+.rd-tray { display: none; position: fixed; z-index: 40; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: #0d0d0d; border-radius: 999px; padding: 10px 10px 10px 20px; align-items: center; gap: 14px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+.rd-tray-label { color: #cfcfcf; font-size: 13px; white-space: nowrap; }
+.rd-tray-chips { display: flex; gap: 6px; }
+.rd-tray-chip { background: #1c1c1c; color: #fff; font-size: 12px; padding: 6px 10px; border-radius: 999px; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.rd-tray-x { cursor: pointer; opacity: .6; }
+.rd-tray-btn { background: #c8102e; color: #fff; border: none; border-radius: 999px; padding: 10px 18px; font-family: 'Work Sans', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+
+.rd-overlay { display: none; position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.6); align-items: center; justify-content: center; padding: 40px; }
+.rd-overlay-panel { background: #fff; border-radius: 20px; max-width: 840px; width: 100%; max-height: 86vh; overflow: auto; padding: 28px; }
+.rd-overlay-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.rd-overlay-title { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 22px; text-transform: uppercase; }
+.rd-overlay-close { background: none; border: none; font-size: 20px; cursor: pointer; }
+.rd-cmp-wrap { display: flex; align-items: flex-start; overflow-x: auto; }
+.rd-cmp-labels { width: 130px; flex-shrink: 0; }
+.rd-cmp-spacer { height: 140px; }
+.rd-cmp-label-row { height: 46px; display: flex; align-items: center; font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .3px; }
+.rd-cmp-cols { display: flex; }
+.rd-cmp-col { width: 200px; flex-shrink: 0; border-left: 1px solid #e7e7e7; }
+.rd-cmp-col img { width: 100%; height: 140px; object-fit: cover; display: block; }
+.rd-cmp-row { height: 46px; display: flex; align-items: center; padding: 0 14px; font-size: 13px; }
+.rd-cmp-strong { font-weight: 700; }
+.rd-cmp-small { color: #6b6b6b; font-size: 12px; }
+.rd-cmp-accent { color: #c8102e; font-weight: 700; }
+
+body.dark { background: #0d0d0d; color: #f2f2f2; }
+body.dark .rd-card { background: #171717; border-color: #2b2b2b; }
+body.dark .rd-card-version, body.dark .rd-catalogo-sub, body.dark .rd-cmp-small { color: #a6a6a6; }
+body.dark .rd-card-specs { border-top-color: #2b2b2b; }
+body.dark .rd-compare-btn { color: #f2f2f2; border-color: #2b2b2b; }
+body.dark .rd-overlay-panel { background: #171717; color: #f2f2f2; }
+body.dark .rd-cmp-col { border-left-color: #2b2b2b; }
+
+</style>
+</head>
+<body>
+
+<div class="rd-banner-prueba">🧪 PÁGINA DE PRUEBA — rediseño en exploración, no es la versión en producción</div>
+
+<div class="rd-header">
+  <div class="rd-logo">Automóviles Rueda</div>
+  <div class="rd-header-right">
+    <span class="rd-header-sub">Vélez-Málaga · SEAT · CUPRA · Volkswagen</span>
+    <button id="rd-dark-toggle" class="rd-toggle">
+      <span id="rd-dark-label">🌙 Modo oscuro</span>
+    </button>
+  </div>
+</div>
+
+<div class="rd-hero">
+  <div class="rd-hero-overlay"></div>
+  <div class="rd-hero-copy">
+    <div class="rd-hero-eyebrow">Seminuevos con garantía oficial</div>
+    <h1>Encontrá tu<br>próximo coche</h1>
+    <p>Seminuevos SEAT, CUPRA y Volkswagen en Vélez-Málaga, revisados, con garantía oficial y financiación a medida.</p>
+  </div>
+  <div class="rd-hero-bar">
+    <div class="rd-hero-chips">
+      <span class="rd-chip rd-chip-on">Todos</span>
+      <span class="rd-chip">Disponible</span>
+      <span class="rd-chip">Km 0</span>
+    </div>
+    <div class="rd-hero-count">42 coches disponibles ahora</div>
+    <a href="#catalogo" class="rd-cta">Ver catálogo completo</a>
+  </div>
+</div>
+
+<div id="catalogo" class="rd-catalogo">
+  <h2>Catálogo destacado</h2>
+  <p class="rd-catalogo-sub">Pasá el mouse sobre la foto para ver más ángulos</p>
+  <div class="rd-grid">
+    <div class="rd-card" data-n="1">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/01/foto_01.jpg" alt="SEAT Ibiza">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/01-seat-ibiza.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Ibiza</div>
+        <div class="rd-card-version">1.0 TSI Special Edition 85 kW (115 CV)</div>
+        <div class="rd-card-precio">18.300 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 12.335 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="2">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/02/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/02-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.0 TSI FR Special Edition 85 kW (115 CV)</div>
+        <div class="rd-card-precio">21.300 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 10.454 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="3">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/03/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/03-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.5 TSI FR DSG 110 kW (150 CV)</div>
+        <div class="rd-card-precio">17.800 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 39.218 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="4">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/04/foto_01.jpg" alt="ŠKODA Karoq">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/04-koda-karoq.html" class="rd-card-body">
+        <div class="rd-card-modelo">ŠKODA Karoq</div>
+        <div class="rd-card-version">2.0 TDI Ambition 85 kW (115 CV)</div>
+        <div class="rd-card-precio">21.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Diésel</span>
+          <span>🛣️ 91.250 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="5">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/05/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/05-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.0 TSI Style XM 81 kW (110 CV)</div>
+        <div class="rd-card-precio">15.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 31.525 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="6">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/06/foto_01.jpg" alt="CUPRA Formentor">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/06-cupra-formentor.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Formentor</div>
+        <div class="rd-card-version">1.5 TSI DSG 110 kW (150 CV)</div>
+        <div class="rd-card-precio">24.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 44.978 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="7">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/07/foto_01.jpg" alt="CUPRA Formentor">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/07-cupra-formentor.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Formentor</div>
+        <div class="rd-card-version">1.5 TSI e-Hybrid DSG 150 kW (204 CV)</div>
+        <div class="rd-card-precio">37.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Híbrido</span>
+          <span>🛣️ 50 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="8">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/08/foto_01.jpg" alt="SEAT Ibiza">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/08-seat-ibiza.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Ibiza</div>
+        <div class="rd-card-version">1.0 TSI S&S FR XS 85 kW (115 CV)</div>
+        <div class="rd-card-precio">17.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 23.295 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="9">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/09/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/09-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.0 TSI Style Special Edition 85 kW (115 CV)</div>
+        <div class="rd-card-precio">18.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 8.194 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="10">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/10/foto_01.jpg" alt="SEAT Ibiza">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/10-seat-ibiza.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Ibiza</div>
+        <div class="rd-card-version">1.0 TSI S&S Style 85 kW (115 CV)</div>
+        <div class="rd-card-precio">20.600 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 50 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="12">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/12/foto_01.jpg" alt="CUPRA Terramar">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/12-cupra-terramar.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Terramar</div>
+        <div class="rd-card-version">1.5 eTSI Beyond DSG 110 kW (150 CV)</div>
+        <div class="rd-card-precio">37.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Mild Hybrid</span>
+          <span>🛣️ 100 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="13">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/13/foto_01.jpg" alt="CUPRA Formentor">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/13-cupra-formentor.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Formentor</div>
+        <div class="rd-card-version">1.5 eTSI DSG 110 kW (150 CV)</div>
+        <div class="rd-card-precio">33.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Mild Hybrid</span>
+          <span>🛣️ 5.300 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="14">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/14/foto_01.jpg" alt="CUPRA Formentor">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/14-cupra-formentor.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Formentor</div>
+        <div class="rd-card-version">1.5 TSI e-Hybrid DSG 150 kW (204 CV)</div>
+        <div class="rd-card-precio">36.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Híbrido</span>
+          <span>🛣️ 1.600 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="15">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/15/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/15-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.0 TSI Style Special Edition 85 kW (115 CV)</div>
+        <div class="rd-card-precio">18.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 11.793 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="16">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/16/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/16-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.0 TSI Style Special Edition 85 kW (115 CV)</div>
+        <div class="rd-card-precio">18.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 14.996 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="17">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/17/foto_01.jpg" alt="SEAT León">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/17-seat-leon.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT León</div>
+        <div class="rd-card-version">ST 1.5 TSI S&S FR Special Edition 110 kW (150 CV)</div>
+        <div class="rd-card-precio">27.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 50 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="20">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/20/foto_01.jpg" alt="CUPRA Terramar">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/20-cupra-terramar.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Terramar</div>
+        <div class="rd-card-version">1.5 TSI e-Hybrid DSG 150 kW (204 CV)</div>
+        <div class="rd-card-precio">40.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Híbrido</span>
+          <span>🛣️ 3.500 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="21">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/21/foto_01.jpg" alt="SEAT Ibiza">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/21-seat-ibiza.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Ibiza</div>
+        <div class="rd-card-version">1.0 TSI S&S Style 85 kW (115 CV)</div>
+        <div class="rd-card-precio">20.700 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 50 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="22">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/22/foto_01.jpg" alt="SEAT Ibiza">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/22-seat-ibiza.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Ibiza</div>
+        <div class="rd-card-version">1.0 TSI S&S Style 85 kW (115 CV)</div>
+        <div class="rd-card-precio">20.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 100 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="23">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/23/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/23-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.0 TSI Style Special Edition 85 kW (115 CV)</div>
+        <div class="rd-card-precio">18.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 14.278 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="24">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/24/foto_01.jpg" alt="CUPRA León">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/24-cupra-leon.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA León</div>
+        <div class="rd-card-version">1.5 TSI e-Hybrid DSG 150 kW (204 CV)</div>
+        <div class="rd-card-precio">34.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Híbrido</span>
+          <span>🛣️ 3.600 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="25">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/25/foto_01.jpg" alt="CUPRA León">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/25-cupra-leon.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA León</div>
+        <div class="rd-card-version">1.4 e-Hybrid DSG 180 kW (245 CV)</div>
+        <div class="rd-card-precio">25.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Híbrido</span>
+          <span>🛣️ 65.890 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="26">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/26/foto_01.jpg" alt="CUPRA Formentor">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/26-cupra-formentor.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Formentor</div>
+        <div class="rd-card-version">1.5 TSI e-Hybrid DSG 150 kW (204 CV)</div>
+        <div class="rd-card-precio">33.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Híbrido</span>
+          <span>🛣️ 9.519 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="27">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/27/foto_01.jpg" alt="CUPRA Formentor">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/27-cupra-formentor.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Formentor</div>
+        <div class="rd-card-version">1.5 TSI e-Hybrid DSG 150 kW (204 CV)</div>
+        <div class="rd-card-precio">33.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Híbrido</span>
+          <span>🛣️ 5.250 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="30">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/30/foto_01.jpg" alt="CUPRA Tavascan">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/30-cupra-tavascan.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Tavascan</div>
+        <div class="rd-card-version">77kWh Endurance First Edition 210 kW (286 CV)</div>
+        <div class="rd-card-precio">43.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Eléctrico</span>
+          <span>🛣️ 50 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="31">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/31/foto_01.jpg" alt="Abarth 500">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/31-abarth-500.html" class="rd-card-body">
+        <div class="rd-card-modelo">Abarth 500</div>
+        <div class="rd-card-version">1.4 16v T-Jet 595 121 kW (165 CV)</div>
+        <div class="rd-card-precio">18.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 77.890 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="32">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/32/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/32-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.0 TSI Style Special Edition 85 kW (115 CV)</div>
+        <div class="rd-card-precio">18.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 10.643 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="33">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/33/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/33-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.0 TSI Xperience Special Edition 85 kW (115 CV)</div>
+        <div class="rd-card-precio">19.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 12.506 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="34">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/34/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/34-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.0 TSI Style Plus 81 kW (110 CV)</div>
+        <div class="rd-card-precio">16.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 77.564 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="35">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/35/foto_01.jpg" alt="CUPRA Terramar">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/35-cupra-terramar.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Terramar</div>
+        <div class="rd-card-version">1.5 eTSI DSG 110 kW (150 CV)</div>
+        <div class="rd-card-precio">37.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Mild Hybrid</span>
+          <span>🛣️ 3.280 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="36">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/36/foto_01.jpg" alt="Renault Clio">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/36-renault-clio.html" class="rd-card-body">
+        <div class="rd-card-modelo">Renault Clio</div>
+        <div class="rd-card-version">Evolution E-Tech full hybrid 145 105 kW (143 CV)</div>
+        <div class="rd-card-precio">19.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Híbrido</span>
+          <span>🛣️ 10.495 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="37">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/37/foto_01.jpg" alt="CUPRA Tavascan">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/37-cupra-tavascan.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Tavascan</div>
+        <div class="rd-card-version">77kWh Endurance 210 kW (286 CV)</div>
+        <div class="rd-card-precio">35.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Eléctrico</span>
+          <span>🛣️ 22.510 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="38">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/38/foto_01.jpg" alt="SEAT Arona">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/38-seat-arona.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Arona</div>
+        <div class="rd-card-version">1.0 TSI S&S FR 85 kW (115 CV)</div>
+        <div class="rd-card-precio">22.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 550 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="39">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/39/foto_01.jpg" alt="SEAT León">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/39-seat-leon.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT León</div>
+        <div class="rd-card-version">1.5 eTSI S&S FR Special Edition DSG 110 kW (150 CV)</div>
+        <div class="rd-card-precio">27.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Mild Hybrid</span>
+          <span>🛣️ 1.500 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="41">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/41/foto_01.jpg" alt="SEAT León">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/41-seat-leon.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT León</div>
+        <div class="rd-card-version">1.5 eTSI S&S FR Special Edition DSG 110 kW (150 CV)</div>
+        <div class="rd-card-precio">28.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Mild Hybrid</span>
+          <span>🛣️ 1.550 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="43">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/43/foto_01.jpg" alt="SEAT Ibiza">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/43-seat-ibiza.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT Ibiza</div>
+        <div class="rd-card-version">1.0 TSI S&S Style 85 kW (115 CV)</div>
+        <div class="rd-card-precio">20.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 350 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="44">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/44/foto_01.jpg" alt="CUPRA Leon">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/44-cupra-leon.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Leon</div>
+        <div class="rd-card-version">Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)</div>
+        <div class="rd-card-precio">41.300 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Híbrido</span>
+          <span>🛣️ 150 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="45">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/45/foto_01.jpg" alt="CUPRA Formentor">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/45-cupra-formentor.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Formentor</div>
+        <div class="rd-card-version">1.5 TSI 110 kW (150 CV)</div>
+        <div class="rd-card-precio">29.900 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 14.172 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="46">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/46/foto_01.jpg" alt="CUPRA Formentor">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/46-cupra-formentor.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Formentor</div>
+        <div class="rd-card-version">1.5 TSI e-Hybrid DSG 150 kW (204 CV)</div>
+        <div class="rd-card-precio">35.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Híbrido</span>
+          <span>🛣️ 100 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="47">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/47/foto_01.jpg" alt="CUPRA Leon">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/47-cupra-leon.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Leon</div>
+        <div class="rd-card-version">Sportstourer 1.5 eTSI DSG 110 kW (150 CV)</div>
+        <div class="rd-card-precio">29.800 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Mild Hybrid</span>
+          <span>🛣️ 19.946 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="48">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/48/foto_01.jpg" alt="CUPRA Formentor">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/48-cupra-formentor.html" class="rd-card-body">
+        <div class="rd-card-modelo">CUPRA Formentor</div>
+        <div class="rd-card-version">2.5 TSI VZ5 Taiga Grey 4Drive DSG 287 kW (390 CV)</div>
+        <div class="rd-card-precio">46.500 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Gasolina</span>
+          <span>🛣️ 30.747 km</span>
+          <span>⚙️ Automático</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+    <div class="rd-card" data-n="50">
+      <div class="rd-card-photo">
+        <img src="/web_fotos/50/foto_01.jpg" alt="SEAT León">
+        <div class="rd-counter">1/8</div>
+        <div class="rd-dots"><div class="rd-dot rd-dot-on"></div><div class="rd-dot"></div><div class="rd-dot"></div></div>
+      </div>
+      <a href="/coches/50-seat-leon.html" class="rd-card-body">
+        <div class="rd-card-modelo">SEAT León</div>
+        <div class="rd-card-version">2.0 TDI S&S Style XS 85 kW (116 CV)</div>
+        <div class="rd-card-precio">22.700 €</div>
+        <div class="rd-card-specs">
+          <span>⛽ Diésel</span>
+          <span>🛣️ 10.493 km</span>
+          <span>⚙️ Manual</span>
+        </div>
+      </a>
+      <button class="rd-compare-btn">+ Comparar</button>
+    </div>
+  </div>
+</div>
+
+<div id="rd-tray" class="rd-tray"></div>
+
+<div id="rd-overlay" class="rd-overlay">
+  <div class="rd-overlay-panel">
+    <div class="rd-overlay-head">
+      <div class="rd-overlay-title">Comparar coches</div>
+      <button id="rd-overlay-close" class="rd-overlay-close">✕</button>
+    </div>
+    <div class="rd-cmp-wrap">
+      <div class="rd-cmp-labels">
+        <div class="rd-cmp-spacer"></div>
+        <div class="rd-cmp-label-row">Modelo</div>
+        <div class="rd-cmp-label-row">Versión</div>
+        <div class="rd-cmp-label-row">Precio</div>
+        <div class="rd-cmp-label-row">Km</div>
+        <div class="rd-cmp-label-row">Combustible</div>
+        <div class="rd-cmp-label-row">Cambio</div>
+      </div>
+      <div id="rd-cmp-cols" class="rd-cmp-cols"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const CARS = [{"n": 1, "modelo": "SEAT Ibiza", "version": "1.0 TSI Special Edition 85 kW (115 CV)", "precio": "18.300", "km": "12.335", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/01-seat-ibiza.html", "fotos": ["/web_fotos/01/foto_01.jpg", "/web_fotos/01/foto_02.jpg", "/web_fotos/01/foto_03.jpg"], "total_fotos": 8}, {"n": 2, "modelo": "SEAT Arona", "version": "1.0 TSI FR Special Edition 85 kW (115 CV)", "precio": "21.300", "km": "10.454", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/02-seat-arona.html", "fotos": ["/web_fotos/02/foto_01.jpg", "/web_fotos/02/foto_02.jpg", "/web_fotos/02/foto_03.jpg"], "total_fotos": 8}, {"n": 3, "modelo": "SEAT Arona", "version": "1.5 TSI FR DSG 110 kW (150 CV)", "precio": "17.800", "km": "39.218", "cambio": "Automático", "combustible": "Gasolina", "estado": "No disponible", "ficha": "/coches/03-seat-arona.html", "fotos": ["/web_fotos/03/foto_01.jpg", "/web_fotos/03/foto_02.jpg", "/web_fotos/03/foto_03.jpg"], "total_fotos": 8}, {"n": 4, "modelo": "ŠKODA Karoq", "version": "2.0 TDI Ambition 85 kW (115 CV)", "precio": "21.500", "km": "91.250", "cambio": "Manual", "combustible": "Diésel", "estado": "Disponible", "ficha": "/coches/04-koda-karoq.html", "fotos": ["/web_fotos/04/foto_01.jpg", "/web_fotos/04/foto_02.jpg", "/web_fotos/04/foto_03.jpg"], "total_fotos": 8}, {"n": 5, "modelo": "SEAT Arona", "version": "1.0 TSI Style XM 81 kW (110 CV)", "precio": "15.900", "km": "31.525", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/05-seat-arona.html", "fotos": ["/web_fotos/05/foto_01.jpg", "/web_fotos/05/foto_02.jpg", "/web_fotos/05/foto_03.jpg"], "total_fotos": 8}, {"n": 6, "modelo": "CUPRA Formentor", "version": "1.5 TSI DSG 110 kW (150 CV)", "precio": "24.900", "km": "44.978", "cambio": "Automático", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/06-cupra-formentor.html", "fotos": ["/web_fotos/06/foto_01.jpg", "/web_fotos/06/foto_02.jpg", "/web_fotos/06/foto_03.jpg"], "total_fotos": 8}, {"n": 7, "modelo": "CUPRA Formentor", "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)", "precio": "37.500", "km": "50", "cambio": "Automático", "combustible": "Híbrido", "estado": "Disponible", "ficha": "/coches/07-cupra-formentor.html", "fotos": ["/web_fotos/07/foto_01.jpg", "/web_fotos/07/foto_02.jpg", "/web_fotos/07/foto_03.jpg"], "total_fotos": 8}, {"n": 8, "modelo": "SEAT Ibiza", "version": "1.0 TSI S&S FR XS 85 kW (115 CV)", "precio": "17.900", "km": "23.295", "cambio": "Manual", "combustible": "Gasolina", "estado": "No disponible", "ficha": "/coches/08-seat-ibiza.html", "fotos": ["/web_fotos/08/foto_01.jpg", "/web_fotos/08/foto_02.jpg", "/web_fotos/08/foto_03.jpg"], "total_fotos": 8}, {"n": 9, "modelo": "SEAT Arona", "version": "1.0 TSI Style Special Edition 85 kW (115 CV)", "precio": "18.900", "km": "8.194", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/09-seat-arona.html", "fotos": ["/web_fotos/09/foto_01.jpg", "/web_fotos/09/foto_02.jpg", "/web_fotos/09/foto_03.jpg"], "total_fotos": 8}, {"n": 10, "modelo": "SEAT Ibiza", "version": "1.0 TSI S&S Style 85 kW (115 CV)", "precio": "20.600", "km": "50", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/10-seat-ibiza.html", "fotos": ["/web_fotos/10/foto_01.jpg", "/web_fotos/10/foto_02.jpg", "/web_fotos/10/foto_03.jpg"], "total_fotos": 8}, {"n": 12, "modelo": "CUPRA Terramar", "version": "1.5 eTSI Beyond DSG 110 kW (150 CV)", "precio": "37.900", "km": "100", "cambio": "Automático", "combustible": "Mild Hybrid", "estado": "Disponible", "ficha": "/coches/12-cupra-terramar.html", "fotos": ["/web_fotos/12/foto_01.jpg", "/web_fotos/12/foto_02.jpg", "/web_fotos/12/foto_03.jpg"], "total_fotos": 8}, {"n": 13, "modelo": "CUPRA Formentor", "version": "1.5 eTSI DSG 110 kW (150 CV)", "precio": "33.500", "km": "5.300", "cambio": "Automático", "combustible": "Mild Hybrid", "estado": "Disponible", "ficha": "/coches/13-cupra-formentor.html", "fotos": ["/web_fotos/13/foto_01.jpg", "/web_fotos/13/foto_02.jpg", "/web_fotos/13/foto_03.jpg"], "total_fotos": 8}, {"n": 14, "modelo": "CUPRA Formentor", "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)", "precio": "36.900", "km": "1.600", "cambio": "Automático", "combustible": "Híbrido", "estado": "Disponible", "ficha": "/coches/14-cupra-formentor.html", "fotos": ["/web_fotos/14/foto_01.jpg", "/web_fotos/14/foto_02.jpg", "/web_fotos/14/foto_03.jpg"], "total_fotos": 8}, {"n": 15, "modelo": "SEAT Arona", "version": "1.0 TSI Style Special Edition 85 kW (115 CV)", "precio": "18.900", "km": "11.793", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/15-seat-arona.html", "fotos": ["/web_fotos/15/foto_01.jpg", "/web_fotos/15/foto_02.jpg", "/web_fotos/15/foto_03.jpg"], "total_fotos": 8}, {"n": 16, "modelo": "SEAT Arona", "version": "1.0 TSI Style Special Edition 85 kW (115 CV)", "precio": "18.900", "km": "14.996", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/16-seat-arona.html", "fotos": ["/web_fotos/16/foto_01.jpg", "/web_fotos/16/foto_02.jpg", "/web_fotos/16/foto_03.jpg"], "total_fotos": 8}, {"n": 17, "modelo": "SEAT León", "version": "ST 1.5 TSI S&S FR Special Edition 110 kW (150 CV)", "precio": "27.900", "km": "50", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/17-seat-leon.html", "fotos": ["/web_fotos/17/foto_01.jpg", "/web_fotos/17/foto_02.jpg", "/web_fotos/17/foto_03.jpg"], "total_fotos": 8}, {"n": 20, "modelo": "CUPRA Terramar", "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)", "precio": "40.500", "km": "3.500", "cambio": "Automático", "combustible": "Híbrido", "estado": "Disponible", "ficha": "/coches/20-cupra-terramar.html", "fotos": ["/web_fotos/20/foto_01.jpg", "/web_fotos/20/foto_02.jpg", "/web_fotos/20/foto_03.jpg"], "total_fotos": 8}, {"n": 21, "modelo": "SEAT Ibiza", "version": "1.0 TSI S&S Style 85 kW (115 CV)", "precio": "20.700", "km": "50", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/21-seat-ibiza.html", "fotos": ["/web_fotos/21/foto_01.jpg", "/web_fotos/21/foto_02.jpg", "/web_fotos/21/foto_03.jpg"], "total_fotos": 8}, {"n": 22, "modelo": "SEAT Ibiza", "version": "1.0 TSI S&S Style 85 kW (115 CV)", "precio": "20.900", "km": "100", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/22-seat-ibiza.html", "fotos": ["/web_fotos/22/foto_01.jpg", "/web_fotos/22/foto_02.jpg", "/web_fotos/22/foto_03.jpg"], "total_fotos": 8}, {"n": 23, "modelo": "SEAT Arona", "version": "1.0 TSI Style Special Edition 85 kW (115 CV)", "precio": "18.900", "km": "14.278", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/23-seat-arona.html", "fotos": ["/web_fotos/23/foto_01.jpg", "/web_fotos/23/foto_02.jpg", "/web_fotos/23/foto_03.jpg"], "total_fotos": 8}, {"n": 24, "modelo": "CUPRA León", "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)", "precio": "34.900", "km": "3.600", "cambio": "Automático", "combustible": "Híbrido", "estado": "Disponible", "ficha": "/coches/24-cupra-leon.html", "fotos": ["/web_fotos/24/foto_01.jpg", "/web_fotos/24/foto_02.jpg", "/web_fotos/24/foto_03.jpg"], "total_fotos": 8}, {"n": 25, "modelo": "CUPRA León", "version": "1.4 e-Hybrid DSG 180 kW (245 CV)", "precio": "25.500", "km": "65.890", "cambio": "Automático", "combustible": "Híbrido", "estado": "Disponible", "ficha": "/coches/25-cupra-leon.html", "fotos": ["/web_fotos/25/foto_01.jpg", "/web_fotos/25/foto_02.jpg", "/web_fotos/25/foto_03.jpg"], "total_fotos": 8}, {"n": 26, "modelo": "CUPRA Formentor", "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)", "precio": "33.900", "km": "9.519", "cambio": "Automático", "combustible": "Híbrido", "estado": "Disponible", "ficha": "/coches/26-cupra-formentor.html", "fotos": ["/web_fotos/26/foto_01.jpg", "/web_fotos/26/foto_02.jpg", "/web_fotos/26/foto_03.jpg"], "total_fotos": 8}, {"n": 27, "modelo": "CUPRA Formentor", "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)", "precio": "33.500", "km": "5.250", "cambio": "Automático", "combustible": "Híbrido", "estado": "Disponible", "ficha": "/coches/27-cupra-formentor.html", "fotos": ["/web_fotos/27/foto_01.jpg", "/web_fotos/27/foto_02.jpg", "/web_fotos/27/foto_03.jpg"], "total_fotos": 8}, {"n": 30, "modelo": "CUPRA Tavascan", "version": "77kWh Endurance First Edition 210 kW (286 CV)", "precio": "43.900", "km": "50", "cambio": "Automático", "combustible": "Eléctrico", "estado": "Disponible", "ficha": "/coches/30-cupra-tavascan.html", "fotos": ["/web_fotos/30/foto_01.jpg", "/web_fotos/30/foto_02.jpg", "/web_fotos/30/foto_03.jpg"], "total_fotos": 8}, {"n": 31, "modelo": "Abarth 500", "version": "1.4 16v T-Jet 595 121 kW (165 CV)", "precio": "18.500", "km": "77.890", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/31-abarth-500.html", "fotos": ["/web_fotos/31/foto_01.jpg", "/web_fotos/31/foto_02.jpg", "/web_fotos/31/foto_03.jpg"], "total_fotos": 8}, {"n": 32, "modelo": "SEAT Arona", "version": "1.0 TSI Style Special Edition 85 kW (115 CV)", "precio": "18.900", "km": "10.643", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/32-seat-arona.html", "fotos": ["/web_fotos/32/foto_01.jpg", "/web_fotos/32/foto_02.jpg", "/web_fotos/32/foto_03.jpg"], "total_fotos": 8}, {"n": 33, "modelo": "SEAT Arona", "version": "1.0 TSI Xperience Special Edition 85 kW (115 CV)", "precio": "19.900", "km": "12.506", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/33-seat-arona.html", "fotos": ["/web_fotos/33/foto_01.jpg", "/web_fotos/33/foto_02.jpg", "/web_fotos/33/foto_03.jpg"], "total_fotos": 8}, {"n": 34, "modelo": "SEAT Arona", "version": "1.0 TSI Style Plus 81 kW (110 CV)", "precio": "16.500", "km": "77.564", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/34-seat-arona.html", "fotos": ["/web_fotos/34/foto_01.jpg", "/web_fotos/34/foto_02.jpg", "/web_fotos/34/foto_03.jpg"], "total_fotos": 8}, {"n": 35, "modelo": "CUPRA Terramar", "version": "1.5 eTSI DSG 110 kW (150 CV)", "precio": "37.500", "km": "3.280", "cambio": "Automático", "combustible": "Mild Hybrid", "estado": "Disponible", "ficha": "/coches/35-cupra-terramar.html", "fotos": ["/web_fotos/35/foto_01.jpg", "/web_fotos/35/foto_02.jpg", "/web_fotos/35/foto_03.jpg"], "total_fotos": 8}, {"n": 36, "modelo": "Renault Clio", "version": "Evolution E-Tech full hybrid 145 105 kW (143 CV)", "precio": "19.900", "km": "10.495", "cambio": "Automático", "combustible": "Híbrido", "estado": "Disponible", "ficha": "/coches/36-renault-clio.html", "fotos": ["/web_fotos/36/foto_01.jpg", "/web_fotos/36/foto_02.jpg", "/web_fotos/36/foto_03.jpg"], "total_fotos": 8}, {"n": 37, "modelo": "CUPRA Tavascan", "version": "77kWh Endurance 210 kW (286 CV)", "precio": "35.900", "km": "22.510", "cambio": "Automático", "combustible": "Eléctrico", "estado": "Disponible", "ficha": "/coches/37-cupra-tavascan.html", "fotos": ["/web_fotos/37/foto_01.jpg", "/web_fotos/37/foto_02.jpg", "/web_fotos/37/foto_03.jpg"], "total_fotos": 8}, {"n": 38, "modelo": "SEAT Arona", "version": "1.0 TSI S&S FR 85 kW (115 CV)", "precio": "22.900", "km": "550", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/38-seat-arona.html", "fotos": ["/web_fotos/38/foto_01.jpg", "/web_fotos/38/foto_02.jpg", "/web_fotos/38/foto_03.jpg"], "total_fotos": 8}, {"n": 39, "modelo": "SEAT León", "version": "1.5 eTSI S&S FR Special Edition DSG 110 kW (150 CV)", "precio": "27.900", "km": "1.500", "cambio": "Automático", "combustible": "Mild Hybrid", "estado": "Disponible", "ficha": "/coches/39-seat-leon.html", "fotos": ["/web_fotos/39/foto_01.jpg", "/web_fotos/39/foto_02.jpg", "/web_fotos/39/foto_03.jpg"], "total_fotos": 8}, {"n": 41, "modelo": "SEAT León", "version": "1.5 eTSI S&S FR Special Edition DSG 110 kW (150 CV)", "precio": "28.500", "km": "1.550", "cambio": "Automático", "combustible": "Mild Hybrid", "estado": "Disponible", "ficha": "/coches/41-seat-leon.html", "fotos": ["/web_fotos/41/foto_01.jpg", "/web_fotos/41/foto_02.jpg", "/web_fotos/41/foto_03.jpg"], "total_fotos": 8}, {"n": 43, "modelo": "SEAT Ibiza", "version": "1.0 TSI S&S Style 85 kW (115 CV)", "precio": "20.500", "km": "350", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/43-seat-ibiza.html", "fotos": ["/web_fotos/43/foto_01.jpg", "/web_fotos/43/foto_02.jpg", "/web_fotos/43/foto_03.jpg"], "total_fotos": 8}, {"n": 44, "modelo": "CUPRA Leon", "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)", "precio": "41.300", "km": "150", "cambio": "Automático", "combustible": "Híbrido", "estado": "Disponible", "ficha": "/coches/44-cupra-leon.html", "fotos": ["/web_fotos/44/foto_01.jpg", "/web_fotos/44/foto_02.jpg", "/web_fotos/44/foto_03.jpg"], "total_fotos": 8}, {"n": 45, "modelo": "CUPRA Formentor", "version": "1.5 TSI 110 kW (150 CV)", "precio": "29.900", "km": "14.172", "cambio": "Manual", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/45-cupra-formentor.html", "fotos": ["/web_fotos/45/foto_01.jpg", "/web_fotos/45/foto_02.jpg", "/web_fotos/45/foto_03.jpg"], "total_fotos": 8}, {"n": 46, "modelo": "CUPRA Formentor", "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)", "precio": "35.500", "km": "100", "cambio": "Automático", "combustible": "Híbrido", "estado": "Disponible", "ficha": "/coches/46-cupra-formentor.html", "fotos": ["/web_fotos/46/foto_01.jpg", "/web_fotos/46/foto_02.jpg", "/web_fotos/46/foto_03.jpg"], "total_fotos": 8}, {"n": 47, "modelo": "CUPRA Leon", "version": "Sportstourer 1.5 eTSI DSG 110 kW (150 CV)", "precio": "29.800", "km": "19.946", "cambio": "Automático", "combustible": "Mild Hybrid", "estado": "Disponible", "ficha": "/coches/47-cupra-leon.html", "fotos": ["/web_fotos/47/foto_01.jpg", "/web_fotos/47/foto_02.jpg", "/web_fotos/47/foto_03.jpg"], "total_fotos": 8}, {"n": 48, "modelo": "CUPRA Formentor", "version": "2.5 TSI VZ5 Taiga Grey 4Drive DSG 287 kW (390 CV)", "precio": "46.500", "km": "30.747", "cambio": "Automático", "combustible": "Gasolina", "estado": "Disponible", "ficha": "/coches/48-cupra-formentor.html", "fotos": ["/web_fotos/48/foto_01.jpg", "/web_fotos/48/foto_02.jpg", "/web_fotos/48/foto_03.jpg"], "total_fotos": 8}, {"n": 50, "modelo": "SEAT León", "version": "2.0 TDI S&S Style XS 85 kW (116 CV)", "precio": "22.700", "km": "10.493", "cambio": "Manual", "combustible": "Diésel", "estado": "Disponible", "ficha": "/coches/50-seat-leon.html", "fotos": ["/web_fotos/50/foto_01.jpg", "/web_fotos/50/foto_02.jpg", "/web_fotos/50/foto_03.jpg"], "total_fotos": 8}];
+const ACCENT = "#c8102e";
+
+let compareIds = new Set();
+
+function initCards() {
+  document.querySelectorAll('.rd-card').forEach((card) => {
+    const n = parseInt(card.dataset.n, 10);
+    const car = CARS.find((c) => c.n === n);
+    const zoneWrap = card.querySelector('.rd-card-photo');
+    const img = zoneWrap.querySelector('img');
+    const counter = card.querySelector('.rd-counter');
+    const dots = card.querySelectorAll('.rd-dot');
+
+    const setZone = (zone) => {
+      img.src = car.fotos[zone];
+      counter.textContent = (zone + 1) + '/' + car.total_fotos;
+      dots.forEach((d, i) => d.classList.toggle('rd-dot-on', i === zone));
+    };
+
+    zoneWrap.addEventListener('mousemove', (e) => {
+      const rect = zoneWrap.getBoundingClientRect();
+      const ratio = (e.clientX - rect.left) / rect.width;
+      const zone = Math.min(car.fotos.length - 1, Math.max(0, Math.floor(ratio * car.fotos.length)));
+      setZone(zone);
+    });
+    zoneWrap.addEventListener('mouseleave', () => setZone(0));
+
+    card.querySelector('.rd-compare-btn').addEventListener('click', () => toggleCompare(n));
+  });
+}
+
+function toggleCompare(n) {
+  const btn = document.querySelector('.rd-card[data-n="' + n + '"] .rd-compare-btn');
+  if (compareIds.has(n)) {
+    compareIds.delete(n);
+    btn.textContent = '+ Comparar';
+    btn.classList.remove('activo');
+  } else {
+    if (compareIds.size >= 3) { alert('Máximo 3 coches para comparar'); return; }
+    compareIds.add(n);
+    btn.textContent = '✓ Comparando';
+    btn.classList.add('activo');
+  }
+  renderTray();
+}
+
+function renderTray() {
+  const tray = document.getElementById('rd-tray');
+  if (compareIds.size === 0) { tray.style.display = 'none'; tray.innerHTML = ''; return; }
+  tray.style.display = 'flex';
+  const chips = [...compareIds].map((n) => {
+    const car = CARS.find((c) => c.n === n);
+    return '<span class="rd-tray-chip">' + car.modelo + ' <span data-n="' + n + '" class="rd-tray-x">✕</span></span>';
+  }).join('');
+  tray.innerHTML =
+    '<span class="rd-tray-label">Comparando ' + compareIds.size + '</span>' +
+    '<div class="rd-tray-chips">' + chips + '</div>' +
+    '<button id="rd-tray-btn" class="rd-tray-btn">Ver comparación</button>';
+  tray.querySelectorAll('.rd-tray-x').forEach((x) => x.addEventListener('click', (e) => {
+    e.preventDefault();
+    const n = parseInt(e.target.dataset.n, 10);
+    toggleCompare(n);
+  }));
+  document.getElementById('rd-tray-btn').addEventListener('click', openOverlay);
+}
+
+function openOverlay() {
+  const cars = [...compareIds].map((n) => CARS.find((c) => c.n === n));
+  document.getElementById('rd-cmp-cols').innerHTML = cars.map((c) => (
+    '<div class="rd-cmp-col">' +
+      '<img src="' + c.fotos[0] + '">' +
+      '<div class="rd-cmp-row rd-cmp-strong">' + c.modelo + '</div>' +
+      '<div class="rd-cmp-row rd-cmp-small">' + c.version + '</div>' +
+      '<div class="rd-cmp-row rd-cmp-accent">' + c.precio + ' €</div>' +
+      '<div class="rd-cmp-row">' + c.km + ' km</div>' +
+      '<div class="rd-cmp-row">' + c.combustible + '</div>' +
+      '<div class="rd-cmp-row">' + c.cambio + '</div>' +
+    '</div>'
+  )).join('');
+  document.getElementById('rd-overlay').style.display = 'flex';
+}
+
+document.getElementById('rd-overlay-close').addEventListener('click', () => {
+  document.getElementById('rd-overlay').style.display = 'none';
+});
+
+document.getElementById('rd-dark-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  document.getElementById('rd-dark-label').textContent =
+    document.body.classList.contains('dark') ? '☀️ Modo claro' : '🌙 Modo oscuro';
+});
+
+initCards();
+
+</script>
+</body>
+</html>
