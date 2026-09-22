@@ -262,17 +262,26 @@ EXTRA_JS = '''
 
   document.getElementById('rd-overlay-close').addEventListener('click', () => { overlay.style.display = 'none'; });
 
+  // El botón se inserta una vez por tarjeta, pero el "🌟 Destacados" clona
+  // tarjetas con cloneNode(true) DESPUÉS de esto (su fetch es async) — y
+  // cloneNode NO copia listeners agregados con addEventListener. Por eso
+  // el clic se maneja por delegación en <body>, que funciona igual para un
+  // botón agregado ahora o clonado más tarde.
   document.querySelectorAll('.rd-card').forEach((card) => {
     const btn = document.createElement('button');
     btn.className = 'rd-compare-btn';
     btn.type = 'button';
     btn.textContent = '+ Comparar';
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      toggleCompare(card);
-    });
     card.querySelector('.rd-card-body').appendChild(btn);
+  });
+
+  document.body.addEventListener('click', (e) => {
+    const btn = e.target.closest('.rd-compare-btn');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const card = btn.closest('.rd-card');
+    if (card) toggleCompare(card);
   });
 })();
 '''
