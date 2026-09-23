@@ -76,6 +76,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    # Hora de Madrid para TODO el job: sin esto `date` y datetime.now() de
+    # Python usan UTC (2h menos en verano) — el commit decía 17:02 cuando la
+    # web y el correo decían 19:02, y el informe/historial también salían en UTC.
+    env:
+      TZ: Europe/Madrid
     steps:
       - name: Checkout
         uses: actions/checkout@v4

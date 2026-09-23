@@ -146,12 +146,59 @@ async def scrape_motorflash():
 
         for num_pagina in range(1, 20):
             url = LISTING_URL_P1 if num_pagina == 1 else LISTING_URL_PN.format(n=num_pagina)
-            await page.goto(url, wait_until="networkidle", timeout=60000)
-            await page.wait_for_timeout(2000)
-            await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-            await page.wait_for_timeout(1500)
+            # MotorFlash a veces redirige la página mientras carga, y un
+            # page.evaluate() en ese momento falla con "Execution context was
+            # destroyed" (tumbó la corrida del 22/09 19:02). Se reintenta.
+            for intento in range(1, 4):
+                try:
+                    await page.goto(url, wait_until="networkidle", timeout=60000)
+                    try:
+                        await page.wait_for_selector('.itemCar[data-ad-id]', timeout=20000)
+                    except Exception:
+                        pass
+                    await page.wait_for_timeout(2000)
+                    await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                    await page.wait_for_timeout(1500)
+                    pagina_coches = await page.evaluate(_JS_TARJETAS)
+                    break
+                except Exception as e:
+                    if intento == 3:
+                        raise
+                    print(f"  ⚠️  MotorFlash página {num_pagina}, intento {intento} falló ({e.__class__.__name__}) — reintentando...")
+                    await page.wait_for_timeout(5000)
 
-            pagina_coches = await page.evaluate("""() => {
+            if not pagina_coches:
+                break
+
+            nuevos = 0
+            for c in pagina_coches:
+                if c["adId"] not in ids_vistos:
+                    ids_vistos.add(c["adId"])
+                    coches_raw.append(c)
+                    nuevos += 1
+
+            hay_siguiente = await page.query_selector(f'a[href*="pagina={num_pagina + 1}"]')
+            if not hay_siguiente:
+                break
+
+        # Respaldo: algunos anuncios no traen "Equipamiento destacado" en su
+        # tarjeta del listado (viene vacío en el propio HTML de MotorFlash,
+        # no es un fallo del scraping), aunque sí tienen equipamiento de
+        # serie completo en su página de detalle. Se rellena visitando esa
+        # página solo para los que vinieron vacíos, no para todos, así no se
+        # ralentiza el scraping diario de forma innecesaria.
+        sin_equipo = [c for c in coches_raw if not c["equipamiento"] and c.get("urlRel")]
+        if sin_equipo:
+            print(f"  🔧 {len(sin_equipo)} anuncio(s) sin equipamiento en la tarjeta — buscando en su ficha de detalle...")
+            for c in sin_equipo:
+                c["equipamiento"] = await _equipamiento_desde_detalle(page, c["urlRel"])
+
+        await browser.close()
+
+    return _normalizar(coches_raw)
+
+
+_JS_TARJETAS = """() => {
                 const cards = Array.from(document.querySelectorAll('.itemCar[data-ad-id]'));
                 return cards.map(card => {
                     const adId = card.getAttribute('data-ad-id');
@@ -185,37 +232,11 @@ async def scrape_motorflash():
                     return { adId, marca, version, km, anio, combustible, cambio,
                              precio, tipo, urlRel, equipamiento, dataSrcs };
                 });
-            }""")
+}"""
 
-            if not pagina_coches:
-                break
 
-            nuevos = 0
-            for c in pagina_coches:
-                if c["adId"] not in ids_vistos:
-                    ids_vistos.add(c["adId"])
-                    coches_raw.append(c)
-                    nuevos += 1
-
-            hay_siguiente = await page.query_selector(f'a[href*="pagina={num_pagina + 1}"]')
-            if not hay_siguiente:
-                break
-
-        # Respaldo: algunos anuncios no traen "Equipamiento destacado" en su
-        # tarjeta del listado (viene vacío en el propio HTML de MotorFlash,
-        # no es un fallo del scraping), aunque sí tienen equipamiento de
-        # serie completo en su página de detalle. Se rellena visitando esa
-        # página solo para los que vinieron vacíos, no para todos, así no se
-        # ralentiza el scraping diario de forma innecesaria.
-        sin_equipo = [c for c in coches_raw if not c["equipamiento"] and c.get("urlRel")]
-        if sin_equipo:
-            print(f"  🔧 {len(sin_equipo)} anuncio(s) sin equipamiento en la tarjeta — buscando en su ficha de detalle...")
-            for c in sin_equipo:
-                c["equipamiento"] = await _equipamiento_desde_detalle(page, c["urlRel"])
-
-        await browser.close()
-
-    # Normalizar nombres
+def _normalizar(coches_raw):
+    """Convierte las tarjetas crudas del listado al formato de datos_coches.json."""
     resultado = []
     for c in coches_raw:
         precio_limpio = re.sub(r"[^\d.]", "", c["precio"].replace("€","").replace("\xa0","")).strip()
@@ -366,25 +387,45 @@ def preparar_fotos_mf(coche_mf, idx):
 def main():
     print("\n  📡 MotorFlash — Scraping...")
 
-    # 1) Scrapear MF
-    mf_coches = asyncio.run(scrape_motorflash())
-    MF_JSON.parent.mkdir(exist_ok=True)
-    MF_JSON.write_text(json.dumps(mf_coches, ensure_ascii=False, indent=2))
-    print(f"  MotorFlash: {len(mf_coches)} coches encontrados")
-
     # 2) Leer DWA actual
     dwa_coches = json.loads(DWA_JSON.read_text(encoding="utf-8"))
     dwa_solo = [c for c in dwa_coches if c.get("fuente") != "motorflash"]
 
-    # 3a) Enriquecer coches DWA sin km/fecha con datos de MF
-    dwa_sin_km = [c for c in dwa_solo if not c.get("km")]
-    mf_ya_usados = enriquecer_dwa_con_mf(dwa_sin_km, mf_coches)
-    enriquecidos = sum(1 for c in dwa_sin_km if c.get("km"))
-    print(f"  DWA enriquecidos con km/fecha de MF: {enriquecidos}/{len(dwa_sin_km)}")
+    # Coches MF de la corrida anterior (los guarda actualizar_catalogo.py
+    # antes de reescribir datos_coches.json solo con DWA).
+    previos_path = MF_JSON.parent / "mf_previos.json"
+    mf_previos_lista = [c for c in dwa_coches if c.get("fuente") == "motorflash"]
+    if not mf_previos_lista and previos_path.exists():
+        mf_previos_lista = json.loads(previos_path.read_text(encoding="utf-8"))
 
-    # 3b) Exclusivos de MF (excluyendo los ya usados para enriquecer DWA)
-    exclusivos = encontrar_exclusivos_mf(dwa_solo, mf_coches, mf_ya_usados)
-    print(f"  Exclusivos MotorFlash (no en DWA): {len(exclusivos)}")
+    # 1) Scrapear MF — si falla o no trae nada, se CONSERVAN los coches MF
+    # anteriores en vez de borrarlos de la web (el 22/09 un fallo puntual de
+    # MotorFlash quitó el Nissan Qashqai, que seguía publicado).
+    try:
+        mf_coches = asyncio.run(scrape_motorflash())
+    except Exception as e:
+        print(f"  ⚠️  Scraping de MotorFlash falló: {e.__class__.__name__}: {e}")
+        mf_coches = []
+    fallback = not mf_coches
+    if fallback:
+        print(f"  ⚠️  Sin datos de MotorFlash — se conservan los {len(mf_previos_lista)} coche(s) MF anteriores")
+    else:
+        MF_JSON.parent.mkdir(exist_ok=True)
+        MF_JSON.write_text(json.dumps(mf_coches, ensure_ascii=False, indent=2))
+        print(f"  MotorFlash: {len(mf_coches)} coches encontrados")
+
+    if fallback:
+        exclusivos = [dict(c) for c in mf_previos_lista]
+    else:
+        # 3a) Enriquecer coches DWA sin km/fecha con datos de MF
+        dwa_sin_km = [c for c in dwa_solo if not c.get("km")]
+        mf_ya_usados = enriquecer_dwa_con_mf(dwa_sin_km, mf_coches)
+        enriquecidos = sum(1 for c in dwa_sin_km if c.get("km"))
+        print(f"  DWA enriquecidos con km/fecha de MF: {enriquecidos}/{len(dwa_sin_km)}")
+
+        # 3b) Exclusivos de MF (excluyendo los ya usados para enriquecer DWA)
+        exclusivos = encontrar_exclusivos_mf(dwa_solo, mf_coches, mf_ya_usados)
+        print(f"  Exclusivos MotorFlash (no en DWA): {len(exclusivos)}")
 
     # 4) Construir lista final: DWA (solo DWA) + exclusivos MF
     #    Los MF que ya no están en MotorFlash simplemente no se añaden (desaparecen)
@@ -394,8 +435,7 @@ def main():
     # ESTABLE de MotorFlash (motorflash_id). El "n"/idx que ocupan NO es estable
     # — depende de cuántos coches DWA haya ahora mismo (n_start cambia cada
     # ejecución) — así que nunca se usa como clave, solo motorflash_id.
-    mf_previos = {c.get("motorflash_id"): c
-                  for c in dwa_coches if c.get("fuente") == "motorflash"}
+    mf_previos = {c.get("motorflash_id"): c for c in mf_previos_lista}
 
     n_start = max((c["n"] for c in lista_final), default=0) + 1
     nuevos_mf = []  # (coche, idx_usado_para_su_carpeta_web_fotos) — para resync tras el paso 5

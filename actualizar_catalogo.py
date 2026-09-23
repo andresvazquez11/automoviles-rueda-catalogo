@@ -597,6 +597,15 @@ async def main():
     # snapshot permite re-sincronizarlas con el "n" FINAL más abajo.
     actuales_pre_mf = copy.deepcopy(actuales)
 
+    # Respaldo de los coches MotorFlash de la corrida anterior: el paso 5
+    # reescribe datos_coches.json solo con DWA, así que si el scraping de
+    # MotorFlash falla, integrar_motorflash.py los recupera de acá en vez de
+    # borrarlos de la web (el 22/09 un fallo puntual quitó el Nissan Qashqai).
+    _mf_previos = [c for c in anteriores if c.get("fuente") == "motorflash"]
+    (OUTPUT_DIR / "motorflash").mkdir(exist_ok=True)
+    (OUTPUT_DIR / "motorflash" / "mf_previos.json").write_text(
+        json.dumps(_mf_previos, ensure_ascii=False, indent=2), encoding="utf-8")
+
     # 5) Guardar JSON actualizado
     CACHE.write_text(json.dumps(actuales, ensure_ascii=False, indent=2), encoding="utf-8")
     actualizar_historial_precios(actuales)   # registro rolling 10 días para web
