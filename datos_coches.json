@@ -207,14 +207,24 @@
     "km": "10.454",
     "fecha": "01/2025",
     "cambio": "Manual",
-    "color": "",
+    "color": "Gris",
     "precio": "21.300",
     "ubicacion": "Málaga",
     "estado": "Disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/193183603",
-    "equipamiento": [],
+    "equipamiento": [
+      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados con sensor",
+      "Velocidad máxima: 193 km/h",
+      "Sentinel pack: detector de ángulo muerto + alerta de tráfico posterior",
+      "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 7,0 pulgadas de ancho 45,7 y 17,8",
+      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
+      "Acabados de lujo: pomo de la palanca de cambios en aluminio y cuero, consola central en negro piano, puertas en negro piano y tablero en aluminio y cuero",
+      "Toma/s de 12v en los asientos delanteros",
+      "Asientos de tela (material principal) y de tela (material secundario)",
+      "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual y ajuste manual en altura con ajuste manual del respaldo",
+      "Asientos traseros de tres plazas de tipo banco de orientación delantera abatibles en el suelo con banqueta fija y respaldo abatible asimétrico"
+    ],
     "_total": 51,
-    "financiacion": {},
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT Arona - 21.300€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT Arona - 21.300€/foto_02.jpg",
@@ -224,7 +234,9 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT Arona - 21.300€/foto_06.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT Arona - 21.300€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT Arona - 21.300€/foto_08.jpg"
-    ]
+    ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT Arona - 21.300€",
+    "financiacion": {}
   },
   {
     "n": 6,
@@ -234,14 +246,24 @@
     "km": "91.250",
     "fecha": "01/2023",
     "cambio": "Manual",
-    "color": "",
+    "color": "Azul",
     "precio": "21.500",
     "ubicacion": "Málaga",
     "estado": "Disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/skoda-karoq-diesel-115-cv-del-2023-en-malaga/193154158",
-    "equipamiento": [],
+    "equipamiento": [
+      "Sensores de aparcamiento delanteros con radar, sensores de aparcamiento traseros con radar y cámara",
+      "Tapizado de asientos - Suedia/Cuero",
+      "Asientos VARIOFLEX, lámpara LED extraíble y elementos de fijación de carga en el maletero",
+      "Asistente de mantenimiento de carril",
+      "Controles de climatización diferenciados digitales para conductor/acompañante",
+      "Velocidad máxima: -",
+      "Paquete LED",
+      "Llantas SCUTUS Aero 17\" con elementos aerodinámicos en negro mate",
+      "Pack Multimedia L",
+      "Reposabrazos central delantero \"JUMBO BOX\" con conversor de tensión 230V y 2x USB plazas traseras"
+    ],
     "_total": 51,
-    "financiacion": {},
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - ŠKODA Karoq - 21.500€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - ŠKODA Karoq - 21.500€/foto_02.jpg",
@@ -251,7 +273,9 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - ŠKODA Karoq - 21.500€/foto_06.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - ŠKODA Karoq - 21.500€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - ŠKODA Karoq - 21.500€/foto_08.jpg"
-    ]
+    ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - ŠKODA Karoq - 21.500€",
+    "financiacion": {}
   },
   {
     "n": 7,
@@ -311,13 +335,35 @@
     "km": "62.750",
     "fecha": "03/2021",
     "cambio": "Automático",
-    "color": "",
+    "color": "Negro",
     "precio": "22.500",
     "ubicacion": "Málaga",
     "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/bmw-serie-1-diesel-150-cv-del-2021-en-malaga/193180663",
-    "equipamiento": [],
+    "equipamiento": [
+      "Calefacción de los asientos delanteros",
+      "Climatizador automático con control del aire circulante automático",
+      "Controles de climatización diferenciados digitales para conductor/acompañante",
+      "Sensores de aparcamiento delanteros y traseros con radar",
+      "Luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 218 km/h",
+      "Paquete de iluminación",
+      "Connected Package Professional",
+      "Acabado M Sport",
+      "Volante M de cuero"
+    ],
     "_total": 51,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - BMW Serie - 22.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - BMW Serie - 22.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - BMW Serie - 22.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - BMW Serie - 22.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - BMW Serie - 22.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - BMW Serie - 22.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - BMW Serie - 22.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - BMW Serie - 22.500€/foto_08.jpg"
+    ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - BMW Serie - 22.500€",
     "financiacion": {}
   },
   {
@@ -328,14 +374,24 @@
     "km": "44.978",
     "fecha": "06/2022",
     "cambio": "Automático",
-    "color": "",
+    "color": "Azul",
     "precio": "24.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2022-en-malaga/193177990",
-    "equipamiento": [],
+    "equipamiento": [
+      "Tapicería piel Azul Petrol + Ajuste eléctrico asiento conductor + Asientos delanteros calefactables",
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 203 km/h",
+      "Azul Petrol Mate (Piel)",
+      "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 8,0 pulgadas de ancho 45,7 y 20,3",
+      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
+      "Acabados de lujo: consola central en símil aluminio, puertas en símil aluminio y tablero en símil aluminio y cuero sintético"
+    ],
     "_total": 51,
-    "financiacion": {},
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA Formentor - 24.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA Formentor - 24.900€/foto_02.jpg",
@@ -345,7 +401,9 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA Formentor - 24.900€/foto_06.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA Formentor - 24.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA Formentor - 24.900€/foto_08.jpg"
-    ]
+    ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA Formentor - 24.900€",
+    "financiacion": {}
   },
   {
     "n": 10,
@@ -405,14 +463,24 @@
     "km": "23.295",
     "fecha": "06/2025",
     "cambio": "Manual",
-    "color": "",
+    "color": "Azul",
     "precio": "17.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/190151308",
-    "equipamiento": [],
+    "equipamiento": [
+      "Velocidad máxima: 198 km/h",
+      "Pack Vision Plus",
+      "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 6,5 pulgadas de ancho 40,6, 16,5 y PG4",
+      "Faros con lente de superficie compleja, bombilla LED y luz larga con bombilla LED",
+      "Acabados de lujo: pomo de la palanca de cambios en aluminio y cuero, puertas en negro piano y tablero en cuero sintético",
+      "Toma/s de 12v en los asientos delanteros",
+      "Asientos de tela (material principal) y de tela (material secundario)",
+      "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual y ajuste manual en altura con ajuste manual del respaldo",
+      "Asientos traseros de tres plazas de tipo banco partido de orientación delantera con banqueta partida y respaldo abatible asimétrico",
+      "Volante multi-función revestido de cuero ajustable en altura y en profundidad"
+    ],
     "_total": 51,
-    "financiacion": {},
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 17.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 17.900€/foto_02.jpg",
@@ -422,7 +490,9 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 17.900€/foto_06.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 17.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 17.900€/foto_08.jpg"
-    ]
+    ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 17.900€",
+    "financiacion": {}
   },
   {
     "n": 12,
@@ -1128,14 +1198,24 @@
     "km": "65.890",
     "fecha": "10/2021",
     "cambio": "Automático",
-    "color": "",
+    "color": "Blanco",
     "precio": "25.500",
     "ubicacion": "Málaga",
     "estado": "Disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-245-cv-del-2021-en-malaga/155656894",
-    "equipamiento": [],
+    "equipamiento": [
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 225 km/h",
+      "Llantas delanteras y traseras en aluminio de 19 pulgadas de diámetro y 8,0 pulgadas de ancho bi-tono, 48,3 y 20,3",
+      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
+      "Toma/s de 12v en los asientos delanteros",
+      "Asientos de tela (material principal) y de vinilo (material secundario)",
+      "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual, ajuste manual en altura y ajuste lumbar manual con ajuste manual del respaldo"
+    ],
     "_total": 51,
-    "financiacion": {},
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 25.500€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 25.500€/foto_02.jpg",
@@ -1145,7 +1225,9 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 25.500€/foto_06.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 25.500€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 25.500€/foto_08.jpg"
-    ]
+    ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 25.500€",
+    "financiacion": {}
   },
   {
     "n": 27,
@@ -1505,12 +1587,23 @@
     "km": "77.890",
     "fecha": "10/2022",
     "cambio": "Manual",
-    "color": "",
+    "color": "Blanco",
     "precio": "18.500",
     "ubicacion": "Málaga",
     "estado": "Disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/abarth-500-gasolina-165-cv-del-2022-en-malaga/165443506",
-    "equipamiento": [],
+    "equipamiento": [
+      "Sensores de aparcamiento traseros con sensor",
+      "Velocidad máxima: 218 km/h",
+      "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 6,5 pulgadas de ancho 40,6, 16,5 y 5EV",
+      "Toma/s de 12v en los asientos delanteros",
+      "Asientos de tela (material principal) y de tela (material secundario)",
+      "Asientos traseros de dos plazas de tipo banco/deportivo de orientación delantera con banqueta fija y respaldo abatible simétrico",
+      "Volante multi-función de aluminio y cuero ajustable en altura",
+      "Dirección asistida eléctrica con endurecimiento progresivo s/velocidad",
+      "Sujetavasos en los asientos delanteros y los asientos traseros",
+      "Sistema de ventilación con filtro de pólen combustión y calefacción del motor"
+    ],
     "_total": 51,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - Abarth 500 - 18.500€/foto_01.jpg",
@@ -1733,12 +1826,23 @@
     "km": "10.495",
     "fecha": "06/2025",
     "cambio": "Automático",
-    "color": "",
+    "color": "Gris",
     "precio": "19.900",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/renault-clio-hibrido-electro-gasolina-143-cv-del-2025-en-malaga/159882925",
-    "equipamiento": [],
+    "equipamiento": [
+      "Velocidad máxima: 180 km/h",
+      "Tapicería gris con patrón 3D",
+      "Llantas delanteras y traseras en acero de 16 pulgadas de diámetro y 6,5 pulgadas de ancho 40,6 y 16,5",
+      "Faros con lente de superficie compleja, bombilla LED y luz larga con bombilla LED",
+      "Toma/s de 12v en los asientos delanteros",
+      "Asientos de tela (material principal) y de tela (material secundario)",
+      "Asientos traseros de tres plazas de tipo banco de orientación delantera con banqueta fija y respaldo abatible asimétrico",
+      "Volante multi-función en cuero sintético ajustable en altura y en profundidad",
+      "Retrovisor interior/cámara",
+      "Limitador de velocidad"
+    ],
     "_total": 51,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - Renault Clio - 19.900€/foto_01.jpg",
@@ -2402,7 +2506,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 17.800,00 €. Precio financiando: 17.800,00 €. Precio al contado 17.800,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,94%. La oferta incluye Seg. Protección Plus Ampliado por 1.056,25€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 244,77 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 9.651,57 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 659,97 €. Importe total financiado 18.856,25 €. Importe total de los intereses: 5.481,52 €. Coste total del crédito: 6.141,49 €. Precio total a plazos 24.337,77 €. Importe total adeudado: 24.337,77 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 2,
+    "_intentos_desaparecido": 3,
     "fecha_reservado": "2026-09-23"
   },
   {
@@ -2454,7 +2558,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 32.900,00 €. Precio financiando: 32.900,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,90%. La oferta incluye Seg. Protección Plus Ampliado por 1.952,29€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 423,56 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 19.931,24 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.219,83 €. Importe total financiado 34.852,29 €. Importe total de los intereses: 10.492,55 €. Coste total del crédito: 11.712,38 €. Precio total a plazos 45.344,84 €. Importe total adeudado: 45.344,84 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 2,
+    "_intentos_desaparecido": 3,
     "fecha_reservado": "2026-09-23"
   },
   {
@@ -2506,7 +2610,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.500,00 €. Precio financiando: 22.500,00 €. Precio al contado 22.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,88%. La oferta incluye Seg. Protección Plus Ampliado por 1.335,15€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 279,41 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.374,89 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 834,23 €. Importe total financiado 23.835,15 €. Importe total de los intereses: 7.304,34 €. Coste total del crédito: 8.138,57 €. Precio total a plazos 31.139,49 €. Importe total adeudado: 31.139,49 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 2,
+    "_intentos_desaparecido": 3,
     "fecha_reservado": "2026-09-23"
   },
   {
