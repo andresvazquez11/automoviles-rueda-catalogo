@@ -31,6 +31,22 @@
     ],
     "version_en": "1.0 TSI S&S Style 85 kW (115 HP)"
   },
+  "13a27df92a4474a0": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Parking Exit Assist, Lane Change Assist, and Safe Exit Warning",
+      "Keyless Advanced entry and start system without safelock",
+      "Lane Keep Assist with Emergency Assist and Traffic Jam Assist",
+      "Digital Sound Package",
+      "Front and rear camera system with two side cameras",
+      "3-Zone Climatronic with rear climate control panel",
+      "Cloth seats (main material) with synthetic leather trim (secondary material)",
+      "Independent climate controls for driver/passenger and front/rear seats",
+      "Tri-zone automatic climate control with rear controls",
+      "Full LED lighting: brake lights, front fog lights, low beams, side indicators, daytime running lights, tail lights, and high beams"
+    ],
+    "version_en": "1.5 eTSI DSG 110 kW (150 hp)"
+  },
   "151a640ab4b4da96": {
     "color_en": "",
     "equipamiento_en": [
@@ -190,6 +206,22 @@
       "Front driver and passenger sports seats with manual fore/aft, height, lumbar, and backrest adjustment"
     ],
     "version_en": "1.4 e-Hybrid DSG 180 kW (245 HP)"
+  },
+  "3c70534f15785899": {
+    "color_en": "Blue",
+    "equipamiento_en": [
+      "3-Zone Climate Control + Front Center Armrest + 2 Rear USB Type-C Ports",
+      "Vision Plus Pack: Automatic Park Assist + Front Parking Sensors + Rearview Camera",
+      "Lane Keeping Assist",
+      "Top speed: 199 km/h",
+      "Configurable Digital Cockpit",
+      "Convenience Pack",
+      "LED Fog Lights with Cornering Function",
+      "Multifunction Leather Sports Steering Wheel",
+      "Evasion Assist with Turn Assist",
+      "\"Keyless-Go\" Central Locking without Safelock"
+    ],
+    "version_en": "2.0 TDI S&S Style XS 85 kW (116 HP)"
   },
   "3cc90f82df1dcf9e": {
     "color_en": "",
