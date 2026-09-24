@@ -156,6 +156,11 @@ jobs:
               cuerpo = ruta.read_text(encoding="utf-8")
           else:
               cuerpo = "(no se encontró informe_cambios.txt — revisar el log de esta corrida)"
+          # Lanzada a mano (puntito de la web o botón de GitHub): avisarlo
+          # arriba del todo, para enterarse si la lanzó otra persona.
+          if os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch":
+              cuerpo = ("🖐️ ACTUALIZACIÓN MANUAL — lanzada a mano (puntito de la web "
+                        "o botón de GitHub), no por el horario automático.\n\n" + cuerpo)
           # Delimitador aleatorio: si el informe alguna vez contuviera la
           # palabra "EOF" en una línea propia, un delimitador fijo cortaría
           # el cuerpo del correo a la mitad.
@@ -181,7 +186,7 @@ jobs:
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
           from: Catálogo Automóviles Rueda <andrescovidelpi@gmail.com>
           to: andrescovidelpi@gmail.com
-          subject: "✅ Catálogo actualizado — ${{ steps.fecha.outputs.fecha }}"
+          subject: "${{ github.event_name == 'workflow_dispatch' && '🖐️ Actualización MANUAL del catálogo' || '✅ Actualización automática del catálogo' }} — ${{ steps.fecha.outputs.fecha }}"
           body: ${{ steps.resumen.outputs.cuerpo }}
           attachments: catalogo_automoviles_rueda_liviano.pdf
 
@@ -195,9 +200,9 @@ jobs:
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
           from: Catálogo Automóviles Rueda <andrescovidelpi@gmail.com>
           to: andrescovidelpi@gmail.com
-          subject: "⚠️ Falló la actualización del catálogo"
+          subject: "⚠️ Falló la actualización ${{ github.event_name == 'workflow_dispatch' && 'MANUAL' || 'automática' }} del catálogo"
           body: |
-            Algo falló durante la actualización automática de hoy.
+            Algo falló durante la actualización ${{ github.event_name == 'workflow_dispatch' && 'MANUAL (lanzada a mano)' || 'automática' }} del catálogo.
 
             Revisá el detalle acá:
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
