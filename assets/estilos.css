@@ -274,7 +274,11 @@ img { max-width: 100%; display: block; }
   display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
   max-width: 1280px; margin: 0 auto; padding: 18px 20px 0;
 }
-.rd-filter-tabs { display: flex; gap: 6px; }
+.rd-filter-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+/* Filtro "🔥 Ofertas" — naranja para diferenciarlo de los demás */
+.rd-filter-btn.rd-filter-oferta { background: #fff4e5; border-color: #f0a040; color: #b85c00; }
+.rd-filter-btn.rd-filter-oferta:hover { background: #ffe8c7; }
+.rd-filter-btn.rd-filter-oferta.activo { background: #e8780c; border-color: #e8780c; color: #fff; }
 .rd-filter-btn {
   background: var(--rd-surface); border: 1px solid var(--rd-border);
   color: var(--rd-ink-soft); font-weight: 700; font-size: 13px;

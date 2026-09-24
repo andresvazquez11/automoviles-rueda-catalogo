@@ -31,10 +31,12 @@
   function aplicarTarjetas() {
     document.querySelectorAll('.rd-card[data-id]').forEach(function(card) {
       card.querySelectorAll('.rd-rebaja-badge, .rd-rebaja-antes').forEach(function(el) { el.remove(); });
+      delete card.dataset.oferta;
       if (card.dataset.estado !== 'Disponible') return;
       var precio = parseInt(card.dataset.precio, 10) || 0;
       var antes = antesDe(card.dataset.id, precio, parseInt(card.dataset.antesAuto, 10) || 0);
       if (!antes || antes <= precio) return;
+      card.dataset.oferta = '1';
       var badge = document.createElement('span');
       badge.className = 'rd-rebaja-badge';
       badge.textContent = badgeHTML(antes - precio);
@@ -70,7 +72,21 @@
     }
   }
 
-  function aplicar() { aplicarTarjetas(); aplicarFicha(); }
+  // Botón "🔥 Ofertas" de los filtros: contador y visible solo si hay alguna
+  function actualizarFiltroOfertas() {
+    var btn = document.querySelector('.rd-filter-oferta');
+    if (!btn) return;
+    var n = document.querySelectorAll('#rd-grid .rd-card[data-oferta="1"]').length;
+    document.getElementById('rd-cnt-oferta').textContent = n;
+    btn.hidden = !n;
+    if (!n && btn.classList.contains('activo')) {
+      var todos = document.querySelector('.rd-filter-btn[data-filter="todos"]');
+      if (todos) todos.click();
+    }
+    if (window.rdAplicarFiltros) window.rdAplicarFiltros();
+  }
+
+  function aplicar() { aplicarTarjetas(); aplicarFicha(); actualizarFiltroOfertas(); }
   window.rdAplicarRebajas = aplicar;
 
   // Al cambiar de idioma la ficha se vuelve a pintar → re-aplicar encima.

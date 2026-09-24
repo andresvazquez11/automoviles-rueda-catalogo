@@ -1719,6 +1719,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
     <button class="rd-filter-btn activo" data-filter="todos">{i18n_span("Todos", "All")} ({total_disp + total_res})</button>
     <button class="rd-filter-btn" data-filter="Disponible">{i18n_span("Disponible", "Available")} ({total_disp})</button>
     <button class="rd-filter-btn" data-filter="Reservado">{i18n_span("Reservado", "Reserved")} ({total_res})</button>
+    <button class="rd-filter-btn rd-filter-oferta" data-filter="oferta" hidden>🔥 {i18n_span("Ofertas", "Deals")} (<span id="rd-cnt-oferta">0</span>)</button>
   </div>
   <div class="rd-search-wrap">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -1789,7 +1790,9 @@ document.addEventListener('click', e => {{
   function aplicar() {{
     const q = norm(busqueda);
     let visibles = cards.filter(c => {{
-      const matchFiltro = filtro === 'todos' || c.dataset.estado === filtro;
+      // "oferta" lo marca assets/rebajas.js (data-oferta) en coches con descuento
+      const matchFiltro = filtro === 'todos'
+        || (filtro === 'oferta' ? c.dataset.oferta === '1' : c.dataset.estado === filtro);
       const matchBusqueda = !q || norm(c.dataset.buscar).includes(q);
       return matchFiltro && matchBusqueda;
     }});
@@ -1821,6 +1824,7 @@ document.addEventListener('click', e => {{
   }});
   document.getElementById('rd-search').addEventListener('input', e => {{ busqueda = e.target.value; aplicar(); }});
   document.getElementById('rd-sort').addEventListener('change', e => {{ orden = e.target.value; aplicar(); }});
+  window.rdAplicarFiltros = aplicar; // rebajas.js lo llama al cargar las rebajas manuales
 }})();
 
 // ── Destacados: franja de coches marcados desde /admin/ ──────────────
