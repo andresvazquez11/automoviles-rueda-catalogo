@@ -489,6 +489,15 @@ img { max-width: 100%; display: block; }
 .rd-card-featured .rd-rebaja-badge { top: 38px; }  /* debajo de la franja de destacado */
 .rd-gallery-frame { position: relative; }
 .rd-gallery-frame .rd-rebaja-badge { top: 14px; right: 14px; font-size: 13px; padding: 7px 14px; }
+/* "🔥 OFERTA" en la ficha, debajo del cartel de descuento */
+.rd-oferta-pill {
+  position: absolute; top: 52px; right: 14px; z-index: 5;
+  background: #e8780c; color: #fff;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.6px;
+  padding: 6px 14px; border-radius: 20px; white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(232,120,12,0.45);
+  animation: rd-oferta-pulse 2s ease-in-out infinite;
+}
 .rd-rebaja-antes { font-size: 13px; font-weight: 600; color: var(--rd-red); line-height: 1.2; }
 .rd-rebaja-antes s { text-decoration-thickness: 1.5px; }
 .rd-price-panel .rd-rebaja-antes { font-size: 15px; margin-bottom: 2px; }

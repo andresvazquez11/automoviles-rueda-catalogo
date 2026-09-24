@@ -51,7 +51,7 @@
 
   function aplicarFicha() {
     if (typeof COCHE === 'undefined' || !COCHE.id) return;
-    document.querySelectorAll('.rd-rebaja-badge, .rd-rebaja-antes').forEach(function(el) { el.remove(); });
+    document.querySelectorAll('.rd-rebaja-badge, .rd-rebaja-antes, .rd-oferta-pill').forEach(function(el) { el.remove(); });
     if (COCHE.estado !== 'Disponible' || COCHE.vendido) return;
     var precio = precioNum(COCHE.precio);
     var antes = antesDe(COCHE.id, precio, COCHE.antes_auto || 0);
@@ -62,6 +62,11 @@
       badge.className = 'rd-rebaja-badge';
       badge.textContent = badgeHTML(antes - precio);
       frame.appendChild(badge);
+      // "🔥 OFERTA" debajo del descuento, mismo naranja que el filtro Ofertas
+      var pill = document.createElement('span');
+      pill.className = 'rd-oferta-pill';
+      pill.textContent = en() ? '🔥 DEAL' : '🔥 OFERTA';
+      frame.appendChild(pill);
     }
     var p = document.getElementById('m-precio');
     if (p) {
