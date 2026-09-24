@@ -93,6 +93,7 @@
     <button class="rd-filter-btn activo" data-filter="todos"><span class="rd-i18n" data-es="Todos" data-en="All">Todos</span> (51)</button>
     <button class="rd-filter-btn" data-filter="Disponible"><span class="rd-i18n" data-es="Disponible" data-en="Available">Disponible</span> (39)</button>
     <button class="rd-filter-btn" data-filter="Reservado"><span class="rd-i18n" data-es="Reservado" data-en="Reserved">Reservado</span> (12)</button>
+    <button class="rd-filter-btn rd-filter-oferta" data-filter="oferta" hidden>🔥 <span class="rd-i18n" data-es="Ofertas" data-en="Deals">Ofertas</span> (<span id="rd-cnt-oferta">0</span>)</button>
   </div>
   <div class="rd-search-wrap">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -1488,7 +1489,9 @@ document.addEventListener('click', e => {
   function aplicar() {
     const q = norm(busqueda);
     let visibles = cards.filter(c => {
-      const matchFiltro = filtro === 'todos' || c.dataset.estado === filtro;
+      // "oferta" lo marca assets/rebajas.js (data-oferta) en coches con descuento
+      const matchFiltro = filtro === 'todos'
+        || (filtro === 'oferta' ? c.dataset.oferta === '1' : c.dataset.estado === filtro);
       const matchBusqueda = !q || norm(c.dataset.buscar).includes(q);
       return matchFiltro && matchBusqueda;
     });
@@ -1520,6 +1523,7 @@ document.addEventListener('click', e => {
   });
   document.getElementById('rd-search').addEventListener('input', e => { busqueda = e.target.value; aplicar(); });
   document.getElementById('rd-sort').addEventListener('change', e => { orden = e.target.value; aplicar(); });
+  window.rdAplicarFiltros = aplicar; // rebajas.js lo llama al cargar las rebajas manuales
 })();
 
 // ── Destacados: franja de coches marcados desde /admin/ ──────────────
@@ -1702,7 +1706,7 @@ document.querySelectorAll('.rd-card-media').forEach(media => {
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 24/09/2026 — 13:11 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 24/09/2026 — 13:31 h</p>
   <p class="rd-footer-priv">
     <a href="historial-precios/" aria-label="Historial" rel="nofollow">·</a>
     <a href="#" id="rd-priv-upd" aria-label="Actualizar" rel="nofollow">·</a>
