@@ -498,6 +498,13 @@ img { max-width: 100%; display: block; }
 .rd-footer .rd-footer-updated {
   margin-top: 12px; font-size: 11px; color: var(--rd-muted); letter-spacing: 0.3px;
 }
+/* Accesos privados de Andrés: dos puntitos casi invisibles al final del pie */
+.rd-footer .rd-footer-priv { margin-top: 6px; line-height: 1; }
+.rd-footer .rd-footer-priv a {
+  display: inline-block; padding: 6px 10px; font-size: 16px; font-weight: 400;
+  color: var(--rd-muted); opacity: 0.35; text-decoration: none;
+}
+.rd-footer .rd-footer-priv a:hover { color: var(--rd-muted); opacity: 0.6; }
 
 /* ── Botón flotante WhatsApp (siempre a mano, sobre todo en móvil) ── */
 .rd-whatsapp-float {

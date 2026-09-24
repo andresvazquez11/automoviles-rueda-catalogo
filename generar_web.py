@@ -296,10 +296,52 @@ def lang_toggle_html() -> str:
   </div>'''
 
 
-def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda") -> str:
+def accesos_ocultos_html() -> str:
+    """Dos puntitos casi invisibles al final del pie (solo en el index de
+    Andrés): el primero abre el historial de precios interno, el segundo
+    lanza la actualización del catálogo en GitHub Actions al momento. Usa el
+    mismo token que guarda /admin/ en este dispositivo (localStorage) — el
+    token nunca va en el código de la página."""
+    return '''
+  <p class="rd-footer-priv">
+    <a href="historial-precios/" aria-label="Historial" rel="nofollow">·</a>
+    <a href="#" id="rd-priv-upd" aria-label="Actualizar" rel="nofollow">·</a>
+  </p>
+<script>
+(function() {
+  var b = document.getElementById('rd-priv-upd');
+  if (!b) return;
+  b.addEventListener('click', async function(e) {
+    e.preventDefault();
+    var token = null;
+    try { token = localStorage.getItem('rd_admin_token'); } catch (_) {}
+    if (!token) {
+      if (confirm('Este dispositivo no tiene el token guardado. ¿Ir a /admin/ para ponerlo?')) location.href = '/admin/';
+      return;
+    }
+    if (!confirm('¿Actualizar el catálogo ahora?\\n\\nTarda unos 12-15 min y te llega el correo al terminar.')) return;
+    try {
+      var r = await fetch('https://api.github.com/repos/andresvazquez11/automoviles-rueda-catalogo/actions/workflows/actualizar-catalogo.yml/dispatches', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' },
+        body: JSON.stringify({ ref: 'main' })
+      });
+      if (r.status === 204) alert('✅ Actualización lanzada. En unos 15 min la web se refresca y te llega el correo.');
+      else if (r.status === 401 || r.status === 403 || r.status === 404) alert('❌ El token no tiene permiso para lanzar la actualización (falta "Actions: Read and write"). Código ' + r.status);
+      else alert('❌ No se pudo lanzar la actualización. Código ' + r.status);
+    } catch (err) {
+      alert('❌ Error de conexión: ' + err.message);
+    }
+  });
+})();
+</script>'''
+
+
+def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda", accesos_ocultos: bool = False) -> str:
     """Pie de página (contacto + enlace DWA + última actualización) y botón
     flotante de WhatsApp — compartidos entre index.html y las fichas de coche.
-    `perfil` trae los datos de contacto del asesor de PERFILES."""
+    `perfil` trae los datos de contacto del asesor de PERFILES.
+    `accesos_ocultos` añade los dos puntitos privados (ver accesos_ocultos_html)."""
     # datetime.now() sin tz da la hora UTC del runner de GitHub Actions, no la
     # de Madrid — por eso el pie mostraba 2h menos que el correo (que sí usa
     # TZ=Europe/Madrid). Mismo huso horario acá para que coincidan.
@@ -325,7 +367,7 @@ def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.
   <p class="rd-footer-dwa">
     <a href="{link_dwa}" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: {ahora} h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: {ahora} h</p>{accesos_ocultos_html() if accesos_ocultos else ""}
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">
@@ -1921,7 +1963,7 @@ document.querySelectorAll('.rd-card-media').forEach(media => {{
   }});
 }})();
 </script>
-{footer_whatsapp_html(perfil)}
+{footer_whatsapp_html(perfil, accesos_ocultos=(perfil["id"] == "andres"))}
 {goatcounter_script_html()}
 </body>
 </html>
