@@ -1,61 +1,145 @@
 {
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2026-en-malaga/151310097": [
+  "dwa-195025777": [
     {
-      "fecha": "2026-09-15",
-      "precio": 22900
+      "fecha": "2026-09-22",
+      "precio": 21900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-leon-st-gasolina-116-cv-del-2025-en-malaga/151336815": [
+  "dwa-193600528": [
     {
-      "fecha": "2026-09-15",
+      "fecha": "2026-09-22",
+      "precio": 37900
+    }
+  ],
+  "dwa-193535071": [
+    {
+      "fecha": "2026-09-22",
+      "precio": 35900
+    }
+  ],
+  "dwa-193186186": [
+    {
+      "fecha": "2026-09-19",
+      "precio": 18300
+    }
+  ],
+  "dwa-193183603": [
+    {
+      "fecha": "2026-09-19",
+      "precio": 21300
+    }
+  ],
+  "dwa-193154158": [
+    {
+      "fecha": "2026-09-19",
+      "precio": 21500
+    }
+  ],
+  "dwa-192744877": [
+    {
+      "fecha": "2026-09-17",
+      "precio": 15900
+    }
+  ],
+  "dwa-193180663": [
+    {
+      "fecha": "2026-09-22",
       "precio": 22500
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-150-cv-del-2025-en-malaga/151393698": [
+  "dwa-193177990": [
     {
-      "fecha": "2026-09-15",
-      "precio": 28500
+      "fecha": "2026-09-19",
+      "precio": 24900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-150-cv-del-2026-en-malaga/151393623": [
+  "dwa-191192446": [
     {
       "fecha": "2026-09-15",
+      "precio": 37500
+    }
+  ],
+  "dwa-190151308": [
+    {
+      "fecha": "2026-09-17",
+      "precio": 17900
+    }
+  ],
+  "dwa-186848827": [
+    {
+      "fecha": "2026-09-08",
+      "precio": 18900
+    }
+  ],
+  "dwa-181537246": [
+    {
+      "fecha": "2026-09-08",
+      "precio": 20600
+    }
+  ],
+  "dwa-179469064": [
+    {
+      "fecha": "2026-08-12",
+      "precio": 24500
+    }
+  ],
+  "dwa-178079683": [
+    {
+      "fecha": "2026-08-12",
+      "precio": 37900
+    }
+  ],
+  "dwa-178075705": [
+    {
+      "fecha": "2026-08-12",
+      "precio": 33500
+    }
+  ],
+  "dwa-176586541": [
+    {
+      "fecha": "2026-08-12",
+      "precio": 36900
+    }
+  ],
+  "dwa-174153091": [
+    {
+      "fecha": "2026-08-12",
+      "precio": 18900
+    }
+  ],
+  "dwa-173779507": [
+    {
+      "fecha": "2026-08-12",
       "precio": 27900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-110-cv-del-2022-en-malaga/151394046": [
+  "dwa-173814040": [
     {
-      "fecha": "2026-09-15",
-      "precio": 17500
+      "fecha": "2026-08-12",
+      "precio": 32900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2026-en-malaga/151394481": [
+  "dwa-171393895": [
     {
-      "fecha": "2026-09-15",
-      "precio": 20500
+      "fecha": "2026-07-29",
+      "precio": 40500
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/151395102": [
+  "dwa-174148807": [
     {
-      "fecha": "2026-09-15",
-      "precio": 41300
+      "fecha": "2026-08-12",
+      "precio": 18900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/151394958": [
+  "dwa-155656843": [
     {
-      "fecha": "2026-09-15",
-      "precio": 29900
+      "fecha": "2026-07-29",
+      "precio": 22900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-390-cv-del-2023-en-malaga/151395159": [
+  "dwa-151395138": [
     {
-      "fecha": "2026-09-21",
-      "precio": 46500
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/151395138": [
-    {
-      "fecha": "2026-09-15",
+      "fecha": "2026-07-29",
       "precio": 36500
     },
     {
@@ -63,35 +147,9 @@
       "precio": 34900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656639": [
+  "dwa-155656894": [
     {
-      "fecha": "2026-09-15",
-      "precio": 33900
-    },
-    {
-      "fecha": "2026-09-18",
-      "precio": 33500
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656699": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 36500
-    },
-    {
-      "fecha": "2026-09-18",
-      "precio": 35500
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2021-en-malaga/155656843": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 22900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-245-cv-del-2021-en-malaga/155656894": [
-    {
-      "fecha": "2026-09-15",
+      "fecha": "2026-07-29",
       "precio": 25900
     },
     {
@@ -99,9 +157,9 @@
       "precio": 25500
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656777": [
+  "dwa-155656777": [
     {
-      "fecha": "2026-09-15",
+      "fecha": "2026-07-29",
       "precio": 34900
     },
     {
@@ -109,238 +167,198 @@
       "precio": 33900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-tavascan-electrico-286-cv-del-2025-en-malaga/156976378": [
+  "dwa-155656639": [
     {
-      "fecha": "2026-09-19",
-      "precio": 35900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-gasolina-150-cv-del-2025-en-malaga/156969010": [
+      "fecha": "2026-07-29",
+      "precio": 33900
+    },
     {
-      "fecha": "2026-09-19",
-      "precio": 29800
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-leon-diesel-116-cv-del-2025-en-malaga/157823092": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 22700
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/renault-clio-hibrido-electro-gasolina-143-cv-del-2025-en-malaga/159882925": [
-    {
-      "fecha": "2026-09-21",
-      "precio": 19900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-110-cv-del-2022-en-malaga/165115441": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 16500
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-terramar-gasolina-150-cv-del-2026-en-malaga/163429723": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 37500
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/abarth-500-gasolina-165-cv-del-2022-en-malaga/165443506": [
-    {
-      "fecha": "2026-09-19",
-      "precio": 18500
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/165442777": [
-    {
-      "fecha": "2026-09-19",
-      "precio": 19900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/165438064": [
-    {
-      "fecha": "2026-09-19",
-      "precio": 18900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2026-en-malaga/169786447": [
-    {
-      "fecha": "2026-09-19",
-      "precio": 20900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-leon-diesel-116-cv-del-2025-en-malaga/168559873": [
-    {
-      "fecha": "2026-09-19",
-      "precio": 22700
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-leon-diesel-116-cv-del-2025-en-malaga/168559741": [
-    {
-      "fecha": "2026-09-19",
-      "precio": 22700
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-tavascan-electrico-286-cv-del-2026-en-malaga/166434652": [
-    {
-      "fecha": "2026-09-19",
-      "precio": 43900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2026-en-malaga/170994556": [
-    {
-      "fecha": "2026-09-19",
-      "precio": 20700
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-ateca-gasolina-150-cv-del-2026-en-malaga/171720715": [
-    {
-      "fecha": "2026-09-23",
-      "precio": 32900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-terramar-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/171393895": [
-    {
-      "fecha": "2026-09-23",
-      "precio": 40500
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/174153091": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 18900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/174150409": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 18900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-leon-st-gasolina-150-cv-del-2026-en-malaga/173779507": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 27900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2026-en-malaga/173814040": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 32900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/174148807": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 18900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/176586541": [
-    {
-      "fecha": "2026-09-19",
-      "precio": 36900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-terramar-gasolina-150-cv-del-2026-en-malaga/178079683": [
-    {
-      "fecha": "2026-09-15",
-      "precio": 37900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2026-en-malaga/178075705": [
-    {
-      "fecha": "2026-09-15",
+      "fecha": "2026-09-18",
       "precio": 33500
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2026-en-malaga/179469064": [
+  "dwa-170994556": [
     {
-      "fecha": "2026-09-15",
-      "precio": 24500
+      "fecha": "2026-07-29",
+      "precio": 20700
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2026-en-malaga/181537246": [
+  "dwa-169786447": [
     {
-      "fecha": "2026-09-22",
-      "precio": 20600
+      "fecha": "2026-07-29",
+      "precio": 20900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/186848827": [
+  "dwa-168559873": [
     {
-      "fecha": "2026-09-14",
+      "fecha": "2026-07-29",
+      "precio": 22700
+    }
+  ],
+  "dwa-168559741": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 22700
+    }
+  ],
+  "dwa-166434652": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 43900
+    }
+  ],
+  "dwa-165443506": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 18500
+    }
+  ],
+  "dwa-165438064": [
+    {
+      "fecha": "2026-07-29",
       "precio": 18900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/190151308": [
+  "dwa-165442777": [
     {
-      "fecha": "2026-09-21",
-      "precio": 17900
+      "fecha": "2026-07-29",
+      "precio": 19900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/191192446": [
+  "dwa-165115441": [
     {
-      "fecha": "2026-09-15",
+      "fecha": "2026-07-29",
+      "precio": 16500
+    }
+  ],
+  "dwa-163429723": [
+    {
+      "fecha": "2026-07-29",
       "precio": 37500
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-110-cv-del-2022-en-malaga/192744877": [
+  "dwa-159882925": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 21500
+    },
     {
       "fecha": "2026-09-17",
-      "precio": 15900
+      "precio": 19900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/193186186": [
+  "dwa-156976378": [
     {
-      "fecha": "2026-09-19",
-      "precio": 18300
+      "fecha": "2026-07-29",
+      "precio": 35900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/193183603": [
+  "dwa-151310097": [
     {
-      "fecha": "2026-09-19",
-      "precio": 21300
+      "fecha": "2026-07-29",
+      "precio": 22900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-150-cv-del-2021-en-malaga/193168066": [
+  "dwa-151393623": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 27900
+    }
+  ],
+  "dwa-151393698": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 28500
+    }
+  ],
+  "dwa-151394046": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 17500
+    }
+  ],
+  "dwa-151395102": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 41300
+    }
+  ],
+  "dwa-151394958": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 29900
+    }
+  ],
+  "dwa-155656699": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 36500
+    },
+    {
+      "fecha": "2026-09-18",
+      "precio": 35500
+    }
+  ],
+  "dwa-156969010": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 29800
+    }
+  ],
+  "dwa-151395159": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 48500
+    },
+    {
+      "fecha": "2026-09-17",
+      "precio": 46500
+    }
+  ],
+  "dwa-151394481": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 20500
+    }
+  ],
+  "dwa-157823092": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 22700
+    }
+  ],
+  "dwa-174150409": [
+    {
+      "fecha": "2026-08-12",
+      "precio": 18900
+    }
+  ],
+  "dwa-193168066": [
     {
       "fecha": "2026-09-19",
       "precio": 17800
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/skoda-karoq-diesel-115-cv-del-2023-en-malaga/193154158": [
+  "dwa-171720715": [
     {
-      "fecha": "2026-09-19",
-      "precio": 21500
+      "fecha": "2026-07-29",
+      "precio": 32900
     }
   ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2022-en-malaga/193177990": [
+  "dwa-151336815": [
     {
-      "fecha": "2026-09-19",
-      "precio": 24900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/seat-leon-gasolina-116-cv-del-2025-en-malaga/195025777": [
-    {
-      "fecha": "2026-09-22",
-      "precio": 21900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/193600528": [
-    {
-      "fecha": "2026-09-22",
-      "precio": 37900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/193535071": [
-    {
-      "fecha": "2026-09-22",
-      "precio": 35900
-    }
-  ],
-  "/esp/concesionario-seat-automoviles-rueda/bmw-serie-1-diesel-150-cv-del-2021-en-malaga/193180663": [
-    {
-      "fecha": "2026-09-22",
+      "fecha": "2026-07-29",
       "precio": 22500
+    }
+  ],
+  "mf-168212671": [
+    {
+      "fecha": "2026-07-29",
+      "precio": 18900
+    },
+    {
+      "fecha": "2026-09-17",
+      "precio": 17500
     }
   ]
 }

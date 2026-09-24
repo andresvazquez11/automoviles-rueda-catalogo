@@ -5,7 +5,7 @@ Automóviles Rueda — Generador de Catálogo Web
 Lee datos_coches.json, copia fotos a web_fotos/ y genera index.html
 """
 
-import hashlib, html, json, shutil, sys, urllib.parse
+import functools, hashlib, html, json, shutil, sys, urllib.parse
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from pathlib import Path
@@ -609,6 +609,7 @@ import re as _re
 
 HISTORIAL_PRECIOS = BASE_DIR / "historial_precios.json"
 
+@functools.lru_cache(maxsize=1)
 def _cargar_historial_precios() -> dict:
     if not HISTORIAL_PRECIOS.exists():
         return {}
@@ -617,16 +618,40 @@ def _cargar_historial_precios() -> dict:
     except Exception:
         return {}
 
-def precio_maximo_historico(url_coche: str, precio_actual: int, hist: dict) -> int:
-    """Devuelve el precio máximo de los últimos 10 días si es superior al actual.
-    Retorna 0 si no hay bajada de precio."""
-    registros = hist.get(url_coche, [])
+DIAS_MOSTRAR_BAJADA = 30
+
+def precio_antes_auto(car: dict, hist: dict) -> int:
+    """Precio "Antes" de una bajada REAL de precio, o 0 si no corresponde.
+
+    Regla (art. 20 Ley de Ordenación del Comercio Minorista): el precio
+    anterior anunciado es el MÁS BAJO que tuvo el coche en los 30 días
+    previos a la bajada. Se muestra durante DIAS_MOSTRAR_BAJADA días desde
+    la bajada, y solo si el último cambio de precio fue a la baja.
+    `hist` es historial_precios.json: {id_estable: [{fecha, precio}, ...]}
+    con un registro por cada cambio de precio."""
+    from datetime import date, timedelta
+    registros = hist.get(id_estable_coche(car)) or hist.get(car.get("url") or "", [])
+    registros = sorted(registros, key=lambda r: r["fecha"])
     if len(registros) < 2:
         return 0
-    # Solo precios anteriores (excluir el más reciente = precio actual)
-    anteriores = [r["precio"] for r in registros[:-1]]
-    maximo = max(anteriores) if anteriores else 0
-    return maximo if maximo > precio_actual else 0
+    try:
+        precio_actual = int(str(car["precio"]).replace(".", "").replace(",", "").split()[0])
+    except Exception:
+        return 0
+    ultimo, previo = registros[-1], registros[-2]
+    if ultimo["precio"] != precio_actual or ultimo["precio"] >= previo["precio"]:
+        return 0
+    f_bajada = date.fromisoformat(ultimo["fecha"])
+    if (date.today() - f_bajada).days > DIAS_MOSTRAR_BAJADA:
+        return 0
+    inicio = (f_bajada - timedelta(days=30)).isoformat()
+    # Precios vigentes en los 30 días previos: el que regía al empezar la
+    # ventana (último registro anterior a `inicio`) + los cambios dentro.
+    antes_ventana = [r for r in registros[:-1] if r["fecha"] < inicio]
+    en_ventana = [r["precio"] for r in registros[:-1] if r["fecha"] >= inicio]
+    vigentes = ([antes_ventana[-1]["precio"]] if antes_ventana else []) + en_ventana
+    minimo = min(vigentes) if vigentes else 0
+    return minimo if minimo > precio_actual else 0
 
 def extract_vr_eur(ejemplo: str) -> float:
     """Extrae el valor residual (cuota final) en EUR del texto verbatim de DWA."""
@@ -1406,6 +1431,8 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict)
         "cambio": car.get("cambio",""), "color": car.get("color",""),
         "color_en": trad["color_en"],
         "precio": car["precio"], "estado": car["estado"], "vendido": vendido,
+        "id": id_estable_coche(car),
+        "antes_auto": precio_antes_auto(car, _cargar_historial_precios()),
         "url": url_externa,
         "equipamiento": car.get("equipamiento", []),
         "equipamiento_en": trad["equipamiento_en"],
@@ -1529,6 +1556,7 @@ const COCHE = {coche_json};
 cargarFicha(COCHE);
 window.rdAlCambiarIdioma = function() {{ cargarFicha(COCHE); }};
 </script>
+<script src="/assets/rebajas.js"></script>
 {footer_whatsapp_html(perfil)}
 {goatcounter_script_html()}
 </body>
@@ -1566,7 +1594,7 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict) -> str:
     estado_lbl = "Reservado" if reservado else "Disponible"
     dgt_txt, dgt_cls = etiqueta_dgt_badge(car.get("combustible", ""))
     cuota = _cuota_display(car)
-    p_ant = precio_maximo_historico(car.get("url",""), int(str(car["precio"]).replace(".","").replace(",","").split()[0]), hist)
+    p_ant = precio_antes_auto(car, hist)
 
     fotos_html = "".join(
         f'<img src="{f}" alt="{car["modelo"]}" loading="lazy" class="{"activa" if i==0 else ""}">'
@@ -1574,24 +1602,23 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict) -> str:
     )
     dots_html = "".join(f'<span class="rd-card-dot {"activa" if i==0 else ""}"></span>' for i in range(len(fotos))) if len(fotos) > 1 else ""
     nav_html = '<button class="rd-card-nav prev" aria-label="Foto anterior">&#8249;</button><button class="rd-card-nav next" aria-label="Foto siguiente">&#8250;</button>' if len(fotos) > 1 else ""
-    precio_row = (
-        f'<span class="rd-card-precio-old">{p_ant:,.0f} €</span><span class="rd-card-precio">{car["precio"]} €</span>'.replace(",", ".")
-        if p_ant else f'<span class="rd-card-precio">{car["precio"]} €</span>'
-    )
+    # El cartel "X € DESCUENTO" y el "Antes: X €" tachado los pinta
+    # assets/rebajas.js — con esta bajada real (data-antes-auto) o con la
+    # rebaja manual de /admin/ (rebajas.json), que tiene prioridad.
+    precio_row = f'<span class="rd-card-precio">{car["precio"]} €</span>'
 
     precio_num = int(str(car["precio"]).replace(".", "").replace(",", "").split()[0])
     km_num = int(str(car.get("km", "0")).replace(".", "").replace(",", "").split()[0] or 0)
     buscar_txt = f'{car["modelo"]} {car["version"]}'.lower()
 
     id_estable = id_estable_coche(car)
-    return f'''<a class="rd-card" href="{href}" data-n="{n}" data-id="{id_estable}" data-precio="{precio_num}" data-km="{km_num}" data-estado="{estado_lbl}" data-buscar="{buscar_txt}">
+    return f'''<a class="rd-card" href="{href}" data-n="{n}" data-id="{id_estable}" data-precio="{precio_num}" data-antes-auto="{p_ant}" data-km="{km_num}" data-estado="{estado_lbl}" data-buscar="{buscar_txt}">
   <div class="rd-card-media">
     <div class="rd-card-photos">{fotos_html}</div>
     {nav_html}
     <div class="rd-card-dots">{dots_html}</div>
     {'' if reservado else f'<span class="rd-badge-estado {estado_cls}">' + i18n_span(estado_lbl, ESTADO_EN[estado_lbl]) + '</span>'}
     {'<div class="rd-band-reservado"><span>' + i18n_span(estado_lbl, ESTADO_EN[estado_lbl]) + '</span></div>' if reservado else ''}
-    {'<span class="rd-badge-oferta">' + i18n_span("OFERTA", "PRICE DROP") + '</span>' if p_ant and not reservado else ''}
     <span class="rd-badge-dgt"><img src="{DGT_URLS[dgt_txt]}" alt="Etiqueta {dgt_txt}" loading="lazy"></span>
     {f'<span class="rd-badge-fotos">📷 {len(fotos)}</span>' if len(fotos) > 1 else ''}
   </div>
@@ -1631,6 +1658,7 @@ def build_coches_lista_json(cars: list[dict], rutas: dict[int, list[str]]) -> st
             "modelo": car["modelo"],
             "precio": car["precio"],
             "foto": fotos[0] if fotos else "",
+            "antes_auto": precio_antes_auto(car, _cargar_historial_precios()),
         })
     return json.dumps(items, ensure_ascii=False, indent=2)
 
@@ -1824,6 +1852,7 @@ document.addEventListener('click', e => {{
       strip.innerHTML = '<h2 class="rd-featured-title">🌟 Destacados</h2><div class="rd-featured-grid"></div>';
       strip.querySelector('.rd-featured-grid').append(...featured);
       document.querySelector('.rd-controls').insertAdjacentElement('beforebegin', strip);
+      if (window.rdAplicarRebajas) window.rdAplicarRebajas();
     }});
 }})();
 
@@ -1963,6 +1992,7 @@ document.querySelectorAll('.rd-card-media').forEach(media => {{
   }});
 }})();
 </script>
+<script src="/assets/rebajas.js"></script>
 {footer_whatsapp_html(perfil, accesos_ocultos=(perfil["id"] == "andres"))}
 {goatcounter_script_html()}
 </body>

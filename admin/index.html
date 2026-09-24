@@ -83,6 +83,15 @@
   <div class="card" id="lista-coches">Cargando coches…</div>
   <button id="btn-guardar" disabled>Guardar</button>
   <div class="estado-msg" id="estado-msg"></div>
+
+  <h1 style="margin-top:28px">💸 Rebajas de precio</h1>
+  <p class="sub">Muestra en la web el cartel rojo "X € DESCUENTO" y el "Antes: X €" tachado.
+    El precio que se ve sigue siendo el de Das WeltAuto; "Antes" = precio + descuento.
+    Vale para todos los asesores. Las bajadas reales se muestran solas (🔻) sin tocar nada.</p>
+  <div class="card" id="lista-rebajas">Cargando coches…</div>
+  <button id="btn-guardar-rebajas" disabled>Guardar rebajas</button>
+  <div class="estado-msg" id="estado-msg-rebajas"></div>
+
   <button class="secundario" id="btn-cambiar-token" style="margin-top:10px">Cambiar token</button>
 </div>
 
@@ -211,20 +220,82 @@
     });
   }
 
+  // ── Rebajas manuales (rebajas.json: { id_estable: { descuento } }) ──
+  const DESCUENTOS = [0, 500, 1000, 1500, 2000, 2500, 3000];
+  const listaRebajas = document.getElementById('lista-rebajas');
+  const btnGuardarRebajas = document.getElementById('btn-guardar-rebajas');
+  const estadoRebajas = document.getElementById('estado-msg-rebajas');
+  let rebajas = {};
+  let rebajasSha = null;
+  const eur = n => Math.round(n).toLocaleString('es-ES').replace(/,/g, '.') + ' €';
+  const num = t => parseInt(String(t).replace(/[^\d]/g, ''), 10) || 0;
+
+  function renderRebajas() {
+    listaRebajas.innerHTML = '';
+    cochesDisponibles.forEach(coche => {
+      const desc = (rebajas[coche.id] || {}).descuento || 0;
+      const precio = num(coche.precio);
+      const row = document.createElement('div');
+      row.className = 'coche-row';
+      row.innerHTML = `
+        <img src="${coche.foto}" alt="">
+        <div class="coche-info">
+          <div class="modelo">${coche.modelo}</div>
+          <div class="precio">${coche.precio} €${desc ? ` · se verá: <s>${eur(precio + desc)}</s>` : ''}</div>
+          ${coche.antes_auto ? `<div class="precio">🔻 Bajada real: antes ${eur(coche.antes_auto)} (se muestra sola)</div>` : ''}
+          <select>
+            ${DESCUENTOS.map(d => `<option value="${d}" ${d === desc ? 'selected' : ''}>${d ? eur(d) + ' de descuento' : (coche.antes_auto ? 'Automática (bajada real)' : 'Sin rebaja')}</option>`).join('')}
+          </select>
+        </div>`;
+      row.querySelector('select').addEventListener('change', e => {
+        const d = parseInt(e.target.value, 10);
+        if (d) rebajas[coche.id] = { descuento: d }; else delete rebajas[coche.id];
+        renderRebajas();
+      });
+      listaRebajas.appendChild(row);
+    });
+  }
+
+  btnGuardarRebajas.addEventListener('click', async () => {
+    btnGuardarRebajas.disabled = true;
+    estadoRebajas.textContent = 'Guardando…';
+    estadoRebajas.className = 'estado-msg ok';
+    try {
+      // Solo coches que siguen disponibles (los vendidos se limpian solos)
+      const vigentes = new Set(cochesDisponibles.map(c => c.id));
+      const nuevo = {};
+      Object.keys(rebajas).forEach(id => { if (vigentes.has(id)) nuevo[id] = rebajas[id]; });
+      const fecha = new Date().toISOString().slice(0, 10);
+      const resultado = await ghPut('rebajas.json', nuevo, rebajasSha, `Actualizar rebajas — ${fecha}`);
+      rebajas = nuevo;
+      rebajasSha = resultado.content.sha;
+      estadoRebajas.textContent = 'Guardado. Puede tardar hasta un minuto en verse en la web.';
+    } catch (e) {
+      estadoRebajas.textContent = 'No se pudo guardar: ' + e.message;
+      estadoRebajas.className = 'estado-msg error';
+    }
+    btnGuardarRebajas.disabled = false;
+  });
+
   async function cargarTodo() {
     listaCoches.textContent = 'Cargando coches…';
     try {
-      const [lista, dest] = await Promise.all([
-        fetch('/coches_lista.json').then(r => r.json()),
-        ghGet('destacados.json')
+      const [lista, dest, reb] = await Promise.all([
+        fetch('/coches_lista.json', { cache: 'no-store' }).then(r => r.json()),
+        ghGet('destacados.json'),
+        ghGet('rebajas.json')
       ]);
       cochesDisponibles = lista;
       destacadosActuales = dest.data || {};
       destacadosSha = dest.sha;
+      rebajas = reb.data || {};
+      rebajasSha = reb.sha;
       cargarSeleccionDePerfil();
       renderPerfilTabs();
       renderLista();
+      renderRebajas();
       btnGuardar.disabled = false;
+      btnGuardarRebajas.disabled = false;
       authCard.hidden = true;
       panel.hidden = false;
     } catch (e) {

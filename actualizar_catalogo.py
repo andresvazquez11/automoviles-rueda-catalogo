@@ -156,13 +156,29 @@ def acumular_cambios_hoy(nuevos, vendidos, cambios):
 def id_coche(c):
     return c.get("url") or f"{c['modelo']}_{c['version']}_{c['precio']}"
 
+def id_estable(c):
+    """Misma clave que id_estable_coche() de generar_web.py: no cambia entre
+    corridas ni cuando cambia el precio. id_coche() no sirve para el
+    historial: para los coches de MotorFlash (sin url) incluye el precio, así
+    que cada bajada creaba una clave nueva y la bajada nunca se detectaba
+    (le pasó al Nissan Qashqai, 18.900 → 17.500 € el 17/09)."""
+    if c.get("motorflash_id"):
+        return f"mf-{c['motorflash_id']}"
+    listing_id = (c.get("url") or "").rstrip("/").split("/")[-1]
+    if listing_id.isdigit():
+        return f"dwa-{listing_id}"
+    return id_coche(c)
+
 def actualizar_historial_precios(actuales: list):
     """Actualiza historial_precios.json con los precios actuales.
-    Guarda un registro por coche por día durante los últimos 10 días.
-    Usado por generar_web.py para detectar bajadas de precio."""
+    Guarda un registro por coche cada vez que cambia su precio, indexado por
+    id_estable(). Usado por generar_web.py para mostrar las bajadas reales
+    ("Antes: X €"), que por ley deben compararse con el precio más bajo de
+    los 30 días previos a la bajada — por eso se guardan 60 días (antes eran
+    10 y las bajadas desaparecían de la web a los pocos días)."""
     from datetime import date, timedelta
     hoy = date.today().isoformat()
-    corte = (date.today() - timedelta(days=10)).isoformat()
+    corte = (date.today() - timedelta(days=60)).isoformat()
 
     hist = {}
     if HISTORIAL_PRECIOS.exists():
@@ -172,21 +188,26 @@ def actualizar_historial_precios(actuales: list):
             hist = {}
 
     for c in actuales:
-        key = id_coche(c)
+        key = id_estable(c)
+        # Migración: historiales viejos indexados por id_coche() (url)
+        if key not in hist and id_coche(c) in hist:
+            hist[key] = hist.pop(id_coche(c))
         try:
             precio = int(str(c["precio"]).replace(".", "").replace(",", "").split()[0])
         except Exception:
             continue
-        registros = hist.get(key, [])
-        # Purgar entradas más viejas de 10 días
-        registros = [r for r in registros if r["fecha"] >= corte]
-        # Solo añadir entrada si es un día nuevo o el precio cambió
+        registros = sorted(hist.get(key, []), key=lambda r: r["fecha"])
+        # Purgar entradas viejas, pero conservar la última anterior al corte:
+        # es el precio que regía al empezar la ventana.
+        viejos = [r for r in registros if r["fecha"] < corte]
+        registros = viejos[-1:] + [r for r in registros if r["fecha"] >= corte]
+        # Solo añadir entrada si el precio cambió
         if not registros or registros[-1]["precio"] != precio:
             registros.append({"fecha": hoy, "precio": precio})
         hist[key] = registros
 
     # Purgar claves de coches que ya no están en el catálogo
-    keys_activos = {id_coche(c) for c in actuales}
+    keys_activos = {id_estable(c) for c in actuales}
     hist = {k: v for k, v in hist.items() if k in keys_activos}
 
     HISTORIAL_PRECIOS.write_text(
@@ -608,7 +629,6 @@ async def main():
 
     # 5) Guardar JSON actualizado
     CACHE.write_text(json.dumps(actuales, ensure_ascii=False, indent=2), encoding="utf-8")
-    actualizar_historial_precios(actuales)   # registro rolling 10 días para web
 
     # 5c) Integrar coches exclusivos de MotorFlash
     print("\n" + "─" * 60)
@@ -629,6 +649,9 @@ async def main():
     # añadido/renumerado coches (fuente=motorflash) que no estaban en el
     # `actuales` en memoria. El PDF debe reflejar el estado final en disco.
     actuales = json.loads(CACHE.read_text(encoding="utf-8"))
+    # Historial de precios para la web — DESPUÉS de integrar MotorFlash, para
+    # que incluya también sus coches (antes se registraba solo DWA).
+    actualizar_historial_precios(actuales)
 
     # 5e) Re-sincronizar carpetas de fotos tras la renumeración de MotorFlash.
     # integrar_motorflash.py puede haber cambiado el "n" de coches DWA (al
