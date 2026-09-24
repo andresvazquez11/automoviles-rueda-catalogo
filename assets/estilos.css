@@ -498,6 +498,9 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 2px 8px rgba(232,120,12,0.45);
   animation: rd-oferta-pulse 2s ease-in-out infinite;
 }
+/* En las tarjetas del catálogo: más chica, debajo del cartel de descuento */
+.rd-card-media .rd-oferta-pill { top: 40px; right: 10px; font-size: 11px; padding: 4px 11px; }
+.rd-card-featured .rd-oferta-pill { top: 68px; }
 .rd-rebaja-antes { font-size: 13px; font-weight: 600; color: var(--rd-red); line-height: 1.2; }
 .rd-rebaja-antes s { text-decoration-thickness: 1.5px; }
 .rd-price-panel .rd-rebaja-antes { font-size: 15px; margin-bottom: 2px; }

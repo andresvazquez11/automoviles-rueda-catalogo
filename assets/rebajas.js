@@ -30,7 +30,7 @@
 
   function aplicarTarjetas() {
     document.querySelectorAll('.rd-card[data-id]').forEach(function(card) {
-      card.querySelectorAll('.rd-rebaja-badge, .rd-rebaja-antes').forEach(function(el) { el.remove(); });
+      card.querySelectorAll('.rd-rebaja-badge, .rd-rebaja-antes, .rd-oferta-pill').forEach(function(el) { el.remove(); });
       delete card.dataset.oferta;
       if (card.dataset.estado !== 'Disponible') return;
       var precio = parseInt(card.dataset.precio, 10) || 0;
@@ -41,6 +41,10 @@
       badge.className = 'rd-rebaja-badge';
       badge.textContent = badgeHTML(antes - precio);
       card.querySelector('.rd-card-media').appendChild(badge);
+      var pill = document.createElement('span');
+      pill.className = 'rd-oferta-pill';
+      pill.textContent = en() ? '🔥 DEAL' : '🔥 OFERTA';
+      card.querySelector('.rd-card-media').appendChild(pill);
       var old = document.createElement('div');
       old.className = 'rd-rebaja-antes';
       old.innerHTML = antesHTML(antes);

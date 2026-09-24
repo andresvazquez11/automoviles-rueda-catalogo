@@ -609,6 +609,20 @@ import re as _re
 
 HISTORIAL_PRECIOS = BASE_DIR / "historial_precios.json"
 
+@functools.lru_cache(maxsize=None)
+def asset(nombre: str) -> str:
+    """URL de assets/<nombre> con ?v=<hash del contenido>. GitHub Pages y los
+    móviles cachean los .css/.js; sin esto, tras cambiar un archivo el
+    visitante seguía viendo la versión vieja (pasó con el "🔥 OFERTA")."""
+    ruta = BASE_DIR / "assets" / nombre
+    v = hashlib.md5(ruta.read_bytes()).hexdigest()[:8] if ruta.exists() else "0"
+    return f"/assets/{nombre}?v={v}"
+
+ASSET_ESTILOS     = asset("estilos.css")
+ASSET_IDIOMA      = asset("idioma.js")
+ASSET_CALCULADORA = asset("calculadora.js")
+ASSET_REBAJAS     = asset("rebajas.js")
+
 @functools.lru_cache(maxsize=1)
 def _cargar_historial_precios() -> dict:
     if not HISTORIAL_PRECIOS.exists():
@@ -1470,8 +1484,8 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict)
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/estilos.css">
-<script src="/assets/idioma.js"></script>
+<link rel="stylesheet" href="{ASSET_ESTILOS}">
+<script src="{ASSET_IDIOMA}"></script>
 <style>
 {CALCULADORA_CSS}
 </style>
@@ -1550,13 +1564,13 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict)
 <script>
 const ASESOR = {asesor_json};
 </script>
-<script src="/assets/calculadora.js"></script>
+<script src="{ASSET_CALCULADORA}"></script>
 <script>
 const COCHE = {coche_json};
 cargarFicha(COCHE);
 window.rdAlCambiarIdioma = function() {{ cargarFicha(COCHE); }};
 </script>
-<script src="/assets/rebajas.js"></script>
+<script src="{ASSET_REBAJAS}"></script>
 {footer_whatsapp_html(perfil)}
 {goatcounter_script_html()}
 </body>
@@ -1686,8 +1700,8 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 <meta name="description" content="Catálogo de vehículos seminuevos con garantía oficial Das WeltAuto. {len(visibles)} coches disponibles en Málaga.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/estilos.css">
-<script src="/assets/idioma.js"></script>
+<link rel="stylesheet" href="{ASSET_ESTILOS}">
+<script src="{ASSET_IDIOMA}"></script>
 </head>
 <body>
 <header class="rd-header">
@@ -1996,7 +2010,7 @@ document.querySelectorAll('.rd-card-media').forEach(media => {{
   }});
 }})();
 </script>
-<script src="/assets/rebajas.js"></script>
+<script src="{ASSET_REBAJAS}"></script>
 {footer_whatsapp_html(perfil, accesos_ocultos=(perfil["id"] == "andres"))}
 {goatcounter_script_html()}
 </body>
@@ -2083,8 +2097,8 @@ def build_historial_precios_html(historial: list[dict], perfil: dict, fichas_por
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/estilos.css">
-<script src="/assets/idioma.js"></script>
+<link rel="stylesheet" href="{ASSET_ESTILOS}">
+<script src="{ASSET_IDIOMA}"></script>
 </head>
 <body class="rd-has-sticky">
 
