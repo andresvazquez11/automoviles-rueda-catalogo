@@ -766,9 +766,14 @@ async def main():
     _archivadas = 0
     for _d in list(PHOTOS_DIR.iterdir()):
         if _d.is_dir() and not _d.name.startswith("_") and _d.name not in _valid:
+            # Nombre libre en el archivo: con varias corridas el mismo día, la
+            # carpeta "<nombre> (fecha)" ya puede existir, y mover encima de
+            # una carpeta existente la mete DENTRO y falla (pasó el 24/09).
             _destino = _archivo / _d.name
-            if _destino.exists():
-                _destino = _archivo / f"{_d.name} ({hoy_str})"
+            _k = 1
+            while _destino.exists():
+                _destino = _archivo / f"{_d.name} ({datetime.now().strftime('%Y-%m-%d')} #{_k})"
+                _k += 1
             _shutil.move(str(_d), str(_destino))
             _archivadas += 1
     if _archivadas:
