@@ -255,21 +255,21 @@
     "id": "mf-196358410",
     "modelo": "SEAT Arona",
     "precio": "19.900",
-    "foto": "/web_fotos/55/foto_01.jpg",
+    "foto": "/web_fotos/mf-196358410/foto_01.jpg",
     "antes_auto": 0
   },
   {
     "id": "mf-196358407",
     "modelo": "SEAT Arona",
     "precio": "19.900",
-    "foto": "/web_fotos/56/foto_01.jpg",
+    "foto": "/web_fotos/mf-196358407/foto_01.jpg",
     "antes_auto": 0
   },
   {
     "id": "mf-168212671",
     "modelo": "Nissan Qashqai",
     "precio": "17.500",
-    "foto": "/web_fotos/57/foto_01.jpg",
+    "foto": "/web_fotos/mf-168212671/foto_01.jpg",
     "antes_auto": 18900
   }
 ]
