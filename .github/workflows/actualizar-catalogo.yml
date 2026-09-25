@@ -113,6 +113,12 @@ jobs:
       - name: Descargar fotos nuevas
         run: python3 descargar_fotos_galeria.py
 
+      - name: Leer fichas técnicas de coches nuevos
+        # Solo visita los coches que aún no tienen ficha guardada — si falla,
+        # la web se genera igual (esos coches se ven con el formato anterior).
+        continue-on-error: true
+        run: python3 ficha_tecnica.py
+
       - name: Descartar fotos archivadas (coches vendidos) antes de cachear
         run: rm -rf fotos/_archivo
 
@@ -136,7 +142,8 @@ jobs:
           git add index.html web_fotos/ coches/ assets/ alejandro/ \
                   historial-precios/ \
                   datos_coches.json historial_precios.json coches_lista.json \
-                  traducciones_cache.json historial_cambios_precio.json
+                  traducciones_cache.json historial_cambios_precio.json \
+                  fichas_tecnicas.json
           git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M')" || echo "Sin cambios que subir"
           git push origin main
 

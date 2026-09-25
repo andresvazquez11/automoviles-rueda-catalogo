@@ -790,3 +790,48 @@ body.rd-dark .rd-hist-card { background: var(--rd-surface); border-color: var(--
   .rd-overlay { padding: 12px; }
   .rd-overlay-panel { padding: 18px; max-height: 92vh; }
 }
+
+/* ── Ficha técnica (bloques de la ficha de coche, ver ficha_tecnica.py) ── */
+.ft-card{background:var(--rd-surface);border-radius:var(--rd-radius-lg);box-shadow:var(--rd-shadow);padding:22px 24px;margin:16px 0}
+.ft-h{font-family:var(--rd-display);font-size:21px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin:0 0 16px;color:var(--rd-ink)}
+.ft-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.ft-head .ft-h{margin-bottom:12px}
+.ft-count{font-size:12px;font-weight:600;color:var(--rd-red);background:rgba(200,35,43,.08);padding:4px 10px;border-radius:99px}
+.ft-tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:18px 14px}
+.ft-tile{display:flex;gap:9px;align-items:flex-start;border-left:3px solid var(--rd-red);padding-left:10px;min-width:0}
+.ft-tile svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--rd-ink-soft);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+.ft-tile > div > span{display:block;font-size:11px;color:var(--rd-muted);text-transform:uppercase;letter-spacing:.3px}
+.ft-tile strong{display:block;font-size:14px;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
+.ft-chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.ft-chip{font-size:13px;background:var(--rd-bg);border:1px solid var(--rd-border);border-radius:99px;padding:5px 12px}
+.ft-chip b{font-weight:600;color:var(--rd-muted);margin-right:3px}
+.ft-grupos{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px}
+.ft-grupo h4{font-family:var(--rd-display);font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;margin:0 0 8px;color:var(--rd-ink)}
+.ft-grupo h4 em{font-style:normal;font-family:var(--rd-font);font-size:11px;color:var(--rd-muted);font-weight:600;margin-left:4px}
+.ft-check,.ft-list{list-style:none;margin:0;padding:0}
+.ft-check li{position:relative;padding:4px 0 4px 24px;font-size:14px;line-height:1.35}
+.ft-check li:before{content:"";position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;background:var(--rd-green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
+.ft-list li{font-size:13.5px;color:var(--rd-ink-soft);padding:5px 0 5px 12px;border-left:2px solid var(--rd-border);margin-bottom:2px;line-height:1.35}
+.ft-plegable{max-height:300px;overflow:hidden;position:relative}
+.ft-plegable:after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,var(--rd-surface))}
+.ft-plegable.abierto{max-height:none}.ft-plegable.abierto:after{display:none}
+.ft-vermas,.ft-tab{font-family:var(--rd-font);cursor:pointer}
+.ft-vermas{display:block;margin:14px auto 0;background:none;border:1.5px solid var(--rd-red);color:var(--rd-red);font-weight:600;font-size:13px;padding:9px 20px;border-radius:99px}
+.ft-vermas:hover{background:var(--rd-red);color:#fff}
+.ft-tabs{display:flex;gap:6px;border-bottom:1px solid var(--rd-border);margin-bottom:16px;overflow-x:auto}
+.ft-tab{background:none;border:0;border-bottom:3px solid transparent;padding:8px 14px;font-size:14px;font-weight:600;color:var(--rd-muted);white-space:nowrap}
+.ft-tab.on{color:var(--rd-ink);border-bottom-color:var(--rd-red)}
+.ft-panel{display:none}.ft-panel.on{display:block}
+.ft-dims{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.ft-dims div{background:var(--rd-bg);border-radius:var(--rd-radius-md);padding:14px;text-align:center}
+.ft-dims strong{display:block;font-family:var(--rd-display);font-size:24px;font-weight:600}
+.ft-dims span{font-size:12px;color:var(--rd-muted);text-transform:uppercase;letter-spacing:.3px}
+.ft-dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+.ft-dl div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--rd-border);font-size:14px}
+.ft-dl dt{color:var(--rd-muted)}.ft-dl dd{margin:0;font-weight:600;text-align:right}
+@media (max-width:700px){
+  .ft-card{padding:18px 16px}
+  .ft-tiles{grid-template-columns:1fr 1fr}
+  .ft-grupos,.ft-dl{grid-template-columns:1fr}
+  .ft-dims strong{font-size:19px}
+}

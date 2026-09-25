@@ -12,6 +12,7 @@ from pathlib import Path
 import requests
 
 from catalogo_rueda_v2 import _es_foto_exterior, nombre_carpeta
+import ficha_tecnica
 
 BASE_DIR   = Path(__file__).parent
 JSON_PATH  = BASE_DIR / "datos_coches.json"
@@ -1420,7 +1421,8 @@ BBVA_HTML_INTERIOR = '''    <div class="bbva-bar">
       <div class="bbva-legal" id="bbva-legal"></div>
     </div>'''
 
-def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict) -> str:
+def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
+                     ficha: "dict | None" = None) -> str:
     n = car["n"]
     slug = slug_coche(car["modelo"])
     vendido = car["estado"] == "Retirado"
@@ -1463,6 +1465,21 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict)
   <div class="rd-vendido-banner" id="m-vendido-banner">
     {i18n_span("Este vehículo ya no está disponible.", "This vehicle is no longer available.")}
     <a href="../index.html">{i18n_span("Ver coches disponibles →", "See available cars →")}</a>
+  </div>'''
+
+    # Ficha técnica completa (ficha_tecnica.py): si existe, reemplaza a las
+    # pastillas de datos y a la lista de equipamiento. Esos dos contenedores se
+    # mantienen ocultos porque calculadora.js (cargarFicha) los rellena igual.
+    if ficha:
+        bloque_datos = (ficha_tecnica.bloques_html(ficha, car, i18n_span)
+                        + '\n  <div hidden><div id="m-specs"></div>'
+                          '<div id="equip-section"><div id="m-equip"></div></div></div>')
+    else:
+        bloque_datos = f'''<div class="rd-spec-badges" id="m-specs"></div>
+
+  <div class="rd-section equip-section" id="equip-section">
+    <h3>{i18n_span("Equipamiento", "Equipment")}</h3>
+    <div class="equip-grid" id="m-equip"></div>
   </div>'''
 
     og_image_tag = (f'<meta property="og:image" content="{datos["dominio_pagina"]}{foto_principal_root}">'
@@ -1523,12 +1540,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict)
     </div>
   </div>
 
-  <div class="rd-spec-badges" id="m-specs"></div>
-
-  <div class="rd-section equip-section" id="equip-section">
-    <h3>{i18n_span("Equipamiento", "Equipment")}</h3>
-    <div class="equip-grid" id="m-equip"></div>
-  </div>
+  {bloque_datos}
 
   <div class="financiera-tabs" id="financiera-tabs">
     <button class="financiera-tab active" id="fin-vwfs" onclick="setFinanciera('VWFS', this)">
@@ -2233,6 +2245,9 @@ def main():
     # ── Paso 2: generar el sitio completo (index + fichas) una vez por cada
     # perfil de asesor, en su propia carpeta de salida — compartiendo las
     # mismas fotos/CSS/JS (rutas absolutas desde la raíz del dominio). ──────
+    fichas = ficha_tecnica.cargar_fichas()
+    print(f"📋  {sum(1 for c in todos_los_coches if fichas.get(ficha_tecnica.clave_ficha(c)))} "
+          f"coche(s) con ficha técnica completa")
     for perfil in PERFILES:
         datos = datos_perfil(perfil)
         out_dir = datos["out_dir"]
@@ -2244,7 +2259,8 @@ def main():
             if n in sin_foto:
                 continue
             slug = slug_coche(car["modelo"])
-            html_coche = build_coche_html(car, fotos_por_coche[n], perfil, traducciones[n])
+            html_coche = build_coche_html(car, fotos_por_coche[n], perfil, traducciones[n],
+                                          fichas.get(ficha_tecnica.clave_ficha(car)))
             (coches_dir / f"{n:02d}-{slug}.html").write_text(html_coche, encoding="utf-8")
 
         archivadas = 0
