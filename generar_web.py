@@ -43,6 +43,8 @@ PERFILES = [
         ],
         # DasWeltAuto - Automóviles Rueda, Av. del Rey Juan Carlos I, 27, Vélez-Málaga
         "maps_url": "https://www.google.com/maps/dir/?api=1&destination=36.7643057,-4.0985743",
+        "direccion": {"calle": "Av. del Rey Juan Carlos I, 27", "cp": "29700", "localidad": "Vélez-Málaga",
+                      "lat": 36.7643057, "lng": -4.0985743},
     },
     {
         "id": "alejandro",
@@ -57,6 +59,8 @@ PERFILES = [
         ],
         # Automóviles Rueda Ocasión | Das WeltAuto, Av. de Velázquez, 103, Málaga
         "maps_url": "https://www.google.com/maps/dir/?api=1&destination=36.6913379,-4.455824",
+        "direccion": {"calle": "Av. de Velázquez, 103", "cp": "29004", "localidad": "Málaga",
+                      "lat": 36.6913379, "lng": -4.455824},
     },
 ]
 
@@ -91,6 +95,80 @@ def dwa_foto_url(url_relativa: str) -> str:
     padded = listing_id.zfill(11)
     path = '/'.join(padded[i:i+2] for i in range(0, len(padded), 2))
     return f"{DASWELTAUTO}/esp/fotos_anuncios/{path}/x01.jpg"
+
+def archivo_ficha(car: dict) -> str:
+    """Nombre ESTABLE del archivo de la ficha: modelo + número del anuncio
+    (p.ej. "cupra-formentor-193600528.html"). Nunca usa "n", que cambia en
+    cada actualización: Google (y quien guardó el enlace) tiene que encontrar
+    siempre el mismo coche en la misma dirección."""
+    ident = id_estable_coche(car)
+    slug = slug_coche(car["modelo"])
+    if ident.startswith("dwa-"):
+        return f"{slug}-{ident[4:]}.html"
+    if ident.startswith("mf-"):
+        return f"{slug}-mf{ident[3:]}.html"
+    return f"{car['n']:02d}-{slug}.html"
+
+def archivo_ficha_antiguo(car: dict) -> str:
+    """Nombre antiguo, por posición en la lista (hasta 09/2026). Se sigue
+    generando como redirección para no romper enlaces ya compartidos."""
+    return f"{car['n']:02d}-{slug_coche(car['modelo'])}.html"
+
+def _num(texto) -> int:
+    digitos = "".join(ch for ch in str(texto or "") if ch.isdigit())
+    return int(digitos) if digitos else 0
+
+def jsonld_concesionario(perfil: dict) -> dict:
+    d = perfil.get("direccion", {})
+    datos = datos_perfil(perfil)
+    return {
+        "@type": "AutoDealer",
+        "name": "Automóviles Rueda",
+        "url": datos["dominio_pagina"] + "/",
+        "telephone": "+" + datos["telefono_wa"],
+        "address": {"@type": "PostalAddress", "streetAddress": d.get("calle", ""),
+                    "postalCode": d.get("cp", ""), "addressLocality": d.get("localidad", ""),
+                    "addressRegion": "Málaga", "addressCountry": "ES"},
+        "geo": {"@type": "GeoCoordinates", "latitude": d.get("lat"), "longitude": d.get("lng")},
+        "sameAs": [u for _, u in perfil.get("redes", [])],
+    }
+
+def jsonld_coche(car: dict, perfil: dict, url: str, imagen: str) -> str:
+    """Datos estructurados schema.org/Car: Google entiende que la página es un
+    coche en venta, con precio, km, año... (resultados enriquecidos)."""
+    estado = car.get("estado", "")
+    disponibilidad = {"Disponible": "InStock", "No disponible": "LimitedAvailability"}.get(estado, "SoldOut")
+    anio = "".join(ch for ch in str(car.get("fecha", ""))[-4:] if ch.isdigit())
+    marca = car["modelo"].split()[0]
+    datos = {
+        "@context": "https://schema.org",
+        "@type": "Car",
+        "name": f'{car["modelo"]} {car["version"]}',
+        "brand": {"@type": "Brand", "name": marca},
+        "model": " ".join(car["modelo"].split()[1:]) or car["modelo"],
+        "vehicleConfiguration": car.get("version", ""),
+        "url": url,
+        "itemCondition": "https://schema.org/UsedCondition",
+        "mileageFromOdometer": {"@type": "QuantitativeValue", "value": _num(car.get("km")), "unitCode": "KMT"},
+        "fuelType": car.get("combustible", ""),
+        "vehicleTransmission": car.get("cambio", ""),
+        "offers": {
+            "@type": "Offer",
+            "price": _num(car.get("precio")),
+            "priceCurrency": "EUR",
+            "availability": f"https://schema.org/{disponibilidad}",
+            "url": url,
+            "seller": jsonld_concesionario(perfil),
+        },
+    }
+    if anio:
+        datos["vehicleModelDate"] = anio
+    if car.get("color"):
+        datos["color"] = car["color"]
+    if imagen:
+        datos["image"] = imagen
+    return ('<script type="application/ld+json">'
+            + json.dumps(datos, ensure_ascii=False).replace("</", "<\\/") + "</script>")
 
 def id_estable_coche(car: dict) -> str:
     """Identificador que NO cambia entre corridas — a diferencia de "n",
@@ -1437,7 +1515,8 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
     nombre = datos["nombre"]
     telefono = datos["telefono"]
 
-    titulo = f'{car["modelo"]} {car["version"]} · {car["precio"]}€ · Automóviles Rueda' if not vendido \
+    localidad = perfil.get("direccion", {}).get("localidad", "Málaga")
+    titulo = f'{car["modelo"]} {car["version"]} de ocasión en {localidad} · {car["precio"]} € · Automóviles Rueda' if not vendido \
         else f'{car["modelo"]} — Vendido · Automóviles Rueda'
     descripcion = f'{car.get("combustible","")} · {car.get("km","")} km · Matriculación {car.get("fecha","")} · {car.get("cambio","")} · {car.get("ubicacion","")} · Automóviles Rueda'
 
@@ -1501,7 +1580,9 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 <meta property="og:title" content="{titulo}">
 <meta property="og:description" content="{descripcion}">
 {og_image_tag}
-<meta property="og:url" content="{datos["dominio_pagina"]}/coches/{n:02d}-{slug}.html">
+<meta property="og:url" content="{datos["dominio_pagina"]}/coches/{archivo_ficha(car)}">
+<link rel="canonical" href="{DOMINIO_BASE}/coches/{archivo_ficha(car)}">
+{jsonld_coche(car, perfil, f"{DOMINIO_BASE}/coches/{archivo_ficha(car)}", f"{DOMINIO_BASE}{foto_principal_root}" if foto_principal_root else "")}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1611,10 +1692,51 @@ DGT_URLS = {
     "C":    "https://commons.wikimedia.org/wiki/Special:FilePath/DistAmbDGT_C.svg",
 }
 
+def build_redireccion_html(html_coche: str, destino: str) -> str:
+    """Página en la dirección ANTIGUA (por número) que lleva a la nueva.
+    GitHub Pages no permite redirecciones de servidor, así que es una página
+    mínima con el mismo <head> que la ficha (WhatsApp sigue mostrando la foto
+    del coche al compartir un enlace viejo) + canonical + salto inmediato."""
+    head = html_coche.split("<head>", 1)[1].split("</head>", 1)[0]
+    # Solo lo necesario del <head>: título, descripción, Open Graph y canonical
+    lineas = [l for l in head.splitlines()
+              if l.startswith(("<title>", '<meta name="description"', '<meta property="og:', '<link rel="canonical"'))]
+    return ('<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n'
+            '<meta name="robots" content="noindex, follow">\n'
+            + "\n".join(lineas)
+            + f'\n<meta http-equiv="refresh" content="0; url={destino}">\n'
+            f'<script>location.replace("{destino}" + location.search + location.hash);</script>\n'
+            f'</head>\n<body><a href="{destino}">Ver el coche</a></body>\n</html>\n')
+
+def escribir_sitemap_y_robots(coches: list[dict]) -> None:
+    """sitemap.xml: lista de páginas para Google (portada + fichas con su
+    dirección estable). Solo la versión principal (no /alejandro/, que es la
+    misma ficha con otro contacto y apunta aquí con canonical)."""
+    hoy = datetime.now(ZoneInfo("Europe/Madrid")).strftime("%Y-%m-%d")
+    urls = [(f"{DOMINIO_BASE}/", "daily", "1.0")]
+    for c in coches:
+        if c.get("estado") == "Retirado":
+            continue
+        urls.append((f"{DOMINIO_BASE}/coches/{archivo_ficha(c)}", "weekly", "0.8"))
+    urls.append((f"{DOMINIO_BASE}/historial-precios/", "weekly", "0.3"))
+    xml = ['<?xml version="1.0" encoding="UTF-8"?>',
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for loc, freq, prio in urls:
+        xml.append(f"  <url><loc>{loc}</loc><lastmod>{hoy}</lastmod>"
+                   f"<changefreq>{freq}</changefreq><priority>{prio}</priority></url>")
+    xml.append("</urlset>")
+    (BASE_DIR / "sitemap.xml").write_text("\n".join(xml) + "\n", encoding="utf-8")
+    (BASE_DIR / "robots.txt").write_text(
+        "User-agent: *\n"
+        "Disallow: /admin/\n"
+        "Disallow: /prueba/\n"
+        f"\nSitemap: {DOMINIO_BASE}/sitemap.xml\n", encoding="utf-8")
+    print(f"  🗺️  sitemap.xml: {len(urls)} páginas")
+
 def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte: str = "") -> str:
     n = car["n"]
     slug = slug_coche(car["modelo"])
-    href = f"coches/{n:02d}-{slug}.html"
+    href = f"coches/{archivo_ficha(car)}"
     # `fotos` la resuelve quien llama (ver Task 4): rutas.get(idx, []) para DWA,
     # car.get("fotos", []) para MotorFlash. NUNCA leer car["fotos"] acá directo
     # (para DWA es una ruta absoluta del disco local, no web) ni reconstruir desde n.
@@ -1758,6 +1880,8 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 <title>Automóviles Rueda — Coches seminuevos SEAT · CUPRA · Multimarca</title>
 <meta name="description" content="Catálogo de vehículos seminuevos con garantía oficial Das WeltAuto. {len(visibles)} coches disponibles en Málaga.">
 {og_portada_html(perfil, len(visibles))}
+<link rel="canonical" href="{DOMINIO_BASE}/">
+<script type="application/ld+json">{json.dumps({"@context": "https://schema.org", **jsonld_concesionario(perfil)}, ensure_ascii=False)}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{ASSET_ESTILOS}">
@@ -1779,7 +1903,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
   <div class="rd-hero-overlay"></div>
   <div class="rd-hero-copy">
     <div class="rd-hero-eyebrow">{i18n_span("Seminuevos con garantía oficial", "Certified pre-owned")}</div>
-    <h1>{i18n_span("Encontrá tu", "Find your")}<br>{i18n_span("próximo coche", "next car")}</h1>
+    <h1>{i18n_span("Encuentra tu", "Find your")}<br>{i18n_span("próximo coche", "next car")}</h1>
     <p>{i18n_span("Seminuevos SEAT, CUPRA y Multimarca en Vélez-Málaga, revisados, con garantía oficial y financiación a medida.", "Certified pre-owned SEAT, CUPRA and multi-brand cars in Vélez-Málaga, inspected, with official warranty and tailored financing.")}</p>
   </div>
   <div class="rd-hero-bar">
@@ -2313,7 +2437,8 @@ def main():
         if n in sin_foto:
             continue  # sin foto verificada → sin ficha individual tampoco
         slug = slug_coche(car["modelo"])
-        slugs_validos.add(f"{n:02d}-{slug}.html")
+        slugs_validos.add(archivo_ficha(car))
+        slugs_validos.add(archivo_ficha_antiguo(car))
 
         if car.get("estado") == "Retirado":
             # Ya no se scrapea ni se copian fotos nuevas para estos. Buscar su
@@ -2355,7 +2480,7 @@ def main():
         if n in sin_foto or not car.get("url"):
             continue
         slug = slug_coche(car["modelo"])
-        fichas_por_url[car["url"]] = {"href": f"../coches/{n:02d}-{slug}.html"}
+        fichas_por_url[car["url"]] = {"href": f"../coches/{archivo_ficha(car)}"}
 
     # ── Paso 2: generar el sitio completo (index + fichas) una vez por cada
     # perfil de asesor, en su propia carpeta de salida — compartiendo las
@@ -2376,7 +2501,10 @@ def main():
             slug = slug_coche(car["modelo"])
             html_coche = build_coche_html(car, fotos_por_coche[n], perfil, traducciones[n],
                                           fichas.get(ficha_tecnica.clave_ficha(car)))
-            (coches_dir / f"{n:02d}-{slug}.html").write_text(html_coche, encoding="utf-8")
+            (coches_dir / archivo_ficha(car)).write_text(html_coche, encoding="utf-8")
+            if archivo_ficha_antiguo(car) != archivo_ficha(car):
+                (coches_dir / archivo_ficha_antiguo(car)).write_text(
+                    build_redireccion_html(html_coche, archivo_ficha(car)), encoding="utf-8")
 
         archivadas = 0
         for f in coches_dir.glob("*.html"):
@@ -2395,6 +2523,7 @@ def main():
         html_historial = build_historial_precios_html(historial_precios, perfil, fichas_por_url)
         (hist_dir / "index.html").write_text(html_historial, encoding="utf-8")
 
+    escribir_sitemap_y_robots([c for c in todos_los_coches if c["n"] not in sin_foto])
     print(f"  {len(todos_los_coches)} fichas individuales generadas por perfil")
     print()
     print("  Listo. Sube index.html, coches/, alejandro/ y web_fotos/ a GitHub Pages para compartirlo.")
