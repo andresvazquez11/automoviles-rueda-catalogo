@@ -182,8 +182,23 @@
   }
 
   function cargarSeleccionDePerfil() {
+    // Solo cuentan los coches que siguen DISPONIBLES (coches_lista.json). Un
+    // destacado que desde entonces se reservó o se vendió no aparece en la
+    // lista, pero seguía ocupando un hueco del "3 / 3" sin poder desmarcarse.
+    // La web pública ya los ignora; aquí se quitan de la selección y al
+    // guardar desaparecen también de destacados.json.
     seleccion = {};
-    (destacadosActuales[perfilActivo] || []).forEach(item => { seleccion[item.id] = item.etiqueta; });
+    const disponibles = new Set(cochesDisponibles.map(c => c.id));
+    const descartados = [];
+    (destacadosActuales[perfilActivo] || []).forEach(item => {
+      if (disponibles.has(item.id)) seleccion[item.id] = item.etiqueta;
+      else descartados.push(item);
+    });
+    if (descartados.length) {
+      mostrarEstado(`${descartados.length === 1 ? 'Un coche destacado ya no está disponible' : descartados.length + ' coches destacados ya no están disponibles'} (reservado o vendido) y se quitó de la selección. Pulsa "Guardar" para confirmarlo.`, false);
+    } else if (estadoMsg.textContent.includes('(reservado o vendido)')) {
+      estadoMsg.textContent = '';  // aviso de otro perfil
+    }
   }
 
   function renderLista() {
