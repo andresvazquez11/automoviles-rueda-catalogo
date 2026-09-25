@@ -13,6 +13,7 @@ import requests
 
 from catalogo_rueda_v2 import _es_foto_exterior, nombre_carpeta
 import ficha_tecnica
+import prensa
 
 BASE_DIR   = Path(__file__).parent
 JSON_PATH  = BASE_DIR / "datos_coches.json"
@@ -1470,12 +1471,13 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
     # Ficha técnica completa (ficha_tecnica.py): si existe, reemplaza a las
     # pastillas de datos y a la lista de equipamiento. Esos dos contenedores se
     # mantienen ocultos porque calculadora.js (cargarFicha) los rellena igual.
+    bloque_prensa = prensa.bloque_html(car, prensa.cargar(), i18n_span) if not vendido else ""
     if ficha:
-        bloque_datos = (ficha_tecnica.bloques_html(ficha, car, i18n_span)
+        bloque_datos = (bloque_prensa + ficha_tecnica.bloques_html(ficha, car, i18n_span)
                         + '\n  <div hidden><div id="m-specs"></div>'
                           '<div id="equip-section"><div id="m-equip"></div></div></div>')
     else:
-        bloque_datos = f'''<div class="rd-spec-badges" id="m-specs"></div>
+        bloque_datos = bloque_prensa + f'''<div class="rd-spec-badges" id="m-specs"></div>
 
   <div class="rd-section equip-section" id="equip-section">
     <h3>{i18n_span("Equipamiento", "Equipment")}</h3>

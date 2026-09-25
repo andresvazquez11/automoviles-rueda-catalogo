@@ -835,3 +835,21 @@ body.rd-dark .rd-hist-card { background: var(--rd-surface); border-color: var(--
   .ft-grupos,.ft-dl{grid-template-columns:1fr}
   .ft-dims strong{font-size:19px}
 }
+
+/* ── Lo que dice la prensa (prensa.py) ── */
+.pr-card{background:var(--rd-ink);color:#fff}
+.pr-card .ft-h{color:#fff}
+.pr-citas{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.pr-cita{margin:0;padding:4px 0 0 18px;border-left:3px solid var(--rd-red);display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.pr-cita blockquote{margin:0;font-family:var(--rd-display);font-size:21px;font-weight:500;line-height:1.25;letter-spacing:.2px}
+.pr-cita blockquote:before{content:"«";color:var(--rd-red);margin-right:2px}
+.pr-cita blockquote:after{content:"»";color:var(--rd-red);margin-left:2px}
+.pr-cita figcaption{display:flex;flex-direction:column;gap:2px;font-size:13px}
+.pr-cita figcaption strong{font-family:var(--rd-display);font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:#f0c27a}
+.pr-cita figcaption span{color:rgba(255,255,255,.65)}
+.pr-cita figcaption b{color:#fff;font-weight:600}
+.pr-cita figcaption a{color:#fff;text-decoration:underline;text-underline-offset:3px;font-weight:600;margin-top:4px;width:max-content}
+.pr-ncap{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#fff;text-decoration:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:5px 12px;border-radius:99px;margin-bottom:12px}
+.pr-estrellas{color:#f0c27a;letter-spacing:1px;font-size:14px}
+.pr-nota{margin:18px 0 0;font-size:11.5px;color:rgba(255,255,255,.5)}
+@media (max-width:700px){.pr-cita blockquote{font-size:19px}}

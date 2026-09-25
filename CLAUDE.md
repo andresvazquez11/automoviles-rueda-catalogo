@@ -58,6 +58,7 @@ Construida desde la `url` del anuncio:
 | `actualizar_catalogo.py` | Scraping Das WeltAuto → actualiza JSON + PDF |
 | `descargar_fotos_galeria.py` | Descarga fotos nuevas de Das WeltAuto |
 | `datos_coches.json` | Inventario actual (fuente de verdad) |
+| `prensa.json` + `prensa.py` | Bloque "Lo que dice la prensa" de la ficha: citas REALES de revistas por MODELO (verificadas palabra por palabra, con medio, autor, fecha, enlace y filtros `desde`/`hasta`/`version_contiene`/`version_empieza` para no aplicar una cita a otra generación) + estrellas Euro NCAP vigentes. Se edita a mano; nunca generar ni parafrasear citas. Modelo sin citas = la ficha no muestra el bloque |
 | `ficha_tecnica.py` | Lee la ficha técnica completa de cada coche (DWA o MotorFlash: características, extras, equipamiento de serie, dimensiones, consumo, motor, eléctrico) UNA sola vez por coche, la traduce al inglés y la guarda en `fichas_tecnicas.json` (clave = ID del anuncio, nunca `n`). `generar_web.py` pinta con ella los 4 bloques de la ficha; sin ficha, la ficha usa el formato anterior |
 | `index.html` | Catálogo web generado (NO editar manualmente) |
 | `coches/{n:02d}-{slug}.html` | Ficha individual de cada coche — URL propia, compartible, con vista previa de WhatsApp (Open Graph) |

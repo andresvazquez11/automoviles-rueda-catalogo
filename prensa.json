@@ -1,0 +1,207 @@
+{
+ "_nota": "Citas REALES y verificadas palabra por palabra en el artículo original (25/09/2026). No añadir ninguna frase sin comprobarla en la fuente. Clave = modelo tal como viene en datos_coches.json (se ignoran tildes y mayúsculas). 'desde'/'hasta' = años de matriculación a los que aplica la cita (p.ej. solo antes o después de un restyling); 'version_contiene' = solo versiones cuyo texto lo contenga.",
+ "SEAT Arona": {
+  "citas": [
+   {
+    "texto": "Un vehículo al que cuesta sacarle pegas",
+    "medio": "coches.com",
+    "autor": "Mario Nogales",
+    "fecha": "2026-04-09",
+    "nota": "7,8/10",
+    "desde": 2026,
+    "url": "https://noticias.coches.com/pruebas/seat-arona-tsi-115-cv-prueba-opinion/565269"
+   },
+   {
+    "texto": "Un interior ergonómico, un habitáculo muy espacioso y un comportamiento dinámico ágil y que lo hace incluso divertido de conducir",
+    "medio": "Autonoción",
+    "autor": "Chema Bonilla Díaz",
+    "fecha": "2026-07-13",
+    "nota": "8,2/10",
+    "url": "https://www.autonocion.com/prueba-seat-arona-gasolina-115/"
+   }
+  ]
+ },
+ "CUPRA Formentor": {
+  "citas": [
+   {
+    "texto": "Un coche dinámico sin renunciar a ser cómodo, amplio sin ser exageradamente grande, deportivo sin llegar a ser macarra",
+    "medio": "coches.com",
+    "autor": "Luis Ramos Penabad",
+    "fecha": "2024-12-05",
+    "nota": "8,1/10",
+    "url": "https://noticias.coches.com/pruebas/cupra-formentor-1-5-etsi-prueba-opiniones-consumo/536771"
+   },
+   {
+    "texto": "Mejores que nunca",
+    "medio": "Motor.es",
+    "autor": "Óscar Magro",
+    "fecha": "2024-06-19",
+    "desde": 2024,
+    "url": "https://www.motor.es/pruebas-coches/prueba-cupra-formentor-y-leon-2025-2024102733.html"
+   }
+  ],
+  "euroncap": {
+   "estrellas": 5,
+   "url": "https://news.euroncap.com/safercars/cupra-formentor---euro-ncap-2025-results---5-stars/s/58d26459-c6b4-4fbf-a0c9-f5c230ecd9d5"
+  }
+ },
+ "SEAT León": {
+  "citas": [
+   {
+    "texto": "El León sigue siendo una de las referencias en cuanto a dinámica de su categoría",
+    "medio": "Autopista",
+    "autor": "Luis Carlos Cáceres",
+    "fecha": "2025-07-15",
+    "url": "https://www.autopista.es/pruebas-de-coches/prueba-compactos-mas-conocidos-seat-leon-que-motor-acabado-son-mejores_313070_102.html",
+    "desde": 2020
+   }
+  ],
+  "euroncap": {
+   "estrellas": 5,
+   "url": "https://news.euroncap.com/safercars/seat-leon---euro-ncap-2025-results---5-stars/s/d425246e-9ec4-4e97-9e89-3bfdaf7209d1"
+  }
+ },
+ "SEAT Ibiza": {
+  "citas": [
+   {
+    "texto": "El actual Seat Ibiza sigue siendo un coche ideal y muy disfrutable",
+    "medio": "veoMotor",
+    "autor": "Daniel Galdeano",
+    "fecha": "2026-07-12",
+    "url": "https://www.veomotor.com/pruebas/2026/prueba-seat-ibiza-fr-1-0-tsi-115-cv-el-utilitario-que-sigue-siendo-un-referente-por-equilibrio-y-diversion/"
+   }
+  ]
+ },
+ "CUPRA Terramar": {
+  "citas": [
+   {
+    "texto": "Si quieres un SUV de tamaño mediano con buena dinámica, acabados y buena amplitud, el nuevo Cupra Terramar es una de las mejores opciones",
+    "medio": "Autopista",
+    "autor": "Luis Carlos Cáceres",
+    "fecha": "2025-11-12",
+    "url": "https://www.autopista.es/pruebas-de-coches/esta-es-nuestra-opinion-sobre-cupra-terramar-probamos-suv-escogemos-su-mejor-motor_318966_102.html"
+   }
+  ],
+  "euroncap": {
+   "estrellas": 5,
+   "url": "https://news.euroncap.com/safercars/cupra-terramar---euro-ncap-2025-results---5-stars/s/1606b13e-5000-4dd7-b2cb-9ef9d2f3b868"
+  }
+ },
+ "CUPRA León": {
+  "citas": [
+   {
+    "texto": "Estética y una puesta a punto deportiva y eficaz, sin duda",
+    "medio": "coches.com",
+    "autor": "Luis Ramos Penabad",
+    "fecha": "2021-06-16",
+    "nota": "8/10",
+    "hasta": 2023,
+    "version_contiene": "e-Hybrid",
+    "url": "https://noticias.coches.com/pruebas/cupra-leon-sportstourer-ehybrid-prueba-opinion/420048"
+   },
+   {
+    "texto": "Deportividad y eficiencia a partes iguales",
+    "medio": "Motor.es",
+    "autor": "Alberto Pérez",
+    "fecha": "2025-02-09",
+    "nota": "8,0/10",
+    "desde": 2024,
+    "version_contiene": "e-Hybrid",
+    "url": "https://www.motor.es/pruebas-coches/prueba-cupra-leon-ehybrid-2025106422.html"
+   }
+  ],
+  "euroncap": {
+   "estrellas": 5,
+   "url": "https://news.euroncap.com/safercars/choose-a-car/cupra-leon---euro-ncap-2025-results---5-stars/s/a6610b79-e250-4395-bb94-4c2bc07cabdc"
+  }
+ },
+ "CUPRA Tavascan": {
+  "citas": [
+   {
+    "texto": "El Tavascan se siente un coche bien ensamblado y con unos acabados a la altura de su enfoque aspiracional",
+    "medio": "Forococheselectricos",
+    "autor": "Alber Callejo",
+    "fecha": "2025-06-23",
+    "url": "https://forococheselectricos.com/pruebas/prueba-cupra-tavascan-endurance-20250623-37471.html"
+   }
+  ],
+  "euroncap": {
+   "estrellas": 5,
+   "url": "https://news.euroncap.com/safercars/cupra-tavascan---euro-ncap-2024-results---5-stars/s/4d8ca896-83a9-490e-b4b6-4dcb534be69f"
+  }
+ },
+ "ŠKODA Karoq": {
+  "citas": [
+   {
+    "texto": "Detalles prácticos y amplitud interior",
+    "medio": "coches.com",
+    "autor": "Luis Ramos Penabad",
+    "fecha": "2023-02-08",
+    "nota": "8,3/10",
+    "url": "https://noticias.coches.com/pruebas/skoda-karoq-2023-prueba-opiniones/473647"
+   }
+  ]
+ },
+ "BMW Serie": {
+  "citas": [
+   {
+    "texto": "Sigue siendo uno de los compactos más ágiles del mercado",
+    "medio": "Autopista",
+    "autor": "Redacción",
+    "fecha": "2020-07-16",
+    "url": "https://www.autopista.es/pruebas-de-coches/bmw-118d-prueba-a-fondo-al-nuevo-serie-1-mejor-peor-o-igual-que-siempre_156452_102.html",
+    "desde": 2019,
+    "hasta": 2024,
+    "version_empieza": "1 "
+   }
+  ]
+ },
+ "Abarth 500": {
+  "citas": [
+   {
+    "texto": "Por viveza, por su agilidad y por el sonido de sus escapes, es diferente a todo lo que hay hoy en día en el mercado",
+    "medio": "Motorpasión",
+    "autor": "Héctor Ares",
+    "fecha": "2021-11-17",
+    "url": "https://www.motorpasion.com/pruebas-de-coches/abarth-f595-prueba-contacto",
+    "hasta": 2024,
+    "version_contiene": "595"
+   }
+  ]
+ },
+ "Renault Clio": {
+  "citas": [
+   {
+    "texto": "Tiene buen motor, full hybrid que se desenvuelve muy bien en ciudad y cumple en carretera",
+    "medio": "coches.com",
+    "autor": "Arturo Martín",
+    "fecha": "2024-04-04",
+    "nota": "8/10",
+    "version_contiene": "E-Tech",
+    "url": "https://www.coches.com/noticias/pruebas/renault-clio-espirit-alpine-e-tech-full-hybrid-145-a-prueba/512208",
+    "hasta": 2025
+   }
+  ]
+ },
+ "Nissan Qashqai": {
+  "citas": [
+   {
+    "texto": "No es un SUV con grandes puntos débiles y eso explica su éxito",
+    "medio": "Autopista",
+    "autor": "Luis M. Vitoria",
+    "fecha": "2019-03-24",
+    "url": "https://www.autopista.es/pruebas-de-coches/nissan-qashqai-1-33-dig-t-160-cv-prueba-a-fondo-con-todos-los-datos_153790_102.html",
+    "hasta": 2021
+   },
+   {
+    "texto": "Sin duda la opción de un Qashqai con este motor es muy interesante",
+    "medio": "veoMotor",
+    "autor": "Daniel Galdeano",
+    "fecha": "2019-09-13",
+    "version_contiene": "DIG-T",
+    "url": "https://www.veomotor.com/pruebas/2019/prueba-nissan-qashqai-tekna-dig-t-117kw-160cv-dct-polivalente-es-su-apellido/",
+    "hasta": 2021
+   }
+  ]
+ }
+}
