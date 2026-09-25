@@ -1,15 +1,15 @@
 {
   "andres": [
     {
-      "id": "dwa-193186186",
-      "etiqueta": "Oferta especial"
-    },
-    {
       "id": "dwa-193154158",
       "etiqueta": "Oferta del mes"
     },
     {
       "id": "dwa-165115441",
+      "etiqueta": "Precio rebajado"
+    },
+    {
+      "id": "dwa-159882925",
       "etiqueta": "Precio rebajado"
     }
   ],
