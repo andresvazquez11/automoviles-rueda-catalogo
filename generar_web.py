@@ -1711,6 +1711,28 @@ def recortes_vigentes(cars: list[dict]) -> dict[int, str]:
 def recortes_portadas_registro() -> dict:
     return recortar_portadas.cargar_registro()
 
+def og_portada_html(perfil: dict, total: int) -> str:
+    """Previsualización al compartir el enlace de la portada (WhatsApp, estados,
+    Facebook...). La imagen la genera generar_og_portada.py, una por asesor."""
+    datos = datos_perfil(perfil)
+    url = datos["dominio_pagina"] + "/"
+    nombre_img = "og-portada-" + perfil["id"] + ".jpg"
+    imagen = DOMINIO_BASE + asset(nombre_img)
+    titulo = "Automóviles Rueda — Coches seminuevos con garantía"
+    desc = (f"{total} coches SEAT, CUPRA y Volkswagen con garantía Das WeltAuto en Málaga. "
+            f"Tu asesor: {datos['nombre']} · {datos['telefono']}")
+    return f'''<meta property="og:type" content="website">
+<meta property="og:site_name" content="Automóviles Rueda">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="{html.escape(titulo)}">
+<meta property="og:description" content="{html.escape(desc)}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{imagen}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Automóviles Rueda — {html.escape(datos['nombre'])} · {datos['telefono']}">
+<meta name="twitter:card" content="summary_large_image">'''
+
 def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict, traducciones: dict[int, dict]) -> str:
     hist = _cargar_historial_precios()
     recortes = recortes_vigentes(cars)
@@ -1735,6 +1757,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Automóviles Rueda — Coches seminuevos SEAT · CUPRA · Volkswagen</title>
 <meta name="description" content="Catálogo de vehículos seminuevos con garantía oficial Das WeltAuto. {len(visibles)} coches disponibles en Málaga.">
+{og_portada_html(perfil, len(visibles))}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{ASSET_ESTILOS}">
