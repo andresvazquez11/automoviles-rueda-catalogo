@@ -156,7 +156,14 @@ jobs:
                   traducciones_cache.json historial_cambios_precio.json \
                   fichas_tecnicas.json recortes.json sitemap.xml robots.txt
           git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M')" || echo "Sin cambios que subir"
-          git push origin main
+          # Si mientras corría esto alguien guardó desde /admin/ (destacados,
+          # rebajas), el push se rechaza: se incorpora ese cambio y se reintenta.
+          for intento in 1 2 3; do
+            git push origin main && exit 0
+            echo "Push rechazado (intento $intento) — incorporando cambios remotos…"
+            git pull --rebase origin main || { git rebase --abort; exit 1; }
+          done
+          exit 1
 
       - name: Preparar resumen para el correo
         id: resumen
