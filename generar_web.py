@@ -2028,7 +2028,9 @@ document.addEventListener('click', e => {{
 // ── Destacados: franja de coches marcados desde /admin/ ──────────────
 (function() {{
   const PERFIL_ID = '{perfil["id"]}';
-  fetch('/destacados.json')
+  // no-store: sin esto el navegador reusaba su copia hasta 10 min (max-age de
+  // GitHub Pages) y los cambios hechos desde /admin/ no se veían al recargar.
+  fetch('/destacados.json', {{ cache: 'no-store' }})
     .then(r => r.ok ? r.json() : {{}})
     .catch(() => ({{}}))
     .then(data => {{
