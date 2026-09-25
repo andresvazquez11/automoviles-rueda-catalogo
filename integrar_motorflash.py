@@ -349,16 +349,26 @@ def encontrar_exclusivos_mf(dwa_coches, mf_coches, mf_ya_usados=None):
 
 # ── Descargar fotos y asignar rutas web_fotos/ ──────────────
 
-def preparar_fotos_mf(coche_mf, idx):
-    """Descarga fotos del coche MF a web_fotos/{idx:02d}/ y devuelve lista de rutas."""
-    carpeta = WEB_FOTOS / f"{idx:02d}"
-    carpeta.mkdir(parents=True, exist_ok=True)
+def carpeta_fotos_mf(coche_mf):
+    """Carpeta de fotos de un coche MF: web_fotos/mf-{motorflash_id}/.
+    Se nombra por el ID ESTABLE de MotorFlash, nunca por "n": "n" es solo la
+    posición en la lista y cambia en cada actualización, y web_fotos/{n:02d}/
+    es también donde generar_web.py pone las fotos de los coches DWA. Usar "n"
+    hacía que un coche MF heredara la carpeta de otro (25/09: el Nissan
+    Qashqai publicado con las fotos de un SEAT Arona recién añadido)."""
+    return WEB_FOTOS / f"mf-{coche_mf['motorflash_id']}"
 
-    fotos_descargadas = []
+
+def preparar_fotos_mf(coche_mf):
+    """Descarga fotos del coche MF a web_fotos/mf-{id}/ y devuelve lista de rutas."""
+    carpeta = carpeta_fotos_mf(coche_mf)
     data_srcs = coche_mf.get("_data_srcs", [])
     if not data_srcs:
         return []
+    carpeta.mkdir(parents=True, exist_ok=True)
+    rel = f"web_fotos/{carpeta.name}"
 
+    fotos_descargadas = []
     primera = extraer_url_foto(data_srcs[0])
     if "_g0" in primera:
         base = re.sub(r"_g\d+\.jpg", "", primera)
@@ -366,7 +376,7 @@ def preparar_fotos_mf(coche_mf, idx):
             url_foto = f"{base}_g{n:02d}.jpg"
             dest = carpeta / f"foto_{n:02d}.jpg"
             if descargar_foto(url_foto, dest):
-                fotos_descargadas.append(f"web_fotos/{idx:02d}/foto_{n:02d}.jpg")
+                fotos_descargadas.append(f"{rel}/foto_{n:02d}.jpg")
             else:
                 break
             time.sleep(0.2)
@@ -376,7 +386,7 @@ def preparar_fotos_mf(coche_mf, idx):
             if url_foto:
                 dest = carpeta / f"foto_{n:02d}.jpg"
                 if descargar_foto(url_foto, dest):
-                    fotos_descargadas.append(f"web_fotos/{idx:02d}/foto_{n:02d}.jpg")
+                    fotos_descargadas.append(f"{rel}/foto_{n:02d}.jpg")
             time.sleep(0.2)
 
     return fotos_descargadas
@@ -431,98 +441,42 @@ def main():
     #    Los MF que ya no están en MotorFlash simplemente no se añaden (desaparecen)
     lista_final = list(dwa_solo)  # copia de coches DWA
 
-    # Coches MF ya conocidos de la ejecución anterior, indexados por su ID
-    # ESTABLE de MotorFlash (motorflash_id). El "n"/idx que ocupan NO es estable
-    # — depende de cuántos coches DWA haya ahora mismo (n_start cambia cada
-    # ejecución) — así que nunca se usa como clave, solo motorflash_id.
-    mf_previos = {c.get("motorflash_id"): c for c in mf_previos_lista}
-
-    n_start = max((c["n"] for c in lista_final), default=0) + 1
-    nuevos_mf = []  # (coche, idx_usado_para_su_carpeta_web_fotos) — para resync tras el paso 5
-    for i, c in enumerate(exclusivos):
-        idx = n_start + i
-        previo = mf_previos.get(c.get("motorflash_id"))
-        carpeta_previa = (WEB_FOTOS / f"{previo['n']:02d}") if previo else None
-        fotos_previas = sorted(carpeta_previa.glob("foto_*.jpg")) if carpeta_previa and carpeta_previa.exists() else []
-
-        if fotos_previas and previo["n"] == idx:
-            # Mismo coche, misma carpeta que la ejecución anterior — reutilizar
-            # sus fotos ya descargadas en vez de volver a bajarlas de MotorFlash.
-            fotos = sorted(f"web_fotos/{idx:02d}/{f.name}" for f in carpeta_previa.glob("foto_*.jpg"))
-            print(f"  = [{idx:02d}] {c['modelo']} {c['precio']}€ ({c['tipo']}) — fotos ya existentes, reutilizadas")
-        elif fotos_previas:
-            # Mismo coche, pero cambió de número de carpeta — mover sus fotos
-            # reales a la carpeta nueva. Si esa carpeta nueva ya tenía archivos
-            # (huérfanos de OTRO coche de un día anterior — nunca se limpian
-            # solos), se borran primero: nunca hay que quedarse con fotos de
-            # una carpeta que no se acaba de escribir/mover uno mismo en esta
-            # misma corrida — eso fue el bug real del Nissan Qashqai con fotos
-            # de otro coche (heredó una carpeta huérfana sin verificar).
-            carpeta_nueva = WEB_FOTOS / f"{idx:02d}"
-            if carpeta_nueva.exists():
-                for _viejo in carpeta_nueva.glob("*"):
-                    _viejo.unlink()
-            else:
-                carpeta_nueva.mkdir(parents=True, exist_ok=True)
-            for foto in carpeta_previa.glob("foto_*.jpg"):
-                shutil.move(str(foto), str(carpeta_nueva / foto.name))
-            carpeta_previa.rmdir()
-            fotos = sorted(f"web_fotos/{idx:02d}/{f.name}" for f in carpeta_nueva.glob("foto_*.jpg"))
-            print(f"  = [{idx:02d}] {c['modelo']} {c['precio']}€ ({c['tipo']}) — fotos movidas desde carpeta anterior")
+    for c in exclusivos:
+        carpeta = carpeta_fotos_mf(c)
+        existentes = sorted(carpeta.glob("foto_*.jpg")) if carpeta.is_dir() else []
+        if existentes:
+            # Misma carpeta de este mismo coche (por motorflash_id) de una
+            # ejecución anterior — reutilizar sus fotos.
+            fotos = [f"web_fotos/{carpeta.name}/{f.name}" for f in existentes]
+            print(f"  = {c['modelo']} {c['precio']}€ ({c['tipo']}) — fotos ya existentes, reutilizadas")
         else:
-            # Coche nuevo (o sin fotos previas verificables) — descargar de cero.
-            # Limpiar antes cualquier resto huérfano en la carpeta destino, por
-            # la misma razón de arriba.
-            carpeta_destino = WEB_FOTOS / f"{idx:02d}"
-            if carpeta_destino.exists():
-                for _viejo in carpeta_destino.glob("*"):
-                    _viejo.unlink()
-            print(f"  + [{idx:02d}] {c['modelo']} {c['precio']}€ ({c['tipo']}) — descargando fotos...")
-            fotos = preparar_fotos_mf(c, idx)
-        c["n"]    = idx
+            print(f"  + {c['modelo']} {c['precio']}€ ({c['tipo']}) — descargando fotos...")
+            fotos = preparar_fotos_mf(c)
         c["fotos"] = fotos
         c.pop("_data_srcs", None)
         lista_final.append(c)
-        nuevos_mf.append((c, idx))
 
-    # 5) Re-numerar todo secuencialmente y guardar
+    # 5) Re-numerar todo secuencialmente y guardar. Las fotos MF no dependen
+    # de "n" (van por motorflash_id), así que renumerar no las afecta.
     for i, c in enumerate(lista_final, 1):
         c["n"] = i
-
-    # 5a) Re-sincronizar carpetas web_fotos/ de MotorFlash: el "idx" usado arriba
-    # para nombrar la carpeta de fotos es el hueco disponible ANTES de esta
-    # renumeración secuencial — si la renumeración le asignó un "n" final
-    # distinto (p.ej. porque el número de coches DWA cambió), hay que mover la
-    # carpeta y reescribir "fotos" para que apunten al "n" definitivo. Si no se
-    # hace, "fotos" queda apuntando a una carpeta que ya no es la suya.
-    for c, idx in nuevos_mf:
-        n_final = c["n"]
-        if n_final == idx or not c.get("fotos"):
-            continue
-        origen  = WEB_FOTOS / f"{idx:02d}"
-        destino = WEB_FOTOS / f"{n_final:02d}"
-        if origen.is_dir():
-            if destino.exists():
-                for f in origen.glob("foto_*.jpg"):
-                    shutil.move(str(f), str(destino / f.name))
-                origen.rmdir()
-            else:
-                origen.rename(destino)
-        c["fotos"] = [f"web_fotos/{n_final:02d}/{Path(p).name}" for p in c["fotos"]]
 
     DWA_JSON.write_text(json.dumps(lista_final, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  ✓ datos_coches.json actualizado: {len(dwa_solo)} DWA + {len(exclusivos)} MF = {len(lista_final)} total")
 
-    # Limpieza de carpetas huérfanas en web_fotos/: con la numeración
-    # secuencial 1..N sin huecos, cualquier carpeta con número mayor al total
-    # de coches actuales no pertenece a ningún coche vigente. Si se dejan,
-    # un coche futuro que caiga en ese número hereda fotos de otro coche sin
-    # que nadie lo note (la causa real del bug de fotos del Nissan Qashqai).
-    total_coches = len(lista_final)
+    # Limpieza de carpetas huérfanas en web_fotos/:
+    # - numéricas por encima del último coche DWA (las MF ya no usan números;
+    #   una carpeta así sería heredada por un coche futuro sin que nadie lo note)
+    # - mf-{id} de coches MF que ya no están publicados
+    total_dwa = len(dwa_solo)
+    mf_vigentes = {carpeta_fotos_mf(c).name for c in exclusivos}
     if WEB_FOTOS.exists():
         huerfanas = 0
         for carpeta in WEB_FOTOS.iterdir():
-            if carpeta.is_dir() and carpeta.name.isdigit() and int(carpeta.name) > total_coches:
+            if not carpeta.is_dir():
+                continue
+            if ((carpeta.name.isdigit() and int(carpeta.name) > total_dwa)
+                    or (carpeta.name.startswith("mf-") and carpeta.name not in mf_vigentes)):
                 shutil.rmtree(carpeta)
                 huerfanas += 1
         if huerfanas:

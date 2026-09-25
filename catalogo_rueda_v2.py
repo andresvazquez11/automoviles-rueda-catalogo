@@ -173,18 +173,22 @@ def get_foto_principal(n: int, modelo: str, precio: str = "", car: dict = None) 
     Usa foto_01.jpg — que ya es la foto exterior correcta de Das WeltAuto.
     No descarga ni crea foto_exterior_dwa.jpg (evita duplicados en carpeta).
     Los coches "fuente=motorflash" no tienen carpeta en fotos/ — sus fotos
-    están en web_fotos/{n:02d}/ (descargadas por integrar_motorflash.py).
+    están en web_fotos/mf-{id}/ (descargadas por integrar_motorflash.py),
+    con las rutas en car["fotos"].
     """
+    if car and car.get("fuente") == "motorflash":
+        # Nunca buscar en fotos/ por "número - modelo": ese número puede ser
+        # de la carpeta de otro coche (p.ej. otro SEAT Arona de DWA).
+        web_foto = OUTPUT_DIR / car["fotos"][0] if car.get("fotos") else None
+        if web_foto and web_foto.exists():
+            return web_foto
+        return PHOTOS_DIR / f"coche_{n:02d}.jpg"
+
     carpeta = buscar_carpeta_coche(n, modelo)
     if carpeta is not None:
         exterior = _primera_foto_exterior(carpeta)
         if exterior:
             return exterior
-
-    if car and car.get("fuente") == "motorflash":
-        web_foto = OUTPUT_DIR / "web_fotos" / f"{n:02d}" / "foto_01.jpg"
-        if web_foto.exists():
-            return web_foto
 
     return PHOTOS_DIR / f"coche_{n:02d}.jpg"
 
@@ -948,15 +952,18 @@ def crear_pdf(cars: list[dict], resumen: dict = None, liviano: bool = False):
         # ── Foto principal + 2 filas de miniaturas ───────────
         # Buscar todas las fotos de este coche (hasta 8)
         _carpeta_fotos = None
-        _prefijo = f"{car['n']:02d} - {car['modelo']}"
-        for _c in sorted(PHOTOS_DIR.iterdir()):
-            if _c.is_dir() and _c.name.startswith(_prefijo):
-                _carpeta_fotos = _c
-                break
-        if _carpeta_fotos is None and car.get("fuente") == "motorflash":
-            _web_carpeta = OUTPUT_DIR / "web_fotos" / f"{car['n']:02d}"
-            if _web_carpeta.is_dir():
-                _carpeta_fotos = _web_carpeta
+        if car.get("fuente") == "motorflash":
+            # Sus fotos van por motorflash_id (car["fotos"]), nunca por número.
+            if car.get("fotos"):
+                _web_carpeta = (OUTPUT_DIR / car["fotos"][0]).parent
+                if _web_carpeta.is_dir():
+                    _carpeta_fotos = _web_carpeta
+        else:
+            _prefijo = f"{car['n']:02d} - {car['modelo']}"
+            for _c in sorted(PHOTOS_DIR.iterdir()):
+                if _c.is_dir() and _c.name.startswith(_prefijo):
+                    _carpeta_fotos = _c
+                    break
         todas_fotos = sorted(_carpeta_fotos.glob("foto_*.jpg"))[:8] if _carpeta_fotos else []
 
         # ── Foto principal: proporción original, sin deformación ──
