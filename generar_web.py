@@ -1719,7 +1719,7 @@ def og_portada_html(perfil: dict, total: int) -> str:
     nombre_img = "og-portada-" + perfil["id"] + ".jpg"
     imagen = DOMINIO_BASE + asset(nombre_img)
     titulo = "Automóviles Rueda — Coches seminuevos con garantía"
-    desc = (f"{total} coches SEAT, CUPRA y Volkswagen con garantía Das WeltAuto en Málaga. "
+    desc = (f"{total} coches SEAT, CUPRA y multimarca con garantía Das WeltAuto en Málaga. "
             f"Tu asesor: {datos['nombre']} · {datos['telefono']}")
     return f'''<meta property="og:type" content="website">
 <meta property="og:site_name" content="Automóviles Rueda">
@@ -1755,7 +1755,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Automóviles Rueda — Coches seminuevos SEAT · CUPRA · Volkswagen</title>
+<title>Automóviles Rueda — Coches seminuevos SEAT · CUPRA · Multimarca</title>
 <meta name="description" content="Catálogo de vehículos seminuevos con garantía oficial Das WeltAuto. {len(visibles)} coches disponibles en Málaga.">
 {og_portada_html(perfil, len(visibles))}
 <link rel="preconnect" href="https://fonts.googleapis.com">

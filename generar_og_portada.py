@@ -53,7 +53,7 @@ def generar(perfil: dict) -> Path:
 
     _centrado(d, 318, "AUTOMÓVILES RUEDA", titulo, (255, 255, 255), tracking=3)
     d.rectangle(((W - 120) / 2, 448, (W + 120) / 2, 453), fill=ROJO)
-    _centrado(d, 470, "Coches seminuevos con garantía · SEAT · CUPRA · Volkswagen", lema, (235, 230, 222))
+    _centrado(d, 470, "Coches seminuevos con garantía · SEAT · CUPRA · Multimarca", lema, (235, 230, 222))
     _centrado(d, 540, f"{perfil['nombre']}  ·  {perfil['telefono']}", pie, (240, 194, 122), tracking=1)
     d.rectangle((0, H - 8, W, H), fill=ROJO)
 
