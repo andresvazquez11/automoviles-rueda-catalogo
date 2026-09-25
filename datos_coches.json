@@ -2396,7 +2396,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.899,99 €. Precio financiando: 18.899,99 €. Precio al contado 18.899,99 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,83%. La oferta incluye Seg. Protección Plus Ampliado por 897,22€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 168,43 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.061,64 € (calculada con 15.000 km anuales). Entrada inicial: 3.780,00 €. Comisión de apertura al contado: 560,60 €. Importe total financiado 16.017,21 €. Importe total de los intereses: 5.150,23 €. Coste total del crédito: 5.710,83 €. Precio total a plazos 24.947,44 €. Importe total adeudado: 21.167,44 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 4,
+    "_intentos_desaparecido": 5,
     "fecha_reservado": "2026-09-25"
   },
   {
@@ -2448,7 +2448,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 32.900,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.100,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,52%. La oferta incluye Seg. Protección Plus Ampliado por 1.845,47€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 408,64 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.743,63 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.153,09 €. Importe total financiado 32.945,47 €. Importe total de los intereses: 12.316,56 €. Coste total del crédito: 13.469,65 €. Precio total a plazos 45.262,03 €. Importe total adeudado: 45.262,03 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 5,
+    "_intentos_desaparecido": 6,
     "fecha_reservado": "2026-09-25"
   },
   {
@@ -2500,7 +2500,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 17.800,00 €. Precio financiando: 17.800,00 €. Precio al contado 17.800,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,94%. La oferta incluye Seg. Protección Plus Ampliado por 1.056,25€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 244,77 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 9.651,57 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 659,97 €. Importe total financiado 18.856,25 €. Importe total de los intereses: 5.481,52 €. Coste total del crédito: 6.141,49 €. Precio total a plazos 24.337,77 €. Importe total adeudado: 24.337,77 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 13,
+    "_intentos_desaparecido": 14,
     "fecha_reservado": "2026-09-23"
   },
   {
@@ -2552,7 +2552,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 32.900,00 €. Precio financiando: 32.900,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,90%. La oferta incluye Seg. Protección Plus Ampliado por 1.952,29€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 423,56 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 19.931,24 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.219,83 €. Importe total financiado 34.852,29 €. Importe total de los intereses: 10.492,55 €. Coste total del crédito: 11.712,38 €. Precio total a plazos 45.344,84 €. Importe total adeudado: 45.344,84 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 13,
+    "_intentos_desaparecido": 14,
     "fecha_reservado": "2026-09-23"
   },
   {
@@ -2604,8 +2604,144 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.500,00 €. Precio financiando: 22.500,00 €. Precio al contado 22.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,88%. La oferta incluye Seg. Protección Plus Ampliado por 1.335,15€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 279,41 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.374,89 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 834,23 €. Importe total financiado 23.835,15 €. Importe total de los intereses: 7.304,34 €. Coste total del crédito: 8.138,57 €. Precio total a plazos 31.139,49 €. Importe total adeudado: 31.139,49 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 13,
+    "_intentos_desaparecido": 14,
     "fecha_reservado": "2026-09-23"
+  },
+  {
+    "fuente": "motorflash",
+    "motorflash_id": "196556665",
+    "tipo": "VO",
+    "modelo": "SEAT Arona",
+    "version": "1.0 TSI Xperience Special Edition 85 kW (115 CV)",
+    "combustible": "Gasolina",
+    "km": "10.135",
+    "fecha": "2025",
+    "cambio": "Manual",
+    "color": "",
+    "precio": "19.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url_motorflash": "https://www.motorflash.com/coche-segunda-mano/seat-arona-1_0_tsi_xperience_special_edition_85_kw_115_cv/ocasion/196556665-es/",
+    "equipamiento": [
+      "Start/Stop automático",
+      "Luz diurna",
+      "Control de velocidad",
+      "Volante multifunción",
+      "Bluetooth",
+      "Llantas de aleación",
+      "Llantas de aleación de 17\"",
+      "Baca",
+      "Ordenador",
+      "Aire Acondicionado",
+      "Climatizador",
+      "Airbag",
+      "Airbag para el acompañante",
+      "Airbag para el conductor",
+      "Airbags laterales",
+      "Frenos ABS antibloqueo",
+      "ESP",
+      "Dirección asistida",
+      "Elevalunas eléctrico",
+      "Cierre centralizado",
+      "Reposabrazos central",
+      "Servodirección",
+      "Control de crucero adaptativo",
+      "Asistente de cambio de carril",
+      "Asistente de mantenimiento de carril",
+      "Asistente de aparcamiento",
+      "Asistente para las luces de carretera",
+      "Conexión eléctrica",
+      "Asistente de arranque en pendiente",
+      "Barras transversales",
+      "Faros delanteros led",
+      "Faros traseros led",
+      "Isofix",
+      "Encendido automático de faros",
+      "Arranque por botón",
+      "Sensor de presión de neumáticos",
+      "Reconocimiento señales de tráfico",
+      "Car Play",
+      "Limitador de velocidad"
+    ],
+    "fotos": [
+      "web_fotos/mf-196556665/foto_01.jpg",
+      "web_fotos/mf-196556665/foto_02.jpg",
+      "web_fotos/mf-196556665/foto_03.jpg",
+      "web_fotos/mf-196556665/foto_04.jpg",
+      "web_fotos/mf-196556665/foto_05.jpg",
+      "web_fotos/mf-196556665/foto_06.jpg",
+      "web_fotos/mf-196556665/foto_07.jpg",
+      "web_fotos/mf-196556665/foto_08.jpg"
+    ],
+    "n": 55
+  },
+  {
+    "fuente": "motorflash",
+    "motorflash_id": "196556650",
+    "tipo": "VO",
+    "modelo": "SEAT Arona",
+    "version": "1.0 TSI Xperience Special Edition 85 kW (115 CV)",
+    "combustible": "Gasolina",
+    "km": "15.307",
+    "fecha": "2025",
+    "cambio": "Manual",
+    "color": "",
+    "precio": "19.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url_motorflash": "https://www.motorflash.com/coche-segunda-mano/seat-arona-1_0_tsi_xperience_special_edition_85_kw_115_cv/ocasion/196556650-es/",
+    "equipamiento": [
+      "Start/Stop automático",
+      "Luz diurna",
+      "Control de velocidad",
+      "Volante multifunción",
+      "Bluetooth",
+      "Llantas de aleación",
+      "Llantas de aleación de 17\"",
+      "Baca",
+      "Ordenador",
+      "Aire Acondicionado",
+      "Climatizador",
+      "Airbag",
+      "Airbag para el acompañante",
+      "Airbag para el conductor",
+      "Airbags laterales",
+      "Frenos ABS antibloqueo",
+      "ESP",
+      "Dirección asistida",
+      "Elevalunas eléctrico",
+      "Cierre centralizado",
+      "Reposabrazos central",
+      "Servodirección",
+      "Control de crucero adaptativo",
+      "Asistente de cambio de carril",
+      "Asistente de mantenimiento de carril",
+      "Asistente de aparcamiento",
+      "Asistente para las luces de carretera",
+      "Conexión eléctrica",
+      "Asistente de arranque en pendiente",
+      "Barras transversales",
+      "Faros delanteros led",
+      "Faros traseros led",
+      "Isofix",
+      "Encendido automático de faros",
+      "Arranque por botón",
+      "Sensor de presión de neumáticos",
+      "Reconocimiento señales de tráfico",
+      "Car Play",
+      "Limitador de velocidad"
+    ],
+    "fotos": [
+      "web_fotos/mf-196556650/foto_01.jpg",
+      "web_fotos/mf-196556650/foto_02.jpg",
+      "web_fotos/mf-196556650/foto_03.jpg",
+      "web_fotos/mf-196556650/foto_04.jpg",
+      "web_fotos/mf-196556650/foto_05.jpg",
+      "web_fotos/mf-196556650/foto_06.jpg",
+      "web_fotos/mf-196556650/foto_07.jpg",
+      "web_fotos/mf-196556650/foto_08.jpg"
+    ],
+    "n": 56
   },
   {
     "fuente": "motorflash",
@@ -2661,7 +2797,8 @@
       "Sensor de presión de neumáticos",
       "Reconocimiento señales de tráfico",
       "Car Play",
-      "Limitador de velocidad"
+      "Limitador de velocidad",
+      "Control de tracción"
     ],
     "fotos": [
       "web_fotos/mf-196358410/foto_01.jpg",
@@ -2673,7 +2810,7 @@
       "web_fotos/mf-196358410/foto_07.jpg",
       "web_fotos/mf-196358410/foto_08.jpg"
     ],
-    "n": 55
+    "n": 57
   },
   {
     "fuente": "motorflash",
@@ -2741,7 +2878,7 @@
       "web_fotos/mf-196358407/foto_07.jpg",
       "web_fotos/mf-196358407/foto_08.jpg"
     ],
-    "n": 56
+    "n": 58
   },
   {
     "fuente": "motorflash",
@@ -2831,6 +2968,6 @@
       "web_fotos/mf-168212671/foto_07.jpg",
       "web_fotos/mf-168212671/foto_08.jpg"
     ],
-    "n": 57
+    "n": 59
   }
 ]
