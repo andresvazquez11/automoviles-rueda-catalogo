@@ -14,6 +14,8 @@ import requests
 from catalogo_rueda_v2 import _es_foto_exterior, nombre_carpeta
 import ficha_tecnica
 import prensa
+import recortar_portadas
+import subprocess
 
 BASE_DIR   = Path(__file__).parent
 JSON_PATH  = BASE_DIR / "datos_coches.json"
@@ -1609,7 +1611,7 @@ DGT_URLS = {
     "C":    "https://commons.wikimedia.org/wiki/Special:FilePath/DistAmbDGT_C.svg",
 }
 
-def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict) -> str:
+def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte: str = "") -> str:
     n = car["n"]
     slug = slug_coche(car["modelo"])
     href = f"coches/{n:02d}-{slug}.html"
@@ -1641,7 +1643,7 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict) -> str:
 
     id_estable = id_estable_coche(car)
     return f'''<a class="rd-card" href="{href}" data-n="{n}" data-id="{id_estable}" data-precio="{precio_num}" data-antes-auto="{p_ant}" data-km="{km_num}" data-estado="{estado_lbl}" data-buscar="{buscar_txt}">
-  <div class="rd-card-media">
+  <div class="rd-card-media"{recorte}>
     <div class="rd-card-photos">{fotos_html}</div>
     {nav_html}
     <div class="rd-card-dots">{dots_html}</div>
@@ -1690,8 +1692,28 @@ def build_coches_lista_json(cars: list[dict], rutas: dict[int, list[str]]) -> st
         })
     return json.dumps(items, ensure_ascii=False, indent=2)
 
+def recortes_vigentes(cars: list[dict]) -> dict[int, str]:
+    """{n: atributos data-recorte/data-proporcion} para el efecto "el coche sale
+    de la tarjeta". Solo si el recorte se hizo de la portada ACTUAL (misma
+    huella): nunca mostrar el recorte de una foto que ya no es la de portada."""
+    registro = recortes_portadas_registro()
+    out: dict[int, str] = {}
+    for car in cars:
+        r = registro.get(recortar_portadas.clave(car))
+        foto = recortar_portadas.portada(car)
+        if not r or not foto or not foto.exists():
+            continue
+        if hashlib.sha1(foto.read_bytes()).hexdigest()[:16] != r["hash"]:
+            continue
+        out[car["n"]] = f' data-recorte="/{r["archivo"]}" data-proporcion="{r["proporcion"]}"'
+    return out
+
+def recortes_portadas_registro() -> dict:
+    return recortar_portadas.cargar_registro()
+
 def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict, traducciones: dict[int, dict]) -> str:
     hist = _cargar_historial_precios()
+    recortes = recortes_vigentes(cars)
     visibles = [c for c in cars if c.get("estado") != "Retirado"]
     total_disp = sum(1 for c in visibles if c["estado"] == "Disponible")
     total_res  = sum(1 for c in visibles if c["estado"] == "No disponible")
@@ -1699,7 +1721,8 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
         build_card_html(
             car, hist,
             [f"/{f.lstrip('/')}" for f in car.get("fotos", [])] if car.get("fuente") == "motorflash" else rutas.get(car["n"], []),
-            traducciones[car["n"]]
+            traducciones[car["n"]],
+            recortes.get(car["n"], "")
         )
         for car in cars
         if car.get("estado") != "Retirado"
@@ -1883,6 +1906,8 @@ document.addEventListener('click', e => {{
       strip.className = 'rd-featured-strip';
       strip.innerHTML = '<h2 class="rd-featured-title">🌟 Destacados</h2><div class="rd-featured-grid"></div>';
       strip.querySelector('.rd-featured-grid').append(...featured);
+      if (window.rdActivarHoverFotos) featured.forEach(c => window.rdActivarHoverFotos(c.querySelector('.rd-card-media')));
+      if (window.rdActivarPopout) featured.forEach(c => window.rdActivarPopout(c.querySelector('.rd-card-media')));
       document.querySelector('.rd-controls').insertAdjacentElement('beforebegin', strip);
       if (window.rdAplicarRebajas) window.rdAplicarRebajas();
     }});
@@ -1904,7 +1929,9 @@ document.addEventListener('click', e => {{
 // ── Hover: recorre las fotos exteriores de la tarjeta (flechas ‹ › y
 // dots ya existían; acá se suma pasar el mouse) + contador "pos/total"
 // reutilizando la insignia "📷 N" que antes mostraba solo el total. ──
-document.querySelectorAll('.rd-card-media').forEach(media => {{
+// Es una función (y no un forEach suelto) porque la franja de Destacados
+// clona tarjetas DESPUÉS de esto, y cloneNode no copia los listeners.
+window.rdActivarHoverFotos = function(media) {{
   const imgs = [...media.querySelectorAll('.rd-card-photos img')];
   const dots = [...media.querySelectorAll('.rd-card-dot')];
   const contador = media.querySelector('.rd-badge-fotos');
@@ -1916,13 +1943,69 @@ document.querySelectorAll('.rd-card-media').forEach(media => {{
     if (contador) contador.textContent = '📷 ' + (zone + 1) + '/' + total;
   }};
   media.addEventListener('mousemove', e => {{
+    if (media.classList.contains('rd-pop-activo')) return;  // el coche está "fuera" (ver efecto de abajo)
     const rect = media.getBoundingClientRect();
     const ratio = (e.clientX - rect.left) / rect.width;
     setZone(Math.min(total - 1, Math.max(0, Math.floor(ratio * total))));
   }});
   media.addEventListener('mouseleave', () => setZone(0));
   setZone(0);
-}});
+}};
+document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
+
+// ── Efecto "el coche sale de la tarjeta": al entrar con el ratón en la foto,
+// el coche recortado (sin fondo, ver recortar_portadas.py) aparece más grande
+// y por encima de todo. En cuanto se mueve el ratón a lo largo de la foto,
+// vuelve a su sitio y sigue el paso de fotos de siempre. Solo con ratón
+// (en móvil no hay "pasar por encima") y respetando "reducir movimiento". ──
+(function() {{
+  const conRaton = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const sinAnim = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.rdActivarPopout = function() {{}};
+  if (!conRaton || sinAnim) return;
+  const pop = document.createElement('img');
+  pop.className = 'rd-popout';
+  pop.alt = '';
+  pop.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(pop);
+  let actual = null, x0 = 0, espera = null;
+
+  function ocultar() {{
+    clearTimeout(espera);
+    pop.classList.remove('on');
+    if (actual) actual.classList.remove('rd-pop-activo');
+    actual = null;
+  }}
+  function mostrar(media, e) {{
+    const r = media.getBoundingClientRect();
+    const ancho = r.width * 1.4;
+    const alto = ancho / (parseFloat(media.dataset.proporcion) || 1.8);
+    pop.style.width = ancho + 'px';
+    pop.style.left = (r.left + r.width / 2 - ancho / 2) + 'px';
+    pop.style.top = (r.top + r.height * 0.52 - alto / 2) + 'px';
+    pop.src = media.dataset.recorte;
+    actual = media;
+    x0 = e.clientX;
+    media.classList.add('rd-pop-activo');
+    const activar = () => {{ if (actual === media) pop.classList.add('on'); }};
+    pop.complete ? requestAnimationFrame(activar) : (pop.onload = activar);
+  }}
+  window.rdActivarPopout = function(media) {{
+    if (!media || !media.dataset.recorte) return;
+    media.addEventListener('mouseenter', e => {{
+      clearTimeout(espera);
+      espera = setTimeout(() => mostrar(media, e), 120);  // no dispararlo al cruzar la tarjeta de pasada
+    }});
+    media.addEventListener('mousemove', e => {{
+      if (actual === media && Math.abs(e.clientX - x0) > media.clientWidth * 0.2) ocultar();
+      else if (actual !== media) x0 = e.clientX;
+    }});
+    media.addEventListener('mouseleave', ocultar);
+  }};
+  document.querySelectorAll('.rd-card-media').forEach(window.rdActivarPopout);
+  window.addEventListener('scroll', ocultar, {{ passive: true }});
+  window.addEventListener('resize', ocultar);
+}})();
 
 // ── Comparador (hasta 3 coches) — funciona también con las tarjetas que
 // clona la franja de Destacados de más arriba, porque el clic se maneja
@@ -2160,6 +2243,13 @@ def main():
     rutas = copiar_fotos(coches)
     total_fotos = sum(len(v) for v in rutas.values())
     print(f"    {total_fotos} fotos copiadas")
+
+    # Recortes de portada (efecto "el coche sale de la tarjeta"). En un proceso
+    # aparte: si rembg falla o no está instalado, la web se genera igual.
+    try:
+        subprocess.run([sys.executable, str(BASE_DIR / "recortar_portadas.py")], timeout=900)
+    except Exception as e:
+        print(f"  ⚠️  Recortes de portada omitidos: {e}")
 
     lista_json = build_coches_lista_json(coches, rutas)
     (BASE_DIR / "coches_lista.json").write_text(lista_json, encoding="utf-8")

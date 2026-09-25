@@ -122,6 +122,17 @@ jobs:
       - name: Descartar fotos archivadas (coches vendidos) antes de cachear
         run: rm -rf fotos/_archivo
 
+      - name: Instalar recortador de fotos (efecto "el coche sale de la tarjeta")
+        # Si falla, generar_web.py sigue igual y esos coches no tienen el efecto.
+        continue-on-error: true
+        run: pip install "rembg[cpu]==2.0.84"
+
+      - name: Caché del modelo de recorte (u2net, ~176 MB)
+        uses: actions/cache@v4
+        with:
+          path: ~/.u2net
+          key: rembg-u2net-v1
+
       - name: Generar la web
         run: python3 generar_web.py
 
@@ -143,7 +154,7 @@ jobs:
                   historial-precios/ \
                   datos_coches.json historial_precios.json coches_lista.json \
                   traducciones_cache.json historial_cambios_precio.json \
-                  fichas_tecnicas.json
+                  fichas_tecnicas.json recortes.json
           git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M')" || echo "Sin cambios que subir"
           git push origin main
 
