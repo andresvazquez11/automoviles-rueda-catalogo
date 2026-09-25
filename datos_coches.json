@@ -7,7 +7,7 @@
     "km": "10.135",
     "fecha": "06/2025",
     "cambio": "Manual",
-    "color": "Gris",
+    "color": "",
     "precio": "19.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -35,7 +35,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Arona - 19.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Arona - 19.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Arona - 19.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "181.86",
@@ -953,7 +952,7 @@
     "km": "15.307",
     "fecha": "06/2025",
     "cambio": "Manual",
-    "color": "Gris",
+    "color": "",
     "precio": "19.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -981,7 +980,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/21 - SEAT Arona - 19.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/21 - SEAT Arona - 19.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/21 - SEAT Arona - 19.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "183.63",
@@ -1004,7 +1002,7 @@
     "km": "18.224",
     "fecha": "06/2025",
     "cambio": "Manual",
-    "color": "Gris",
+    "color": "",
     "precio": "19.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -1032,7 +1030,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/22 - SEAT Arona - 19.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/22 - SEAT Arona - 19.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/22 - SEAT Arona - 19.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "184.36",
@@ -1055,7 +1052,7 @@
     "km": "10.739",
     "fecha": "06/2025",
     "cambio": "Manual",
-    "color": "Gris",
+    "color": "",
     "precio": "19.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -1083,7 +1080,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/23 - SEAT Arona - 19.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/23 - SEAT Arona - 19.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/23 - SEAT Arona - 19.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "181.79",
@@ -1100,6 +1096,280 @@
   },
   {
     "n": 24,
+    "modelo": "CUPRA Formentor",
+    "version": "2.5 TSI VZ5 Taiga Grey 4Drive DSG 287 kW (390 CV)",
+    "combustible": "Gasolina",
+    "km": "30.747",
+    "fecha": "02/2023",
+    "cambio": "Automático",
+    "color": "Gris",
+    "precio": "46.500",
+    "ubicacion": "Málaga",
+    "estado": "No disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-390-cv-del-2023-en-malaga/151395159",
+    "equipamiento": [
+      "Asistente de salida aparcamiento y cambio carril y sistema aviso para salir del vehículo",
+      "Calefacción en los asientos delanteros regulables por separado",
+      "Sistema de cierre y arranque sin llave \"Keyless Advanced\" sin cierre de seguridad",
+      "Sistema de aviso de mantenimiento de carril, con asistencia de emergencia y asistente en atascos",
+      "Con sistema de cámaras frontal y de marcha atrás, y dos cámaras laterales",
+      "Climatronic (3 zonas) con panel de mandos del climatizador detrás",
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Sistema de distancia de aparcamiento delanteros con sensor y cámara, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados"
+    ],
+    "_total": 52,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Formentor - 46.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Formentor - 46.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Formentor - 46.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Formentor - 46.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Formentor - 46.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Formentor - 46.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Formentor - 46.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Formentor - 46.500€/foto_08.jpg"
+    ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Formentor - 46.500€",
+    "financiacion": {}
+  },
+  {
+    "n": 25,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI DSG 110 kW (150 CV)",
+    "combustible": "Gasolina",
+    "km": "70.529",
+    "fecha": "08/2021",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "22.900",
+    "ubicacion": "Málaga",
+    "estado": "No disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2021-en-malaga/155656843",
+    "equipamiento": [
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 203 km/h",
+      "Negro (tela/piel)",
+      "Advertencia de colisión frontal",
+      "Control de crucero adaptativo",
+      "Aire acondicionado Climatronic",
+      "Cámara multifunción"
+    ],
+    "_total": 52,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - CUPRA Formentor - 22.900€ · RESERVADO/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - CUPRA Formentor - 22.900€ · RESERVADO/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - CUPRA Formentor - 22.900€ · RESERVADO/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - CUPRA Formentor - 22.900€ · RESERVADO/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - CUPRA Formentor - 22.900€ · RESERVADO/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - CUPRA Formentor - 22.900€ · RESERVADO/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - CUPRA Formentor - 22.900€ · RESERVADO/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - CUPRA Formentor - 22.900€ · RESERVADO/foto_08.jpg"
+    ],
+    "financiacion": {
+      "cuota": "355.98",
+      "tin": "5.50",
+      "tae": "6.79",
+      "meses": "60",
+      "entrada": "0",
+      "tipo": "Autocredit",
+      "ejemplo": "Ejemplo de cuota a 84 meses: 355,98 €. Entrada inicial: 0,00 €. Comisión de apertura al contado: 867,03 €. Importe total financiado 24.772,21 €. Importe total de los intereses: 5.130,11 €. Coste total del crédito: 5.130,11 €. Precio total a plazos 29.902,32 €. Importe total adeudado: 29.902,32 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar"
+    }
+  },
+  {
+    "n": 26,
+    "modelo": "CUPRA León",
+    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "combustible": "Híbrido",
+    "km": "3.600",
+    "fecha": "08/2025",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "34.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/151395138",
+    "equipamiento": [
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 220 km/h",
+      "Edge Pack",
+      "Advertencia de colisión frontal",
+      "Caja automática 6 velocidades",
+      "Aire acondicionado Climatronic",
+      "Cámara multifunción"
+    ],
+    "_total": 52,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 34.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 34.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 34.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 34.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 34.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 34.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 34.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA León - 34.900€/foto_08.jpg"
+    ],
+    "financiacion": {
+      "meses": "60",
+      "cuota": "414.65",
+      "tin": "8.99",
+      "tae": "10.50",
+      "cuota_final": "23605.89",
+      "entrada": "0.00",
+      "comision_tipo": "al contado",
+      "comision": "1227.25",
+      "capital": "35064.16",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 34.900,01 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 33.100,01 €. Precio al contado 34.900,01 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,50%. La oferta incluye Seg. Protección Plus Ampliado por 1.964,15€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 414,65 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.605,89 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.227,25 €. Importe total financiado 35.064,16 €. Importe total de los intereses: 13.420,73 €. Coste total del crédito: 14.647,98 €. Precio total a plazos 48.484,89 €. Importe total adeudado: 48.484,89 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 27,
+    "modelo": "CUPRA León",
+    "version": "1.4 e-Hybrid DSG 180 kW (245 CV)",
+    "combustible": "Híbrido",
+    "km": "65.890",
+    "fecha": "10/2021",
+    "cambio": "Automático",
+    "color": "Blanco",
+    "precio": "25.500",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-245-cv-del-2021-en-malaga/155656894",
+    "equipamiento": [
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 225 km/h",
+      "Llantas delanteras y traseras en aluminio de 19 pulgadas de diámetro y 8,0 pulgadas de ancho bi-tono, 48,3 y 20,3",
+      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
+      "Toma/s de 12v en los asientos delanteros",
+      "Asientos de tela (material principal) y de vinilo (material secundario)",
+      "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual, ajuste manual en altura y ajuste lumbar manual con ajuste manual del respaldo"
+    ],
+    "_total": 52,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - CUPRA León - 25.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - CUPRA León - 25.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - CUPRA León - 25.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - CUPRA León - 25.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - CUPRA León - 25.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - CUPRA León - 25.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - CUPRA León - 25.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - CUPRA León - 25.500€/foto_08.jpg"
+    ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - CUPRA León - 25.500€",
+    "financiacion": {}
+  },
+  {
+    "n": 28,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "combustible": "Híbrido",
+    "km": "9.519",
+    "fecha": "04/2025",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "33.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656777",
+    "equipamiento": [
+      "Asistente de mantenimiento de carril",
+      "Asistente de aparcamiento",
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 210 km/h",
+      "Negro (tela/piel)",
+      "Edge Pack",
+      "Intelligent Drive Pack"
+    ],
+    "_total": 52,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/28 - CUPRA Formentor - 33.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/28 - CUPRA Formentor - 33.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/28 - CUPRA Formentor - 33.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/28 - CUPRA Formentor - 33.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/28 - CUPRA Formentor - 33.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/28 - CUPRA Formentor - 33.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/28 - CUPRA Formentor - 33.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/28 - CUPRA Formentor - 33.900€/foto_08.jpg"
+    ],
+    "financiacion": {
+      "meses": "60",
+      "cuota": "409.61",
+      "tin": "8.99",
+      "tae": "10.50",
+      "cuota_final": "22327.80",
+      "entrada": "0.00",
+      "comision_tipo": "al contado",
+      "comision": "1190.17",
+      "capital": "34004.81",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 33.900,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 32.100,00 €. Precio al contado 33.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,50%. La oferta incluye Seg. Protección Plus Ampliado por 1.904,81€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 409,61 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.327,80 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.190,17 €. Importe total financiado 34.004,81 €. Importe total de los intereses: 12.899,59 €. Coste total del crédito: 14.089,76 €. Precio total a plazos 46.904,40 €. Importe total adeudado: 46.904,40 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 29,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "combustible": "Híbrido",
+    "km": "5.250",
+    "fecha": "03/2025",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "33.500",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656639",
+    "equipamiento": [
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 210 km/h",
+      "Negro (tela/piel)",
+      "Edge Pack",
+      "Llantas aleación 46cm (18\") - Sonora",
+      "Apertura de maletero por pedal virtual",
+      "Advertencia de colisión frontal"
+    ],
+    "_total": 52,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Formentor - 33.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Formentor - 33.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Formentor - 33.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Formentor - 33.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Formentor - 33.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Formentor - 33.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Formentor - 33.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Formentor - 33.500€/foto_08.jpg"
+    ],
+    "financiacion": {
+      "meses": "60",
+      "cuota": "412.84",
+      "tin": "8.99",
+      "tae": "10.52",
+      "cuota_final": "21421.27",
+      "entrada": "0.00",
+      "comision_tipo": "al contado",
+      "comision": "1175.34",
+      "capital": "33581.08",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 33.500,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.700,00 €. Precio al contado 33.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,52%. La oferta incluye Seg. Protección Plus Ampliado por 1.881,08€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 412,84 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.421,27 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.175,34 €. Importe total financiado 33.581,08 €. Importe total de los intereses: 12.610,59 €. Coste total del crédito: 13.785,93 €. Precio total a plazos 46.191,67 €. Importe total adeudado: 46.191,67 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 30,
     "modelo": "CUPRA Terramar",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -1125,14 +1395,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Terramar - 40.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Terramar - 40.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Terramar - 40.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Terramar - 40.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Terramar - 40.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Terramar - 40.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Terramar - 40.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - CUPRA Terramar - 40.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - CUPRA Terramar - 40.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - CUPRA Terramar - 40.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - CUPRA Terramar - 40.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - CUPRA Terramar - 40.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - CUPRA Terramar - 40.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - CUPRA Terramar - 40.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - CUPRA Terramar - 40.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - CUPRA Terramar - 40.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1149,7 +1419,7 @@
     }
   },
   {
-    "n": 25,
+    "n": 31,
     "modelo": "SEAT Ibiza",
     "version": "1.0 TSI S&S Style 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1175,14 +1445,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 20.700€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 20.700€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 20.700€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 20.700€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 20.700€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 20.700€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 20.700€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 20.700€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Ibiza - 20.700€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Ibiza - 20.700€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Ibiza - 20.700€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Ibiza - 20.700€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Ibiza - 20.700€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Ibiza - 20.700€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Ibiza - 20.700€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Ibiza - 20.700€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1199,7 +1469,7 @@
     }
   },
   {
-    "n": 26,
+    "n": 32,
     "modelo": "SEAT Ibiza",
     "version": "1.0 TSI S&S Style 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1225,14 +1495,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Ibiza - 20.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Ibiza - 20.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Ibiza - 20.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Ibiza - 20.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Ibiza - 20.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Ibiza - 20.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Ibiza - 20.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Ibiza - 20.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Ibiza - 20.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Ibiza - 20.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Ibiza - 20.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Ibiza - 20.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Ibiza - 20.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Ibiza - 20.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Ibiza - 20.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Ibiza - 20.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1249,7 +1519,7 @@
     }
   },
   {
-    "n": 27,
+    "n": 33,
     "modelo": "SEAT León",
     "version": "2.0 TDI S&S Style XS 85 kW (116 CV)",
     "combustible": "Diésel",
@@ -1299,7 +1569,7 @@
     }
   },
   {
-    "n": 28,
+    "n": 34,
     "modelo": "SEAT León",
     "version": "2.0 TDI S&S Style XS 85 kW (116 CV)",
     "combustible": "Diésel",
@@ -1349,7 +1619,7 @@
     }
   },
   {
-    "n": 29,
+    "n": 35,
     "modelo": "CUPRA Tavascan",
     "version": "77kWh Endurance First Edition 210 kW (286 CV)",
     "combustible": "Eléctrico",
@@ -1375,14 +1645,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Tavascan - 43.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Tavascan - 43.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Tavascan - 43.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Tavascan - 43.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Tavascan - 43.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Tavascan - 43.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Tavascan - 43.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - CUPRA Tavascan - 43.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - CUPRA Tavascan - 43.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - CUPRA Tavascan - 43.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - CUPRA Tavascan - 43.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - CUPRA Tavascan - 43.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - CUPRA Tavascan - 43.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - CUPRA Tavascan - 43.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - CUPRA Tavascan - 43.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - CUPRA Tavascan - 43.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1399,7 +1669,7 @@
     }
   },
   {
-    "n": 30,
+    "n": 36,
     "modelo": "Abarth 500",
     "version": "1.4 16v T-Jet 595 121 kW (165 CV)",
     "combustible": "Gasolina",
@@ -1425,20 +1695,20 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - Abarth 500 - 18.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - Abarth 500 - 18.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - Abarth 500 - 18.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - Abarth 500 - 18.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - Abarth 500 - 18.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - Abarth 500 - 18.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - Abarth 500 - 18.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - Abarth 500 - 18.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - Abarth 500 - 18.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - Abarth 500 - 18.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - Abarth 500 - 18.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - Abarth 500 - 18.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - Abarth 500 - 18.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - Abarth 500 - 18.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - Abarth 500 - 18.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - Abarth 500 - 18.500€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - Abarth 500 - 18.500€",
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - Abarth 500 - 18.500€",
     "financiacion": {}
   },
   {
-    "n": 31,
+    "n": 37,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Style Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1464,14 +1734,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Arona - 18.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Arona - 18.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Arona - 18.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Arona - 18.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Arona - 18.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Arona - 18.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Arona - 18.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - SEAT Arona - 18.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 18.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 18.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 18.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 18.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 18.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 18.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 18.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 18.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1488,7 +1758,7 @@
     }
   },
   {
-    "n": 32,
+    "n": 38,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Xperience Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1514,14 +1784,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Arona - 19.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Arona - 19.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Arona - 19.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Arona - 19.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Arona - 19.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Arona - 19.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Arona - 19.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - SEAT Arona - 19.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 19.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 19.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 19.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 19.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 19.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 19.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 19.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 19.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1538,7 +1808,7 @@
     }
   },
   {
-    "n": 33,
+    "n": 39,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI Style Plus 81 kW (110 CV)",
     "combustible": "Gasolina",
@@ -1564,14 +1834,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - SEAT Arona - 16.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - SEAT Arona - 16.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - SEAT Arona - 16.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - SEAT Arona - 16.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - SEAT Arona - 16.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - SEAT Arona - 16.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - SEAT Arona - 16.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - SEAT Arona - 16.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Arona - 16.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Arona - 16.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Arona - 16.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Arona - 16.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Arona - 16.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Arona - 16.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Arona - 16.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Arona - 16.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1588,7 +1858,7 @@
     }
   },
   {
-    "n": 34,
+    "n": 40,
     "modelo": "CUPRA Terramar",
     "version": "1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -1614,14 +1884,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - CUPRA Terramar - 37.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - CUPRA Terramar - 37.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - CUPRA Terramar - 37.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - CUPRA Terramar - 37.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - CUPRA Terramar - 37.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - CUPRA Terramar - 37.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - CUPRA Terramar - 37.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - CUPRA Terramar - 37.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Terramar - 37.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Terramar - 37.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Terramar - 37.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Terramar - 37.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Terramar - 37.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Terramar - 37.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Terramar - 37.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Terramar - 37.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1638,7 +1908,7 @@
     }
   },
   {
-    "n": 35,
+    "n": 41,
     "modelo": "Renault Clio",
     "version": "Evolution E-Tech full hybrid 145 105 kW (143 CV)",
     "combustible": "Híbrido",
@@ -1664,20 +1934,20 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - Renault Clio - 19.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - Renault Clio - 19.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - Renault Clio - 19.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - Renault Clio - 19.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - Renault Clio - 19.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - Renault Clio - 19.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - Renault Clio - 19.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - Renault Clio - 19.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - Renault Clio - 19.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - Renault Clio - 19.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - Renault Clio - 19.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - Renault Clio - 19.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - Renault Clio - 19.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - Renault Clio - 19.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - Renault Clio - 19.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - Renault Clio - 19.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - Renault Clio - 19.900€",
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - Renault Clio - 19.900€",
     "financiacion": {}
   },
   {
-    "n": 36,
+    "n": 42,
     "modelo": "CUPRA Tavascan",
     "version": "77kWh Endurance 210 kW (286 CV)",
     "combustible": "Eléctrico",
@@ -1703,14 +1973,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 35.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 35.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 35.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 35.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 35.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 35.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 35.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 35.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Tavascan - 35.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Tavascan - 35.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Tavascan - 35.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Tavascan - 35.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Tavascan - 35.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Tavascan - 35.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Tavascan - 35.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Tavascan - 35.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1727,7 +1997,7 @@
     }
   },
   {
-    "n": 37,
+    "n": 43,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI S&S FR 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1753,14 +2023,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 22.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 22.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 22.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 22.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 22.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 22.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 22.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 22.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 22.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 22.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 22.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 22.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 22.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 22.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 22.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 22.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1777,7 +2047,7 @@
     }
   },
   {
-    "n": 38,
+    "n": 44,
     "modelo": "SEAT León",
     "version": "1.5 eTSI S&S FR Special Edition DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -1803,14 +2073,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT León - 27.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT León - 27.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT León - 27.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT León - 27.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT León - 27.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT León - 27.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT León - 27.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT León - 27.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - SEAT León - 27.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - SEAT León - 27.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - SEAT León - 27.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - SEAT León - 27.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - SEAT León - 27.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - SEAT León - 27.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - SEAT León - 27.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - SEAT León - 27.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1827,7 +2097,7 @@
     }
   },
   {
-    "n": 39,
+    "n": 45,
     "modelo": "SEAT León",
     "version": "1.5 eTSI S&S FR Special Edition DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -1853,14 +2123,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT León - 28.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT León - 28.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT León - 28.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT León - 28.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT León - 28.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT León - 28.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT León - 28.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT León - 28.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT León - 28.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT León - 28.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT León - 28.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT León - 28.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT León - 28.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT León - 28.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT León - 28.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT León - 28.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1877,7 +2147,7 @@
     }
   },
   {
-    "n": 40,
+    "n": 46,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI S&S FR Plus DSG 81 kW (110 CV)",
     "combustible": "Gasolina",
@@ -1927,7 +2197,7 @@
     }
   },
   {
-    "n": 41,
+    "n": 47,
     "modelo": "CUPRA Leon",
     "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -1977,7 +2247,7 @@
     }
   },
   {
-    "n": 42,
+    "n": 48,
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI 110 kW (150 CV)",
     "combustible": "Gasolina",
@@ -2003,14 +2273,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Formentor - 29.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Formentor - 29.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Formentor - 29.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Formentor - 29.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Formentor - 29.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Formentor - 29.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Formentor - 29.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - CUPRA Formentor - 29.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 29.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 29.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 29.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 29.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 29.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 29.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 29.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 29.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2027,7 +2297,7 @@
     }
   },
   {
-    "n": 43,
+    "n": 49,
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -2053,14 +2323,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - CUPRA Formentor - 35.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - CUPRA Formentor - 35.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - CUPRA Formentor - 35.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - CUPRA Formentor - 35.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - CUPRA Formentor - 35.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - CUPRA Formentor - 35.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - CUPRA Formentor - 35.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - CUPRA Formentor - 35.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 35.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 35.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 35.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 35.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 35.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 35.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 35.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 35.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2077,7 +2347,7 @@
     }
   },
   {
-    "n": 44,
+    "n": 50,
     "modelo": "CUPRA Leon",
     "version": "Sportstourer 1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -2103,14 +2373,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - CUPRA Leon - 29.800€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - CUPRA Leon - 29.800€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - CUPRA Leon - 29.800€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - CUPRA Leon - 29.800€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - CUPRA Leon - 29.800€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - CUPRA Leon - 29.800€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - CUPRA Leon - 29.800€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - CUPRA Leon - 29.800€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA Leon - 29.800€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA Leon - 29.800€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA Leon - 29.800€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA Leon - 29.800€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA Leon - 29.800€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA Leon - 29.800€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA Leon - 29.800€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA Leon - 29.800€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2127,7 +2397,7 @@
     }
   },
   {
-    "n": 45,
+    "n": 51,
     "modelo": "SEAT Ibiza",
     "version": "1.0 TSI S&S Style 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -2153,14 +2423,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT Ibiza - 20.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT Ibiza - 20.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT Ibiza - 20.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT Ibiza - 20.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT Ibiza - 20.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT Ibiza - 20.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT Ibiza - 20.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT Ibiza - 20.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Ibiza - 20.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Ibiza - 20.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Ibiza - 20.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Ibiza - 20.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Ibiza - 20.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Ibiza - 20.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Ibiza - 20.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Ibiza - 20.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2177,7 +2447,7 @@
     }
   },
   {
-    "n": 46,
+    "n": 52,
     "modelo": "SEAT León",
     "version": "2.0 TDI S&S Style XS 85 kW (116 CV)",
     "combustible": "Diésel",
@@ -2224,280 +2494,6 @@
       "capital": "19237.61",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.700,00 €. Precio financiando: 22.700,00 €. Precio al contado 22.700,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,80%. La oferta incluye Seg. Protección Plus Ampliado por 1.077,61€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 184,83 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.553,00 € (calculada con 15.000 km anuales). Entrada inicial: 4.540,00 €. Comisión de apertura al contado: 673,32 €. Importe total financiado 19.237,61 €. Importe total de los intereses: 6.405,19 €. Coste total del crédito: 7.078,51 €. Precio total a plazos 30.182,80 €. Importe total adeudado: 25.642,80 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 47,
-    "modelo": "CUPRA Formentor",
-    "version": "2.5 TSI VZ5 Taiga Grey 4Drive DSG 287 kW (390 CV)",
-    "combustible": "Gasolina",
-    "km": "30.747",
-    "fecha": "02/2023",
-    "cambio": "Automático",
-    "color": "Gris",
-    "precio": "46.500",
-    "ubicacion": "Málaga",
-    "estado": "No disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-390-cv-del-2023-en-malaga/151395159",
-    "equipamiento": [
-      "Asistente de salida aparcamiento y cambio carril y sistema aviso para salir del vehículo",
-      "Calefacción en los asientos delanteros regulables por separado",
-      "Sistema de cierre y arranque sin llave \"Keyless Advanced\" sin cierre de seguridad",
-      "Sistema de aviso de mantenimiento de carril, con asistencia de emergencia y asistente en atascos",
-      "Con sistema de cámaras frontal y de marcha atrás, y dos cámaras laterales",
-      "Climatronic (3 zonas) con panel de mandos del climatizador detrás",
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Sistema de distancia de aparcamiento delanteros con sensor y cámara, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados"
-    ],
-    "_total": 52,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Formentor - 46.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Formentor - 46.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Formentor - 46.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Formentor - 46.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Formentor - 46.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Formentor - 46.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Formentor - 46.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Formentor - 46.500€/foto_08.jpg"
-    ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Formentor - 46.500€",
-    "financiacion": {}
-  },
-  {
-    "n": 48,
-    "modelo": "CUPRA Formentor",
-    "version": "1.5 TSI DSG 110 kW (150 CV)",
-    "combustible": "Gasolina",
-    "km": "70.529",
-    "fecha": "08/2021",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "22.900",
-    "ubicacion": "Málaga",
-    "estado": "No disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2021-en-malaga/155656843",
-    "equipamiento": [
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 203 km/h",
-      "Negro (tela/piel)",
-      "Advertencia de colisión frontal",
-      "Control de crucero adaptativo",
-      "Aire acondicionado Climatronic",
-      "Cámara multifunción"
-    ],
-    "_total": 52,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 22.900€ · RESERVADO/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 22.900€ · RESERVADO/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 22.900€ · RESERVADO/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 22.900€ · RESERVADO/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 22.900€ · RESERVADO/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 22.900€ · RESERVADO/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 22.900€ · RESERVADO/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 22.900€ · RESERVADO/foto_08.jpg"
-    ],
-    "financiacion": {
-      "cuota": "355.98",
-      "tin": "5.50",
-      "tae": "6.79",
-      "meses": "60",
-      "entrada": "0",
-      "tipo": "Autocredit",
-      "ejemplo": "Ejemplo de cuota a 84 meses: 355,98 €. Entrada inicial: 0,00 €. Comisión de apertura al contado: 867,03 €. Importe total financiado 24.772,21 €. Importe total de los intereses: 5.130,11 €. Coste total del crédito: 5.130,11 €. Precio total a plazos 29.902,32 €. Importe total adeudado: 29.902,32 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar"
-    }
-  },
-  {
-    "n": 49,
-    "modelo": "CUPRA León",
-    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
-    "combustible": "Híbrido",
-    "km": "3.600",
-    "fecha": "08/2025",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "34.900",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/151395138",
-    "equipamiento": [
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 220 km/h",
-      "Edge Pack",
-      "Advertencia de colisión frontal",
-      "Caja automática 6 velocidades",
-      "Aire acondicionado Climatronic",
-      "Cámara multifunción"
-    ],
-    "_total": 52,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA León - 34.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA León - 34.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA León - 34.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA León - 34.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA León - 34.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA León - 34.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA León - 34.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA León - 34.900€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "414.65",
-      "tin": "8.99",
-      "tae": "10.50",
-      "cuota_final": "23605.89",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1227.25",
-      "capital": "35064.16",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 34.900,01 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 33.100,01 €. Precio al contado 34.900,01 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,50%. La oferta incluye Seg. Protección Plus Ampliado por 1.964,15€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 414,65 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.605,89 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.227,25 €. Importe total financiado 35.064,16 €. Importe total de los intereses: 13.420,73 €. Coste total del crédito: 14.647,98 €. Precio total a plazos 48.484,89 €. Importe total adeudado: 48.484,89 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 50,
-    "modelo": "CUPRA León",
-    "version": "1.4 e-Hybrid DSG 180 kW (245 CV)",
-    "combustible": "Híbrido",
-    "km": "65.890",
-    "fecha": "10/2021",
-    "cambio": "Automático",
-    "color": "Blanco",
-    "precio": "25.500",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-245-cv-del-2021-en-malaga/155656894",
-    "equipamiento": [
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 225 km/h",
-      "Llantas delanteras y traseras en aluminio de 19 pulgadas de diámetro y 8,0 pulgadas de ancho bi-tono, 48,3 y 20,3",
-      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
-      "Toma/s de 12v en los asientos delanteros",
-      "Asientos de tela (material principal) y de vinilo (material secundario)",
-      "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual, ajuste manual en altura y ajuste lumbar manual con ajuste manual del respaldo"
-    ],
-    "_total": 52,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA León - 25.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA León - 25.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA León - 25.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA León - 25.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA León - 25.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA León - 25.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA León - 25.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA León - 25.500€/foto_08.jpg"
-    ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - CUPRA León - 25.500€",
-    "financiacion": {}
-  },
-  {
-    "n": 51,
-    "modelo": "CUPRA Formentor",
-    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
-    "combustible": "Híbrido",
-    "km": "9.519",
-    "fecha": "04/2025",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "33.900",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656777",
-    "equipamiento": [
-      "Asistente de mantenimiento de carril",
-      "Asistente de aparcamiento",
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 210 km/h",
-      "Negro (tela/piel)",
-      "Edge Pack",
-      "Intelligent Drive Pack"
-    ],
-    "_total": 52,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 33.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 33.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 33.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 33.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 33.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 33.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 33.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 33.900€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "409.61",
-      "tin": "8.99",
-      "tae": "10.50",
-      "cuota_final": "22327.80",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1190.17",
-      "capital": "34004.81",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 33.900,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 32.100,00 €. Precio al contado 33.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,50%. La oferta incluye Seg. Protección Plus Ampliado por 1.904,81€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 409,61 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.327,80 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.190,17 €. Importe total financiado 34.004,81 €. Importe total de los intereses: 12.899,59 €. Coste total del crédito: 14.089,76 €. Precio total a plazos 46.904,40 €. Importe total adeudado: 46.904,40 €. Sistema de amortización francés"
-    }
-  },
-  {
-    "n": 52,
-    "modelo": "CUPRA Formentor",
-    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
-    "combustible": "Híbrido",
-    "km": "5.250",
-    "fecha": "03/2025",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "33.500",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656639",
-    "equipamiento": [
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 210 km/h",
-      "Negro (tela/piel)",
-      "Edge Pack",
-      "Llantas aleación 46cm (18\") - Sonora",
-      "Apertura de maletero por pedal virtual",
-      "Advertencia de colisión frontal"
-    ],
-    "_total": 52,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 33.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 33.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 33.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 33.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 33.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 33.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 33.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 33.500€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "412.84",
-      "tin": "8.99",
-      "tae": "10.52",
-      "cuota_final": "21421.27",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "1175.34",
-      "capital": "33581.08",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 33.500,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.700,00 €. Precio al contado 33.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,52%. La oferta incluye Seg. Protección Plus Ampliado por 1.881,08€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 412,84 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.421,27 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.175,34 €. Importe total financiado 33.581,08 €. Importe total de los intereses: 12.610,59 €. Coste total del crédito: 13.785,93 €. Precio total a plazos 46.191,67 €. Importe total adeudado: 46.191,67 €. Sistema de amortización francés"
     }
   },
   {
@@ -2549,7 +2545,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 24.500,00 €. Precio financiando: 24.500,00 €. Precio al contado 24.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,91%. La oferta incluye Seg. Protección Plus Ampliado por 1.453,83€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 322,56 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.323,90 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 908,38 €. Importe total financiado 25.953,83 €. Importe total de los intereses: 7.723,67 €. Coste total del crédito: 8.632,05 €. Precio total a plazos 33.677,50 €. Importe total adeudado: 33.677,50 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 2,
+    "_intentos_desaparecido": 3,
     "fecha_reservado": "2026-09-25"
   },
   {
@@ -2602,7 +2598,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.899,99 €. Precio financiando: 18.899,99 €. Precio al contado 18.899,99 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,83%. La oferta incluye Seg. Protección Plus Ampliado por 897,22€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 168,43 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.061,64 € (calculada con 15.000 km anuales). Entrada inicial: 3.780,00 €. Comisión de apertura al contado: 560,60 €. Importe total financiado 16.017,21 €. Importe total de los intereses: 5.150,23 €. Coste total del crédito: 5.710,83 €. Precio total a plazos 24.947,44 €. Importe total adeudado: 21.167,44 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 8,
+    "_intentos_desaparecido": 9,
     "fecha_reservado": "2026-09-25"
   },
   {
@@ -2654,7 +2650,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 32.900,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.100,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,52%. La oferta incluye Seg. Protección Plus Ampliado por 1.845,47€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 408,64 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.743,63 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.153,09 €. Importe total financiado 32.945,47 €. Importe total de los intereses: 12.316,56 €. Coste total del crédito: 13.469,65 €. Precio total a plazos 45.262,03 €. Importe total adeudado: 45.262,03 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 9,
+    "_intentos_desaparecido": 10,
     "fecha_reservado": "2026-09-25"
   },
   {
@@ -2706,7 +2702,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 17.800,00 €. Precio financiando: 17.800,00 €. Precio al contado 17.800,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,94%. La oferta incluye Seg. Protección Plus Ampliado por 1.056,25€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 244,77 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 9.651,57 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 659,97 €. Importe total financiado 18.856,25 €. Importe total de los intereses: 5.481,52 €. Coste total del crédito: 6.141,49 €. Precio total a plazos 24.337,77 €. Importe total adeudado: 24.337,77 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 17,
+    "_intentos_desaparecido": 18,
     "fecha_reservado": "2026-09-23"
   },
   {
@@ -2758,7 +2754,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 32.900,00 €. Precio financiando: 32.900,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,90%. La oferta incluye Seg. Protección Plus Ampliado por 1.952,29€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 423,56 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 19.931,24 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.219,83 €. Importe total financiado 34.852,29 €. Importe total de los intereses: 10.492,55 €. Coste total del crédito: 11.712,38 €. Precio total a plazos 45.344,84 €. Importe total adeudado: 45.344,84 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 17,
+    "_intentos_desaparecido": 18,
     "fecha_reservado": "2026-09-23"
   },
   {
@@ -2810,7 +2806,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.500,00 €. Precio financiando: 22.500,00 €. Precio al contado 22.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,88%. La oferta incluye Seg. Protección Plus Ampliado por 1.335,15€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 279,41 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.374,89 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 834,23 €. Importe total financiado 23.835,15 €. Importe total de los intereses: 7.304,34 €. Coste total del crédito: 8.138,57 €. Precio total a plazos 31.139,49 €. Importe total adeudado: 31.139,49 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 17,
+    "_intentos_desaparecido": 18,
     "fecha_reservado": "2026-09-23"
   },
   {
