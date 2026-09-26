@@ -170,7 +170,8 @@ def buscar_youtube(consulta: str) -> list[dict]:
     r.raise_for_status()
     m = re.search(r"var ytInitialData = (\{.*?\});</script>", r.text, re.S)
     if not m:
-        return []
+        # página de consentimiento / bloqueo: no es "sin resultados", es un fallo
+        raise RuntimeError("YouTube no devolvió resultados de búsqueda (¿bloqueo o página de consentimiento?)")
     datos = json.loads(m.group(1))
 
     def recorrer(o):
@@ -221,13 +222,14 @@ def main() -> int:
         print("🎬  Pruebas en vídeo: todos los coches tienen vídeos.")
         return 0
 
-    informe = []
+    informe, fallos = [], []
     for modelo, version, anio in tareas:
         consulta = f"prueba {modelo} {anio or ''} review español".replace("  ", " ")
         try:
             candidatos = buscar_youtube(consulta)
         except Exception as e:
             print(f"  ⚠️  YouTube no respondió para {modelo} {anio}: {e} — se reintenta la próxima vez")
+            fallos.append(f"{modelo} ({anio})")
             continue
         elegidos = [c for c in elegir(candidatos, modelo, version, anio) if verificar(c["id"])]
         buscados[f"{modelo}|{anio}"] = hoy
@@ -247,9 +249,13 @@ def main() -> int:
         print(informe[-1])
 
     pruebas.PRUEBAS_PATH.write_text(json.dumps(datos, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    if informe and INFORME.exists():
+    if (informe or fallos) and INFORME.exists():
         with INFORME.open("a", encoding="utf-8") as f:
-            f.write("\n🎬 PRUEBAS EN VÍDEO AÑADIDAS AUTOMÁTICAMENTE\n" + "\n".join(informe) + "\n")
+            if informe:
+                f.write("\n🎬 PRUEBAS EN VÍDEO AÑADIDAS AUTOMÁTICAMENTE\n" + "\n".join(informe) + "\n")
+            if fallos:
+                f.write("\n⚠️ NO SE PUDO BUSCAR VÍDEOS (YouTube no respondió; se reintenta en la próxima "
+                        "actualización): " + ", ".join(fallos) + "\n")
     return 0
 
 
