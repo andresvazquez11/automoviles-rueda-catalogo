@@ -1,0 +1,50 @@
+{
+  "_nota": "Vídeos REALES de pruebas en YouTube, por MODELO (igual que prensa.json). Cada id comprobado con el oEmbed de YouTube (26/09/2026): existe y su título/canal corresponden al modelo. 'desde'/'hasta' = años de matriculación a los que aplica (para no mezclar generaciones o restylings); 'version_contiene'/'version_empieza' = filtros por versión. 'titulo' es una descripción corta nuestra, no el título original. Modelo sin vídeos = la ficha no muestra el bloque.",
+  "CUPRA Formentor": {"videos": [
+    {"youtube": "97rquY9Z0SY", "titulo": "Prueba del Formentor 1.5 TSI 150 CV DSG", "medio": "Periodismo del Motor", "hasta": 2023},
+    {"youtube": "jraEeQWGdbs", "titulo": "Formentor 1.5 TSI: primeras impresiones", "medio": "km77.com", "hasta": 2023},
+    {"youtube": "Y_fCFVAOnRQ", "titulo": "Maniobra de esquiva y eslalon", "medio": "km77.com", "hasta": 2023},
+    {"youtube": "c9HLzLPwmzo", "titulo": "Prueba del Formentor renovado", "medio": "coches.net", "desde": 2024},
+    {"youtube": "HSgvgVJy2T0", "titulo": "Prueba del Formentor híbrido enchufable", "medio": "Diariomotor", "desde": 2024},
+    {"youtube": "jwyNYb-I1Bw", "titulo": "Primera prueba del Formentor VZ", "medio": "Diariomotor", "desde": 2024}
+  ]},
+  "SEAT Arona": {"videos": [
+    {"youtube": "taX2_ZzAh3s", "titulo": "Por qué el Arona es tan vendido", "medio": "coches.net", "hasta": 2025},
+    {"youtube": "p4V2-GzI3t8", "titulo": "Prueba del Arona 1.0 TSI 110 CV", "medio": "Actualidad Motor", "hasta": 2025},
+    {"youtube": "6KYzGM7qHag", "titulo": "Análisis del SEAT Arona", "medio": "Diariomotor", "hasta": 2025},
+    {"youtube": "sPPVt6r5bYw", "titulo": "Prueba del Arona 2026 renovado", "medio": "Diariomotor", "desde": 2026}
+  ]},
+  "SEAT Ibiza": {"videos": [
+    {"youtube": "hMtPxHqns_A", "titulo": "Prueba a fondo del Ibiza 1.0 TSI 115 CV", "medio": "Top Drivers", "hasta": 2025},
+    {"youtube": "JOddyYy059o", "titulo": "SEAT Ibiza 2025", "medio": "Motor 22CV", "hasta": 2025},
+    {"youtube": "w18bJv_jaxA", "titulo": "Prueba del Ibiza FR 1.5 TSI 150 CV 2026", "medio": "coches.net", "desde": 2026},
+    {"youtube": "Q-2j-2nfVrI", "titulo": "Prueba del Ibiza 2026", "medio": "HolyCars TV", "desde": 2026}
+  ]},
+  "SEAT León": {"videos": [
+    {"youtube": "YDfpgV0iJDk", "titulo": "Prueba del León microhíbrido", "medio": "Centímetros Cúbicos", "desde": 2024},
+    {"youtube": "kmzDTT47C8M", "titulo": "Prueba completa del León", "medio": "Motor.es", "desde": 2024},
+    {"youtube": "DYFXNDjNOw4", "titulo": "Prueba del León Sportstourer", "medio": "Víctor Delgado", "desde": 2024}
+  ]},
+  "CUPRA León": {"videos": [
+    {"youtube": "AE3TmuKmxxI", "titulo": "Prueba del CUPRA León eTSI 150 CV", "medio": "Diariomotor", "desde": 2024},
+    {"youtube": "OKGYHvBwsM4", "titulo": "Análisis del CUPRA León renovado", "medio": "Motor1 España", "desde": 2024},
+    {"youtube": "_w3zK-2UiJo", "titulo": "Prueba del CUPRA León VZ 300 CV", "medio": "HolyCars TV", "desde": 2024}
+  ]},
+  "CUPRA Terramar": {"videos": [
+    {"youtube": "ZDM_ceuc9Hw", "titulo": "Prueba del Terramar microhíbrido", "medio": "coches.net"},
+    {"youtube": "KmGpkgl1LS8", "titulo": "Prueba del Terramar híbrido enchufable", "medio": "Diariomotor"},
+    {"youtube": "gZoiUZcAtRc", "titulo": "Prueba del Terramar 1.5 eTSI 150 CV", "medio": "HolyCars TV"}
+  ]},
+  "CUPRA Tavascan": {"videos": [
+    {"youtube": "EQDBnyAsJUQ", "titulo": "Prueba del Tavascan VZ", "medio": "coches.net"},
+    {"youtube": "uhycCup2ATc", "titulo": "Prueba del Tavascan Endurance: consumo real", "medio": "Periodismo del Motor"},
+    {"youtube": "-2dttyb7WrE", "titulo": "Prueba del Tavascan VZ 340 CV", "medio": "Highmotor"}
+  ]},
+  "ŠKODA Karoq": {"videos": [
+    {"youtube": "yVtN8rNUdP8", "titulo": "Prueba del Škoda Karoq", "medio": "coches.com"}
+  ]},
+  "BMW Serie": {"videos": [
+    {"youtube": "Z_AECwAHhXk", "titulo": "Primera prueba del BMW Serie 1", "medio": "coches.net", "version_empieza": "1 ", "desde": 2019},
+    {"youtube": "6ArlkdYCFZ0", "titulo": "Prueba a fondo del BMW Serie 1", "medio": "Motor.es", "version_empieza": "1 ", "desde": 2019}
+  ]}
+}

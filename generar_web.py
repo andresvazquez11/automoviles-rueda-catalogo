@@ -12,8 +12,12 @@ from pathlib import Path
 import requests
 
 from catalogo_rueda_v2 import _es_foto_exterior, nombre_carpeta
+import comparador
+import confianza_dwa
 import ficha_tecnica
 import prensa
+import pruebas
+import quienes_somos
 import recortar_portadas
 import subprocess
 
@@ -343,6 +347,16 @@ def header_social_html(redes: list) -> str:
   </div>
   <span class="rd-header-social-caption">Síguenos en nuestras redes sociales</span>
 </div>'''
+
+def base_perfil(perfil: dict) -> str:
+    """Prefijo de URL del perfil: '' para Andrés (raíz), '/alejandro' para Alejandro."""
+    return f"/{perfil['carpeta']}" if perfil["carpeta"] else ""
+
+
+def nav_perfil_html(perfil: dict, activo: str) -> str:
+    """Botones Coches / Quiénes somos del encabezado (ver confianza_dwa.nav_html)."""
+    return confianza_dwa.nav_html(i18n_span, base_perfil(perfil), activo)
+
 
 def maps_button_html(maps_url: str) -> str:
     """Botón 'Cómo llegar' del header — enlace directo a indicaciones de
@@ -704,6 +718,9 @@ ASSET_ESTILOS     = asset("estilos.css")
 ASSET_IDIOMA      = asset("idioma.js")
 ASSET_CALCULADORA = asset("calculadora.js")
 ASSET_REBAJAS     = asset("rebajas.js")
+ASSET_COMPARADOR  = asset("comparador.js")
+ASSET_CONFIANZA   = asset("confianza.js")
+COMPARADOR_JSON   = BASE_DIR / "comparador.json"   # lo escribe main(); lo lee assets/comparador.js
 
 @functools.lru_cache(maxsize=1)
 def _cargar_historial_precios() -> dict:
@@ -1553,6 +1570,10 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
     # pastillas de datos y a la lista de equipamiento. Esos dos contenedores se
     # mantienen ocultos porque calculadora.js (cargarFicha) los rellena igual.
     bloque_prensa = prensa.bloque_html(car, prensa.cargar(), i18n_span) if not vendido else ""
+    # Final de la ficha (después de la calculadora): pruebas en vídeo del modelo
+    # y, cerrando, la tarjeta "Comprando este coche en Das WeltAuto".
+    bloque_final = "" if vendido else (pruebas.bloque_html(car, pruebas.cargar(), i18n_span)
+                                        + confianza_dwa.tarjeta_ficha_html(ficha, i18n_span))
     if ficha:
         bloque_datos = (bloque_prensa + ficha_tecnica.bloques_html(ficha, car, i18n_span)
                         + '\n  <div hidden><div id="m-specs"></div>'
@@ -1596,11 +1617,12 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 
 <header class="rd-header">
   <div class="rd-header-brand">
-    <strong>Automóviles Rueda</strong>
+    <div class="rd-marca"><strong>Automóviles Rueda</strong>{confianza_dwa.sello_html(i18n_span)}</div>
     <span class="rd-header-asesor"><em>Asesor comercial</em>{nombre} · <span class="rd-header-tel">{telefono}</span></span>
   </div>
   {header_social_html(perfil["redes"])}
   {maps_button_html(perfil["maps_url"])}
+  {nav_perfil_html(perfil, "coches")}
   {lang_toggle_html()}
 </header>
 <a class="rd-back" href="../index.html">&#8249; {i18n_span("Volver al catálogo", "Back to catalog")}</a>
@@ -1643,6 +1665,8 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
   <div class="bbva-panel" id="bbva-financiacion" style="display:none">
 {BBVA_HTML_INTERIOR}
   </div>
+
+  {bloque_final}
 
   <div class="rd-footnote">
     <a id="m-link" href="#" target="_blank" rel="noopener">{i18n_span("Ver ficha original en Das WeltAuto ↗", "See original listing on Das WeltAuto ↗")}</a>
@@ -1718,6 +1742,7 @@ def escribir_sitemap_y_robots(coches: list[dict]) -> None:
         if c.get("estado") == "Retirado":
             continue
         urls.append((f"{DOMINIO_BASE}/coches/{archivo_ficha(c)}", "weekly", "0.8"))
+    urls.append((f"{DOMINIO_BASE}/quienes-somos/", "monthly", "0.6"))
     urls.append((f"{DOMINIO_BASE}/historial-precios/", "weekly", "0.3"))
     xml = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -1733,7 +1758,8 @@ def escribir_sitemap_y_robots(coches: list[dict]) -> None:
         f"\nSitemap: {DOMINIO_BASE}/sitemap.xml\n", encoding="utf-8")
     print(f"  🗺️  sitemap.xml: {len(urls)} páginas")
 
-def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte: str = "") -> str:
+def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte: str = "",
+                    ficha: "dict | None" = None) -> str:
     n = car["n"]
     slug = slug_coche(car["modelo"])
     href = f"coches/{archivo_ficha(car)}"
@@ -1783,6 +1809,7 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte
       {f'<span class="rd-pill">📅 {car["fecha"]}</span>' if car.get("fecha") else ''}
       {f'<span class="rd-pill">⚙️ {i18n_span(car["cambio"], CAMBIO_EN.get(car["cambio"], car["cambio"]))}</span>' if car.get("cambio") else ''}
     </div>
+    {confianza_dwa.pastilla_tarjeta_html(ficha, i18n_span)}
     <div class="rd-card-price-row">
       <div>{precio_row}</div>
       <div class="rd-card-cuota">{i18n_span("Desde", "From")} <strong>{cuota:.0f} €/mes</strong></div>
@@ -1861,12 +1888,17 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
     visibles = [c for c in cars if c.get("estado") != "Retirado"]
     total_disp = sum(1 for c in visibles if c["estado"] == "Disponible")
     total_res  = sum(1 for c in visibles if c["estado"] == "No disponible")
+    fichas = ficha_tecnica.cargar_fichas()
+    # Versión por contenido (como asset()) para que el móvil no use un comparador.json viejo.
+    v_cmp = hashlib.md5(COMPARADOR_JSON.read_bytes()).hexdigest()[:8] if COMPARADOR_JSON.exists() else "0"
+    url_comparador = f"/comparador.json?v={v_cmp}"
     tarjetas = "\n".join(
         build_card_html(
             car, hist,
             [f"/{f.lstrip('/')}" for f in car.get("fotos", [])] if car.get("fuente") == "motorflash" else rutas.get(car["n"], []),
             traducciones[car["n"]],
-            recortes.get(car["n"], "")
+            recortes.get(car["n"], ""),
+            fichas.get(ficha_tecnica.clave_ficha(car)),
         )
         for car in cars
         if car.get("estado") != "Retirado"
@@ -1890,11 +1922,12 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 <body>
 <header class="rd-header">
   <div class="rd-header-brand">
-    <strong>Automóviles Rueda</strong>
+    <div class="rd-marca"><strong>Automóviles Rueda</strong>{confianza_dwa.sello_html(i18n_span)}</div>
     <span class="rd-header-asesor"><em>Asesor comercial</em>{perfil["nombre"]} · <span class="rd-header-tel">{perfil["telefono"]}</span></span>
   </div>
   {header_social_html(perfil["redes"])}
   {maps_button_html(perfil["maps_url"])}
+  {nav_perfil_html(perfil, "coches")}
   {lang_toggle_html()}
   <button id="rd-dark-toggle" class="rd-dark-toggle" type="button"><span id="rd-dark-label">🌙 {i18n_span("Modo oscuro", "Dark mode")}</span></button>
 </header>
@@ -1936,17 +1969,21 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 <div class="rd-grid" id="rd-grid">
 {tarjetas}
 </div>
+{confianza_dwa.banners_template_html(i18n_span, f"{base_perfil(perfil)}/quienes-somos/")}
 
 <div id="rd-tray" class="rd-tray"></div>
-<div id="rd-overlay" class="rd-overlay">
-  <div class="rd-overlay-panel">
-    <div class="rd-overlay-head">
-      <div class="rd-overlay-title">{i18n_span("Comparar coches", "Compare cars")}</div>
-      <button id="rd-overlay-close" class="rd-overlay-close" type="button">✕</button>
+<div id="rd-overlay" class="rd-overlay rd-cx-overlay">
+  <div class="rd-cx">
+    <div class="rd-cx-top">
+      <h2>{i18n_span("Comparar coches · ficha completa", "Compare cars · full specs")}</h2>
+      <button id="rd-overlay-close" class="rd-cx-cerrar" type="button" aria-label="Cerrar">✕</button>
     </div>
-    <div class="rd-cmp-wrap">
-      <div id="rd-cmp-cols" class="rd-cmp-cols"></div>
+    <div class="rd-cx-tools">
+      <label><input type="checkbox" id="rd-cx-dif" checked> {i18n_span("Mostrar solo lo que cambia", "Show differences only")}</label>
+      <label><input type="checkbox" id="rd-cx-eq"> {i18n_span("Mostrar equipamiento completo", "Show full equipment")}</label>
+      <span class="rd-cx-leyenda"><i></i>{i18n_span("Mejor dato de la comparación", "Best in comparison")}</span>
     </div>
+    <div class="rd-cx-scroll" id="rd-cx-tabla"></div>
   </div>
 </div>
 
@@ -2010,6 +2047,7 @@ document.addEventListener('click', e => {{
     }}
 
     cntEl.textContent = visibles.length;
+    if (window.rdColocarBanners) window.rdColocarBanners();   // assets/confianza.js
   }}
 
   document.querySelectorAll('.rd-filter-btn').forEach(btn => {{
@@ -2156,106 +2194,10 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
   window.addEventListener('resize', ocultar);
 }})();
 
-// ── Comparador (hasta 3 coches) — funciona también con las tarjetas que
-// clona la franja de Destacados de más arriba, porque el clic se maneja
-// por delegación en <body> en vez de un listener por botón (cloneNode no
-// copia listeners). ──────────────────────────────────────────────────
-(function() {{
-  let compareIds = new Set();
-  const tray = document.getElementById('rd-tray');
-  const overlay = document.getElementById('rd-overlay');
-  const cmpCols = document.getElementById('rd-cmp-cols');
-
-  function datosDeTarjeta(card) {{
-    const img = card.querySelector('.rd-card-photos img.activa') || card.querySelector('.rd-card-photos img');
-    return {{
-      modelo: card.querySelector('.rd-card-modelo').textContent,
-      version: card.querySelector('.rd-card-version').textContent,
-      precio: card.querySelector('.rd-card-precio').textContent,
-      pills: [...card.querySelectorAll('.rd-pill')].map(p => p.textContent),
-      foto: img ? img.src : '',
-    }};
-  }}
-
-  function tarjetaConId(id) {{
-    return document.querySelector('.rd-card[data-id="' + id + '"]');
-  }}
-
-  function toggleCompare(card) {{
-    const id = card.dataset.id;
-    const btn = card.querySelector('.rd-compare-btn');
-    if (compareIds.has(id)) {{
-      compareIds.delete(id);
-      btn.textContent = '+ Comparar';
-      btn.classList.remove('activo');
-    }} else {{
-      if (compareIds.size >= 3) {{ alert('Máximo 3 coches para comparar'); return; }}
-      compareIds.add(id);
-      btn.textContent = '✓ Comparando';
-      btn.classList.add('activo');
-    }}
-    renderTray();
-  }}
-
-  function renderTray() {{
-    if (compareIds.size === 0) {{ tray.style.display = 'none'; tray.innerHTML = ''; return; }}
-    tray.style.display = 'flex';
-    const chips = [...compareIds].map(id => {{
-      const card = tarjetaConId(id);
-      const modelo = card ? card.querySelector('.rd-card-modelo').textContent : id;
-      return '<span class="rd-tray-chip">' + modelo + ' <span data-id="' + id + '" class="rd-tray-x">✕</span></span>';
-    }}).join('');
-    tray.innerHTML =
-      '<span class="rd-tray-label">Comparando ' + compareIds.size + '</span>' +
-      '<div class="rd-tray-chips">' + chips + '</div>' +
-      '<button id="rd-tray-btn" class="rd-tray-btn" type="button">Ver comparación</button>' +
-      '<button id="rd-tray-clear" class="rd-tray-clear" type="button" title="Vaciar comparación" aria-label="Vaciar comparación">✕</button>';
-    tray.querySelectorAll('.rd-tray-x').forEach(x => x.addEventListener('click', e => {{
-      e.preventDefault();
-      const card = tarjetaConId(e.target.dataset.id);
-      if (card) toggleCompare(card); else {{ compareIds.delete(e.target.dataset.id); renderTray(); }}
-    }}));
-    document.getElementById('rd-tray-clear').addEventListener('click', () => {{
-      [...compareIds].forEach(id => {{
-        const card = tarjetaConId(id);
-        if (!card) return;
-        const btn = card.querySelector('.rd-compare-btn');
-        btn.textContent = '+ Comparar';
-        btn.classList.remove('activo');
-      }});
-      compareIds.clear();
-      overlay.style.display = 'none';
-      renderTray();
-    }});
-    document.getElementById('rd-tray-btn').addEventListener('click', () => {{
-      const datos = [...compareIds].map(id => tarjetaConId(id)).filter(Boolean).map(datosDeTarjeta);
-      cmpCols.innerHTML = datos.map(c => (
-        '<div class="rd-cmp-col">' +
-          '<img src="' + c.foto + '">' +
-          '<div class="rd-cmp-col-body">' +
-            '<div class="rd-cmp-modelo">' + c.modelo + '</div>' +
-            '<div class="rd-cmp-version">' + c.version + '</div>' +
-            '<div class="rd-cmp-precio">' + c.precio + '</div>' +
-            '<div class="rd-cmp-pills">' + c.pills.map(p => '<span>' + p + '</span>').join('') + '</div>' +
-          '</div>' +
-        '</div>'
-      )).join('');
-      overlay.style.display = 'flex';
-    }});
-  }}
-
-  document.getElementById('rd-overlay-close').addEventListener('click', () => {{ overlay.style.display = 'none'; }});
-
-  document.body.addEventListener('click', e => {{
-    const btn = e.target.closest('.rd-compare-btn');
-    if (!btn) return;
-    e.preventDefault();
-    e.stopPropagation();
-    const card = btn.closest('.rd-card');
-    if (card) toggleCompare(card);
-  }});
-}})();
 </script>
+<script>window.RD_CMP_URL = "{url_comparador}";</script>
+<script src="{ASSET_COMPARADOR}"></script>
+<script src="{ASSET_CONFIANZA}"></script>
 <script src="{ASSET_REBAJAS}"></script>
 {footer_whatsapp_html(perfil, accesos_ocultos=(perfil["id"] == "andres"))}
 {goatcounter_script_html()}
@@ -2270,6 +2212,51 @@ HISTORIAL_CAMBIOS_PRECIO_PATH = BASE_DIR / "historial_cambios_precio.json"
 
 def _formato_eur(valor: float) -> str:
     return f"{valor:,.0f}".replace(",", ".") + "€"
+
+def build_quienes_somos_html(perfil: dict, total_coches: int) -> str:
+    """Página Quiénes somos del perfil (contenido en quienes_somos.py)."""
+    datos = datos_perfil(perfil)
+    canonical = f"{datos['dominio_pagina']}/quienes-somos/"
+    whatsapp = (f"https://wa.me/{datos['telefono_wa']}?text=" + urllib.parse.quote(
+        f"Hola {datos['nombre_corto']}, te escribo desde la web de Automóviles Rueda."))
+    cuerpo = quienes_somos.cuerpo_html(i18n_span, total_coches, whatsapp, perfil["nombre"], perfil["telefono"])
+    return f'''<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiénes somos · Automóviles Rueda — concesionario oficial SEAT, CUPRA y Das WeltAuto en Málaga</title>
+<meta name="description" content="Automóviles Rueda: concesionario oficial SEAT, CUPRA y Das WeltAuto en Málaga desde 1995, con sedes en Málaga, Antequera y Vélez-Málaga y taller oficial propio.">
+<link rel="canonical" href="{DOMINIO_BASE}/quienes-somos/">
+<meta property="og:title" content="Quiénes somos · Automóviles Rueda">
+<meta property="og:url" content="{canonical}">
+<meta property="og:image" content="{DOMINIO_BASE}/assets/sedes/malaga-seat.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{ASSET_ESTILOS}">
+<script src="{ASSET_IDIOMA}"></script>
+</head>
+<body>
+
+<header class="rd-header">
+  <div class="rd-header-brand">
+    <div class="rd-marca"><strong>Automóviles Rueda</strong>{confianza_dwa.sello_html(i18n_span)}</div>
+    <span class="rd-header-asesor"><em>Asesor comercial</em>{perfil["nombre"]} · <span class="rd-header-tel">{perfil["telefono"]}</span></span>
+  </div>
+  {header_social_html(perfil["redes"])}
+  {maps_button_html(perfil["maps_url"])}
+  {nav_perfil_html(perfil, "quienes")}
+  {lang_toggle_html()}
+</header>
+
+{cuerpo}
+
+{footer_whatsapp_html(perfil)}
+{goatcounter_script_html()}
+</body>
+</html>
+'''
+
 
 def build_historial_precios_html(historial: list[dict], perfil: dict, fichas_por_url: dict) -> str:
     """Página con el registro permanente de cambios de precio, agrupado por
@@ -2350,11 +2337,12 @@ def build_historial_precios_html(historial: list[dict], perfil: dict, fichas_por
 
 <header class="rd-header">
   <div class="rd-header-brand">
-    <strong>Automóviles Rueda</strong>
+    <div class="rd-marca"><strong>Automóviles Rueda</strong>{confianza_dwa.sello_html(i18n_span)}</div>
     <span class="rd-header-asesor"><em>Asesor comercial</em>{nombre} · <span class="rd-header-tel">{telefono}</span></span>
   </div>
   {header_social_html(perfil["redes"])}
   {maps_button_html(perfil["maps_url"])}
+  {nav_perfil_html(perfil, "")}
   {lang_toggle_html()}
 </header>
 <a class="rd-back" href="../index.html">&#8249; {i18n_span("Volver al catálogo", "Back to catalog")}</a>
@@ -2488,6 +2476,8 @@ def main():
     # perfil de asesor, en su propia carpeta de salida — compartiendo las
     # mismas fotos/CSS/JS (rutas absolutas desde la raíz del dominio). ──────
     fichas = ficha_tecnica.cargar_fichas()
+    COMPARADOR_JSON.write_text(
+        comparador.json_todos(coches, fichas, id_estable_coche, ficha_tecnica.clave_ficha), encoding="utf-8")
     print(f"📋  {sum(1 for c in todos_los_coches if fichas.get(ficha_tecnica.clave_ficha(c)))} "
           f"coche(s) con ficha técnica completa")
     for perfil in PERFILES:
@@ -2524,6 +2514,11 @@ def main():
         hist_dir.mkdir(parents=True, exist_ok=True)
         html_historial = build_historial_precios_html(historial_precios, perfil, fichas_por_url)
         (hist_dir / "index.html").write_text(html_historial, encoding="utf-8")
+
+        qs_dir = out_dir / "quienes-somos"
+        qs_dir.mkdir(parents=True, exist_ok=True)
+        disponibles = sum(1 for c in coches if c.get("estado") == "Disponible")
+        (qs_dir / "index.html").write_text(build_quienes_somos_html(perfil, disponibles), encoding="utf-8")
 
     escribir_sitemap_y_robots([c for c in todos_los_coches if c["n"] not in sin_foto])
     print(f"  {len(todos_los_coches)} fichas individuales generadas por perfil")

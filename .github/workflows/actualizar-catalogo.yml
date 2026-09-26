@@ -151,7 +151,7 @@ jobs:
       - name: Commitear y subir cambios
         run: |
           git add index.html web_fotos/ coches/ assets/ alejandro/ \
-                  historial-precios/ \
+                  historial-precios/ quienes-somos/ comparador.json \
                   datos_coches.json historial_precios.json coches_lista.json \
                   traducciones_cache.json historial_cambios_precio.json \
                   fichas_tecnicas.json recortes.json sitemap.xml robots.txt
