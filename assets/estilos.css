@@ -718,6 +718,20 @@ body.rd-dark .rd-card { box-shadow: 0 10px 26px rgba(0,0,0,0.5), 0 2px 8px rgba(
 }
 .rd-tray-clear { background: none; border: none; color: #cfcfcf; font-size: 20px; line-height: 1; cursor: pointer; padding: 4px 2px; }
 .rd-tray-clear:hover { color: #fff; }
+/* Móvil: la barra ocupa todo el ancho abajo y el botón flotante de
+   WhatsApp (y su ventanita) suben por encima de ella — antes la barra
+   quedaba debajo del botón verde y no se podía pulsar "Ver comparación".
+   --rd-tray-h lo mide comparador.js cada vez que se pinta la barra. */
+@media (max-width: 640px) {
+  .rd-tray {
+    left: 12px; right: 12px; bottom: 12px; transform: none;
+    flex-wrap: wrap; gap: 8px 10px; border-radius: 18px; padding: 10px 12px;
+  }
+  .rd-tray-chips { order: -1; flex: 1 1 100%; overflow-x: auto; }
+  .rd-tray-label { flex: 1; }
+  body.rd-has-tray .rd-whatsapp-float { bottom: calc(var(--rd-tray-h, 100px) + 24px); }
+  body.rd-has-tray .rd-wa-popup { bottom: calc(var(--rd-tray-h, 100px) + 90px); }
+}
 
 .rd-overlay {
   display: none; position: fixed; inset: 0; z-index: 70; background: rgba(0,0,0,.6);
