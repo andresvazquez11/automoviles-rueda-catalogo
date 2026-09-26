@@ -16,7 +16,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/estilos.css?v=2f19f4c9">
+<link rel="stylesheet" href="/assets/estilos.css?v=e3de9a9e">
 <script src="/assets/idioma.js?v=9eefe677"></script>
 <style>
 /* Puente de variables: la calculadora (portada de generar_web.py) usa nombres
@@ -435,7 +435,7 @@
 
 <header class="rd-header">
   <div class="rd-header-brand">
-    <strong>Automóviles Rueda</strong>
+    <div class="rd-marca"><strong>Automóviles Rueda</strong><a class="rd-dwa-sello" href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener" aria-label="Das WeltAuto — concesionario oficial"><img src="/assets/dasweltauto-logo.svg" alt="Das WeltAuto" width="120" height="34"><span><span class="rd-i18n" data-es="Concesionario oficial" data-en="Official dealer">Concesionario oficial</span></span></a></div>
     <span class="rd-header-asesor"><em>Asesor comercial</em>Alejandro Morales Pájaro · <span class="rd-header-tel">685 90 77 41</span></span>
   </div>
   <div class="rd-header-social-wrap">
@@ -469,6 +469,7 @@
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
     <span class="rd-maps-btn-label">Cómo llegar</span>
   </a>
+  <nav class="rd-nav"><a class="rd-nav-btn activo" href="/alejandro/"><span class="rd-i18n" data-es="Coches" data-en="Cars">Coches</span></a><a class="rd-nav-btn" href="/alejandro/quienes-somos/"><span class="rd-i18n" data-es="Quiénes somos" data-en="About us">Quiénes somos</span></a></nav>
   <div class="rd-lang-toggle">
     <button type="button" class="rd-lang-btn activo" data-lang="es" aria-label="Ver en español"><svg width="20" height="14" viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg">
       <rect width="20" height="14" fill="#AA151B"/>
@@ -799,6 +800,8 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
     </div>
   </div>
 
+  
+
   <div class="rd-footnote">
     <a id="m-link" href="#" target="_blank" rel="noopener"><span class="rd-i18n" data-es="Ver ficha original en Das WeltAuto ↗" data-en="See original listing on Das WeltAuto ↗">Ver ficha original en Das WeltAuto ↗</span></a>
   </div>
@@ -833,7 +836,7 @@ window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 25/09/2026 — 19:07 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 26/09/2026 — 11:35 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">
