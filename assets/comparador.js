@@ -65,8 +65,12 @@
   }
 
   function renderTray() {
-    if (compareIds.size === 0) { tray.style.display = 'none'; tray.innerHTML = ''; return; }
+    if (compareIds.size === 0) {
+      tray.style.display = 'none'; tray.innerHTML = '';
+      document.body.classList.remove('rd-has-tray'); return;
+    }
     tray.style.display = 'flex';
+    document.body.classList.add('rd-has-tray');
     const chips = [...compareIds].map(id => {
       const card = tarjetaConId(id);
       const modelo = card ? card.querySelector('.rd-card-modelo').textContent : id;
@@ -87,6 +91,8 @@
       compareIds.clear(); cerrar(); renderTray();
     });
     document.getElementById('rd-tray-btn').addEventListener('click', abrir);
+    // Alto real de la barra → el botón de WhatsApp se coloca justo encima (móvil)
+    document.body.style.setProperty('--rd-tray-h', tray.offsetHeight + 'px');
   }
 
   function cabecera(id) {
