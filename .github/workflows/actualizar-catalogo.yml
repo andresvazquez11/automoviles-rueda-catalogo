@@ -133,6 +133,13 @@ jobs:
           path: ~/.u2net
           key: rembg-u2net-v1
 
+      - name: Buscar pruebas en vídeo de modelos sin vídeos
+        # Coche de un modelo/año sin vídeos en pruebas.json → los busca en
+        # YouTube y los añade (y lo apunta en el correo). Si YouTube no
+        # responde, la web se genera igual y se reintenta en la próxima corrida.
+        continue-on-error: true
+        run: python3 buscar_pruebas.py
+
       - name: Generar la web
         run: python3 generar_web.py
 
@@ -154,7 +161,7 @@ jobs:
                   historial-precios/ quienes-somos/ comparador.json \
                   datos_coches.json historial_precios.json coches_lista.json \
                   traducciones_cache.json historial_cambios_precio.json \
-                  fichas_tecnicas.json recortes.json sitemap.xml robots.txt
+                  fichas_tecnicas.json recortes.json sitemap.xml robots.txt pruebas.json
           git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M')" || echo "Sin cambios que subir"
           # Si mientras corría esto alguien guardó desde /admin/ (destacados,
           # rebajas), el push se rechaza: se incorpora ese cambio y se reintenta.
