@@ -1176,7 +1176,7 @@ CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_
   #fin-vwfs.active { background: rgba(200,35,43,.14); border-color: #C8232B; color: #C8232B; }
   #fin-bbva.active { background: rgba(20,121,201,.14); border-color: #1479C9; color: #1479C9; }
 
-  /* ── Panel BBVA (Préstamo Vehículo — TIN 5,50% fijo) ── */
+  /* ── Panel BBVA (Préstamo Vehículo — TIN 5,75% fijo) ── */
   .bbva-panel { background: #0d1120; border-top: 2px solid rgba(20,121,201,0.5); color: #f0f4ff; overflow: hidden; }
   .bbva-bar {
     padding: 14px 20px 12px; border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -1459,7 +1459,7 @@ BBVA_HTML_INTERIOR = '''    <div class="bbva-bar">
         <div class="bbva-bar-title">BBVA · Préstamo Vehículo</div>
         <div class="bbva-bar-sub">Nuevo / Seminuevo hasta 72 meses de antigüedad</div>
       </div>
-      <div class="bbva-tin-pill">5,50<span>% TIN</span></div>
+      <div class="bbva-tin-pill">5,75<span>% TIN</span></div>
     </div>
 
     <div class="bbva-body">
@@ -1502,7 +1502,7 @@ BBVA_HTML_INTERIOR = '''    <div class="bbva-bar">
       <div class="bbva-br-row"><span>Precio al contado</span><span id="bbva-br-precio">—</span></div>
       <div class="bbva-br-row"><span>Entrada inicial</span><span id="bbva-br-entrada">—</span></div>
       <div class="bbva-br-row"><span>Importe financiado</span><span id="bbva-br-importe">—</span></div>
-      <div class="bbva-br-row"><span>T.I.N.</span><span>5,50 %</span></div>
+      <div class="bbva-br-row"><span>T.I.N.</span><span>5,75 %</span></div>
       <div class="bbva-br-row"><span>Nº de cuotas</span><span id="bbva-br-ncuotas">—</span></div>
       <div class="bbva-br-row total"><span>Precio total a plazos</span><span id="bbva-br-total">—</span></div>
     </div>

@@ -867,20 +867,20 @@ function cargarFicha(c) {
 prevBtn.addEventListener('click', () => goSlide(slideActual - 1));
 nextBtn.addEventListener('click', () => goSlide(slideActual + 1));
 
-// ── BBVA — Préstamo Vehículo Nuevo/Seminuevo, TIN 5,50% fijo (Zona 1032 R2) ──
-// Fuente: SIMULADOR en TARIFA -ZONA 1032 -R2, hoja "VN-VSN" / "Dat VN".
-// Coeficiente = cuota mensual por cada 1€ financiado (ya incluye comisión de
-// apertura y seguro Vida-PPP). Cuota = coeficiente × (precio - entrada).
+// ── BBVA — Préstamo Vehículo Nuevo/Seminuevo, TIN 5,75% fijo (Zona 1032 R3) ──
+// Fuente: "VN - VSN PACK 1032 R-3" (Tarifa N.21.ST.1032), fila 1 T.I.N. 5,75%,
+// "Coef. con Seg. PPP". Coeficiente = cuota mensual por cada 1€ financiado (ya
+// incluye comisión de apertura 3,95% y seguro PPP). Cuota = coef × (precio - entrada).
 const BBVA_COEF = {
-  24:  0.0464956463856695,
-  36:  0.03209879220957684,
-  48:  0.024948740818316117,
-  60:  0.0207026547831431,
-  72:  0.017912982448589146,
-  84:  0.015959816476707085,
-  96:  0.014534102300133184,
-  108: 0.013465001026338819,
-  120: 0.012650941824302054,
+  24:  0.046614,
+  36:  0.032219,
+  48:  0.025071,
+  60:  0.020828,
+  72:  0.018042,
+  84:  0.016092,
+  96:  0.014670,
+  108: 0.013605,
+  120: 0.012796,
 };
 const BBVA_PLAZOS = [24, 36, 48, 60, 72, 84, 96, 108, 120];
 const BBVA = { meses: 60, entrada: 0 };
@@ -930,14 +930,14 @@ function bbvaRender() {
   const modelo = modeloEl && modeloEl.textContent !== '—' ? modeloEl.textContent : 'un vehículo';
   const waBtn = document.getElementById('bbva-btn-wa');
   if (waBtn) {
-    const msg = `Hola ${ASESOR.nombreCorto}, te escribo desde la calculadora de financiación. Me interesa ${modelo} de ${bbvaFmt(precio)} € financiado con BBVA a ${BBVA.meses} meses (TIN 5,50%). Cuota estimada: ${bbvaFmt2(cuota)} €/mes.`;
+    const msg = `Hola ${ASESOR.nombreCorto}, te escribo desde la calculadora de financiación. Me interesa ${modelo} de ${bbvaFmt(precio)} € financiado con BBVA a ${BBVA.meses} meses (TIN 5,75%). Cuota estimada: ${bbvaFmt2(cuota)} €/mes.`;
     waBtn.href = 'https://wa.me/' + ASESOR.telefonoWa + '?text=' + encodeURIComponent(msg);
   }
 
   const legalEl = document.getElementById('bbva-legal');
   if (legalEl) {
     legalEl.textContent =
-      `Ejemplo de cuota a ${BBVA.meses} meses: ${bbvaFmt2(cuota)} €. TIN 5,50% fijo. Entrada inicial: ${bbvaFmt(BBVA.entrada)} €. Importe financiado: ${bbvaFmt(importe)} €. Comisión de apertura financiada en la cuota. Precio total a plazos: ${bbvaFmt2(total)} €. Condiciones sujetas a modificación por parte de BBVA. Condiciones exactas con ${ASESOR.nombreCorto} · ${ASESOR.telefonoDisplay}.`;
+      `Ejemplo de cuota a ${BBVA.meses} meses: ${bbvaFmt2(cuota)} €. TIN 5,75% fijo. Entrada inicial: ${bbvaFmt(BBVA.entrada)} €. Importe financiado: ${bbvaFmt(importe)} €. Comisión de apertura financiada en la cuota. Precio total a plazos: ${bbvaFmt2(total)} €. Condiciones sujetas a modificación por parte de BBVA. Condiciones exactas con ${ASESOR.nombreCorto} · ${ASESOR.telefonoDisplay}.`;
   }
 }
 
