@@ -1,14 +1,22 @@
 name: Actualizar catálogo
 
 on:
+  # DISPARO PRINCIPAL: un cron externo (cron-job.org) llama a workflow_dispatch
+  # con inputs.origen=programado a las 10:00 y 16:00 (lun-sáb, hora de Madrid).
+  # El cron de GitHub de abajo NO es fiable: configurado cada 15 min, en la
+  # práctica disparó cada ~4h (máx. 6,8h) del 19 al 28/09, y días como el
+  # 28/09 se quedaron sin ninguna actualización automática.
+  #
+  # RESPALDO: por si el cron externo falla, el de GitHub sigue revisando y
+  # actualiza si entre las 11 y las 20h pasaron más de 4h sin actualizar.
   schedule:
-    - cron: '*/15 * * * *'  # revisa cada 15 min; la ventana+dedupe de abajo
-                             # decide si de verdad corresponde actualizar.
-                             # GitHub no garantiza el minuto exacto de un cron
-                             # (puede demorarse horas en época de carga alta),
-                             # así que en vez de pedir una hora exacta se
-                             # revisa seguido si ya entramos en la franja.
-  workflow_dispatch: {}
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+    inputs:
+      origen:
+        description: 'manual (botón / puntito de la web) o programado (cron externo)'
+        required: false
+        default: manual
 
 jobs:
   check-hora:
@@ -21,9 +29,10 @@ jobs:
       - id: hora
         env:
           GH_TOKEN: ${{ github.token }}
+          ORIGEN: ${{ inputs.origen || 'manual' }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "Disparo manual — se ejecuta sin importar la hora."
+            echo "Disparo $ORIGEN — se ejecuta sin importar la hora."
             echo "correr=si" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -38,16 +47,11 @@ jobs:
           HORA=$(TZ=Europe/Madrid date +%H)
           echo "Hora actual en Madrid: ${HORA}h (día ISO ${DIA})"
 
-          # Revisado el historial real de corridas (gh run list): GitHub
-          # dispara este cron cada 2-7h de forma irregular, no cada 15 min
-          # como está configurado — con dos franjas angostas (10-12h/16-19h)
-          # un salto entre disparos alcanza para dejar AMBAS sin ejecutar el
-          # mismo día (pasó el 21/09: disparos a las 8:25, 15:14 y 20:46,
-          # ninguno cayó dentro de ninguna franja). Por eso es una sola
-          # franja ancha de 9 a 20h: con el peor salto observado (~6h49m)
-          # es prácticamente imposible que una franja de 11h quede vacía.
-          if [ "$HORA" -lt 9 ] || [ "$HORA" -ge 20 ]; then
-            echo "Fuera de la franja 9-20h — se omite."
+          # Respaldo del cron externo (10:00 y 16:00): empieza a las 11h para
+          # no duplicar la de las 10:00 si GitHub dispara justo antes; solo
+          # actúa si la de las 10:00 o la de las 16:00 no llegó a correr.
+          if [ "$HORA" -lt 11 ] || [ "$HORA" -ge 20 ]; then
+            echo "Fuera de la franja de respaldo 11-20h — se omite."
             echo "correr=no" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -175,6 +179,8 @@ jobs:
       - name: Preparar resumen para el correo
         id: resumen
         if: success()
+        env:
+          ORIGEN: ${{ inputs.origen || 'manual' }}
         run: |
           python3 - <<'PY'
           import os, uuid
@@ -190,7 +196,7 @@ jobs:
               cuerpo = "(no se encontró informe_cambios.txt — revisar el log de esta corrida)"
           # Lanzada a mano (puntito de la web o botón de GitHub): avisarlo
           # arriba del todo, para enterarse si la lanzó otra persona.
-          if os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch":
+          if os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch" and os.environ.get("ORIGEN") != "programado":
               cuerpo = ("🖐️ ACTUALIZACIÓN MANUAL — lanzada a mano (puntito de la web "
                         "o botón de GitHub), no por el horario automático.\n\n" + cuerpo)
           # Delimitador aleatorio: si el informe alguna vez contuviera la
@@ -218,7 +224,7 @@ jobs:
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
           from: Catálogo Automóviles Rueda <andrescovidelpi@gmail.com>
           to: andrescovidelpi@gmail.com
-          subject: "${{ github.event_name == 'workflow_dispatch' && '🖐️ Actualización MANUAL del catálogo' || '✅ Actualización automática del catálogo' }} — ${{ steps.fecha.outputs.fecha }}"
+          subject: "${{ github.event_name == 'workflow_dispatch' && inputs.origen != 'programado' && '🖐️ Actualización MANUAL del catálogo' || '✅ Actualización automática del catálogo' }} — ${{ steps.fecha.outputs.fecha }}"
           body: ${{ steps.resumen.outputs.cuerpo }}
           attachments: catalogo_automoviles_rueda_liviano.pdf
 
@@ -232,9 +238,9 @@ jobs:
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
           from: Catálogo Automóviles Rueda <andrescovidelpi@gmail.com>
           to: andrescovidelpi@gmail.com
-          subject: "⚠️ Falló la actualización ${{ github.event_name == 'workflow_dispatch' && 'MANUAL' || 'automática' }} del catálogo"
+          subject: "⚠️ Falló la actualización ${{ github.event_name == 'workflow_dispatch' && inputs.origen != 'programado' && 'MANUAL' || 'automática' }} del catálogo"
           body: |
-            Algo falló durante la actualización ${{ github.event_name == 'workflow_dispatch' && 'MANUAL (lanzada a mano)' || 'automática' }} del catálogo.
+            Algo falló durante la actualización ${{ github.event_name == 'workflow_dispatch' && inputs.origen != 'programado' && 'MANUAL (lanzada a mano)' || 'automática' }} del catálogo.
 
             Revisá el detalle acá:
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
