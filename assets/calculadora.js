@@ -882,8 +882,34 @@ const BBVA_COEF = {
   108: 0.013605,
   120: 0.012796,
 };
+// ── BBVA — Préstamo Vehículo Usado (más de 72 meses), TIN 7,99% fijo ──
+// Fuente: "VO PACK 1032 R-3" (Tarifa U.21.ST.1032), fila 1 T.I.N. 7,99%,
+// "Coef. con Seg. PPP". Plazo máximo 96 meses.
+const BBVA_COEF_VO = {
+  24: 0.047684,
+  36: 0.033306,
+  48: 0.026184,
+  60: 0.021971,
+  72: 0.019218,
+  84: 0.017305,
+  96: 0.015923,
+};
 const BBVA_PLAZOS = [24, 36, 48, 60, 72, 84, 96, 108, 120];
 const BBVA = { meses: 60, entrada: 0 };
+
+// Tarifa y plazo máximo según antigüedad (tabla "Antigüedad / Plazo máximo" de BBVA):
+// hasta 60 meses → 120 cuotas; 61-72 meses → 108 cuotas (tarifa VN-VSN);
+// más de 72 meses → tarifa VO, máximo 96 cuotas. Sin fecha → VN-VSN, 120.
+function bbvaTarifa() {
+  let antig = null;
+  if (CV2.matriculaMes && CV2.matriculaAnio && CV2.matriculaAnio >= 2000) {
+    const now = new Date();
+    antig = Math.max(0, (now.getFullYear() - CV2.matriculaAnio) * 12 + (now.getMonth() + 1 - CV2.matriculaMes));
+  }
+  if (antig !== null && antig > 72) return { antig, vo: true,  tin: '7,99', coef: BBVA_COEF_VO, max: 96 };
+  if (antig !== null && antig > 60) return { antig, vo: false, tin: '5,75', coef: BBVA_COEF,    max: 108 };
+  return { antig, vo: false, tin: '5,75', coef: BBVA_COEF, max: 120 };
+}
 
 function bbvaFmt(n) { return Math.round(n).toLocaleString('es-ES'); }
 function bbvaFmt2(n) { return n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
@@ -902,15 +928,50 @@ function bbvaRender() {
   const lblMax = document.getElementById('bbva-lbl-max');
   if (lblMax) lblMax.textContent = maxEntrada > 0 ? ('máx. ' + bbvaFmt(maxEntrada) + ' €') : 'máx. — €';
 
+  const tarifa = bbvaTarifa();
+  if (BBVA.meses > tarifa.max) BBVA.meses = tarifa.max;
+
   BBVA_PLAZOS.forEach(p => {
     const el = document.getElementById('bbva-pl-' + p);
-    if (el) el.classList.toggle('active', p === BBVA.meses);
+    if (!el) return;
+    el.style.display = p > tarifa.max ? 'none' : '';
+    el.classList.toggle('active', p === BBVA.meses);
   });
   const dispMeses = document.getElementById('bbva-disp-meses');
   if (dispMeses) dispMeses.textContent = BBVA.meses + ' meses';
 
+  // TIN visible (pastilla + fila del desglose) y subtítulo según la tarifa aplicada
+  const tinPill = document.querySelector('#bbva-financiacion .bbva-tin-pill');
+  if (tinPill) tinPill.innerHTML = tarifa.tin + '<span>% TIN</span>';
+  document.querySelectorAll('#bbva-financiacion .bbva-br-row').forEach(row => {
+    const s = row.querySelectorAll('span');
+    if (s.length === 2 && s[0].textContent.trim() === 'T.I.N.') s[1].textContent = tarifa.tin + ' %';
+  });
+  const barSub = document.querySelector('#bbva-financiacion .bbva-bar-sub');
+  if (barSub) barSub.textContent = tarifa.vo
+    ? 'Vehículo usado · más de 72 meses de antigüedad'
+    : 'Nuevo / Seminuevo hasta 72 meses de antigüedad';
+
+  // Aviso de plazo limitado por antigüedad (se crea bajo las pastillas de plazo)
+  const pills = document.getElementById('bbva-pills-meses');
+  let aviso = document.getElementById('bbva-aviso-plazo');
+  if (pills && !aviso) {
+    aviso = document.createElement('div');
+    aviso.id = 'bbva-aviso-plazo';
+    aviso.style.cssText = 'font-size:11px;line-height:1.5;color:#f5b041;margin-top:8px;';
+    pills.insertAdjacentElement('afterend', aviso);
+  }
+  if (aviso) {
+    aviso.textContent = tarifa.vo
+      ? `Vehículo con ${tarifa.antig} meses de antigüedad: se aplica la tarifa BBVA de vehículo usado (TIN 7,99%), plazo máximo 96 meses.`
+      : tarifa.max < 120
+        ? `Vehículo con ${tarifa.antig} meses de antigüedad: BBVA permite un plazo máximo de 108 meses.`
+        : '';
+    aviso.style.display = aviso.textContent ? '' : 'none';
+  }
+
   const importe = Math.max(0, precio - BBVA.entrada);
-  const cuota   = Math.round(BBVA_COEF[BBVA.meses] * importe * 100) / 100;
+  const cuota   = Math.round(tarifa.coef[BBVA.meses] * importe * 100) / 100;
   const total   = Math.round((cuota * BBVA.meses + BBVA.entrada) * 100) / 100;
 
   const cuotaVal = document.getElementById('bbva-cuota-val');
@@ -930,14 +991,14 @@ function bbvaRender() {
   const modelo = modeloEl && modeloEl.textContent !== '—' ? modeloEl.textContent : 'un vehículo';
   const waBtn = document.getElementById('bbva-btn-wa');
   if (waBtn) {
-    const msg = `Hola ${ASESOR.nombreCorto}, te escribo desde la calculadora de financiación. Me interesa ${modelo} de ${bbvaFmt(precio)} € financiado con BBVA a ${BBVA.meses} meses (TIN 5,75%). Cuota estimada: ${bbvaFmt2(cuota)} €/mes.`;
+    const msg = `Hola ${ASESOR.nombreCorto}, te escribo desde la calculadora de financiación. Me interesa ${modelo} de ${bbvaFmt(precio)} € financiado con BBVA a ${BBVA.meses} meses (TIN ${tarifa.tin}%). Cuota estimada: ${bbvaFmt2(cuota)} €/mes.`;
     waBtn.href = 'https://wa.me/' + ASESOR.telefonoWa + '?text=' + encodeURIComponent(msg);
   }
 
   const legalEl = document.getElementById('bbva-legal');
   if (legalEl) {
     legalEl.textContent =
-      `Ejemplo de cuota a ${BBVA.meses} meses: ${bbvaFmt2(cuota)} €. TIN 5,75% fijo. Entrada inicial: ${bbvaFmt(BBVA.entrada)} €. Importe financiado: ${bbvaFmt(importe)} €. Comisión de apertura financiada en la cuota. Precio total a plazos: ${bbvaFmt2(total)} €. Condiciones sujetas a modificación por parte de BBVA. Condiciones exactas con ${ASESOR.nombreCorto} · ${ASESOR.telefonoDisplay}.`;
+      `Ejemplo de cuota a ${BBVA.meses} meses: ${bbvaFmt2(cuota)} €. TIN ${tarifa.tin}% fijo. Entrada inicial: ${bbvaFmt(BBVA.entrada)} €. Importe financiado: ${bbvaFmt(importe)} €. Comisión de apertura financiada en la cuota. Precio total a plazos: ${bbvaFmt2(total)} €. Condiciones sujetas a modificación por parte de BBVA. Condiciones exactas con ${ASESOR.nombreCorto} · ${ASESOR.telefonoDisplay}.`;
   }
 }
 

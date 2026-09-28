@@ -1014,7 +1014,12 @@ input[type=range].bbva-slider::-moz-range-thumb {
 <button id="gallery-prev" style="display:none" aria-hidden="true"></button>
 <button id="gallery-next" style="display:none" aria-hidden="true"></button>
 
-<script src="assets/calculadora.js?v=d0163fdf"></script>
+<script>
+// Datos del asesor que el motor compartido usa en WhatsApp y textos legales
+// (en las fichas los inyecta generar_web.py; aquí la página es estática).
+const ASESOR = {"nombreCorto": "Andrés", "telefonoDisplay": "610 02 90 56", "telefonoWa": "34610029056"};
+</script>
+<script src="assets/calculadora.js?v=549ef665"></script>
 <script>
 // ── Wiring de la página standalone sobre el motor compartido (initCalc) ──────
 const FORM = { marca: 'SEAT' };
