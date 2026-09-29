@@ -245,13 +245,6 @@
     "antes_auto": 0
   },
   {
-    "id": "dwa-151394481",
-    "modelo": "SEAT Ibiza",
-    "precio": "20.500",
-    "foto": "/web_fotos/39/foto_01.jpg",
-    "antes_auto": 0
-  },
-  {
     "id": "dwa-151394958",
     "modelo": "CUPRA Formentor",
     "precio": "29.900",
@@ -285,5 +278,19 @@
     "precio": "25.500",
     "foto": "/web_fotos/47/foto_01.jpg",
     "antes_auto": 25900
+  },
+  {
+    "id": "mf-197896927",
+    "modelo": "SEAT Ibiza",
+    "precio": "18.300",
+    "foto": "/web_fotos/mf-197896927/foto_01.jpg",
+    "antes_auto": 0
+  },
+  {
+    "id": "mf-197896909",
+    "modelo": "SEAT Ibiza",
+    "precio": "17.900",
+    "foto": "/web_fotos/mf-197896909/foto_01.jpg",
+    "antes_auto": 0
   }
 ]
