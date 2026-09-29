@@ -157,10 +157,10 @@
     "km": "12.335",
     "fecha": "06/2025",
     "cambio": "Manual",
-    "color": "",
+    "color": "Gris",
     "precio": "18.300",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/193186186",
     "equipamiento": [
       "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara",
@@ -185,18 +185,19 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 18.300€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 18.300€/foto_08.jpg"
     ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 18.300€",
     "financiacion": {
       "meses": "60",
-      "cuota": "233.09",
+      "cuota": "155.40",
       "tin": "7.50",
-      "tae": "8.89",
+      "tae": "8.81",
       "cuota_final": "11268.24",
-      "entrada": "0.00",
+      "entrada": "3660.00",
       "comision_tipo": "al contado",
-      "comision": "678.51",
-      "capital": "19385.92",
+      "comision": "542.81",
+      "capital": "15508.74",
       "tipo": "",
-      "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,89%. La oferta incluye Seg. Protección Plus Ampliado por 1.085,92€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 233,09 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.268,24 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 678,51 €. Importe total financiado 19.385,92 €. Importe total de los intereses: 5.867,72 €. Coste total del crédito: 6.546,23 €. Precio total a plazos 25.253,64 €. Importe total adeudado: 25.253,64 €. Sistema de amortización francés"
+      "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,81%. La oferta incluye Seg. Protección Plus Ampliado por 868,74€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 155,40 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.268,24 € (calculada con 15.000 km anuales). Entrada inicial: 3.660,00 €. Comisión de apertura al contado: 542,81 €. Importe total financiado 15.508,74 €. Importe total de los intereses: 5.083,50 €. Coste total del crédito: 5.626,31 €. Precio total a plazos 24.252,24 €. Importe total adeudado: 20.592,24 €. Sistema de amortización francés"
     }
   },
   {
@@ -1830,7 +1831,7 @@
     "km": "350",
     "fecha": "01/2026",
     "cambio": "Manual",
-    "color": "Gris",
+    "color": "",
     "precio": "20.500",
     "ubicacion": "Málaga",
     "estado": "No disponible",
@@ -1858,7 +1859,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Ibiza - 20.500€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Ibiza - 20.500€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - SEAT Ibiza - 20.500€",
     "financiacion": {
       "meses": "60",
       "cuota": "191.50",
@@ -2346,8 +2346,82 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 15.900,01 €. Precio financiando: 15.900,01 €. Precio al contado 15.900,01 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,86%. La oferta incluye Seg. Protección Plus Ampliado por 754,81€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 151,45 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 8.598,92 € (calculada con 15.000 km anuales). Entrada inicial: 3.180,00 €. Comisión de apertura al contado: 471,62 €. Importe total financiado 13.474,82 €. Importe total de los intereses: 4.211,10 €. Coste total del crédito: 4.682,72 €. Precio total a plazos 20.865,92 €. Importe total adeudado: 17.685,92 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 4,
+    "_intentos_desaparecido": 5,
     "fecha_reservado": "2026-09-28"
+  },
+  {
+    "fuente": "motorflash",
+    "motorflash_id": "198019852",
+    "tipo": "VO",
+    "modelo": "CUPRA Formentor",
+    "version": "1.4 e-Hybrid VZ DSG 180 kW (245 CV)",
+    "combustible": "Híbrido Electro/Gasolina",
+    "km": "105.000",
+    "fecha": "2021",
+    "cambio": "Automatico",
+    "color": "",
+    "precio": "21.500",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url_motorflash": "https://www.motorflash.com/coche-segunda-mano/cupra-formentor-1_4_e_hybrid_vz_dsg_180_kw_245_cv/ocasion/198019852-es/",
+    "equipamiento": [
+      "Suspensión deportiva",
+      "Navegador",
+      "Start/Stop automático",
+      "Luz diurna",
+      "Control de velocidad",
+      "Volante multifunción",
+      "Bluetooth",
+      "Llantas de aleación",
+      "Llantas de aleación de 19\"",
+      "Baca",
+      "Ordenador",
+      "Faros antiniebla",
+      "Aire Acondicionado",
+      "Climatizador",
+      "Airbag",
+      "Airbag para el acompañante",
+      "Airbag para el conductor",
+      "Airbags laterales",
+      "Frenos ABS antibloqueo",
+      "ESP",
+      "Dirección asistida",
+      "Elevalunas eléctrico",
+      "Cierre centralizado",
+      "Reposabrazos central",
+      "Servodirección",
+      "Control de crucero adaptativo",
+      "Asistente de cambio de carril",
+      "Asistente de mantenimiento de carril",
+      "Asistente de aparcamiento",
+      "Asistente para las luces de carretera",
+      "Radio con sistema de navegación",
+      "Conexión eléctrica",
+      "Portón del maletero eléctrico",
+      "Asistente de arranque en pendiente",
+      "Faros delanteros led",
+      "Faros traseros led",
+      "Isofix",
+      "Sensor de lluvia",
+      "Encendido automático de faros",
+      "Arranque por botón",
+      "Sensor de presión de neumáticos",
+      "Freno de estacionamiento eléctrico",
+      "Reconocimiento señales de tráfico",
+      "Car Play",
+      "Limitador de velocidad"
+    ],
+    "fotos": [
+      "web_fotos/mf-198019852/foto_01.jpg",
+      "web_fotos/mf-198019852/foto_02.jpg",
+      "web_fotos/mf-198019852/foto_03.jpg",
+      "web_fotos/mf-198019852/foto_04.jpg",
+      "web_fotos/mf-198019852/foto_05.jpg",
+      "web_fotos/mf-198019852/foto_06.jpg",
+      "web_fotos/mf-198019852/foto_07.jpg",
+      "web_fotos/mf-198019852/foto_08.jpg"
+    ],
+    "n": 50
   },
   {
     "fuente": "motorflash",
@@ -2416,7 +2490,7 @@
       "web_fotos/mf-197896927/foto_07.jpg",
       "web_fotos/mf-197896927/foto_08.jpg"
     ],
-    "n": 50
+    "n": 51
   },
   {
     "fuente": "motorflash",
@@ -2485,6 +2559,6 @@
       "web_fotos/mf-197896909/foto_07.jpg",
       "web_fotos/mf-197896909/foto_08.jpg"
     ],
-    "n": 51
+    "n": 52
   }
 ]

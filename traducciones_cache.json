@@ -1298,6 +1298,22 @@
     ],
     "version_en": "1.4 16v T-Jet 595 121 kW (165 hp)"
   },
+  "b6d086ac2ad2aa88": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Front parking sensors, rear parking sensors with rear-view camera",
+      "Top speed: 198 km/h",
+      "16-inch front and rear alloy wheels (6.5-inch width)",
+      "Ellipsoidal LED headlights and LED high beams",
+      "Luxury finish: aluminium and leather gear shift knob",
+      "12V power outlet in the front area",
+      "Cloth upholstery (primary and secondary material) marketed as sustainable/vegan",
+      "Individual driver and front passenger seats with manual fore/aft, height, and backrest adjustment",
+      "Three-seat forward-facing split rear bench with split base and asymmetric folding backrest",
+      "Leather-wrapped multifunction steering wheel, height and reach adjustable"
+    ],
+    "version_en": "1.0 TSI Special Edition 85 kW (115 HP)"
+  },
   "bbc14f1efe4482b3": {
     "color_en": "",
     "equipamiento_en": [
@@ -1329,6 +1345,52 @@
       "Speed limiter"
     ],
     "version_en": "Evolution E-Tech full hybrid 145 105 kW (143 HP)"
+  },
+  "be210a14b3fe2d6d": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Automatic Start/Stop",
+      "Daytime running lights",
+      "Cruise control",
+      "Multifunction steering wheel",
+      "Bluetooth",
+      "Alloy wheels",
+      "16\" alloy wheels",
+      "Trip computer",
+      "Fog lights",
+      "Air conditioning",
+      "Automatic climate control",
+      "Airbag",
+      "Passenger airbag",
+      "Driver airbag",
+      "Side airbags",
+      "ABS anti-lock brakes",
+      "ESP",
+      "Power steering",
+      "Electric windows",
+      "Central locking",
+      "Center armrest",
+      "Folding rear seats",
+      "Power steering",
+      "Adaptive cruise control",
+      "Lane change assist",
+      "Lane keep assist",
+      "Park assist",
+      "High beam assist",
+      "Power outlet",
+      "Hill start assist",
+      "LED headlights",
+      "LED taillights",
+      "ISOFIX",
+      "Rain sensor",
+      "Automatic headlights",
+      "Push-button start",
+      "Tyre pressure monitoring system",
+      "Traffic sign recognition",
+      "CarPlay",
+      "Speed limiter"
+    ],
+    "version_en": "1.0 TSI S&S Xcellence 85 kW (115 hp)"
   },
   "bf8c82c11b0e26e5": {
     "color_en": "",
