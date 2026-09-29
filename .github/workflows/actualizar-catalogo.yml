@@ -8,7 +8,9 @@ on:
   # 28/09 se quedaron sin ninguna actualización automática.
   #
   # RESPALDO: por si el cron externo falla, el de GitHub sigue revisando y
-  # actualiza si entre las 11 y las 20h pasaron más de 4h sin actualizar.
+  # actualiza si entre las 11 y las 20h pasaron más de 7h sin actualizar
+  # (7h y no 4h: con 4h, un disparo entre las 14 y las 16h metía una
+  # actualización extra entre la de las 10:00 y la de las 16:00).
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
@@ -64,8 +66,8 @@ jobs:
             AHORA_EPOCH=$(date -u +%s)
             ULTIMO_EPOCH=$(date -u -d "$ULTIMO" +%s)
             DIFF=$(( AHORA_EPOCH - ULTIMO_EPOCH ))
-            if [ "$DIFF" -lt 14400 ]; then
-              echo "Ya se actualizó hace menos de 4h (última: $ULTIMO) — se omite para no duplicar."
+            if [ "$DIFF" -lt 25200 ]; then
+              echo "Ya se actualizó hace menos de 7h (última: $ULTIMO) — se omite para no duplicar."
               echo "correr=no" >> "$GITHUB_OUTPUT"
               exit 0
             fi
