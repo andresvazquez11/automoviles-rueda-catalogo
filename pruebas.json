@@ -233,7 +233,8 @@
     "CUPRA León|2021": "2026-09-26",
     "Abarth 500|2022": "2026-09-26",
     "Renault Clio|2025": "2026-09-26",
-    "Nissan Qashqai|2019": "2026-09-26"
+    "Nissan Qashqai|2019": "2026-09-26",
+    "SEAT Ateca|2023": "2026-09-30"
   },
   "Abarth 500": {
     "videos": [
@@ -308,6 +309,34 @@
         "auto": "2026-09-26",
         "desde": 2018,
         "hasta": 2020
+      }
+    ]
+  },
+  "SEAT Ateca": {
+    "videos": [
+      {
+        "youtube": "mxcwEpGKL-M",
+        "titulo": "Seat Ateca 1.0 TSI 110 CV Style",
+        "medio": "Autocasión",
+        "auto": "2026-09-30",
+        "desde": 2022,
+        "hasta": 2024
+      },
+      {
+        "youtube": "rTrjQOD6slg",
+        "titulo": "Seat Ateca 4x4",
+        "medio": "coches.net",
+        "auto": "2026-09-30",
+        "desde": 2022,
+        "hasta": 2024
+      },
+      {
+        "youtube": "AhERmlDSlLw",
+        "titulo": "SEAT ATECA / ¿Qué coche comprar? / Prueba / Review en español / 4K",
+        "medio": "Motor1 España",
+        "auto": "2026-09-30",
+        "desde": 2022,
+        "hasta": 2024
       }
     ]
   }
