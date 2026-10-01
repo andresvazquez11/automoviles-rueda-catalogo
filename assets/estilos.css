@@ -681,6 +681,10 @@ img { max-width: 100%; display: block; }
 @media (hover: none) {
   .rd-card-nav { opacity: 1; }
 }
+/* Deslizar el dedo de lado sobre la foto pasa fotos (generar_web.py): el
+   navegador solo se queda con el scroll vertical y el zoom, para que ese
+   gesto no se convierta en "volver atrás". */
+.rd-card-media { touch-action: pan-y pinch-zoom; }
 
 /* Etiqueta DGT: solo el círculo — el SVG de Wikimedia trae relleno blanco
    detrás del círculo, así que hay que recortar la imagen, no solo sacarle
