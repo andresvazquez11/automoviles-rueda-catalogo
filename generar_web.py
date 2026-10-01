@@ -2002,6 +2002,8 @@ document.addEventListener('click', e => {{
     : (idx - 1 + imgs.length) % imgs.length;
   imgs.forEach((img, i) => img.classList.toggle('activa', i === idx));
   dots.forEach((d, i) => d.classList.toggle('activa', i === idx));
+  const contador = media.querySelector('.rd-badge-fotos');
+  if (contador) contador.textContent = '📷 ' + (idx + 1) + '/' + imgs.length;
 }});
 
 // ── Buscador / filtro / orden — opera sobre las tarjetas ya generadas
@@ -2129,13 +2131,32 @@ window.rdActivarHoverFotos = function(media) {{
     dots.forEach((d, i) => d.classList.toggle('activa', i === zone));
     if (contador) contador.textContent = '📷 ' + (zone + 1) + '/' + total;
   }};
-  media.addEventListener('mousemove', e => {{
+  // Solo con ratón de verdad: en el móvil, al tocar la flecha › el navegador
+  // simula un "mousemove" justo donde está el dedo (borde derecho = última
+  // foto) y luego el clic de la flecha avanzaba una → volvía a la primera.
+  // Por eso en el móvil las fotos no pasaban.
+  media.addEventListener('pointermove', e => {{
+    if (e.pointerType !== 'mouse') return;
     if (media.classList.contains('rd-pop-activo')) return;  // el coche está "fuera" (ver efecto de abajo)
     const rect = media.getBoundingClientRect();
     const ratio = (e.clientX - rect.left) / rect.width;
     setZone(Math.min(total - 1, Math.max(0, Math.floor(ratio * total))));
   }});
-  media.addEventListener('mouseleave', () => setZone(0));
+  media.addEventListener('pointerleave', e => {{ if (e.pointerType === 'mouse') setZone(0); }});
+  // Móvil: deslizar el dedo sobre la foto (izquierda = siguiente) también pasa fotos.
+  let tx = null, ty = 0;
+  media.addEventListener('touchstart', e => {{
+    if (e.touches.length !== 1) {{ tx = null; return; }}
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }}, {{passive: true}});
+  media.addEventListener('touchend', e => {{
+    if (tx === null) return;
+    const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    tx = null;
+    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;  // fue un toque o scroll vertical
+    const actual = Math.max(0, imgs.findIndex(img => img.classList.contains('activa')));
+    setZone(dx < 0 ? (actual + 1) % total : (actual - 1 + total) % total);
+  }}, {{passive: true}});
   setZone(0);
 }};
 document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
