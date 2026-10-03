@@ -2106,7 +2106,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.700,00 €. Precio financiando: 22.700,00 €. Precio al contado 22.700,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,80%. La oferta incluye Seg. Protección Plus Ampliado por 1.077,61€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 184,83 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.553,00 € (calculada con 15.000 km anuales). Entrada inicial: 4.540,00 €. Comisión de apertura al contado: 673,32 €. Importe total financiado 19.237,61 €. Importe total de los intereses: 6.405,19 €. Coste total del crédito: 7.078,51 €. Precio total a plazos 30.182,80 €. Importe total adeudado: 25.642,80 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 2,
+    "_intentos_desaparecido": 3,
     "fecha_reservado": "2026-10-02"
   },
   {
@@ -2158,7 +2158,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,81%. La oferta incluye Seg. Protección Plus Ampliado por 868,74€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 155,40 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.268,24 € (calculada con 15.000 km anuales). Entrada inicial: 3.660,00 €. Comisión de apertura al contado: 542,81 €. Importe total financiado 15.508,74 €. Importe total de los intereses: 5.083,50 €. Coste total del crédito: 5.626,31 €. Precio total a plazos 24.252,24 €. Importe total adeudado: 20.592,24 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 3,
+    "_intentos_desaparecido": 4,
     "fecha_reservado": "2026-10-02"
   },
   {
@@ -2199,7 +2199,7 @@
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - CUPRA Formentor - 46.500€",
     "financiacion": {},
-    "_intentos_desaparecido": 4,
+    "_intentos_desaparecido": 5,
     "fecha_reservado": "2026-10-01"
   },
   {
@@ -2251,7 +2251,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.899,99 €. Precio financiando: 18.899,99 €. Precio al contado 18.899,99 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,91%. La oferta incluye Seg. Protección Plus Ampliado por 1.121,53€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 246,39 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.227,12 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 700,75 €. Importe total financiado 20.021,52 €. Importe total de los intereses: 5.989,00 €. Coste total del crédito: 6.689,75 €. Precio total a plazos 26.010,52 €. Importe total adeudado: 26.010,52 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 5,
+    "_intentos_desaparecido": 6,
     "fecha_reservado": "2026-10-01"
   },
   {
@@ -2303,60 +2303,8 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.500,00 €. Precio financiando: 20.500,00 €. Precio al contado 20.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,85%. La oferta incluye Seg. Protección Plus Ampliado por 973,18€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 191,50 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.359,41 € (calculada con 15.000 km anuales). Entrada inicial: 4.100,00 €. Comisión de apertura al contado: 608,06 €. Importe total financiado 17.373,18 €. Importe total de los intereses: 5.476,23 €. Coste total del crédito: 6.084,29 €. Precio total a plazos 26.949,41 €. Importe total adeudado: 22.849,41 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 5,
+    "_intentos_desaparecido": 6,
     "fecha_reservado": "2026-10-01"
-  },
-  {
-    "n": 49,
-    "modelo": "SEAT León",
-    "version": "2.0 TDI S&S Style XS 85 kW (116 CV)",
-    "combustible": "Diésel",
-    "km": "11.470",
-    "fecha": "03/2025",
-    "cambio": "Manual",
-    "color": "",
-    "precio": "22.700",
-    "ubicacion": "Málaga",
-    "estado": "Retirado",
-    "url": "/esp/concesionario-seat-automoviles-rueda/seat-leon-diesel-116-cv-del-2025-en-malaga/168559741",
-    "equipamiento": [
-      "Comfort Pack: Climatizador 3 zonas + Reposabrazos central delantero + 2 USB tipo C traseros",
-      "Vision Plus Pack: Asistente de aparcamiento automático Park Assist + cámara de visión trasera.",
-      "Cargador inalámbrico en consola central con amplificador de señal e iluminación LED en zona de carga",
-      "Asistente de mantenimiento de carril",
-      "Velocidad máxima: 199 km/h",
-      "Tapicería tela",
-      "Cuadro de mandos Digital Cockpit",
-      "Convenience Pack. Convenience Pack: Función Coming & Leaving home + Sensor de lluvia + Espejo interior conoscurecimiento automático",
-      "Faros antiniebla LED con función cornering",
-      "Volante multifunción deportivo de cuero"
-    ],
-    "_total": 48,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT León - 22.700€ · RESERVADO/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT León - 22.700€ · RESERVADO/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT León - 22.700€ · RESERVADO/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT León - 22.700€ · RESERVADO/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT León - 22.700€ · RESERVADO/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT León - 22.700€ · RESERVADO/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT León - 22.700€ · RESERVADO/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT León - 22.700€ · RESERVADO/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "281.59",
-      "tin": "7.50",
-      "tae": "8.88",
-      "cuota_final": "14524.65",
-      "entrada": "0.00",
-      "comision_tipo": "al contado",
-      "comision": "841.65",
-      "capital": "24047.02",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 22.700,00 €. Precio financiando: 22.700,00 €. Precio al contado 22.700,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,88%. La oferta incluye Seg. Protección Plus Ampliado por 1.347,02€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 281,59 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.524,65 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 841,65 €. Importe total financiado 24.047,02 €. Importe total de los intereses: 7.373,03 €. Coste total del crédito: 8.214,68 €. Precio total a plazos 31.420,05 €. Importe total adeudado: 31.420,05 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 8,
-    "fecha_reservado": "2026-09-30"
   },
   {
     "fuente": "motorflash",
@@ -2424,7 +2372,7 @@
       "web_fotos/mf-198971371/foto_07.jpg",
       "web_fotos/mf-198971371/foto_08.jpg"
     ],
-    "n": 50
+    "n": 49
   },
   {
     "fuente": "motorflash",
@@ -2498,7 +2446,7 @@
       "web_fotos/mf-198019852/foto_07.jpg",
       "web_fotos/mf-198019852/foto_08.jpg"
     ],
-    "n": 51
+    "n": 50
   },
   {
     "fuente": "motorflash",
@@ -2567,7 +2515,7 @@
       "web_fotos/mf-197896927/foto_07.jpg",
       "web_fotos/mf-197896927/foto_08.jpg"
     ],
-    "n": 52
+    "n": 51
   },
   {
     "fuente": "motorflash",
@@ -2636,6 +2584,6 @@
       "web_fotos/mf-197896909/foto_07.jpg",
       "web_fotos/mf-197896909/foto_08.jpg"
     ],
-    "n": 53
+    "n": 52
   }
 ]
