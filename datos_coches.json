@@ -2018,7 +2018,7 @@
     "color": "",
     "precio": "41.300",
     "ubicacion": "Málaga",
-    "estado": "No disponible",
+    "estado": "Retirado",
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/151395102",
     "equipamiento": [
       "Driving Performance pack: DCC + Llantas aleación 48cm (19\") - Polar Copper",
@@ -2056,7 +2056,8 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 41.300,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 39.500,00 €. Precio al contado 41.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,45%. La oferta incluye Seg. Protección Plus Ampliado por 1.853,78€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 351,64 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 25.273,13 € (calculada con 15.000 km anuales). Entrada inicial: 8.260,00 €. Comisión de apertura al contado: 1.158,28 €. Importe total financiado 33.093,78 €. Importe total de los intereses: 13.277,75 €. Coste total del crédito: 14.436,03 €. Precio total a plazos 54.631,53 €. Importe total adeudado: 46.371,53 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 1
+    "_intentos_desaparecido": 2,
+    "fecha_reservado": "2026-10-05"
   },
   {
     "fuente": "motorflash",
