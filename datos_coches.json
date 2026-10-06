@@ -157,10 +157,10 @@
     "km": "11.387",
     "fecha": "08/2025",
     "cambio": "Automático",
-    "color": "",
+    "color": "Blanco",
     "precio": "35.900",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/193535071",
     "equipamiento": [
       "Asistente de salida aparcamiento y cambio carril y sistema aviso para salir del vehículo",
@@ -185,18 +185,19 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - CUPRA Formentor - 35.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - CUPRA Formentor - 35.900€/foto_08.jpg"
     ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - CUPRA Formentor - 35.900€",
     "financiacion": {
       "meses": "60",
-      "cuota": "304.86",
+      "cuota": "307.08",
       "tin": "8.99",
       "tae": "10.45",
-      "cuota_final": "21639.14",
+      "cuota_final": "21471.92",
       "entrada": "7180.00",
       "comision_tipo": "al contado",
       "comision": "998.11",
       "capital": "28517.43",
       "tipo": "",
-      "ejemplo": "* PVPR con campaña de 35.900,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 34.100,00 €. Precio al contado 35.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,45%. La oferta incluye Seg. Protección Plus Ampliado por 1.597,43€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 304,86 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.639,14 € (calculada con 15.000 km anuales). Entrada inicial: 7.180,00 €. Comisión de apertura al contado: 998,11 €. Importe total financiado 28.517,43 €. Importe total de los intereses: 11.413,31 €. Coste total del crédito: 12.411,42 €. Precio total a plazos 47.110,74 €. Importe total adeudado: 39.930,74 €. Sistema de amortización francés"
+      "ejemplo": "* PVPR con campaña de 35.900,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 34.100,00 €. Precio al contado 35.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,45%. La oferta incluye Seg. Protección Plus Ampliado por 1.597,43€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 307,08 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.471,92 € (calculada con 15.000 km anuales). Entrada inicial: 7.180,00 €. Comisión de apertura al contado: 998,11 €. Importe total financiado 28.517,43 €. Importe total de los intereses: 11.379,29 €. Coste total del crédito: 12.377,40 €. Precio total a plazos 47.076,72 €. Importe total adeudado: 39.896,72 €. Sistema de amortización francés"
     }
   },
   {
@@ -1680,7 +1681,7 @@
     "km": "100",
     "fecha": "10/2025",
     "cambio": "Automático",
-    "color": "Negro",
+    "color": "",
     "precio": "34.500",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -1708,7 +1709,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Formentor - 34.500€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Formentor - 34.500€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Formentor - 34.500€",
     "financiacion": {
       "meses": "60",
       "cuota": "258.21",
@@ -2057,7 +2057,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 41.300,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 39.500,00 €. Precio al contado 41.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,45%. La oferta incluye Seg. Protección Plus Ampliado por 1.853,78€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 351,64 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 25.273,13 € (calculada con 15.000 km anuales). Entrada inicial: 8.260,00 €. Comisión de apertura al contado: 1.158,28 €. Importe total financiado 33.093,78 €. Importe total de los intereses: 13.277,75 €. Coste total del crédito: 14.436,03 €. Precio total a plazos 54.631,53 €. Importe total adeudado: 46.371,53 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 4,
+    "_intentos_desaparecido": 5,
     "fecha_reservado": "2026-10-05"
   },
   {
