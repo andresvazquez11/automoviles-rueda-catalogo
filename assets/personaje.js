@@ -1,7 +1,8 @@
 /* Muñeco de palitos del catálogo: aparece como mucho 2 veces por visita
    (sessionStorage) sobre coches en oferta / destacados y recomienda el coche
    con un cartel. 1ª vez: cae del cielo sobre la tarjeta. 2ª vez: se asoma por
-   detrás de la tarjeta, saluda y se esconde.
+   detrás de la tarjeta y saluda. Cada muñeco se QUEDA en su tarjeta 2 minutos
+   (si el cliente se pasa de largo y vuelve, sigue ahí y le vuelve a saludar).
    Nunca recibe clics (pointer-events:none) y no sale con "reducir movimiento". */
 (function () {
   var MAX_VECES = 2;
@@ -58,37 +59,72 @@
     el.style.top = (r.top + window.scrollY - alto) + 'px';
   }
 
-  var ocupado = false;
+  var QUEDA_MS = 120000;   // cuánto se queda el muñeco donde apareció (2 min)
+  var ocupado = false;     // solo durante la entrada (caída / asomarse)
   var ultimaVez = 0;
-  var actual = null;   // { quitar: fn, card: el }
+  var presentes = [];      // muñecos que siguen en la página: { el, card, saludar, reubicar, quitar }
   var usadas = [];
 
-  function quitarActual() {
-    if (actual) { actual.quitar(); actual = null; }
+  function reubicarTodos() {
+    presentes.forEach(function (p) { p.reubicar(); });
+  }
+  var pendienteReubicar = false;
+  function reubicarPronto() {
+    if (pendienteReubicar) return;
+    pendienteReubicar = true;
+    requestAnimationFrame(function () { pendienteReubicar = false; reubicarTodos(); });
   }
 
-  /* 1ª aparición: cae del cielo, aterriza con rebote, levanta el cartel. */
+  // Vuelve a pegar el muñeco a su tarjeta (si las fotos cargan, se filtra u
+  // ordena, o cambia el tamaño de la ventana). Si la tarjeta está oculta por
+  // un filtro, el muñeco se oculta con ella y vuelve cuando reaparece.
+  function pegarA(el, card) {
+    return function () {
+      if (!document.body.contains(card) || card.offsetParent === null) { el.style.display = 'none'; return; }
+      el.style.display = '';
+      colocar(el, card, el.offsetWidth, el.offsetHeight);
+    };
+  }
+
+  function repetirSaludo(fig) {
+    fig.classList.remove('rd-pj-saluda');
+    void fig.offsetWidth;
+    fig.classList.add('rd-pj-saluda');
+  }
+
+  function registrar(p) {
+    presentes.push(p);
+    if (observadorSaludo) observadorSaludo.observe(p.card);
+    setTimeout(function () { p.quitar(); }, QUEDA_MS);
+  }
+  function olvidar(p) {
+    var i = presentes.indexOf(p);
+    if (i !== -1) presentes.splice(i, 1);
+  }
+
+  /* 1ª aparición: cae del cielo, aterriza con rebote, levanta el cartel y se
+     queda de pie sobre la tarjeta. */
   function caer(card) {
     var fig = crearFigura(true);
     fig.classList.add('rd-pj-cae');
     fig.querySelector('.rd-pj-cartel').textContent = textoCartel(card);
     document.body.appendChild(fig);
     colocar(fig, card, fig.offsetWidth, fig.offsetHeight);
-    var timers = [];
-    function quitar() {
-      timers.forEach(clearTimeout);
+    var p = { el: fig, card: card, reubicar: pegarA(fig, card), saludar: function () { repetirSaludo(fig); } };
+    p.quitar = function () {
+      olvidar(p);
       fig.classList.add('rd-pj-fuera');
-      setTimeout(function () { fig.remove(); ocupado = false; }, 300);
-    }
+      setTimeout(function () { fig.remove(); }, 300);
+    };
     requestAnimationFrame(function () { fig.classList.add('rd-pj-cayendo'); });
-    timers.push(setTimeout(function () { fig.classList.add('rd-pj-aterriza'); }, 650));
-    timers.push(setTimeout(function () { fig.classList.add('rd-pj-cartel-arriba'); }, 850));
-    timers.push(setTimeout(function () { fig.classList.add('rd-pj-saluda'); }, 3800));
-    timers.push(setTimeout(function () { if (actual && actual.fig === fig) { actual = null; } quitar(); }, 5200));
-    return { quitar: quitar, card: card, fig: fig };
+    setTimeout(function () { fig.classList.add('rd-pj-aterriza'); }, 650);
+    setTimeout(function () { fig.classList.add('rd-pj-cartel-arriba'); ocupado = false; }, 850);
+    setTimeout(function () { fig.classList.add('rd-pj-saluda'); }, 3800);
+    registrar(p);
   }
 
-  /* 2ª aparición: se asoma por encima del borde de la tarjeta y se esconde. */
+  /* 2ª aparición: se asoma por encima del borde de la tarjeta, saluda y se
+     queda asomado con el cartel. */
   function asomarse(card) {
     var marco = document.createElement('div');
     marco.className = 'rd-pj-marco';
@@ -98,18 +134,17 @@
     marco.appendChild(fig);
     document.body.appendChild(marco);
     colocar(marco, card, marco.offsetWidth, marco.offsetHeight);
-    var timers = [];
-    function quitar() {
-      timers.forEach(clearTimeout);
+    var p = { el: marco, card: card, reubicar: pegarA(marco, card), saludar: function () { repetirSaludo(fig); } };
+    p.quitar = function () {
+      olvidar(p);
       fig.classList.remove('rd-pj-arriba', 'rd-pj-cartel-arriba');
-      setTimeout(function () { marco.remove(); ocupado = false; }, 450);
-    }
+      setTimeout(function () { marco.remove(); }, 450);
+    };
     requestAnimationFrame(function () {
       requestAnimationFrame(function () { fig.classList.add('rd-pj-arriba', 'rd-pj-saluda'); });
     });
-    timers.push(setTimeout(function () { fig.classList.add('rd-pj-cartel-arriba'); }, 300));
-    timers.push(setTimeout(function () { if (actual && actual.fig === fig) { actual = null; } quitar(); }, 3400));
-    return { quitar: quitar, card: card, fig: fig };
+    setTimeout(function () { fig.classList.add('rd-pj-cartel-arriba'); ocupado = false; }, 300);
+    registrar(p);
   }
 
   function candidata(card) {
@@ -128,6 +163,13 @@
     // No antes de que el cliente haya dejado atrás la portada (hero).
     var hero = document.querySelector('.rd-hero');
     if (hero && hero.getBoundingClientRect().bottom > window.innerHeight * 0.35) return;
+    // Si en pantalla ya hay un muñeco (el primero, que se queda), el segundo
+    // espera a que el cliente esté en otra zona: nunca dos juntos.
+    var enPantalla = presentes.some(function (p) {
+      var r = p.card.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    });
+    if (enPantalla) return;
     var lista = visibles.filter(candidata);
     if (!lista.length) return;
     var hayPreferidas = document.querySelector('#rd-grid .rd-card[data-oferta="1"], .rd-card-featured');
@@ -139,15 +181,16 @@
     usadas.push(elegida);
     var n = veces();
     sumarVez();
-    actual = n === 0 ? caer(elegida) : asomarse(elegida);
+    if (n === 0) caer(elegida); else asomarse(elegida);
     if (veces() >= MAX_VECES && observador) {
-      // Última aparición: deja de vigilar tarjetas cuando termine.
+      // Última aparición: ya no hace falta buscar más tarjetas.
       setTimeout(function () { observador.disconnect(); }, 4000);
     }
   }
 
   var enVista = [];
   var observador = null;
+  var observadorSaludo = null;
 
   function iniciar() {
     if (!('IntersectionObserver' in window)) return;
@@ -156,11 +199,17 @@
         var i = enVista.indexOf(en.target);
         if (en.isIntersecting && i === -1) enVista.push(en.target);
         if (!en.isIntersecting && i !== -1) enVista.splice(i, 1);
-        // Si la tarjeta del muñeco sale de la vista, se va con ella.
-        if (!en.isIntersecting && actual && actual.card === en.target) quitarActual();
       });
       intentar(enVista.slice());
     }, { rootMargin: '-25% 0px -15% 0px', threshold: 0.6 });
+
+    // Al volver a la tarjeta donde se quedó el muñeco, vuelve a saludar.
+    observadorSaludo = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        presentes.forEach(function (p) { if (p.card === en.target && !ocupado) p.saludar(); });
+      });
+    }, { threshold: 0.5 });
 
     function vigilar() {
       document.querySelectorAll('#rd-grid .rd-card, .rd-card-featured').forEach(function (c) {
@@ -173,14 +222,15 @@
     setTimeout(vigilar, 4000);
     // Si la última comprobación se quedó en pausa, vuelve a intentarlo al hacer scroll.
     window.addEventListener('scroll', function () {
+      if (presentes.length) reubicarPronto();
       if (!ocupado && enVista.length) intentar(enVista.slice());
     }, { passive: true });
-    // Ordenar/filtrar mueve las tarjetas: el muñeco se retira.
+    // Ordenar/filtrar mueve las tarjetas: el muñeco se va con la suya.
     var grid = document.getElementById('rd-grid');
     if (grid && window.MutationObserver) {
-      new MutationObserver(function () { quitarActual(); }).observe(grid, { childList: true });
+      new MutationObserver(reubicarPronto).observe(grid, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class', 'hidden'] });
     }
-    window.addEventListener('resize', quitarActual, { passive: true });
+    window.addEventListener('resize', reubicarPronto, { passive: true });
   }
 
   if (document.readyState === 'loading') {
