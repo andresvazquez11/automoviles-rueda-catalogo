@@ -791,7 +791,7 @@ function cargarFicha(c) {
   slideActual = 0;
 
   slides.innerHTML = fotosModal.length
-    ? fotosModal.map((f,i) => `<div class="gallery-slide"><img src="${f}" alt="Foto ${i+1}" loading="lazy"></div>`).join('')
+    ? fotosModal.map((f,i) => `<div class="gallery-slide"><img src="${f}" alt="Foto ${i+1}" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}></div>`).join('')
     : `<div class="gallery-slide" style="display:grid;place-items:center;color:var(--muted);width:100%;height:100%">Sin fotos</div>`;
   slides.style.transform = 'translateX(0)';
 
@@ -806,26 +806,34 @@ function cargarFicha(c) {
 
   const idioma = (window.rdIdiomaActual ? window.rdIdiomaActual() : 'es');
   const en = idioma === 'en';
+  const de = idioma === 'de';
+  // Texto del coche en el idioma actual: el alemán (campo *_de) cae al inglés si falta.
+  const tr = (es, eng, ger) => en ? (eng || es) : de ? (ger || eng || es) : es;
 
   document.getElementById('m-modelo').textContent = c.modelo;
-  document.getElementById('m-version').textContent = (en && c.version_en) ? c.version_en : c.version;
+  document.getElementById('m-version').textContent = tr(c.version, c.version_en, c.version_de);
 
   const specsLabelsEn = { 'Combustible': 'Fuel', 'Kilómetros': 'Mileage', 'Matrícula': 'Registered', 'Cambio': 'Gearbox', 'Color': 'Color', 'Ubicación': 'Location' };
+  const specsLabelsDe = { 'Combustible': 'Kraftstoff', 'Kilómetros': 'Kilometerstand', 'Matrícula': 'Erstzulassung', 'Cambio': 'Getriebe', 'Color': 'Farbe', 'Ubicación': 'Standort' };
   const combustibleEn = { 'Gasolina': 'Petrol', 'Diésel': 'Diesel', 'Híbrido': 'Hybrid', 'Eléctrico': 'Electric' };
+  const combustibleDe = { 'Gasolina': 'Benzin', 'Diésel': 'Diesel', 'Híbrido': 'Hybrid', 'Eléctrico': 'Elektro' };
   const cambioEn = { 'Manual': 'Manual', 'Automático': 'Automatic' };
+  const cambioDe = { 'Manual': 'Schaltgetriebe', 'Automático': 'Automatik' };
   const specs = [
-    ['Combustible', en ? (combustibleEn[c.combustible] || c.combustible) : c.combustible],
+    ['Combustible', tr(c.combustible, combustibleEn[c.combustible], combustibleDe[c.combustible])],
     ['Kilómetros', c.km + ' km'],
     ['Matrícula', c.fecha],
-    ['Cambio', en ? (cambioEn[c.cambio] || c.cambio) : c.cambio],
-    ['Color', (en && c.color_en) ? c.color_en : c.color],
+    ['Cambio', tr(c.cambio, cambioEn[c.cambio], cambioDe[c.cambio])],
+    ['Color', tr(c.color, c.color_en, c.color_de)],
     ['Ubicación', c.ubicacion],
   ].filter(([,v]) => v);
   document.getElementById('m-specs').innerHTML = specs.map(([l,v]) =>
-    `<div class="rd-spec-badge"><div class="lbl">${en ? (specsLabelsEn[l] || l) : l}</div><div class="val">${v}</div></div>`).join('');
+    `<div class="rd-spec-badge"><div class="lbl">${tr(l, specsLabelsEn[l], specsLabelsDe[l])}</div><div class="val">${v}</div></div>`).join('');
 
-  const equip = (en && c.equipamiento_en && c.equipamiento_en.length === (c.equipamiento || []).length)
-    ? c.equipamiento_en : (c.equipamiento || []);
+  const nEquip = (c.equipamiento || []).length;
+  const equip = (de && c.equipamiento_de && c.equipamiento_de.length === nEquip) ? c.equipamiento_de
+    : ((en || de) && c.equipamiento_en && c.equipamiento_en.length === nEquip) ? c.equipamiento_en
+    : (c.equipamiento || []);
   const equipSection = document.getElementById('equip-section');
   if (equip.length) {
     document.getElementById('m-equip').innerHTML = equip.map(e =>
@@ -837,7 +845,7 @@ function cargarFicha(c) {
     document.getElementById('m-precio').textContent = '';
     document.getElementById('m-precio-sticky').textContent = '';
     const pill = document.getElementById('m-estado-pill');
-    pill.textContent = en ? '🚫 Sold' : '🚫 Vendido';
+    pill.textContent = tr('🚫 Vendido', '🚫 Sold', '🚫 Verkauft');
     pill.classList.add('reservado');
     document.getElementById('m-financiacion').style.display = 'none';
     const finTabs = document.getElementById('financiera-tabs');
@@ -854,7 +862,7 @@ function cargarFicha(c) {
   document.getElementById('m-precio-sticky').textContent = c.precio + ' €';
   const pill = document.getElementById('m-estado-pill');
   const reservado = esReservado(c.estado);
-  pill.textContent = reservado ? (en ? '🟠 Reserved' : '🟠 Reservado') : (en ? '✅ Available' : '✅ Disponible');
+  pill.textContent = reservado ? tr('🟠 Reservado', '🟠 Reserved', '🟠 Reserviert') : tr('✅ Disponible', '✅ Available', '✅ Verfügbar');
   pill.classList.add(reservado ? 'reservado' : 'disponible');
 
   initCalc(c);

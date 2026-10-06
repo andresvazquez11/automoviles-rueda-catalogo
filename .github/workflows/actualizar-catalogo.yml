@@ -167,7 +167,8 @@ jobs:
                   historial-precios/ quienes-somos/ comparador.json \
                   datos_coches.json historial_precios.json coches_lista.json \
                   traducciones_cache.json historial_cambios_precio.json \
-                  fichas_tecnicas.json recortes.json sitemap.xml robots.txt pruebas.json
+                  fichas_tecnicas.json recortes.json sitemap.xml robots.txt pruebas.json \
+                  traducciones_de.json
           git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M')" || echo "Sin cambios que subir"
           # Si mientras corría esto alguien guardó desde /admin/ (destacados,
           # rebajas), el push se rechaza: se incorpora ese cambio y se reintenta.

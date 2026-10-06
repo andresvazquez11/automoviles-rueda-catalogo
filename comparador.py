@@ -88,8 +88,10 @@ def datos(car: dict, ficha: "dict | None") -> dict:
         v["extras"] = str(len(extras))
         n["extras"] = len(extras)
     en = (ficha or {}).get("en") or {}
-    # [texto ES, texto EN] — el EN sale de la traducción ya guardada en la ficha
-    eq = [[i, en.get(i, i)] for i in extras + serie]
+    # [texto ES, texto EN, texto DE] — el EN sale de la traducción ya guardada en
+    # la ficha; el DE del diccionario de aleman.py
+    import aleman
+    eq = [[i, en.get(i, i), aleman.de(i, en.get(i, i))] for i in extras + serie]
     return {"v": v, "n": n, "eq": eq}
 
 

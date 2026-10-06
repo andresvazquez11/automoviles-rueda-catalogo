@@ -2,16 +2,26 @@
   var KEY = 'rd_idioma';
 
   function idiomaActual() {
-    try { return localStorage.getItem(KEY) || 'es'; } catch (e) { return 'es'; }
+    try { var v = localStorage.getItem(KEY); return (v === 'en' || v === 'de') ? v : 'es'; } catch (e) { return 'es'; }
+  }
+
+  // Idiomas: es (base), en, de. Si a un texto le falta el alemán (aún no
+  // traducido), se muestra en inglés antes que dejarlo en el idioma anterior.
+  var IDIOMAS = ['es', 'en', 'de'];
+  function leer(el, idioma, sufijo) {
+    var texto = el.getAttribute('data-' + idioma + sufijo);
+    if (texto === null && idioma === 'de') texto = el.getAttribute('data-en' + sufijo);
+    return texto;
   }
 
   function aplicar(idioma) {
+    if (IDIOMAS.indexOf(idioma) === -1) idioma = 'es';
     document.querySelectorAll('.rd-i18n').forEach(function(el) {
-      var texto = el.getAttribute('data-' + idioma);
+      var texto = leer(el, idioma, '');
       if (texto !== null) el.textContent = texto;
     });
     document.querySelectorAll('[data-es-placeholder]').forEach(function(el) {
-      var texto = el.getAttribute('data-' + idioma + '-placeholder');
+      var texto = leer(el, idioma, '-placeholder');
       if (texto !== null) el.placeholder = texto;
     });
     document.querySelectorAll('.rd-lang-btn').forEach(function(btn) {

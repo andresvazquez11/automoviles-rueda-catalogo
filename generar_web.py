@@ -15,6 +15,7 @@ from catalogo_rueda_v2 import _es_foto_exterior, nombre_carpeta
 import comparador
 import confianza_dwa
 import ficha_tecnica
+import aleman
 import prensa
 import pruebas
 import quienes_somos
@@ -234,12 +235,23 @@ def _guardar_cache_traducciones(cache: dict) -> None:
 
 def i18n_span(es: str, en: str, cls: str = "") -> str:
     """Envuelve un texto para el toggle de idioma del header: se ve el
-    español por defecto, con el inglés guardado en data-en para cuando el
-    visitante toca la bandera 🇬🇧 (ver assets/idioma.js, Task 5)."""
+    español por defecto, con el inglés en data-en y el alemán en data-de
+    para cuando el visitante toca la bandera 🇬🇧 / 🇩🇪 (ver assets/idioma.js).
+    El alemán sale del diccionario de aleman.py (traducido con Gemini una vez)."""
     es_attr = html.escape(es, quote=True)
     en_attr = html.escape(en, quote=True)
+    de_attr = html.escape(aleman.de(es, en), quote=True)
     extra = f" {cls}" if cls else ""
-    return f'<span class="rd-i18n{extra}" data-es="{es_attr}" data-en="{en_attr}">{html.escape(es)}</span>'
+    return f'<span class="rd-i18n{extra}" data-es="{es_attr}" data-en="{en_attr}" data-de="{de_attr}">{html.escape(es)}</span>'
+
+def i18n_span3(es: str, en: str, de: str, cls: str = "") -> str:
+    """Como i18n_span pero con el alemán escrito a mano — para textos con
+    datos que cambian (fecha, nombre del asesor) que no deben ir al
+    diccionario de aleman.py (se llenaría de variantes)."""
+    extra = f" {cls}" if cls else ""
+    a = lambda t: html.escape(t, quote=True)
+    return (f'<span class="rd-i18n{extra}" data-es="{a(es)}" data-en="{a(en)}" data-de="{a(de)}">'
+            f'{html.escape(es)}</span>')
 
 COMBUSTIBLE_EN = {
     "Gasolina": "Petrol", "Diésel": "Diesel", "Diesel": "Diesel",
@@ -380,6 +392,12 @@ _BANDERA_GB = '''<svg width="20" height="14" viewBox="0 0 20 14" xmlns="http://w
       <path d="M10 0 V14 M0 7 H20" stroke="#C8102E" stroke-width="2.6"/>
     </svg>'''
 
+_BANDERA_DE = '''<svg width="20" height="14" viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg">
+      <rect width="20" height="14.01" fill="#000000"/>
+      <rect y="4.67" width="20" height="4.67" fill="#DD0000"/>
+      <rect y="9.34" width="20" height="4.67" fill="#FFCE00"/>
+    </svg>'''
+
 def lang_toggle_html() -> str:
     """Botones de bandera para cambiar el idioma visible — comparten el
     mismo assets/idioma.js en index.html y en cada ficha de coche.
@@ -389,6 +407,7 @@ def lang_toggle_html() -> str:
     return f'''<div class="rd-lang-toggle">
     <button type="button" class="rd-lang-btn activo" data-lang="es" aria-label="Ver en español">{_BANDERA_ES}</button>
     <button type="button" class="rd-lang-btn" data-lang="en" aria-label="View in English">{_BANDERA_GB}</button>
+    <button type="button" class="rd-lang-btn" data-lang="de" aria-label="Auf Deutsch ansehen">{_BANDERA_DE}</button>
   </div>'''
 
 
@@ -446,9 +465,15 @@ def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.
     telefono = perfil["telefono"]
     email = perfil["email"]
     telefono_wa = "34" + telefono.replace(" ", "")
-    mensaje_wa = urllib.parse.quote(
-        f"Hola {nombre.split()[0]}, te escribo desde el catálogo de coches. Me interesa uno de los vehículos."
-    )
+    # Mensaje con el que se abre WhatsApp, en el idioma de la web (el script de
+    # abajo cambia el enlace al pulsar según el idioma elegido).
+    mensajes_wa = {
+        "es": f"Hola {nombre.split()[0]}, te escribo desde el catálogo de coches. Me interesa uno de los vehículos.",
+        "en": f"Hi {nombre.split()[0]}, I'm writing from your car catalogue. I'm interested in one of the vehicles.",
+        "de": f"Hallo {nombre.split()[0]}, ich schreibe Ihnen über Ihren Fahrzeugkatalog. Ich interessiere mich für eines der Fahrzeuge.",
+    }
+    mensaje_wa = urllib.parse.quote(mensajes_wa["es"])
+    attrs_wa = " ".join(f'data-msg-{k}="{html.escape(urllib.parse.quote(v), quote=True)}"' for k, v in mensajes_wa.items())
     nombre_corto = nombre.split()[0]
     inicial = nombre_corto[0]
     avatar_url = perfil.get("avatar", "")
@@ -461,9 +486,9 @@ def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.
     <a href="mailto:{email}">{email}</a>
   </p>
   <p class="rd-footer-dwa">
-    <a href="{link_dwa}" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
+    <a href="{link_dwa}" target="_blank" rel="noopener">{i18n_span3("Ver todos los coches en Das WeltAuto ↗", "See all cars on Das WeltAuto ↗", "Alle Fahrzeuge bei Das WeltAuto ansehen ↗")}</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: {ahora} h</p>{accesos_ocultos_html() if accesos_ocultos else ""}
+  <p class="rd-footer-updated">🔄 {i18n_span3(f"Última actualización: {ahora} h", f"Last updated: {ahora}", f"Letzte Aktualisierung: {ahora} Uhr")}</p>{accesos_ocultos_html() if accesos_ocultos else ""}
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">
@@ -476,11 +501,11 @@ def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.
     <button type="button" class="rd-wa-popup-close" onclick="document.getElementById('rd-wa-popup').classList.remove('activo')" aria-label="Cerrar chat">&times;</button>
   </div>
   <div class="rd-wa-popup-body">
-    <div class="rd-wa-popup-bubble">¡Hola! Soy {nombre_corto}. ¿En qué puedo ayudarte? 😊</div>
+    <div class="rd-wa-popup-bubble">{i18n_span3(f"¡Hola! Soy {nombre_corto}. ¿En qué puedo ayudarte? 😊", f"Hi! I'm {nombre_corto}. How can I help you? 😊", f"Hallo! Ich bin {nombre_corto}. Wie kann ich Ihnen helfen? 😊")}</div>
   </div>
-  <a class="rd-wa-popup-cta" href="https://wa.me/{telefono_wa}?text={mensaje_wa}" target="_blank" rel="noopener">
+  <a class="rd-wa-popup-cta" id="rd-wa-popup-cta" href="https://wa.me/{telefono_wa}?text={mensaje_wa}" {attrs_wa} target="_blank" rel="noopener">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-    Iniciar conversación
+    {i18n_span3("Iniciar conversación", "Start chat", "Chat starten")}
   </a>
 </div>
 
@@ -491,6 +516,13 @@ def footer_whatsapp_html(perfil: dict, link_dwa: str = "https://www.dasweltauto.
 
 <script>
 (function() {{
+  // El mensaje de WhatsApp sale en el idioma elegido en la web.
+  var cta = document.getElementById('rd-wa-popup-cta');
+  if (cta) cta.addEventListener('click', function() {{
+    var l = (window.rdIdiomaActual && window.rdIdiomaActual()) || 'es';
+    var msg = cta.getAttribute('data-msg-' + l) || cta.getAttribute('data-msg-es');
+    cta.href = cta.href.split('?')[0] + '?text=' + msg;
+  }});
   function abrirPopupWa() {{
     var popup = document.getElementById('rd-wa-popup');
     if (popup) popup.classList.add('activo');
@@ -721,6 +753,8 @@ ASSET_IMPRIMIR    = asset("imprimir.js")
 ASSET_REBAJAS     = asset("rebajas.js")
 ASSET_COMPARADOR  = asset("comparador.js")
 ASSET_CONFIANZA   = asset("confianza.js")
+ASSET_MOVIMIENTO  = asset("movimiento.js")   # cabecera compacta + foto tarjeta→ficha (todas las páginas con cabecera)
+ASSET_PERSONAJE   = asset("personaje.js")    # muñeco de palitos (solo catálogo)
 COMPARADOR_JSON   = BASE_DIR / "comparador.json"   # lo escribe main(); lo lee assets/comparador.js
 
 @functools.lru_cache(maxsize=1)
@@ -1455,7 +1489,7 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
         </a>
         <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('VWFS')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-          Imprimir simulación · A4
+          <span class="rd-i18n" data-es="Imprimir simulación · A4" data-en="Print quote · A4" data-de="Finanzierung drucken · A4">Imprimir simulación · A4</span>
         </button>
         <div class="cv2-legal" id="cv2-legal"></div>
       </div>'''
@@ -1524,7 +1558,7 @@ BBVA_HTML_INTERIOR = '''    <div class="bbva-bar">
       </a>
       <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('BBVA')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-        Imprimir simulación · A4
+        <span class="rd-i18n" data-es="Imprimir simulación · A4" data-en="Print quote · A4" data-de="Finanzierung drucken · A4">Imprimir simulación · A4</span>
       </button>
       <div class="bbva-legal" id="bbva-legal"></div>
     </div>'''
@@ -1535,7 +1569,21 @@ def datos_impresion(ficha: "dict | None") -> dict:
     if not ficha:
         return {}
     gen = ficha.get("gen") or {}
-    extras = [e for grupo in (ficha.get("extras") or {}).values() for e in grupo]
+    dims = ficha.get("dims") or {}
+    grupos = {g: list(v) for g, v in (ficha.get("extras") or {}).items() if v}
+    extras = [e for grupo in grupos.values() for e in grupo]
+    en = ficha.get("en") or {}
+
+    # Traducciones para imprimir la hoja en el idioma elegido: {es: [en, de]}
+    def par(es: str) -> list:
+        en_ = en.get(es, es)
+        return [en_, aleman.de(es, en_)]
+    textos = set(v for v in gen.values() if isinstance(v, str)) | set(dims.values()) | set(extras)
+    textos |= {ficha.get("pintura", ""), ficha.get("tapizado", "")}
+    tr = {t: par(t) for t in textos if t}
+    etiquetas = {k: [es, en_, aleman.de(es, en_)] for k, (es, en_) in ficha_tecnica._ETIQUETAS.items()}
+    nombres_grupo = {g: [g, ficha_tecnica._GRUPOS_EN.get(g, g), aleman.de(g, ficha_tecnica._GRUPOS_EN.get(g, g))]
+                     for g in grupos}
     return {
         "potencia": gen.get("potencia", ""), "consumo": gen.get("consumo", ""),
         "co2": gen.get("co2", ""), "traccion": gen.get("traccion", ""),
@@ -1543,6 +1591,9 @@ def datos_impresion(ficha: "dict | None") -> dict:
         "autonomia": gen.get("autonomia_electrica", ""),
         "pintura": ficha.get("pintura", ""), "tapizado": ficha.get("tapizado", ""),
         "extras": extras[:12],
+        # Para la hoja "Imprimir ficha · A4" (completa y traducible)
+        "gen": gen, "dims": dims, "grupos": grupos,
+        "etq": etiquetas, "grp": nombres_grupo, "tr": tr,
     }
 
 def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
@@ -1566,25 +1617,33 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
     coche_json = json.dumps({
         "n": n, "modelo": car["modelo"], "version": car["version"],
         "version_en": trad["version_en"],
+        "version_de": aleman.de(car["version"], trad["version_en"]),
         "combustible": car.get("combustible",""), "km": car.get("km",""),
         "fecha": car.get("fecha",""), "fin_fecha_iso":
             (lambda f: f"{f.split('/')[1]}-{f.split('/')[0]}" if f and "/" in f and len(f.split("/"))==2 else "")(car.get("fecha","")),
         "cambio": car.get("cambio",""), "color": car.get("color",""),
         "color_en": trad["color_en"],
+        "color_de": aleman.de(car.get("color", ""), trad["color_en"]),
         "precio": car["precio"], "estado": car["estado"], "vendido": vendido,
         "id": id_estable_coche(car),
         "antes_auto": precio_antes_auto(car, _cargar_historial_precios()),
         "url": url_externa,
         "equipamiento": car.get("equipamiento", []),
         "equipamiento_en": trad["equipamiento_en"],
+        "equipamiento_de": [aleman.de(es, en) for es, en in zip(car.get("equipamiento", []), trad["equipamiento_en"])],
         "fotos": fotos,
         "imprimir": datos_impresion(ficha),
     }, ensure_ascii=False)
 
+    direccion = perfil.get("direccion", {})
     asesor_json = json.dumps({
         "nombreCorto": datos["nombre_corto"],
+        "nombre": perfil["nombre"],
         "telefonoDisplay": telefono,
         "telefonoWa": datos["telefono_wa"],
+        "email": perfil.get("email", ""),
+        "direccion": f'{direccion.get("calle", "")} · {direccion.get("cp", "")} {direccion.get("localidad", "")}'.strip(" ·"),
+        "web": f'{datos["dominio_pagina"]}/coches/{archivo_ficha(car)}'.replace("https://", ""),
     }, ensure_ascii=False)
 
     vendido_banner = '' if not vendido else f'''
@@ -1636,6 +1695,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{ASSET_ESTILOS}">
 <script src="{ASSET_IDIOMA}"></script>
+<script src="{ASSET_MOVIMIENTO}"></script>
 <style>
 {CALCULADORA_CSS}
 </style>
@@ -1675,6 +1735,11 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
   </div>
 
   {bloque_datos}
+
+  <button type="button" class="rd-btn-imprimir-ficha" onclick="rdImprimirFicha()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    {i18n_span("Imprimir ficha · A4", "Print spec sheet · A4")}
+  </button>
 
   <div class="financiera-tabs" id="financiera-tabs">
     <button class="financiera-tab active" id="fin-vwfs" onclick="setFinanciera('VWFS', this)">
@@ -1946,6 +2011,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{ASSET_ESTILOS}">
 <script src="{ASSET_IDIOMA}"></script>
+<script src="{ASSET_MOVIMIENTO}"></script>
 </head>
 <body>
 <header class="rd-header">
@@ -1982,14 +2048,14 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
   </div>
   <div class="rd-search-wrap">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input class="rd-search-input" id="rd-search" type="text" placeholder="Buscar modelo..." data-es-placeholder="Buscar modelo..." data-en-placeholder="Search model..." autocomplete="off">
+    <input class="rd-search-input" id="rd-search" type="text" placeholder="Buscar modelo..." data-es-placeholder="Buscar modelo..." data-en-placeholder="Search model..." data-de-placeholder="Modell suchen..." autocomplete="off">
   </div>
   <select class="rd-sort-select" id="rd-sort">
-    <option value="default" class="rd-i18n" data-es="Ordenar" data-en="Sort by">Ordenar</option>
-    <option value="precio-asc" class="rd-i18n" data-es="Precio ↑ menor primero" data-en="Price ↑ lowest first">Precio ↑ menor primero</option>
-    <option value="precio-desc" class="rd-i18n" data-es="Precio ↓ mayor primero" data-en="Price ↓ highest first">Precio ↓ mayor primero</option>
-    <option value="km-asc" class="rd-i18n" data-es="Km ↑ menos km" data-en="Mileage ↑ lowest first">Km ↑ menos km</option>
-    <option value="km-desc" class="rd-i18n" data-es="Km ↓ más km" data-en="Mileage ↓ highest first">Km ↓ más km</option>
+    <option value="default" class="rd-i18n" data-es="Ordenar" data-en="Sort by" data-de="Sortieren">Ordenar</option>
+    <option value="precio-asc" class="rd-i18n" data-es="Precio ↑ menor primero" data-en="Price ↑ lowest first" data-de="Preis ↑ niedrigster zuerst">Precio ↑ menor primero</option>
+    <option value="precio-desc" class="rd-i18n" data-es="Precio ↓ mayor primero" data-en="Price ↓ highest first" data-de="Preis ↓ höchster zuerst">Precio ↓ mayor primero</option>
+    <option value="km-asc" class="rd-i18n" data-es="Km ↑ menos km" data-en="Mileage ↑ lowest first" data-de="Kilometer ↑ wenigste zuerst">Km ↑ menos km</option>
+    <option value="km-desc" class="rd-i18n" data-es="Km ↓ más km" data-en="Mileage ↓ highest first" data-de="Kilometer ↓ meiste zuerst">Km ↓ más km</option>
   </select>
   <div class="rd-counter">{i18n_span("Mostrando", "Showing")} <strong id="rd-cnt">{total_disp + total_res}</strong> {i18n_span("vehículos", "vehicles")}</div>
 </div>
@@ -2042,7 +2108,7 @@ document.addEventListener('click', e => {{
   const cntEl = document.getElementById('rd-cnt');
   const emptyMsg = document.createElement('div');
   emptyMsg.className = 'rd-empty-state';
-  emptyMsg.innerHTML = '<div>🔍</div><p class="rd-i18n" data-es="No se encontraron vehículos." data-en="No vehicles found.">No se encontraron vehículos.</p>';
+  emptyMsg.innerHTML = '<div>🔍</div><p class="rd-i18n" data-es="No se encontraron vehículos." data-en="No vehicles found." data-de="Keine Fahrzeuge gefunden.">No se encontraron vehículos.</p>';
 
   let filtro = 'todos';
   let busqueda = '';
@@ -2248,6 +2314,7 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
 <script src="{ASSET_COMPARADOR}"></script>
 <script src="{ASSET_CONFIANZA}"></script>
 <script src="{ASSET_REBAJAS}"></script>
+<script src="{ASSET_PERSONAJE}"></script>
 {footer_whatsapp_html(perfil, accesos_ocultos=(perfil["id"] == "andres"))}
 {goatcounter_script_html()}
 </body>
@@ -2284,6 +2351,7 @@ def build_quienes_somos_html(perfil: dict, total_coches: int) -> str:
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{ASSET_ESTILOS}">
 <script src="{ASSET_IDIOMA}"></script>
+<script src="{ASSET_MOVIMIENTO}"></script>
 </head>
 <body>
 
@@ -2381,6 +2449,7 @@ def build_historial_precios_html(historial: list[dict], perfil: dict, fichas_por
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{ASSET_ESTILOS}">
 <script src="{ASSET_IDIOMA}"></script>
+<script src="{ASSET_MOVIMIENTO}"></script>
 </head>
 <body class="rd-has-sticky">
 
@@ -2400,7 +2469,7 @@ def build_historial_precios_html(historial: list[dict], perfil: dict, fichas_por
   <h1 class="rd-hist-titulo">{i18n_span("Historial de precios", "Price history")}</h1>
   <p class="rd-hist-sub">{i18n_span("Cuándo y cuánto cambió el precio de cada coche.", "When and how much each car's price changed.")}</p>
   <input type="text" id="rd-hist-buscar" class="rd-hist-buscador"
-         placeholder="Buscar por modelo…" data-es-placeholder="Buscar por modelo…" data-en-placeholder="Search by model…"
+         placeholder="Buscar por modelo…" data-es-placeholder="Buscar por modelo…" data-en-placeholder="Search by model…" data-de-placeholder="Nach Modell suchen…"
          oninput="document.querySelectorAll('.rd-hist-card').forEach(function(c){{c.style.display = c.dataset.buscar.includes(this.value.toLowerCase()) ? '' : 'none';}}, this)">
   {cuerpo}
 </div>
@@ -2529,45 +2598,61 @@ def main():
         comparador.json_todos(coches, fichas, id_estable_coche, ficha_tecnica.clave_ficha), encoding="utf-8")
     print(f"📋  {sum(1 for c in todos_los_coches if fichas.get(ficha_tecnica.clave_ficha(c)))} "
           f"coche(s) con ficha técnica completa")
-    for perfil in PERFILES:
-        datos = datos_perfil(perfil)
-        out_dir = datos["out_dir"]
-        coches_dir = out_dir / "coches"
-        coches_dir.mkdir(parents=True, exist_ok=True)
+    def generar_sitio():
+        for perfil in PERFILES:
+            datos = datos_perfil(perfil)
+            out_dir = datos["out_dir"]
+            coches_dir = out_dir / "coches"
+            coches_dir.mkdir(parents=True, exist_ok=True)
 
-        for car in todos_los_coches:
-            n = car["n"]
-            if n in sin_foto:
-                continue
-            slug = slug_coche(car["modelo"])
-            html_coche = build_coche_html(car, fotos_por_coche[n], perfil, traducciones[n],
-                                          fichas.get(ficha_tecnica.clave_ficha(car)))
-            (coches_dir / archivo_ficha(car)).write_text(html_coche, encoding="utf-8")
-            if archivo_ficha_antiguo(car) != archivo_ficha(car):
-                (coches_dir / archivo_ficha_antiguo(car)).write_text(
-                    build_redireccion_html(html_coche, archivo_ficha(car)), encoding="utf-8")
+            for car in todos_los_coches:
+                n = car["n"]
+                if n in sin_foto:
+                    continue
+                slug = slug_coche(car["modelo"])
+                html_coche = build_coche_html(car, fotos_por_coche[n], perfil, traducciones[n],
+                                              fichas.get(ficha_tecnica.clave_ficha(car)))
+                (coches_dir / archivo_ficha(car)).write_text(html_coche, encoding="utf-8")
+                if archivo_ficha_antiguo(car) != archivo_ficha(car):
+                    (coches_dir / archivo_ficha_antiguo(car)).write_text(
+                        build_redireccion_html(html_coche, archivo_ficha(car)), encoding="utf-8")
 
-        archivadas = 0
-        for f in coches_dir.glob("*.html"):
-            if f.name not in slugs_validos:
-                f.unlink()
-                archivadas += 1
-        if archivadas:
-            print(f"  {archivadas} ficha(s) huérfana(s) eliminada(s) de {coches_dir} (coche ya no existe)")
+            archivadas = 0
+            for f in coches_dir.glob("*.html"):
+                if f.name not in slugs_validos:
+                    f.unlink()
+                    archivadas += 1
+            if archivadas:
+                print(f"  {archivadas} ficha(s) huérfana(s) eliminada(s) de {coches_dir} (coche ya no existe)")
 
-        html_index = build_index_html(coches, rutas, perfil, traducciones)
-        (out_dir / "index.html").write_text(html_index, encoding="utf-8")
-        print(f"  index.html regenerado para {perfil['nombre']} en {out_dir}")
+            html_index = build_index_html(coches, rutas, perfil, traducciones)
+            (out_dir / "index.html").write_text(html_index, encoding="utf-8")
+            print(f"  index.html regenerado para {perfil['nombre']} en {out_dir}")
 
-        hist_dir = out_dir / "historial-precios"
-        hist_dir.mkdir(parents=True, exist_ok=True)
-        html_historial = build_historial_precios_html(historial_precios, perfil, fichas_por_url)
-        (hist_dir / "index.html").write_text(html_historial, encoding="utf-8")
+            hist_dir = out_dir / "historial-precios"
+            hist_dir.mkdir(parents=True, exist_ok=True)
+            html_historial = build_historial_precios_html(historial_precios, perfil, fichas_por_url)
+            (hist_dir / "index.html").write_text(html_historial, encoding="utf-8")
 
-        qs_dir = out_dir / "quienes-somos"
-        qs_dir.mkdir(parents=True, exist_ok=True)
-        disponibles = sum(1 for c in coches if c.get("estado") == "Disponible")
-        (qs_dir / "index.html").write_text(build_quienes_somos_html(perfil, disponibles), encoding="utf-8")
+            qs_dir = out_dir / "quienes-somos"
+            qs_dir.mkdir(parents=True, exist_ok=True)
+            disponibles = sum(1 for c in coches if c.get("estado") == "Disponible")
+            (qs_dir / "index.html").write_text(build_quienes_somos_html(perfil, disponibles), encoding="utf-8")
+
+
+    generar_sitio()
+
+    # Alemán: los textos que aún no estaban en traducciones_de.json se han
+    # mostrado en inglés en esta pasada. Se traducen ahora de golpe y, si hubo
+    # alguno, se vuelve a generar el sitio para que salgan ya en alemán.
+    if aleman.PENDIENTES:
+        print(f"🇩🇪  {len(aleman.PENDIENTES)} texto(s) nuevos para traducir al alemán…")
+        hechos = aleman.traducir_pendientes(cliente_trad)
+        print(f"    {hechos} traducido(s)")
+        if hechos:
+            COMPARADOR_JSON.write_text(
+                comparador.json_todos(coches, fichas, id_estable_coche, ficha_tecnica.clave_ficha), encoding="utf-8")
+            generar_sitio()
 
     escribir_sitemap_y_robots([c for c in todos_los_coches if c["n"] not in sin_foto])
     print(f"  {len(todos_los_coches)} fichas individuales generadas por perfil")

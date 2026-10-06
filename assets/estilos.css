@@ -1068,3 +1068,134 @@ body.rd-cx-abierto { overflow: hidden; }
   .qs-cta { flex-direction: column; align-items: flex-start; }
 }
 @media (max-width: 520px) { .qs-sedes { grid-template-columns: 1fr; } }
+
+/* ════════════════════════════════════════════════════════════════════
+   MOVIMIENTO (assets/movimiento.js + assets/personaje.js) — oct 2026
+   Curvas compartidas: --rd-ease-out para entradas/respuestas.
+   ════════════════════════════════════════════════════════════════════ */
+:root { --rd-ease-out: cubic-bezier(0.23, 1, 0.32, 1); }
+
+/* ── Cabecera compacta ──
+   movimiento.js añade body.rd-header-fijo: la cabecera pasa a fixed y un
+   hueco (.rd-header-hueco) guarda su altura completa, así el contenido no
+   salta al encogerse. Sin JS se queda sticky como siempre. */
+body.rd-header-fijo .rd-header { position: fixed; left: 0; right: 0; top: 0; }
+.rd-header-hueco { display: none; }
+body.rd-header-fijo .rd-header-hueco { display: block; }
+.rd-header {
+  transition: padding .22s var(--rd-ease-out), background-color .22s ease, box-shadow .22s ease;
+}
+.rd-header--compacto {
+  padding-top: 8px; padding-bottom: 8px;
+  background: rgba(20,17,15,0.78);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  box-shadow: 0 1px 0 var(--rd-red), 0 8px 24px rgba(0,0,0,0.22);
+}
+body.rd-dark .rd-header--compacto { background: rgba(20,17,15,0.78); }
+.rd-header--compacto .rd-header-social-wrap,
+.rd-header--compacto .rd-header-asesor,
+.rd-header--compacto .rd-dwa-sello { display: none; }
+.rd-header--compacto .rd-header-brand strong { font-size: 22px; }
+.rd-header-cambia > * { animation: rd-cab-fundido .22s var(--rd-ease-out); }
+@keyframes rd-cab-fundido { from { opacity: 0; transform: translateY(-4px); } }
+@media (max-width: 640px) {
+  .rd-header--compacto { padding-top: 6px; padding-bottom: 6px; row-gap: 6px; }
+  .rd-header--compacto .rd-maps-btn { display: none; }
+  .rd-header--compacto .rd-dark-toggle { display: none; }
+  .rd-header--compacto .rd-header-brand strong { font-size: 17px; }
+}
+
+/* ── Foto que vuela de la tarjeta a la ficha (View Transitions) ──
+   Navegadores sin soporte (Firefox) cargan la página como siempre. */
+@view-transition { navigation: auto; }
+.rd-gallery-frame { view-transition-name: rd-coche-foto; }
+.rd-header { view-transition-name: rd-cabecera; }
+::view-transition-group(rd-cabecera) { z-index: 2; }
+::view-transition-group(rd-coche-foto) {
+  animation-duration: .38s;
+  animation-timing-function: var(--rd-ease-out);
+}
+::view-transition-old(rd-coche-foto),
+::view-transition-new(rd-coche-foto) {
+  height: 100%; width: 100%; object-fit: cover; overflow: clip;
+}
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: .2s; }
+/* Al pulsar una tarjeta: quita a la vez el efecto "el coche sale de la
+   tarjeta" para que la foto que vuela salga limpia, sin desenfoque. */
+.rd-vt-saliendo .rd-popout { opacity: 0 !important; transition: none !important; }
+.rd-vt-saliendo .rd-card-media .rd-card-photos img { filter: none !important; opacity: 1 !important; transition: none !important; }
+.rd-vt-saliendo .rd-card-media > * { opacity: 1 !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  .rd-header, .rd-header-cambia > * { transition: none; animation: none; }
+}
+
+/* ── Muñeco de palitos (solo catálogo) ── */
+.rd-pj { position: absolute; width: 44px; height: 70px; z-index: 35; pointer-events: none; }
+.rd-pj svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.rd-pj line, .rd-pj circle { stroke: var(--rd-ink); stroke-width: 3; stroke-linecap: round; fill: none; }
+.rd-pj .rd-pj-cabeza { fill: #fff; }
+body.rd-dark .rd-pj line, body.rd-dark .rd-pj circle { stroke: #f2f1ed; }
+body.rd-dark .rd-pj .rd-pj-cabeza { fill: #14110f; }
+.rd-pj-brazo-i, .rd-pj-brazo-d { transform-origin: 22px 28px; transition: transform .25s var(--rd-ease-out); }
+.rd-pj-cartel-arriba .rd-pj-brazo-d { transform: rotate(-120deg); }
+.rd-pj-saluda .rd-pj-brazo-i { animation: rd-pj-saludo .45s ease-in-out 4 alternate; }
+@keyframes rd-pj-saludo { from { transform: rotate(100deg); } to { transform: rotate(150deg); } }
+
+.rd-pj-cartel {
+  position: absolute; left: 50%; bottom: 100%;
+  transform: translate(-50%, 6px) scale(.6); transform-origin: 50% 100%; opacity: 0;
+  transition: opacity .2s var(--rd-ease-out), transform .35s cubic-bezier(.2,1.4,.4,1);
+  background: #fff; border: 2.5px solid var(--rd-ink); border-radius: 6px; padding: 3px 9px;
+  font: 700 13px var(--rd-display); letter-spacing: 1px; white-space: nowrap; color: var(--rd-red);
+}
+.rd-pj-cartel::after {
+  content: ""; position: absolute; left: 50%; top: 100%;
+  width: 2.5px; height: 14px; background: var(--rd-ink); transform: translateX(-50%);
+}
+.rd-pj-cartel-arriba .rd-pj-cartel { opacity: 1; transform: translate(-50%, -16px) scale(1); }
+body.rd-dark .rd-pj-cartel { background: #1a1a1a; border-color: #f2f1ed; }
+body.rd-dark .rd-pj-cartel::after { background: #f2f1ed; }
+
+/* 1ª aparición: cae del cielo */
+.rd-pj-cae { opacity: 0; }
+.rd-pj-cae.rd-pj-cayendo { opacity: 1; animation: rd-pj-caida .65s cubic-bezier(.55,0,1,.45) both; }
+@keyframes rd-pj-caida { from { transform: translateY(-70vh) rotate(-14deg); } to { transform: translateY(0) rotate(0); } }
+.rd-pj-aterriza svg { animation: rd-pj-chafa .35s var(--rd-ease-out); transform-origin: 50% 100%; }
+@keyframes rd-pj-chafa { from { transform: scale(1.18, .78); } to { transform: scale(1, 1); } }
+.rd-pj-polvo {
+  position: absolute; left: 50%; bottom: -3px; width: 54px; height: 8px; margin-left: -27px;
+  border-radius: 50%; background: rgba(20,17,15,.18); opacity: 0;
+}
+.rd-pj-aterriza .rd-pj-polvo { animation: rd-pj-polvo .5s ease-out; }
+@keyframes rd-pj-polvo { from { opacity: .8; transform: scaleX(.4); } to { opacity: 0; transform: scaleX(1.7); } }
+.rd-pj-fuera { opacity: 0 !important; transform: translateY(8px); transition: opacity .25s ease, transform .25s ease; }
+
+/* 2ª aparición: se asoma por detrás de la tarjeta (el marco recorta lo de debajo del borde) */
+.rd-pj-marco { position: absolute; width: 160px; height: 120px; overflow: hidden; z-index: 35; pointer-events: none; }
+.rd-pj-marco .rd-pj { left: auto; right: 22px; bottom: -4px; transform: translateY(78px); transition: transform .4s var(--rd-ease-out); }
+.rd-pj-marco .rd-pj.rd-pj-arriba { transform: translateY(0); }
+
+@media (max-width: 640px) {
+  .rd-pj { width: 34px; height: 54px; }
+  .rd-pj-cartel { font-size: 11px; padding: 2px 7px; }
+  .rd-pj-marco { width: 130px; height: 100px; }
+  .rd-pj-marco .rd-pj { transform: translateY(62px); }
+}
+
+/* ── Botón "Imprimir ficha · A4" (ficha de coche; hoja en assets/imprimir.js) ── */
+.rd-btn-imprimir-ficha {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; margin: 14px 0 18px; padding: 13px 20px;
+  background: var(--rd-surface); color: var(--rd-ink);
+  border: 1.5px solid var(--rd-ink); border-radius: var(--rd-radius-sm);
+  font: 700 13px var(--rd-font); letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; transition: background .15s ease, color .15s ease, transform .12s ease;
+}
+.rd-btn-imprimir-ficha:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .rd-btn-imprimir-ficha:hover { background: var(--rd-ink); color: #fff; }
+}
+body.rd-dark .rd-btn-imprimir-ficha { border-color: var(--rd-ink); }

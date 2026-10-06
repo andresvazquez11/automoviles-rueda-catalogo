@@ -11,6 +11,7 @@
   var manuales = {};
 
   function en() { return !!(window.rdIdiomaActual && window.rdIdiomaActual() === 'en'); }
+  function de() { return !!(window.rdIdiomaActual && window.rdIdiomaActual() === 'de'); }
   function eur(n) { return Math.round(n).toLocaleString('es-ES', { useGrouping: true }).replace(/,/g, '.') + ' €'; }
   function eurEn(n) { return '€' + Math.round(n).toLocaleString('en-GB'); }
   function precioNum(txt) { return parseInt(String(txt).replace(/[^\d]/g, ''), 10) || 0; }
@@ -22,10 +23,10 @@
   }
 
   function badgeHTML(dif) {
-    return en() ? eurEn(dif) + ' OFF' : eur(dif) + ' DESCUENTO';
+    return en() ? eurEn(dif) + ' OFF' : de() ? eur(dif) + ' RABATT' : eur(dif) + ' DESCUENTO';
   }
   function antesHTML(antes) {
-    return (en() ? 'Before: ' : 'Antes: ') + '<s>' + (en() ? eurEn(antes) : eur(antes)) + '</s>';
+    return (en() ? 'Before: ' : de() ? 'Vorher: ' : 'Antes: ') + '<s>' + (en() ? eurEn(antes) : eur(antes)) + '</s>';
   }
 
   function aplicarTarjetas() {
@@ -43,7 +44,7 @@
       card.querySelector('.rd-card-media').appendChild(badge);
       var pill = document.createElement('span');
       pill.className = 'rd-oferta-pill';
-      pill.textContent = en() ? '🔥 DEAL' : '🔥 OFERTA';
+      pill.textContent = en() ? '🔥 DEAL' : de() ? '🔥 ANGEBOT' : '🔥 OFERTA';
       card.querySelector('.rd-card-media').appendChild(pill);
       var old = document.createElement('div');
       old.className = 'rd-rebaja-antes';
@@ -69,7 +70,7 @@
       // "🔥 OFERTA" debajo del descuento, mismo naranja que el filtro Ofertas
       var pill = document.createElement('span');
       pill.className = 'rd-oferta-pill';
-      pill.textContent = en() ? '🔥 DEAL' : '🔥 OFERTA';
+      pill.textContent = en() ? '🔥 DEAL' : de() ? '🔥 ANGEBOT' : '🔥 OFERTA';
       frame.appendChild(pill);
     }
     var p = document.getElementById('m-precio');

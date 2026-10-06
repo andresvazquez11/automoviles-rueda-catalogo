@@ -482,6 +482,7 @@ def bloques_html(f: dict, car: dict, i18n_span) -> str:
     """Los 4 bloques de la ficha. `i18n_span(es, en)` es el de generar_web.py
     (toggle de idioma del header)."""
     from html import escape as e
+    import aleman
     g, dims, en = f["gen"], f["dims"], f.get("en", {})
 
     def t(texto: str) -> str:
@@ -523,7 +524,7 @@ def bloques_html(f: dict, car: dict, i18n_span) -> str:
         if total <= 8:
             return f'<div class="ft-grupos">{contenido}</div>'
         return (f'<div class="ft-grupos ft-plegable" id="{id_}">{contenido}</div>'
-                f'<button class="ft-vermas" data-es="{e(es)}" data-en="{e(en_)}" onclick="ftToggle(this,\'{id_}\')">'
+                f'<button class="ft-vermas" data-es="{e(es)}" data-en="{e(en_)}" data-de="{e(aleman.de(es, en_))}" onclick="ftToggle(this,\'{id_}\')">'
                 f'{i18n_span(es, en_)}</button>')
 
     # 2 — Equipamiento extra
@@ -576,9 +577,10 @@ def bloques_html(f: dict, car: dict, i18n_span) -> str:
 
     out.append('''<script>
 function ftToggle(b,id){const p=document.getElementById(id);const a=p.classList.toggle('abierto');
- const en=document.documentElement.lang==='en'||(window.rdIdiomaActual&&window.rdIdiomaActual()==='en');
- const s=b.querySelector('.rd-i18n');const es=a?'Ver menos':b.dataset.es,eng=a?'See less':b.dataset.en;
- s.dataset.es=es;s.dataset.en=eng;s.textContent=en?eng:es;}
+ const lang=(window.rdIdiomaActual&&window.rdIdiomaActual())||document.documentElement.lang||'es';
+ const s=b.querySelector('.rd-i18n');const es=a?'Ver menos':b.dataset.es,eng=a?'See less':b.dataset.en,
+ de=a?'Weniger anzeigen':(b.dataset.de||b.dataset.en);
+ s.dataset.es=es;s.dataset.en=eng;s.dataset.de=de;s.textContent=lang==='en'?eng:lang==='de'?de:es;}
 function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').forEach((x,k)=>x.classList.toggle('on',k===i));
  c.querySelectorAll('.ft-panel').forEach((x,k)=>x.classList.toggle('on',k===i));}
 </script>''')

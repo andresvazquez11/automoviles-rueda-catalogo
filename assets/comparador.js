@@ -15,8 +15,26 @@
   const compareIds = new Set();
   let datos = null;           // comparador.json, cargado bajo demanda
 
-  const en = () => (window.rdIdiomaActual && window.rdIdiomaActual() === 'en') || document.documentElement.lang === 'en';
-  const t = (es, eng) => (en() ? eng : es);
+  const idioma = () => (window.rdIdiomaActual && window.rdIdiomaActual()) || document.documentElement.lang || 'es';
+  const en = () => idioma() === 'en';
+  // Alemán: se busca por el texto inglés (así no hay que tocar cada llamada a t()).
+  const DE = {
+    '✓ Comparing': '✓ Im Vergleich', '+ Compare': '+ Vergleichen', 'Up to 3 cars can be compared': 'Maximal 3 Fahrzeuge vergleichbar',
+    'Comparing ': 'Im Vergleich: ', 'See comparison': 'Vergleich ansehen', 'Clear comparison': 'Vergleich leeren',
+    'Loading specs…': 'Daten werden geladen…',
+    'Price and usage': 'Preis und Nutzung', 'Price': 'Preis', 'Mileage': 'Kilometerstand', 'Registered': 'Erstzulassung',
+    'Warranty': 'Garantie', 'Engine and performance': 'Motor und Leistung', 'Fuel': 'Kraftstoff', 'DGT label': 'DGT-Umweltplakette',
+    'Power': 'Leistung', 'Torque': 'Drehmoment', 'Gearbox': 'Getriebe', '0-100 km/h': '0-100 km/h', 'Top speed': 'Höchstgeschwindigkeit',
+    'Drive': 'Antrieb', 'Consumption and range': 'Verbrauch und Reichweite', 'Average consumption': 'Durchschnittsverbrauch',
+    'CO₂ emissions': 'CO₂-Emissionen', 'Electric range': 'Elektrische Reichweite', 'Total range': 'Gesamtreichweite',
+    'Dimensions and boot': 'Abmessungen und Kofferraum', 'Boot': 'Kofferraum', 'Length': 'Länge', 'Width': 'Breite',
+    'Height': 'Höhe', 'Wheelbase': 'Radstand', 'Weight': 'Gewicht', 'Equipment': 'Ausstattung',
+    'Optional extras fitted': 'Verbaute Sonderausstattung',
+  };
+  const t = (es, eng, de) => {
+    const l = idioma();
+    return l === 'en' ? eng : l === 'de' ? (de || DE[eng] || eng) : es;
+  };
   const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   // Filas: [clave, ES, EN, regla] — regla: 'min' | 'max' | 'dgt' | '' (sin mejor dato)
@@ -42,7 +60,10 @@
   const TRAD = { 'Automático': 'Automatic', 'Delantera': 'Front-wheel drive', 'Trasera': 'Rear-wheel drive',
     'Total': 'All-wheel drive', 'Gasolina': 'Petrol', 'Diésel': 'Diesel', 'Eléctrico': 'Electric',
     'Híbrido': 'Hybrid', 'Híbrido enchufable': 'Plug-in hybrid' };
-  const valorTxt = v => (en() && TRAD[v]) ? TRAD[v] : v;
+  const TRAD_DE = { 'Automático': 'Automatik', 'Delantera': 'Frontantrieb', 'Trasera': 'Heckantrieb',
+    'Total': 'Allradantrieb', 'Gasolina': 'Benzin', 'Diésel': 'Diesel', 'Eléctrico': 'Elektro',
+    'Híbrido': 'Hybrid', 'Híbrido enchufable': 'Plug-in-Hybrid', 'Manual': 'Schaltgetriebe' };
+  const valorTxt = v => (en() && TRAD[v]) ? TRAD[v] : (idioma() === 'de' && TRAD_DE[v]) ? TRAD_DE[v] : v;
 
   function tarjetaConId(id) { return document.querySelector('.rd-grid .rd-card[data-id="' + id + '"]') || document.querySelector('.rd-card[data-id="' + id + '"]'); }
 
@@ -151,11 +172,11 @@
       });
       if (gEs === 'Equipamiento' && chkEq && chkEq.checked) {
         const todos = new Map();
-        cols.forEach(c => (c.eq || []).forEach(([es_, en_]) => { if (!todos.has(es_)) todos.set(es_, en_); }));
-        [...todos].sort((a, b) => a[0].localeCompare(b[0], 'es')).forEach(([es_, en_]) => {
+        cols.forEach(c => (c.eq || []).forEach(([es_, en_, de_]) => { if (!todos.has(es_)) todos.set(es_, [en_, de_]); }));
+        [...todos].sort((a, b) => a[0].localeCompare(b[0], 'es')).forEach(([es_, [en_, de_]]) => {
           const tiene = cols.map(c => (c.eq || []).some(x => x[0] === es_));
           const celdas = tiene.map(s => s ? '<td class="rd-cx-si">✓</td>' : '<td class="rd-cx-no">—</td>');
-          cuerpo += fila(t(es_, en_), celdas, nCols > 1 && tiene.every(Boolean));
+          cuerpo += fila(t(es_, en_, de_), celdas, nCols > 1 && tiene.every(Boolean));
         });
       }
       if (cuerpo) h += '<tr class="rd-cx-grupo"><td colspan="' + (nCols + 1) + '">' + t(gEs, gEn) + '</td></tr>' + cuerpo;
