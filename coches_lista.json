@@ -226,9 +226,9 @@
   {
     "id": "dwa-155656699",
     "modelo": "CUPRA Formentor",
-    "precio": "35.500",
+    "precio": "34.500",
     "foto": "/web_fotos/36/foto_01.jpg",
-    "antes_auto": 36500
+    "antes_auto": 35500
   },
   {
     "id": "dwa-156969010",
@@ -264,6 +264,20 @@
     "precio": "33.500",
     "foto": "/web_fotos/42/foto_01.jpg",
     "antes_auto": 33900
+  },
+  {
+    "id": "mf-200564665",
+    "modelo": "SEAT Arona",
+    "precio": "21.900",
+    "foto": "/web_fotos/mf-200564665/foto_01.jpg",
+    "antes_auto": 0
+  },
+  {
+    "id": "mf-200545741",
+    "modelo": "SEAT Ibiza",
+    "precio": "17.900",
+    "foto": "/web_fotos/mf-200545741/foto_01.jpg",
+    "antes_auto": 0
   },
   {
     "id": "mf-198019852",

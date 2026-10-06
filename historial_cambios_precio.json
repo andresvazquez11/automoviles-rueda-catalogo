@@ -8,5 +8,15 @@
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-tavascan-electrico-286-cv-del-2026-en-malaga/166434652",
     "precio_anterior": 43900.0,
     "precio_nuevo": 41900.0
+  },
+  {
+    "fecha_iso": "2026-10-06T10:33:57",
+    "fecha": "06/10/2026",
+    "n": 36,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656699",
+    "precio_anterior": 35500.0,
+    "precio_nuevo": 34500.0
   }
 ]
