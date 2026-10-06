@@ -717,6 +717,7 @@ def asset(nombre: str) -> str:
 ASSET_ESTILOS     = asset("estilos.css")
 ASSET_IDIOMA      = asset("idioma.js")
 ASSET_CALCULADORA = asset("calculadora.js")
+ASSET_IMPRIMIR    = asset("imprimir.js")
 ASSET_REBAJAS     = asset("rebajas.js")
 ASSET_COMPARADOR  = asset("comparador.js")
 ASSET_CONFIANZA   = asset("confianza.js")
@@ -1254,7 +1255,8 @@ CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_
     background: transparent; border: 1px solid rgba(255,255,255,.15); color: #fff;
     transition: all 0.15s;
   }
-  .btn-phone:hover { border-color: #C8232B; color: #C8232B; }'''
+  .btn-phone:hover { border-color: #C8232B; color: #C8232B; }
+  button.btn-print { width: 100%; }'''
 
 CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
       <div class="cv2-car-bar">
@@ -1451,6 +1453,10 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           __TEL_DISPLAY__ · __NOMBRE_CORTO__
         </a>
+        <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('VWFS')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir simulación · A4
+        </button>
         <div class="cv2-legal" id="cv2-legal"></div>
       </div>'''
 
@@ -1516,8 +1522,28 @@ BBVA_HTML_INTERIOR = '''    <div class="bbva-bar">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         __TEL_DISPLAY__ · __NOMBRE_CORTO__
       </a>
+      <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('BBVA')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Imprimir simulación · A4
+      </button>
       <div class="bbva-legal" id="bbva-legal"></div>
     </div>'''
+
+def datos_impresion(ficha: "dict | None") -> dict:
+    """Datos extra para la hoja A4 de "Imprimir simulación" (assets/imprimir.js):
+    potencia, consumo, pintura... y los extras opcionales de la ficha técnica."""
+    if not ficha:
+        return {}
+    gen = ficha.get("gen") or {}
+    extras = [e for grupo in (ficha.get("extras") or {}).values() for e in grupo]
+    return {
+        "potencia": gen.get("potencia", ""), "consumo": gen.get("consumo", ""),
+        "co2": gen.get("co2", ""), "traccion": gen.get("traccion", ""),
+        "puertas": gen.get("puertas", ""), "garantia": gen.get("garantia", ""),
+        "autonomia": gen.get("autonomia_electrica", ""),
+        "pintura": ficha.get("pintura", ""), "tapizado": ficha.get("tapizado", ""),
+        "extras": extras[:12],
+    }
 
 def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
                      ficha: "dict | None" = None) -> str:
@@ -1552,6 +1578,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
         "equipamiento": car.get("equipamiento", []),
         "equipamiento_en": trad["equipamiento_en"],
         "fotos": fotos,
+        "imprimir": datos_impresion(ficha),
     }, ensure_ascii=False)
 
     asesor_json = json.dumps({
@@ -1686,6 +1713,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 const ASESOR = {asesor_json};
 </script>
 <script src="{ASSET_CALCULADORA}"></script>
+<script src="{ASSET_IMPRIMIR}"></script>
 <script>
 const COCHE = {coche_json};
 cargarFicha(COCHE);

@@ -429,6 +429,7 @@
     transition: all 0.15s;
   }
   .btn-phone:hover { border-color: #C8232B; color: #C8232B; }
+  button.btn-print { width: 100%; }
 </style>
 </head>
 <body class="rd-has-sticky">
@@ -725,6 +726,10 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           685 90 77 41 · Alejandro
         </a>
+        <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('VWFS')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir simulación · A4
+        </button>
         <div class="cv2-legal" id="cv2-legal"></div>
       </div>
   </div>
@@ -792,6 +797,10 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         685 90 77 41 · Alejandro
       </a>
+      <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('BBVA')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Imprimir simulación · A4
+      </button>
       <div class="bbva-legal" id="bbva-legal"></div>
     </div>
   </div>
@@ -816,8 +825,9 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
 const ASESOR = {"nombreCorto": "Alejandro", "telefonoDisplay": "685 90 77 41", "telefonoWa": "34685907741"};
 </script>
 <script src="/assets/calculadora.js?v=549ef665"></script>
+<script src="/assets/imprimir.js?v=d87aee39"></script>
 <script>
-const COCHE = {"n": 34, "modelo": "SEAT Arona", "version": "1.0 TSI S&S FR Plus DSG 81 kW (110 CV)", "version_en": "1.0 TSI S&S FR Plus DSG 81 kW (110 HP)", "combustible": "Gasolina", "km": "78.233", "fecha": "06/2022", "fin_fecha_iso": "2022-06", "cambio": "Automático", "color": "", "color_en": "", "precio": "17.500", "estado": "No disponible", "vendido": false, "id": "dwa-151394046", "antes_auto": 0, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-110-cv-del-2022-en-malaga/151394046", "equipamiento": ["Asistente frontal incluido con función frenada de emergencia para acc high", "Calefacción/climatizador climatronic, con regulación de polvo en el aire, libre de cfc", "Sensores de aparcamiento delanteros con radar, sensores de aparcamiento traseros con radar y cámara, sensores de aparcamiento en los lados con radar", "Asistente de mantenimiento de carril y asistente para atascos", "Asistente de aparcamiento", "Asientos de simil ante (material principal) y de vinilo/símil cuero (material secundario)", "Controles de climatización diferenciados digitales para conductor/acompañante", "Velocidad máxima: 190 km/h", "Blanco (sólido) Techo Negro", "Llantas de aleación de 46cm (18\") PERFORMANCE AERO"], "equipamiento_en": ["Front Assist including emergency braking function for High ACC", "Climatronic climate control system with dust/pollen filter (CFC-free)", "Front, rear, and side radar parking sensors with rear-view camera", "Lane Assist and Traffic Jam Assist", "Park Assist", "Faux suede seats (main material) with synthetic leather/vinyl trim (secondary material)", "Dual-zone digital climate control for driver and passenger", "Top speed: 190 km/h", "Solid White with Black Roof", "18\" PERFORMANCE AERO alloy wheels"], "fotos": ["/web_fotos/34/foto_01.jpg", "/web_fotos/34/foto_02.jpg", "/web_fotos/34/foto_03.jpg", "/web_fotos/34/foto_04.jpg", "/web_fotos/34/foto_05.jpg", "/web_fotos/34/foto_06.jpg", "/web_fotos/34/foto_07.jpg", "/web_fotos/34/foto_08.jpg"]};
+const COCHE = {"n": 34, "modelo": "SEAT Arona", "version": "1.0 TSI S&S FR Plus DSG 81 kW (110 CV)", "version_en": "1.0 TSI S&S FR Plus DSG 81 kW (110 HP)", "combustible": "Gasolina", "km": "78.233", "fecha": "06/2022", "fin_fecha_iso": "2022-06", "cambio": "Automático", "color": "", "color_en": "", "precio": "17.500", "estado": "No disponible", "vendido": false, "id": "dwa-151394046", "antes_auto": 0, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-110-cv-del-2022-en-malaga/151394046", "equipamiento": ["Asistente frontal incluido con función frenada de emergencia para acc high", "Calefacción/climatizador climatronic, con regulación de polvo en el aire, libre de cfc", "Sensores de aparcamiento delanteros con radar, sensores de aparcamiento traseros con radar y cámara, sensores de aparcamiento en los lados con radar", "Asistente de mantenimiento de carril y asistente para atascos", "Asistente de aparcamiento", "Asientos de simil ante (material principal) y de vinilo/símil cuero (material secundario)", "Controles de climatización diferenciados digitales para conductor/acompañante", "Velocidad máxima: 190 km/h", "Blanco (sólido) Techo Negro", "Llantas de aleación de 46cm (18\") PERFORMANCE AERO"], "equipamiento_en": ["Front Assist including emergency braking function for High ACC", "Climatronic climate control system with dust/pollen filter (CFC-free)", "Front, rear, and side radar parking sensors with rear-view camera", "Lane Assist and Traffic Jam Assist", "Park Assist", "Faux suede seats (main material) with synthetic leather/vinyl trim (secondary material)", "Dual-zone digital climate control for driver and passenger", "Top speed: 190 km/h", "Solid White with Black Roof", "18\" PERFORMANCE AERO alloy wheels"], "fotos": ["/web_fotos/34/foto_01.jpg", "/web_fotos/34/foto_02.jpg", "/web_fotos/34/foto_03.jpg", "/web_fotos/34/foto_04.jpg", "/web_fotos/34/foto_05.jpg", "/web_fotos/34/foto_06.jpg", "/web_fotos/34/foto_07.jpg", "/web_fotos/34/foto_08.jpg"], "imprimir": {"potencia": "110 CV (81 kW)", "consumo": "4,8 l/100 km", "co2": "135 g/km", "traccion": "Delantera", "puertas": "5", "garantia": "12 meses desde la compra (Das WeltAuto)", "autonomia": "", "pintura": "Blanco (sólido) Techo Negro", "tapizado": "Negro (tela)", "extras": ["Asistente de mantenimiento de carril y asistente para atascos", "Asistente frontal incluido con función frenada de emergencia para acc high", "Asistente de aparcamiento", "Sistemas de cámara/vigilancia sensorial del entorno con sistema de cámara de marcha atrás (versión 1)", "Cámara y/o sensor de distancia (sistema de asistencia al conductor)", "Calefacción/climatizador climatronic, con regulación de polvo en el aire, libre de cfc", "Sistema de Navegación High", "Control por voz", "RED PACK", "Llantas de aleación de 46cm (18\") PERFORMANCE AERO", "Faros antiniebla LED", "Rueda de repuesto minimizada 46cm (18\")"]}};
 cargarFicha(COCHE);
 window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
 </script>
@@ -832,7 +842,7 @@ window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 05/10/2026 — 16:06 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 06/10/2026 — 09:32 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">

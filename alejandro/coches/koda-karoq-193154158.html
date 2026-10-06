@@ -429,6 +429,7 @@
     transition: all 0.15s;
   }
   .btn-phone:hover { border-color: #C8232B; color: #C8232B; }
+  button.btn-print { width: 100%; }
 </style>
 </head>
 <body class="rd-has-sticky">
@@ -725,6 +726,10 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           685 90 77 41 · Alejandro
         </a>
+        <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('VWFS')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir simulación · A4
+        </button>
         <div class="cv2-legal" id="cv2-legal"></div>
       </div>
   </div>
@@ -792,6 +797,10 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         685 90 77 41 · Alejandro
       </a>
+      <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('BBVA')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Imprimir simulación · A4
+      </button>
       <div class="bbva-legal" id="bbva-legal"></div>
     </div>
   </div>
@@ -816,8 +825,9 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
 const ASESOR = {"nombreCorto": "Alejandro", "telefonoDisplay": "685 90 77 41", "telefonoWa": "34685907741"};
 </script>
 <script src="/assets/calculadora.js?v=549ef665"></script>
+<script src="/assets/imprimir.js?v=d87aee39"></script>
 <script>
-const COCHE = {"n": 6, "modelo": "ŠKODA Karoq", "version": "2.0 TDI Ambition 85 kW (115 CV)", "version_en": "2.0 TDI Ambition 85 kW (115 hp)", "combustible": "Diésel", "km": "91.250", "fecha": "01/2023", "fin_fecha_iso": "2023-01", "cambio": "Manual", "color": "Azul", "color_en": "Blue", "precio": "21.500", "estado": "Disponible", "vendido": false, "id": "dwa-193154158", "antes_auto": 0, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/skoda-karoq-diesel-115-cv-del-2023-en-malaga/193154158", "equipamiento": ["Sensores de aparcamiento delanteros con radar, sensores de aparcamiento traseros con radar y cámara", "Tapizado de asientos - Suedia/Cuero", "Asientos VARIOFLEX, lámpara LED extraíble y elementos de fijación de carga en el maletero", "Asistente de mantenimiento de carril", "Controles de climatización diferenciados digitales para conductor/acompañante", "Velocidad máxima: -", "Paquete LED", "Llantas SCUTUS Aero 17\" con elementos aerodinámicos en negro mate", "Pack Multimedia L", "Reposabrazos central delantero \"JUMBO BOX\" con conversor de tensión 230V y 2x USB plazas traseras"], "equipamiento_en": ["Front radar parking sensors, rear radar parking sensors and camera", "Seat upholstery - Suedia/Leather", "VARIOFLEX seats, removable LED light, and boot cargo securing features", "Lane Keeping Assist", "Dual-zone digital climate control for driver and front passenger", "Top speed: -", "LED Package", "17\" SCUTUS Aero alloy wheels with matte black aerodynamic trim", "Multimedia Pack L", "Front centre armrest \"JUMBO BOX\" with 230V power inverter and 2x rear USB ports"], "fotos": ["/web_fotos/06/foto_01.jpg", "/web_fotos/06/foto_02.jpg", "/web_fotos/06/foto_03.jpg", "/web_fotos/06/foto_04.jpg", "/web_fotos/06/foto_05.jpg", "/web_fotos/06/foto_06.jpg", "/web_fotos/06/foto_07.jpg", "/web_fotos/06/foto_08.jpg"]};
+const COCHE = {"n": 6, "modelo": "ŠKODA Karoq", "version": "2.0 TDI Ambition 85 kW (115 CV)", "version_en": "2.0 TDI Ambition 85 kW (115 hp)", "combustible": "Diésel", "km": "91.250", "fecha": "01/2023", "fin_fecha_iso": "2023-01", "cambio": "Manual", "color": "Azul", "color_en": "Blue", "precio": "21.500", "estado": "Disponible", "vendido": false, "id": "dwa-193154158", "antes_auto": 0, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/skoda-karoq-diesel-115-cv-del-2023-en-malaga/193154158", "equipamiento": ["Sensores de aparcamiento delanteros con radar, sensores de aparcamiento traseros con radar y cámara", "Tapizado de asientos - Suedia/Cuero", "Asientos VARIOFLEX, lámpara LED extraíble y elementos de fijación de carga en el maletero", "Asistente de mantenimiento de carril", "Controles de climatización diferenciados digitales para conductor/acompañante", "Velocidad máxima: -", "Paquete LED", "Llantas SCUTUS Aero 17\" con elementos aerodinámicos en negro mate", "Pack Multimedia L", "Reposabrazos central delantero \"JUMBO BOX\" con conversor de tensión 230V y 2x USB plazas traseras"], "equipamiento_en": ["Front radar parking sensors, rear radar parking sensors and camera", "Seat upholstery - Suedia/Leather", "VARIOFLEX seats, removable LED light, and boot cargo securing features", "Lane Keeping Assist", "Dual-zone digital climate control for driver and front passenger", "Top speed: -", "LED Package", "17\" SCUTUS Aero alloy wheels with matte black aerodynamic trim", "Multimedia Pack L", "Front centre armrest \"JUMBO BOX\" with 230V power inverter and 2x rear USB ports"], "fotos": ["/web_fotos/06/foto_01.jpg", "/web_fotos/06/foto_02.jpg", "/web_fotos/06/foto_03.jpg", "/web_fotos/06/foto_04.jpg", "/web_fotos/06/foto_05.jpg", "/web_fotos/06/foto_06.jpg", "/web_fotos/06/foto_07.jpg", "/web_fotos/06/foto_08.jpg"], "imprimir": {"potencia": "115 CV (85 kW)", "consumo": "4,8 l/100 km", "co2": "126 g/km", "traccion": "Delantera", "puertas": "5", "garantia": "12 meses desde la compra (Das WeltAuto)", "autonomia": "", "pintura": "Azul Lava metalizado", "tapizado": "", "extras": ["Asistente de mantenimiento de carril", "Ayuda de aparcamiento delante y detrás", "Regulador de velocidad plus limitador de velocidad", "Con sistema de cámara de marcha atrás", "Con cámara multifuncional", "Asientos VARIOFLEX, lámpara LED extraíble y elementos de fijación de carga en el maletero", "Cierre centralizado \"Keyless-Go\" sin cierre de seguridad", "3 asientos individuales (en la 1ª fila de asientos)", "Retrovisor exterior con ajuste automático de posición antideslumbrante, ajustable y abatible eléctricamente y térmico", "Telefonía confort con LTE y Wireless charging", "Aparato de navegación estándar con paquete Media e Internet", "App-Connect con cable e inalámbrico"]}};
 cargarFicha(COCHE);
 window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
 </script>
@@ -832,7 +842,7 @@ window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 05/10/2026 — 16:06 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 06/10/2026 — 09:32 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">

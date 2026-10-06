@@ -429,6 +429,7 @@
     transition: all 0.15s;
   }
   .btn-phone:hover { border-color: #C8232B; color: #C8232B; }
+  button.btn-print { width: 100%; }
 </style>
 </head>
 <body class="rd-has-sticky">
@@ -729,6 +730,10 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           685 90 77 41 · Alejandro
         </a>
+        <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('VWFS')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir simulación · A4
+        </button>
         <div class="cv2-legal" id="cv2-legal"></div>
       </div>
   </div>
@@ -796,6 +801,10 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         685 90 77 41 · Alejandro
       </a>
+      <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('BBVA')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Imprimir simulación · A4
+      </button>
       <div class="bbva-legal" id="bbva-legal"></div>
     </div>
   </div>
@@ -820,8 +829,9 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
 const ASESOR = {"nombreCorto": "Alejandro", "telefonoDisplay": "685 90 77 41", "telefonoWa": "34685907741"};
 </script>
 <script src="/assets/calculadora.js?v=549ef665"></script>
+<script src="/assets/imprimir.js?v=d87aee39"></script>
 <script>
-const COCHE = {"n": 43, "modelo": "CUPRA Leon", "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)", "version_en": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 HP)", "combustible": "Híbrido", "km": "150", "fecha": "01/2026", "fin_fecha_iso": "2026-01", "cambio": "Automático", "color": "", "color_en": "", "precio": "41.300", "estado": "Retirado", "vendido": true, "id": "dwa-151395102", "antes_auto": 0, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/151395102", "equipamiento": ["Driving Performance pack: DCC + Llantas aleación 48cm (19\") - Polar Copper", "Asientos calefaccionados", "Asistente de aparcamiento inteligente", "Asientos de tela (material principal) y de cuero sintético (material secundario)", "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros", "Aire acondicionado trizona con mandos traseros para el climatizador de automático", "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED", "Velocidad máxima: 220 km/h", "Edge Pack", "Intelligent Drive Pack"], "equipamiento_en": ["Driving Performance Pack: DCC + 19\" alloy wheels - Polar Copper", "Heated front seats", "Intelligent Park Assist", "Cloth upholstery (main) with synthetic leather trim (secondary)", "Separate climate controls for driver, front passenger, and rear seats", "Three-zone automatic climate control with rear controls", "Full LED lighting: brake lights, front fog lights, low beams, side indicators, daytime running lights, tail lights, and high beams", "Top speed: 220 km/h", "Edge Pack", "Intelligent Drive Pack"], "fotos": []};
+const COCHE = {"n": 43, "modelo": "CUPRA Leon", "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)", "version_en": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 HP)", "combustible": "Híbrido", "km": "150", "fecha": "01/2026", "fin_fecha_iso": "2026-01", "cambio": "Automático", "color": "", "color_en": "", "precio": "41.300", "estado": "Retirado", "vendido": true, "id": "dwa-151395102", "antes_auto": 0, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/151395102", "equipamiento": ["Driving Performance pack: DCC + Llantas aleación 48cm (19\") - Polar Copper", "Asientos calefaccionados", "Asistente de aparcamiento inteligente", "Asientos de tela (material principal) y de cuero sintético (material secundario)", "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros", "Aire acondicionado trizona con mandos traseros para el climatizador de automático", "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED", "Velocidad máxima: 220 km/h", "Edge Pack", "Intelligent Drive Pack"], "equipamiento_en": ["Driving Performance Pack: DCC + 19\" alloy wheels - Polar Copper", "Heated front seats", "Intelligent Park Assist", "Cloth upholstery (main) with synthetic leather trim (secondary)", "Separate climate controls for driver, front passenger, and rear seats", "Three-zone automatic climate control with rear controls", "Full LED lighting: brake lights, front fog lights, low beams, side indicators, daytime running lights, tail lights, and high beams", "Top speed: 220 km/h", "Edge Pack", "Intelligent Drive Pack"], "fotos": [], "imprimir": {"potencia": "204 CV (150 kW)", "consumo": "5,2 l/100 km", "co2": "", "traccion": "Delantera", "puertas": "5", "garantia": "28 meses (de fábrica)", "autonomia": "123 km", "pintura": "Gris Graephene (metalizado)", "tapizado": "Negro (Dinamica)", "extras": ["Intelligent Drive Pack", "Sistema de mantenimiento de carril avanzado", "Sistema de alarma antirrobo", "Asistente de aparcamiento inteligente", "Limitador de velocidad predictivo", "Cámara multifunción", "Volante superdeportivo con tiptronic, térmico", "Asiento eléctrico", "Asientos calefaccionados", "Aire acondicionado Climatronic", "Tapizado de asientos en tela", "Asientos deportivos"]}};
 cargarFicha(COCHE);
 window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
 </script>
@@ -836,7 +846,7 @@ window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 05/10/2026 — 16:06 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 06/10/2026 — 09:32 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">

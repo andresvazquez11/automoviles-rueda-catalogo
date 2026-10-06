@@ -429,6 +429,7 @@
     transition: all 0.15s;
   }
   .btn-phone:hover { border-color: #C8232B; color: #C8232B; }
+  button.btn-print { width: 100%; }
 </style>
 </head>
 <body class="rd-has-sticky">
@@ -737,6 +738,10 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           610 02 90 56 · Andrés
         </a>
+        <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('VWFS')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir simulación · A4
+        </button>
         <div class="cv2-legal" id="cv2-legal"></div>
       </div>
   </div>
@@ -804,6 +809,10 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         610 02 90 56 · Andrés
       </a>
+      <button type="button" class="btn-phone btn-print" onclick="rdImprimirSimulacion('BBVA')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Imprimir simulación · A4
+      </button>
       <div class="bbva-legal" id="bbva-legal"></div>
     </div>
   </div>
@@ -828,8 +837,9 @@ function ftTab(b,i){const c=b.closest('.ft-card');c.querySelectorAll('.ft-tab').
 const ASESOR = {"nombreCorto": "Andrés", "telefonoDisplay": "610 02 90 56", "telefonoWa": "34610029056"};
 </script>
 <script src="/assets/calculadora.js?v=549ef665"></script>
+<script src="/assets/imprimir.js?v=d87aee39"></script>
 <script>
-const COCHE = {"n": 19, "modelo": "SEAT Ibiza", "version": "1.0 TSI S&S Style 85 kW (115 CV)", "version_en": "1.0 TSI S&S Style 85 kW (115 HP)", "combustible": "Gasolina", "km": "100", "fecha": "04/2026", "fin_fecha_iso": "2026-04", "cambio": "Manual", "color": "", "color_en": "", "precio": "20.900", "estado": "Disponible", "vendido": false, "id": "dwa-169786447", "antes_auto": 0, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2026-en-malaga/169786447", "equipamiento": ["Asistente frontal incluido función frenada de emergencia para ACC High", "Asistente de mantenimiento de carril", "Velocidad máxima: 200 km/h", "Tapicería premium Aurora", "Llantas de aleación de 41cm 16\" machined Design", "Volante multifunción deportivo de cuero", "Climatronic bizona", "Con sistema de cámara de marcha atrás", "Reconocimiento de señales de trafico", "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 6,5 pulgadas de ancho 40,6, 16,5 y PG4"], "equipamiento_en": ["Front Assist including emergency braking function for ACC High", "Lane Keeping Assist", "Top speed: 200 km/h", "Aurora premium upholstery", "16\" Machined Design alloy wheels", "Leather multifunction sports steering wheel", "Dual-zone Climatronic climate control", "Rearview camera system", "Traffic sign recognition", "Front and rear 16-inch alloy wheels, 6.5 inches wide (40.6 cm, 16.5, PG4)"], "fotos": ["/web_fotos/19/foto_01.jpg", "/web_fotos/19/foto_02.jpg", "/web_fotos/19/foto_03.jpg", "/web_fotos/19/foto_04.jpg", "/web_fotos/19/foto_05.jpg", "/web_fotos/19/foto_06.jpg", "/web_fotos/19/foto_07.jpg", "/web_fotos/19/foto_08.jpg"]};
+const COCHE = {"n": 19, "modelo": "SEAT Ibiza", "version": "1.0 TSI S&S Style 85 kW (115 CV)", "version_en": "1.0 TSI S&S Style 85 kW (115 HP)", "combustible": "Gasolina", "km": "100", "fecha": "04/2026", "fin_fecha_iso": "2026-04", "cambio": "Manual", "color": "", "color_en": "", "precio": "20.900", "estado": "Disponible", "vendido": false, "id": "dwa-169786447", "antes_auto": 0, "url": "https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2026-en-malaga/169786447", "equipamiento": ["Asistente frontal incluido función frenada de emergencia para ACC High", "Asistente de mantenimiento de carril", "Velocidad máxima: 200 km/h", "Tapicería premium Aurora", "Llantas de aleación de 41cm 16\" machined Design", "Volante multifunción deportivo de cuero", "Climatronic bizona", "Con sistema de cámara de marcha atrás", "Reconocimiento de señales de trafico", "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 6,5 pulgadas de ancho 40,6, 16,5 y PG4"], "equipamiento_en": ["Front Assist including emergency braking function for ACC High", "Lane Keeping Assist", "Top speed: 200 km/h", "Aurora premium upholstery", "16\" Machined Design alloy wheels", "Leather multifunction sports steering wheel", "Dual-zone Climatronic climate control", "Rearview camera system", "Traffic sign recognition", "Front and rear 16-inch alloy wheels, 6.5 inches wide (40.6 cm, 16.5, PG4)"], "fotos": ["/web_fotos/19/foto_01.jpg", "/web_fotos/19/foto_02.jpg", "/web_fotos/19/foto_03.jpg", "/web_fotos/19/foto_04.jpg", "/web_fotos/19/foto_05.jpg", "/web_fotos/19/foto_06.jpg", "/web_fotos/19/foto_07.jpg", "/web_fotos/19/foto_08.jpg"], "imprimir": {"potencia": "115 CV (85 kW)", "consumo": "5,0 l/100 km", "co2": "115 g/km", "traccion": "Delantera", "puertas": "5", "garantia": "31 meses (de fábrica)", "autonomia": "", "pintura": "", "tapizado": "Tapicería premium Aurora", "extras": ["Asistente de mantenimiento de carril", "Asistente frontal incluido función frenada de emergencia para ACC High", "Sistema de detección de cansancio", "Con sistema de cámara de marcha atrás", "Paquete Safe & Driving M", "Volante multifunción deportivo de cuero", "Climatronic bizona", "Sistema de Navegación High", "App-connect con cable e inalámbrico", "Control por voz", "Sistema de navegación", "Llantas de aleación de 41cm 16\" machined Design"]}};
 cargarFicha(COCHE);
 window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
 </script>
@@ -844,7 +854,7 @@ window.rdAlCambiarIdioma = function() { cargarFicha(COCHE); };
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener">Ver todos los coches en Das WeltAuto ↗</a>
   </p>
-  <p class="rd-footer-updated">🔄 Última actualización: 05/10/2026 — 16:06 h</p>
+  <p class="rd-footer-updated">🔄 Última actualización: 06/10/2026 — 09:32 h</p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">
