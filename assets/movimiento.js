@@ -7,21 +7,20 @@
   var reducir = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ── 1) Cabecera compacta ─────────────────────────────────────────
-     La cabecera pasa a position:fixed y deja un hueco de su altura
-     completa en su sitio: así, al encogerse, el contenido de debajo
-     NO salta (con sticky, encoger la cabecera movía toda la página). */
+     Arriba del todo la cabecera es la de siempre (sticky, ocupa su sitio:
+     nunca tapa nada, p. ej. "Volver al catálogo"). Solo al compactarse pasa
+     a position:fixed y deja en su lugar un hueco con su altura completa,
+     medida JUSTO antes de compactar: así el contenido de debajo no salta.
+     (Antes el hueco se medía al cargar; en Safari a veces quedaba más bajo
+     que la cabecera y esta tapaba el enlace de volver.) */
   function iniciarCabecera() {
     var header = document.querySelector('.rd-header');
     if (!header) return;
     var hueco = document.createElement('div');
     hueco.className = 'rd-header-hueco';
     header.insertAdjacentElement('afterend', hueco);
-    document.body.classList.add('rd-header-fijo');
 
     var compacta = false;
-    function medir() {
-      if (!compacta) hueco.style.height = header.offsetHeight + 'px';
-    }
     function actualizar() {
       var y = window.scrollY || window.pageYOffset;
       // Histéresis: se compacta al pasar 120px y no se expande hasta volver
@@ -29,17 +28,15 @@
       var nueva = compacta ? y > 40 : y > 120;
       if (nueva === compacta) return;
       compacta = nueva;
+      if (compacta) hueco.style.height = header.offsetHeight + 'px';
+      document.body.classList.toggle('rd-header-fijo', compacta);
       header.classList.toggle('rd-header--compacto', compacta);
       // Reinicia el fundido de entrada del contenido de la cabecera.
       header.classList.remove('rd-header-cambia');
       void header.offsetWidth;
       header.classList.add('rd-header-cambia');
-      if (!compacta) requestAnimationFrame(medir);
     }
-    medir();
     actualizar();
-    if (window.ResizeObserver) new ResizeObserver(medir).observe(header);
-    window.addEventListener('resize', medir, { passive: true });
     window.addEventListener('scroll', actualizar, { passive: true });
   }
   if (document.readyState === 'loading') {

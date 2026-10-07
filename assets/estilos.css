@@ -1076,14 +1076,16 @@ body.rd-cx-abierto { overflow: hidden; }
 :root { --rd-ease-out: cubic-bezier(0.23, 1, 0.32, 1); }
 
 /* ── Cabecera compacta ──
-   movimiento.js añade body.rd-header-fijo: la cabecera pasa a fixed y un
-   hueco (.rd-header-hueco) guarda su altura completa, así el contenido no
-   salta al encogerse. Sin JS se queda sticky como siempre. */
+   Solo mientras está compacta (movimiento.js pone body.rd-header-fijo) la
+   cabecera pasa a fixed y un hueco (.rd-header-hueco) guarda su altura
+   completa. Arriba del todo es sticky como siempre y no tapa nada. */
 body.rd-header-fijo .rd-header { position: fixed; left: 0; right: 0; top: 0; }
 .rd-header-hueco { display: none; }
 body.rd-header-fijo .rd-header-hueco { display: block; }
+/* Sin transición de padding: al volver arriba la cabecera recupera su
+   altura de golpe y ocupa exactamente el hueco que deja → nada salta. */
 .rd-header {
-  transition: padding .22s var(--rd-ease-out), background-color .22s ease, box-shadow .22s ease;
+  transition: background-color .22s ease, box-shadow .22s ease;
 }
 .rd-header--compacto {
   padding-top: 8px; padding-bottom: 8px;
