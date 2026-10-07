@@ -1210,6 +1210,12 @@ CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_
   }
   #fin-vwfs.active { background: rgba(200,35,43,.14); border-color: #C8232B; color: #C8232B; }
   #fin-bbva.active { background: rgba(20,121,201,.14); border-color: #1479C9; color: #1479C9; }
+  #fin-caixa.active { background: rgba(0,159,227,.14); border-color: #009FE3; color: #009FE3; }
+  .caixa-panel { border-top-color: rgba(0,159,227,0.55); }
+  @media (max-width: 480px) {
+    .financiera-tabs { gap: 6px; }
+    .financiera-tab { font-size: 15px; letter-spacing: 1px; padding: 14px 6px; }
+  }
 
   /* ── Panel BBVA (Préstamo Vehículo — TIN 5,75% fijo) ── */
   .bbva-panel { background: #0d1120; border-top: 2px solid rgba(20,121,201,0.5); color: #f0f4ff; overflow: hidden; }
@@ -1317,23 +1323,24 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
         <!-- Campaña -->
         <div class="cv2-slbl" style="margin-top:16px;">Campaña</div>
         <div class="cv2-camp-pills" id="cv2-camp-seat" style="display:none">
-          <button class="cv2-camp-pill active" id="cv2-entry" onclick="cv2SetCampana('ENTRY')">ENTRY · 7,5%</button>
+          <button class="cv2-camp-pill active" id="cv2-entry" onclick="cv2SetCampana('ENTRY')">ENTRY · 7,99%</button>
           <button class="cv2-camp-pill" id="cv2-gama-seat" onclick="cv2SetCampana('GAMA')">GAMA · 8,99%</button>
         </div>
         <div class="cv2-camp-pills" id="cv2-camp-cupra" style="display:none">
           <button class="cv2-camp-pill active" id="cv2-gama-cupra" onclick="cv2SetCampana('GAMA')">GAMA · 8,99%</button>
-          <button class="cv2-camp-pill" id="cv2-approved" onclick="cv2SetCampana('APPROVED')">APPROVED · 5,95%</button>
+          <button class="cv2-camp-pill" id="cv2-approved" onclick="cv2SetCampana('APPROVED')">APPROVED · 6,45%</button>
         </div>
         <div id="cv2-camp-otra" style="display:none">
           <div class="cv2-camp-auto" id="cv2-otra-label">Automático según importe financiado</div>
         </div>
 
-        <!-- Arona Buy Back / REMA (solo visible en Arona, activación manual) -->
+        <!-- Campaña especial SEAT VS DEMOS + REMA (Octubre 2026; sustituye a Arona BB/REMA).
+             Visible solo en SEAT VS, activación manual -->
         <div class="cv2-arona-wrap" id="cv2-arona-wrap">
-          <button class="cv2-arona-btn" id="cv2-arona-btn" onclick="cv2ToggleAronaBB()">
-            ⬡ ARONA BB/REMA
+          <button class="cv2-arona-btn" id="cv2-arona-btn" onclick="cv2ToggleDemosRema()">
+            ⬡ DEMOS + REMA
           </button>
-          <span class="cv2-arona-lbl" id="cv2-arona-lbl">descuento especial inactivo</span>
+          <span class="cv2-arona-lbl" id="cv2-arona-lbl">solo si el coche es demo o REMA</span>
         </div>
 
         <!-- TIN -->
@@ -1381,6 +1388,8 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
             <button class="cv2-pill" id="cv2-pl-72" onclick="cv2SetMeses(72)">72m<span class="cv2-pill-yr">6 años</span></button>
             <button class="cv2-pill" id="cv2-pl-84" onclick="cv2SetMeses(84)">84m<span class="cv2-pill-yr">7 años</span></button>
             <button class="cv2-pill" id="cv2-pl-96" onclick="cv2SetMeses(96)">96m<span class="cv2-pill-yr">8 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-108" onclick="cv2SetMeses(108)">108m<span class="cv2-pill-yr">9 años</span></button>
+            <button class="cv2-pill" id="cv2-pl-120" onclick="cv2SetMeses(120)">120m<span class="cv2-pill-yr">10 años</span></button>
           </div>
         </div>
 
@@ -1562,6 +1571,21 @@ BBVA_HTML_INTERIOR = '''    <div class="bbva-bar">
       </button>
       <div class="bbva-legal" id="bbva-legal"></div>
     </div>'''
+
+# CaixaBank (Payments & Consumer) — Préstamo Vehículo, tarifa COM 07 26 AND RMN (TIN 5,99%,
+# con Pack Vida). Mismo panel que BBVA (mismas clases CSS), con sus propios ids y funciones
+# (caixa*) en assets/calculadora.js.
+CAIXA_HTML_INTERIOR = (BBVA_HTML_INTERIOR
+    .replace('id="bbva-', 'id="caixa-')
+    .replace("bbvaSetMeses(", "caixaSetMeses(")
+    .replace("bbvaEntradaInput(", "caixaEntradaInput(")
+    .replace("bbvaSliderMove(", "caixaSliderMove(")
+    .replace("rdImprimirSimulacion('BBVA')", "rdImprimirSimulacion('CAIXA')")
+    .replace("BBVA · Préstamo Vehículo", "CaixaBank · Préstamo Vehículo")
+    .replace("Nuevo / Seminuevo hasta 72 meses de antigüedad", "Nuevo / Ocasión hasta 96 meses de antigüedad · con Pack Vida")
+    .replace('5,75<span>% TIN</span>', '5,99<span>% TIN</span>')
+    .replace("<span>T.I.N.</span><span>5,75 %</span>", "<span>T.I.N.</span><span>5,99 %</span>")
+    .replace("Solicitar financiación BBVA · WhatsApp", "Solicitar financiación CaixaBank · WhatsApp"))
 
 def datos_impresion(ficha: "dict | None") -> dict:
     """Datos extra para la hoja A4 de "Imprimir simulación" (assets/imprimir.js):
@@ -1748,6 +1772,9 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
     <button class="financiera-tab" id="fin-bbva" onclick="setFinanciera('BBVA', this)">
       BBVA <span class="fin-sub">Préstamo Vehículo</span>
     </button>
+    <button class="financiera-tab" id="fin-caixa" onclick="setFinanciera('CAIXA', this)">
+      CAIXA <span class="fin-sub">CaixaBank</span>
+    </button>
   </div>
 
   <div class="modal-financiacion" id="m-financiacion">
@@ -1756,6 +1783,10 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 
   <div class="bbva-panel" id="bbva-financiacion" style="display:none">
 {BBVA_HTML_INTERIOR}
+  </div>
+
+  <div class="bbva-panel caixa-panel" id="caixa-financiacion" style="display:none">
+{CAIXA_HTML_INTERIOR}
   </div>
 
   {bloque_final}

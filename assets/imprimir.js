@@ -162,7 +162,7 @@
     // Financiación
     'Bonificación VWFS': ['VWFS discount', 'VWFS-Bonus'], 'Entrada inicial': ['Down payment', 'Anzahlung'],
     'Seguro de Protección Plus (opcional, financiado)': ['Protection Plus insurance (optional, financed)', 'Protection-Plus-Versicherung (optional, finanziert)'],
-    'Comisión de apertura financiada (3,5 %)': ['Financed opening fee (3.5 %)', 'Finanzierte Bearbeitungsgebühr (3,5 %)'],
+    'Comisión de apertura financiada (2,99 %)': ['Financed opening fee (2.99 %)', 'Finanzierte Bearbeitungsgebühr (2,99 %)'],
     'Importe total financiado': ['Total amount financed', 'Finanzierter Gesamtbetrag'],
     'Importe financiado': ['Amount financed', 'Finanzierter Betrag'],
     'T.I.N.': ['Nominal rate (TIN)', 'Sollzins (TIN)'], 'T.I.N. fijo': ['Fixed nominal rate (TIN)', 'Fester Sollzins (TIN)'],
@@ -181,6 +181,9 @@
     'Comisión de apertura y seguro PPP': ['Opening fee and PPI insurance', 'Bearbeitungsgebühr und Restschuldversicherung'],
     'Incluidos en la cuota': ['Included in the instalment', 'In der Rate enthalten'],
     'BBVA · Préstamo Vehículo': ['BBVA · Car loan', 'BBVA · Autokredit'],
+    'CaixaBank · Préstamo Vehículo': ['CaixaBank · Car loan', 'CaixaBank · Autokredit'],
+    'Tarifa nuevo y ocasión · con Pack Vida': ['New and used-car rate · with life cover', 'Tarif Neu- und Gebrauchtwagen · mit Lebensversicherung'],
+    'Gastos (3,99 %) y seguro Pack Vida': ['Fees (3.99 %) and life cover', 'Gebühren (3,99 %) und Lebensversicherung'],
     'meses': ['months', 'Monate'], 'cuotas': ['instalments', 'Raten'], 'financiación': ['finance', 'Finanzierung'],
     '/ mes': ['/ month', '/ Monat'],
     'de': ['of', 'von'], 'resto en la ficha online': ['see the online listing for the rest', 'Rest im Online-Datenblatt'], '€/mes': ['€/month', '€/Monat'], 'km/año': ['km/year', 'km/Jahr'],
@@ -241,7 +244,7 @@
     if (res.bonif > 0) filas.push([L('Bonificación VWFS'), '−' + eur(res.bonif)]);
     filas.push([L('Entrada inicial'), eur(CV2.entrada)]);
     filas.push([L('Seguro de Protección Plus (opcional, financiado)'), eur2(res.seg)]);
-    filas.push([L('Comisión de apertura financiada (3,5 %)'), eur2(res.comision)]);
+    filas.push([L('Comisión de apertura financiada (2,99 %)'), eur2(res.comision)]);
     filas.push([L('Importe total financiado'), eur2(res.capital), 'sep']);
     filas.push([L('T.I.N.'), pct(rules.tinFinal)]);
     filas.push([L('Nº de cuotas'), meses]);
@@ -290,6 +293,35 @@
         [L('Precio total a plazos'), eur2(total), 'total'],
       ],
       legal,
+    };
+  }
+
+  function datosCaixa() {
+    const t = caixaTarifa();
+    const precio = CV2.precio || 0;
+    const meses = CAIXA.meses;
+    const importe = Math.max(0, precio - CAIXA.entrada);
+    const cuota = Math.round((CAIXA_COEF[meses] || 0) * importe * 100) / 100;
+    const total = Math.round((cuota * meses + CAIXA.entrada) * 100) / 100;
+    const tin = parseFloat(CAIXA_TIN.replace(',', '.'));
+    const legal = (document.getElementById('caixa-legal') || {}).textContent || '';
+    return {
+      entidad: L('CaixaBank · Préstamo Vehículo'),
+      detalle: L('Tarifa nuevo y ocasión · con Pack Vida'),
+      cuota, cuotaLbl: L('Cuota mensual'), cuotaSub: meses + ' ' + L('cuotas'),
+      claves: [[L('Plazo'), meses + ' ' + L('meses')], [L('Entrada'), eur(CAIXA.entrada)], [L('T.I.N. fijo'), pct(tin)]],
+      filas: [
+        [L('Precio al contado'), eur(precio)],
+        [L('Entrada inicial'), eur(CAIXA.entrada)],
+        [L('Importe financiado'), eur(importe), 'sep'],
+        [L('T.I.N. fijo'), pct(tin)],
+        [L('Gastos (3,99 %) y seguro Pack Vida'), L('Incluidos en la cuota')],
+        [L('Nº de cuotas'), meses + ' ' + L('meses')],
+        [L('Cuota mensual'), eur2(cuota) + ' ' + L('/ mes')],
+        [L('Precio total a plazos'), eur2(total), 'total'],
+      ],
+      legal,
+      disponible: t.disponible,
     };
   }
 
@@ -553,7 +585,9 @@
   }
 
   window.rdImprimirSimulacion = function (financiera) {
-    imprimirHoja(hojaHTML(financiera === 'BBVA' ? datosBBVA() : datosVWFS()));
+    const fin = financiera === 'BBVA' ? datosBBVA() : financiera === 'CAIXA' ? datosCaixa() : datosVWFS();
+    if (fin.disponible === false) { alert('La tarifa CaixaBank no admite este vehículo por antigüedad.'); return; }
+    imprimirHoja(hojaHTML(fin));
   };
   window.rdImprimirFicha = function () {
     imprimirHoja(hojaFichaHTML());

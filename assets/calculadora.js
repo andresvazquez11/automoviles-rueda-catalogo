@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════════════════════
    Automóviles Rueda — Motor de calculadora de financiación (compartido)
-   Extraído de generar_web.py — condiciones VWFS Agosto 2026.
+   Extraído de generar_web.py — condiciones VWFS Octubre 2026.
    NO modificar la lógica de cv2* / initCalc a mano: si cambian las
    condiciones, se actualiza generar_web.py y se re-ejecuta la
    extracción (Task 1 de docs/superpowers/plans/2026-08-08-fichas-individuales-fase2-generalizacion.md).
@@ -42,17 +42,19 @@ const CV2 = {
   mantAnios:     0,
   cupraTipo:     'TERMICO',   // 'TERMICO' | 'ELECTRICO'
   modelo:        '',
-  aronaBB:       false,       // toggle manual — campaña especial Arona BB/REMA
+  demosRema:     false,       // toggle manual — campaña especial SEAT VS DEMOS + REMA (Octubre 2026)
 };
 
 
-const CV2_ALL_PLAZOS = [24, 36, 48, 60, 72, 84, 96];
+const CV2_ALL_PLAZOS = [24, 36, 48, 60, 72, 84, 96, 108, 120];
+// Comisión de apertura VWFS (financiada): 2,99% desde Octubre 2026 (antes 3,50%)
+const CV2_COMISION = 0.0299;
 
 const CV2_MANT = {
   SEAT:                 { 2: 250,  4: 499, mandatory: false },
   CUPRA_APPROVED:       { 2: 0,    4: 400, mandatory: true  },
   CUPRA_GAMA_TERMICO:   { 2: 350,  4: 750, mandatory: true  },
-  CUPRA_GAMA_ELECTRICO: { 2: 100,  4: 450, mandatory: true  },
+  CUPRA_GAMA_ELECTRICO: { 2: 100,  4: 540, mandatory: true  },
 };
 
 function cv2GetMantKey() {
@@ -103,7 +105,9 @@ function cv2GetRules() {
 
   const producto   = tab === 'lineal' ? 'LINEAL' : 'FLEX';
   const importeNeto = Math.max(0, precio - entrada);
-  const maxGlobal  = producto === 'FLEX' ? 120 : 144;
+  // FLEX: 1ª matrícula + plazo ≤ 120 meses. LINEAL (Octubre 2026): antigüedad +
+  // plazo hasta 15 años (2º y 3er ciclo) → 180 meses.
+  const maxGlobal  = producto === 'FLEX' ? 120 : 180;
 
   let plazosDisp = [...CV2_ALL_PLAZOS];
   if (antigMeses !== null) {
@@ -114,72 +118,74 @@ function cv2GetRules() {
     if (categoria === 'VU') {
       plazosDisp = [];
     } else {
-      plazosDisp = plazosDisp.filter(p => p <= 60);
+      // FLEX: 36-60 meses en todas las campañas (SEAT, CUPRA y DEMOS + REMA)
+      plazosDisp = plazosDisp.filter(p => p >= 36 && p <= 60);
     }
   } else {
-    if (categoria === 'VS') { plazosDisp = plazosDisp.filter(p => p <= 96); }
-    else if (categoria === 'VO') { plazosDisp = plazosDisp.filter(p => p <= 84); }
+    // Octubre 2026: LINEAL VS hasta 120 meses, VO hasta 108 (antes 96 / 84)
+    if (categoria === 'VS') { plazosDisp = plazosDisp.filter(p => p <= 120); }
+    else if (categoria === 'VO') { plazosDisp = plazosDisp.filter(p => p <= 108); }
     else if (categoria === 'VU') { plazosDisp = plazosDisp.filter(p => p <= 48); }
   }
 
   let creditoMinimo = 0, bonificacion = 0, tin_auto = 7.50, campanaLabel = '';
 
   if (marca === 'SEAT') {
+    // VWFS Campaña comercial SEAT VO · Octubre 2026 (págs. 2-8)
     if (campana === 'ENTRY' && categoria !== 'VU') {
-      tin_auto = 7.50; bonificacion = 0; creditoMinimo = 10000; campanaLabel = 'ENTRY · SEAT';
+      // ENTRY: TIN 7,99% (antes 7,50%), sin bonificación. LINEAL VS 48-120 / VO 48-108
+      tin_auto = 7.99; bonificacion = 0; creditoMinimo = 10000; campanaLabel = 'ENTRY · SEAT';
       if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 48);
     } else {
       tin_auto = 8.99;
       if (categoria === 'VU') {
-        bonificacion = 400; creditoMinimo = 7000; campanaLabel = 'GAMA · SEAT · VU';
-        plazosDisp = plazosDisp.filter(p => p <= 48);
+        // VU: bonificación 300€ (antes 400€), crédito mínimo 15.000€ (antes 7.000€)
+        bonificacion = 300; creditoMinimo = 15000; campanaLabel = 'GAMA · SEAT · VU';
+        plazosDisp = plazosDisp.filter(p => p >= 36 && p <= 48);
       } else if (categoria === 'VO') {
-        bonificacion = 750; creditoMinimo = producto === 'LINEAL' ? 9500 : 10000; campanaLabel = 'GAMA · SEAT · VO';
-        if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 60 && p <= 84);
+        // VO: bonificación 500€ (antes 750€). LINEAL 60-108 meses (antes 60-84)
+        bonificacion = 500; creditoMinimo = producto === 'LINEAL' ? 9500 : 10000; campanaLabel = 'GAMA · SEAT · VO';
+        if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 60 && p <= 108);
       } else {
+        // VS: bonificación 750€ (sin cambios). LINEAL 60-120 meses (antes 60-96)
         bonificacion = 750; creditoMinimo = producto === 'LINEAL' ? 13000 : 10000;
         campanaLabel = categoria ? 'GAMA · SEAT · VS' : 'GAMA · SEAT';
-        if (producto === 'LINEAL' && categoria === 'VS') plazosDisp = plazosDisp.filter(p => p >= 60 && p <= 96);
+        if (producto === 'LINEAL' && categoria === 'VS') plazosDisp = plazosDisp.filter(p => p >= 60 && p <= 120);
       }
     }
   } else if (marca === 'CUPRA') {
     if (campana === 'APPROVED' && (categoria === 'VS' || categoria === null)) {
-      // VWFS Campaña CUPRA VO · Agosto 2026 (pág. 5) + confirmado en vivo en dasweltauto.es: TIN 5,95% (antes 5,50%)
-      tin_auto = 5.95; bonificacion = 0;
+      // VWFS Campaña CUPRA VO · Octubre 2026 (pág. 5): TIN 6,45% (antes 5,95%). LINEAL 36-120 meses
+      tin_auto = 6.45; bonificacion = 0;
       creditoMinimo = producto === 'FLEX' ? 13500 : 10000; campanaLabel = 'APPROVED · CUPRA';
       if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 36);
     } else {
-      // VWFS Campaña CUPRA VO · Agosto 2026 (pág. 4): bonificación pasó de 1.800€ fijo a escalonada
-      // FLEX: 1.300€ · LINEAL: 1.000€ (48-71 meses) / 1.300€ (72-96 meses)
+      // VWFS Campaña CUPRA VO · Octubre 2026 (pág. 4): FLEX 1.200€ (antes 1.300€) ·
+      // LINEAL 1.000€ (48-71 meses) / 1.200€ (72-120 meses, antes 1.300€ hasta 96)
       tin_auto = 8.99;
-      bonificacion = producto === 'FLEX' ? 1300 : (CV2.meses >= 72 ? 1300 : 1000);
+      bonificacion = producto === 'FLEX' ? 1200 : (CV2.meses >= 72 ? 1200 : 1000);
       creditoMinimo = producto === 'FLEX' ? 16500 : 13500;
       campanaLabel = categoria ? 'GAMA · CUPRA · ' + (categoria || '') : 'GAMA · CUPRA';
       if (producto === 'LINEAL') plazosDisp = plazosDisp.filter(p => p >= 48);
     }
   } else {
+    // Campaña Otras Marcas · Octubre 2026: Básica TIN 8,25% · bonificaciones 200/400/500€
     plazosDisp = plazosDisp.filter(p => p >= 48 && p <= 96);
-    if (importeNeto >= 20000) { tin_auto = 8.99; bonificacion = 1200; creditoMinimo = 20000; campanaLabel = 'TOP · Otras Marcas'; }
-    else if (importeNeto >= 15000) { tin_auto = 8.99; bonificacion = 800;  creditoMinimo = 15000; campanaLabel = 'Premium · Otras Marcas'; }
-    else if (importeNeto >= 10000) { tin_auto = 8.99; bonificacion = 400;  creditoMinimo = 10000; campanaLabel = 'Entry · Otras Marcas'; }
-    else { tin_auto = 7.50; bonificacion = 0; creditoMinimo = 6000; campanaLabel = 'Básica · Otras Marcas'; }
+    if (importeNeto >= 20000) { tin_auto = 8.99; bonificacion = 500; creditoMinimo = 20000; campanaLabel = 'TOP · Otras Marcas'; }
+    else if (importeNeto >= 15000) { tin_auto = 8.99; bonificacion = 400;  creditoMinimo = 15000; campanaLabel = 'Premium · Otras Marcas'; }
+    else if (importeNeto >= 10000) { tin_auto = 8.99; bonificacion = 200;  creditoMinimo = 10000; campanaLabel = 'Entry · Otras Marcas'; }
+    else { tin_auto = 8.25; bonificacion = 0; creditoMinimo = 6000; campanaLabel = 'Básica · Otras Marcas'; }
   }
 
-  // ── Arona BB/REMA override (solo SEAT Arona, activado manualmente) ────────
-  if (CV2.aronaBB && CV2.modelo && CV2.modelo.toLowerCase().includes('arona') && marca === 'SEAT') {
-    if (campana === 'ENTRY') {
-      // ENTRY Arona BB: 1.000€ VS+VO
-      if (categoria !== 'VU') bonificacion = 1000;
-    } else if (producto === 'FLEX') {
-      // GAMA Arona BB FLEX: 2.000€ VS / 1.650€ VO (VWFS Agosto 2026, pág. 8)
-      if (categoria === 'VS' || categoria === null) bonificacion = 2000;
-      else if (categoria === 'VO') bonificacion = 1650;
-    } else {
-      // GAMA Arona BB LINEAL: 2.000€ VS / 1.600€ VO (VWFS Agosto 2026, pág. 8)
-      if (categoria === 'VS' || categoria === null) bonificacion = 2000;
-      else if (categoria === 'VO') bonificacion = 1600;
-    }
-    campanaLabel = campanaLabel + ' · Arona BB/REMA';
+  // ── Campaña especial SEAT VS DEMOS + REMA (Octubre 2026, pág. 6) ───────
+  // Sustituye a la campaña Arona Buy Back/REMA (ya no existe). Toda la gama SEAT,
+  // solo VS, activación manual (no se puede saber desde el anuncio si el coche
+  // es demo o REMA). FLEX 36-60m TIN 7,99% + 950€ · LINEAL 48-120m TIN 5,99%.
+  if (CV2.demosRema && marca === 'SEAT' && (categoria === 'VS' || categoria === null)) {
+    creditoMinimo = 10000;
+    if (producto === 'FLEX') { tin_auto = 7.99; bonificacion = 950; }
+    else { tin_auto = 5.99; bonificacion = 0; plazosDisp = plazosDisp.filter(p => p >= 48 && p <= 120); }
+    campanaLabel = 'DEMOS + REMA · SEAT VS';
   }
 
   const tinFinal = CV2.tinOverride !== null ? CV2.tinOverride : tin_auto;
@@ -199,7 +205,7 @@ function cv2Calc() {
   const seg0     = precioEf * 0.061545;
   const seg      = precioEf > 0 ? Math.round(seg0 * Math.pow(neto / precioEf, 1.5) * 100) / 100 : 0;
   const base     = neto + seg;
-  const capital  = Math.round(base * 1.035 * 100) / 100;
+  const capital  = Math.round(base * (1 + CV2_COMISION) * 100) / 100;
   const comision = Math.round((capital - base) * 100) / 100;
   let vr = 0, cuota = 0;
   if (tab === 'flex') {
@@ -299,13 +305,18 @@ function cv2Render() {
   cv2UpdateTinUI(rules);
   cv2UpdatePlazoPills(rules.plazosDisp);
 
-  // Arona BB label: actualiza el descuento mostrado si está activo
-  if (CV2.aronaBB) {
+  // DEMOS + REMA: el botón solo se puede usar en SEAT VS; muestra las condiciones aplicadas
+  const drWrap = document.getElementById('cv2-arona-wrap');
+  if (drWrap) {
+    const puede = marca === 'SEAT' && (rules.categoria === 'VS' || rules.categoria === null);
+    drWrap.classList.toggle('visible', puede);
+    if (!puede && CV2.demosRema) CV2.demosRema = false;
+    const aBtn = document.getElementById('cv2-arona-btn');
+    if (aBtn) aBtn.classList.toggle('active', CV2.demosRema);
     const aLbl = document.getElementById('cv2-arona-lbl');
-    if (aLbl) {
-      const bonifStr = rules.bonificacion > 0 ? '−' + cv2Fmt(rules.bonificacion) + ' €' : '—';
-      aLbl.textContent = 'activo · descuento ' + bonifStr;
-    }
+    if (aLbl) aLbl.textContent = CV2.demosRema
+      ? 'activo · TIN ' + rules.tinFinal.toFixed(2).replace('.', ',') + '%' + (rules.bonificacion > 0 ? ' · −' + cv2Fmt(rules.bonificacion) + ' €' : '')
+      : 'solo si el coche es demo o REMA';
   }
 
   // FLEX tab disabled si VU
@@ -499,7 +510,7 @@ function cv2BuildWaLink(res, rules, mantInfo, cuotaTotal) {
   msg += `Plazo: *${CV2.meses} meses*\n`;
   msg += `TIN: *${rules.tinFinal.toFixed(2).replace('.', ',')}\%*\n`;
   msg += `Seguro Protección Plus: *${cv2Fmt2(res.seg)} €*\n`;
-  msg += `Comisión apertura (3,5\%): *${cv2Fmt2(res.comision)} €*\n`;
+  msg += `Comisión apertura (2,99\%): *${cv2Fmt2(res.comision)} €*\n`;
   msg += `Importe financiado: *${cv2Fmt2(res.capital)} €*\n`;
   msg += `━━━━━━━━━━━━━━━\n`;
   msg += `📅 *Cuota financiación: ${cv2Fmt2(res.cuota)} €/mes*\n`;
@@ -579,20 +590,8 @@ function cv2SetCupraTipo(t) {
   cv2Render();
 }
 
-function cv2ToggleAronaBB() {
-  CV2.aronaBB = !CV2.aronaBB;
-  const btn = document.getElementById('cv2-arona-btn');
-  const lbl = document.getElementById('cv2-arona-lbl');
-  if (CV2.aronaBB) {
-    btn.classList.add('active');
-    // Calcular bonificación que aplica según campaña/categoría actual
-    const rules = cv2GetRules(); // ya incluye el override activo
-    const bonifStr = rules.bonificacion > 0 ? '−' + cv2Fmt(rules.bonificacion) + ' €' : '—';
-    if (lbl) lbl.textContent = 'activo · descuento ' + bonifStr;
-  } else {
-    btn.classList.remove('active');
-    if (lbl) lbl.textContent = 'descuento especial inactivo';
-  }
+function cv2ToggleDemosRema() {
+  CV2.demosRema = !CV2.demosRema;
   cv2Render();
 }
 
@@ -668,7 +667,7 @@ function initCalc(c) {
   CV2.tab      = 'lineal';
   CV2.tinOverride = null;
   CV2.modelo   = ((c.modelo||'') + ' ' + (c.version||'')).trim();
-  CV2.aronaBB  = false;  // siempre empieza desactivado
+  CV2.demosRema = false;  // siempre empieza desactivado
 
   // Auto-detect marca
   const modeloStr = c.modelo || '';
@@ -731,14 +730,7 @@ function initCalc(c) {
   const dispKm = document.getElementById('cv2-disp-km');
   if (dispKm) dispKm.textContent = '15.000 km';
 
-  // Arona BB/REMA toggle — visible solo si es SEAT Arona
-  const aronaBBWrap = document.getElementById('cv2-arona-wrap');
-  const aronaBBBtn  = document.getElementById('cv2-arona-btn');
-  const aronaBBLbl  = document.getElementById('cv2-arona-lbl');
-  const isArona = (c.modelo||'').toLowerCase().includes('arona') && (c.modelo||'').toLowerCase().includes('seat');
-  if (aronaBBWrap) aronaBBWrap.classList.toggle('visible', isArona);
-  if (aronaBBBtn)  aronaBBBtn.classList.remove('active');
-  if (aronaBBLbl)  aronaBBLbl.textContent = 'descuento especial inactivo';
+  // Botón DEMOS + REMA: su visibilidad (solo SEAT VS) la gestiona cv2Render()
 
   // FLEX tab: hide km row initially (lineal mode)
   const kmRow = document.getElementById('cv2-field-km');
@@ -852,6 +844,8 @@ function cargarFicha(c) {
     const bbvaPanel = document.getElementById('bbva-financiacion');
     if (finTabs) finTabs.style.display = 'none';
     if (bbvaPanel) bbvaPanel.style.display = 'none';
+    const caixaPanel = document.getElementById('caixa-financiacion');
+    if (caixaPanel) caixaPanel.style.display = 'none';
     document.getElementById('m-vendido-banner').style.display = '';
     document.getElementById('m-vendido-sticky').style.display = 'flex';
     document.getElementById('m-sticky-financiacion').style.display = 'none';
@@ -867,6 +861,7 @@ function cargarFicha(c) {
 
   initCalc(c);
   bbvaRender();
+  caixaRender();
 
   const link = document.getElementById('m-link');
   if (c.url) { link.href = c.url; link.style.display = ''; } else { link.style.display = 'none'; }
@@ -1024,12 +1019,136 @@ function bbvaEntradaInput(val) {
   bbvaRender();
 }
 
+// ── CaixaBank — Préstamo Vehículo VN y VO, tarifa "COM 07 26 AND" (+0,50% TIN) ──
+// Fuente: "Tarifa (+0,50% Tin) COM 07 26 AND V2.pdf", fila RMN · T.I.N. 5,99%, coeficiente
+// "PB" (Pack Vida, la tarifa de referencia). Coeficiente = cuota mensual por cada 1€
+// financiado: ya incluye los gastos financiados del 3,99% y el seguro Pack Vida.
+// Cuota = coef × (precio - entrada). RMN solo tiene plazos de 48 a 120 meses.
+// Válida para vehículos de hasta 96 meses de antigüedad; antigüedad + plazo ≤ 156 meses.
+const CAIXA_COEF = {
+  48:  0.025417,
+  60:  0.021099,
+  72:  0.018229,
+  84:  0.016186,
+  96:  0.014661,
+  108: 0.013480,
+  120: 0.012540,
+};
+const CAIXA_TIN = '5,99';
+const CAIXA_PLAZOS = [24, 36, 48, 60, 72, 84, 96, 108, 120];
+const CAIXA = { meses: 60, entrada: 0 };
+
+function caixaTarifa() {
+  let antig = null;
+  if (CV2.matriculaMes && CV2.matriculaAnio && CV2.matriculaAnio >= 2000) {
+    const now = new Date();
+    antig = Math.max(0, (now.getFullYear() - CV2.matriculaAnio) * 12 + (now.getMonth() + 1 - CV2.matriculaMes));
+  }
+  const disponible = antig === null || antig <= 96;
+  const plazos = Object.keys(CAIXA_COEF).map(Number)
+    .filter(p => antig === null || antig + p <= 156);
+  return { antig, disponible: disponible && plazos.length > 0, plazos, max: plazos.length ? plazos[plazos.length - 1] : 0 };
+}
+
+function caixaRender() {
+  const precio = CV2.precio || 0;
+  const maxEntrada = Math.max(0, Math.floor((precio - 500) / 100) * 100);
+  CAIXA.entrada = Math.min(Math.max(0, CAIXA.entrada), maxEntrada);
+
+  const slider = document.getElementById('caixa-sl-entrada');
+  if (!slider) return; // panel CaixaBank no presente en esta página
+  slider.min = 0; slider.max = maxEntrada; slider.step = 100; slider.value = CAIXA.entrada;
+  slider.style.setProperty('--pct', (maxEntrada > 0 ? (CAIXA.entrada / maxEntrada * 100) : 0) + '%');
+  const entradaInput = document.getElementById('caixa-entrada-input');
+  if (entradaInput) entradaInput.value = CAIXA.entrada;
+  const lblMax = document.getElementById('caixa-lbl-max');
+  if (lblMax) lblMax.textContent = maxEntrada > 0 ? ('máx. ' + bbvaFmt(maxEntrada) + ' €') : 'máx. — €';
+
+  const tarifa = caixaTarifa();
+  if (tarifa.disponible && !tarifa.plazos.includes(CAIXA.meses)) {
+    CAIXA.meses = tarifa.plazos.includes(60) ? 60 : tarifa.max;
+  }
+  CAIXA_PLAZOS.forEach(p => {
+    const el = document.getElementById('caixa-pl-' + p);
+    if (!el) return;
+    el.style.display = tarifa.plazos.includes(p) ? '' : 'none';
+    el.classList.toggle('active', p === CAIXA.meses);
+  });
+  const dispMeses = document.getElementById('caixa-disp-meses');
+  if (dispMeses) dispMeses.textContent = CAIXA.meses + ' meses';
+
+  // Aviso por antigüedad (se crea bajo las pastillas de plazo)
+  const pills = document.getElementById('caixa-pills-meses');
+  let aviso = document.getElementById('caixa-aviso-plazo');
+  if (pills && !aviso) {
+    aviso = document.createElement('div');
+    aviso.id = 'caixa-aviso-plazo';
+    aviso.style.cssText = 'font-size:11px;line-height:1.5;color:#f5b041;margin-top:8px;';
+    pills.insertAdjacentElement('afterend', aviso);
+  }
+  if (aviso) {
+    aviso.textContent = !tarifa.disponible
+      ? `Vehículo con ${tarifa.antig} meses de antigüedad: la tarifa CaixaBank solo admite vehículos de hasta 96 meses. Consulta otras opciones con ${ASESOR.nombreCorto}.`
+      : tarifa.max < 120
+        ? `Vehículo con ${tarifa.antig} meses de antigüedad: CaixaBank permite un plazo máximo de ${tarifa.max} meses (antigüedad + plazo ≤ 156 meses).`
+        : '';
+    aviso.style.display = aviso.textContent ? '' : 'none';
+  }
+
+  const importe = Math.max(0, precio - CAIXA.entrada);
+  const coef = tarifa.disponible ? CAIXA_COEF[CAIXA.meses] : 0;
+  const cuota = Math.round(coef * importe * 100) / 100;
+  const total = Math.round((cuota * CAIXA.meses + CAIXA.entrada) * 100) / 100;
+
+  const set = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+  set('caixa-cuota-val', tarifa.disponible ? bbvaFmt2(cuota) : '—');
+  set('caixa-br-precio', bbvaFmt(precio) + ' €');
+  set('caixa-br-entrada', bbvaFmt(CAIXA.entrada) + ' €');
+  set('caixa-br-importe', bbvaFmt(importe) + ' €');
+  set('caixa-br-ncuotas', tarifa.disponible ? CAIXA.meses : '—');
+  set('caixa-br-total', tarifa.disponible ? bbvaFmt2(total) + ' €' : '—');
+
+  const modeloEl = document.getElementById('cv2-modelo');
+  const modelo = modeloEl && modeloEl.textContent !== '—' ? modeloEl.textContent : 'un vehículo';
+  const waBtn = document.getElementById('caixa-btn-wa');
+  if (waBtn) {
+    const msg = tarifa.disponible
+      ? `Hola ${ASESOR.nombreCorto}, te escribo desde la calculadora de financiación. Me interesa ${modelo} de ${bbvaFmt(precio)} € financiado con CaixaBank a ${CAIXA.meses} meses (TIN ${CAIXA_TIN}%). Cuota estimada: ${bbvaFmt2(cuota)} €/mes.`
+      : `Hola ${ASESOR.nombreCorto}, te escribo desde la calculadora de financiación. Me interesa ${modelo} de ${bbvaFmt(precio)} € y quiero ver opciones de financiación.`;
+    waBtn.href = 'https://wa.me/' + ASESOR.telefonoWa + '?text=' + encodeURIComponent(msg);
+  }
+
+  const legalEl = document.getElementById('caixa-legal');
+  if (legalEl) {
+    legalEl.textContent = tarifa.disponible
+      ? `Ejemplo de cuota a ${CAIXA.meses} meses: ${bbvaFmt2(cuota)} €. TIN ${CAIXA_TIN}% fijo. Entrada inicial: ${bbvaFmt(CAIXA.entrada)} €. Importe financiado: ${bbvaFmt(importe)} €. Gastos de formalización (3,99%) y seguro Pack Vida incluidos en la cuota. Precio total a plazos: ${bbvaFmt2(total)} €. Financiación sujeta a aprobación de CaixaBank Payments & Consumer. Condiciones exactas con ${ASESOR.nombreCorto} · ${ASESOR.telefonoDisplay}.`
+      : '';
+  }
+}
+
+function caixaSetMeses(m) { CAIXA.meses = m; caixaRender(); }
+function caixaSliderMove(v) { CAIXA.entrada = parseFloat(v) || 0; caixaRender(); }
+function caixaEntradaInput(val) {
+  const slider = document.getElementById('caixa-sl-entrada');
+  const max = parseInt(slider.max) || 0;
+  let eur = parseInt(val) || 0;
+  if (eur < 0) eur = 0;
+  if (eur > max) eur = max;
+  CAIXA.entrada = eur;
+  slider.value = eur;
+  slider.style.setProperty('--pct', (max > 0 ? (eur / max * 100) : 0) + '%');
+  caixaRender();
+}
+
 function setFinanciera(f, btn) {
   document.querySelectorAll('#financiera-tabs .financiera-tab').forEach(el => el.classList.remove('active'));
   if (btn) btn.classList.add('active');
   const vwfsPanel = document.getElementById('m-financiacion');
   const bbvaPanel = document.getElementById('bbva-financiacion');
+  const caixaPanel = document.getElementById('caixa-financiacion');
   if (vwfsPanel) vwfsPanel.style.display = f === 'VWFS' ? '' : 'none';
   if (bbvaPanel) bbvaPanel.style.display = f === 'BBVA' ? '' : 'none';
+  if (caixaPanel) caixaPanel.style.display = f === 'CAIXA' ? '' : 'none';
   if (f === 'BBVA') bbvaRender();
+  if (f === 'CAIXA') caixaRender();
 }
