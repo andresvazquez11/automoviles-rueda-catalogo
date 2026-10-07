@@ -584,8 +584,17 @@
     Promise.race([Promise.all([foto, fuentes]), limite]).then(() => window.print());
   }
 
+  const datosFin = f => (f === 'BBVA' ? datosBBVA() : f === 'CAIXA' ? datosCaixa() : datosVWFS());
+
+  // Para assets/enviar.js: las mismas hojas, para el PDF y para el enlace que se manda al cliente.
+  window.rdHojas = {
+    simulacion: f => { const fin = datosFin(f); return fin.disponible === false ? null : { html: hojaHTML(fin), fin }; },
+    ficha: () => ({ html: hojaFichaHTML() }),
+    preparar: el => { asegurarEstilos(); ajustarEquipamiento(el); },
+  };
+
   window.rdImprimirSimulacion = function (financiera) {
-    const fin = financiera === 'BBVA' ? datosBBVA() : financiera === 'CAIXA' ? datosCaixa() : datosVWFS();
+    const fin = datosFin(financiera);
     if (fin.disponible === false) { alert('La tarifa CaixaBank no admite este vehículo por antigüedad.'); return; }
     imprimirHoja(hojaHTML(fin));
   };

@@ -750,6 +750,7 @@ ASSET_ESTILOS     = asset("estilos.css")
 ASSET_IDIOMA      = asset("idioma.js")
 ASSET_CALCULADORA = asset("calculadora.js")
 ASSET_IMPRIMIR    = asset("imprimir.js")
+ASSET_ENVIAR      = asset("enviar.js")   # enviar al cliente por WhatsApp (solo asesores) + vista del enlace
 ASSET_REBAJAS     = asset("rebajas.js")
 ASSET_COMPARADOR  = asset("comparador.js")
 ASSET_CONFIANZA   = asset("confianza.js")
@@ -1815,6 +1816,7 @@ const COCHE = {coche_json};
 cargarFicha(COCHE);
 window.rdAlCambiarIdioma = function() {{ cargarFicha(COCHE); }};
 </script>
+<script src="{ASSET_ENVIAR}"></script>
 <script src="{ASSET_REBAJAS}"></script>
 {footer_whatsapp_html(perfil)}
 {goatcounter_script_html()}
@@ -2346,6 +2348,7 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
 <script src="{ASSET_CONFIANZA}"></script>
 <script src="{ASSET_REBAJAS}"></script>
 <script src="{ASSET_PERSONAJE}"></script>
+<script src="{ASSET_ENVIAR}"></script>
 {footer_whatsapp_html(perfil, accesos_ocultos=(perfil["id"] == "andres"))}
 {goatcounter_script_html()}
 </body>
