@@ -1201,3 +1201,8 @@ body.rd-dark .rd-pj-cartel::after { background: #f2f1ed; }
   .rd-btn-imprimir-ficha:hover { background: var(--rd-ink); color: #fff; }
 }
 body.rd-dark .rd-btn-imprimir-ficha { border-color: var(--rd-ink); }
+
+/* Imprimir A4 (simulación y ficha): solo en modo asesor — 5 toques en el nombre
+   de la cabecera, ver assets/enviar.js (añade la clase rd-asesor a <html>). */
+.btn-print, .rd-btn-imprimir-ficha { display: none !important; }
+html.rd-asesor .btn-print, html.rd-asesor .rd-btn-imprimir-ficha { display: flex !important; }

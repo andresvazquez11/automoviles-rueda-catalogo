@@ -1,8 +1,9 @@
 /* ══════════════════════════════════════════════════════════════════
    Automóviles Rueda — "Enviar al cliente por WhatsApp" (solo asesores)
 
-   1) MODO ASESOR (botón secreto): los botones de enviar solo aparecen en
-      los dispositivos de los asesores. Se activa tocando 5 veces seguidas
+   1) MODO ASESOR (botón secreto): los botones de enviar Y los de imprimir
+      (simulación y ficha A4) solo aparecen en los dispositivos de los
+      asesores, con un marco ámbar "Modo asesor" alrededor de la página. Se activa tocando 5 veces seguidas
       el nombre "Automóviles Rueda" de la cabecera (y otras 5 lo quitan).
       Queda guardado en ese navegador (localStorage 'rd_asesor').
 
@@ -59,17 +60,51 @@
     toques = 0;
     if (esAsesor()) {
       lsDel(LS_ASESOR);
-      document.querySelectorAll('.rde-btn-enviar').forEach(b => b.remove());
+      modoAsesor(false);
       aviso('Modo asesor desactivado en este dispositivo');
     } else {
       lsSet(LS_ASESOR, '1');
-      ponerBotones();
+      modoAsesor(true);
       aviso('✅ Modo asesor activado en este dispositivo');
     }
   });
 
+  // Modo asesor = clase rd-asesor en <html>: enseña los botones de imprimir
+  // (ocultos para el cliente en estilos.css), los de enviar y el marco ámbar.
+  function modoAsesor(on) {
+    estilos();
+    document.documentElement.classList.toggle('rd-asesor', on);
+    let marca = document.getElementById('rde-marco');
+    if (on && !marca) {
+      marca = document.createElement('div');
+      marca.id = 'rde-marco';
+      marca.innerHTML = '<span>Modo asesor</span>';
+      document.body.appendChild(marca);
+    }
+    if (!on && marca) marca.remove();
+    if (on) ponerBotones();
+    else document.querySelectorAll('.rde-btn-enviar').forEach(b => b.remove());
+  }
+
+  // En el ordenador no hay app de WhatsApp: se usa WhatsApp Web directamente.
+  const esOrdenador = () => !/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
+    && !(navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));   // iPad "de escritorio"
+  function abrirChat(tel, texto) {
+    const t = texto ? encodeURIComponent(texto) : '';
+    if (esOrdenador()) {
+      const url = 'https://web.whatsapp.com/send?' + (tel ? 'phone=' + tel + '&' : '') + (t ? 'text=' + t : '');
+      window.open(url, 'rd-whatsapp');   // reutiliza la pestaña de WhatsApp Web si ya está abierta
+    } else {
+      window.open('https://wa.me/' + (tel || '') + (t ? '?text=' + t : ''), '_blank', 'noopener');
+    }
+  }
+
   // ── Estilos ─────────────────────────────────────────────────────────────
   const CSS = `
+#rde-marco { position: fixed; inset: 0; z-index: 9990; pointer-events: none; border: 5px solid #F5A623; }
+#rde-marco span { position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: #F5A623; color: #14110f;
+  font: 700 11px 'Work Sans', sans-serif; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 14px 5px;
+  border-radius: 0 0 8px 8px; }
 .rde-toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); z-index: 10001;
   background: #14110f; color: #fff; padding: 12px 18px; border-radius: 10px; font: 600 14px 'Work Sans', sans-serif;
   box-shadow: 0 8px 30px rgba(0,0,0,.3); max-width: calc(100% - 32px); text-align: center; }
@@ -339,10 +374,12 @@
   <div class="rde-nota">Se abre WhatsApp en el chat de ese número con el mensaje escrito y el enlace a la hoja. Solo tienes que darle a enviar.</div>
 
   <button type="button" class="rde-acc negro" id="rde-pdf">📄 Enviar el PDF</button>
-  <div class="rde-nota" id="rde-pdf-nota">En el móvil se abre "Compartir": elige WhatsApp y el cliente. En el ordenador se descarga el PDF y se abre su chat para que lo arrastres.</div>
+  <div class="rde-nota" id="rde-pdf-nota">${esOrdenador()
+    ? 'Se descarga el PDF y se abre WhatsApp Web en el chat del cliente: arrastra el PDF al chat (o pulsa el clip 📎 → Documento).'
+    : 'Se abre "Compartir": elige WhatsApp y el cliente.'}</div>
 
   ${hist.length ? `<div class="rde-hist"><span class="rde-lbl" style="margin-top:0">Últimos envíos desde este dispositivo</span>
-    ${hist.map(h => `<a href="https://wa.me/${esc(h.tel)}" target="_blank" rel="noopener">
+    ${hist.map(h => `<a href="${esOrdenador() ? 'https://web.whatsapp.com/send?phone=' + esc(h.tel) : 'https://wa.me/' + esc(h.tel)}" target="${esOrdenador() ? 'rd-whatsapp' : '_blank'}" rel="noopener">
       <span>${esc(h.nombre || '+' + h.tel)} · ${esc(h.coche)}</span><span>${esc(h.fecha)}</span></a>`).join('')}</div>` : ''}
 </div>`;
     document.body.appendChild(fondo);
@@ -379,7 +416,7 @@
       const tel = leerTel(true);
       if (!tel) return;
       apuntar(tel);
-      window.open(`https://wa.me/${tel}?text=${encodeURIComponent(textoMensaje())}`, '_blank', 'noopener');
+      abrirChat(tel, textoMensaje());
       cerrar();
     });
 
@@ -406,7 +443,7 @@
           btnPdf.textContent = '📄 Enviar el PDF';
         }
         const probe = new File([pdfListo], nombrePDF(tipo), { type: 'application/pdf' });
-        if (navigator.canShare && navigator.canShare({ files: [probe] })) {
+        if (!esOrdenador() && navigator.canShare && navigator.canShare({ files: [probe] })) {
           try {
             await compartir();
             apuntar(tel);
@@ -422,9 +459,8 @@
         } else {
           descargar(pdfListo, nombrePDF(tipo));
           apuntar(tel);
-          const destino = tel ? `https://wa.me/${tel}` : 'https://web.whatsapp.com/';
-          window.open(`${destino}?text=${encodeURIComponent(textoMensaje())}`, '_blank', 'noopener');
-          $('#rde-pdf-nota').textContent = 'PDF descargado. Arrástralo desde Descargas al chat de WhatsApp que se ha abierto.';
+          abrirChat(tel, textoMensaje());
+          $('#rde-pdf-nota').textContent = '✓ PDF descargado («' + nombrePDF(tipo) + '»). Arrástralo al chat de WhatsApp Web que se ha abierto, o usa el clip 📎 → Documento.';
         }
       } catch (err) {
         btnPdf.disabled = false;
@@ -514,7 +550,7 @@
 
   function iniciar() {
     vistaCliente();
-    if (esAsesor()) ponerBotones();
+    if (esAsesor()) modoAsesor(true);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
   else iniciar();
