@@ -113,7 +113,11 @@
   font: 700 13px 'Work Sans', sans-serif; letter-spacing: 1.2px; text-transform: uppercase; cursor: pointer; border-radius: 6px; }
 .rde-btn-enviar:hover { background: rgba(37,211,102,.16); }
 .rde-btn-enviar small { font-size: 9px; letter-spacing: .8px; opacity: .8; font-weight: 600; }
-.rd-btn-imprimir-ficha + .rde-btn-enviar { margin: -8px 0 18px; }
+.rde-btn-descargar { border-color: #F5A623; background: rgba(245,166,35,.1); color: #F5A623; }
+.rde-btn-descargar:hover { background: rgba(245,166,35,.2); }
+.rde-btn-descargar[disabled] { opacity: .6; cursor: wait; }
+.rd-btn-imprimir-ficha ~ .rde-btn-descargar { margin: 0 0 18px; color: #b9720a; border-color: #d98c0f; }
+.rd-btn-imprimir-ficha + .rde-btn-enviar { margin: -8px 0 10px; color: #168a42; border-color: #1fae55; }
 
 .rde-fondo { position: fixed; inset: 0; z-index: 10000; background: rgba(20,17,15,.62);
   display: flex; align-items: flex-end; justify-content: center; }
@@ -301,6 +305,13 @@
     const base = (c.modelo || 'coche').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w]+/g, '-').replace(/^-|-$/g, '');
     return (tipo === 'ficha' ? 'Ficha-' : 'Simulacion-') + base + '.pdf';
   }
+  // Para el archivo que se guarda el asesor: con financiera y fecha, para no pisar uno con otro
+  function nombrePDFArchivo(tipo, f) {
+    const hoy = new Date();
+    const fecha = hoy.getFullYear() + '-' + String(hoy.getMonth() + 1).padStart(2, '0') + '-' + String(hoy.getDate()).padStart(2, '0');
+    const fin = tipo === 'sim' ? ({ VWFS: 'VWFS', BBVA: 'BBVA', CAIXA: 'CaixaBank' }[f] || 'VWFS') + '-' : '';
+    return nombrePDF(tipo).replace(/^(Ficha|Simulacion)-/, '$1-' + fin).replace(/\.pdf$/, '-' + fecha + '.pdf');
+  }
   function descargar(blob, nombre) {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -457,15 +468,46 @@
     return b;
   }
 
+  // Tercer botón del modo asesor: guardar la hoja en PDF (en color) en este dispositivo
+  function botonDescargar(tipo, f) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'rde-btn-enviar rde-btn-descargar';   // rde-btn-enviar: se quita junto con el modo asesor
+    const texto = `⬇ Descargar PDF <small>· solo asesor</small>`;
+    b.innerHTML = texto;
+    b.addEventListener('click', async () => {
+      const html = htmlHoja(tipo, f);
+      if (!html) { aviso('Esta financiación no está disponible para este coche.'); return; }
+      b.disabled = true;
+      b.textContent = 'Preparando PDF…';
+      try {
+        descargar(await generarPDF(html), nombrePDFArchivo(tipo, f));
+        b.textContent = '✓ PDF descargado';
+        setTimeout(() => { b.innerHTML = texto; }, 2500);
+      } catch (err) {
+        b.innerHTML = texto;
+        aviso('No se pudo crear el PDF: ' + (err && err.message || err));
+      }
+      b.disabled = false;
+    });
+    return b;
+  }
+
   function ponerBotones() {
     if (!coche() || coche().vendido || !window.rdHojas || document.querySelector('.rde-btn-enviar')) return;
     estilos();
     document.querySelectorAll('.btn-print').forEach(bp => {
       const m = /rdImprimirSimulacion\('(\w+)'\)/.exec(bp.getAttribute('onclick') || '');
-      if (m) bp.insertAdjacentElement('afterend', botonEnviar('sim', m[1]));
+      if (m) {
+        bp.insertAdjacentElement('afterend', botonDescargar('sim', m[1]));
+        bp.insertAdjacentElement('afterend', botonEnviar('sim', m[1]));
+      }
     });
     const bf = document.querySelector('.rd-btn-imprimir-ficha');
-    if (bf) bf.insertAdjacentElement('afterend', botonEnviar('ficha', null));
+    if (bf) {
+      bf.insertAdjacentElement('afterend', botonDescargar('ficha', null));
+      bf.insertAdjacentElement('afterend', botonEnviar('ficha', null));
+    }
   }
 
   // ── 3) Vista del cliente (abre el enlace) ─────────────────────────────────
