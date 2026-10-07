@@ -4,7 +4,7 @@
    hoja A4 (coche + financiación elegida + desglose) con el estado ACTUAL
    de la calculadora y lanza la impresión del navegador.
    En color (clase rdp-color) pero pensada para que también salga bien en
-   impresora de blanco y negro: rojo = gris oscuro, cuota en negro/blanco.
+   impresora de blanco y negro: rojo = gris oscuro, sin fondos macizos.
    Depende de calculadora.js (CV2, cv2Calc, cv2GetMantInfo, BBVA, bbvaTarifa…)
    y de las constantes COCHE y ASESOR de la página.
    ══════════════════════════════════════════════════════════════════ */
@@ -83,8 +83,8 @@
 .rdp-aviso { margin-top: 2.5mm; font-size: 6.8pt; text-align: center; color: #222; }
 /* ── Versión EN COLOR (clase rdp-color), usada en TODO: imprimir, PDF y enlace al
    cliente. Pensada para que también salga bien en impresora en blanco y negro:
-   el rojo #C8232B se imprime como gris oscuro legible, la cuota es negro con
-   letra blanca (máximo contraste) y los fondos claros quedan casi blancos. ── */
+   el rojo #C8232B se imprime como gris oscuro legible, la cuota va en recuadro
+   blanco con borde rojo (sin fondos macizos) y los fondos claros quedan casi blancos. ── */
 .rdp-color { color: #14110f; }
 .rdp-color .rdp-head { border-bottom: 3pt solid #C8232B; }
 .rdp-color .rdp-doc-tit { color: #C8232B; }
@@ -96,12 +96,13 @@
 .rdp-color .rdp-precio { color: #C8232B; }
 .rdp-color .rdp-spec, .rdp-color .rdp-tabla td, .rdp-color .rdp-clave, .rdp-color .rdp-dl div { border-bottom-color: #cbc5bc; }
 .rdp-color .rdp-sec-tit { border-bottom-color: #C8232B; }
-.rdp-color .rdp-cuota { background: #14110f; border: 0; border-radius: 2.5mm; color: #fff; }
-.rdp-color .rdp-cuota-lbl { color: rgba(255,255,255,.72); }
-.rdp-color .rdp-cuota-val { color: #fff; }
-.rdp-color .rdp-cuota-sub { color: rgba(255,255,255,.8); }
+/* Cuota: fondo blanco + borde rojo (sin bloques macizos que carguen la impresora B/N) */
+.rdp-color .rdp-cuota { background: #fff; border: 2.5pt solid #C8232B; border-radius: 2.5mm; color: #14110f; }
+.rdp-color .rdp-cuota-lbl { color: #C8232B; }
+.rdp-color .rdp-cuota-val { color: #14110f; }
+.rdp-color .rdp-cuota-sub { color: #5d5650; }
 .rdp-color .rdp-claves { border: 1pt solid #cbc5bc; border-radius: 2mm; overflow: hidden; }
-.rdp-color .rdp-clave.fuerte { background: #C8232B; color: #fff; }
+.rdp-color .rdp-clave.fuerte { background: #fbeceb; color: #C8232B; border-top: 1pt solid #C8232B; }
 .rdp-color .rdp-tabla tr.sep td { border-bottom-color: #14110f; }
 .rdp-color .rdp-tabla tr.total td { border-top-color: #C8232B; color: #C8232B; }
 .rdp-color .rdp-equip li::before, .rdp-color .rdp-grupo li::before { background: #C8232B; }
