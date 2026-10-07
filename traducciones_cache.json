@@ -1460,6 +1460,22 @@
     ],
     "version_en": "1.0 TSI S&S FR 85 kW (115 hp)"
   },
+  "9c3b188277659338": {
+    "color_en": "Black",
+    "equipamiento_en": [
+      "Lane Keeping Assist",
+      "Top speed: 198 km/h",
+      "Vision Plus Package",
+      "10.25\" Digital Cockpit display",
+      "Leather multifunction sports steering wheel",
+      "Front and rear parking sensors",
+      "Cruise control with speed limiter",
+      "Dual-zone Climatronic climate control",
+      "16\" light alloy wheels (6.5J x 16\")",
+      "Rearview camera system"
+    ],
+    "version_en": "1.0 TSI S&S FR XS 85 kW (115 hp)"
+  },
   "9ea1b4b275ff12c8": {
     "color_en": "",
     "equipamiento_en": [
@@ -2202,6 +2218,22 @@
       "Traction control"
     ],
     "version_en": "1.0 TSI Xperience Special Edition 85 kW (115 HP)"
+  },
+  "e14298208c5ffcf2": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "LED front fog lights, low beam, daytime running lights, and high beam",
+      "Top speed: 193 km/h",
+      "Digital Cockpit instrument cluster",
+      "16-inch front and rear alloy wheels (6.0 inches wide)",
+      "Headlights with ellipsoidal lens and LED low and high beams",
+      "Luxury finish: leather and aluminium gear knob, aluminium-look centre console, and aluminium-look dashboard",
+      "12V socket(s) in the front",
+      "Cloth upholstery (primary and secondary material)",
+      "Three-seat forward-facing rear bench with fixed base and split-folding backrest",
+      "Multifunction leather-trimmed steering wheel, height and reach adjustable"
+    ],
+    "version_en": "1.0 TSI Style Special Edition DSG 85 kW (115 HP)"
   },
   "e455e3e79b0491f9": {
     "color_en": "Grey",
