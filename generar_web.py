@@ -17,6 +17,7 @@ import confianza_dwa
 import ficha_tecnica
 import aleman
 import prensa
+import vendidos   # registro de coches vendidos + 404.html «vendido + similares»
 import pruebas
 import quienes_somos
 import recortar_portadas
@@ -2580,7 +2581,6 @@ def main():
             continue  # sin foto verificada → sin ficha individual tampoco
         slug = slug_coche(car["modelo"])
         slugs_validos.add(archivo_ficha(car))
-        slugs_validos.add(archivo_ficha_antiguo(car))
 
         if car.get("estado") == "Retirado":
             # Ya no se scrapea ni se copian fotos nuevas para estos. Buscar su
@@ -2647,13 +2647,15 @@ def main():
                 html_coche = build_coche_html(car, fotos_por_coche[n], perfil, traducciones[n],
                                               fichas.get(ficha_tecnica.clave_ficha(car)))
                 (coches_dir / archivo_ficha(car)).write_text(html_coche, encoding="utf-8")
-                if archivo_ficha_antiguo(car) != archivo_ficha(car):
-                    (coches_dir / archivo_ficha_antiguo(car)).write_text(
-                        build_redireccion_html(html_coche, archivo_ficha(car)), encoding="utf-8")
+                # Ya no se generan las redirecciones antiguas por número (06-cupra-formentor.html):
+                # "n" cambia y llevaban a OTRO coche del mismo modelo. Esos enlaces caen ahora en
+                # 404.html, que enseña los coches de ese modelo.
 
             archivadas = 0
             for f in coches_dir.glob("*.html"):
                 if f.name not in slugs_validos:
+                    if not perfil["carpeta"]:   # el coche es el mismo en los dos perfiles: se apunta una vez
+                        vendidos.registrar_desde_html(registro_vendidos, f)
                     f.unlink()
                     archivadas += 1
             if archivadas:
@@ -2674,7 +2676,24 @@ def main():
             (qs_dir / "index.html").write_text(build_quienes_somos_html(perfil, disponibles), encoding="utf-8")
 
 
+    registro_vendidos = vendidos.cargar()
     generar_sitio()
+    vendidos.guardar(registro_vendidos)
+
+    # 404.html (GitHub Pages la sirve para cualquier dirección que no existe):
+    # coche vendido → "ya se ha vendido" + similares; publicado con otra dirección → su ficha.
+    disponibles_404 = [{
+        "archivo": archivo_ficha(c), "modelo": c["modelo"], "version": c.get("version", ""),
+        "precio": c.get("precio", ""), "km": c.get("km", ""), "fecha": c.get("fecha", ""),
+        "combustible": c.get("combustible", ""), "foto": (fotos_por_coche.get(c["n"]) or [""])[0],
+    } for c in todos_los_coches if c["n"] not in sin_foto and c.get("estado") == "Disponible"]
+    asesores_404 = {}
+    for perfil in PERFILES:
+        d = datos_perfil(perfil)
+        asesores_404[perfil["carpeta"] or ""] = {"nombre_corto": d["nombre_corto"], "telefono_wa": d["telefono_wa"]}
+    (BASE_DIR / "404.html").write_text(
+        vendidos.build_404_html(disponibles_404, vendidos.cargar(), asesores_404), encoding="utf-8")
+    print(f"  404.html: {len(disponibles_404)} coches para «similares», {len(vendidos.cargar())} vendidos registrados")
 
     # Alemán: los textos que aún no estaban en traducciones_de.json se han
     # mostrado en inglés en esta pasada. Se traducen ahora de golpe y, si hubo

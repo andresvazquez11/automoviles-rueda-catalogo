@@ -157,7 +157,6 @@
 .rdv-ver { background: #fff; color: #14110f; }
 .rdv-papel { background: #fff; width: 210mm; min-height: 297mm; box-sizing: border-box; padding: 11mm 12mm;
   margin: 16px auto 30px; box-shadow: 0 6px 30px rgba(0,0,0,.35); }
-.rdv-papel .rdp-foto img, .rde-captura .rdp-foto img { filter: grayscale(1) contrast(1.08); }
 .rde-captura { position: fixed; left: -10000px; top: 0; width: 210mm; height: 297mm; box-sizing: border-box;
   padding: 11mm 12mm; background: #fff; }
 /* html2canvas dibuja el texto grande de Oswald más abajo que el navegador: más aire en el PDF */
@@ -277,29 +276,6 @@
       cargarScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'),
     ]);
   }
-  // html2canvas no aplica el filtro CSS de escala de grises: se convierte la foto a mano.
-  function fotoEnGrises(img) {
-    return new Promise(ok => {
-      const hecho = () => {
-        try {
-          const cv = document.createElement('canvas');
-          cv.width = img.naturalWidth; cv.height = img.naturalHeight;
-          const cx = cv.getContext('2d');
-          cx.filter = 'grayscale(1) contrast(1.08)';
-          cx.drawImage(img, 0, 0);
-          if (cx.filter === 'none' || cx.filter === undefined) {   // Safari antiguo: a mano
-            const d = cx.getImageData(0, 0, cv.width, cv.height), p = d.data;
-            for (let i = 0; i < p.length; i += 4) { const g = p[i] * .299 + p[i + 1] * .587 + p[i + 2] * .114; p[i] = p[i + 1] = p[i + 2] = g; }
-            cx.putImageData(d, 0, 0);
-          }
-          img.style.filter = 'none';
-          img.src = cv.toDataURL('image/jpeg', 0.9);
-          img.onload = ok;
-        } catch (_) { ok(); }
-      };
-      if (img.complete && img.naturalWidth) hecho(); else { img.onload = hecho; img.onerror = ok; }
-    });
-  }
   async function generarPDF(html) {
     await librerias();
     const caja = document.createElement('div');
@@ -310,7 +286,7 @@
       window.rdHojas.preparar(caja);
       caja.style.cssText = '';            // preparar() la devuelve a su sitio (fuera de pantalla)
       const img = caja.querySelector('.rdp-foto img');
-      if (img) await fotoEnGrises(img);
+      if (img && !(img.complete && img.naturalWidth)) await new Promise(ok => { img.onload = img.onerror = ok; });
       if (document.fonts && document.fonts.ready) await document.fonts.ready;
       const lienzo = await window.html2canvas(caja, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false });
       const pdf = new window.jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });

@@ -1,0 +1,162 @@
+{
+ "cupra-formentor-151395159": {
+  "baja": "2026-10-05",
+  "cambio": "Automático",
+  "combustible": "Gasolina",
+  "fecha": "02/2023",
+  "km": "30.747",
+  "modelo": "CUPRA Formentor",
+  "precio": "46.500",
+  "version": "2.5 TSI VZ5 Taiga Grey 4Drive DSG 287 kW (390 CV)"
+ },
+ "cupra-formentor-173814040": {
+  "baja": "2026-09-28",
+  "cambio": "Automático",
+  "combustible": "Mild Hybrid",
+  "fecha": "03/2026",
+  "km": "2.500",
+  "modelo": "CUPRA Formentor",
+  "precio": "32.900",
+  "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
+ "nissan-qashqai-mf168212671": {
+  "baja": "2026-09-26",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "2019",
+  "km": "60.786",
+  "modelo": "Nissan Qashqai",
+  "precio": "17.500",
+  "version": "DIG-T 160 N-Connecta 4x2 DCT 117 kW (160 CV)"
+ },
+ "seat-arona-174150409": {
+  "baja": "2026-09-28",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "06/2025",
+  "km": "14.996",
+  "modelo": "SEAT Arona",
+  "precio": "18.900",
+  "version": "1.0 TSI Style Special Edition 85 kW (115 CV)"
+ },
+ "seat-arona-179469064": {
+  "baja": "2026-09-28",
+  "cambio": "Automático",
+  "combustible": "Gasolina",
+  "fecha": "05/2026",
+  "km": "50",
+  "modelo": "SEAT Arona",
+  "precio": "24.500",
+  "version": "1.0 TSI S&S FR 85 kW (115 CV)"
+ },
+ "seat-arona-186848827": {
+  "baja": "2026-10-05",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "06/2025",
+  "km": "8.194",
+  "modelo": "SEAT Arona",
+  "precio": "18.900",
+  "version": "1.0 TSI Style Special Edition 85 kW (115 CV)"
+ },
+ "seat-arona-192744877": {
+  "baja": "2026-10-01",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "10/2022",
+  "km": "31.525",
+  "modelo": "SEAT Arona",
+  "precio": "15.900",
+  "version": "1.0 TSI Style XM 81 kW (110 CV)"
+ },
+ "seat-arona-193168066": {
+  "baja": "2026-09-26",
+  "cambio": "Automático",
+  "combustible": "Gasolina",
+  "fecha": "12/2021",
+  "km": "39.218",
+  "modelo": "SEAT Arona",
+  "precio": "17.800",
+  "version": "1.5 TSI FR DSG 110 kW (150 CV)"
+ },
+ "seat-ateca-171720715": {
+  "baja": "2026-09-26",
+  "cambio": "Automático",
+  "combustible": "Gasolina",
+  "fecha": "05/2026",
+  "km": "1.250",
+  "modelo": "SEAT Ateca",
+  "precio": "32.900",
+  "version": "1.5 TSI S&S FR Special Edition DSG 110 kW (150 CV)"
+ },
+ "seat-ibiza-151394481": {
+  "baja": "2026-10-05",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "01/2026",
+  "km": "350",
+  "modelo": "SEAT Ibiza",
+  "precio": "20.500",
+  "version": "1.0 TSI S&S Style 85 kW (115 CV)"
+ },
+ "seat-ibiza-193186186": {
+  "baja": "2026-10-05",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "06/2025",
+  "km": "12.335",
+  "modelo": "SEAT Ibiza",
+  "precio": "18.300",
+  "version": "1.0 TSI Special Edition 85 kW (115 CV)"
+ },
+ "seat-ibiza-mf198971371": {
+  "baja": "2026-10-03",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "50",
+  "modelo": "SEAT Ibiza",
+  "precio": "21.900",
+  "version": "1.0 TSI S&S FR 85 kW (115 CV)"
+ },
+ "seat-leon-151336815": {
+  "baja": "2026-09-26",
+  "cambio": "Automático",
+  "combustible": "Mild Hybrid",
+  "fecha": "02/2025",
+  "km": "18.410",
+  "modelo": "SEAT León",
+  "precio": "22.500",
+  "version": "ST 1.5 eTSI Style 25 Aniversario DSG 85 kW (116 CV)"
+ },
+ "seat-leon-157823092": {
+  "baja": "2026-10-05",
+  "cambio": "Manual",
+  "combustible": "Diésel",
+  "fecha": "03/2025",
+  "km": "10.493",
+  "modelo": "SEAT León",
+  "precio": "22.700",
+  "version": "2.0 TDI S&S Style XS 85 kW (116 CV)"
+ },
+ "seat-leon-168559741": {
+  "baja": "2026-10-03",
+  "cambio": "Manual",
+  "combustible": "Diésel",
+  "fecha": "03/2025",
+  "km": "11.470",
+  "modelo": "SEAT León",
+  "precio": "22.700",
+  "version": "2.0 TDI S&S Style XS 85 kW (116 CV)"
+ },
+ "seat-leon-195025777": {
+  "baja": "2026-09-29",
+  "cambio": "Automático",
+  "combustible": "Mild Hybrid",
+  "fecha": "03/2025",
+  "km": "17.235",
+  "modelo": "SEAT León",
+  "precio": "21.900",
+  "version": "1.5 eTSI Style 25 Aniversario DSG 85 kW (116 CV)"
+ }
+}
