@@ -7,7 +7,7 @@
     "km": "50",
     "fecha": "07/2026",
     "cambio": "Manual",
-    "color": "Blanco",
+    "color": "",
     "precio": "21.900",
     "ubicacion": "Málaga",
     "estado": "No disponible",
@@ -35,7 +35,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 21.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 21.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 21.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "187.59",
@@ -2107,7 +2106,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 41.300,00 €. Bonificación de 1.800,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 39.500,00 €. Precio al contado 41.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,45%. La oferta incluye Seg. Protección Plus Ampliado por 1.853,78€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 351,64 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 25.273,13 € (calculada con 15.000 km anuales). Entrada inicial: 8.260,00 €. Comisión de apertura al contado: 1.158,28 €. Importe total financiado 33.093,78 €. Importe total de los intereses: 13.277,75 €. Coste total del crédito: 14.436,03 €. Precio total a plazos 54.631,53 €. Importe total adeudado: 46.371,53 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 7,
+    "_intentos_desaparecido": 8,
     "fecha_reservado": "2026-10-05"
   },
   {
