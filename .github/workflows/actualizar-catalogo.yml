@@ -168,7 +168,7 @@ jobs:
                   datos_coches.json historial_precios.json coches_lista.json \
                   traducciones_cache.json historial_cambios_precio.json \
                   fichas_tecnicas.json recortes.json sitemap.xml robots.txt pruebas.json \
-                  traducciones_de.json 404.html vendidos.json
+                  traducciones_de.json 404.html vendidos.json precios_vistos.json
           git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M')" || echo "Sin cambios que subir"
           # Si mientras corría esto alguien subió algo (guardado desde /admin/, o
           # un cambio de la web), el push se rechaza: se incorpora y se reintenta.
@@ -195,7 +195,7 @@ jobs:
                     datos_coches.json historial_precios.json coches_lista.json \
                     traducciones_cache.json historial_cambios_precio.json \
                     fichas_tecnicas.json recortes.json sitemap.xml robots.txt pruebas.json \
-                    traducciones_de.json 404.html vendidos.json
+                    traducciones_de.json 404.html vendidos.json precios_vistos.json
             git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M') (regenerada tras conflicto)" || echo "Sin cambios que subir"
           done
           exit 1

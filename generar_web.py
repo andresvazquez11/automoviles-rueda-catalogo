@@ -5,7 +5,7 @@ Automóviles Rueda — Generador de Catálogo Web
 Lee datos_coches.json, copia fotos a web_fotos/ y genera index.html
 """
 
-import functools, hashlib, html, json, shutil, sys, urllib.parse
+import functools, hashlib, html, json, os, shutil, sys, urllib.parse
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from pathlib import Path
@@ -2632,6 +2632,65 @@ def build_historial_precios_html(historial: list[dict], perfil: dict, fichas_por
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
+PRECIOS_VISTOS_JSON = BASE_DIR / "precios_vistos.json"
+
+def registrar_cambios_precio_finales(coches: list) -> int:
+    """Apunta en historial_cambios_precio.json (página "Historial de precios") TODO
+    cambio de precio, también de los coches de MotorFlash: actualizar_catalogo.py
+    solo compara los de Das WeltAuto, y el Qashqai (MotorFlash) bajó sin quedar
+    registrado. Compara la lista FINAL con el último precio visto de cada coche
+    (precios_vistos.json). Si actualizar_catalogo.py ya apuntó ese mismo cambio en
+    esta corrida, no se duplica. Solo en GitHub Actions: una regeneración local con
+    datos viejos no debe inventar cambios."""
+    if not os.environ.get("GITHUB_ACTIONS"):
+        return 0
+    try:
+        vistos = json.loads(PRECIOS_VISTOS_JSON.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        vistos = None   # primera vez: solo se toma la foto de precios
+    try:
+        eventos = json.loads(HISTORIAL_CAMBIOS_PRECIO_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        eventos = []
+    def num(p):
+        try:
+            return int(str(p).replace(".", "").replace(",", "").split()[0])
+        except (ValueError, IndexError):
+            return None
+    def id_url(u):
+        return (_re.findall(r"(\d{6,})", u or "") or [""])[-1]
+    ultimo_evento = {}
+    for ev in eventos:
+        ultimo_evento[id_url(ev.get("url"))] = ev
+    ahora = datetime.now(ZoneInfo("Europe/Madrid"))
+    nuevos, actuales = 0, {}
+    for c in coches:
+        precio = num(c.get("precio"))
+        if not precio or c.get("estado") == "Retirado":
+            continue
+        ident = id_estable_coche(c)
+        actuales[ident] = precio
+        antes = (vistos or {}).get(ident)
+        if vistos is None or antes is None or antes == precio:
+            continue
+        url = c.get("url") or c.get("url_motorflash", "")
+        previo = ultimo_evento.get(id_url(url))
+        if previo and int(previo.get("precio_nuevo", 0)) == precio:
+            continue   # ya lo apuntó actualizar_catalogo.py en esta corrida
+        eventos.append({
+            "fecha_iso": ahora.replace(tzinfo=None).isoformat(timespec="seconds"),
+            "fecha": ahora.strftime("%d/%m/%Y"), "n": c.get("n"),
+            "modelo": c.get("modelo", ""), "version": c.get("version", ""), "url": url,
+            "precio_anterior": float(antes), "precio_nuevo": float(precio),
+        })
+        nuevos += 1
+    # Se conservan los precios de coches que hoy no salen (p.ej. un fallo puntual de MotorFlash)
+    PRECIOS_VISTOS_JSON.write_text(json.dumps(dict(vistos or {}, **actuales), ensure_ascii=False, indent=1,
+                                              sort_keys=True), encoding="utf-8")
+    if nuevos:
+        HISTORIAL_CAMBIOS_PRECIO_PATH.write_text(json.dumps(eventos, ensure_ascii=False, indent=2), encoding="utf-8")
+    return nuevos
+
 RESERVAS_MANUALES_JSON = BASE_DIR / "reservas_manuales.json"
 
 def aplicar_reservas_manuales(lista: list) -> None:
@@ -2656,6 +2715,9 @@ def main():
 
     coches = json.loads(JSON_PATH.read_text(encoding="utf-8"))
     todos_los_coches = json.loads(JSON_PATH.read_text(encoding="utf-8"))
+    n_cambios = registrar_cambios_precio_finales(todos_los_coches)
+    if n_cambios:
+        print(f"💶  {n_cambios} cambio(s) de precio apuntados en el historial (incluye MotorFlash)")
     aplicar_reservas_manuales(coches)
     aplicar_reservas_manuales(todos_los_coches)
     # Los coches "Retirado" ya no están publicados en Das WeltAuto → no se publican
@@ -2756,6 +2818,9 @@ def main():
             continue
         slug = slug_coche(car["modelo"])
         fichas_por_url[car["url"]] = {"href": f"../coches/{archivo_ficha(car)}"}
+    for car in todos_los_coches:   # coches de MotorFlash: su "url" en el historial es la de MotorFlash
+        if car["n"] not in sin_foto and car.get("url_motorflash"):
+            fichas_por_url[car["url_motorflash"]] = {"href": f"../coches/{archivo_ficha(car)}"}
 
     # ── Paso 2: generar el sitio completo (index + fichas) una vez por cada
     # perfil de asesor, en su propia carpeta de salida — compartiendo las
