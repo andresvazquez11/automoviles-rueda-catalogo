@@ -53,6 +53,10 @@
   .estado-msg.ok { color: var(--green); }
   .estado-msg.error { color: var(--red); }
   .contador { font-size: 12px; color: var(--muted); text-align: right; margin-bottom: 8px; }
+  .barra-guardar { position: sticky; bottom: 0; background: var(--bg); padding: 10px 0 14px; margin-top: 16px;
+    border-top: 1px solid var(--border); }
+  .pendientes { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 8px; }
+  .pendientes.hay { color: var(--red); font-weight: 700; }
   [hidden] { display: none !important; }
 </style>
 </head>
@@ -81,7 +85,6 @@
   <div class="perfil-tabs" id="perfil-tabs"></div>
   <div class="contador" id="contador">0 / 3 seleccionados</div>
   <div class="card" id="lista-coches">Cargando coches…</div>
-  <button id="btn-guardar" disabled>Guardar</button>
   <div class="estado-msg" id="estado-msg"></div>
 
   <h1 style="margin-top:28px">💸 Rebajas de precio</h1>
@@ -89,19 +92,22 @@
     El precio que se ve sigue siendo el de Das WeltAuto; "Antes" = precio + descuento.
     Vale para todos los asesores. Las bajadas reales se muestran solas (🔻) sin tocar nada.</p>
   <div class="card" id="lista-rebajas">Cargando coches…</div>
-  <button id="btn-guardar-rebajas" disabled>Guardar rebajas</button>
-  <div class="estado-msg" id="estado-msg-rebajas"></div>
 
   <h1 style="margin-top:28px">🔒 Reservar coche a mano</h1>
   <p class="sub">Para coches que ya no están en nuestro stock pero Das WeltAuto sigue publicando por error.
     En la web salen como <strong>Reservado</strong> hasta que les quites la reserva aquí (o hasta que el anuncio
-    desaparezca de Das WeltAuto). Vale para todos los asesores. Al guardar se lanza una actualización
-    de la web y se ve en unos 15 minutos.</p>
+    desaparezca de Das WeltAuto). Vale para todos los asesores. Si cambias alguna reserva, al guardar se
+    lanza una actualización de la web y se ve en unos 15 minutos.</p>
   <div class="card" id="lista-reservas">Cargando coches…</div>
-  <button id="btn-guardar-reservas" disabled>Guardar reservas</button>
-  <div class="estado-msg" id="estado-msg-reservas"></div>
 
   <button class="secundario" id="btn-cambiar-token" style="margin-top:10px">Cambiar token</button>
+
+  <!-- Un solo guardado para todo: destacados (de los dos asesores), rebajas y reservas -->
+  <div class="barra-guardar">
+    <div class="pendientes" id="pendientes">Sin cambios pendientes</div>
+    <button id="btn-guardar-todo" disabled>Guardar todos los cambios</button>
+    <div class="estado-msg" id="estado-msg-global"></div>
+  </div>
 </div>
 
 <script>
@@ -131,13 +137,24 @@
   const perfilTabs = document.getElementById('perfil-tabs');
   const listaCoches = document.getElementById('lista-coches');
   const contador = document.getElementById('contador');
-  const btnGuardar = document.getElementById('btn-guardar');
   const estadoMsg = document.getElementById('estado-msg');
+  const btnGuardarTodo = document.getElementById('btn-guardar-todo');
+  const pendientesEl = document.getElementById('pendientes');
+  const estadoGlobal = document.getElementById('estado-msg-global');
 
   let cochesDisponibles = [];
-  let destacadosActuales = {};
   let perfilActivo = 'andres';
-  let seleccion = {}; // { id_estable: etiqueta }
+  // Selección de destacados de CADA asesor, en memoria: cambiar de pestaña ya
+  // no borra lo que se marcó en la otra sin guardar.
+  let seleccionPorPerfil = {};   // { andres: { id_estable: etiqueta }, alejandro: {…} }
+  let rebajas = {};
+  let reservas = {};
+  // Lo que había guardado al cargar (para saber qué cambió)
+  let base = { destacados: {}, rebajas: '{}', reservas: '{}' };
+
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const eur = n => Math.round(n).toLocaleString('es-ES').replace(/,/g, '.') + ' €';
+  const num = t => parseInt(String(t).replace(/[^\d]/g, ''), 10) || 0;
 
   function getToken() { return localStorage.getItem(TOKEN_KEY); }
 
@@ -146,34 +163,93 @@
     estadoMsg.className = 'estado-msg ' + (esError ? 'error' : 'ok');
   }
 
-  async function ghGet(path) {
-    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`, {
+  // ── API de GitHub ──
+  async function gh(ruta, opciones = {}) {
+    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/${ruta}`, Object.assign({}, opciones, {
       headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' },
       cache: 'no-store'
-    });
-    if (res.status === 404) return { sha: null, data: {} };
-    if (!res.ok) throw new Error('GitHub API error ' + res.status);
-    const json = await res.json();
-    const content = decodeURIComponent(escape(atob(json.content)));
-    return { sha: json.sha, data: JSON.parse(content) };
-  }
-
-  async function ghPut(path, dataObj, sha, message) {
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(dataObj, null, 2))));
-    const body = { message, content, branch: BRANCH };
-    if (sha) body.sha = sha;
-    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
-      method: 'PUT',
-      headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' },
-      body: JSON.stringify(body)
-    });
+    }));
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || ('Error ' + res.status));
+      const e = new Error(err.message || ('Error ' + res.status));
+      e.status = res.status;
+      throw e;
     }
-    return res.json();
+    return res.status === 204 ? null : res.json();
   }
 
+  async function ghGet(path) {
+    try {
+      const json = await gh(`contents/${path}?ref=${BRANCH}`);
+      return { sha: json.sha, data: JSON.parse(decodeURIComponent(escape(atob(json.content)))) };
+    } catch (e) {
+      if (e.status === 404) return { sha: null, data: {} };
+      throw e;
+    }
+  }
+
+  // Varios archivos en UN SOLO cambio (commit) de la web. Si justo entretanto
+  // entró otro cambio (la actualización automática, otro dispositivo), se
+  // reintenta encima del último.
+  async function guardarArchivos(archivos, mensaje) {
+    for (let intento = 1; intento <= 3; intento++) {
+      const ref = await gh(`git/ref/heads/${BRANCH}`);
+      const padre = ref.object.sha;
+      const commit = await gh(`git/commits/${padre}`);
+      const arbol = await gh('git/trees', { method: 'POST', body: JSON.stringify({
+        base_tree: commit.tree.sha,
+        tree: Object.keys(archivos).map(path => ({
+          path, mode: '100644', type: 'blob', content: JSON.stringify(archivos[path], null, 2) + '\n'
+        }))
+      }) });
+      const nuevo = await gh('git/commits', { method: 'POST', body: JSON.stringify({
+        message: mensaje, tree: arbol.sha, parents: [padre]
+      }) });
+      try {
+        await gh(`git/refs/heads/${BRANCH}`, { method: 'PATCH', body: JSON.stringify({ sha: nuevo.sha }) });
+        return;
+      } catch (e) {
+        if (e.status !== 422 || intento === 3) throw e;
+      }
+    }
+  }
+
+  // ── Estado a guardar ──
+  function listaDestacados(perfil) {
+    const sel = seleccionPorPerfil[perfil] || {};
+    return Object.keys(sel).map(id => ({ id, etiqueta: sel[id] }));
+  }
+  function rebajasVigentes() {
+    // Solo coches que siguen disponibles (los vendidos se limpian solos)
+    const vigentes = new Set(cochesDisponibles.map(c => c.id));
+    const nuevo = {};
+    Object.keys(rebajas).forEach(id => { if (vigentes.has(id)) nuevo[id] = rebajas[id]; });
+    return nuevo;
+  }
+  function cambios() {
+    const perfiles = PERFILES.filter(p => JSON.stringify(listaDestacados(p.id)) !== base.destacados[p.id]);
+    return {
+      perfiles,
+      rebajas: JSON.stringify(rebajasVigentes()) !== base.rebajas,
+      reservas: JSON.stringify(reservas) !== base.reservas,
+    };
+  }
+  function hayCambios(c) { return c.perfiles.length || c.rebajas || c.reservas; }
+
+  function actualizarBarra() {
+    const c = cambios();
+    const partes = c.perfiles.map(p => 'destacados de ' + p.nombre);
+    if (c.rebajas) partes.push('rebajas');
+    if (c.reservas) partes.push('reservas');
+    pendientesEl.textContent = partes.length ? '● Sin guardar: ' + partes.join(', ') : 'Sin cambios pendientes';
+    pendientesEl.className = 'pendientes' + (partes.length ? ' hay' : '');
+    btnGuardarTodo.disabled = !partes.length;
+  }
+  window.addEventListener('beforeunload', e => {
+    if (!panel.hidden && hayCambios(cambios())) { e.preventDefault(); e.returnValue = ''; }
+  });
+
+  // ── Destacados ──
   function renderPerfilTabs() {
     perfilTabs.innerHTML = '';
     PERFILES.forEach(p => {
@@ -182,7 +258,6 @@
       btn.className = p.id === perfilActivo ? 'activo' : '';
       btn.addEventListener('click', () => {
         perfilActivo = p.id;
-        cargarSeleccionDePerfil();
         renderPerfilTabs();
         renderLista();
       });
@@ -190,27 +265,29 @@
     });
   }
 
-  function cargarSeleccionDePerfil() {
+  function cargarSelecciones(destacados) {
     // Solo cuentan los coches que siguen DISPONIBLES (coches_lista.json). Un
     // destacado que desde entonces se reservó o se vendió no aparece en la
     // lista, pero seguía ocupando un hueco del "3 / 3" sin poder desmarcarse.
     // La web pública ya los ignora; aquí se quitan de la selección y al
     // guardar desaparecen también de destacados.json.
-    seleccion = {};
     const disponibles = new Set(cochesDisponibles.map(c => c.id));
-    const descartados = [];
-    (destacadosActuales[perfilActivo] || []).forEach(item => {
-      if (disponibles.has(item.id)) seleccion[item.id] = item.etiqueta;
-      else descartados.push(item);
+    let descartados = 0;
+    seleccionPorPerfil = {};
+    PERFILES.forEach(p => {
+      seleccionPorPerfil[p.id] = {};
+      (destacados[p.id] || []).forEach(item => {
+        if (disponibles.has(item.id)) seleccionPorPerfil[p.id][item.id] = item.etiqueta;
+        else descartados++;
+      });
     });
-    if (descartados.length) {
-      mostrarEstado(`${descartados.length === 1 ? 'Un coche destacado ya no está disponible' : descartados.length + ' coches destacados ya no están disponibles'} (reservado o vendido) y se quitó de la selección. Pulsa "Guardar" para confirmarlo.`, false);
-    } else if (estadoMsg.textContent.includes('(reservado o vendido)')) {
-      estadoMsg.textContent = '';  // aviso de otro perfil
+    if (descartados) {
+      mostrarEstado(`${descartados === 1 ? 'Un coche destacado ya no está disponible' : descartados + ' coches destacados ya no están disponibles'} (reservado o vendido) y se quitó de la selección. Pulsa "Guardar todos los cambios" para confirmarlo.`, false);
     }
   }
 
   function renderLista() {
+    const seleccion = seleccionPorPerfil[perfilActivo];
     const seleccionados = Object.keys(seleccion).length;
     contador.textContent = `${seleccionados} / ${MAX_DESTACADOS} seleccionados`;
     listaCoches.innerHTML = '';
@@ -221,10 +298,10 @@
       row.className = 'coche-row';
       row.innerHTML = `
         <input type="checkbox" class="coche-check" ${marcado ? 'checked' : ''} ${limiteAlcanzado ? 'disabled' : ''}>
-        <img src="${coche.foto}" alt="">
+        <img src="${esc(coche.foto)}" alt="">
         <div class="coche-info">
-          <div class="modelo">${coche.modelo}</div>
-          <div class="precio">${coche.precio} €</div>
+          <div class="modelo">${esc(coche.modelo)}</div>
+          <div class="precio">${esc(coche.precio)} €</div>
           <select ${marcado ? '' : 'hidden'}>
             ${FRASES.map(f => `<option value="${f}" ${seleccion[coche.id] === f ? 'selected' : ''}>${f}</option>`).join('')}
           </select>
@@ -232,26 +309,19 @@
       const check = row.querySelector('.coche-check');
       const select = row.querySelector('select');
       check.addEventListener('change', () => {
-        if (check.checked) {
-          seleccion[coche.id] = select.value || FRASES[0];
-        } else {
-          delete seleccion[coche.id];
-        }
+        if (check.checked) seleccion[coche.id] = select.value || FRASES[0];
+        else delete seleccion[coche.id];
         renderLista();
       });
-      select.addEventListener('change', () => { seleccion[coche.id] = select.value; });
+      select.addEventListener('change', () => { seleccion[coche.id] = select.value; actualizarBarra(); });
       listaCoches.appendChild(row);
     });
+    actualizarBarra();
   }
 
   // ── Rebajas manuales (rebajas.json: { id_estable: { descuento } }) ──
   const DESCUENTOS = [0, 500, 1000, 1500, 2000, 2500, 3000];
   const listaRebajas = document.getElementById('lista-rebajas');
-  const btnGuardarRebajas = document.getElementById('btn-guardar-rebajas');
-  const estadoRebajas = document.getElementById('estado-msg-rebajas');
-  let rebajas = {};
-  const eur = n => Math.round(n).toLocaleString('es-ES').replace(/,/g, '.') + ' €';
-  const num = t => parseInt(String(t).replace(/[^\d]/g, ''), 10) || 0;
 
   function renderRebajas() {
     listaRebajas.innerHTML = '';
@@ -261,10 +331,10 @@
       const row = document.createElement('div');
       row.className = 'coche-row';
       row.innerHTML = `
-        <img src="${coche.foto}" alt="">
+        <img src="${esc(coche.foto)}" alt="">
         <div class="coche-info">
-          <div class="modelo">${coche.modelo}</div>
-          <div class="precio">${coche.precio} €${desc ? ` · se verá: <s>${eur(precio + desc)}</s>` : ''}</div>
+          <div class="modelo">${esc(coche.modelo)}</div>
+          <div class="precio">${esc(coche.precio)} €${desc ? ` · se verá: <s>${eur(precio + desc)}</s>` : ''}</div>
           ${coche.antes_auto ? `<div class="precio">🔻 Bajada real: antes ${eur(coche.antes_auto)} (se muestra sola)</div>` : ''}
           <select>
             ${DESCUENTOS.map(d => `<option value="${d}" ${d === desc ? 'selected' : ''}>${d ? eur(d) + ' de descuento' : (coche.antes_auto ? 'Automática (bajada real)' : 'Sin rebaja')}</option>`).join('')}
@@ -277,39 +347,14 @@
       });
       listaRebajas.appendChild(row);
     });
+    actualizarBarra();
   }
-
-  btnGuardarRebajas.addEventListener('click', async () => {
-    btnGuardarRebajas.disabled = true;
-    estadoRebajas.textContent = 'Guardando…';
-    estadoRebajas.className = 'estado-msg ok';
-    try {
-      // Solo coches que siguen disponibles (los vendidos se limpian solos)
-      const vigentes = new Set(cochesDisponibles.map(c => c.id));
-      const nuevo = {};
-      Object.keys(rebajas).forEach(id => { if (vigentes.has(id)) nuevo[id] = rebajas[id]; });
-      const fecha = new Date().toISOString().slice(0, 10);
-      // Mismo motivo que en destacados: usar el sha vigente, no el de cuando se abrió la página
-      const actual = await ghGet('rebajas.json');
-      await ghPut('rebajas.json', nuevo, actual.sha, `Actualizar rebajas — ${fecha}`);
-      rebajas = nuevo;
-      estadoRebajas.textContent = 'Guardado. Puede tardar hasta un minuto en verse en la web.';
-    } catch (e) {
-      estadoRebajas.textContent = 'No se pudo guardar: ' + e.message;
-      estadoRebajas.className = 'estado-msg error';
-    }
-    btnGuardarRebajas.disabled = false;
-  });
 
   // ── Reservas manuales (reservas_manuales.json: { id_estable: { modelo, precio, foto, desde } }) ──
   // generar_web.py (aplicar_reservas_manuales) muestra esos coches como "Reservado".
   // Se guarda modelo/precio/foto porque un coche reservado deja de estar en
   // coches_lista.json (solo trae disponibles) y sin eso no se podría desmarcar.
   const listaReservas = document.getElementById('lista-reservas');
-  const btnGuardarReservas = document.getElementById('btn-guardar-reservas');
-  const estadoReservas = document.getElementById('estado-msg-reservas');
-  let reservas = {};
-  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   function renderReservas() {
     listaReservas.innerHTML = '';
@@ -338,31 +383,59 @@
       });
       listaReservas.appendChild(row);
     });
+    actualizarBarra();
   }
 
-  btnGuardarReservas.addEventListener('click', async () => {
-    btnGuardarReservas.disabled = true;
-    estadoReservas.textContent = 'Guardando…';
-    estadoReservas.className = 'estado-msg ok';
+  // ── Guardar todo de una vez ──
+  btnGuardarTodo.addEventListener('click', async () => {
+    const c = cambios();
+    if (!hayCambios(c)) return;
+    btnGuardarTodo.disabled = true;
+    estadoGlobal.textContent = 'Guardando…';
+    estadoGlobal.className = 'estado-msg ok';
     try {
+      const archivos = {};
+      const partes = [];
+      if (c.perfiles.length) {
+        // Se relee destacados.json justo antes de guardar y solo se sustituyen los
+        // asesores que cambiaron aquí: si el otro asesor guardó los suyos desde su
+        // móvil entretanto, no se le pisan.
+        const actual = await ghGet('destacados.json');
+        const nuevo = Object.assign({}, actual.data || {});
+        c.perfiles.forEach(p => { nuevo[p.id] = listaDestacados(p.id); });
+        archivos['destacados.json'] = nuevo;
+        partes.push('destacados (' + c.perfiles.map(p => p.nombre).join(', ') + ')');
+      }
+      if (c.rebajas) { archivos['rebajas.json'] = rebajasVigentes(); partes.push('rebajas'); }
+      if (c.reservas) { archivos['reservas_manuales.json'] = reservas; partes.push('reservas'); }
       const fecha = new Date().toISOString().slice(0, 10);
-      // sha vigente justo antes de escribir (ver destacados)
-      const actual = await ghGet('reservas_manuales.json');
-      await ghPut('reservas_manuales.json', reservas, actual.sha, `Actualizar reservas manuales — ${fecha}`);
-      // Lanzar la actualización para que se vea ya (no a las 10:00/16:00)
-      const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/actions/workflows/actualizar-catalogo.yml/dispatches`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' },
-        body: JSON.stringify({ ref: BRANCH })
-      }).catch(() => null);
-      estadoReservas.textContent = (r && r.status === 204)
-        ? 'Guardado. Actualización lanzada: en unos 15 minutos se verá en la web (te llegará el correo).'
-        : 'Guardado. Se verá en la web en la próxima actualización (10:00 o 16:00).';
+      await guardarArchivos(archivos, `Admin: ${partes.join(', ')} — ${fecha}`);
+
+      // Lo guardado pasa a ser la nueva base
+      PERFILES.forEach(p => { base.destacados[p.id] = JSON.stringify(listaDestacados(p.id)); });
+      rebajas = rebajasVigentes();
+      base.rebajas = JSON.stringify(rebajas);
+      base.reservas = JSON.stringify(reservas);
+      actualizarBarra();
+
+      let msg = 'Guardado (' + partes.join(', ') + ').';
+      if (c.reservas) {
+        // Las reservas se aplican al generar la web: se lanza la actualización ya
+        const r = await gh('actions/workflows/actualizar-catalogo.yml/dispatches', {
+          method: 'POST', body: JSON.stringify({ ref: BRANCH })
+        }).then(() => true).catch(() => false);
+        msg += r ? ' Actualización lanzada: las reservas se verán en unos 15 minutos (te llegará el correo).'
+                 : ' Las reservas se verán en la próxima actualización (10:00 o 16:00).';
+        if (c.perfiles.length || c.rebajas) msg += ' Destacados y rebajas: en un minuto.';
+      } else {
+        msg += ' Se verá en la web en un minuto.';
+      }
+      estadoGlobal.textContent = msg;
     } catch (e) {
-      estadoReservas.textContent = 'No se pudo guardar: ' + e.message;
-      estadoReservas.className = 'estado-msg error';
+      estadoGlobal.textContent = 'No se pudo guardar: ' + e.message;
+      estadoGlobal.className = 'estado-msg error';
+      btnGuardarTodo.disabled = false;
     }
-    btnGuardarReservas.disabled = false;
   });
 
   async function cargarTodo() {
@@ -374,18 +447,18 @@
         ghGet('rebajas.json'),
         ghGet('reservas_manuales.json')
       ]);
-      reservas = res.data || {};
       cochesDisponibles = lista;
-      destacadosActuales = dest.data || {};
+      const destacados = dest.data || {};
+      PERFILES.forEach(p => { base.destacados[p.id] = JSON.stringify(destacados[p.id] || []); });
+      cargarSelecciones(destacados);
       rebajas = reb.data || {};
-      cargarSeleccionDePerfil();
+      base.rebajas = JSON.stringify(rebajas);
+      reservas = res.data || {};
+      base.reservas = JSON.stringify(reservas);
       renderPerfilTabs();
       renderLista();
       renderRebajas();
       renderReservas();
-      btnGuardar.disabled = false;
-      btnGuardarRebajas.disabled = false;
-      btnGuardarReservas.disabled = false;
       authCard.hidden = true;
       panel.hidden = false;
     } catch (e) {
@@ -407,27 +480,6 @@
     tokenInput.value = '';
     panel.hidden = true;
     authCard.hidden = false;
-  });
-
-  document.getElementById('btn-guardar').addEventListener('click', async () => {
-    btnGuardar.disabled = true;
-    mostrarEstado('Guardando…', false);
-    try {
-      const lista = Object.keys(seleccion).map(id => ({ id, etiqueta: seleccion[id] }));
-      // El sha leído al abrir la página caduca si entretanto se guardó desde otra
-      // pestaña, otro dispositivo o el otro perfil (una pestaña abierta desde el
-      // 25/09 falló así con "destacados.json does not match <sha>"). Se relee la
-      // versión actual justo antes de escribir y solo se sustituye este perfil.
-      const actual = await ghGet('destacados.json');
-      const nuevo = Object.assign({}, actual.data || {}, { [perfilActivo]: lista });
-      const fecha = new Date().toISOString().slice(0, 10);
-      await ghPut('destacados.json', nuevo, actual.sha, `Actualizar destacados (${perfilActivo}) — ${fecha}`);
-      destacadosActuales = nuevo;
-      mostrarEstado('Guardado. Puede tardar hasta un minuto en verse en la web.', false);
-    } catch (e) {
-      mostrarEstado('No se pudo guardar: ' + e.message, true);
-    }
-    btnGuardar.disabled = false;
   });
 
   if (getToken()) cargarTodo();
