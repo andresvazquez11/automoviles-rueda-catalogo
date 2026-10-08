@@ -1206,3 +1206,42 @@ body.rd-dark .rd-btn-imprimir-ficha { border-color: var(--rd-ink); }
    de la cabecera, ver assets/enviar.js (añade la clase rd-asesor a <html>). */
 .btn-print, .rd-btn-imprimir-ficha { display: none !important; }
 html.rd-asesor .btn-print, html.rd-asesor .rd-btn-imprimir-ficha { display: flex !important; }
+
+/* ── Financiación pública vs. modo asesor ─────────────────────────────────────
+   El cliente ve el EJEMPLO fijo (oficial de Das WeltAuto, o "Pídeme tu cuota")
+   y no las calculadoras. En modo asesor (clase rd-asesor en <html>, ver
+   assets/enviar.js) es al revés. !important gana al display en línea que pone
+   setFinanciera() en los paneles. */
+html:not(.rd-asesor) #financiera-tabs,
+html:not(.rd-asesor) #m-financiacion,
+html:not(.rd-asesor) #bbva-financiacion,
+html:not(.rd-asesor) #caixa-financiacion { display: none !important; }
+html.rd-asesor .rd-fin-ejemplo { display: none; }
+
+.rd-fin-ejemplo { background: var(--rd-surface); border: 1px solid var(--rd-border); border-top: 4px solid #C8232B;
+  border-radius: var(--rd-radius-sm); padding: 18px 18px 20px; margin: 18px 0 22px; scroll-margin-top: 90px; }
+.rd-fe-cab { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; }
+.rd-fe-etq { font: 600 15px 'Oswald', sans-serif; letter-spacing: 1px; text-transform: uppercase; color: var(--rd-ink); }
+.rd-fe-ent { font-size: 12px; color: var(--rd-ink-soft); }
+.rd-fe-cuota { margin: 10px 0 12px; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.rd-fe-desde { font-size: 14px; font-weight: 600; color: var(--rd-ink-soft); }
+.rd-fe-cuota strong { font: 700 clamp(38px, 9vw, 50px)/1 'Oswald', sans-serif; color: #C8232B; letter-spacing: -.5px; }
+.rd-fe-mes { font: 600 18px 'Oswald', sans-serif; color: var(--rd-ink); }
+.rd-fe-datos { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; }
+.rd-fe-datos div { background: var(--rd-bg, #f2f1ed); border-radius: 8px; padding: 9px 11px; }
+.rd-fe-datos > div > span { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--rd-ink-soft); }
+.rd-fe-datos > div > b { display: block; font-size: 16px; margin-top: 2px; color: var(--rd-ink); }
+.rd-fe-flex { font-size: 13.5px; color: var(--rd-ink); margin: 12px 0 0; line-height: 1.45; }
+.rd-fe-legal { font-size: 10.5px; line-height: 1.55; color: var(--rd-ink-soft); margin: 12px 0 0; }
+.rd-fe-pide { font: 700 clamp(30px, 7vw, 40px)/1.05 'Oswald', sans-serif; color: #C8232B; text-transform: uppercase; margin: 10px 0 6px; }
+.rd-fe-txt { font-size: 14.5px; line-height: 1.5; color: var(--rd-ink); margin: 0; }
+.rd-fe-otra { margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--rd-border); }
+.rd-fe-otra-tit { font-weight: 700; font-size: 15px; color: var(--rd-ink); margin-bottom: 10px; }
+.rd-fe-opc { display: flex; flex-wrap: wrap; gap: 8px; }
+.rd-fe-op { flex: 1 1 140px; text-align: center; padding: 11px 12px; border: 1.5px solid var(--rd-ink); border-radius: 999px;
+  color: var(--rd-ink); text-decoration: none; font-weight: 600; font-size: 14px; transition: background .15s ease, color .15s ease; }
+.rd-fe-op:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .rd-fe-op:hover { background: var(--rd-ink); color: var(--rd-surface); } }
+.rd-fe-wa { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 12px; padding: 14px 16px;
+  background: #25D366; color: #fff; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: .3px; }
+.rd-fe-wa:hover { background: #1ebe57; }

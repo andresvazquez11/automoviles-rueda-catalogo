@@ -1622,6 +1622,93 @@ def datos_impresion(ficha: "dict | None") -> dict:
         "etq": etiquetas, "grp": nombres_grupo, "tr": tr,
     }
 
+def _eur(valor, decimales: int = 0) -> str:
+    """'4380.00' → '4.380 €' · decimales=2 → '205,00 €' (formato español)."""
+    try:
+        v = float(str(valor).replace(",", "."))
+    except (TypeError, ValueError):
+        return ""
+    txt = f"{v:,.{decimales}f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    return txt + " €"
+
+ICONO_WA_FE = ('<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 '
+               '2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 004.74 1.21h.01c5.46 0 9.91-4.45 '
+               '9.91-9.91A9.85 9.85 0 0012.04 2z"/></svg>')
+
+def bloque_ejemplo_financiacion(car: dict, datos: dict) -> str:
+    """Bloque PÚBLICO de financiación de la ficha (las calculadoras VWFS/BBVA/CaixaBank
+    solo se ven en modo asesor, ver estilos.css). Con ejemplo oficial de Das WeltAuto
+    (car["financiacion"], texto legal verbatim con TIN/TAE) → ese ejemplo, fijo.
+    Sin ejemplo → "Pídeme tu cuota". En los dos casos, botones que abren WhatsApp con
+    la petición ya escrita (pagar menos al mes / sin cuota final / con más entrada)."""
+    fin = car.get("financiacion") or {}
+    modelo = f'{car["modelo"]} {car.get("version", "")}'.strip()
+    base_msg = f'Hola {datos["nombre_corto"]}, me interesa el {modelo} ({car["precio"]} €). '
+
+    def wa(texto, clase, evento, contenido):
+        url = f'https://wa.me/{datos["telefono_wa"]}?text=' + urllib.parse.quote(base_msg + texto)
+        return (f'<a class="{clase}" href="{url}" target="_blank" rel="noopener" '
+                f'data-goatcounter-click="{evento}">{contenido}</a>')
+
+    opciones = "".join([
+        wa("¿Cómo podría pagar menos al mes?", "rd-fe-op", "fin-menos-al-mes",
+           i18n_span("Pagar menos al mes", "Lower monthly payment")),
+        wa("Me gustaría una financiación sin cuota final. ¿Qué cuota me quedaría?", "rd-fe-op", "fin-sin-cuota-final",
+           i18n_span("Sin cuota final", "No final payment")),
+        wa("Podría dar más entrada. ¿Cuánto me quedaría al mes?", "rd-fe-op", "fin-mas-entrada",
+           i18n_span("Con más entrada", "Bigger down payment")),
+    ])
+    boton_wa = wa("¿Me ayudas con la financiación?", "rd-fe-wa", "fin-whatsapp",
+                  ICONO_WA_FE + i18n_span(f'Escríbeme por WhatsApp · {datos["nombre_corto"]}',
+                                          f'Message me on WhatsApp · {datos["nombre_corto"]}'))
+    cuota = _eur(fin.get("cuota"), 2) if fin.get("cuota") else ""
+    titulo_opc = (i18n_span("¿Quieres otra cuota? Te la calculo a medida", "Want a different payment? I will tailor it for you")
+                  if cuota else i18n_span("¿Cómo la prefieres? Te la calculo a medida", "How would you like it? I will tailor it for you"))
+    otra_cuota = (
+        '<div class="rd-fe-otra">'
+        f'<div class="rd-fe-otra-tit">{titulo_opc}</div>'
+        f'<div class="rd-fe-opc">{opciones}</div>{boton_wa}</div>')
+    if not cuota:
+        return (
+            '\n  <section class="rd-fin-ejemplo rd-fe-sin" id="rd-fin-ejemplo">'
+            f'<div class="rd-fe-cab"><span class="rd-fe-etq">{i18n_span("Financiación a tu medida", "Tailored financing")}</span></div>'
+            f'<div class="rd-fe-pide">{i18n_span("Pídeme tu cuota", "Ask me for your monthly payment")}</div>'
+            f'<p class="rd-fe-txt">{i18n_span("Te calculo la cuota de este coche a tu medida: plazo, entrada y con o sin cuota final. Sin compromiso.", "I will work out the monthly payment for this car to suit you: term, down payment and with or without a final payment. No obligation.")}</p>'
+            f'{otra_cuota}</section>')
+
+    meses = str(fin.get("meses") or "").strip()
+    try:
+        cuota_final = float(str(fin.get("cuota_final") or 0).replace(",", "."))
+    except ValueError:
+        cuota_final = 0
+    pct = lambda v: (str(v).replace(".", ",") + " %") if v else ""
+    filas = [
+        (i18n_span("Plazo", "Term"), f'{meses} {i18n_span("meses", "months")}' if meses else ""),
+        (i18n_span("Entrada", "Down payment"), _eur(fin.get("entrada") or 0)),
+    ]
+    if cuota_final > 0:
+        filas.append((i18n_span(f"Cuota final (mes {meses})", f"Final payment (month {meses})"), _eur(cuota_final, 2)))
+    if fin.get("tin") or fin.get("tae"):
+        filas.append(("TIN / TAE", f'{pct(fin.get("tin"))} / {pct(fin.get("tae"))}'))
+    celdas = "".join(f'<div><span>{l}</span><b>{v}</b></div>' for l, v in filas if v)
+    flex = ''
+    if cuota_final > 0:
+        flex = ('<p class="rd-fe-flex">' + i18n_span(
+            f"Al terminar los {meses} meses puedes cambiarlo por otro coche, devolverlo o quedártelo pagando la cuota final.",
+            f"At the end of the {meses} months you can swap it for another car, hand it back or keep it by paying the final instalment.")
+            + '</p>')
+    legal = html.escape(fin.get("ejemplo", "").strip())
+    return (
+        '\n  <section class="rd-fin-ejemplo" id="rd-fin-ejemplo">'
+        '<div class="rd-fe-cab">'
+        f'<span class="rd-fe-etq">{i18n_span("Ejemplo de financiación", "Financing example")}</span>'
+        '<span class="rd-fe-ent">Das WeltAuto · Volkswagen Financial Services</span></div>'
+        f'<div class="rd-fe-cuota"><span class="rd-fe-desde">{i18n_span("Desde", "From")}</span> '
+        f'<strong>{cuota}</strong><span class="rd-fe-mes">{i18n_span("/mes", "/month")}</span></div>'
+        f'<div class="rd-fe-datos">{celdas}</div>{flex}'
+        + (f'<p class="rd-fe-legal">{legal}</p>' if legal else '')
+        + f'{otra_cuota}</section>')
+
 def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
                      ficha: "dict | None" = None) -> str:
     n = car["n"]
@@ -1722,6 +1809,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 <link rel="stylesheet" href="{ASSET_ESTILOS}">
 <script src="{ASSET_IDIOMA}"></script>
 <script src="{ASSET_MOVIMIENTO}"></script>
+<script>try{{if(localStorage.getItem('rd_asesor')==='1')document.documentElement.classList.add('rd-asesor')}}catch(e){{}}</script>
 <style>
 {CALCULADORA_CSS}
 </style>
@@ -1767,6 +1855,8 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
     {i18n_span("Imprimir ficha · A4", "Print spec sheet · A4")}
   </button>
 
+  {"" if vendido else bloque_ejemplo_financiacion(car, datos)}
+
   <div class="financiera-tabs" id="financiera-tabs">
     <button class="financiera-tab active" id="fin-vwfs" onclick="setFinanciera('VWFS', this)">
       VWFS <span class="fin-sub">Volkswagen Finance</span>
@@ -1804,7 +1894,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 </div>
 <div class="rd-sticky-mobile" id="m-sticky-financiacion">
   <div class="precio" id="m-precio-sticky"></div>
-  <a class="rd-btn rd-btn-primary" href="#m-financiacion">{i18n_span("Ver financiación", "View financing")}</a>
+  <a class="rd-btn rd-btn-primary" href="#rd-fin-ejemplo">{i18n_span("Ver financiación", "View financing")}</a>
 </div>
 
 <script>
@@ -1899,6 +1989,10 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte
     estado_lbl = "Reservado" if reservado else "Disponible"
     dgt_txt, dgt_cls = etiqueta_dgt_badge(car.get("combustible", ""))
     cuota = _cuota_display(car)
+    # Sin ejemplo oficial de DWA no se anuncia cifra (no hay TIN/TAE que la respalde)
+    cuota_card = (f'{i18n_span("Desde", "From")} <strong>{cuota:.0f} €/mes</strong>'
+                  if (car.get("financiacion") or {}).get("cuota")
+                  else f'<strong>{i18n_span("Pide tu cuota", "Ask for your payment")}</strong>')
     p_ant = precio_antes_auto(car, hist)
 
     fotos_html = "".join(
@@ -1939,7 +2033,7 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte
     {confianza_dwa.pastilla_tarjeta_html(ficha, i18n_span)}
     <div class="rd-card-price-row">
       <div>{precio_row}</div>
-      <div class="rd-card-cuota">{i18n_span("Desde", "From")} <strong>{cuota:.0f} €/mes</strong></div>
+      <div class="rd-card-cuota">{cuota_card}</div>
     </div>
     <button type="button" class="rd-compare-btn">{i18n_span("+ Comparar", "+ Compare")}</button>
   </div>

@@ -84,6 +84,9 @@
     if (!on && marca) marca.remove();
     if (on) ponerBotones();
     else document.querySelectorAll('.rde-btn-enviar').forEach(b => b.remove());
+    // Botón fijo "Ver financiación" del móvil: cliente → ejemplo; asesor → calculadoras
+    const sticky = document.querySelector('#m-sticky-financiacion a');
+    if (sticky) sticky.setAttribute('href', on ? '#financiera-tabs' : '#rd-fin-ejemplo');
   }
 
   // En el ordenador no hay app de WhatsApp: se usa WhatsApp Web directamente.
@@ -547,7 +550,8 @@
     capa.querySelector('.rdv-ver').addEventListener('click', () => {
       capa.remove();
       document.documentElement.style.overflow = '';
-      const destino = document.getElementById(tipo === 'sim' ? 'financiera-tabs' : 'm-modelo');
+      // el cliente no ve las calculadoras: se le lleva al ejemplo / «Pídeme tu cuota»
+      const destino = document.getElementById(tipo === 'sim' ? (esAsesor() ? 'financiera-tabs' : 'rd-fin-ejemplo') : 'm-modelo');
       if (destino) destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     const btn = capa.querySelector('.rdv-pdf');
