@@ -1690,7 +1690,7 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener"><span class="rd-i18n" data-es="Ver todos los coches en Das WeltAuto ↗" data-en="See all cars on Das WeltAuto ↗" data-de="Alle Fahrzeuge bei Das WeltAuto ansehen ↗">Ver todos los coches en Das WeltAuto ↗</span></a>
   </p>
-  <p class="rd-footer-updated">🔄 <span class="rd-i18n" data-es="Última actualización: 08/10/2026 — 09:53 h" data-en="Last updated: 08/10/2026 — 09:53" data-de="Letzte Aktualisierung: 08/10/2026 — 09:53 Uhr">Última actualización: 08/10/2026 — 09:53 h</span></p>
+  <p class="rd-footer-updated">🔄 <span class="rd-i18n" data-es="Última actualización: 08/10/2026 — 10:00 h" data-en="Last updated: 08/10/2026 — 10:00" data-de="Letzte Aktualisierung: 08/10/2026 — 10:00 Uhr">Última actualización: 08/10/2026 — 10:00 h</span></p>
   <p class="rd-footer-priv">
     <a href="historial-precios/" aria-label="Historial" rel="nofollow">·</a>
     <a href="#" id="rd-priv-upd" aria-label="Actualizar" rel="nofollow">·</a>
@@ -1757,24 +1757,41 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
     var msg = cta.getAttribute('data-msg-' + l) || cta.getAttribute('data-msg-es');
     cta.href = cta.href.split('?')[0] + '?text=' + msg;
   });
+  // Mini chat de bienvenida, poco invasivo:
+  //  · en modo asesor (5 toques en el nombre, ver assets/enviar.js) nunca se abre solo;
+  //  · al cliente NO le sale al entrar: una sola vez por visita, cuando empieza a
+  //    navegar (baja media pantalla), y se cierra solo a los 5 s salvo que lo toque.
+  //  La burbuja verde y la ✕ siguen funcionando a mano como siempre.
+  var popup = document.getElementById('rd-wa-popup');
+  if (!popup) return;
+  function esAsesor() { try { return localStorage.getItem('rd_asesor') === '1'; } catch (e) { return false; } }
+  function yaVisto() { try { return sessionStorage.getItem('rd_wa_visto') === '1'; } catch (e) { return false; } }
+  function marcarVisto() { try { sessionStorage.setItem('rd_wa_visto', '1'); } catch (e) {} }
+  var tocado = false;
+  ['pointerenter', 'touchstart', 'focusin'].forEach(function(ev) {
+    popup.addEventListener(ev, function() { tocado = true; }, { passive: true });
+  });
+  var flotante = document.querySelector('.rd-whatsapp-float');
+  if (flotante) flotante.addEventListener('click', function() { tocado = true; marcarVisto(); });
   function abrirPopupWa() {
-    var popup = document.getElementById('rd-wa-popup');
-    if (popup) popup.classList.add('activo');
+    if (esAsesor() || yaVisto() || popup.classList.contains('activo')) return;
+    marcarVisto();
+    popup.classList.add('activo');
+    setTimeout(function() { if (!tocado) popup.classList.remove('activo'); }, 5000);
   }
-  // Si la pestaña está en segundo plano al cargar (link abierto desde otra
-  // app/pestaña), los navegadores retrasan o bloquean el setTimeout — se
-  // espera a que la pestaña esté realmente visible antes de contar los
-  // segundos, para que la burbuja no tarde minutos en aparecer (o nunca).
-  if (document.visibilityState === 'visible') {
-    setTimeout(abrirPopupWa, 3500);
-  } else {
+  if (esAsesor() || yaVisto()) return;
+  function alNavegar() {
+    if (window.scrollY < window.innerHeight * 0.5) return;
+    window.removeEventListener('scroll', alNavegar);
+    if (document.visibilityState === 'visible') { setTimeout(abrirPopupWa, 600); return; }
+    // pestaña en segundo plano: esperar a que vuelva a verse
     document.addEventListener('visibilitychange', function onVis() {
-      if (document.visibilityState === 'visible') {
-        document.removeEventListener('visibilitychange', onVis);
-        setTimeout(abrirPopupWa, 3500);
-      }
+      if (document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', onVis);
+      setTimeout(abrirPopupWa, 600);
     });
   }
+  window.addEventListener('scroll', alNavegar, { passive: true });
 })();
 </script>
 
