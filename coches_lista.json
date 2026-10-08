@@ -147,13 +147,6 @@
     "antes_auto": 0
   },
   {
-    "id": "dwa-169786447",
-    "modelo": "SEAT Ibiza",
-    "precio": "20.900",
-    "foto": "/web_fotos/26/foto_01.jpg",
-    "antes_auto": 0
-  },
-  {
     "id": "dwa-166434652",
     "modelo": "CUPRA Tavascan",
     "precio": "41.900",
@@ -165,13 +158,6 @@
     "modelo": "Abarth 500",
     "precio": "18.500",
     "foto": "/web_fotos/28/foto_01.jpg",
-    "antes_auto": 0
-  },
-  {
-    "id": "dwa-165438064",
-    "modelo": "SEAT Arona",
-    "precio": "18.900",
-    "foto": "/web_fotos/29/foto_01.jpg",
     "antes_auto": 0
   },
   {
