@@ -19,6 +19,26 @@
   "precio": "32.900",
   "version": "1.5 eTSI DSG 110 kW (150 CV)"
  },
+ "cupra-formentor-mf198019852": {
+  "baja": "2026-10-08",
+  "cambio": "Automatico",
+  "combustible": "Híbrido Electro/Gasolina",
+  "fecha": "2021",
+  "km": "105.000",
+  "modelo": "CUPRA Formentor",
+  "precio": "21.500",
+  "version": "1.4 e-Hybrid VZ DSG 180 kW (245 CV)"
+ },
+ "cupra-leon-151395102": {
+  "baja": "2026-10-08",
+  "cambio": "Automático",
+  "combustible": "Híbrido",
+  "fecha": "01/2026",
+  "km": "150",
+  "modelo": "CUPRA Leon",
+  "precio": "41.300",
+  "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)"
+ },
  "nissan-qashqai-mf168212671": {
   "baja": "2026-09-26",
   "cambio": "Automatico",
@@ -108,6 +128,26 @@
   "modelo": "SEAT Ibiza",
   "precio": "18.300",
   "version": "1.0 TSI Special Edition 85 kW (115 CV)"
+ },
+ "seat-ibiza-mf197896909": {
+  "baja": "2026-10-08",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2025",
+  "km": "23.779",
+  "modelo": "SEAT Ibiza",
+  "precio": "17.900",
+  "version": "1.0 TSI S&S Xcellence 85 kW (115 CV)"
+ },
+ "seat-ibiza-mf197896927": {
+  "baja": "2026-10-08",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2025",
+  "km": "14.276",
+  "modelo": "SEAT Ibiza",
+  "precio": "18.300",
+  "version": "1.0 TSI S&S Xcellence 85 kW (115 CV)"
  },
  "seat-ibiza-mf198971371": {
   "baja": "2026-10-03",

@@ -125,6 +125,22 @@
     ],
     "version_en": "1.0 TSI S&S FR 85 kW (115 HP)"
   },
+  "17c898f1f1b55ee1": {
+    "color_en": "Black",
+    "equipamiento_en": [
+      "Top speed: 198 km/h",
+      "Safe & Driving Pack M",
+      "Vision Plus Pack",
+      "16-inch front and rear alloy wheels, 6.5 inches wide (40.6, 16.5 and PG4)",
+      "Headlights with ellipsoidal lens, LED dipped beam, and LED high beam",
+      "Luxury trim: leather and aluminium gearshift knob",
+      "12V power socket(s) for the front seats",
+      "Cloth upholstery (primary and secondary material) marketed as sustainable/vegan",
+      "Individual driver and front passenger seats with manual fore/aft, height, and backrest adjustment",
+      "3-seater forward-facing split-folding rear bench with asymmetric folding backrest"
+    ],
+    "version_en": "1.0 TSI S&S Xcellence 85 kW (115 HP)"
+  },
   "1b02d694dde2219c": {
     "color_en": "",
     "equipamiento_en": [],
@@ -1647,6 +1663,22 @@
     ],
     "version_en": "77kWh Endurance First Edition 210 kW (286 HP)"
   },
+  "a869eb65884e346b": {
+    "color_en": "Black",
+    "equipamiento_en": [
+      "Park Exit Assist, Lane Change Assist, and Exit Warning System",
+      "19\" EXCLUSIVE Sport Black & Copper 38/5 alloy wheels",
+      "\"Keyless Advanced\" keyless entry and start system without safelock",
+      "Lane Keeping Assist system with Emergency Assist and Traffic Jam Assist",
+      "3-Zone Climatronic with rear climate control panel",
+      "Cloth upholstery (primary material) and synthetic leather (secondary material)",
+      "Individual climate controls for driver/passenger and front/rear seats",
+      "Tri-zone automatic climate control with rear controls",
+      "Front and rear parking sensors with rear view camera",
+      "Full LED lighting (brake lights, front fog lights, low beam, side indicators, daytime running lights, taillights, and high beam)"
+    ],
+    "version_en": "1.4 e-Hybrid VZ DSG 180 kW (245 HP)"
+  },
   "a945c120f5a5ef52": {
     "color_en": "",
     "equipamiento_en": [
@@ -1731,6 +1763,22 @@
       "Ventilation system with pollen filter and engine heater"
     ],
     "version_en": "1.4 16v T-Jet 595 121 kW (165 hp)"
+  },
+  "b0fd388018ffc224": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Front fog lights, low beam, daytime running lights, and high beam with LED technology",
+      "Top speed: 193 km/h",
+      "Digital Cockpit instrument cluster",
+      "16-inch front and rear alloy wheels (6.0-inch width)",
+      "Ellipsoidal lens headlights with LED low and high beams",
+      "Luxury finish: leather and aluminum gear shift knob, aluminum-effect center console, and dashboard trim",
+      "12V power outlet(s) in the front",
+      "Cloth seat upholstery (primary and secondary material)",
+      "Three-passenger forward-facing rear bench with fold-flat feature, fixed cushion, and asymmetric split-folding backrest",
+      "Leather-wrapped multifunction steering wheel, height and reach adjustable"
+    ],
+    "version_en": "1.0 TSI Style Special Edition DSG 85 kW (115 HP)"
   },
   "b43b6e23edafb6d2": {
     "color_en": "",
