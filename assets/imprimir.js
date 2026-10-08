@@ -112,6 +112,29 @@
 .rdp-color .rdp-tile span { color: #C8232B; }
 .rdp-color .rdp-pie { border-top: 3pt solid #C8232B; }
 .rdp-color .rdp-asesor-tel { color: #C8232B; }
+/* ── Reverso (cara 2): datos técnicos completos + todo el equipamiento ── */
+#rd-print-sheet .rdp + .rdp { break-before: page; page-break-before: always; }
+.rdp-rev-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm;
+  border-bottom: 3pt solid #C8232B; padding-bottom: 2mm; font-size: 8.3pt; color: #14110f; }
+.rdp-rev-head .rdp-rev-marca { font-size: 13pt; font-weight: 700; text-transform: uppercase; margin-right: 2mm; }
+.rdp-rev-head .rdp-rev-pag { color: #5d5650; white-space: nowrap; }
+.rdp-rev-datos { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 5mm; margin: 0; }
+.rdp-rev-datos div { display: flex; justify-content: space-between; gap: 2mm; padding: .7mm 0; border-bottom: .5pt solid #cbc5bc; font-size: 7.8pt; }
+.rdp-rev-datos dt { color: #5d5650; }
+.rdp-rev-datos dd { margin: 0; font-weight: 600; text-align: right; }
+.rdp-reverso .rdp-sec { margin-top: 3.5mm; }
+.rdp-reverso .rdp-equip { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.rdp-reverso .rdp-grupos { flex: 1; min-height: 0; overflow: hidden; columns: 3; column-gap: 5mm; column-fill: auto; }
+.rdp-reverso .rdp-grupo { margin-bottom: 1.6mm; }
+/* sin multicolumna anidada (la lista dentro de las 3 columnas): dejaba columnas medio vacías */
+.rdp-reverso .rdp-grupo ul { columns: auto; }
+.rdp-ficha:not(.rdp-reverso) .rdp-grupo { break-inside: avoid; }
+.rdp-reverso .rdp-grupo li { font-size: 7pt; line-height: 1.2; padding-bottom: .55mm; }
+.rdp-reverso .rdp-grupo li::before { top: .9mm; width: 1.1mm; height: 1.1mm; }
+.rdp-reverso .rdp-grupo h3 { font-size: 7.4pt; margin-bottom: .8mm; }
+.rdp-reverso .rdp-grupo-extra h3 { color: #C8232B; }
+.rdp-reverso .rdp-aviso { margin-top: 2mm; }
+.rdp-mas { font-weight: 600; color: #5d5650; }
 /* ── Hoja "Imprimir ficha · A4" (características del coche) ── */
 .rdp-ficha .rdp-coche { grid-template-columns: 92mm 1fr; }
 .rdp-ficha .rdp-foto { width: 92mm; height: 60mm; }
@@ -180,6 +203,11 @@
     'Dimensiones': ['Dimensions', 'Abmessungen'],
     'Motor y consumo': ['Engine and consumption', 'Motor und Verbrauch'],
     'Equipamiento extra': ['Optional equipment', 'Sonderausstattung'],
+    'Datos técnicos': ['Technical data', 'Technische Daten'],
+    'Equipamiento completo': ['Full equipment', 'Komplette Ausstattung'],
+    'Extra': ['Optional', 'Extra'], 'De serie': ['Standard', 'Serie'],
+    'Página': ['Page', 'Seite'], 'Completo al dorso ›': ['Full list overleaf ›', 'Vollständig auf der Rückseite ›'],
+    'resto al dorso': ['rest overleaf', 'Rest auf der Rückseite'],
     'Equipamiento': ['Equipment', 'Ausstattung'],
     'Pintura': ['Paint', 'Lackierung'], 'Tapicería': ['Upholstery', 'Polsterung'],
     'Tu asesor comercial': ['Your sales advisor', 'Ihr Verkaufsberater'],
@@ -397,7 +425,7 @@
   }
 
   // ── Hoja A4: simulación de financiación ──
-  function hojaHTML(fin) {
+  function hojaFrenteHTML(fin) {
     const c = coche();
     const ex = c.imprimir || {};
     const tr = ex.tr || {};
@@ -465,6 +493,69 @@
   ${pieHTML('Simulación orientativa sin valor contractual, sujeta a aprobación de la entidad financiera. Precio y condiciones vigentes a fecha de emisión.')}
 </div>`;
   }
+  function hojaHTML(fin) { return conDorso(hojaFrenteHTML(fin), hojaReversoHTML()); }
+
+  // ── Cara 2 (reverso) común a las dos hojas: TODOS los datos técnicos y TODO el
+  //    equipamiento (extras + de serie). Sin datos que poner, no hay reverso.
+  function hojaReversoHTML() {
+    const c = coche();
+    const ex = c.imprimir || {};
+    const tr = ex.tr || {};
+    const etq = ex.etq || {};
+    const grp = ex.grp || {};
+    const lab = clave => { const e = etq[clave]; return e ? tri(e[0], e[1], e[2]) : clave; };
+    const datos = Object.assign({}, ex.gen || {}, ex.dims || {});
+    if (!datos.matriculacion && c.fecha) datos.matriculacion = c.fecha;
+    if (!datos.combustible && c.combustible) datos.combustible = c.combustible;
+    if (!datos.cambio && c.cambio) datos.cambio = c.cambio;
+    if (c.km) datos.km = (c.km + ' km').replace(' km km', ' km');
+    if (ex.pintura) datos.color = ex.pintura;
+    const ORDEN = ['matriculacion', 'km', 'combustible', 'potencia', 'par', 'cambio', 'traccion', 'cilindrada',
+      'cilindros', 'vmax', 'aceleracion', 'consumo', 'consumo_urbano', 'consumo_carretera', 'co2', 'etiqueta',
+      'normativa', 'autonomia', 'autonomia_electrica', 'bateria', 'consumo_electrico', 'largo', 'ancho', 'alto',
+      'batalla', 'peso', 'peso_max', 'maletero', 'deposito', 'puertas', 'plazas', 'carroceria', 'color',
+      'neumaticos', 'garantia', 'garantia_bateria'];
+    const claves = ORDEN.filter(k => datos[k]).concat(Object.keys(datos).filter(k => datos[k] && !ORDEN.includes(k) && etq[k]));
+    const datosHTML = claves.map(k => `<div><dt>${esc(lab(k))}</dt><dd>${esc(trFicha(datos[k], tr))}</dd></div>`).join('');
+
+    const nombreGrupo = g => (grp[g] ? tri(grp[g][0], grp[g][1], grp[g][2]) : g);
+    const grupoHTML = (titulo, items, cls) => `<div class="rdp-grupo ${cls || ''}"><h3>${esc(titulo)}</h3><ul>${
+      items.map(e => `<li>${esc(recorta(trFicha(e, tr), 115))}</li>`).join('')}</ul></div>`;
+    const extras = ex.grupos || {};
+    const serie = ex.serie || {};
+    let equipHTML = Object.keys(extras).map(g => grupoHTML(L('Extra') + ' · ' + nombreGrupo(g), extras[g], 'rdp-grupo-extra')).join('')
+      + Object.keys(serie).map(g => grupoHTML(L('De serie') + ' · ' + nombreGrupo(g), serie[g])).join('');
+    if (!equipHTML) {
+      const lista = equipamientoCoche(c).filter(e => !/^velocidad m[aá]xima/i.test(e));
+      if (lista.length) equipHTML = grupoHTML(L('Equipamiento'), lista);
+    }
+    if (!datosHTML && !equipHTML) return '';
+
+    return `
+<div class="rdp rdp-color rdp-reverso">
+  <div class="rdp-rev-head">
+    <div><span class="rdp-osw rdp-rev-marca">Automóviles Rueda</span><b>${esc(c.modelo)}</b> · ${esc(tri(c.version, c.version_en, c.version_de))}</div>
+    <div class="rdp-rev-pag">${c.id ? 'Ref. ' + esc(c.id) + ' · ' : ''}${esc(L('Página'))} 2/2</div>
+  </div>
+  ${datosHTML ? `<div class="rdp-sec">
+    <div class="rdp-sec-tit"><h2 class="rdp-osw">${esc(L('Datos técnicos'))}</h2></div>
+    <dl class="rdp-rev-datos">${datosHTML}</dl>
+  </div>` : ''}
+  ${equipHTML ? `<div class="rdp-sec rdp-equip">
+    <div class="rdp-sec-tit"><h2 class="rdp-osw">${esc(L('Equipamiento completo'))}</h2><small class="rdp-mas"></small></div>
+    <div class="rdp-grupos">${equipHTML}</div>
+  </div>` : '<div style="flex:1"></div>'}
+  <div class="rdp-aviso">${esc(L('Ficha informativa sin valor contractual. Precio, disponibilidad y equipamiento sujetos a cambios; consulta con tu asesor.'))}</div>
+</div>`;
+  }
+
+  // Si hay reverso, la sección de equipamiento de la cara 1 avisa de que sigue detrás
+  const conDorso = (frente, reverso) => reverso
+    ? frente.replace('<small class="rdp-mas"></small>', `<small class="rdp-mas">${esc(L('Completo al dorso ›'))}</small>`)
+            .replace(`<h2 class="rdp-osw">${esc(L('Equipamiento destacado'))}</h2></div>`,
+                     `<h2 class="rdp-osw">${esc(L('Equipamiento destacado'))}</h2><small class="rdp-mas">${esc(L('Completo al dorso ›'))}</small></div>`)
+      + reverso
+    : frente;
 
   function equipamientoCoche(c) {
     const n = (c.equipamiento || []).length;
@@ -475,7 +566,7 @@
   }
 
   // ── Hoja A4: ficha del vehículo (características, sin financiación) ──
-  function hojaFichaHTML() {
+  function hojaFichaFrenteHTML() {
     const c = coche();
     const ex = c.imprimir || {};
     const tr = ex.tr || {};
@@ -560,6 +651,7 @@
   ${pieHTML('Ficha informativa sin valor contractual. Precio, disponibilidad y equipamiento sujetos a cambios; consulta con tu asesor.')}
 </div>`;
   }
+  function hojaFichaHTML() { return conDorso(hojaFichaFrenteHTML(), hojaReversoHTML()); }
 
   // La hoja mide 274 mm fijos: quita los últimos elementos de la lista que no
   // quepan para que nunca salga una línea cortada a medias (se mide fuera de
@@ -567,8 +659,8 @@
   function ajustarEquipamiento(hoja) {
     const prev = hoja.getAttribute('style');
     hoja.style.cssText = 'display:block;position:absolute;left:-10000px;top:0;';
-    const caja = hoja.querySelector('.rdp-equip');
-    if (caja) {
+    const hayDorso = !!hoja.querySelector('.rdp-reverso');
+    hoja.querySelectorAll('.rdp-equip').forEach(caja => {
       const marco = caja.querySelector('.rdp-grupos') || caja;
       const sobra = () => marco === caja
         ? caja.scrollHeight > caja.clientHeight + 1
@@ -586,11 +678,13 @@
       }
       const quedan = caja.querySelectorAll('li').length;
       const aviso = caja.querySelector('.rdp-mas');
+      const enReverso = !!caja.closest('.rdp-reverso');
       if (aviso && quedan && quedan < total) {
-        aviso.textContent = quedan + ' ' + L('de') + ' ' + total + ' · ' + L('resto en la ficha online');
+        aviso.textContent = quedan + ' ' + L('de') + ' ' + total + ' · '
+          + L(hayDorso && !enReverso ? 'resto al dorso' : 'resto en la ficha online');
       }
       if (!quedan) caja.innerHTML = '';
-    }
+    });
     if (prev === null) hoja.removeAttribute('style'); else hoja.setAttribute('style', prev);
   }
 

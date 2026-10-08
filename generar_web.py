@@ -1615,6 +1615,8 @@ def datos_impresion(ficha: "dict | None") -> dict:
     dims = ficha.get("dims") or {}
     grupos = {g: list(v) for g, v in (ficha.get("extras") or {}).items() if v}
     extras = [e for grupo in grupos.values() for e in grupo]
+    # Equipamiento de serie completo: va en el reverso de las hojas A4
+    serie = {g: list(v) for g, v in (ficha.get("serie") or {}).items() if v}
     en = ficha.get("en") or {}
 
     # Traducciones para imprimir la hoja en el idioma elegido: {es: [en, de]}
@@ -1622,11 +1624,12 @@ def datos_impresion(ficha: "dict | None") -> dict:
         en_ = en.get(es, es)
         return [en_, aleman.de(es, en_)]
     textos = set(v for v in gen.values() if isinstance(v, str)) | set(dims.values()) | set(extras)
+    textos |= {e for v in serie.values() for e in v}
     textos |= {ficha.get("pintura", ""), ficha.get("tapizado", "")}
     tr = {t: par(t) for t in textos if t}
     etiquetas = {k: [es, en_, aleman.de(es, en_)] for k, (es, en_) in ficha_tecnica._ETIQUETAS.items()}
     nombres_grupo = {g: [g, ficha_tecnica._GRUPOS_EN.get(g, g), aleman.de(g, ficha_tecnica._GRUPOS_EN.get(g, g))]
-                     for g in grupos}
+                     for g in list(grupos) + list(serie)}
     return {
         "potencia": gen.get("potencia", ""), "consumo": gen.get("consumo", ""),
         "co2": gen.get("co2", ""), "traccion": gen.get("traccion", ""),
@@ -1635,7 +1638,7 @@ def datos_impresion(ficha: "dict | None") -> dict:
         "pintura": ficha.get("pintura", ""), "tapizado": ficha.get("tapizado", ""),
         "extras": extras[:12],
         # Para la hoja "Imprimir ficha · A4" (completa y traducible)
-        "gen": gen, "dims": dims, "grupos": grupos,
+        "gen": gen, "dims": dims, "grupos": grupos, "serie": serie,
         "etq": etiquetas, "grp": nombres_grupo, "tr": tr,
     }
 

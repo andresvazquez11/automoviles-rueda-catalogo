@@ -283,24 +283,58 @@
       cargarScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'),
     ]);
   }
+  // html2canvas no entiende object-fit: cover y ESTIRA la foto para llenar el
+  // marco (el coche salía ensanchado en el PDF). Se recorta a mano la foto al
+  // tamaño exacto del marco, centrada, antes de capturar.
+  async function recortarFotos(el) {
+    for (const img of el.querySelectorAll('.rdp-foto img')) {
+      if (!(img.complete && img.naturalWidth)) await new Promise(ok => { img.onload = img.onerror = ok; });
+      const marco = img.parentElement;
+      const w = marco.clientWidth, h = marco.clientHeight;
+      if (!img.naturalWidth || !w || !h) continue;
+      const rMarco = w / h;
+      let sw = img.naturalWidth, sh = img.naturalHeight, sx = 0, sy = 0;
+      if (sw / sh > rMarco) { sw = sh * rMarco; sx = (img.naturalWidth - sw) / 2; }
+      else { sh = sw / rMarco; sy = (img.naturalHeight - sh) / 2; }
+      const escala = Math.min(1, 1600 / sw);
+      const cv = document.createElement('canvas');
+      cv.width = Math.round(sw * escala); cv.height = Math.round(sh * escala);
+      try {
+        cv.getContext('2d').drawImage(img, sx, sy, sw, sh, 0, 0, cv.width, cv.height);
+        await new Promise(ok => { img.onload = img.onerror = ok; img.src = cv.toDataURL('image/jpeg', 0.9); });
+      } catch (_) { /* foto de otro dominio: se deja como está */ }
+    }
+  }
+
+  // Cada cara de la hoja (.rdp) es una página A4 del PDF: cara 1 + reverso.
   async function generarPDF(html) {
     await librerias();
     const caja = document.createElement('div');
     caja.className = 'rde-captura';
     caja.innerHTML = html;
     document.body.appendChild(caja);
+    const paginas = [];
     try {
-      window.rdHojas.preparar(caja);
-      caja.style.cssText = '';            // preparar() la devuelve a su sitio (fuera de pantalla)
-      const img = caja.querySelector('.rdp-foto img');
-      if (img && !(img.complete && img.naturalWidth)) await new Promise(ok => { img.onload = img.onerror = ok; });
+      window.rdHojas.preparar(caja);       // recorta el equipamiento que no cabe en cada cara
+      caja.style.cssText = '';             // preparar() la devuelve a su sitio (fuera de pantalla)
       if (document.fonts && document.fonts.ready) await document.fonts.ready;
-      const lienzo = await window.html2canvas(caja, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false });
       const pdf = new window.jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-      pdf.addImage(lienzo.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, 210, 297);
+      const caras = Array.from(caja.children).filter(el => el.classList.contains('rdp'));
+      for (let i = 0; i < caras.length; i++) {
+        const pagina = document.createElement('div');
+        pagina.className = 'rde-captura';
+        pagina.appendChild(caras[i]);
+        document.body.appendChild(pagina);
+        paginas.push(pagina);
+        await recortarFotos(pagina);
+        const lienzo = await window.html2canvas(pagina, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false });
+        if (i > 0) pdf.addPage('a4', 'portrait');
+        pdf.addImage(lienzo.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, 210, 297);
+      }
       return pdf.output('blob');
     } finally {
       caja.remove();
+      paginas.forEach(p => p.remove());
     }
   }
   function nombrePDF(tipo) {
@@ -533,17 +567,27 @@
   <button type="button" class="rdv-pdf">⬇ Descargar PDF</button>
   <button type="button" class="rdv-ver">Ver el coche ›</button>
 </div>
-<div class="rdv-papel"><div class="rdv-hoja">${html}</div></div>`;
+<div class="rdv-hojas"><div class="rdv-hoja">${html}</div></div>`;
     document.body.appendChild(capa);
     document.documentElement.style.overflow = 'hidden';
-    window.rdHojas.preparar(capa.querySelector('.rdv-hoja'));
+    const hojaTmp = capa.querySelector('.rdv-hoja');
+    window.rdHojas.preparar(hojaTmp);
+    // Cada cara (frente y reverso) en su propio folio
+    const hojas = capa.querySelector('.rdv-hojas');
+    Array.from(hojaTmp.children).filter(el => el.classList.contains('rdp')).forEach(cara => {
+      const folio = document.createElement('div');
+      folio.className = 'rdv-papel';
+      folio.appendChild(cara);
+      hojas.appendChild(folio);
+    });
+    hojaTmp.remove();
 
-    const papel = capa.querySelector('.rdv-papel');
+    const papeles = Array.from(capa.querySelectorAll('.rdv-papel'));
     // zoom (no transform) para que la hoja reduzca también su hueco y quede centrada en el móvil
-    const escalar = () => {
+    const escalar = () => papeles.forEach(papel => {
       papel.style.zoom = '';
       papel.style.zoom = Math.min(1, (window.innerWidth - 16) / papel.offsetWidth);
-    };
+    });
     escalar();
     window.addEventListener('resize', escalar);
 
