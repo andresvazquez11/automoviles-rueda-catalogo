@@ -1245,3 +1245,9 @@ html.rd-asesor .rd-fin-ejemplo { display: none; }
 .rd-fe-wa { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 12px; padding: 14px 16px;
   background: #25D366; color: #fff; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: .3px; }
 .rd-fe-wa:hover { background: #1ebe57; }
+
+/* Botón secreto del modo asesor (5 toques en el nombre, ver assets/enviar.js):
+   en iPhone el doble toque hacía zoom y no contaba el clic. touch-action:
+   manipulation quita el zoom por doble toque solo en este texto. */
+.rd-marca strong { touch-action: manipulation; -webkit-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; }

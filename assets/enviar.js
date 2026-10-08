@@ -49,12 +49,12 @@
   }
   const esAsesor = () => lsGet(LS_ASESOR) === '1';
 
-  // 5 toques seguidos (menos de 1,5 s entre uno y otro) en el nombre de la cabecera
+  // 5 toques seguidos (menos de 2 s entre uno y otro) en el nombre de la cabecera
   let toques = 0, ultimoToque = 0;
   document.addEventListener('click', e => {
     if (!e.target.closest || !e.target.closest('.rd-marca strong')) return;
     const ahora = Date.now();
-    toques = ahora - ultimoToque < 1500 ? toques + 1 : 1;
+    toques = ahora - ultimoToque < 2000 ? toques + 1 : 1;
     ultimoToque = ahora;
     if (toques < 5) return;
     toques = 0;
