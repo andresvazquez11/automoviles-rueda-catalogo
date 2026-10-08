@@ -170,12 +170,33 @@ jobs:
                   fichas_tecnicas.json recortes.json sitemap.xml robots.txt pruebas.json \
                   traducciones_de.json 404.html vendidos.json
           git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M')" || echo "Sin cambios que subir"
-          # Si mientras corría esto alguien guardó desde /admin/ (destacados,
-          # rebajas), el push se rechaza: se incorpora ese cambio y se reintenta.
+          # Si mientras corría esto alguien subió algo (guardado desde /admin/, o
+          # un cambio de la web), el push se rechaza: se incorpora y se reintenta.
+          # Si ese cambio tocó los mismos archivos GENERADOS (fichas, index…) el
+          # rebase choca — pasó el 08/10 a las 10:00 y la actualización se perdió.
+          # En ese caso no se abandona: se parte de la versión remota, se
+          # conservan los DATOS de esta corrida y se vuelve a generar la web.
+          DATOS="datos_coches.json historial_precios.json historial_cambios_precio.json \
+                 fichas_tecnicas.json traducciones_cache.json traducciones_de.json \
+                 pruebas.json recortes.json vendidos.json"
           for intento in 1 2 3; do
             git push origin main && exit 0
             echo "Push rechazado (intento $intento) — incorporando cambios remotos…"
-            git pull --rebase origin main || { git rebase --abort; exit 1; }
+            if git pull --rebase origin main; then continue; fi
+            git rebase --abort
+            echo "⚠️  Conflicto con cambios subidos a la vez: se regenera la web sobre la versión remota"
+            mkdir -p "$RUNNER_TEMP/datos_corrida"
+            for f in $DATOS; do [ -f "$f" ] && cp "$f" "$RUNNER_TEMP/datos_corrida/"; done
+            git reset --hard origin/main
+            for f in $DATOS; do [ -f "$RUNNER_TEMP/datos_corrida/$f" ] && cp "$RUNNER_TEMP/datos_corrida/$f" "$f"; done
+            python3 generar_web.py
+            git add index.html web_fotos/ coches/ assets/ alejandro/ \
+                    historial-precios/ quienes-somos/ comparador.json \
+                    datos_coches.json historial_precios.json coches_lista.json \
+                    traducciones_cache.json historial_cambios_precio.json \
+                    fichas_tecnicas.json recortes.json sitemap.xml robots.txt pruebas.json \
+                    traducciones_de.json 404.html vendidos.json
+            git commit -m "Actualización automática del catálogo $(date '+%d/%m/%Y %H:%M') (regenerada tras conflicto)" || echo "Sin cambios que subir"
           done
           exit 1
 

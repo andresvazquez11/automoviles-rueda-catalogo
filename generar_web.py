@@ -2629,6 +2629,23 @@ def build_historial_precios_html(historial: list[dict], perfil: dict, fichas_por
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
+RESERVAS_MANUALES_JSON = BASE_DIR / "reservas_manuales.json"
+
+def aplicar_reservas_manuales(lista: list) -> None:
+    """Coches marcados como reservados A MANO desde /admin/ (reservas_manuales.json,
+    {id_estable: {modelo, precio, foto, desde}}): se muestran como "Reservado" aunque
+    Das WeltAuto los siga dando como disponibles (p.ej. ya no están en nuestro stock
+    pero el anuncio sigue publicado por error). Dura hasta que se quita en /admin/ o
+    hasta que el anuncio desaparece de DWA."""
+    try:
+        reservas = json.loads(RESERVAS_MANUALES_JSON.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return
+    for c in lista:
+        if c.get("estado") == "Disponible" and id_estable_coche(c) in reservas:
+            c["estado"] = "No disponible"
+            c["reserva_manual"] = True
+
 def main():
     if not JSON_PATH.exists():
         print(f"❌  No se encontró {JSON_PATH}")
@@ -2636,6 +2653,8 @@ def main():
 
     coches = json.loads(JSON_PATH.read_text(encoding="utf-8"))
     todos_los_coches = json.loads(JSON_PATH.read_text(encoding="utf-8"))
+    aplicar_reservas_manuales(coches)
+    aplicar_reservas_manuales(todos_los_coches)
     # Los coches "Retirado" ya no están publicados en Das WeltAuto → no se publican
     coches = [c for c in coches if c.get("estado") != "Retirado"]
     print(f"✅  {len(coches)} coches cargados de datos_coches.json")

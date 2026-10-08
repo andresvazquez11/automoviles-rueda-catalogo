@@ -92,6 +92,15 @@
   <button id="btn-guardar-rebajas" disabled>Guardar rebajas</button>
   <div class="estado-msg" id="estado-msg-rebajas"></div>
 
+  <h1 style="margin-top:28px">🔒 Reservar coche a mano</h1>
+  <p class="sub">Para coches que ya no están en nuestro stock pero Das WeltAuto sigue publicando por error.
+    En la web salen como <strong>Reservado</strong> hasta que les quites la reserva aquí (o hasta que el anuncio
+    desaparezca de Das WeltAuto). Vale para todos los asesores. Al guardar se lanza una actualización
+    de la web y se ve en unos 15 minutos.</p>
+  <div class="card" id="lista-reservas">Cargando coches…</div>
+  <button id="btn-guardar-reservas" disabled>Guardar reservas</button>
+  <div class="estado-msg" id="estado-msg-reservas"></div>
+
   <button class="secundario" id="btn-cambiar-token" style="margin-top:10px">Cambiar token</button>
 </div>
 
@@ -127,7 +136,6 @@
 
   let cochesDisponibles = [];
   let destacadosActuales = {};
-  let destacadosSha = null;
   let perfilActivo = 'andres';
   let seleccion = {}; // { id_estable: etiqueta }
 
@@ -140,7 +148,8 @@
 
   async function ghGet(path) {
     const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`, {
-      headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' }
+      headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' },
+      cache: 'no-store'
     });
     if (res.status === 404) return { sha: null, data: {} };
     if (!res.ok) throw new Error('GitHub API error ' + res.status);
@@ -241,7 +250,6 @@
   const btnGuardarRebajas = document.getElementById('btn-guardar-rebajas');
   const estadoRebajas = document.getElementById('estado-msg-rebajas');
   let rebajas = {};
-  let rebajasSha = null;
   const eur = n => Math.round(n).toLocaleString('es-ES').replace(/,/g, '.') + ' €';
   const num = t => parseInt(String(t).replace(/[^\d]/g, ''), 10) || 0;
 
@@ -281,9 +289,10 @@
       const nuevo = {};
       Object.keys(rebajas).forEach(id => { if (vigentes.has(id)) nuevo[id] = rebajas[id]; });
       const fecha = new Date().toISOString().slice(0, 10);
-      const resultado = await ghPut('rebajas.json', nuevo, rebajasSha, `Actualizar rebajas — ${fecha}`);
+      // Mismo motivo que en destacados: usar el sha vigente, no el de cuando se abrió la página
+      const actual = await ghGet('rebajas.json');
+      await ghPut('rebajas.json', nuevo, actual.sha, `Actualizar rebajas — ${fecha}`);
       rebajas = nuevo;
-      rebajasSha = resultado.content.sha;
       estadoRebajas.textContent = 'Guardado. Puede tardar hasta un minuto en verse en la web.';
     } catch (e) {
       estadoRebajas.textContent = 'No se pudo guardar: ' + e.message;
@@ -292,25 +301,91 @@
     btnGuardarRebajas.disabled = false;
   });
 
+  // ── Reservas manuales (reservas_manuales.json: { id_estable: { modelo, precio, foto, desde } }) ──
+  // generar_web.py (aplicar_reservas_manuales) muestra esos coches como "Reservado".
+  // Se guarda modelo/precio/foto porque un coche reservado deja de estar en
+  // coches_lista.json (solo trae disponibles) y sin eso no se podría desmarcar.
+  const listaReservas = document.getElementById('lista-reservas');
+  const btnGuardarReservas = document.getElementById('btn-guardar-reservas');
+  const estadoReservas = document.getElementById('estado-msg-reservas');
+  let reservas = {};
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function renderReservas() {
+    listaReservas.innerHTML = '';
+    const reservados = Object.keys(reservas).map(id => Object.assign({ id }, reservas[id]));
+    const libres = cochesDisponibles.filter(c => !(c.id in reservas));
+    [...reservados, ...libres].forEach(coche => {
+      const marcado = coche.id in reservas;
+      const row = document.createElement('div');
+      row.className = 'coche-row';
+      row.innerHTML = `
+        <input type="checkbox" class="coche-check" ${marcado ? 'checked' : ''}>
+        <img src="${esc(coche.foto)}" alt="">
+        <div class="coche-info">
+          <div class="modelo">${esc(coche.modelo)}</div>
+          <div class="precio">${esc(coche.precio)} € · ${esc(coche.id)}${marcado
+            ? ` · <strong style="color:var(--red)">🔒 Reservado a mano${coche.desde ? ' desde el ' + esc(coche.desde.split('-').reverse().join('/')) : ''}</strong>` : ''}</div>
+        </div>`;
+      row.querySelector('.coche-check').addEventListener('change', e => {
+        if (e.target.checked) {
+          reservas[coche.id] = { modelo: coche.modelo, precio: coche.precio, foto: coche.foto,
+                                 desde: new Date().toISOString().slice(0, 10) };
+        } else {
+          delete reservas[coche.id];
+        }
+        renderReservas();
+      });
+      listaReservas.appendChild(row);
+    });
+  }
+
+  btnGuardarReservas.addEventListener('click', async () => {
+    btnGuardarReservas.disabled = true;
+    estadoReservas.textContent = 'Guardando…';
+    estadoReservas.className = 'estado-msg ok';
+    try {
+      const fecha = new Date().toISOString().slice(0, 10);
+      // sha vigente justo antes de escribir (ver destacados)
+      const actual = await ghGet('reservas_manuales.json');
+      await ghPut('reservas_manuales.json', reservas, actual.sha, `Actualizar reservas manuales — ${fecha}`);
+      // Lanzar la actualización para que se vea ya (no a las 10:00/16:00)
+      const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/actions/workflows/actualizar-catalogo.yml/dispatches`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' },
+        body: JSON.stringify({ ref: BRANCH })
+      }).catch(() => null);
+      estadoReservas.textContent = (r && r.status === 204)
+        ? 'Guardado. Actualización lanzada: en unos 15 minutos se verá en la web (te llegará el correo).'
+        : 'Guardado. Se verá en la web en la próxima actualización (10:00 o 16:00).';
+    } catch (e) {
+      estadoReservas.textContent = 'No se pudo guardar: ' + e.message;
+      estadoReservas.className = 'estado-msg error';
+    }
+    btnGuardarReservas.disabled = false;
+  });
+
   async function cargarTodo() {
     listaCoches.textContent = 'Cargando coches…';
     try {
-      const [lista, dest, reb] = await Promise.all([
+      const [lista, dest, reb, res] = await Promise.all([
         fetch('/coches_lista.json', { cache: 'no-store' }).then(r => r.json()),
         ghGet('destacados.json'),
-        ghGet('rebajas.json')
+        ghGet('rebajas.json'),
+        ghGet('reservas_manuales.json')
       ]);
+      reservas = res.data || {};
       cochesDisponibles = lista;
       destacadosActuales = dest.data || {};
-      destacadosSha = dest.sha;
       rebajas = reb.data || {};
-      rebajasSha = reb.sha;
       cargarSeleccionDePerfil();
       renderPerfilTabs();
       renderLista();
       renderRebajas();
+      renderReservas();
       btnGuardar.disabled = false;
       btnGuardarRebajas.disabled = false;
+      btnGuardarReservas.disabled = false;
       authCard.hidden = true;
       panel.hidden = false;
     } catch (e) {
@@ -339,11 +414,15 @@
     mostrarEstado('Guardando…', false);
     try {
       const lista = Object.keys(seleccion).map(id => ({ id, etiqueta: seleccion[id] }));
-      const nuevo = Object.assign({}, destacadosActuales, { [perfilActivo]: lista });
+      // El sha leído al abrir la página caduca si entretanto se guardó desde otra
+      // pestaña, otro dispositivo o el otro perfil (una pestaña abierta desde el
+      // 25/09 falló así con "destacados.json does not match <sha>"). Se relee la
+      // versión actual justo antes de escribir y solo se sustituye este perfil.
+      const actual = await ghGet('destacados.json');
+      const nuevo = Object.assign({}, actual.data || {}, { [perfilActivo]: lista });
       const fecha = new Date().toISOString().slice(0, 10);
-      const resultado = await ghPut('destacados.json', nuevo, destacadosSha, `Actualizar destacados (${perfilActivo}) — ${fecha}`);
+      await ghPut('destacados.json', nuevo, actual.sha, `Actualizar destacados (${perfilActivo}) — ${fecha}`);
       destacadosActuales = nuevo;
-      destacadosSha = resultado.content.sha;
       mostrarEstado('Guardado. Puede tardar hasta un minuto en verse en la web.', false);
     } catch (e) {
       mostrarEstado('No se pudo guardar: ' + e.message, true);
