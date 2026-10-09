@@ -979,7 +979,7 @@ body.rd-dark .rd-card-dwa { background: #1f2742; color: #c9d3f2; }
 .rd-cx-leyenda i { display: inline-block; width: 10px; height: 10px; background: #dff1e2; border: 1px solid #9fd0a8; border-radius: 2px; vertical-align: middle; margin-right: 5px; }
 .rd-cx-scroll { overflow: auto; flex: 1; }
 .rd-cx-cargando { padding: 40px; text-align: center; color: var(--rd-muted); }
-.rd-cx-tabla { width: 100%; border-collapse: collapse; }
+.rd-cx-tabla { width: 100%; border-collapse: collapse; table-layout: fixed; }   /* columnas de coches del mismo ancho (antes cada una se ajustaba a sus textos y las fotos salían a distinto tamaño) */
 .rd-cx-tabla thead th { position: sticky; top: 0; z-index: 2; background: var(--rd-bg); padding: 14px 10px 10px; vertical-align: top; }
 .rd-cx-tabla thead th:first-child { width: 190px; }
 .rd-cx-car { display: block; text-decoration: none; color: var(--rd-ink); text-align: left; }

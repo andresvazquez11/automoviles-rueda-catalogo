@@ -247,27 +247,46 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
     hoja.removeAttribute('style');
   }
 
-  async function imprimir(btn) {
-    btn.disabled = true;
-    try {
+  // El folleto se PREPARA antes (al activar el modo asesor): QR, fuentes, reparto
+  // medido y fotos cargadas. Así, al pulsar, window.print() se llama en el MISMO
+  // clic: Safari (y otros) no abren la impresión si se llama tras esperas.
+  let listo = null;        // fecha (dd/mm/aaaa) con la que se preparó
+  let preparando = null;   // promesa en curso
+  function hojaFolleto() {
+    let hoja = document.getElementById('rd-folleto-sheet');
+    if (!hoja) {
+      hoja = document.createElement('div');
+      hoja.id = 'rd-folleto-sheet';
+      document.body.appendChild(hoja);
+    }
+    return hoja;
+  }
+  function preparar() {
+    if (preparando) return preparando;
+    preparando = (async () => {
       estilos();
       await cargarQR().catch(() => null);
-      let hoja = document.getElementById('rd-folleto-sheet');
-      if (!hoja) {
-        hoja = document.createElement('div');
-        hoja.id = 'rd-folleto-sheet';
-        document.body.appendChild(hoja);
-      }
-      const fuentes = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-      await fuentes;   // medir con la letra definitiva
+      if (document.fonts && document.fonts.ready) await document.fonts.ready;   // medir con la letra definitiva
+      const hoja = hojaFolleto();
       maquetar(hoja, qrSVG((D.asesor || {}).url || location.origin + '/'));
-      // Esperar a las fotos (máx. 4 s) antes de abrir la impresión
       const fotos = Array.from(hoja.querySelectorAll('img')).map(img => img.complete ? null
         : new Promise(ok => { img.onload = img.onerror = ok; })).filter(Boolean);
-      await Promise.race([Promise.all(fotos), new Promise(ok => setTimeout(ok, 2500))]);
-      document.body.classList.add('rd-imp-folleto');
-      window.addEventListener('afterprint', () => document.body.classList.remove('rd-imp-folleto'), { once: true });
-      window.print();
+      await Promise.race([Promise.all(fotos), new Promise(ok => setTimeout(ok, 6000))]);
+      listo = hoy();
+    })().finally(() => { preparando = null; });
+    return preparando;
+  }
+  function lanzarImpresion() {
+    document.body.classList.add('rd-imp-folleto');
+    window.addEventListener('afterprint', () => document.body.classList.remove('rd-imp-folleto'), { once: true });
+    window.print();
+  }
+  async function imprimir(btn) {
+    if (listo === hoy()) { lanzarImpresion(); return; }   // preparado: impresión inmediata
+    btn.disabled = true;
+    try {
+      await preparar();
+      lanzarImpresion();
     } finally {
       btn.disabled = false;
     }
@@ -282,11 +301,13 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
     btn.addEventListener('click', () => imprimir(btn));
     document.body.appendChild(btn);
     window.rdImprimirFolleto = () => imprimir(btn);
-    // Con el modo asesor activo, el lector del QR se descarga ya: al pulsar, la
-    // ventana de imprimir sale antes (Safari bloquea print() si tarda mucho tras el clic)
-    const precargar = () => { if (document.documentElement.classList.contains('rd-asesor')) cargarQR().catch(() => null); };
-    precargar();
-    new MutationObserver(precargar).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    window.rdFolletoListo = () => listo === hoy();
+    // En modo asesor se prepara ya (y al activarlo con los 5 toques)
+    const siAsesor = () => {
+      if (document.documentElement.classList.contains('rd-asesor') && listo !== hoy()) preparar().catch(() => null);
+    };
+    siAsesor();
+    new MutationObserver(siAsesor).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
   else iniciar();
