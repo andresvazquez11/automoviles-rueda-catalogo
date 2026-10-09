@@ -73,13 +73,12 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
 .fl-head2 .fl-marca { font-size: 13pt; }
 .fl-head2 .fl-dom { font-size: 13pt; }
 
-/* ── Franja de garantía (arriba de la 2ª cara) ── */
-.fl-garantia { margin-top: 2.5mm; border: 2pt solid #C8232B; border-radius: 2mm; padding: 2mm 4mm;
-  display: grid; grid-template-columns: auto 1fr; gap: 4mm; align-items: center; }
-.fl-gar-num { font-size: 26pt; font-weight: 700; line-height: .9; color: #C8232B; text-transform: uppercase; white-space: nowrap; }
-.fl-gar-tit { font-size: 12.5pt; font-weight: 700; text-transform: uppercase; line-height: 1.1; }
-.fl-gar-txt { font-size: 9pt; margin-top: .6mm; }
-.fl-gar-nota { font-size: 7pt; color: #5d5650; margin-top: .8mm; }
+/* ── Franja de garantía (arriba de la 2ª cara): centrada, letras parejas ── */
+.fl-garantia { margin-top: 2.5mm; border: 2pt solid #C8232B; border-radius: 2mm; padding: 2.2mm 4mm 2mm; text-align: center; }
+.fl-gar-tit { font-size: 15pt; font-weight: 700; text-transform: uppercase; letter-spacing: .6pt; line-height: 1.1; }
+.fl-gar-tit span { color: #C8232B; }
+.fl-gar-txt { font-size: 9.5pt; margin-top: .8mm; }
+.fl-gar-nota { font-size: 6.8pt; color: #5d5650; margin-top: .7mm; }
 
 /* ── Coches ── */
 .fl-grid { margin-top: 2.5mm; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 23.5mm; gap: 2.2mm 3mm; }
@@ -181,12 +180,9 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
   function garantia() {
     return `
   <div class="fl-garantia">
-    <div class="fl-gar-num fl-osw">5 años</div>
-    <div>
-      <div class="fl-gar-tit fl-osw">de garantía de fábrica*</div>
-      <div class="fl-gar-txt">desde la fecha de matriculación en nuestros coches <b>SEAT · CUPRA</b></div>
-      <div class="fl-gar-nota">* Disponibilidad según coche y procedencia.</div>
-    </div>
+    <div class="fl-gar-tit fl-osw"><span>5 años</span> de garantía de fábrica*</div>
+    <div class="fl-gar-txt">desde la fecha de matriculación en nuestros coches <b>SEAT · CUPRA</b></div>
+    <div class="fl-gar-nota">* Disponibilidad según coche y procedencia.</div>
   </div>`;
   }
   function cierre(a, qr) {
