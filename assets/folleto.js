@@ -50,22 +50,18 @@ html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
 .fl-dom .fl-tld { font-weight: 600; }
 .fl-dom .fl-ruta { font-size: .55em; font-weight: 600; }
 
-/* ── Cabecera de la cara 1 ── */
+/* ── Cabecera de la cara 1 (compacta: marca + contacto, y la web en una franja) ── */
 .fl-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 6mm;
   border-bottom: 3pt solid #C8232B; padding-bottom: 2.5mm; }
-.fl-marca { font-size: 27pt; font-weight: 700; text-transform: uppercase; line-height: .95; letter-spacing: .5pt; white-space: nowrap; }
-.fl-top-der { text-align: right; }
-.fl-lema { font-size: 9pt; font-weight: 700; letter-spacing: .5pt; text-transform: uppercase; color: #C8232B; }
-.fl-cuantos { display: inline-block; margin-top: 1.5mm; border: 1.2pt solid #14110f; border-radius: 999px; padding: .8mm 3.5mm;
-  font-size: 9pt; font-weight: 700; }
-.fl-web { margin-top: 3mm; border: 2pt solid #C8232B; border-radius: 3mm; padding: 2mm 4mm 3mm; text-align: center; }
-.fl-web-lbl { font-size: 9pt; font-weight: 700; letter-spacing: .8pt; text-transform: uppercase; }
-.fl-web .fl-dom { font-size: 31pt; margin-top: 1.2mm; display: inline-block; }
-.fl-contacto { margin-top: 2.5mm; display: flex; justify-content: space-between; align-items: baseline; gap: 5mm;
-  padding-bottom: 2.5mm; border-bottom: 1pt solid #9c958b; font-size: 9pt; }
-.fl-contacto .fl-tel { font-size: 15pt; font-weight: 700; white-space: nowrap; }
-.fl-contacto .fl-tel small { font-size: 8.5pt; font-weight: 600; color: #5d5650; }
-.fl-contacto .fl-dir { text-align: right; line-height: 1.4; color: #333; }
+.fl-marca { font-size: 24pt; font-weight: 700; text-transform: uppercase; line-height: 1; letter-spacing: .5pt; white-space: nowrap; }
+.fl-lema { font-size: 8pt; font-weight: 600; margin-top: 1.5mm; letter-spacing: .2pt; color: #C8232B; white-space: nowrap; }
+.fl-contacto { text-align: right; font-size: 8.5pt; line-height: 1.45; white-space: nowrap; }
+.fl-contacto .fl-tel { font-size: 12.5pt; font-weight: 700; }
+.fl-contacto .fl-tel small { font-size: 8pt; font-weight: 600; color: #5d5650; }
+.fl-web { margin-top: 2.5mm; border: 2pt solid #C8232B; border-radius: 2mm; padding: 2mm 4mm;
+  display: flex; justify-content: space-between; align-items: center; gap: 4mm; }
+.fl-web-lbl { font-size: 8pt; font-weight: 700; letter-spacing: .5pt; text-transform: uppercase; line-height: 1.3; }
+.fl-web .fl-dom { font-size: 19pt; }
 
 /* ── Cabecera de las demás caras ── */
 .fl-head2 { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm;
@@ -152,19 +148,18 @@ html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
   function cabecera1(a, total) {
     return `
   <div class="fl-top">
-    <div class="fl-marca fl-osw">Automóviles Rueda</div>
-    <div class="fl-top-der">
-      <div class="fl-lema">Coches de ocasión · SEAT · CUPRA · Das WeltAuto</div>
-      <div class="fl-cuantos">${total} coches disponibles hoy</div>
+    <div>
+      <div class="fl-marca fl-osw">Automóviles Rueda</div>
+      <div class="fl-lema">Coches de ocasión · SEAT · CUPRA · Das WeltAuto · <b>${total} disponibles hoy</b></div>
+    </div>
+    <div class="fl-contacto">
+      <b>${esc(a.nombre)}</b> · <span class="fl-tel">${esc(a.telefono)}</span> <small>· WhatsApp</small><br>
+      ${esc(a.email)}<br>${esc(a.direccion)}
     </div>
   </div>
   <div class="fl-web">
-    <div class="fl-web-lbl">Todo el stock, con fotos, equipamiento y financiación, en</div>
+    <span class="fl-web-lbl">Todo el stock actualizado cada día,<br>con fotos, equipamiento y financiación, en</span>
     ${dominioHTML(a.web)}
-  </div>
-  <div class="fl-contacto">
-    <div><b>${esc(a.nombre)}</b> · asesor comercial<br><span class="fl-tel">${esc(a.telefono)} <small>llamadas y WhatsApp</small></span></div>
-    <div class="fl-dir">${esc(a.email)}<br>${esc(a.direccion)}</div>
   </div>`;
   }
   function cabecera2(a) {
