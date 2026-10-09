@@ -69,6 +69,14 @@ html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
 .fl-head2 .fl-marca { font-size: 13pt; }
 .fl-head2 .fl-dom { font-size: 13pt; }
 
+/* ── Franja de garantía (arriba de la 2ª cara) ── */
+.fl-garantia { margin-top: 2.5mm; border: 2pt solid #C8232B; border-radius: 2mm; padding: 2mm 4mm;
+  display: grid; grid-template-columns: auto 1fr; gap: 4mm; align-items: center; }
+.fl-gar-num { font-size: 26pt; font-weight: 700; line-height: .9; color: #C8232B; text-transform: uppercase; white-space: nowrap; }
+.fl-gar-tit { font-size: 12.5pt; font-weight: 700; text-transform: uppercase; line-height: 1.1; }
+.fl-gar-txt { font-size: 9pt; margin-top: .6mm; }
+.fl-gar-nota { font-size: 7pt; color: #5d5650; margin-top: .8mm; }
+
 /* ── Coches ── */
 .fl-grid { margin-top: 2.5mm; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 23.5mm; gap: 2.2mm 3mm; }
 .fl-card { border: .8pt solid #9c958b; border-radius: 1.5mm; display: grid; grid-template-columns: 24mm 1fr; overflow: hidden; }
@@ -166,6 +174,17 @@ html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
     return `
   <div class="fl-head2"><span class="fl-marca fl-osw">Automóviles Rueda</span>${dominioHTML(a.web)}<span>${esc(a.nombre)} · <b>${esc(a.telefono)}</b></span></div>`;
   }
+  function garantia() {
+    return `
+  <div class="fl-garantia">
+    <div class="fl-gar-num fl-osw">5 años</div>
+    <div>
+      <div class="fl-gar-tit fl-osw">de garantía de fábrica*</div>
+      <div class="fl-gar-txt">desde la fecha de matriculación en nuestros coches <b>SEAT · CUPRA</b></div>
+      <div class="fl-gar-nota">* Disponibilidad según coche y procedencia.</div>
+    </div>
+  </div>`;
+  }
   function cierre(a, qr) {
     return `
   <div class="fl-cierre">
@@ -191,7 +210,8 @@ html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
     const nuevaCara = () => {
       const cara = document.createElement('div');
       cara.className = 'flp';
-      cara.innerHTML = (hoja.children.length ? cabecera2(a) : cabecera1(a, coches.length))
+      const n = hoja.children.length;   // 0 = cara 1; la 2ª cara lleva la franja de garantía
+      cara.innerHTML = (n ? cabecera2(a) : cabecera1(a, coches.length)) + (n === 1 ? garantia() : '')
         + '<div class="fl-grid"></div><div class="fl-pie"></div>';
       hoja.appendChild(cara);
       return cara;
