@@ -197,6 +197,85 @@
   }
   function cerrar() { overlay.style.display = 'none'; document.body.classList.remove('rd-cx-abierto'); }
 
+  // ── Imprimir la comparación (solo modo asesor: clase rd-asesor en <html>, ver enviar.js) ──
+  // Misma tabla que se ve en pantalla (respeta "solo lo que cambia" y "equipamiento
+  // completo"), en A4 y pensada también para impresora en blanco y negro: grupos en rojo
+  // sin franja negra, mejor dato con ★ y fondo suave, filas iguales en gris.
+  const CSS_IMP = `
+html:not(.rd-asesor) .rd-cx-imprimir { display: none !important; }
+.rd-cx-imprimir { border: 0; border-radius: 999px; background: #14110f; color: #fff; padding: 8px 14px; cursor: pointer;
+  font: 700 12px var(--rd-font, sans-serif); letter-spacing: .4px; }
+.rd-cx-imprimir small { opacity: .7; font-size: 9.5px; text-transform: uppercase; letter-spacing: .5px; }
+#rd-cx-print { display: none; }
+@media print {
+  @page { size: A4 portrait; margin: 10mm; }
+  html, body { background: #fff !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+  body > *:not(#rd-cx-print) { display: none !important; }
+  #rd-cx-print { display: block !important; }
+}
+#rd-cx-print, #rd-cx-print * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+#rd-cx-print { width: 190mm; color: #14110f; font-family: 'Work Sans', Arial, sans-serif; font-size: 8.5pt; line-height: 1.3; background: #fff; }
+.cxp-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 6mm; border-bottom: 3pt solid #C8232B; padding-bottom: 2mm; }
+.cxp-marca { font: 700 20pt/1 'Oswald', 'Arial Narrow', sans-serif; text-transform: uppercase; }
+.cxp-tit { font: 600 11pt 'Oswald', 'Arial Narrow', sans-serif; text-transform: uppercase; letter-spacing: .6pt; color: #C8232B; margin-top: 1mm; }
+.cxp-contacto { text-align: right; font-size: 8.5pt; line-height: 1.45; white-space: nowrap; }
+.cxp-contacto b { font-size: 11pt; }
+#rd-cx-print .rd-cx-tabla { width: 100%; border-collapse: collapse; margin-top: 3mm; table-layout: fixed; }
+#rd-cx-print .rd-cx-tabla thead th { position: static; background: #fff; padding: 0 2mm 2mm; vertical-align: top; }
+#rd-cx-print .rd-cx-tabla thead th:first-child { width: 56mm; }
+#rd-cx-print .rd-cx-car img { width: 100%; height: 30mm; aspect-ratio: auto; object-fit: cover; border-radius: 1.5mm; }
+#rd-cx-print .rd-cx-car b { font: 700 11pt 'Oswald', 'Arial Narrow', sans-serif; margin-top: 1.5mm; }
+#rd-cx-print .rd-cx-car small { font-size: 7pt; min-height: 0; color: #444; }
+#rd-cx-print .rd-cx-precio { font: 700 15pt 'Oswald', 'Arial Narrow', sans-serif; color: #C8232B; }
+#rd-cx-print tr { break-inside: avoid; page-break-inside: avoid; }
+#rd-cx-print .rd-cx-tabla tr.rd-cx-grupo td { background: #fff; color: #C8232B; font: 700 9.5pt 'Oswald', 'Arial Narrow', sans-serif;
+  letter-spacing: .8pt; padding: 3mm 2mm 1mm; border-bottom: 1.5pt solid #C8232B; }
+#rd-cx-print .rd-cx-tabla tbody th, #rd-cx-print .rd-cx-tabla tbody td { padding: 1.1mm 2mm; font-size: 8.5pt; border-bottom: .5pt solid #cbc5bc; background: #fff; }
+#rd-cx-print .rd-cx-tabla tbody th { color: #5d5650; font-weight: 600; font-size: 7.6pt; line-height: 1.25; text-align: left; }
+#rd-cx-print .rd-cx-tabla td.rd-cx-gana { background: #e9f4eb; font-weight: 700; }
+#rd-cx-print .rd-cx-tabla td.rd-cx-gana::after { content: ' ★'; color: #14110f; font-size: 8pt; }
+#rd-cx-print tr.rd-cx-igual td, #rd-cx-print tr.rd-cx-igual th { color: #8a847c; }
+#rd-cx-print .rd-cx-si { color: #14110f; font-weight: 700; }
+#rd-cx-print .rd-cx-barra { height: 1.2mm; background: #e2ded7; }
+#rd-cx-print .rd-cx-barra span { background: #8a847c; }
+.cxp-pie { margin-top: 3mm; border-top: 1.5pt solid #C8232B; padding-top: 1.5mm; display: flex; justify-content: space-between; gap: 4mm; font-size: 7pt; color: #333; }
+`;
+  if (!document.getElementById('rd-cx-print-css')) {
+    const st = document.createElement('style');
+    st.id = 'rd-cx-print-css';
+    st.textContent = CSS_IMP;
+    document.head.appendChild(st);
+  }
+  const herramientas = chkDif && chkDif.closest('.rd-cx-tools');
+  if (herramientas) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'rd-cx-imprimir';
+    b.innerHTML = '🖨 Imprimir comparación <small>· solo asesor</small>';
+    b.addEventListener('click', imprimirComparacion);
+    herramientas.appendChild(b);
+  }
+  function imprimirComparacion() {
+    if (!compareIds.size || !tabla.querySelector('table')) return;
+    let asesor = {};
+    try { asesor = JSON.parse((document.getElementById('rd-folleto-datos') || {}).textContent || '{}').asesor || {}; } catch (_) {}
+    let hoja = document.getElementById('rd-cx-print');
+    if (!hoja) { hoja = document.createElement('div'); hoja.id = 'rd-cx-print'; document.body.appendChild(hoja); }
+    const hoy = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    hoja.innerHTML = `
+  <div class="cxp-head">
+    <div><div class="cxp-marca">Automóviles Rueda</div><div class="cxp-tit">${esc(t('Comparativa de coches', 'Car comparison'))} · ${hoy}</div></div>
+    <div class="cxp-contacto">${asesor.nombre ? `${esc(asesor.nombre)} · <b>${esc(asesor.telefono)}</b><br>${esc(asesor.email)}<br>${esc(asesor.web)}` : ''}</div>
+  </div>
+  ${tabla.innerHTML}
+  <div class="cxp-pie"><span>★ ${esc(t('mejor dato de la fila', 'best value in the row'))}${chkDif && chkDif.checked ? '' : ' · ' + esc(t('en gris: lo que coincide en todos', 'in grey: identical in all cars'))}</span><span>${esc(t('Datos de la ficha técnica · precios a', 'Spec data · prices on'))} ${hoy}</span></div>`;
+    // "Solo lo que cambia": en pantalla se ocultan por CSS; en papel se quitan
+    if (chkDif && chkDif.checked) hoja.querySelectorAll('tr.rd-cx-igual').forEach(tr => tr.remove());
+    hoja.querySelectorAll('a').forEach(a => a.removeAttribute('href'));
+    const fotos = Array.from(hoja.querySelectorAll('img')).filter(i => !i.complete).map(i => new Promise(ok => { i.onload = i.onerror = ok; }));
+    Promise.race([Promise.all(fotos), new Promise(ok => setTimeout(ok, 3000))]).then(() => window.print());
+  }
+
   document.getElementById('rd-overlay-close').addEventListener('click', cerrar);
   overlay.addEventListener('click', e => { if (e.target === overlay) cerrar(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.style.display === 'flex') cerrar(); });

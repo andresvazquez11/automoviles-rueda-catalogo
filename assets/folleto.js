@@ -25,6 +25,7 @@
 
   const CSS = `
 html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
+body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador abierto */
 .rd-folleto-btn { position: fixed; left: 14px; bottom: 18px; z-index: 9991; display: flex; align-items: center; gap: 8px;
   padding: 11px 16px; border: 0; border-radius: 999px; background: #14110f; color: #fff; cursor: pointer;
   font: 700 13px 'Work Sans', sans-serif; letter-spacing: .5px; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
