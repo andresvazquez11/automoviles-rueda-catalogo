@@ -2179,6 +2179,65 @@ def miniatura_web(ruta_web: str) -> str:
     except Exception:
         return ruta_web
 
+DIAS_RECIEN_LLEGADO = 14
+
+def destacados_automaticos(cars: list[dict], rutas: dict, hist: dict, maximo: int = 6) -> list[dict]:
+    """Destacados que se eligen SOLOS en cada actualización (los manuales de /admin/
+    van siempre delante; estos rellenan hasta 3, ver el script de la portada):
+      1) bajada de precio real (precio_antes_auto) o rebaja manual de rebajas.json,
+         de mayor a menor descuento → "Precio rebajado";
+      2) recién llegados (primera vez vistos en historial_precios.json en los últimos
+         DIAS_RECIEN_LLEGADO días), del más nuevo al más antiguo → "Recién llegado";
+      3) el resto: matriculación más reciente y menos km → "Recomendado por el asesor".
+    Se evita repetir modelo mientras haya alternativas. Se devuelven `maximo`
+    candidatos para cubrir huecos si alguno manual coincide o deja de estar disponible."""
+    from datetime import date, timedelta
+    try:
+        rebajas_manual = json.loads((BASE_DIR / "rebajas.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        rebajas_manual = {}
+    limite_llegada = (date.today() - timedelta(days=DIAS_RECIEN_LLEGADO)).isoformat()
+
+    def fecha_mat(c):   # "06/2025" → (2025, 6)
+        try:
+            m, a = str(c.get("fecha", "")).split("/")
+            return int(a), int(m)
+        except ValueError:
+            return (0, 0)
+
+    rebajados, nuevos, resto = [], [], []
+    for c in cars:
+        if c.get("estado") != "Disponible" or not rutas.get(c["n"]):
+            continue
+        ident = id_estable_coche(c)
+        precio = _num(c.get("precio"))
+        bajada = max(precio_antes_auto(c, hist) - precio, 0)
+        bajada = max(bajada, int((rebajas_manual.get(ident) or {}).get("descuento") or 0))
+        registros = hist.get(ident) or []
+        llegada = min((r["fecha"] for r in registros), default="")
+        if bajada > 0:
+            rebajados.append((-bajada, ident, c, "Precio rebajado"))
+        elif llegada and llegada >= limite_llegada:
+            nuevos.append((llegada, ident, c, "Recién llegado"))
+        else:
+            a, m = fecha_mat(c)
+            resto.append(((-a, -m, _num(c.get("km"))), ident, c, "Recomendado por el asesor"))
+    rebajados.sort(key=lambda x: x[0])
+    nuevos.sort(key=lambda x: x[0], reverse=True)
+    resto.sort(key=lambda x: x[0])
+    candidatos = rebajados + nuevos + resto
+
+    elegidos, modelos = [], set()
+    for paso in (1, 2):          # 1.º sin repetir modelo; 2.º lo que falte
+        for _, ident, c, etiqueta in candidatos:
+            if len(elegidos) >= maximo:
+                break
+            if any(e["id"] == ident for e in elegidos) or (paso == 1 and c["modelo"] in modelos):
+                continue
+            elegidos.append({"id": ident, "etiqueta": etiqueta})
+            modelos.add(c["modelo"])
+    return elegidos
+
 def datos_folleto_json(cars: list[dict], rutas: dict, perfil: dict) -> str:
     """Datos del folleto imprimible de la portada (assets/folleto.js): coches
     Disponibles (los reservados no se anuncian en la puerta) ordenados por modelo
@@ -2396,11 +2455,16 @@ document.addEventListener('click', e => {{
     .then(r => r.ok ? r.json() : {{}})
     .catch(() => ({{}}))
     .then(data => {{
-      const lista = (data[PERFIL_ID] || []).slice(0, 3);
+      // Manuales de /admin/ primero; los automáticos (elegidos en cada actualización:
+      // rebajas, recién llegados…) rellenan hasta 3. Un manual vendido/reservado se salta.
+      const AUTO = {json.dumps(destacados_automaticos(cars, rutas, hist), ensure_ascii=False)};
+      const manual = (data[PERFIL_ID] || []);
+      const lista = manual.concat(AUTO.filter(a => !manual.some(m => m.id === a.id)));
       if (!lista.length) return;
       const grid = document.getElementById('rd-grid');
       const featured = [];
       lista.forEach(item => {{
+        if (featured.length >= 3) return;
         const original = grid.querySelector('.rd-card[data-id="' + item.id + '"]');
         if (!original) return; // coche retirado del catálogo desde que se marcó → se ignora
         if (original.dataset.estado !== 'Disponible') return; // reservado/vendido desde que se marcó → se ignora

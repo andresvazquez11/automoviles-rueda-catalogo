@@ -1,26 +1,4 @@
 {
-  "andres": [
-    {
-      "id": "dwa-165115441",
-      "etiqueta": "Precio rebajado"
-    },
-    {
-      "id": "dwa-155656699",
-      "etiqueta": "Oferta especial"
-    },
-    {
-      "id": "dwa-151393623",
-      "etiqueta": "Últimas unidades"
-    }
-  ],
-  "alejandro": [
-    {
-      "id": "dwa-196348315",
-      "etiqueta": "Oferta especial"
-    },
-    {
-      "id": "dwa-151393698",
-      "etiqueta": "Oferta especial"
-    }
-  ]
+  "andres": [],
+  "alejandro": []
 }

@@ -1532,11 +1532,16 @@ document.addEventListener('click', e => {
     .then(r => r.ok ? r.json() : {})
     .catch(() => ({}))
     .then(data => {
-      const lista = (data[PERFIL_ID] || []).slice(0, 3);
+      // Manuales de /admin/ primero; los automáticos (elegidos en cada actualización:
+      // rebajas, recién llegados…) rellenan hasta 3. Un manual vendido/reservado se salta.
+      const AUTO = [{"id": "dwa-166434652", "etiqueta": "Precio rebajado"}, {"id": "dwa-159882925", "etiqueta": "Precio rebajado"}, {"id": "dwa-151395138", "etiqueta": "Precio rebajado"}, {"id": "dwa-155656777", "etiqueta": "Precio rebajado"}, {"id": "dwa-201283687", "etiqueta": "Recién llegado"}, {"id": "dwa-200534278", "etiqueta": "Recién llegado"}];
+      const manual = (data[PERFIL_ID] || []);
+      const lista = manual.concat(AUTO.filter(a => !manual.some(m => m.id === a.id)));
       if (!lista.length) return;
       const grid = document.getElementById('rd-grid');
       const featured = [];
       lista.forEach(item => {
+        if (featured.length >= 3) return;
         const original = grid.querySelector('.rd-card[data-id="' + item.id + '"]');
         if (!original) return; // coche retirado del catálogo desde que se marcó → se ignora
         if (original.dataset.estado !== 'Disponible') return; // reservado/vendido desde que se marcó → se ignora
@@ -1692,7 +1697,7 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener"><span class="rd-i18n" data-es="Ver todos los coches en Das WeltAuto ↗" data-en="See all cars on Das WeltAuto ↗" data-de="Alle Fahrzeuge bei Das WeltAuto ansehen ↗">Ver todos los coches en Das WeltAuto ↗</span></a>
   </p>
-  <p class="rd-footer-updated">🔄 <span class="rd-i18n" data-es="Última actualización: 09/10/2026 — 18:30 h" data-en="Last updated: 09/10/2026 — 18:30" data-de="Letzte Aktualisierung: 09/10/2026 — 18:30 Uhr">Última actualización: 09/10/2026 — 18:30 h</span></p>
+  <p class="rd-footer-updated">🔄 <span class="rd-i18n" data-es="Última actualización: 09/10/2026 — 18:37 h" data-en="Last updated: 09/10/2026 — 18:37" data-de="Letzte Aktualisierung: 09/10/2026 — 18:37 Uhr">Última actualización: 09/10/2026 — 18:37 h</span></p>
   <p class="rd-footer-priv">
     <a href="historial-precios/" aria-label="Historial" rel="nofollow">·</a>
     <a href="#" id="rd-priv-upd" aria-label="Actualizar" rel="nofollow">·</a>
