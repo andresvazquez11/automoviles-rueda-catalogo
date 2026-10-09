@@ -275,8 +275,11 @@ html:not(.rd-asesor) .rd-cx-imprimir { display: none !important; }
     hoja.querySelectorAll('a').forEach(a => a.removeAttribute('href'));
     const fotos = Array.from(hoja.querySelectorAll('img')).filter(i => !i.complete).map(i => new Promise(ok => { i.onload = i.onerror = ok; }));
     Promise.race([Promise.all(fotos), new Promise(ok => setTimeout(ok, 2500))]).then(() => {
+      // Sin quitar la clase en «afterprint» (Edge/Chrome redibujan la vista previa); ver folleto.js
+      document.body.classList.remove('rd-imp-folleto');
       document.body.classList.add('rd-imp-cx');
-      window.addEventListener('afterprint', () => document.body.classList.remove('rd-imp-cx'), { once: true });
+      setTimeout(() => document.addEventListener('pointerdown',
+        () => document.body.classList.remove('rd-imp-cx'), { once: true }), 300);
       window.print();
     });
   }

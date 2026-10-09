@@ -276,9 +276,16 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
     })().finally(() => { preparando = null; });
     return preparando;
   }
+
+  // La clase de impresión NO se quita en «afterprint»: Edge y Chrome lo lanzan nada más
+  // preparar la vista previa y luego la vuelven a dibujar (al cargar la impresora o cambiar
+  // color/papel); sin la clase salía la web entera o la hoja en blanco. Se quita cuando
+  // el asesor vuelve a tocar la página.
   function lanzarImpresion() {
+    document.body.classList.remove('rd-imp-cx');
     document.body.classList.add('rd-imp-folleto');
-    window.addEventListener('afterprint', () => document.body.classList.remove('rd-imp-folleto'), { once: true });
+    setTimeout(() => document.addEventListener('pointerdown',
+      () => document.body.classList.remove('rd-imp-folleto'), { once: true }), 300);
     window.print();
   }
   async function imprimir(btn) {
