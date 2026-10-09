@@ -159,6 +159,26 @@
   "precio": "21.900",
   "version": "1.0 TSI S&S FR 85 kW (115 CV)"
  },
+ "seat-ibiza-mf201293758": {
+  "baja": "2026-10-09",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2025",
+  "km": "10.882",
+  "modelo": "SEAT Ibiza",
+  "precio": "18.300",
+  "version": "1.0 TSI Special Edition 85 kW (115 CV)"
+ },
+ "seat-ibiza-mf201293761": {
+  "baja": "2026-10-09",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2025",
+  "km": "10.611",
+  "modelo": "SEAT Ibiza",
+  "precio": "18.300",
+  "version": "1.0 TSI S&S Xcellence 85 kW (115 CV)"
+ },
  "seat-leon-151336815": {
   "baja": "2026-09-26",
   "cambio": "Automático",
