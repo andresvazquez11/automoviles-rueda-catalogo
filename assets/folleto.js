@@ -1,7 +1,8 @@
 /* ══════════════════════════════════════════════════════════════════
    Automóviles Rueda — "Imprimir folleto" (solo modo asesor, portada)
 
-   Hoja A4 a doble cara, en blanco y negro, con TODOS los coches
+   Hoja A4 a doble cara EN COLOR (pensada para que también salga bien en
+   impresora de blanco y negro: rojo = gris oscuro, sin fondos macizos) con TODOS los coches
    disponibles en este momento, para dejar en la puerta del concesionario:
    cara 1 con marca, contacto del asesor, dirección de la web y un QR al
    catálogo; luego una ficha pequeña por coche (foto, modelo, versión,
@@ -41,34 +42,34 @@ html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
 .flp + .flp { break-before: page; page-break-before: always; }
 .fl-osw { font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif; }
 
-.fl-head { display: grid; grid-template-columns: 1fr 34mm; gap: 6mm; align-items: center; border-bottom: 2.5pt solid #000; padding-bottom: 3mm; }
-.fl-marca { font-size: 26pt; font-weight: 700; text-transform: uppercase; line-height: 1; letter-spacing: .5pt; }
-.fl-lema { font-size: 9pt; font-weight: 600; margin-top: 1.5mm; letter-spacing: .3pt; }
+.fl-head { display: grid; grid-template-columns: 1fr 34mm; gap: 6mm; align-items: center; border-bottom: 3pt solid #C8232B; padding-bottom: 3mm; }
+.fl-marca { font-size: 26pt; font-weight: 700; text-transform: uppercase; line-height: 1; letter-spacing: .5pt; color: #14110f; }
+.fl-lema { font-size: 9pt; font-weight: 600; margin-top: 1.5mm; letter-spacing: .3pt; color: #C8232B; }
 .fl-contacto { margin-top: 2.5mm; font-size: 9.5pt; line-height: 1.45; }
 .fl-contacto b { font-size: 11pt; }
 .fl-qr { text-align: center; }
 .fl-qr svg { width: 30mm; height: 30mm; display: block; margin: 0 auto; }
 .fl-qr span { display: block; font-size: 6.8pt; line-height: 1.25; margin-top: 1mm; }
-.fl-web { margin: 3mm 0 0; border: 2pt solid #000; padding: 2.2mm 4mm; display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
-.fl-web span { font-size: 8.5pt; font-weight: 700; letter-spacing: .6pt; text-transform: uppercase; }
+.fl-web { margin: 3mm 0 0; border: 2pt solid #C8232B; border-radius: 2mm; padding: 2.2mm 4mm; display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+.fl-web span { font-size: 8.5pt; font-weight: 700; letter-spacing: .6pt; text-transform: uppercase; color: #C8232B; }
 .fl-web b { font-size: 16pt; letter-spacing: .3pt; }
 
-.fl-head2 { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2pt solid #000; padding-bottom: 1.5mm; font-size: 8.5pt; }
+.fl-head2 { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2.5pt solid #C8232B; padding-bottom: 1.5mm; font-size: 8.5pt; }
 .fl-head2 .fl-marca { font-size: 13pt; }
 
 .fl-grid { flex: 1; min-height: 0; margin-top: 3mm; display: grid; grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 28mm; gap: 2.5mm 3mm; align-content: start; }
-.fl-card { border: .8pt solid #000; display: grid; grid-template-columns: 25mm 1fr; overflow: hidden; }
-.fl-foto { background: #ddd; overflow: hidden; }
-.fl-foto img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.08); }
+.fl-card { border: .8pt solid #9c958b; border-radius: 1.5mm; display: grid; grid-template-columns: 25mm 1fr; overflow: hidden; }
+.fl-foto { background: #f2f1ed; overflow: hidden; }
+.fl-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .fl-txt { padding: 1.4mm 2mm 1.2mm; display: flex; flex-direction: column; min-width: 0; }
 .fl-mod { font-size: 10pt; font-weight: 700; text-transform: uppercase; line-height: 1.05; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fl-ver { font-size: 6.6pt; line-height: 1.2; margin-top: .4mm; color: #222; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .fl-dat { font-size: 7.4pt; margin-top: .6mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fl-dat b { font-weight: 700; }
-.fl-pre { margin-top: auto; font-size: 13pt; font-weight: 700; line-height: 1; text-align: right; }
+.fl-pre { margin-top: auto; font-size: 13pt; font-weight: 700; line-height: 1; text-align: right; color: #C8232B; }
 
-.fl-pie { margin-top: 2mm; border-top: 1pt solid #000; padding-top: 1.5mm; display: flex; justify-content: space-between; gap: 4mm; font-size: 7pt; }
+.fl-pie { margin-top: 2mm; border-top: 1.5pt solid #C8232B; padding-top: 1.5mm; display: flex; justify-content: space-between; gap: 4mm; font-size: 7pt; }
 `;
   function estilos() {
     if (document.getElementById('rd-folleto-css')) return;
