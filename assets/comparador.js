@@ -210,8 +210,9 @@ html:not(.rd-asesor) .rd-cx-imprimir { display: none !important; }
 @media print {
   @page { size: A4 portrait; margin: 10mm; }
   html, body { background: #fff !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
-  body > *:not(#rd-cx-print) { display: none !important; }
-  #rd-cx-print { display: block !important; }
+  /* Solo mientras se imprime LA COMPARACIÓN (clase en <body>; ver folleto.js) */
+  body.rd-imp-cx > *:not(#rd-cx-print) { display: none !important; }
+  body.rd-imp-cx #rd-cx-print { display: block !important; }
 }
 #rd-cx-print, #rd-cx-print * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 #rd-cx-print { width: 190mm; color: #14110f; font-family: 'Work Sans', Arial, sans-serif; font-size: 8.5pt; line-height: 1.3; background: #fff; }
@@ -273,7 +274,11 @@ html:not(.rd-asesor) .rd-cx-imprimir { display: none !important; }
     if (chkDif && chkDif.checked) hoja.querySelectorAll('tr.rd-cx-igual').forEach(tr => tr.remove());
     hoja.querySelectorAll('a').forEach(a => a.removeAttribute('href'));
     const fotos = Array.from(hoja.querySelectorAll('img')).filter(i => !i.complete).map(i => new Promise(ok => { i.onload = i.onerror = ok; }));
-    Promise.race([Promise.all(fotos), new Promise(ok => setTimeout(ok, 3000))]).then(() => window.print());
+    Promise.race([Promise.all(fotos), new Promise(ok => setTimeout(ok, 2500))]).then(() => {
+      document.body.classList.add('rd-imp-cx');
+      window.addEventListener('afterprint', () => document.body.classList.remove('rd-imp-cx'), { once: true });
+      window.print();
+    });
   }
 
   document.getElementById('rd-overlay-close').addEventListener('click', cerrar);

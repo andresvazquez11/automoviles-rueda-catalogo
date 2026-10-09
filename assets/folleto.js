@@ -36,8 +36,11 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
 @media print {
   @page { size: A4 portrait; margin: 10mm; }
   html, body { background: #fff !important; margin: 0 !important; padding: 0 !important; }
-  body > *:not(#rd-folleto-sheet) { display: none !important; }
-  #rd-folleto-sheet { display: block !important; position: static !important; }
+  /* Solo mientras se imprime EL FOLLETO (clase en <body>): en la portada también
+     está la impresión del comparador, y si las dos reglas se aplicaban a la vez
+     se ocultaba todo y salía la hoja en blanco. */
+  body.rd-imp-folleto > *:not(#rd-folleto-sheet) { display: none !important; }
+  body.rd-imp-folleto #rd-folleto-sheet { display: block !important; position: static !important; }
 }
 #rd-folleto-sheet, #rd-folleto-sheet * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 .flp { width: 190mm; height: 276mm; overflow: hidden; display: flex; flex-direction: column; background: #fff; color: #14110f;
@@ -261,7 +264,9 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
       // Esperar a las fotos (máx. 4 s) antes de abrir la impresión
       const fotos = Array.from(hoja.querySelectorAll('img')).map(img => img.complete ? null
         : new Promise(ok => { img.onload = img.onerror = ok; })).filter(Boolean);
-      await Promise.race([Promise.all(fotos), new Promise(ok => setTimeout(ok, 4000))]);
+      await Promise.race([Promise.all(fotos), new Promise(ok => setTimeout(ok, 2500))]);
+      document.body.classList.add('rd-imp-folleto');
+      window.addEventListener('afterprint', () => document.body.classList.remove('rd-imp-folleto'), { once: true });
       window.print();
     } finally {
       btn.disabled = false;
@@ -277,6 +282,11 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
     btn.addEventListener('click', () => imprimir(btn));
     document.body.appendChild(btn);
     window.rdImprimirFolleto = () => imprimir(btn);
+    // Con el modo asesor activo, el lector del QR se descarga ya: al pulsar, la
+    // ventana de imprimir sale antes (Safari bloquea print() si tarda mucho tras el clic)
+    const precargar = () => { if (document.documentElement.classList.contains('rd-asesor')) cargarQR().catch(() => null); };
+    precargar();
+    new MutationObserver(precargar).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
   else iniciar();
