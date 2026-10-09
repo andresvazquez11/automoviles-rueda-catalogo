@@ -163,7 +163,7 @@ jobs:
 
       - name: Commitear y subir cambios
         run: |
-          git add index.html web_fotos/ coches/ assets/ alejandro/ \
+          git add index.html web_fotos/ coches/ assets/ alejandro/ eva/ \
                   historial-precios/ quienes-somos/ comparador.json \
                   datos_coches.json historial_precios.json coches_lista.json \
                   traducciones_cache.json historial_cambios_precio.json \
@@ -190,7 +190,7 @@ jobs:
             git reset --hard origin/main
             for f in $DATOS; do [ -f "$RUNNER_TEMP/datos_corrida/$f" ] && cp "$RUNNER_TEMP/datos_corrida/$f" "$f"; done
             python3 generar_web.py
-            git add index.html web_fotos/ coches/ assets/ alejandro/ \
+            git add index.html web_fotos/ coches/ assets/ alejandro/ eva/ \
                     historial-precios/ quienes-somos/ comparador.json \
                     datos_coches.json historial_precios.json coches_lista.json \
                     traducciones_cache.json historial_cambios_precio.json \

@@ -68,6 +68,20 @@ PERFILES = [
         "direccion": {"calle": "Av. de Velázquez, 103", "cp": "29004", "localidad": "Málaga",
                       "lat": 36.6913379, "lng": -4.455824},
     },
+    {
+        "id": "eva",
+        "carpeta": "eva",
+        "nombre": "Eva Marín",
+        "telefono": "665 93 28 60",
+        "email": "eva.marin@automovilesrueda.com",
+        "avatar": "/assets/asesor-eva.jpg",
+        "redes": [],                      # sin redes propias: la cabecera no lleva iconos
+        "destacados_de": "alejandro",     # usa los destacados que elige Alejandro en /admin/
+        # Misma sede que Alejandro: Automóviles Rueda Ocasión | Das WeltAuto, Av. de Velázquez, 103, Málaga
+        "maps_url": "https://www.google.com/maps/dir/?api=1&destination=36.6913379,-4.455824",
+        "direccion": {"calle": "Av. de Velázquez, 103", "cp": "29004", "localidad": "Málaga",
+                      "lat": 36.6913379, "lng": -4.455824},
+    },
 ]
 
 def datos_perfil(perfil: dict) -> dict:
@@ -349,7 +363,9 @@ _ICONOS_REDES = {
 def header_social_html(redes: list) -> str:
     """Iconos de redes sociales del header (con leyenda debajo) — compartida
     entre index.html y las fichas de coche, pero las redes en sí son propias
-    de cada perfil (`perfil["redes"]`, lista de tuplas (tipo, url))."""
+    de cada perfil (`perfil["redes"]`, lista de tuplas (tipo, url)). Sin redes → nada."""
+    if not redes:
+        return ""
     enlaces = "\n    ".join(
         f'<a href="{url}" target="_blank" rel="noopener" aria-label="{_ICONOS_REDES[tipo][0]}">\n      {_ICONOS_REDES[tipo][1]}\n    </a>'
         for tipo, url in redes
@@ -2373,7 +2389,7 @@ document.addEventListener('click', e => {{
 
 // ── Destacados: franja de coches marcados desde /admin/ ──────────────
 (function() {{
-  const PERFIL_ID = '{perfil["id"]}';
+  const PERFIL_ID = '{perfil.get("destacados_de", perfil["id"])}';   // Eva usa los de Alejandro
   // no-store: sin esto el navegador reusaba su copia hasta 10 min (max-age de
   // GitHub Pages) y los cambios hechos desde /admin/ no se veían al recargar.
   fetch('/destacados.json', {{ cache: 'no-store' }})
@@ -2977,7 +2993,7 @@ def main():
     escribir_sitemap_y_robots([c for c in todos_los_coches if c["n"] not in sin_foto])
     print(f"  {len(todos_los_coches)} fichas individuales generadas por perfil")
     print()
-    print("  Listo. Sube index.html, coches/, alejandro/ y web_fotos/ a GitHub Pages para compartirlo.")
+    print("  Listo. Sube index.html, coches/, alejandro/, eva/ y web_fotos/ a GitHub Pages para compartirlo.")
 
 if __name__ == "__main__":
     main()

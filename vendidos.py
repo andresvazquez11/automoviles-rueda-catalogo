@@ -132,9 +132,9 @@ PLANTILLA = r'''<!DOCTYPE html>
   const marca = m => String(m || '').split(' ')[0].toLowerCase();
   const slugModelo = m => String(m || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-  // ¿Perfil de Alejandro? (/alejandro/coches/…) → sus enlaces y su WhatsApp
+  // ¿Página de otro asesor? (/alejandro/coches/…, /eva/coches/…) → sus enlaces y su WhatsApp
   const partes = location.pathname.split('/').filter(Boolean);
-  const carpeta = partes[0] === 'alejandro' ? 'alejandro' : '';
+  const carpeta = partes[0] && D.asesores[partes[0]] ? partes[0] : '';
   const base = carpeta ? '/' + carpeta : '';
   const asesor = D.asesores[carpeta] || D.asesores[''];
   document.getElementById('lnk-cab').href = base + '/';
