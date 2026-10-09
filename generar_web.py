@@ -2124,6 +2124,45 @@ def og_portada_html(perfil: dict, total: int) -> str:
 <meta property="og:image:alt" content="Automóviles Rueda — {html.escape(datos['nombre'])} · {datos['telefono']}">
 <meta name="twitter:card" content="summary_large_image">'''
 
+ANCHO_MAX_FOTO = 1600   # px: de sobra para la galería y las hojas A4
+ANCHO_MINIATURA = 480   # px: foto pequeña del folleto (2,4 cm en papel)
+
+def reducir_fotos_web() -> int:
+    """Desde el 09/10/2026 Das WeltAuto sirve las fotos a 4000 px (≈1,2 MB cada una):
+    el catálogo pesaba decenas de MB en el móvil y la vista previa de impresión del
+    folleto (40 fotos) se quedaba «Cargando…» en Edge/Chrome. Se reducen en el sitio
+    las de web_fotos/ más anchas de ANCHO_MAX_FOTO. Las ya reducidas no se tocan."""
+    from PIL import Image
+    hechas = 0
+    for f in WEB_FOTOS.glob("*/foto_*.jpg"):
+        try:
+            with Image.open(f) as im:
+                if im.width <= ANCHO_MAX_FOTO:
+                    continue
+                alto = round(im.height * ANCHO_MAX_FOTO / im.width)
+                peq = im.convert("RGB").resize((ANCHO_MAX_FOTO, alto), Image.LANCZOS)
+            peq.save(f, "JPEG", quality=84, optimize=True, progressive=True)
+            hechas += 1
+        except Exception as e:
+            print(f"    ⚠️  no se pudo reducir {f}: {e}")
+    return hechas
+
+def miniatura_web(ruta_web: str) -> str:
+    """'/web_fotos/07/foto_01.jpg' → '/web_fotos/07/mini_01.jpg' (ANCHO_MINIATURA px),
+    creada si falta o si la foto es más nueva. Si algo falla, la foto normal."""
+    from PIL import Image
+    origen = BASE_DIR / ruta_web.lstrip("/")
+    destino = origen.with_name(origen.name.replace("foto_", "mini_"))
+    try:
+        if not destino.exists() or destino.stat().st_mtime < origen.stat().st_mtime:
+            with Image.open(origen) as im:
+                alto = round(im.height * ANCHO_MINIATURA / im.width)
+                im.convert("RGB").resize((ANCHO_MINIATURA, alto), Image.LANCZOS).save(
+                    destino, "JPEG", quality=80, optimize=True)
+        return "/" + str(destino.relative_to(BASE_DIR))
+    except Exception:
+        return ruta_web
+
 def datos_folleto_json(cars: list[dict], rutas: dict, perfil: dict) -> str:
     """Datos del folleto imprimible de la portada (assets/folleto.js): coches
     Disponibles (los reservados no se anuncian en la puerta) ordenados por modelo
@@ -2137,7 +2176,7 @@ def datos_folleto_json(cars: list[dict], rutas: dict, perfil: dict) -> str:
         coches.append({
             "modelo": c["modelo"], "version": c.get("version", ""), "precio": c.get("precio", ""),
             "km": c.get("km", ""), "fecha": c.get("fecha", ""), "combustible": c.get("combustible", ""),
-            "cambio": c.get("cambio", ""), "foto": rutas[c["n"]][0],
+            "cambio": c.get("cambio", ""), "foto": miniatura_web(rutas[c["n"]][0]),
         })
     coches.sort(key=lambda c: (c["modelo"], _num(c["precio"])))
     asesor = {
@@ -2753,6 +2792,9 @@ def main():
 
     print("📸  Copiando fotos a web_fotos/ …")
     rutas = copiar_fotos(coches)
+    reducidas = reducir_fotos_web()
+    if reducidas:
+        print(f"    {reducidas} foto(s) reducidas a {ANCHO_MAX_FOTO} px (Das WeltAuto las sirve a 4000 px)")
     total_fotos = sum(len(v) for v in rutas.values())
     print(f"    {total_fotos} fotos copiadas")
 
