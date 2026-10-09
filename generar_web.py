@@ -768,6 +768,7 @@ ASSET_ESTILOS     = asset("estilos.css")
 ASSET_IDIOMA      = asset("idioma.js")
 ASSET_CALCULADORA = asset("calculadora.js")
 ASSET_IMPRIMIR    = asset("imprimir.js")
+ASSET_FOLLETO     = asset("folleto.js")   # folleto A4 de todos los coches (solo asesor, portada)
 ASSET_ENVIAR      = asset("enviar.js")   # enviar al cliente por WhatsApp (solo asesores) + vista del enlace
 ASSET_REBAJAS     = asset("rebajas.js")
 ASSET_COMPARADOR  = asset("comparador.js")
@@ -2123,6 +2124,30 @@ def og_portada_html(perfil: dict, total: int) -> str:
 <meta property="og:image:alt" content="Automóviles Rueda — {html.escape(datos['nombre'])} · {datos['telefono']}">
 <meta name="twitter:card" content="summary_large_image">'''
 
+def datos_folleto_json(cars: list[dict], rutas: dict, perfil: dict) -> str:
+    """Datos del folleto imprimible de la portada (assets/folleto.js): coches
+    Disponibles (los reservados no se anuncian en la puerta) ordenados por modelo
+    y precio, con su primera foto, y el contacto del asesor de este perfil."""
+    datos = datos_perfil(perfil)
+    d = perfil.get("direccion", {})
+    coches = []
+    for c in cars:
+        if c.get("estado") != "Disponible" or not rutas.get(c["n"]):
+            continue
+        coches.append({
+            "modelo": c["modelo"], "version": c.get("version", ""), "precio": c.get("precio", ""),
+            "km": c.get("km", ""), "fecha": c.get("fecha", ""), "combustible": c.get("combustible", ""),
+            "cambio": c.get("cambio", ""), "foto": rutas[c["n"]][0],
+        })
+    coches.sort(key=lambda c: (c["modelo"], _num(c["precio"])))
+    asesor = {
+        "nombre": datos["nombre"], "telefono": datos["telefono"], "email": datos["email"],
+        "direccion": f'{d.get("calle", "")} · {d.get("cp", "")} {d.get("localidad", "")}'.strip(" ·"),
+        "web": datos["dominio_pagina"].replace("https://", "").replace("http://", ""),
+        "url": datos["dominio_pagina"] + "/",
+    }
+    return json.dumps({"asesor": asesor, "coches": coches}, ensure_ascii=False).replace("</", "<\\/")
+
 def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict, traducciones: dict[int, dict]) -> str:
     hist = _cargar_historial_precios()
     recortes = recortes_vigentes(cars)
@@ -2463,6 +2488,8 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
 <script src="{ASSET_CONFIANZA}"></script>
 <script src="{ASSET_REBAJAS}"></script>
 <script src="{ASSET_PERSONAJE}"></script>
+<script id="rd-folleto-datos" type="application/json">{datos_folleto_json(cars, rutas, perfil)}</script>
+<script src="{ASSET_FOLLETO}"></script>
 <script src="{ASSET_ENVIAR}"></script>
 {footer_whatsapp_html(perfil, accesos_ocultos=(perfil["id"] == "andres"))}
 {goatcounter_script_html()}
