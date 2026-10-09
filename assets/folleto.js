@@ -2,11 +2,13 @@
    Automóviles Rueda — "Imprimir folleto" (solo modo asesor, portada)
 
    Hoja A4 a doble cara EN COLOR (pensada para que también salga bien en
-   impresora de blanco y negro: rojo = gris oscuro, sin fondos macizos) con TODOS los coches
-   disponibles en este momento, para dejar en la puerta del concesionario:
-   cara 1 con marca, contacto del asesor, dirección de la web y un QR al
-   catálogo; luego una ficha pequeña por coche (foto, modelo, versión,
-   matriculación, km, combustible, cambio y precio).
+   impresora de blanco y negro: rojo = gris oscuro, sin fondos macizos) con
+   TODOS los coches disponibles en este momento, para dejar en la puerta:
+   · cara 1: marca, la WEB en grande ("ocasion" en letra hueca: borde rojo /
+     oscuro en B/N, relleno blanco) y contacto del asesor;
+   · una ficha pequeña por coche (foto, modelo, versión, matriculación, km,
+     combustible, cambio y precio), repartidas MIDIENDO lo que cabe;
+   · al final de la última cara, recuadro con el QR al catálogo.
 
    Los datos los escribe generar_web.py en <script id="rd-folleto-datos">
    (coches "Disponible" + datos del asesor del perfil). El botón solo se
@@ -34,42 +36,67 @@ html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
   @page { size: A4 portrait; margin: 10mm; }
   html, body { background: #fff !important; margin: 0 !important; padding: 0 !important; }
   body > *:not(#rd-folleto-sheet) { display: none !important; }
-  #rd-folleto-sheet { display: block !important; }
+  #rd-folleto-sheet { display: block !important; position: static !important; }
 }
 #rd-folleto-sheet, #rd-folleto-sheet * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.flp { width: 190mm; height: 276mm; overflow: hidden; display: flex; flex-direction: column; background: #fff; color: #000;
+.flp { width: 190mm; height: 276mm; overflow: hidden; display: flex; flex-direction: column; background: #fff; color: #14110f;
   font-family: 'Work Sans', Arial, sans-serif; font-size: 8.5pt; line-height: 1.3; }
 .flp + .flp { break-before: page; page-break-before: always; }
 .fl-osw { font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif; }
 
-.fl-head { display: grid; grid-template-columns: 1fr 34mm; gap: 6mm; align-items: center; border-bottom: 3pt solid #C8232B; padding-bottom: 3mm; }
-.fl-marca { font-size: 26pt; font-weight: 700; text-transform: uppercase; line-height: 1; letter-spacing: .5pt; color: #14110f; }
-.fl-lema { font-size: 9pt; font-weight: 600; margin-top: 1.5mm; letter-spacing: .3pt; color: #C8232B; }
-.fl-contacto { margin-top: 2.5mm; font-size: 9.5pt; line-height: 1.45; }
-.fl-contacto b { font-size: 11pt; }
-.fl-qr { text-align: center; }
-.fl-qr svg { width: 30mm; height: 30mm; display: block; margin: 0 auto; }
-.fl-qr span { display: block; font-size: 6.8pt; line-height: 1.25; margin-top: 1mm; }
-.fl-web { margin: 3mm 0 0; border: 2pt solid #C8232B; border-radius: 2mm; padding: 2.2mm 4mm; display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
-.fl-web span { font-size: 8.5pt; font-weight: 700; letter-spacing: .6pt; text-transform: uppercase; color: #C8232B; }
-.fl-web b { font-size: 16pt; letter-spacing: .3pt; }
+/* Dirección web: "automovilesrueda" macizo + "ocasion" en letra hueca (borde rojo; oscuro en B/N) */
+.fl-dom { font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif; font-weight: 700; letter-spacing: .3pt; line-height: 1; white-space: nowrap; }
+.fl-dom .fl-oc { color: #fff; -webkit-text-stroke: .045em #C8232B; letter-spacing: .04em; }
+.fl-dom .fl-tld { font-weight: 600; }
+.fl-dom .fl-ruta { font-size: .55em; font-weight: 600; }
 
-.fl-head2 { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2.5pt solid #C8232B; padding-bottom: 1.5mm; font-size: 8.5pt; }
+/* ── Cabecera de la cara 1 ── */
+.fl-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 6mm;
+  border-bottom: 3pt solid #C8232B; padding-bottom: 2.5mm; }
+.fl-marca { font-size: 27pt; font-weight: 700; text-transform: uppercase; line-height: .95; letter-spacing: .5pt; white-space: nowrap; }
+.fl-top-der { text-align: right; }
+.fl-lema { font-size: 9pt; font-weight: 700; letter-spacing: .5pt; text-transform: uppercase; color: #C8232B; }
+.fl-cuantos { display: inline-block; margin-top: 1.5mm; border: 1.2pt solid #14110f; border-radius: 999px; padding: .8mm 3.5mm;
+  font-size: 9pt; font-weight: 700; }
+.fl-web { margin-top: 3mm; border: 2pt solid #C8232B; border-radius: 3mm; padding: 2mm 4mm 3mm; text-align: center; }
+.fl-web-lbl { font-size: 9pt; font-weight: 700; letter-spacing: .8pt; text-transform: uppercase; }
+.fl-web .fl-dom { font-size: 31pt; margin-top: 1.2mm; display: inline-block; }
+.fl-contacto { margin-top: 2.5mm; display: flex; justify-content: space-between; align-items: baseline; gap: 5mm;
+  padding-bottom: 2.5mm; border-bottom: 1pt solid #9c958b; font-size: 9pt; }
+.fl-contacto .fl-tel { font-size: 15pt; font-weight: 700; white-space: nowrap; }
+.fl-contacto .fl-tel small { font-size: 8.5pt; font-weight: 600; color: #5d5650; }
+.fl-contacto .fl-dir { text-align: right; line-height: 1.4; color: #333; }
+
+/* ── Cabecera de las demás caras ── */
+.fl-head2 { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm;
+  border-bottom: 2.5pt solid #C8232B; padding-bottom: 1.5mm; font-size: 8.5pt; }
 .fl-head2 .fl-marca { font-size: 13pt; }
+.fl-head2 .fl-dom { font-size: 13pt; }
 
-.fl-grid { flex: 1; min-height: 0; margin-top: 3mm; display: grid; grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 28mm; gap: 2.5mm 3mm; align-content: start; }
-.fl-card { border: .8pt solid #9c958b; border-radius: 1.5mm; display: grid; grid-template-columns: 25mm 1fr; overflow: hidden; }
+/* ── Coches ── */
+.fl-grid { margin-top: 2.5mm; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 23.5mm; gap: 2.2mm 3mm; }
+.fl-card { border: .8pt solid #9c958b; border-radius: 1.5mm; display: grid; grid-template-columns: 24mm 1fr; overflow: hidden; }
 .fl-foto { background: #f2f1ed; overflow: hidden; }
 .fl-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.fl-txt { padding: 1.4mm 2mm 1.2mm; display: flex; flex-direction: column; min-width: 0; }
+.fl-txt { padding: 1.1mm 1.8mm 1mm; display: flex; flex-direction: column; min-width: 0; }
 .fl-mod { font-size: 10pt; font-weight: 700; text-transform: uppercase; line-height: 1.05; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.fl-ver { font-size: 6.6pt; line-height: 1.2; margin-top: .4mm; color: #222; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.fl-dat { font-size: 7.4pt; margin-top: .6mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fl-ver { font-size: 6.5pt; line-height: 1.15; margin-top: .3mm; color: #222; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.fl-dat { font-size: 7.3pt; margin-top: .5mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fl-dat b { font-weight: 700; }
-.fl-pre { margin-top: auto; font-size: 13pt; font-weight: 700; line-height: 1; text-align: right; color: #C8232B; }
+.fl-pre { margin-top: auto; font-size: 12.5pt; font-weight: 700; line-height: 1; text-align: right; color: #C8232B; }
 
-.fl-pie { margin-top: 2mm; border-top: 1.5pt solid #C8232B; padding-top: 1.5mm; display: flex; justify-content: space-between; gap: 4mm; font-size: 7pt; }
+/* ── Cierre con QR (final de la última cara) ── */
+.fl-cierre { margin-top: auto; border: 2pt solid #C8232B; border-radius: 3mm; padding: 3mm 5mm;
+  display: grid; grid-template-columns: 30mm 1fr; gap: 6mm; align-items: center; }
+.fl-cierre svg { width: 30mm; height: 30mm; display: block; }
+.fl-cierre-tit { font-size: 15pt; font-weight: 700; text-transform: uppercase; line-height: 1.1; }
+.fl-cierre-txt { font-size: 9.5pt; margin-top: 1.5mm; }
+.fl-cierre .fl-dom { font-size: 22pt; margin-top: 2mm; display: block; }
+.fl-cierre-tel { font-size: 10pt; margin-top: 2.5mm; }
+.fl-cierre-tel b { font-size: 12pt; }
+
+.fl-pie { margin-top: 2.5mm; border-top: 1.5pt solid #C8232B; padding-top: 1.5mm; display: flex; justify-content: space-between; gap: 4mm; font-size: 7pt; }
+.fl-grid + .fl-pie { margin-top: auto; }
 `;
   function estilos() {
     if (document.getElementById('rd-folleto-css')) return;
@@ -99,6 +126,14 @@ html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
 
   const hoy = () => new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
+  // "automovilesruedaocasion.com/alejandro" → automovilesrueda + [ocasion hueco] + .com + /alejandro
+  function dominioHTML(web) {
+    const m = /^(.*?)(ocasion)(\.[a-z.]+)(\/.*)?$/i.exec(web || '');
+    if (!m) return `<span class="fl-dom">${esc(web)}</span>`;
+    return `<span class="fl-dom">${esc(m[1])}<span class="fl-oc">${esc(m[2])}</span><span class="fl-tld">${esc(m[3])}</span>${
+      m[4] && m[4] !== '/' ? `<span class="fl-ruta">${esc(m[4])}</span>` : ''}</span>`;
+  }
+
   function tarjeta(c) {
     const fecha = c.fecha ? `<b>${esc(c.fecha)}</b>` : '';
     const km = c.km ? `<b>${esc(c.km)} km</b>` : '';
@@ -114,41 +149,83 @@ html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
 </div>`;
   }
 
-  // Cara 1: 7 filas de 3 (debajo de la cabecera); siguientes caras: 8 filas de 3
-  const POR_CARA = [21, 24];
+  function cabecera1(a, total) {
+    return `
+  <div class="fl-top">
+    <div class="fl-marca fl-osw">Automóviles Rueda</div>
+    <div class="fl-top-der">
+      <div class="fl-lema">Coches de ocasión · SEAT · CUPRA · Das WeltAuto</div>
+      <div class="fl-cuantos">${total} coches disponibles hoy</div>
+    </div>
+  </div>
+  <div class="fl-web">
+    <div class="fl-web-lbl">Todo el stock, con fotos, equipamiento y financiación, en</div>
+    ${dominioHTML(a.web)}
+  </div>
+  <div class="fl-contacto">
+    <div><b>${esc(a.nombre)}</b> · asesor comercial<br><span class="fl-tel">${esc(a.telefono)} <small>llamadas y WhatsApp</small></span></div>
+    <div class="fl-dir">${esc(a.email)}<br>${esc(a.direccion)}</div>
+  </div>`;
+  }
+  function cabecera2(a) {
+    return `
+  <div class="fl-head2"><span class="fl-marca fl-osw">Automóviles Rueda</span>${dominioHTML(a.web)}<span>${esc(a.nombre)} · <b>${esc(a.telefono)}</b></span></div>`;
+  }
+  function cierre(a, qr) {
+    return `
+  <div class="fl-cierre">
+    <div>${qr}</div>
+    <div>
+      <div class="fl-cierre-tit fl-osw">¿Quieres ver fotos, equipamiento y financiación?</div>
+      <div class="fl-cierre-txt">Escanea el código con la cámara del móvil o entra en</div>
+      ${dominioHTML(a.web)}
+      <div class="fl-cierre-tel">${esc(a.nombre)} · <b>${esc(a.telefono)}</b> · llamadas y WhatsApp</div>
+    </div>
+  </div>`;
+  }
+  const pie = (a, p, total) => `<div class="fl-pie"><span>Precios y disponibilidad a ${hoy()} · sujetos a cambios</span><span>${esc(a.web)} · ${esc(a.telefono)}${total > 1 ? ' · ' + p + '/' + total : ''}</span></div>`;
 
-  function folletoHTML(qr) {
+  // Reparto midiendo de verdad (fuera de pantalla): se meten coches en la cara
+  // hasta que no caben; la última cara lleva además el cierre con el QR.
+  function maquetar(hoja, qr) {
     const a = D.asesor || {};
     const coches = D.coches || [];
-    const caras = [];
-    let i = 0, n = 0;
-    while (i < coches.length || n === 0) {
-      const cap = POR_CARA[Math.min(n, POR_CARA.length - 1)];
-      caras.push(coches.slice(i, i + cap));
-      i += cap; n++;
+    hoja.innerHTML = '';
+    hoja.style.cssText = 'display:block;position:absolute;left:-10000px;top:0;';
+    const sobra = cara => cara.scrollHeight > cara.clientHeight + 1;
+    const nuevaCara = () => {
+      const cara = document.createElement('div');
+      cara.className = 'flp';
+      cara.innerHTML = (hoja.children.length ? cabecera2(a) : cabecera1(a, coches.length))
+        + '<div class="fl-grid"></div><div class="fl-pie"></div>';
+      hoja.appendChild(cara);
+      return cara;
+    };
+    let i = 0;
+    let cara = nuevaCara();
+    for (;;) {
+      const grid = cara.querySelector('.fl-grid');
+      while (i < coches.length) {
+        grid.insertAdjacentHTML('beforeend', tarjeta(coches[i]));
+        if (sobra(cara)) { grid.lastElementChild.remove(); break; }
+        i++;
+      }
+      if (i < coches.length) { cara = nuevaCara(); continue; }
+      // Todos colocados: el cierre con QR al final de esta cara, o en una cara nueva si no cabe
+      cara.querySelector('.fl-pie').insertAdjacentHTML('beforebegin', cierre(a, qr));
+      if (sobra(cara) && grid.children.length) {
+        cara.querySelector('.fl-cierre').remove();
+        // se pasa la última fila de coches a una cara nueva junto con el cierre
+        const ultimos = Array.from(grid.children).slice(-3);
+        cara = nuevaCara();
+        ultimos.forEach(t => cara.querySelector('.fl-grid').appendChild(t));
+        cara.querySelector('.fl-pie').insertAdjacentHTML('beforebegin', cierre(a, qr));
+      }
+      break;
     }
-    const total = caras.length;
-    const pie = p => `<div class="fl-pie"><span>Precios y disponibilidad a ${hoy()} · sujetos a cambios · Fotos e información completa en la web</span><span>${esc(a.web)} · ${esc(a.telefono)}${total > 1 ? ' · ' + p + '/' + total : ''}</span></div>`;
-    return caras.map((lista, p) => {
-      const cabecera = p === 0 ? `
-  <div class="fl-head">
-    <div>
-      <div class="fl-marca fl-osw">Automóviles Rueda</div>
-      <div class="fl-lema">Coches de ocasión seleccionados · SEAT · CUPRA · Das WeltAuto · ${coches.length} coches disponibles</div>
-      <div class="fl-contacto">
-        <b>${esc(a.nombre)} · ${esc(a.telefono)}</b> (llamadas y WhatsApp)<br>
-        ${esc(a.email)}<br>${esc(a.direccion)}
-      </div>
-    </div>
-    <div class="fl-qr">${qr}<span>Escanéame: fotos, equipamiento y financiación</span></div>
-  </div>
-  <div class="fl-web"><span>Todo el stock actualizado cada día en</span><b class="fl-osw">${esc(a.web)}</b></div>` : `
-  <div class="fl-head2"><span class="fl-marca fl-osw">Automóviles Rueda</span><span>${esc(a.nombre)} · <b>${esc(a.telefono)}</b> · <b>${esc(a.web)}</b></span></div>`;
-      return `<div class="flp">${cabecera}
-  <div class="fl-grid">${lista.map(tarjeta).join('')}</div>
-  ${pie(p + 1)}
-</div>`;
-    }).join('');
+    const caras = Array.from(hoja.children);
+    caras.forEach((c, p) => { c.querySelector('.fl-pie').outerHTML = pie(a, p + 1, caras.length); });
+    hoja.removeAttribute('style');
   }
 
   async function imprimir(btn) {
@@ -162,12 +239,13 @@ html:not(.rd-asesor) .rd-folleto-btn { display: none !important; }
         hoja.id = 'rd-folleto-sheet';
         document.body.appendChild(hoja);
       }
-      hoja.innerHTML = folletoHTML(qrSVG((D.asesor || {}).url || location.origin + '/'));
-      // Esperar a las fotos (máx. 4 s) y a las fuentes antes de abrir la impresión
+      const fuentes = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+      await fuentes;   // medir con la letra definitiva
+      maquetar(hoja, qrSVG((D.asesor || {}).url || location.origin + '/'));
+      // Esperar a las fotos (máx. 4 s) antes de abrir la impresión
       const fotos = Array.from(hoja.querySelectorAll('img')).map(img => img.complete ? null
         : new Promise(ok => { img.onload = img.onerror = ok; })).filter(Boolean);
-      const fuentes = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-      await Promise.race([Promise.all([Promise.all(fotos), fuentes]), new Promise(ok => setTimeout(ok, 4000))]);
+      await Promise.race([Promise.all(fotos), new Promise(ok => setTimeout(ok, 4000))]);
       window.print();
     } finally {
       btn.disabled = false;
