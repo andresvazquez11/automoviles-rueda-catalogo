@@ -35,13 +35,6 @@
     "antes_auto": 0
   },
   {
-    "id": "dwa-198259936",
-    "modelo": "SEAT Ateca",
-    "precio": "24.900",
-    "foto": "/web_fotos/07/foto_01.jpg",
-    "antes_auto": 0
-  },
-  {
     "id": "dwa-196353145",
     "modelo": "SEAT Arona",
     "precio": "19.900",
@@ -67,13 +60,6 @@
     "modelo": "ŠKODA Karoq",
     "precio": "21.500",
     "foto": "/web_fotos/12/foto_01.jpg",
-    "antes_auto": 0
-  },
-  {
-    "id": "dwa-193177990",
-    "modelo": "CUPRA Formentor",
-    "precio": "24.900",
-    "foto": "/web_fotos/14/foto_01.jpg",
     "antes_auto": 0
   },
   {
