@@ -59,6 +59,16 @@
   "precio": "18.900",
   "version": "1.0 TSI Style Special Edition 85 kW (115 CV)"
  },
+ "seat-arona-174153091": {
+  "baja": "2026-10-12",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "06/2025",
+  "km": "11.793",
+  "modelo": "SEAT Arona",
+  "precio": "18.900",
+  "version": "1.0 TSI Style Special Edition 85 kW (115 CV)"
+ },
  "seat-arona-179469064": {
   "baja": "2026-09-28",
   "cambio": "Automático",
@@ -128,6 +138,16 @@
   "modelo": "SEAT Ibiza",
   "precio": "18.300",
   "version": "1.0 TSI Special Edition 85 kW (115 CV)"
+ },
+ "seat-ibiza-198809608": {
+  "baja": "2026-10-12",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "07/2026",
+  "km": "50",
+  "modelo": "SEAT Ibiza",
+  "precio": "21.900",
+  "version": "1.0 TSI S&S FR 85 kW (115 CV)"
  },
  "seat-ibiza-mf197896909": {
   "baja": "2026-10-08",
