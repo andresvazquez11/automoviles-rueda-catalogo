@@ -107,7 +107,7 @@
     "km": "1.955",
     "fecha": "11/2025",
     "cambio": "Automático",
-    "color": "Blanco",
+    "color": "",
     "precio": "21.900",
     "ubicacion": "Málaga",
     "estado": "No disponible",
@@ -135,7 +135,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 21.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 21.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 21.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "205.00",
@@ -397,7 +396,7 @@
     "km": "50",
     "fecha": "06/2026",
     "cambio": "Automático",
-    "color": "Blanco",
+    "color": "",
     "precio": "37.900",
     "ubicacion": "Málaga",
     "estado": "No disponible",
@@ -425,7 +424,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA Formentor - 37.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA Formentor - 37.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA Formentor - 37.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "319.25",
@@ -2311,6 +2309,71 @@
   },
   {
     "fuente": "motorflash",
+    "motorflash_id": "203677213",
+    "tipo": "VO",
+    "modelo": "SEAT Arona",
+    "version": "1.0 TSI Style 81 kW (110 CV)",
+    "combustible": "Gasolina",
+    "km": "48.923",
+    "fecha": "2022",
+    "cambio": "Manual",
+    "color": "",
+    "precio": "16.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url_motorflash": "https://www.motorflash.com/coche-segunda-mano/seat-arona-1_0_tsi_style_81_kw_110_cv/ocasion/203677213-es/",
+    "equipamiento": [
+      "Start/Stop automático",
+      "Luz diurna",
+      "Control de velocidad",
+      "Volante multifunción",
+      "Bluetooth",
+      "Llantas de aleación",
+      "Llantas de aleación de 17\"",
+      "Baca",
+      "Ordenador",
+      "Aire Acondicionado",
+      "Airbag",
+      "Airbag para el acompañante",
+      "Airbag para el conductor",
+      "Airbags laterales",
+      "Frenos ABS antibloqueo",
+      "ESP",
+      "Dirección asistida",
+      "Elevalunas eléctrico",
+      "Cierre centralizado",
+      "Reposabrazos central",
+      "Control remoto para cierre centralizado",
+      "Servodirección",
+      "Control de crucero adaptativo",
+      "Asistente de cambio de carril",
+      "Asistente de mantenimiento de carril",
+      "Asistente de aparcamiento",
+      "Conexión eléctrica",
+      "Asistente de arranque en pendiente",
+      "Barras transversales",
+      "Faros delanteros led",
+      "Faros traseros led",
+      "Isofix",
+      "Encendido automático de faros",
+      "Sensor de presión de neumáticos",
+      "Car Play",
+      "Limitador de velocidad"
+    ],
+    "fotos": [
+      "web_fotos/mf-203677213/foto_01.jpg",
+      "web_fotos/mf-203677213/foto_02.jpg",
+      "web_fotos/mf-203677213/foto_03.jpg",
+      "web_fotos/mf-203677213/foto_04.jpg",
+      "web_fotos/mf-203677213/foto_05.jpg",
+      "web_fotos/mf-203677213/foto_06.jpg",
+      "web_fotos/mf-203677213/foto_07.jpg",
+      "web_fotos/mf-203677213/foto_08.jpg"
+    ],
+    "n": 49
+  },
+  {
+    "fuente": "motorflash",
     "motorflash_id": "203498227",
     "tipo": "VO",
     "modelo": "CUPRA Raval",
@@ -2383,6 +2446,6 @@
       "web_fotos/mf-203498227/foto_07.jpg",
       "web_fotos/mf-203498227/foto_08.jpg"
     ],
-    "n": 49
+    "n": 50
   }
 ]
