@@ -14,13 +14,6 @@
     "antes_auto": 0
   },
   {
-    "id": "dwa-200534278",
-    "modelo": "SEAT Arona",
-    "precio": "21.900",
-    "foto": "/web_fotos/03/foto_01.jpg",
-    "antes_auto": 0
-  },
-  {
     "id": "dwa-198013252",
     "modelo": "CUPRA Formentor",
     "precio": "21.500",
@@ -39,13 +32,6 @@
     "modelo": "SEAT Arona",
     "precio": "19.900",
     "foto": "/web_fotos/08/foto_01.jpg",
-    "antes_auto": 0
-  },
-  {
-    "id": "dwa-193600528",
-    "modelo": "CUPRA Formentor",
-    "precio": "37.900",
-    "foto": "/web_fotos/09/foto_01.jpg",
     "antes_auto": 0
   },
   {
@@ -257,5 +243,12 @@
     "precio": "25.500",
     "foto": "/web_fotos/48/foto_01.jpg",
     "antes_auto": 25900
+  },
+  {
+    "id": "mf-203498227",
+    "modelo": "CUPRA Raval",
+    "precio": "34.500",
+    "foto": "/web_fotos/mf-203498227/foto_01.jpg",
+    "antes_auto": 0
   }
 ]

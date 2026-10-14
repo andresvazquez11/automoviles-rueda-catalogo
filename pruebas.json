@@ -234,7 +234,8 @@
     "Abarth 500|2022": "2026-09-26",
     "Renault Clio|2025": "2026-09-26",
     "Nissan Qashqai|2019": "2026-09-26",
-    "SEAT Ateca|2023": "2026-09-30"
+    "SEAT Ateca|2023": "2026-09-30",
+    "CUPRA Raval|2026": "2026-10-14"
   },
   "Abarth 500": {
     "videos": [
@@ -337,6 +338,34 @@
         "auto": "2026-09-30",
         "desde": 2022,
         "hasta": 2024
+      }
+    ]
+  },
+  "CUPRA Raval": {
+    "videos": [
+      {
+        "youtube": "aruUUU71KtM",
+        "titulo": "Cupra Raval 2026: Prueba a fondo del \"Ibiza\" del futuro",
+        "medio": "coches.net",
+        "auto": "2026-10-14",
+        "desde": 2025,
+        "hasta": 2027
+      },
+      {
+        "youtube": "ByXfaLYD8Tg",
+        "titulo": "Cupra Raval 2026: el eléctrico urbano español",
+        "medio": "coches.net",
+        "auto": "2026-10-14",
+        "desde": 2025,
+        "hasta": 2027
+      },
+      {
+        "youtube": "8xRUIHdNKuQ",
+        "titulo": "Cupra Raval VZ 2026 eléctrico",
+        "medio": "coches.net",
+        "auto": "2026-10-14",
+        "desde": 2025,
+        "hasta": 2027
       }
     ]
   }
