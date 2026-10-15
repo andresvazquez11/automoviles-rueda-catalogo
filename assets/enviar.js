@@ -196,6 +196,7 @@
     if (typeof setFinanciera === 'function') setFinanciera(f, tab);
     if (f === 'BBVA')  { bbvaSetMeses(n('m') || 60); bbvaEntradaInput(n('e')); return f; }
     if (f === 'CAIXA') { caixaSetMeses(n('m') || 60); caixaEntradaInput(n('e')); return f; }
+    CV2.auto = false;   // reproducir exactamente la campaña enviada, sin elegir sola
     if (p.get('c') && p.get('c') !== CV2.campana) cv2SetCampana(p.get('c'));
     if (p.get('ct')) cv2SetCupraTipo(p.get('ct'));
     if ((p.get('dr') === '1') !== !!CV2.demosRema && typeof cv2ToggleDemosRema === 'function') cv2ToggleDemosRema();

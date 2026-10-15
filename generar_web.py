@@ -1200,6 +1200,28 @@ CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_
   .cv2-mapa-tbl td b, .cv2-mapa-tbl td span, .cv2-mapa-tbl td small { display:block; }
   .cv2-mapa-tbl td small { opacity:.75; font-size:9.5px; }
   .cv2-mapa-tbl td.act { border-color:#fff; box-shadow:0 0 0 1px #000 inset; }
+  /* Modo automático de campaña */
+  .cv2-auto { display:block; width:100%; text-align:left; font:inherit; font-size:11px; line-height:1.45;
+    padding:7px 10px; border-radius:6px; margin-bottom:2px; }
+  .cv2-auto.on { border:1px solid rgba(34,197,94,.35); background:rgba(34,197,94,.06); color:rgba(240,244,255,.7); }
+  .cv2-auto.on b { color:#22C55E; }
+  .cv2-auto.off { border:1px solid rgba(245,158,11,.4); background:rgba(245,158,11,.06); color:rgba(240,244,255,.7); cursor:pointer; }
+  .cv2-auto.off b { color:#22C55E; }
+  /* Buscar por cuota */
+  .cv2-inv-form { display:flex; flex-wrap:wrap; gap:10px 18px; margin-bottom:8px; font-size:12px; color:rgba(240,244,255,.65); }
+  .cv2-inv-form input {
+    width:90px; margin:0 4px; padding:5px 7px; border-radius:4px; font:inherit; font-weight:700;
+    border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.05); color:#fff;
+  }
+  .cv2-inv-reco { font-size:12px; color:#22C55E; margin-bottom:6px; line-height:1.5; }
+  .cv2-inv-reco b { color:#fff; }
+  .cv2-inv-aviso { font-size:12px; color:#F59E0B; margin-bottom:6px; line-height:1.5; }
+  .cv2-inv-fila { cursor:pointer; }
+  .cv2-inv-fila.no { cursor:default; }
+  .cv2-inv-fila.cerca { border:1px solid rgba(245,158,11,.5); }
+  .cv2-inv-ok { color:#22C55E; }
+  .cv2-inv-ko { color:#F87171; }
+  .cv2-mapa-tbl td.solo-banco { opacity:.4; cursor:default; }
   .cv2-mapa-tbl td.na { background:rgba(255,255,255,.04); color:rgba(240,244,255,.3); cursor:default; }
   @media print { .cv2-codigo, .cv2-camps, .cv2-comp, .cv2-interno, .cv2-int-bar, .cv2-comp-box { display:none !important; } }
   /* Cuota hero */
@@ -1603,6 +1625,14 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
           <span class="cv2-int-on">▾ Comparativa y mapa · ocultar</span><span class="cv2-int-off-lbl">▸ Comparativa y mapa</span>
         </button>
         <div class="cv2-interno">
+          <div class="cv2-comp cv2-inv" id="cv2-inv">
+            <div class="cv2-comp-tit">Buscar por cuota · ¿qué financiación se acerca a lo que quiere el cliente?</div>
+            <div class="cv2-inv-form">
+              <label>Cuota que quiere <input type="number" id="cv2-inv-cuota" min="0" step="10" placeholder="ej. 250" oninput="cv2RenderInversa()"> €/mes</label>
+              <label>Entrada <input type="number" id="cv2-inv-entrada" min="0" step="500" value="0" oninput="cv2RenderInversa()"> €</label>
+            </div>
+            <div id="cv2-inv-res"></div>
+          </div>
           <div class="cv2-comp" id="cv2-comp" style="display:none"></div>
           <div class="cv2-comp cv2-mapa" id="cv2-mapa" style="display:none"></div>
         </div>
