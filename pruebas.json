@@ -235,7 +235,8 @@
     "Renault Clio|2025": "2026-09-26",
     "Nissan Qashqai|2019": "2026-09-26",
     "SEAT Ateca|2023": "2026-09-30",
-    "CUPRA Raval|2026": "2026-10-14"
+    "CUPRA Raval|2026": "2026-10-14",
+    "Kia Sportage|2022": "2026-10-15"
   },
   "Abarth 500": {
     "videos": [
@@ -366,6 +367,34 @@
         "auto": "2026-10-14",
         "desde": 2025,
         "hasta": 2027
+      }
+    ]
+  },
+  "Kia Sportage": {
+    "videos": [
+      {
+        "youtube": "QjkzPMHW6JY",
+        "titulo": "KIA SPORTAGE 2022 Prueba",
+        "medio": "coches.com",
+        "auto": "2026-10-15",
+        "desde": 2021,
+        "hasta": 2023
+      },
+      {
+        "youtube": "5vqYQMwuCLU",
+        "titulo": "Kia SPORTAGE SUV",
+        "medio": "coches.net",
+        "auto": "2026-10-15",
+        "desde": 2021,
+        "hasta": 2023
+      },
+      {
+        "youtube": "1nIUMc00Ieg",
+        "titulo": "¡AQUÍ ESTÁ! Kia Sportage 2022",
+        "medio": "Motor․es",
+        "auto": "2026-10-15",
+        "desde": 2021,
+        "hasta": 2023
       }
     ]
   }

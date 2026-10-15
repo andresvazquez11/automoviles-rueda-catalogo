@@ -282,6 +282,22 @@
     "equipamiento_en": [],
     "version_en": "1 Series 118d Business 110 kW (150 HP)"
   },
+  "2bdc9535c7740edb": {
+    "color_en": "Violet",
+    "equipamiento_en": [
+      "Park Exit Assist, Lane Change Assist, and Exit Warning system",
+      "Individually adjustable heated front seats",
+      "Keyless entry and start system \"Keyless Advanced\" without safelock",
+      "Lane Keeping Assist with Emergency Assist and Traffic Jam Assist",
+      "Digital sound package",
+      "Synthetic suede (main material) and synthetic leather (secondary material) seats, marketed as sustainable/vegan",
+      "Front parking distance sensors with camera, rear parking distance sensors with camera, and side parking sensors with camera",
+      "Brake lights, front fog lights, low beam, side indicators, daytime running lights, tail lights, and high beam with LED technology",
+      "Top speed: 160 km/h",
+      "Plasma (Mica) with Black Roof"
+    ],
+    "version_en": "51.5kWh Endurance Dynamic Plus Launch Edition 155 kW (210 hp)"
+  },
   "2f9b5031076efa0a": {
     "color_en": "",
     "equipamiento_en": [
@@ -659,6 +675,22 @@
       "18\" alloy wheels - Sonora"
     ],
     "version_en": "1.5 TSI e-Hybrid DSG 150 kW (204 HP)"
+  },
+  "5de3c0413d92b338": {
+    "color_en": "Red",
+    "equipamiento_en": [
+      "Rear parking sensors with radar",
+      "Top speed: 190 km/h",
+      "16-inch front and rear light alloy wheels (6.0 inches wide - 40.6 cm and 15.2 cm)",
+      "Ellipsoidal lens headlights with LED bulbs and LED high beams",
+      "Luxury trim: aluminium and leather gear shift knob, faux-aluminium centre console and dashboard, and leather handbrake grip",
+      "12V power outlet(s) in the front seats",
+      "Cloth upholstery (primary and secondary material)",
+      "Three-seater forward-facing rear bench seat, fold-flat with fixed cushion and asymmetric folding backrest",
+      "Leather-wrapped multifunction steering wheel, height and reach adjustable",
+      "Speed limiter"
+    ],
+    "version_en": "1.0 TSI Style 81 kW (110 HP)"
   },
   "5fa90f8d03ce8a32": {
     "color_en": "",
@@ -2473,6 +2505,70 @@
       "Multifunction leather and aluminum steering wheel with height and reach adjustment"
     ],
     "version_en": "1.0 TSI Xperience Special Edition 85 kW (115 HP)"
+  },
+  "e88d62262bb73396": {
+    "color_en": "",
+    "equipamiento_en": [
+      "5-door SUV body style, short wheelbase, LHD (left-hand drive), platform code: HYUNDAI N3",
+      "Chrome side window trim",
+      "Front and rear side doors with front hinges",
+      "Body-coloured electrically adjustable heated door mirrors with integrated indicators",
+      "Power-folding door mirrors",
+      "17-inch two-tone alloy wheels (7.0J x 17)",
+      "Front fog lights",
+      "Full LED headlights and LED high beams",
+      "Leather-trimmed gear shift knob",
+      "12V power outlets in front, rear, and cargo area",
+      "Five seats (2+3 layout)",
+      "Cloth upholstery",
+      "Front centre armrest",
+      "Rear centre armrest",
+      "Driver seat with partial electric adjustment, manual fore/aft, height and backrest adjustment; front passenger seat with manual fore/aft and backrest adjustment",
+      "Three-seat forward-facing rear bench with fixed cushion, 40/20/40 split-folding and reclining backrests",
+      "Leather-wrapped height and reach-adjustable multifunctional steering wheel",
+      "Remote central locking",
+      "Fixed rear window with intermittent rear wiper",
+      "Auto-dimming rear-view mirror",
+      "Speed limiter",
+      "Front and rear electric windows",
+      "Speed-sensitive electric power steering",
+      "Front and rear cupholders",
+      "Ventilation system with digital display and pollen filter",
+      "Dual-zone digital climate control",
+      "Dual-zone automatic air conditioning",
+      "Remote tailgate release",
+      "6-speaker audio system",
+      "Audio system with AM/FM/DAB digital radio, RDS, colour touchscreen, and MP3 playback",
+      "Steering wheel-mounted audio controls",
+      "Automatic headlights with dusk sensor, manual height adjustment, and oncoming vehicle detection",
+      "Cruise control",
+      "Front and rear reading lights",
+      "Passenger vanity mirror",
+      "Tachometer",
+      "Outside temperature gauge",
+      "Trip computer with average speed, average fuel consumption, instantaneous consumption, and range",
+      "Front and rear parking sensors with reversing camera",
+      "Four disc brakes (two ventilated)",
+      "ABS",
+      "Traction control system",
+      "Front and rear curtain airbags",
+      "Cargo tie-down hooks",
+      "Independent front MacPherson strut suspension with anti-roll bar and coil springs; independent multi-link rear suspension with anti-roll bar and coil springs",
+      "Driver front airbag, switchable passenger front airbag",
+      "Front side airbags",
+      "Height-adjustable front (x2) and rear (x3) headrests",
+      "Height-adjustable front seatbelts with pretensioners",
+      "3-point rear seatbelts for driver side, passenger side, and centre seat",
+      "Rain-sensing front windscreen wipers",
+      "Electronic Stability Control (ESC)",
+      "Electronic Brakeforce Distribution (EBD)",
+      "Emergency Brake Assist (EBA)",
+      "Tyre pressure monitoring system with rim-mounted sensors and individual pressure display",
+      "Isofix child seat preparation",
+      "Hill-start assist control",
+      "Full LED lighting: front fog lights, low beams, side indicators, daytime running lights, and high beams"
+    ],
+    "version_en": "1.6 T-GDi Drive 4x2 110 kW (150 HP)"
   },
   "e8af7cc711dcd2de": {
     "color_en": "",

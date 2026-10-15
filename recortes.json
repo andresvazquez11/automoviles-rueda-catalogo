@@ -239,14 +239,29 @@
   "archivo": "web_fotos/recortes/dwa-201280402.webp",
   "proporcion": 1.685
  },
- "mf-203498227": {
-  "hash": "017ed2cfd4bb9e0c",
-  "archivo": "web_fotos/recortes/mf-203498227.webp",
-  "proporcion": 1.648
+ "dwa-203572465": {
+  "hash": "e5ff0e0cb1ee3219",
+  "archivo": "web_fotos/recortes/dwa-203572465.webp",
+  "proporcion": 1.624
  },
- "mf-203677213": {
-  "hash": "706f8cdbf25f740d",
-  "archivo": "web_fotos/recortes/mf-203677213.webp",
-  "proporcion": 1.685
+ "dwa-203496805": {
+  "hash": "5bbe7e2090b4acc4",
+  "archivo": "web_fotos/recortes/dwa-203496805.webp",
+  "proporcion": 1.639
+ },
+ "mf-203847232": {
+  "hash": "aff9656225f375a3",
+  "archivo": "web_fotos/recortes/mf-203847232.webp",
+  "proporcion": 1.897
+ },
+ "mf-203847229": {
+  "hash": "9ee53bfc2094d170",
+  "archivo": "web_fotos/recortes/mf-203847229.webp",
+  "proporcion": 1.962
+ },
+ "mf-203846824": {
+  "hash": "cdda82df428dd010",
+  "archivo": "web_fotos/recortes/mf-203846824.webp",
+  "proporcion": 1.765
  }
 }

@@ -39,6 +39,16 @@
   "precio": "41.300",
   "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)"
  },
+ "cupra-raval-mf203498227": {
+  "baja": "2026-10-15",
+  "cambio": "Automatico",
+  "combustible": "Eléctrico",
+  "fecha": "2026",
+  "km": "2.000",
+  "modelo": "CUPRA Raval",
+  "precio": "34.500",
+  "version": "51,5kWh Endurance Dynamic Plus Launch Edition 155 kW (210 CV)"
+ },
  "nissan-qashqai-mf168212671": {
   "baja": "2026-09-26",
   "cambio": "Automatico",
@@ -108,6 +118,16 @@
   "modelo": "SEAT Arona",
   "precio": "17.800",
   "version": "1.5 TSI FR DSG 110 kW (150 CV)"
+ },
+ "seat-arona-mf203677213": {
+  "baja": "2026-10-15",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2022",
+  "km": "48.923",
+  "modelo": "SEAT Arona",
+  "precio": "16.900",
+  "version": "1.0 TSI Style 81 kW (110 CV)"
  },
  "seat-ateca-171720715": {
   "baja": "2026-09-26",
