@@ -186,7 +186,11 @@ function cv2GetRules() {
   if (CV2.demosRema && marca === 'SEAT' && (categoria === 'VS' || categoria === null)) {
     creditoMinimo = 10000;
     if (producto === 'FLEX') { tin_auto = 7.99; bonificacion = 950; }
-    else { tin_auto = 5.99; bonificacion = 0; plazosDisp = plazosDisp.filter(p => p >= 48 && p <= 120); }
+    else {
+      // Desde los plazos por antigüedad, no desde los de ENTRY/GAMA (GAMA empezaba en 60)
+      tin_auto = 5.99; bonificacion = 0;
+      plazosDisp = CV2_ALL_PLAZOS.filter(p => (antigMeses === null || antigMeses + p <= maxGlobal) && p >= 48 && p <= 120);
+    }
     campanaLabel = 'DEMOS + REMA · SEAT VS';
   }
 
@@ -214,7 +218,196 @@ function cv2GetRules() {
   }
 
   const tinFinal = CV2.tinOverride !== null ? CV2.tinOverride : tin_auto;
-  return { tinFinal, tin_auto, bonificacion, creditoMinimo, campanaLabel, plazosDisp, categoria, antigMeses };
+  const codigo = cv2CodigoCampana(marca, campana, producto, categoria, importeNeto);
+  return { tinFinal, tin_auto, bonificacion, creditoMinimo, campanaLabel, plazosDisp, categoria, antigMeses, codigo };
+}
+
+// ── Claves de campaña VWFS (Octubre 2026) ─────────────────────────────────────
+// Las pide la web de la financiera al dar de alta la operación. Solo se muestran
+// en modo asesor. SEAT VO págs. 6-10 · CUPRA VO págs. 4-6. En las parejas de
+// SALONES TIN BAJO («AYRI / AYRE») la primera es VS y la segunda VO.
+const CV2_CODIGOS = {
+  SEAT_ENTRY:    { VS: { FLEX: 'AYKQ', LINEAL: 'AYKK' }, VO: { FLEX: 'AYKS', LINEAL: 'AYKM' } },
+  SEAT_GAMA:     { VS: { FLEX: 'AYKC', LINEAL: 'AYKG' }, VO: { FLEX: 'AYKE', LINEAL: 'AYKI' }, VU: { LINEAL: 'AYKO' } },
+  SAL_TIN:       { VS: { FLEX: 'AYRI', LINEAL: 'AYRK' }, VO: { FLEX: 'AYRE', LINEAL: 'AYRG' } },
+  SAL_GAMA:      { VS: { FLEX: 'AYRQ', LINEAL: 'AYRS' }, VO: { FLEX: 'AYRM', LINEAL: 'AYRO' }, VU: { LINEAL: 'AYRU' } },
+  CUPRA_APPROVED:{ VS: { FLEX: 'AYJV', LINEAL: 'AYJZ' }, VO: { FLEX: 'AYJT', LINEAL: 'AYJX' } },
+  CUPRA_GAMA:    { VS: { FLEX: 'AYI7', LINEAL: 'AYJB' }, VO: { FLEX: 'AYI5', LINEAL: 'AYI9' } },
+  // Otras Marcas: Básica · Entry · Premium · TOP
+  OTRA:          { VS: ['AYKX', 'AYKY', 'AYK1', 'AYK2'], VO: ['AYKT', 'AYKU', 'AYK9', 'AYLA'], VU: ['AYLK', 'AYLL', 'AYK5', 'AYK6'] },
+};
+
+function cv2CampanaActiva(marca, campana, categoria) {
+  if (marca === 'OTRA') return 'OTRA';
+  if (marca === 'CUPRA') return campana === 'APPROVED' && (categoria === 'VS' || categoria === null) ? 'CUPRA_APPROVED' : 'CUPRA_GAMA';
+  if (CV2.salones && /arona/i.test(CV2.modelo || '')) return campana === 'ENTRY' && categoria !== 'VU' ? 'SAL_TIN' : 'SAL_GAMA';
+  if (CV2.demosRema && (categoria === 'VS' || categoria === null)) return 'DEMOS';
+  return campana === 'ENTRY' && categoria !== 'VU' ? 'SEAT_ENTRY' : 'SEAT_GAMA';
+}
+
+function cv2CodigoCampana(marca, campana, producto, categoria, importeNeto) {
+  const id  = cv2CampanaActiva(marca, campana, categoria);
+  const cat = categoria || 'VS';
+  if (id === 'DEMOS') return producto === 'FLEX' ? 'AYJ5' : (CV2.meses >= 96 ? 'AYJ8' : 'AYJ7');
+  if (id === 'OTRA') {
+    const nivel = importeNeto >= 20000 ? 3 : importeNeto >= 15000 ? 2 : importeNeto >= 10000 ? 1 : 0;
+    return CV2_CODIGOS.OTRA[cat][nivel];
+  }
+  const t = CV2_CODIGOS[id] && CV2_CODIGOS[id][cat];
+  return (t && t[producto]) || '';
+}
+
+// Campañas a las que puede optar el coche (tarjetas del modo asesor). `set` es
+// el estado que deja la calculadora fija en esa campaña al pinchar la tarjeta.
+const CV2_OPCIONES = [
+  { id: 'SEAT_ENTRY', marca: 'SEAT', nombre: 'ENTRY · TIN bajo',        set: { campana: 'ENTRY', demosRema: false, salones: false }, ok: c => c !== 'VU' },
+  { id: 'SEAT_GAMA',  marca: 'SEAT', nombre: 'GAMA · con bonificación', set: { campana: 'GAMA',  demosRema: false, salones: false } },
+  { id: 'DEMOS',      marca: 'SEAT', nombre: 'DEMOS + REMA', nota: 'solo si el coche es demo o REMA',
+    set: { campana: 'GAMA', demosRema: true, salones: false }, ok: c => c === 'VS' || c === null },
+  { id: 'SAL_TIN',    marca: 'SEAT', arona: true, nombre: 'SALONES Arona · TIN bajo',
+    set: { campana: 'ENTRY', demosRema: false, salones: true }, ok: c => c !== 'VU' },
+  { id: 'SAL_GAMA',   marca: 'SEAT', arona: true, nombre: 'SALONES Arona · GAMA',
+    set: { campana: 'GAMA', demosRema: false, salones: true } },
+  { id: 'CUPRA_APPROVED', marca: 'CUPRA', nombre: 'APPROVED', set: { campana: 'APPROVED' }, ok: c => c === 'VS' || c === null },
+  { id: 'CUPRA_GAMA',     marca: 'CUPRA', nombre: 'GAMA · con bonificación', set: { campana: 'GAMA' } },
+];
+const CV2_OTRA_NIVELES = [
+  { nombre: 'Básica',  tin: 8.25, bonif: 0,   min: 6000,  hasta: 10000 },
+  { nombre: 'Entry',   tin: 8.99, bonif: 200, min: 10000, hasta: 15000 },
+  { nombre: 'Premium', tin: 8.99, bonif: 400, min: 15000, hasta: 20000 },
+  { nombre: 'TOP',     tin: 8.99, bonif: 500, min: 20000, hasta: Infinity },
+];
+
+// Resumen de una campaña para este coche: se simula la calculadora con esa
+// campaña en Flex y en Lineal y en cada plazo, y se restaura el estado.
+// Miles con punto también en 4 cifras (toLocaleString es-ES no agrupa 1000)
+const cv2Miles = v => String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+function cv2ResumenOpcion(op) {
+  const guard = { campana: CV2.campana, demosRema: CV2.demosRema, salones: CV2.salones,
+                  tab: CV2.tab, meses: CV2.meses, tinOverride: CV2.tinOverride };
+  Object.assign(CV2, op.set, { tinOverride: null });
+  const out = {};
+  ['flex', 'lineal'].forEach(tab => {
+    CV2.tab = tab;
+    const base = cv2GetRules();
+    if (tab === 'flex' && base.categoria === 'VU') return;
+    if (!base.plazosDisp.length) return;
+    const bon = new Set(), cod = new Set();
+    base.plazosDisp.forEach(m => { CV2.meses = m; const r = cv2GetRules(); bon.add(r.bonificacion); if (r.codigo) cod.add(r.codigo); });
+    const b = [...bon].sort((x, y) => x - y);
+    out[tab] = {
+      tin: base.tin_auto, min: base.creditoMinimo,
+      cumple: CV2.precio - base.bonificacion - CV2.entrada >= base.creditoMinimo,
+      plazos: base.plazosDisp.length === 1 ? base.plazosDisp[0] + ' m' : base.plazosDisp[0] + '–' + base.plazosDisp[base.plazosDisp.length - 1] + ' m',
+      bonif: b.length === 1 ? (b[0] ? cv2Miles(b[0]) + ' €' : 'sin bonif.') : cv2Miles(b[0]) + '–' + cv2Miles(b[b.length - 1]) + ' € según plazo',
+      codigos: [...cod].join(' / '),
+    };
+  });
+  Object.assign(CV2, guard);
+  return out;
+}
+
+function cv2RenderCampanas(rules) {
+  const box = document.getElementById('cv2-camps');
+  if (!box) return;
+  const cat = rules.categoria;
+  const pct = v => v.toFixed(2).replace('.', ',') + '%';
+  let html = '';
+  if (CV2.marca === 'OTRA') {
+    const codes = CV2_CODIGOS.OTRA[cat || 'VS'];
+    const neto = Math.max(0, CV2.precio - CV2.entrada);
+    CV2_OTRA_NIVELES.forEach((n, i) => {
+      const act = neto >= n.min && neto < n.hasta;
+      html += `<div class="cv2-cc${act ? ' active' : ''} fija">
+        <div class="cv2-cc-top"><span class="cv2-cc-nom">Otras Marcas · ${n.nombre}</span><span class="cv2-cc-cod">${codes[i]}</span></div>
+        <div class="cv2-cc-txt">Lineal · TIN ${pct(n.tin)} · ${n.bonif ? cv2Miles(n.bonif) + ' € bonif.' : 'sin bonif.'} · 48–120 m · a financiar ${cv2Miles(n.min)}${n.hasta < Infinity ? '–' + cv2Miles(n.hasta - 1) : ' o más'} €</div>
+      </div>`;
+    });
+    html += `<div class="cv2-cc-nota">Otras Marcas se aplica sola según el importe a financiar (precio − entrada).</div>`;
+  } else {
+    const activa = cv2CampanaActiva(CV2.marca, CV2.campana, cat);
+    const arona  = /arona/i.test(CV2.modelo || '');
+    CV2_OPCIONES.filter(o => o.marca === CV2.marca && (!o.arona || arona) && (!o.ok || o.ok(cat))).forEach(o => {
+      const r = cv2ResumenOpcion(o);
+      const linea = (k, nom) => r[k] ? `<div class="cv2-cc-txt"><b>${nom}</b> <span class="cv2-cc-cod2">${r[k].codigos || 'sin clave'}</span> · TIN ${pct(r[k].tin)} · ${r[k].bonif} · ${r[k].plazos} · mín. ${cv2Miles(r[k].min)} €</div>` : '';
+      const act = r[CV2.tab] || r.lineal;
+      const noLlega = act && !act.cumple && o.id !== activa;
+      html += `<button type="button" class="cv2-cc${o.id === activa ? ' active' : ''}${noLlega ? ' nollega' : ''}" onclick="cv2ElegirCampana('${o.id}')">
+        <div class="cv2-cc-top"><span class="cv2-cc-nom">${o.nombre}</span>${o.nota ? `<span class="cv2-cc-nota2">${o.nota}</span>` : ''}${noLlega ? `<span class="cv2-cc-nota3">no llega al mínimo con esta entrada (se bajará la entrada)</span>` : ''}</div>
+        ${linea('lineal', 'Lineal')}${linea('flex', 'Flex')}
+      </button>`;
+    });
+    if (CV2.marca === 'CUPRA' && cat === 'VU')
+      html += `<div class="cv2-cc-nota">Las campañas CUPRA son para coches de 0 a 5 años: este no tiene clave de campaña. Consúltalo con la financiera.</div>`;
+  }
+  box.innerHTML = html;
+  const codEl = document.getElementById('cv2-codigo');
+  if (codEl) {
+    codEl.style.display = rules.codigo ? '' : 'none';
+    const v = document.getElementById('cv2-codigo-val');
+    if (v) v.textContent = rules.codigo;
+  }
+}
+
+// ── Comparativa VW (Lineal) con BBVA y CaixaBank · modo asesor ───────────────
+// Misma entrada y plazo. Se compara la cuota de financiación sin mantenimiento
+// (los bancos no lo incluyen); el total suma entrada + cuotas. En Flex no se
+// muestra: la cuota final hace que no sea comparable con un préstamo lineal.
+function cv2RenderComparativa() {
+  const box = document.getElementById('cv2-comp');
+  if (!box) return;
+  if (CV2.tab !== 'lineal' || !CV2.precio) { box.innerHTML = ''; box.style.display = 'none'; return; }
+  const res = cv2Calc();
+  const f2 = v => { const [e, d] = Math.abs(v).toFixed(2).split('.'); return cv2Miles(+e) + ',' + d; };
+  const m = CV2.meses, entrada = CV2.entrada, importe = Math.max(0, CV2.precio - entrada);
+  const filas = [{ nom: 'VW · ' + res.rules.campanaLabel + (res.rules.codigo ? ' (' + res.rules.codigo + ')' : ''),
+                   tin: res.rules.tinFinal.toFixed(2).replace('.', ','), cuota: res.cuota, vw: true }];
+  const tb = bbvaTarifa();
+  filas.push(tb.coef[m] && m <= tb.max
+    ? { nom: 'BBVA', tin: tb.tin, cuota: Math.round(tb.coef[m] * importe * 100) / 100 }
+    : { nom: 'BBVA', tin: tb.tin, no: true });
+  const tc = caixaTarifa();
+  filas.push(tc.disponible && tc.plazos.includes(m)
+    ? { nom: 'CaixaBank', tin: CAIXA_TIN, cuota: Math.round(CAIXA_COEF[m] * importe * 100) / 100 }
+    : { nom: 'CaixaBank', tin: CAIXA_TIN, no: true });
+  filas.forEach(f => { if (!f.no) f.total = Math.round((f.cuota * m + entrada) * 100) / 100; });
+  const validas = filas.filter(f => !f.no);
+  const mejor = validas.reduce((a, b) => (b.cuota < a.cuota ? b : a), validas[0]);
+  const vw = filas[0];
+  const sg = v => (v > 0 ? '+' : v < 0 ? '−' : '') + f2(Math.abs(v));
+  let html = `<div class="cv2-comp-tit">Comparativa con bancos · ${m} meses · entrada ${cv2Miles(entrada)} €</div>
+    <div class="cv2-comp-row cv2-comp-head"><span>Financiera</span><span>Cuota/mes</span><span>Total a pagar</span><span>Diferencia con VW</span></div>`;
+  filas.forEach(f => {
+    const cls = 'cv2-comp-row' + (f === mejor ? ' mejor' : '') + (f.no ? ' no' : '');
+    if (f.no) { html += `<div class="${cls}"><span>${f.nom} · ${f.tin}%</span><span class="cv2-comp-na">no disponible a ${m} meses para este coche</span></div>`; return; }
+    const dif = f.vw ? '—' : `${sg(f.cuota - vw.cuota)} €/mes · ${sg(f.total - vw.total)} € total`;
+    html += `<div class="${cls}"><span>${f.nom} · ${f.tin}%</span><span>${f2(f.cuota)} €</span><span>${f2(f.total)} €</span><span>${dif}</span></div>`;
+  });
+  if (mejor) {
+    const otras = validas.filter(f => f !== mejor);
+    const ahorro = otras.length ? Math.min(...otras.map(f => f.total - mejor.total)) : 0;
+    html += `<div class="cv2-comp-best">La más conveniente: <b>${mejor.vw ? 'VW' : mejor.nom}</b>${ahorro > 0 ? ` · ahorra al menos ${f2(ahorro)} € en total frente a la siguiente` : ''}</div>`;
+  }
+  html += `<div class="cv2-comp-nota">Cuota de financiación sin mantenimiento. VW con la bonificación ya descontada.</div>`;
+  box.innerHTML = html;
+  box.style.display = '';
+}
+
+function cv2ElegirCampana(id) {
+  const o = CV2_OPCIONES.find(x => x.id === id);
+  if (!o) return;
+  CV2.demosRema = !!o.set.demosRema;
+  CV2.salones   = !!o.set.salones;
+  cv2SetCampana(o.set.campana);
+}
+
+function cv2CopiarCodigo() {
+  const cod = cv2GetRules().codigo;
+  if (!cod) return;
+  const btn = document.getElementById('cv2-codigo-btn');
+  const ok = () => { if (btn) { btn.textContent = '✓ copiado'; setTimeout(() => { btn.textContent = 'Copiar'; }, 1500); } };
+  if (navigator.clipboard) navigator.clipboard.writeText(cod).then(ok, ok); else ok();
 }
 
 // ── Cálculo cuota ─────────────────────────────────────────────────────────────
@@ -319,7 +512,29 @@ function cv2UpdatePlazoPills(plazosDisp) {
 }
 
 // ── Render principal ──────────────────────────────────────────────────────────
+// Tope de la entrada según el mínimo a financiar de la campaña elegida: no se
+// puede dejar menos financiado que ese mínimo (precio − bonificación − entrada).
+// En Otras Marcas el nivel depende del importe, así que el suelo es el de Básica.
+function cv2AjustarTopeEntrada() {
+  const slider = document.getElementById('cv2-sl-entrada');
+  if (!slider) return;
+  const r   = cv2GetRules();
+  const min = CV2.marca === 'OTRA' ? CV2_OTRA_NIVELES[0].min : (r.creditoMinimo || 10000);
+  const max = Math.max(0, Math.floor((CV2.precio - r.bonificacion - min) / 100) * 100);
+  slider.max = max;
+  if (CV2.entrada > max) {
+    CV2.entrada = max;
+    slider.value = max;
+    const dispE = document.getElementById('cv2-entrada-input');
+    if (dispE) dispE.value = max;
+  }
+  slider.style.setProperty('--pct', (max > 0 ? (CV2.entrada / max * 100) : 0) + '\%');
+  const maxLbl = document.getElementById('cv2-lbl-max');
+  if (maxLbl) maxLbl.textContent = max > 0 ? `máx. ${cv2Miles(max)} € (mín. a financiar ${cv2Miles(min)} €)` : 'máx. — €';
+}
+
 function cv2Render() {
+  cv2AjustarTopeEntrada();
   const { precio, entrada, meses, tab, km, marca, campana, mantAnios, cupraTipo } = CV2;
   const res      = cv2Calc();
   const rules    = res.rules;
@@ -329,6 +544,8 @@ function cv2Render() {
   cv2UpdateCampanaUI();
   cv2UpdateTinUI(rules);
   cv2UpdatePlazoPills(rules.plazosDisp);
+  cv2RenderCampanas(cv2GetRules());   // tras ajustar plazo/campaña, para que el código sea el definitivo
+  cv2RenderComparativa();
 
   // DEMOS + REMA: el botón solo se puede usar en SEAT VS; muestra las condiciones aplicadas
   const drWrap = document.getElementById('cv2-arona-wrap');

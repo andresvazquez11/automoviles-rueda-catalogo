@@ -1118,6 +1118,61 @@ CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_
   .cv2-arona-btn:hover { border-color:rgba(34,197,94,.6); color:rgba(240,244,255,.8); }
   .cv2-arona-btn.active { border-style:solid; border-color:#22C55E; background:rgba(34,197,94,.12); color:#22C55E; }
   .cv2-arona-lbl { font-size:10px; color:rgba(240,244,255,.28); }
+  /* Tarjetas de campañas (modo asesor) */
+  .cv2-camps { display:flex; flex-direction:column; gap:6px; }
+  .cv2-cc {
+    display:block; width:100%; text-align:left; font:inherit; cursor:pointer;
+    padding:8px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.02); color:rgba(240,244,255,.75); transition:all .15s;
+  }
+  .cv2-cc:hover { border-color:rgba(255,255,255,.25); }
+  .cv2-cc.fija { cursor:default; }
+  .cv2-cc.active { border-color:#22C55E; background:rgba(34,197,94,.08); }
+  .cv2-cc-top { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:3px; }
+  .cv2-cc-nom { font-size:12px; font-weight:700; letter-spacing:.3px; color:#fff; }
+  .cv2-cc.active .cv2-cc-nom { color:#22C55E; }
+  .cv2-cc-nota2 { font-size:10px; color:#F59E0B; }
+  .cv2-cc.nollega { opacity:.45; }
+  .cv2-cc-nota3 { font-size:10px; color:#F87171; }
+  .cv2-cc-cod, .cv2-cc-cod2 {
+    font-family:ui-monospace,Menlo,Consolas,monospace; font-weight:700; color:#F59E0B; letter-spacing:.5px;
+  }
+  .cv2-cc-cod { margin-left:auto; font-size:12px; }
+  .cv2-cc-txt { font-size:11px; line-height:1.5; color:rgba(240,244,255,.55); }
+  .cv2-cc-txt b { color:rgba(240,244,255,.85); font-weight:600; }
+  .cv2-cc-nota { font-size:10px; color:rgba(240,244,255,.35); margin-top:2px; }
+  /* Clave VWFS de la operación (junto a la cuota) */
+  .cv2-codigo {
+    display:inline-flex; align-items:center; gap:8px; margin-top:10px; padding:5px 8px 5px 12px;
+    border:1px solid rgba(245,158,11,.35); background:rgba(245,158,11,.08); border-radius:6px;
+  }
+  .cv2-codigo-lbl { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(240,244,255,.5); }
+  .cv2-codigo-val { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:16px; font-weight:800; color:#F59E0B; letter-spacing:1px; }
+  .cv2-codigo-btn {
+    font:inherit; font-size:11px; padding:3px 8px; border-radius:4px; cursor:pointer;
+    border:1px solid rgba(245,158,11,.4); background:transparent; color:#F59E0B;
+  }
+  /* Comparativa con bancos */
+  .cv2-comp { margin:0 20px; padding:12px 0 14px; border-bottom:1px solid rgba(255,255,255,.06); }
+  .cv2-comp-tit { font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:rgba(240,244,255,.45); margin-bottom:8px; }
+  .cv2-comp-row {
+    display:grid; grid-template-columns:1.6fr .9fr 1fr 1.5fr; gap:8px; align-items:center;
+    padding:6px 8px; border-radius:5px; font-size:12px; color:rgba(240,244,255,.75);
+    font-variant-numeric:tabular-nums;
+  }
+  .cv2-comp-row span:not(:first-child) { text-align:right; }
+  .cv2-comp-head { font-size:10px; color:rgba(240,244,255,.35); padding-top:0; padding-bottom:2px; }
+  .cv2-comp-row.mejor { background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.45); color:#fff; }
+  .cv2-comp-row.no { opacity:.5; }
+  .cv2-comp-row .cv2-comp-na { grid-column:2 / -1; font-size:11px; }
+  .cv2-comp-best { margin-top:8px; font-size:12px; color:#22C55E; }
+  .cv2-comp-nota { margin-top:4px; font-size:10px; color:rgba(240,244,255,.3); }
+  @media (max-width:560px) {
+    .cv2-comp-row { grid-template-columns:1fr 1fr; }
+    .cv2-comp-row span:first-child { grid-column:1 / -1; font-weight:600; }
+    .cv2-comp-head { display:none; }
+  }
+  @media print { .cv2-codigo, .cv2-camps, .cv2-comp { display:none !important; } }
   /* Cuota hero */
   .cv2-cuota-hero {
     padding:24px 20px 16px; text-align:center;
@@ -1356,8 +1411,13 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
         </div>
         <div class="cv2-flex-note" id="cv2-flex-note">⚠ FLEX no disponible para vehículos VU (&gt;60 meses)</div>
 
-        <!-- Campaña -->
-        <div class="cv2-slbl" style="margin-top:16px;">Campaña</div>
+        <!-- Campaña: tarjetas con las campañas a las que puede optar el coche y su
+             clave VWFS (la calculadora solo se ve en modo asesor). Al pinchar una,
+             la calculadora queda fija en esa campaña. -->
+        <div class="cv2-slbl" style="margin-top:16px;">Campañas disponibles para este coche</div>
+        <div class="cv2-camps" id="cv2-camps"></div>
+        <!-- Selectores antiguos: se mantienen ocultos porque la lógica los sigue usando -->
+        <div style="display:none">
         <div class="cv2-camp-pills" id="cv2-camp-seat" style="display:none">
           <button class="cv2-camp-pill active" id="cv2-entry" onclick="cv2SetCampana('ENTRY')">ENTRY · 7,99%</button>
           <button class="cv2-camp-pill" id="cv2-gama-seat" onclick="cv2SetCampana('GAMA')">GAMA · 8,99%</button>
@@ -1384,6 +1444,7 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
             ⬡ SALONES · ARONA
           </button>
           <span class="cv2-arona-lbl" id="cv2-salones-lbl">campaña Salones VO para Arona</span>
+        </div>
         </div>
 
         <!-- TIN -->
@@ -1491,11 +1552,19 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
           <span class="cv2-cuota-val" id="cv2-cuota-val">—</span>
           <span class="cv2-cuota-unit">€ / mes</span>
         </div>
+        <div class="cv2-codigo" id="cv2-codigo" style="display:none">
+          <span class="cv2-codigo-lbl">Clave VWFS</span>
+          <span class="cv2-codigo-val" id="cv2-codigo-val"></span>
+          <button type="button" class="cv2-codigo-btn" id="cv2-codigo-btn" onclick="cv2CopiarCodigo()">Copiar</button>
+        </div>
         <div class="cv2-cuota-final" id="cv2-cuota-final">
           <span class="cv2-cf-lbl" id="cv2-cf-lbl">Cuota final</span>
           <span class="cv2-cf-val" id="cv2-cf-val">—</span>
         </div>
       </div>
+
+      <!-- Comparativa VW / BBVA / CaixaBank (modo asesor, solo Lineal) -->
+      <div class="cv2-comp" id="cv2-comp" style="display:none"></div>
 
       <!-- Breakdown -->
       <div class="cv2-breakdown">
