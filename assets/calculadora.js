@@ -1535,7 +1535,7 @@ function bbvaRender() {
   const legalEl = document.getElementById('bbva-legal');
   if (legalEl) {
     legalEl.textContent =
-      `Ejemplo de cuota a ${BBVA.meses} meses: ${bbvaFmt2(cuota)} €. TIN ${tarifa.tin}% fijo. Entrada inicial: ${bbvaFmt(BBVA.entrada)} €. Importe financiado: ${bbvaFmt(importe)} €. Comisión de apertura financiada en la cuota. Precio total a plazos: ${bbvaFmt2(total)} €. Condiciones sujetas a modificación por parte de BBVA. Condiciones exactas con ${ASESOR.nombreCorto} · ${ASESOR.telefonoDisplay}.`;
+      `Ejemplo de cuota a ${BBVA.meses} meses: ${bbvaFmt2(cuota)} €. TIN ${tarifa.tin}% fijo. Entrada inicial: ${bbvaFmt(BBVA.entrada)} €. Importe financiado: ${bbvaFmt(importe)} €. Comisión de apertura y seguro PPP incluidos en la cuota. Precio total a plazos: ${bbvaFmt2(total)} €. Condiciones sujetas a modificación por parte de BBVA. Condiciones exactas con ${ASESOR.nombreCorto} · ${ASESOR.telefonoDisplay}.`;
   }
 }
 

@@ -302,10 +302,9 @@
     const filas = [[L('Precio al contado'), eur(CV2.precio)]];
     if (res.bonif > 0) filas.push([L('Bonificación VWFS'), '−' + eur(res.bonif)]);
     filas.push([L('Entrada inicial'), eur(CV2.entrada)]);
-    filas.push([L('Seguro de Protección Plus (opcional, financiado)'), eur2(res.seg)]);
-    filas.push([L('Comisión de apertura financiada (2,99 %)'), eur2(res.comision)]);
-    filas.push([L('Importe total financiado'), eur2(res.capital), 'sep']);
-    filas.push([L('T.I.N.'), pct(rules.tinFinal)]);
+    // Seguro de Protección Plus, comisión de apertura e importe total financiado van
+    // solo en el texto legal (letra pequeña), no como líneas del desglose.
+    filas.push([L('T.I.N.'), pct(rules.tinFinal), 'sep']);
     filas.push([L('Nº de cuotas'), meses]);
     filas.push([L('Cuota de financiación'), eur2(res.cuota) + ' ' + L('/ mes')]);
     if (mant.precioTotal > 0) filas.push([traducirDinamico(mant.label), '+' + eur2(mant.mensual) + ' ' + L('/ mes')]);
@@ -344,9 +343,8 @@
       filas: [
         [L('Precio al contado'), eur(precio)],
         [L('Entrada inicial'), eur(BBVA.entrada)],
-        [L('Importe financiado'), eur(importe), 'sep'],
-        [L('T.I.N. fijo'), pct(tin)],
-        [L('Comisión de apertura y seguro PPP'), L('Incluidos en la cuota')],
+        // Comisión, seguro PPP e importe financiado van solo en el texto legal (como en VW)
+        [L('T.I.N. fijo'), pct(tin), 'sep'],
         [L('Nº de cuotas'), meses + ' ' + L('meses')],
         [L('Cuota mensual'), eur2(cuota) + ' ' + L('/ mes')],
         [L('Precio total a plazos'), eur2(total), 'total'],
@@ -372,9 +370,8 @@
       filas: [
         [L('Precio al contado'), eur(precio)],
         [L('Entrada inicial'), eur(CAIXA.entrada)],
-        [L('Importe financiado'), eur(importe), 'sep'],
-        [L('T.I.N. fijo'), pct(tin)],
-        [L('Gastos (3,99 %) y seguro Pack Vida'), L('Incluidos en la cuota')],
+        // Gastos, seguro Pack Vida e importe financiado van solo en el texto legal (como en VW)
+        [L('T.I.N. fijo'), pct(tin), 'sep'],
         [L('Nº de cuotas'), meses + ' ' + L('meses')],
         [L('Cuota mensual'), eur2(cuota) + ' ' + L('/ mes')],
         [L('Precio total a plazos'), eur2(total), 'total'],
