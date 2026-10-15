@@ -1138,7 +1138,10 @@ CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_
     font-family:ui-monospace,Menlo,Consolas,monospace; font-weight:700; color:#F59E0B; letter-spacing:.5px;
   }
   .cv2-cc-cod { margin-left:auto; font-size:12px; }
-  .cv2-cc-txt { font-size:11px; line-height:1.5; color:rgba(240,244,255,.55); }
+  .cv2-cc-txt { font-size:11px; line-height:1.5; color:rgba(240,244,255,.55); margin-top:2px; }
+  .cv2-cc-mini { font-size:11px; color:rgba(240,244,255,.6); }
+  .cv2-cc { padding:7px 10px; }
+  .cv2-cc .cv2-cc-top { margin-bottom:0; }
   .cv2-cc-txt b { color:rgba(240,244,255,.85); font-weight:600; }
   .cv2-cc-nota { font-size:10px; color:rgba(240,244,255,.35); margin-top:2px; }
   /* Clave VWFS de la operación (junto a la cuota) */
@@ -1178,8 +1181,34 @@ CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_
     padding:6px 10px; border-radius:5px; border:1px dashed rgba(245,158,11,.35);
     background:rgba(245,158,11,.05); color:#F59E0B; font-size:11px; font-weight:600; letter-spacing:.4px;
   }
-  .cv2-comp-box { margin:0 20px; padding-top:10px; }
-  .cv2-comp-box .cv2-comp { margin:0; }
+  .cv2-comp-box { margin:0 20px; padding:12px 0 14px; border-bottom:1px solid rgba(255,255,255,.06); }
+  /* Zona del asesor: fondo ámbar suave para distinguirla de la calculadora del cliente */
+  .cv2-zona {
+    margin-top:8px; padding:10px; border-radius:8px;
+    background:rgba(245,158,11,.06); border:1px dashed rgba(245,158,11,.35);
+  }
+  .cv2-zona-tit { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#F59E0B; margin-bottom:8px; }
+  /* Cada herramienta en su recuadro */
+  .cv2-caja {
+    display:block; padding:10px 12px; border-radius:6px; background:#0b1120;
+    border:1px solid rgba(255,255,255,.12);
+  }
+  .cv2-caja + .cv2-caja { margin-top:8px; }
+  .cv2-caja > summary { cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; }
+  .cv2-caja > summary::-webkit-details-marker { display:none; }
+  .cv2-caja > summary::before { content:'▸'; color:#F59E0B; font-size:11px; }
+  .cv2-caja[open] > summary::before { content:'▾'; }
+  .cv2-caja[open] > summary { margin-bottom:8px; }
+  .cv2-caja-tit { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:#F59E0B; }
+  .cv2-caja-sub { font-weight:500; letter-spacing:.3px; text-transform:none; color:rgba(240,244,255,.45); margin-left:6px; }
+  .cv2-caja-res { font-size:11.5px; color:rgba(240,244,255,.6); }
+  .cv2-caja-res > span { color:rgba(240,244,255,.4); }
+  .cv2-i { display:inline-block; margin-left:4px; color:rgba(240,244,255,.4); cursor:help; font-weight:400; text-transform:none; }
+  .cv2-comp-titular { margin-top:6px; font-size:13px; line-height:1.5; color:rgba(240,244,255,.85); }
+  .cv2-comp-otras { display:block; font-size:11.5px; color:rgba(240,244,255,.55); }
+  .cv2-comp-otras b { color:#F87171; font-weight:600; }
+  .cv2-det-mini { margin-top:6px; }
+  .cv2-det-mini > summary { cursor:pointer; font-size:11px; color:rgba(240,244,255,.45); margin-bottom:4px; }
   .cv2-int-off-lbl { display:none; }
   html.cv2-int-off .cv2-interno { display:none !important; }
   html.cv2-int-off .cv2-int-on { display:none; }
@@ -1468,8 +1497,8 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
         <button type="button" class="cv2-int-bar" onclick="cv2ToggleInterno()" style="margin-top:16px;">
           <span class="cv2-int-on">▾ Herramientas del asesor · ocultar</span><span class="cv2-int-off-lbl">▸ Herramientas del asesor</span>
         </button>
-        <div class="cv2-interno">
-          <div class="cv2-slbl" style="margin-top:10px;">Campañas disponibles para este coche</div>
+        <div class="cv2-interno cv2-zona">
+          <div class="cv2-zona-tit">Campañas VW para este coche</div>
           <div class="cv2-camps" id="cv2-camps"></div>
         </div>
         <!-- Selectores antiguos: se mantienen ocultos porque la lógica los sigue usando -->
@@ -1622,19 +1651,24 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
       <!-- Comparativa VW / BBVA / CaixaBank (modo asesor, solo Lineal) -->
       <div class="cv2-comp-box">
         <button type="button" class="cv2-int-bar" onclick="cv2ToggleInterno()">
-          <span class="cv2-int-on">▾ Comparativa y mapa · ocultar</span><span class="cv2-int-off-lbl">▸ Comparativa y mapa</span>
+          <span class="cv2-int-on">▾ Herramientas del asesor · ocultar</span><span class="cv2-int-off-lbl">▸ Herramientas del asesor</span>
         </button>
-        <div class="cv2-interno">
-          <div class="cv2-comp cv2-inv" id="cv2-inv">
-            <div class="cv2-comp-tit">Buscar por cuota · ¿qué financiación se acerca a lo que quiere el cliente?</div>
+        <!-- Zona interna (fondo distinto): cada herramienta en su recuadro -->
+        <div class="cv2-interno cv2-zona">
+          <div class="cv2-caja" id="cv2-comp" style="display:none"></div>
+          <div class="cv2-caja cv2-comp-nota" id="cv2-comp-flex" style="display:none">En Flex no hay comparativa con bancos (los bancos solo financian en lineal).</div>
+          <details class="cv2-caja" id="cv2-det-mapa" data-k="mapa" ontoggle="cv2UiDet(this)">
+            <summary><span class="cv2-caja-tit">Mapa de conveniencia</span><span class="cv2-caja-res" id="cv2-mapa-res"></span></summary>
+            <div id="cv2-mapa"></div>
+          </details>
+          <details class="cv2-caja" id="cv2-det-inv" data-k="inv" ontoggle="cv2UiDet(this)">
+            <summary><span class="cv2-caja-tit">Buscar por cuota</span><span class="cv2-caja-res">el cliente dice cuánto quiere pagar al mes</span></summary>
             <div class="cv2-inv-form">
               <label>Cuota que quiere <input type="number" id="cv2-inv-cuota" min="0" step="10" placeholder="ej. 250" oninput="cv2RenderInversa()"> €/mes</label>
               <label>Entrada <input type="number" id="cv2-inv-entrada" min="0" step="500" value="0" oninput="cv2RenderInversa()"> €</label>
             </div>
             <div id="cv2-inv-res"></div>
-          </div>
-          <div class="cv2-comp" id="cv2-comp" style="display:none"></div>
-          <div class="cv2-comp cv2-mapa" id="cv2-mapa" style="display:none"></div>
+          </details>
         </div>
       </div>
 

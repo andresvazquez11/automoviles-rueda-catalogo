@@ -326,25 +326,30 @@ function cv2RenderCampanas(rules) {
     CV2_OTRA_NIVELES.forEach((n, i) => {
       const act = neto >= n.min && neto < n.hasta;
       html += `<div class="cv2-cc${act ? ' active' : ''} fija">
-        <div class="cv2-cc-top"><span class="cv2-cc-nom">Otras Marcas · ${n.nombre}</span><span class="cv2-cc-cod">${codes[i]}</span></div>
-        <div class="cv2-cc-txt">Lineal · TIN ${pct(n.tin)} · ${n.bonif ? cv2Miles(n.bonif) + ' € bonif.' : 'sin bonif.'} · 48–120 m · a financiar ${cv2Miles(n.min)}${n.hasta < Infinity ? '–' + cv2Miles(n.hasta - 1) : ' o más'} €</div>
+        <div class="cv2-cc-top"><span class="cv2-cc-nom">${n.nombre}</span><span class="cv2-cc-cod2">${codes[i]}</span>
+          <span class="cv2-cc-mini">TIN ${pct(n.tin)} · ${n.bonif ? cv2Miles(n.bonif) + ' €' : 'sin bonif.'}</span></div>
+        ${act ? `<div class="cv2-cc-txt">Lineal · 48–120 m · a financiar ${cv2Miles(n.min)}${n.hasta < Infinity ? '–' + cv2Miles(n.hasta - 1) : ' o más'} €</div>` : ''}
       </div>`;
     });
-    html += `<div class="cv2-cc-nota">Otras Marcas se aplica sola según el importe a financiar (precio − entrada).</div>`;
+    html = `<div class="cv2-auto on" title="Otras Marcas se aplica sola según el importe a financiar (precio − entrada)">⚡ <b>Automático</b> · según el importe a financiar <span class="cv2-i">ⓘ</span></div>` + html;
   } else {
     html += CV2.auto
-      ? `<div class="cv2-auto on">⚡ <b>Automático:</b> se elige sola la campaña VW con la cuota más baja para esta entrada y plazo. Pincha una tarjeta para fijarla a mano.</div>`
-      : `<button type="button" class="cv2-auto off" onclick="cv2VolverAuto()">✋ Campaña fijada a mano · <b>⚡ volver a automático</b></button>`;
+      ? `<div class="cv2-auto on" title="Se elige sola la campaña VW con la cuota más baja para la entrada y el plazo puestos (DEMOS + REMA solo a mano). Pincha una tarjeta para fijarla.">⚡ <b>Automático</b> · elige la campaña más barata <span class="cv2-i">ⓘ</span></div>`
+      : `<button type="button" class="cv2-auto off" onclick="cv2VolverAuto()">✋ Fijada a mano · <b>⚡ volver a automático</b></button>`;
     const activa = cv2CampanaActiva(CV2.marca, CV2.campana, cat);
     const arona  = /arona/i.test(CV2.modelo || '');
     CV2_OPCIONES.filter(o => o.marca === CV2.marca && (!o.arona || arona) && (!o.ok || o.ok(cat))).forEach(o => {
       const r = cv2ResumenOpcion(o);
-      const linea = (k, nom) => r[k] ? `<div class="cv2-cc-txt"><b>${nom}</b> <span class="cv2-cc-cod2">${r[k].codigos || 'sin clave'}</span> · TIN ${pct(r[k].tin)} · ${r[k].bonif} · ${r[k].plazos} · mín. ${cv2Miles(r[k].min)} €</div>` : '';
-      const act = r[CV2.tab] || r.lineal;
-      const noLlega = act && !act.cumple && o.id !== activa;
-      html += `<button type="button" class="cv2-cc${o.id === activa ? ' active' : ''}${noLlega ? ' nollega' : ''}" onclick="cv2ElegirCampana('${o.id}')">
-        <div class="cv2-cc-top"><span class="cv2-cc-nom">${o.nombre}</span>${o.nota ? `<span class="cv2-cc-nota2">${o.nota}</span>` : ''}${noLlega ? `<span class="cv2-cc-nota3">no llega al mínimo con esta entrada (se bajará la entrada)</span>` : ''}</div>
-        ${linea('lineal', 'Lineal')}${linea('flex', 'Flex')}
+      // Solo la modalidad elegida (Lineal o Flex); el detalle, solo en la tarjeta activa
+      const k = r[CV2.tab] ? CV2.tab : 'lineal';
+      const d = r[k] || r.flex;
+      if (!d) return;
+      const esAct = o.id === activa;
+      const noLlega = !d.cumple && !esAct;
+      html += `<button type="button" class="cv2-cc${esAct ? ' active' : ''}${noLlega ? ' nollega' : ''}" onclick="cv2ElegirCampana('${o.id}')"${o.nota ? ` title="${o.nota}"` : ''}>
+        <div class="cv2-cc-top"><span class="cv2-cc-nom">${o.nombre}</span><span class="cv2-cc-cod2">${d.codigos || 'sin clave'}</span>
+          <span class="cv2-cc-mini">TIN ${pct(d.tin)} · ${d.bonif}</span>${noLlega ? `<span class="cv2-cc-nota3">no llega al mínimo</span>` : ''}</div>
+        ${esAct ? `<div class="cv2-cc-txt">${k === 'flex' ? 'Flex' : 'Lineal'} · ${d.plazos} · mín. a financiar ${cv2Miles(d.min)} €${o.nota ? ' · ' + o.nota : ''}</div>` : ''}
       </button>`;
     });
     if (CV2.marca === 'CUPRA' && cat === 'VU')
@@ -363,29 +368,51 @@ function cv2RenderCampanas(rules) {
 // Misma entrada y plazo. Se compara la cuota de financiación sin mantenimiento
 // (los bancos no lo incluyen); el total suma entrada + cuotas. En Flex no se
 // muestra: la cuota final hace que no sea comparable con un préstamo lineal.
+// Estado de los desplegables internos (se recuerda en este navegador)
+const CV2_UI = (() => { try { return JSON.parse(localStorage.getItem('rd_cv2_det') || '{}'); } catch (e) { return {}; } })();
+function cv2UiDet(el) {
+  const k = el.dataset.k; if (!k) return;
+  CV2_UI[k] = el.open;
+  try { localStorage.setItem('rd_cv2_det', JSON.stringify(CV2_UI)); } catch (e) {}
+}
+function cv2UiRestaurar() {
+  document.querySelectorAll('details[data-k]').forEach(d => { if (CV2_UI[d.dataset.k] !== undefined) d.open = !!CV2_UI[d.dataset.k]; });
+}
+
 function cv2RenderComparativa() {
   const box = document.getElementById('cv2-comp');
   if (!box) return;
+  const flexNota = document.getElementById('cv2-comp-flex');
+  if (flexNota) flexNota.style.display = CV2.tab === 'flex' ? '' : 'none';
   if (CV2.tab !== 'lineal' || !CV2.precio) { box.innerHTML = ''; box.style.display = 'none'; return; }
   const res = cv2Calc();
   const f2 = v => { const [e, d] = Math.abs(v).toFixed(2).split('.'); return cv2Miles(+e) + ',' + d; };
   const m = CV2.meses, entrada = CV2.entrada, importe = Math.max(0, CV2.precio - entrada);
-  const filas = [{ nom: 'VW · ' + res.rules.campanaLabel + (res.rules.codigo ? ' (' + res.rules.codigo + ')' : ''),
+  const filas = [{ nom: 'VW · ' + res.rules.campanaLabel + (res.rules.codigo ? ' (' + res.rules.codigo + ')' : ''), corto: 'VW',
                    tin: res.rules.tinFinal.toFixed(2).replace('.', ','), cuota: res.cuota, vw: true }];
   const tb = bbvaTarifa();
   filas.push(tb.coef[m] && m <= tb.max
-    ? { nom: 'BBVA', tin: tb.tin, cuota: Math.round(tb.coef[m] * importe * 100) / 100 }
-    : { nom: 'BBVA', tin: tb.tin, no: true });
+    ? { nom: 'BBVA', corto: 'BBVA', tin: tb.tin, cuota: Math.round(tb.coef[m] * importe * 100) / 100 }
+    : { nom: 'BBVA', corto: 'BBVA', tin: tb.tin, no: true });
   const tc = caixaTarifa();
   filas.push(tc.disponible && tc.plazos.includes(m)
-    ? { nom: 'CaixaBank', tin: CAIXA_TIN, cuota: Math.round(CAIXA_COEF[m] * importe * 100) / 100 }
-    : { nom: 'CaixaBank', tin: CAIXA_TIN, no: true });
+    ? { nom: 'CaixaBank', corto: 'CaixaBank', tin: CAIXA_TIN, cuota: Math.round(CAIXA_COEF[m] * importe * 100) / 100 }
+    : { nom: 'CaixaBank', corto: 'CaixaBank', tin: CAIXA_TIN, no: true });
   filas.forEach(f => { if (!f.no) f.total = Math.round((f.cuota * m + entrada) * 100) / 100; });
   const validas = filas.filter(f => !f.no);
   const mejor = validas.reduce((a, b) => (b.cuota < a.cuota ? b : a), validas[0]);
   const vw = filas[0];
   const sg = v => (v > 0 ? '+' : v < 0 ? '−' : '') + f2(Math.abs(v));
-  let html = `<div class="cv2-comp-tit">Comparativa con bancos · ${m} meses · entrada ${cv2Miles(entrada)} €</div>
+  const color = f => CV2_MAPA_COLORES[f.corto];
+  // Titular: la más barata y cuánto más cuestan las demás al mes
+  const otras = filas.filter(f => f !== mejor).map(f => f.no
+    ? `<span class="cv2-comp-na">${f.corto}: no a ${m} m</span>`
+    : `${f.corto} <b>+${f2(f.cuota - mejor.cuota)} €</b>`).join(' · ');
+  let html = `<div class="cv2-caja-tit">Comparativa con bancos <span class="cv2-caja-sub">${m} meses · entrada ${cv2Miles(entrada)} €</span>
+      <span class="cv2-i" title="Préstamo lineal, cuota sin mantenimiento (los bancos no lo incluyen). VW con la bonificación ya descontada. Total = entrada + cuotas.">ⓘ</span></div>
+    <div class="cv2-comp-titular">✓ <b style="color:${color(mejor)}">${mejor.vw ? 'VW · ' + res.rules.campanaLabel : mejor.nom}</b> es la más barata: <b>${f2(mejor.cuota)} €/mes</b>
+      <span class="cv2-comp-otras">${otras} al mes</span></div>
+    <details class="cv2-det-mini" data-k="compDet" ontoggle="cv2UiDet(this)"${CV2_UI.compDet ? ' open' : ''}><summary>ver detalle</summary>
     <div class="cv2-comp-row cv2-comp-head"><span>Financiera</span><span>Cuota/mes</span><span>Total a pagar</span><span>Diferencia con VW</span></div>`;
   filas.forEach(f => {
     const cls = 'cv2-comp-row' + (f === mejor ? ' mejor' : '') + (f.no ? ' no' : '');
@@ -393,12 +420,7 @@ function cv2RenderComparativa() {
     const dif = f.vw ? '—' : `${sg(f.cuota - vw.cuota)} €/mes · ${sg(f.total - vw.total)} € total`;
     html += `<div class="${cls}"><span>${f.nom} · ${f.tin}%</span><span>${f2(f.cuota)} €</span><span>${f2(f.total)} €</span><span>${dif}</span></div>`;
   });
-  if (mejor) {
-    const otras = validas.filter(f => f !== mejor);
-    const ahorro = otras.length ? Math.min(...otras.map(f => f.total - mejor.total)) : 0;
-    html += `<div class="cv2-comp-best">La más conveniente: <b>${mejor.vw ? 'VW' : mejor.nom}</b>${ahorro > 0 ? ` · ahorra al menos ${f2(ahorro)} € en total frente a la siguiente` : ''}</div>`;
-  }
-  html += `<div class="cv2-comp-nota">Cuota de financiación sin mantenimiento. VW con la bonificación ya descontada.</div>`;
+  html += `</details>`;
   box.innerHTML = html;
   box.style.display = '';
 }
@@ -439,7 +461,9 @@ function cv2MapaCelda(m, e) {
 function cv2RenderMapa() {
   const box = document.getElementById('cv2-mapa');
   if (!box) return;
-  if (CV2.tab !== 'lineal' || !CV2.precio) { box.innerHTML = ''; box.style.display = 'none'; return; }
+  const det = document.getElementById('cv2-det-mapa');
+  if (CV2.tab !== 'lineal' || !CV2.precio) { box.innerHTML = ''; if (det) det.style.display = 'none'; return; }
+  if (det) det.style.display = '';
   const guard = { campana: CV2.campana, demosRema: CV2.demosRema, salones: CV2.salones, tab: CV2.tab,
                   meses: CV2.meses, entrada: CV2.entrada, tinOverride: CV2.tinOverride };
   const maxE = Math.max(0, Math.floor((CV2.precio - 10000) / 1000) * 1000);
@@ -454,7 +478,8 @@ function cv2RenderMapa() {
   const f0 = v => cv2Miles(v);
   const f2 = v => { const [a, d] = Math.abs(v).toFixed(2).split('.'); return cv2Miles(+a) + ',' + d; };
   // Frases: por cada entrada, tramos de plazo consecutivos con el mismo ganador
-  let frases = '';
+  let frases = '', fraseAct = '';
+  const jSel = entradas.reduce((b, e, j) => Math.abs(e - CV2.entrada) < Math.abs(entradas[b] - CV2.entrada) ? j : b, 0);
   entradas.forEach((e, j) => {
     const tramos = [];
     plazos.forEach((m, i) => {
@@ -464,12 +489,15 @@ function cv2RenderMapa() {
     });
     if (!tramos.length) return;
     const txt = tramos.map(t => `${t.desde === t.hasta ? t.desde : t.desde + '–' + t.hasta} m → <b style="color:${CV2_MAPA_COLORES[t.fin]}">${t.n}</b>`).join(' · ');
-    frases += `<div class="cv2-mapa-frase"><span>${e ? 'Entrada ' + f0(e) + ' €' : 'Sin entrada'}:</span> ${txt}</div>`;
+    const fr = `<span>${e ? 'Entrada ' + f0(e) + ' €' : 'Sin entrada'}:</span> ${txt}`;
+    frases += `<div class="cv2-mapa-frase">${fr}</div>`;
+    if (j === jSel) fraseAct = fr;
   });
   // Casilla más cercana a lo que hay puesto ahora
   const jAct = entradas.reduce((b, e, j) => Math.abs(e - CV2.entrada) < Math.abs(entradas[b] - CV2.entrada) ? j : b, 0);
-  let html = `<div class="cv2-comp-tit">Mapa de conveniencia · ¿qué financiera conviene según plazo y entrada?</div>
-    <div class="cv2-mapa-leyenda">${Object.entries(CV2_MAPA_COLORES).map(([k, c]) => `<span><i style="background:${c}"></i>${k}</span>`).join('')}</div>
+  const resEl = document.getElementById('cv2-mapa-res');
+  if (resEl) resEl.innerHTML = fraseAct;
+  let html = `<div class="cv2-mapa-leyenda">${Object.entries(CV2_MAPA_COLORES).map(([k, c]) => `<span><i style="background:${c}"></i>${k}</span>`).join('')}</div>
     ${frases}
     <div class="cv2-mapa-wrap"><table class="cv2-mapa-tbl"><thead><tr><th>Plazo \\ Entrada</th>${entradas.map(e => `<th>${f0(e)} €</th>`).join('')}</tr></thead><tbody>`;
   plazos.forEach((m, i) => {
@@ -486,9 +514,8 @@ function cv2RenderMapa() {
     html += `</tr>`;
   });
   html += `</tbody></table></div>
-    <div class="cv2-comp-nota">Cada casilla: financiera más barata, su cuota y lo que ahorra en total frente a la siguiente. Pincha una casilla para ponerla en la calculadora. Las atenuadas no las permite VW (plazo o entrada): calcúlalas en la pestaña del banco.</div>`;
+    <div class="cv2-comp-nota">Pincha una casilla para ponerla en la calculadora <span class="cv2-i" title="Cada casilla: financiera más barata, su cuota y lo que ahorra en total frente a la siguiente. Las atenuadas no las permite VW (plazo o entrada): calcúlalas en la pestaña del banco.">ⓘ</span></div>`;
   box.innerHTML = html;
-  box.style.display = '';
 }
 
 // ── Buscar por cuota (la inversa) · modo asesor ──────────────────────────────
@@ -536,7 +563,7 @@ function cv2RenderInversa(forzar) {
       + `<span>${f2(g.cuota)} €</span><span>${f2(g.cuota * x.m + e)} €</span>`
       + `<span class="${dif <= 0 ? 'cv2-inv-ok' : 'cv2-inv-ko'}">${dif <= 0 ? '−' : '+'}${f2(dif)} €/mes</span></div>`;
   });
-  html += `<div class="cv2-comp-nota">Lineal, sin mantenimiento. Pincha un plazo para ponerlo en la calculadora (en VW se aplica su mejor campaña).</div>`;
+  html += `<div class="cv2-comp-nota">Pincha un plazo para ponerlo en la calculadora <span class="cv2-i" title="Lineal, sin mantenimiento. Se recomienda el plazo más corto que no pasa de la cuota (menos intereses). En VW se aplica su mejor campaña.">ⓘ</span></div>`;
   box.innerHTML = html;
 }
 
@@ -1174,6 +1201,7 @@ function initCalc(c) {
   CV2.demosRema = false;  // siempre empieza desactivado
   CV2.salones = false;
   CV2.auto = true;        // empieza eligiendo sola la campaña VW más barata
+  cv2UiRestaurar();       // desplegables internos como los dejó el asesor
 
   // Auto-detect marca
   const modeloStr = c.modelo || '';
