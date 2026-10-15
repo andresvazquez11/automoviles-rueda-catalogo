@@ -43,6 +43,7 @@ const CV2 = {
   cupraTipo:     'TERMICO',   // 'TERMICO' | 'ELECTRICO'
   modelo:        '',
   demosRema:     false,       // toggle manual — campaña especial SEAT VS DEMOS + REMA (Octubre 2026)
+  salones:       false,       // toggle manual — campaña SALONES VO (solo SEAT Arona), Octubre 2026 v2
 };
 
 
@@ -170,7 +171,8 @@ function cv2GetRules() {
     }
   } else {
     // Campaña Otras Marcas · Octubre 2026: Básica TIN 8,25% · bonificaciones 200/400/500€
-    plazosDisp = plazosDisp.filter(p => p >= 48 && p <= 96);
+    // Plazo 48-120 meses (documento SEAT VO Octubre 2026 del 15/10, pág. 10; antes 48-96)
+    plazosDisp = plazosDisp.filter(p => p >= 48 && p <= 120);
     if (importeNeto >= 20000) { tin_auto = 8.99; bonificacion = 500; creditoMinimo = 20000; campanaLabel = 'TOP · Otras Marcas'; }
     else if (importeNeto >= 15000) { tin_auto = 8.99; bonificacion = 400;  creditoMinimo = 15000; campanaLabel = 'Premium · Otras Marcas'; }
     else if (importeNeto >= 10000) { tin_auto = 8.99; bonificacion = 200;  creditoMinimo = 10000; campanaLabel = 'Entry · Otras Marcas'; }
@@ -186,6 +188,29 @@ function cv2GetRules() {
     if (producto === 'FLEX') { tin_auto = 7.99; bonificacion = 950; }
     else { tin_auto = 5.99; bonificacion = 0; plazosDisp = plazosDisp.filter(p => p >= 48 && p <= 120); }
     campanaLabel = 'DEMOS + REMA · SEAT VS';
+  }
+
+  // ── Campaña SALONES VO (ARONA) · SEAT VO Octubre 2026 (págs. 4 y 9) ────────
+  // Solo SEAT Arona, activación manual. Con «ENTRY» seleccionado aplica SALONES TIN
+  // BAJO (VS+VO) y con «GAMA», SALONES GAMA con bonificación. Bonificación según plazo.
+  if (CV2.salones && marca === 'SEAT' && /arona/i.test(CV2.modelo || '')) {
+    const porAntig = CV2_ALL_PLAZOS.filter(p => antigMeses === null || antigMeses + p <= maxGlobal);
+    const m = CV2.meses;
+    if (campana === 'ENTRY' && categoria !== 'VU') {
+      tin_auto = 7.99; campanaLabel = 'SALONES TIN BAJO · Arona';
+      if (producto === 'FLEX') { creditoMinimo = 12000; bonificacion = 1000; plazosDisp = porAntig.filter(p => p >= 36 && p <= 60); }
+      else { creditoMinimo = 13500; bonificacion = m >= 60 ? 1000 : 500; plazosDisp = porAntig.filter(p => p >= 48 && p <= 120); }
+    } else {
+      tin_auto = 8.99; campanaLabel = 'SALONES GAMA · Arona' + (categoria ? ' · ' + categoria : '');
+      if (producto === 'FLEX') {
+        plazosDisp = porAntig.filter(p => p >= 36 && p <= 60);
+        if (categoria === 'VO') { creditoMinimo = 12000; bonificacion = m >= 60 ? 1500 : 1000; }
+        else { creditoMinimo = 13500; bonificacion = m >= 60 ? 2000 : m >= 48 ? 1750 : 1000; }
+      } else {
+        creditoMinimo = 13500; bonificacion = m >= 84 ? 2000 : 1000;
+        plazosDisp = porAntig.filter(p => p >= 60 && p <= 120);
+      }
+    }
   }
 
   const tinFinal = CV2.tinOverride !== null ? CV2.tinOverride : tin_auto;
@@ -317,6 +342,21 @@ function cv2Render() {
     if (aLbl) aLbl.textContent = CV2.demosRema
       ? 'activo · TIN ' + rules.tinFinal.toFixed(2).replace('.', ',') + '%' + (rules.bonificacion > 0 ? ' · −' + cv2Fmt(rules.bonificacion) + ' €' : '')
       : 'solo si el coche es demo o REMA';
+  }
+
+  // SALONES (Arona): botón visible solo en SEAT Arona; muestra las condiciones aplicadas
+  const saWrap = document.getElementById('cv2-salones-wrap');
+  if (saWrap) {
+    const puedeSa = marca === 'SEAT' && /arona/i.test(CV2.modelo || '');
+    saWrap.classList.toggle('visible', puedeSa);
+    if (!puedeSa && CV2.salones) CV2.salones = false;
+    const sBtn = document.getElementById('cv2-salones-btn');
+    if (sBtn) sBtn.classList.toggle('active', CV2.salones);
+    const sLbl = document.getElementById('cv2-salones-lbl');
+    if (sLbl) sLbl.textContent = CV2.salones
+      ? 'activo · TIN ' + rules.tinFinal.toFixed(2).replace('.', ',') + '%' + (rules.bonificacion > 0 ? ' · −' + cv2Fmt(rules.bonificacion) + ' €' : '')
+        + ' · ENTRY = TIN bajo / GAMA = bonificación'
+      : 'campaña Salones VO para Arona';
   }
 
   // FLEX tab disabled si VU
@@ -590,8 +630,15 @@ function cv2SetCupraTipo(t) {
   cv2Render();
 }
 
+function cv2ToggleSalones() {
+  CV2.salones = !CV2.salones;
+  if (CV2.salones) CV2.demosRema = false;   // no se combinan
+  cv2Render();
+}
+
 function cv2ToggleDemosRema() {
   CV2.demosRema = !CV2.demosRema;
+  if (CV2.demosRema) CV2.salones = false;
   cv2Render();
 }
 
@@ -668,6 +715,7 @@ function initCalc(c) {
   CV2.tinOverride = null;
   CV2.modelo   = ((c.modelo||'') + ' ' + (c.version||'')).trim();
   CV2.demosRema = false;  // siempre empieza desactivado
+  CV2.salones = false;
 
   // Auto-detect marca
   const modeloStr = c.modelo || '';

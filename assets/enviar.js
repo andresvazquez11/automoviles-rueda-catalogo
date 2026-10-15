@@ -184,7 +184,7 @@
     if (f === 'BBVA')  return { f, e: BBVA.entrada, m: BBVA.meses };
     if (f === 'CAIXA') return { f, e: CAIXA.entrada, m: CAIXA.meses };
     const s = { f: 'VWFS', e: CV2.entrada, m: CV2.meses, t: CV2.tab, k: CV2.km, c: CV2.campana,
-      a: CV2.mantAnios, ct: CV2.cupraTipo, dr: CV2.demosRema ? 1 : 0 };
+      a: CV2.mantAnios, ct: CV2.cupraTipo, dr: CV2.demosRema ? 1 : 0, sa: CV2.salones ? 1 : 0 };
     if (CV2.tinOverride != null) s.tin = CV2.tinOverride;
     return s;
   }
@@ -199,6 +199,7 @@
     if (p.get('c') && p.get('c') !== CV2.campana) cv2SetCampana(p.get('c'));
     if (p.get('ct')) cv2SetCupraTipo(p.get('ct'));
     if ((p.get('dr') === '1') !== !!CV2.demosRema && typeof cv2ToggleDemosRema === 'function') cv2ToggleDemosRema();
+    if ((p.get('sa') === '1') !== !!CV2.salones && typeof cv2ToggleSalones === 'function') cv2ToggleSalones();
     cv2SetMode(p.get('t') === 'flex' ? 'flex' : 'lineal');
     if (p.get('t') === 'flex' && n('k')) cv2SetKm(n('k'));
     if (n('m')) cv2SetMeses(n('m'));

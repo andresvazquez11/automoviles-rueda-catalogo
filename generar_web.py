@@ -1378,6 +1378,13 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
           </button>
           <span class="cv2-arona-lbl" id="cv2-arona-lbl">solo si el coche es demo o REMA</span>
         </div>
+        <!-- Campaña SALONES VO (Octubre 2026): solo SEAT Arona, activación manual -->
+        <div class="cv2-arona-wrap" id="cv2-salones-wrap">
+          <button class="cv2-arona-btn" id="cv2-salones-btn" onclick="cv2ToggleSalones()">
+            ⬡ SALONES · ARONA
+          </button>
+          <span class="cv2-arona-lbl" id="cv2-salones-lbl">campaña Salones VO para Arona</span>
+        </div>
 
         <!-- TIN -->
         <div style="margin-top:14px;">
