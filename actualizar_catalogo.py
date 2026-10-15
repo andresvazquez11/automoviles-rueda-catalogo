@@ -108,7 +108,7 @@ def gestionar_snapshot_diario(anteriores: list, cache_bak: Path):
     return baseline, n_act
 
 
-def acumular_cambios_hoy(nuevos, vendidos, cambios):
+def acumular_cambios_hoy(nuevos, vendidos, cambios, contar=True):
     """
     Acumula los cambios del día en cambios_hoy.json.
     Los cambios de precio se actualizan (si el mismo coche ya tenía cambio,
@@ -121,7 +121,8 @@ def acumular_cambios_hoy(nuevos, vendidos, cambios):
         except Exception:
             pass
 
-    acum["actualizaciones"] = acum.get("actualizaciones", 0) + 1
+    if contar:   # la 2.ª llamada de la misma corrida (MotorFlash) no suma otra actualización
+        acum["actualizaciones"] = acum.get("actualizaciones", 0) + 1
 
     # Nuevos: agregar si no está ya
     ids_nuevos = {id_coche(c) for c in acum["nuevos"]}
@@ -653,6 +654,28 @@ async def main():
     # que incluya también sus coches (antes se registraba solo DWA).
     actualizar_historial_precios(actuales)
 
+    # 5d-bis) Novedades / ventas / cambios de precio de MotorFlash → informe y correo.
+    # La comparación de arriba (paso 3) es solo de Das WeltAuto, así que los coches
+    # de MotorFlash nunca salían como NUEVOS en el correo (pasó con el CUPRA Raval el
+    # 14/10). Se comparan los de MotorFlash de esta corrida con los de la anterior.
+    # Si el scraping de MotorFlash falla, integrar_motorflash.py recupera los previos,
+    # así que no aparecen como "vendidos" falsos.
+    try:
+        mf_ahora = [c for c in actuales if c.get("fuente") == "motorflash"]
+        mf_nuevos, mf_vendidos, mf_cambios = comparar(_mf_previos, mf_ahora)
+        if mf_nuevos or mf_vendidos or mf_cambios:
+            print(f"  MotorFlash: {len(mf_nuevos)} nuevo(s) · {len(mf_vendidos)} retirado(s) · "
+                  f"{len(mf_cambios)} cambio(s)")
+            nuevos = list(nuevos) + mf_nuevos
+            cambios = list(cambios) + mf_cambios
+            retirados_mf = mf_vendidos
+            cambios_hoy_acum = acumular_cambios_hoy(mf_nuevos, mf_vendidos, mf_cambios, contar=False)
+        else:
+            retirados_mf = []
+    except Exception as _e:
+        print(f"  ⚠️  No se pudo comparar MotorFlash para el informe: {_e}")
+        retirados_mf = []
+
     # 5e) Re-sincronizar carpetas de fotos tras la renumeración de MotorFlash.
     # integrar_motorflash.py puede haber cambiado el "n" de coches DWA (al
     # insertar/quitar coches exclusivos de MotorFlash y renumerar 1..N). Sus
@@ -786,7 +809,7 @@ async def main():
     # retirados_confirmados son los que el margen de 2 intentos confirmó
     # genuinamente ausentes — lo mismo que ya se usa para el email/PDF.
     informe_txt = generar_informe(
-        nuevos, retirados_confirmados, cambios, anteriores, actuales,
+        nuevos, list(retirados_confirmados) + retirados_mf, cambios, anteriores, actuales,
         cambios_hoy_acum=cambios_hoy_acum,
         n_actualizacion=n_actualizacion
     )

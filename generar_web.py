@@ -2181,6 +2181,15 @@ def miniatura_web(ruta_web: str) -> str:
 
 DIAS_RECIEN_LLEGADO = 14
 
+def fotos_coche(c: dict, rutas: dict) -> list:
+    """Fotos web de un coche. Los de MotorFlash las traen en c["fotos"] (rutas
+    web_fotos/mf-…); los de Das WeltAuto, en `rutas` por número. Usar SIEMPRE esto:
+    el folleto y los destacados miraban solo `rutas` y dejaban fuera los de
+    MotorFlash (el CUPRA Raval y un Arona no salían en el folleto el 14/10)."""
+    if c.get("fuente") == "motorflash":
+        return [f"/{f.lstrip('/')}" for f in (c.get("fotos") or [])]
+    return rutas.get(c["n"], [])
+
 def destacados_automaticos(cars: list[dict], rutas: dict, hist: dict, maximo: int = 6) -> list[dict]:
     """Destacados que se eligen SOLOS en cada actualización (los manuales de /admin/
     van siempre delante; estos rellenan hasta 3, ver el script de la portada):
@@ -2207,7 +2216,7 @@ def destacados_automaticos(cars: list[dict], rutas: dict, hist: dict, maximo: in
 
     rebajados, nuevos, resto = [], [], []
     for c in cars:
-        if c.get("estado") != "Disponible" or not rutas.get(c["n"]):
+        if c.get("estado") != "Disponible" or not fotos_coche(c, rutas):
             continue
         ident = id_estable_coche(c)
         precio = _num(c.get("precio"))
@@ -2246,12 +2255,12 @@ def datos_folleto_json(cars: list[dict], rutas: dict, perfil: dict) -> str:
     d = perfil.get("direccion", {})
     coches = []
     for c in cars:
-        if c.get("estado") != "Disponible" or not rutas.get(c["n"]):
+        if c.get("estado") != "Disponible" or not fotos_coche(c, rutas):
             continue
         coches.append({
             "modelo": c["modelo"], "version": c.get("version", ""), "precio": c.get("precio", ""),
             "km": c.get("km", ""), "fecha": c.get("fecha", ""), "combustible": c.get("combustible", ""),
-            "cambio": c.get("cambio", ""), "foto": miniatura_web(rutas[c["n"]][0]),
+            "cambio": c.get("cambio", ""), "foto": miniatura_web(fotos_coche(c, rutas)[0]),
         })
     coches.sort(key=lambda c: (c["modelo"], _num(c["precio"])))
     asesor = {
