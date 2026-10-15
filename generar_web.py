@@ -1172,7 +1172,36 @@ CALCULADORA_CSS = '''/* Puente de variables: la calculadora (portada de generar_
     .cv2-comp-row span:first-child { grid-column:1 / -1; font-weight:600; }
     .cv2-comp-head { display:none; }
   }
-  @media print { .cv2-codigo, .cv2-camps, .cv2-comp { display:none !important; } }
+  /* Herramientas internas plegables */
+  .cv2-int-bar {
+    display:block; width:100%; text-align:left; font:inherit; cursor:pointer;
+    padding:6px 10px; border-radius:5px; border:1px dashed rgba(245,158,11,.35);
+    background:rgba(245,158,11,.05); color:#F59E0B; font-size:11px; font-weight:600; letter-spacing:.4px;
+  }
+  .cv2-comp-box { margin:0 20px; padding-top:10px; }
+  .cv2-comp-box .cv2-comp { margin:0; }
+  .cv2-int-off-lbl { display:none; }
+  html.cv2-int-off .cv2-interno { display:none !important; }
+  html.cv2-int-off .cv2-int-on { display:none; }
+  html.cv2-int-off .cv2-int-off-lbl { display:inline; }
+  html.cv2-int-off .cv2-int-bar { opacity:.35; border-color:rgba(255,255,255,.1); color:rgba(240,244,255,.6); background:transparent; }
+  /* Mapa de conveniencia */
+  .cv2-mapa-leyenda { display:flex; gap:12px; font-size:11px; color:rgba(240,244,255,.6); margin-bottom:6px; }
+  .cv2-mapa-leyenda i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:4px; vertical-align:-1px; }
+  .cv2-mapa-frase { font-size:11.5px; line-height:1.55; color:rgba(240,244,255,.7); }
+  .cv2-mapa-frase > span { color:rgba(240,244,255,.45); }
+  .cv2-mapa-wrap { overflow-x:auto; margin-top:8px; }
+  .cv2-mapa-tbl { border-collapse:separate; border-spacing:2px; width:100%; font-size:10.5px; font-variant-numeric:tabular-nums; }
+  .cv2-mapa-tbl th { font-weight:600; color:rgba(240,244,255,.45); padding:3px 4px; white-space:nowrap; }
+  .cv2-mapa-tbl td {
+    color:#fff; text-align:center; padding:4px 3px; border-radius:3px; cursor:pointer; line-height:1.25;
+    white-space:nowrap; border:2px solid transparent;
+  }
+  .cv2-mapa-tbl td b, .cv2-mapa-tbl td span, .cv2-mapa-tbl td small { display:block; }
+  .cv2-mapa-tbl td small { opacity:.75; font-size:9.5px; }
+  .cv2-mapa-tbl td.act { border-color:#fff; box-shadow:0 0 0 1px #000 inset; }
+  .cv2-mapa-tbl td.na { background:rgba(255,255,255,.04); color:rgba(240,244,255,.3); cursor:default; }
+  @media print { .cv2-codigo, .cv2-camps, .cv2-comp, .cv2-interno, .cv2-int-bar, .cv2-comp-box { display:none !important; } }
   /* Cuota hero */
   .cv2-cuota-hero {
     padding:24px 20px 16px; text-align:center;
@@ -1414,8 +1443,13 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
         <!-- Campaña: tarjetas con las campañas a las que puede optar el coche y su
              clave VWFS (la calculadora solo se ve en modo asesor). Al pinchar una,
              la calculadora queda fija en esa campaña. -->
-        <div class="cv2-slbl" style="margin-top:16px;">Campañas disponibles para este coche</div>
-        <div class="cv2-camps" id="cv2-camps"></div>
+        <button type="button" class="cv2-int-bar" onclick="cv2ToggleInterno()" style="margin-top:16px;">
+          <span class="cv2-int-on">▾ Herramientas del asesor · ocultar</span><span class="cv2-int-off-lbl">▸ Herramientas del asesor</span>
+        </button>
+        <div class="cv2-interno">
+          <div class="cv2-slbl" style="margin-top:10px;">Campañas disponibles para este coche</div>
+          <div class="cv2-camps" id="cv2-camps"></div>
+        </div>
         <!-- Selectores antiguos: se mantienen ocultos porque la lógica los sigue usando -->
         <div style="display:none">
         <div class="cv2-camp-pills" id="cv2-camp-seat" style="display:none">
@@ -1552,7 +1586,7 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
           <span class="cv2-cuota-val" id="cv2-cuota-val">—</span>
           <span class="cv2-cuota-unit">€ / mes</span>
         </div>
-        <div class="cv2-codigo" id="cv2-codigo" style="display:none">
+        <div class="cv2-codigo cv2-interno" id="cv2-codigo" style="display:none">
           <span class="cv2-codigo-lbl">Clave VWFS</span>
           <span class="cv2-codigo-val" id="cv2-codigo-val"></span>
           <button type="button" class="cv2-codigo-btn" id="cv2-codigo-btn" onclick="cv2CopiarCodigo()">Copiar</button>
@@ -1564,7 +1598,15 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
       </div>
 
       <!-- Comparativa VW / BBVA / CaixaBank (modo asesor, solo Lineal) -->
-      <div class="cv2-comp" id="cv2-comp" style="display:none"></div>
+      <div class="cv2-comp-box">
+        <button type="button" class="cv2-int-bar" onclick="cv2ToggleInterno()">
+          <span class="cv2-int-on">▾ Comparativa y mapa · ocultar</span><span class="cv2-int-off-lbl">▸ Comparativa y mapa</span>
+        </button>
+        <div class="cv2-interno">
+          <div class="cv2-comp" id="cv2-comp" style="display:none"></div>
+          <div class="cv2-comp cv2-mapa" id="cv2-mapa" style="display:none"></div>
+        </div>
+      </div>
 
       <!-- Breakdown -->
       <div class="cv2-breakdown">

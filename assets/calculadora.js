@@ -293,14 +293,19 @@ function cv2ResumenOpcion(op) {
     const base = cv2GetRules();
     if (tab === 'flex' && base.categoria === 'VU') return;
     if (!base.plazosDisp.length) return;
-    const bon = new Set(), cod = new Set();
-    base.plazosDisp.forEach(m => { CV2.meses = m; const r = cv2GetRules(); bon.add(r.bonificacion); if (r.codigo) cod.add(r.codigo); });
-    const b = [...bon].sort((x, y) => x - y);
+    // Bonificación por tramos de plazo consecutivos con el mismo importe
+    const tramos = [], cod = new Set();
+    base.plazosDisp.forEach(m => {
+      CV2.meses = m; const r = cv2GetRules(); if (r.codigo) cod.add(r.codigo);
+      const ult = tramos[tramos.length - 1];
+      if (ult && ult.bonif === r.bonificacion) ult.hasta = m; else tramos.push({ desde: m, hasta: m, bonif: r.bonificacion });
+    });
+    const tramoTxt = t => (t.desde === t.hasta ? t.desde : t.desde + '–' + t.hasta) + ' m: ' + (t.bonif ? cv2Miles(t.bonif) + ' €' : 'sin bonif.');
     out[tab] = {
       tin: base.tin_auto, min: base.creditoMinimo,
       cumple: CV2.precio - base.bonificacion - CV2.entrada >= base.creditoMinimo,
       plazos: base.plazosDisp.length === 1 ? base.plazosDisp[0] + ' m' : base.plazosDisp[0] + '–' + base.plazosDisp[base.plazosDisp.length - 1] + ' m',
-      bonif: b.length === 1 ? (b[0] ? cv2Miles(b[0]) + ' €' : 'sin bonif.') : cv2Miles(b[0]) + '–' + cv2Miles(b[b.length - 1]) + ' € según plazo',
+      bonif: tramos.length === 1 ? (tramos[0].bonif ? cv2Miles(tramos[0].bonif) + ' €' : 'sin bonif.') : 'bonif. ' + tramos.map(tramoTxt).join(' / '),
       codigos: [...cod].join(' / '),
     };
   });
@@ -393,6 +398,111 @@ function cv2RenderComparativa() {
   box.innerHTML = html;
   box.style.display = '';
 }
+
+// ── Mapa de conveniencia (modo asesor, Lineal) ───────────────────────────────
+// Para cada plazo y entrada de ejemplo, qué financiera da la cuota más baja:
+// VW (la mejor campaña a la que puede optar el coche; DEMOS + REMA solo si está
+// activada), BBVA o CaixaBank. Mismo criterio que la comparativa.
+const CV2_MAPA_COLORES = { VW: '#C8232B', BBVA: '#2563EB', CaixaBank: '#0D9488' };
+
+function cv2MapaCelda(m, e) {
+  const precio = CV2.precio, cands = [];
+  const ops = CV2.marca === 'OTRA' ? [{ id: 'OTRA', nombre: 'Otras Marcas', set: {} }]
+    : CV2_OPCIONES.filter(o => o.marca === CV2.marca && (!o.arona || /arona/i.test(CV2.modelo || ''))
+        && (o.id !== 'DEMOS' || CV2.demosRema));
+  ops.forEach(o => {
+    Object.assign(CV2, o.set, { tab: 'lineal', meses: m, entrada: e, tinOverride: null });
+    const r = cv2GetRules();
+    if (o.ok && !o.ok(r.categoria)) return;
+    if (!r.plazosDisp.includes(m)) return;
+    const min = CV2.marca === 'OTRA' ? CV2_OTRA_NIVELES[0].min : r.creditoMinimo;
+    if (precio - r.bonificacion - e < min) return;
+    cands.push({ fin: 'VW', camp: o.nombre, id: o.id, cuota: cv2Calc().cuota });
+  });
+  const tb = bbvaTarifa();
+  if (tb.coef[m] && m <= tb.max && precio - e >= 500) cands.push({ fin: 'BBVA', cuota: Math.round(tb.coef[m] * (precio - e) * 100) / 100 });
+  const tc = caixaTarifa();
+  if (tc.disponible && tc.plazos.includes(m) && precio - e >= 500) cands.push({ fin: 'CaixaBank', cuota: Math.round(CAIXA_COEF[m] * (precio - e) * 100) / 100 });
+  // Por financiera, su mejor opción; luego ganador y ahorro frente a la segunda financiera
+  const porFin = {};
+  cands.forEach(c => { if (!porFin[c.fin] || c.cuota < porFin[c.fin].cuota) porFin[c.fin] = c; });
+  const orden = Object.values(porFin).sort((a, b) => a.cuota - b.cuota);
+  if (!orden.length) return null;
+  return { gana: orden[0], ahorroMes: orden[1] ? orden[1].cuota - orden[0].cuota : 0, ahorroTotal: orden[1] ? (orden[1].cuota - orden[0].cuota) * m : 0 };
+}
+
+function cv2RenderMapa() {
+  const box = document.getElementById('cv2-mapa');
+  if (!box) return;
+  if (CV2.tab !== 'lineal' || !CV2.precio) { box.innerHTML = ''; box.style.display = 'none'; return; }
+  const guard = { campana: CV2.campana, demosRema: CV2.demosRema, salones: CV2.salones, tab: CV2.tab,
+                  meses: CV2.meses, entrada: CV2.entrada, tinOverride: CV2.tinOverride };
+  const maxE = Math.max(0, Math.floor((CV2.precio - 10000) / 1000) * 1000);
+  const paso = Math.max(1000, Math.ceil(maxE / 5 / 1000) * 1000);
+  const entradas = [];
+  for (let e = 0; e <= maxE; e += paso) entradas.push(e);
+  const plazos = CV2_ALL_PLAZOS.filter(p => p >= 24);
+  const tabla = plazos.map(m => entradas.map(e => cv2MapaCelda(m, e)));
+  Object.assign(CV2, guard);
+
+  const nomGana = g => g.fin === 'VW' ? 'VW · ' + g.camp : g.fin;
+  const f0 = v => cv2Miles(v);
+  const f2 = v => { const [a, d] = Math.abs(v).toFixed(2).split('.'); return cv2Miles(+a) + ',' + d; };
+  // Frases: por cada entrada, tramos de plazo consecutivos con el mismo ganador
+  let frases = '';
+  entradas.forEach((e, j) => {
+    const tramos = [];
+    plazos.forEach((m, i) => {
+      const c = tabla[i][j]; if (!c) return;
+      const n = nomGana(c.gana), ult = tramos[tramos.length - 1];
+      if (ult && ult.n === n && ult.fin === c.gana.fin) ult.hasta = m; else tramos.push({ n, fin: c.gana.fin, desde: m, hasta: m });
+    });
+    if (!tramos.length) return;
+    const txt = tramos.map(t => `${t.desde === t.hasta ? t.desde : t.desde + '–' + t.hasta} m → <b style="color:${CV2_MAPA_COLORES[t.fin]}">${t.n}</b>`).join(' · ');
+    frases += `<div class="cv2-mapa-frase"><span>${e ? 'Entrada ' + f0(e) + ' €' : 'Sin entrada'}:</span> ${txt}</div>`;
+  });
+  // Casilla más cercana a lo que hay puesto ahora
+  const jAct = entradas.reduce((b, e, j) => Math.abs(e - CV2.entrada) < Math.abs(entradas[b] - CV2.entrada) ? j : b, 0);
+  let html = `<div class="cv2-comp-tit">Mapa de conveniencia · ¿qué financiera conviene según plazo y entrada?</div>
+    <div class="cv2-mapa-leyenda">${Object.entries(CV2_MAPA_COLORES).map(([k, c]) => `<span><i style="background:${c}"></i>${k}</span>`).join('')}</div>
+    ${frases}
+    <div class="cv2-mapa-wrap"><table class="cv2-mapa-tbl"><thead><tr><th>Plazo \\ Entrada</th>${entradas.map(e => `<th>${f0(e)} €</th>`).join('')}</tr></thead><tbody>`;
+  plazos.forEach((m, i) => {
+    html += `<tr><th>${m} m</th>`;
+    entradas.forEach((e, j) => {
+      const c = tabla[i][j];
+      if (!c) { html += `<td class="na">—</td>`; return; }
+      const act = m === CV2.meses && j === jAct;
+      html += `<td class="${act ? 'act' : ''}" style="background:${CV2_MAPA_COLORES[c.gana.fin]}" title="${nomGana(c.gana)}"
+        onclick="cv2MapaElegir(${m},${e},'${c.gana.id || ''}')">
+        <b>${c.gana.fin === 'CaixaBank' ? 'Caixa' : c.gana.fin}</b><span>${f2(c.gana.cuota)} €</span>${c.ahorroTotal > 0 ? `<small>−${f0(c.ahorroTotal)} €</small>` : ''}</td>`;
+    });
+    html += `</tr>`;
+  });
+  html += `</tbody></table></div>
+    <div class="cv2-comp-nota">Cada casilla: financiera más barata, su cuota y lo que ahorra en total frente a la siguiente. Pincha una casilla para ponerla en la calculadora.</div>`;
+  box.innerHTML = html;
+  box.style.display = '';
+}
+
+function cv2MapaElegir(m, e, id) {
+  if (id) { const o = CV2_OPCIONES.find(x => x.id === id); if (o) { CV2.demosRema = !!o.set.demosRema; CV2.salones = !!o.set.salones; CV2.campana = o.set.campana; } }
+  if (CV2.tab !== 'lineal') cv2SetMode('lineal');
+  CV2.entrada = e;
+  const slider = document.getElementById('cv2-sl-entrada'); if (slider) slider.value = e;
+  const dispE = document.getElementById('cv2-entrada-input'); if (dispE) dispE.value = e;
+  cv2SetMeses(m);
+}
+
+// ── Plegar / desplegar las herramientas internas del asesor ──────────────────
+// Plegadas, el cliente solo ve la calculadora (cuota, entrada, desglose).
+// Se recuerda en este navegador.
+function cv2ToggleInterno(forzar) {
+  const off = typeof forzar === 'boolean' ? forzar : !document.documentElement.classList.contains('cv2-int-off');
+  document.documentElement.classList.toggle('cv2-int-off', off);
+  try { localStorage.setItem('rd_cv2_int', off ? '0' : '1'); } catch (e) {}
+}
+(function () { try { if (localStorage.getItem('rd_cv2_int') === '0') document.documentElement.classList.add('cv2-int-off'); } catch (e) {} })();
 
 function cv2ElegirCampana(id) {
   const o = CV2_OPCIONES.find(x => x.id === id);
@@ -530,7 +640,7 @@ function cv2AjustarTopeEntrada() {
   }
   slider.style.setProperty('--pct', (max > 0 ? (CV2.entrada / max * 100) : 0) + '\%');
   const maxLbl = document.getElementById('cv2-lbl-max');
-  if (maxLbl) maxLbl.textContent = max > 0 ? `máx. ${cv2Miles(max)} € (mín. a financiar ${cv2Miles(min)} €)` : 'máx. — €';
+  if (maxLbl) maxLbl.innerHTML = max > 0 ? `máx. ${cv2Miles(max)} €<span class="cv2-interno"> (mín. a financiar ${cv2Miles(min)} €)</span>` : 'máx. — €';
 }
 
 function cv2Render() {
@@ -546,6 +656,7 @@ function cv2Render() {
   cv2UpdatePlazoPills(rules.plazosDisp);
   cv2RenderCampanas(cv2GetRules());   // tras ajustar plazo/campaña, para que el código sea el definitivo
   cv2RenderComparativa();
+  cv2RenderMapa();
 
   // DEMOS + REMA: el botón solo se puede usar en SEAT VS; muestra las condiciones aplicadas
   const drWrap = document.getElementById('cv2-arona-wrap');
