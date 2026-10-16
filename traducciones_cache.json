@@ -282,6 +282,22 @@
     "equipamiento_en": [],
     "version_en": "1 Series 118d Business 110 kW (150 HP)"
   },
+  "2b9cfe29335f5a22": {
+    "color_en": "Yellow",
+    "equipamiento_en": [
+      "Front parking sensors with radar, rear parking sensors with radar and camera",
+      "Dual-zone digital climate control for driver and front passenger",
+      "Front fog lights, low beam headlights, side indicators, daytime running lights, and high beams with LED technology",
+      "Top speed: 189 km/h",
+      "Front and rear 17-inch two-tone light alloy wheels, 7.0 inches wide, 43.2 and 17.8",
+      "Headlights with LED bulbs and high beams with LED bulbs",
+      "Luxury trim: leather gear shift knob",
+      "12V power outlet(s) in the cargo area, front seats, and rear seats",
+      "Cloth seats (primary material) and cloth (secondary material)",
+      "Three-seat forward-facing rear bench with fixed cushion, 40/20/40 split-folding backrest, and manual recline adjustment"
+    ],
+    "version_en": "1.6 T-GDi Drive 4x2 110 kW (150 HP)"
+  },
   "2bdc9535c7740edb": {
     "color_en": "Violet",
     "equipamiento_en": [
@@ -313,6 +329,22 @@
       "Safe & Driving Pack L Navi"
     ],
     "version_en": "1.5 TSI S&S X-Perience DSG 110 kW (150 HP)"
+  },
+  "30397c2588cb4bef": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Front Assist including emergency braking function for High ACC",
+      "\"Vision Plus\" Pack: rear-view camera, front and rear ultrasonic parking sensors",
+      "Lane Keeping Assist",
+      "Front parking distance sensor system, rear parking distance sensor system with camera",
+      "Top speed: 198 km/h",
+      "Marina Pack (SEAQUAL upholstery)",
+      "Leather sports multifunction steering wheel",
+      "Central locking \"Keyless-Entry\"",
+      "Front and rear parking assist",
+      "Dual-zone Climatronic"
+    ],
+    "version_en": "1.0 TSI Special Edition 85 kW (115 hp)"
   },
   "30e51a3f4b53dd56": {
     "color_en": "",
@@ -676,6 +708,22 @@
     ],
     "version_en": "1.5 TSI e-Hybrid DSG 150 kW (204 HP)"
   },
+  "5b13691ddca67982": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Front Assist including emergency braking function for High ACC",
+      "\"Vision Plus\" Package: rear-view camera, front and rear ultrasonic parking assist",
+      "Lane Keeping Assist",
+      "Front parking distance control system with sensor, rear parking distance control system with sensor and camera",
+      "Top speed: 198 km/h",
+      "Marina Pack (SEAQUAL upholstery)",
+      "Leather multi-function sports steering wheel",
+      "\"Keyless-Entry\" central locking",
+      "Front and rear parking assist",
+      "Dual-zone Climatronic"
+    ],
+    "version_en": "1.0 TSI Special Edition 85 kW (115 HP)"
+  },
   "5de3c0413d92b338": {
     "color_en": "Red",
     "equipamiento_en": [
@@ -886,6 +934,22 @@
     ],
     "version_en": "1.5 TSI 110 kW (150 hp)"
   },
+  "68aca97faeaa617d": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Parking exit assist, lane change assist, and safe exit warning system",
+      "Individually adjustable heated front seats",
+      "\"Keyless Advanced\" keyless entry and start system without safelock",
+      "Lane keep assist system with emergency assist and traffic jam assist",
+      "Digital sound package",
+      "Synthetic suede (main material) and synthetic leather (secondary material) seating, marketed as sustainable/vegan",
+      "Front parking distance control with sensor and camera, rear parking distance control with sensor and camera, and side parking distance control with camera",
+      "Full LED technology for brake lights, front fog lights, low beams, side indicators, daytime running lights, taillights, and high beams",
+      "Top speed: 160 km/h",
+      "Plasma (Mica) with Black Roof"
+    ],
+    "version_en": "51.5kWh Endurance Dynamic Plus Launch Edition 155 kW (210 HP)"
+  },
   "68f92cbc0a5d1ce6": {
     "color_en": "",
     "equipamiento_en": [],
@@ -996,6 +1060,22 @@
     "color_en": "",
     "equipamiento_en": [],
     "version_en": "2.0 TDI Ambition 85 kW (115 HP)"
+  },
+  "72fa1ae250e118ad": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Front Assist including emergency braking function for ACC High",
+      "Lane Keeping Assist",
+      "Front parking distance control with sensors, rear parking distance control with sensors and camera",
+      "Top speed: 198 km/h",
+      "Marina Pack (SEAQUAL upholstery)",
+      "Multifunction leather sports steering wheel",
+      "Central locking \"Keyless-Entry\"",
+      "Front and rear parking aid",
+      "6.5J x 16\" light alloy wheels",
+      "With rear view camera system"
+    ],
+    "version_en": "1.0 TSI Special Edition 85 kW (115 HP)"
   },
   "74271c69b3b94531": {
     "color_en": "",
@@ -1153,6 +1233,22 @@
       "Child seat anchor system"
     ],
     "version_en": "1.5 eTSI Beyond DSG 110 kW (150 hp)"
+  },
+  "805f71198bfab972": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Rear parking sensors with radar",
+      "Top speed: 190 km/h",
+      "16-inch front and rear light alloy wheels (6.0 inches wide)",
+      "Ellipsoidal headlights with LED low and high beams",
+      "Luxury trim: aluminium and leather gear knob, faux-aluminium center console, faux-aluminium dashboard, and leather handbrake lever",
+      "Front 12V power socket(s)",
+      "Cloth seat upholstery (primary and secondary fabric)",
+      "Three-seat forward-facing rear bench with fixed cushion and split-folding backrest",
+      "Leather-wrapped multifunction steering wheel, height and reach adjustable",
+      "Speed limiter"
+    ],
+    "version_en": "1.0 TSI Style 81 kW (110 HP)"
   },
   "806c1b4fc78b3ab7": {
     "color_en": "",
@@ -1706,6 +1802,22 @@
       "Speed limiter"
     ],
     "version_en": "1.0 TSI S&S FR XS 85 kW (115 HP)"
+  },
+  "a2ac52c3d31696dc": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Front Assist including emergency braking function for ACC High",
+      "Lane Keeping Assist",
+      "Front parking distance sensors, rear parking distance sensors and camera system",
+      "Top speed: 198 km/h",
+      "Multifunction leather sports steering wheel",
+      "\"Keyless-Entry\" central locking",
+      "Front and rear park assist",
+      "6.5J x 16\" light-alloy wheels",
+      "With rear-view camera system",
+      "With multifunction camera"
+    ],
+    "version_en": "1.0 TSI Special Edition 85 kW (115 HP)"
   },
   "a4ef1196fa7861f0": {
     "color_en": "",

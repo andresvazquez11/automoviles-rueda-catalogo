@@ -49,6 +49,16 @@
   "precio": "34.500",
   "version": "51,5kWh Endurance Dynamic Plus Launch Edition 155 kW (210 CV)"
  },
+ "kia-sportage-mf203846824": {
+  "baja": "2026-10-16",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2022",
+  "km": "109.410",
+  "modelo": "Kia Sportage",
+  "precio": "18.900",
+  "version": "1.6 T-GDi Drive 4x2 110 kW (150 CV)"
+ },
  "nissan-qashqai-mf168212671": {
   "baja": "2026-09-26",
   "cambio": "Automatico",
@@ -218,6 +228,26 @@
   "modelo": "SEAT Ibiza",
   "precio": "18.300",
   "version": "1.0 TSI S&S Xcellence 85 kW (115 CV)"
+ },
+ "seat-ibiza-mf203847229": {
+  "baja": "2026-10-16",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2025",
+  "km": "8.870",
+  "modelo": "SEAT Ibiza",
+  "precio": "18.300",
+  "version": "1.0 TSI Special Edition 85 kW (115 CV)"
+ },
+ "seat-ibiza-mf203847232": {
+  "baja": "2026-10-16",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2025",
+  "km": "12.154",
+  "modelo": "SEAT Ibiza",
+  "precio": "18.300",
+  "version": "1.0 TSI Special Edition 85 kW (115 CV)"
  },
  "seat-leon-151336815": {
   "baja": "2026-09-26",

@@ -98,5 +98,15 @@
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656699",
     "precio_anterior": 35500.0,
     "precio_nuevo": 34500.0
+  },
+  {
+    "fecha_iso": "2026-10-16T10:02:27",
+    "fecha": "16/10/2026",
+    "n": 15,
+    "modelo": "SEAT Arona",
+    "version": "1.0 TSI FR Special Edition 85 kW (115 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/193183603",
+    "precio_anterior": 21300.0,
+    "precio_nuevo": 20900.0
   }
 ]
