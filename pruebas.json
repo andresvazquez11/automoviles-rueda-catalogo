@@ -236,7 +236,8 @@
     "Nissan Qashqai|2019": "2026-09-26",
     "SEAT Ateca|2023": "2026-09-30",
     "CUPRA Raval|2026": "2026-10-14",
-    "Kia Sportage|2022": "2026-10-15"
+    "Kia Sportage|2022": "2026-10-15",
+    "CUPRA Born|2024": "2026-10-19"
   },
   "Abarth 500": {
     "videos": [
@@ -395,6 +396,34 @@
         "auto": "2026-10-15",
         "desde": 2021,
         "hasta": 2023
+      }
+    ]
+  },
+  "CUPRA Born": {
+    "videos": [
+      {
+        "youtube": "2GzTTJVFB2M",
+        "titulo": "CUPRA BORN: Ni Seat Born ¿ni VW ID.3?",
+        "medio": "coches.net",
+        "auto": "2026-10-19",
+        "desde": 2023,
+        "hasta": 2025
+      },
+      {
+        "youtube": "1077SEk4dwU",
+        "titulo": "Cupra Born VZ 2024",
+        "medio": "coches.net",
+        "auto": "2026-10-19",
+        "desde": 2023,
+        "hasta": 2025
+      },
+      {
+        "youtube": "VtBcQW2yAk4",
+        "titulo": "Cupra Born VZ / Prueba / Review en español",
+        "medio": "Centímetros cúbicos",
+        "auto": "2026-10-19",
+        "desde": 2023,
+        "hasta": 2025
       }
     ]
   }
