@@ -1,4 +1,14 @@
 {
+ "cupra-born-mf204870619": {
+  "baja": "2026-10-21",
+  "cambio": "Automatico",
+  "combustible": "Eléctrico",
+  "fecha": "2024",
+  "km": "10.863",
+  "modelo": "CUPRA Born",
+  "precio": "27.900",
+  "version": "77kWh E-Boost Pack+Battery 170 kW (231 CV)"
+ },
  "cupra-formentor-151395159": {
   "baja": "2026-10-05",
   "cambio": "Automático",
