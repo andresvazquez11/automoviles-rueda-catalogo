@@ -29,6 +29,16 @@
   "precio": "32.900",
   "version": "1.5 eTSI DSG 110 kW (150 CV)"
  },
+ "cupra-formentor-193535071": {
+  "baja": "2026-10-22",
+  "cambio": "Automático",
+  "combustible": "Mild Hybrid",
+  "fecha": "08/2025",
+  "km": "11.387",
+  "modelo": "CUPRA Formentor",
+  "precio": "35.900",
+  "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
  "cupra-formentor-mf198019852": {
   "baja": "2026-10-08",
   "cambio": "Automatico",
@@ -159,6 +169,16 @@
   "precio": "32.900",
   "version": "1.5 TSI S&S FR Special Edition DSG 110 kW (150 CV)"
  },
+ "seat-ateca-198259936": {
+  "baja": "2026-10-22",
+  "cambio": "Automático",
+  "combustible": "Gasolina",
+  "fecha": "12/2023",
+  "km": "25.310",
+  "modelo": "SEAT Ateca",
+  "precio": "24.900",
+  "version": "1.5 TSI S&S X-Perience DSG 110 kW (150 CV)"
+ },
  "seat-ibiza-151394481": {
   "baja": "2026-10-05",
   "cambio": "Manual",
@@ -257,6 +277,16 @@
   "km": "12.154",
   "modelo": "SEAT Ibiza",
   "precio": "18.300",
+  "version": "1.0 TSI Special Edition 85 kW (115 CV)"
+ },
+ "seat-ibiza-mf203982844": {
+  "baja": "2026-10-22",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2025",
+  "km": "8.733",
+  "modelo": "SEAT Ibiza",
+  "precio": "18.500",
   "version": "1.0 TSI Special Edition 85 kW (115 CV)"
  },
  "seat-leon-151336815": {
