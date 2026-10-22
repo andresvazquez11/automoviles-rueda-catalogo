@@ -57,7 +57,7 @@
     "km": "8.733",
     "fecha": "06/2025",
     "cambio": "Manual",
-    "color": "Negro",
+    "color": "",
     "precio": "18.500",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -85,7 +85,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 18.500€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 18.500€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 18.500€",
     "financiacion": {
       "meses": "60",
       "cuota": "179.46",
@@ -2607,7 +2606,7 @@
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA Formentor - 24.900€",
     "financiacion": {},
-    "_intentos_desaparecido": 3,
+    "_intentos_desaparecido": 4,
     "fecha_reservado": "2026-10-21"
   },
   {
@@ -2648,7 +2647,7 @@
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - BMW Serie - 22.500€",
     "financiacion": {},
-    "_intentos_desaparecido": 4,
+    "_intentos_desaparecido": 5,
     "fecha_reservado": "2026-10-21"
   },
   {
