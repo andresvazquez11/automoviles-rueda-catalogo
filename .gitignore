@@ -4,3 +4,7 @@ catalogo_automoviles_rueda.pdf
 
 # Metadatos de Finder (macOS) — nunca deberían versionarse
 .DS_Store
+
+# Claves de API (Google/Gemini, Freepik…) — solo en local; en GitHub van como secretos
+.env
+config.txt
