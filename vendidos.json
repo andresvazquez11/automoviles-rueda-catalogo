@@ -1,4 +1,14 @@
 {
+ "bmw-serie-193180663": {
+  "baja": "2026-10-24",
+  "cambio": "Automático",
+  "combustible": "Diésel",
+  "fecha": "03/2021",
+  "km": "62.750",
+  "modelo": "BMW Serie",
+  "precio": "22.500",
+  "version": "1 118d Business 110 kW (150 CV)"
+ },
  "cupra-born-mf204870619": {
   "baja": "2026-10-21",
   "cambio": "Automatico",
@@ -28,6 +38,16 @@
   "modelo": "CUPRA Formentor",
   "precio": "32.900",
   "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
+ "cupra-formentor-193177990": {
+  "baja": "2026-10-24",
+  "cambio": "Automático",
+  "combustible": "Gasolina",
+  "fecha": "06/2022",
+  "km": "44.978",
+  "modelo": "CUPRA Formentor",
+  "precio": "24.900",
+  "version": "1.5 TSI DSG 110 kW (150 CV)"
  },
  "cupra-formentor-193535071": {
   "baja": "2026-10-22",
@@ -159,6 +179,16 @@
   "precio": "16.900",
   "version": "1.0 TSI Style 81 kW (110 CV)"
  },
+ "seat-arona-mf206646653": {
+  "baja": "2026-10-24",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2020",
+  "km": "78.650",
+  "modelo": "SEAT Arona",
+  "precio": "13.900",
+  "version": "1.0 TSI Ecomotive S&S Xcellence 70 kW (95 CV)"
+ },
  "seat-ateca-171720715": {
   "baja": "2026-09-26",
   "cambio": "Automático",
@@ -288,6 +318,16 @@
   "modelo": "SEAT Ibiza",
   "precio": "18.500",
   "version": "1.0 TSI Special Edition 85 kW (115 CV)"
+ },
+ "seat-ibiza-mf206805605": {
+  "baja": "2026-10-24",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "500",
+  "modelo": "SEAT Ibiza",
+  "precio": "20.500",
+  "version": "1.0 TSI S&S Style 85 kW (115 CV)"
  },
  "seat-leon-151336815": {
   "baja": "2026-09-26",
