@@ -7,7 +7,7 @@
     "km": "500",
     "fecha": "07/2026",
     "cambio": "Manual",
-    "color": "Blanco",
+    "color": "",
     "precio": "20.500",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -35,7 +35,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.500€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.500€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.500€",
     "financiacion": {
       "meses": "60",
       "cuota": "196.07",
@@ -1203,7 +1202,7 @@
     "km": "100",
     "fecha": "04/2026",
     "cambio": "Automático",
-    "color": "Gris",
+    "color": "",
     "precio": "36.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -1231,7 +1230,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA Formentor - 36.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA Formentor - 36.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - CUPRA Formentor - 36.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "314.50",
@@ -1554,7 +1552,7 @@
     "km": "3.600",
     "fecha": "03/2026",
     "cambio": "Automático",
-    "color": "Negro",
+    "color": "",
     "precio": "38.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -1582,7 +1580,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - CUPRA Terramar - 38.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - CUPRA Terramar - 38.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - CUPRA Terramar - 38.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "428.14",
@@ -1705,7 +1702,7 @@
     "km": "150",
     "fecha": "05/2026",
     "cambio": "Automático",
-    "color": "Gris",
+    "color": "",
     "precio": "41.500",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -1733,7 +1730,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 41.500€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 41.500€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - CUPRA Tavascan - 41.500€",
     "financiacion": {
       "meses": "60",
       "cuota": "446.58",
@@ -1974,7 +1970,19 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - CUPRA Terramar - 36.900€/foto_08.jpg"
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - CUPRA Terramar - 36.900€",
-    "financiacion": {}
+    "financiacion": {
+      "meses": "60",
+      "cuota": "453.12",
+      "tin": "8.99",
+      "tae": "10.33",
+      "cuota_final": "25014.77",
+      "entrada": "0.00",
+      "comision_tipo": "al contado",
+      "comision": "1130.77",
+      "capital": "37818.44",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 36.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 35.700,00 €. Precio al contado 36.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,33%. La oferta incluye Seg. Protección Plus Ampliado por 2.118,44€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 453,12 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 25.014,77 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.130,77 €. Importe total financiado 37.818,44 €. Importe total de los intereses: 14.383,53 €. Coste total del crédito: 15.514,30 €. Precio total a plazos 52.201,97 €. Importe total adeudado: 52.201,97 €. Sistema de amortización francés"
+    }
   },
   {
     "n": 42,
@@ -2323,7 +2331,7 @@
     "km": "500",
     "fecha": "10/2025",
     "cambio": "Automático",
-    "color": "Negro",
+    "color": "",
     "precio": "33.500",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -2351,7 +2359,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 33.500€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 33.500€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - CUPRA Formentor - 33.500€",
     "financiacion": {
       "meses": "60",
       "cuota": "254.07",
@@ -2470,7 +2477,7 @@
     "km": "3.600",
     "fecha": "08/2025",
     "cambio": "Automático",
-    "color": "Gris",
+    "color": "",
     "precio": "33.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -2498,7 +2505,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA León - 33.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA León - 33.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA León - 33.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "259.53",
