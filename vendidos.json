@@ -79,6 +79,26 @@
   "precio": "41.300",
   "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)"
  },
+ "cupra-leon-mf208354994": {
+  "baja": "2026-10-28",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "1.500",
+  "modelo": "CUPRA León",
+  "precio": "31.500",
+  "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
+ "cupra-leon-mf208355000": {
+  "baja": "2026-10-28",
+  "cambio": "Automatico",
+  "combustible": "Híbrido Electro/Gasolina",
+  "fecha": "2026",
+  "km": "50",
+  "modelo": "CUPRA León",
+  "precio": "36.900",
+  "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)"
+ },
  "cupra-raval-mf203498227": {
   "baja": "2026-10-15",
   "cambio": "Automatico",
@@ -188,6 +208,16 @@
   "modelo": "SEAT Arona",
   "precio": "13.900",
   "version": "1.0 TSI Ecomotive S&S Xcellence 70 kW (95 CV)"
+ },
+ "seat-arona-mf208354985": {
+  "baja": "2026-10-28",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "21.374",
+  "modelo": "SEAT Arona",
+  "precio": "18.900",
+  "version": "1.0 TSI S&S Style 85 kW (115 CV)"
  },
  "seat-ateca-171720715": {
   "baja": "2026-09-26",
