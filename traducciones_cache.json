@@ -919,6 +919,22 @@
     ],
     "version_en": "1.0 TSI S&S Style 85 kW (115 hp)"
   },
+  "4646e42cc157a43e": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Keyless entry (keyless vehicle access) without SAFE deadlock locking",
+      "Front parking distance sensors, rear parking distance sensors with rear-view camera",
+      "Top speed: 200 km/h",
+      "16\" Machined Design alloy wheels (41 cm)",
+      "16-inch front and rear alloy wheels, 6.5-inch width (40.6 cm, 16.5, PG4)",
+      "Headlights with ellipsoidal lens, LED low beam and LED high beam",
+      "12V power outlet(s) in front seats",
+      "Velour upholstery (main material) and velour (secondary material)",
+      "Individual driver and front passenger seats with manual fore/aft, height, and backrest adjustment",
+      "Three-passenger forward-facing split-bench rear seats with asymmetric folding backrest"
+    ],
+    "version_en": "1.0 TSI S&S FR 85 kW (115 HP)"
+  },
   "47a21fc0fea0cdf6": {
     "color_en": "White",
     "equipamiento_en": [
@@ -2278,6 +2294,51 @@
     ],
     "version_en": "1.5 TSI DSG 110 kW (150 hp)"
   },
+  "97b5d9b6006aafc7": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Automatic Start/Stop",
+      "Daytime Running Lights",
+      "Cruise Control",
+      "Multifunction Steering Wheel",
+      "Bluetooth",
+      "Alloy Wheels",
+      "16\" Alloy Wheels",
+      "Trip Computer",
+      "Alarm System",
+      "Air Conditioning",
+      "Climate Control",
+      "Airbag",
+      "Passenger Airbag",
+      "Driver Airbag",
+      "Side Airbags",
+      "ABS Brakes",
+      "ESP",
+      "Power Steering",
+      "Electric Windows",
+      "Central Locking",
+      "Center Armrest",
+      "Remote Central Locking",
+      "Power Steering",
+      "Lane Change Assist",
+      "Lane Keep Assist",
+      "Park Assist",
+      "Power Socket",
+      "Hill Start Assist",
+      "LED Headlights",
+      "LED Taillights",
+      "ISOFIX",
+      "Rain Sensor",
+      "Automatic Headlights",
+      "Push Button Start",
+      "Tyre Pressure Sensor",
+      "Electric Parking Brake",
+      "Traffic Sign Recognition",
+      "CarPlay",
+      "Speed Limiter"
+    ],
+    "version_en": "1.5 eTSI S&S Style Special Edition DSG 110 kW (150 HP)"
+  },
   "9ad765a3e1f658b3": {
     "color_en": "",
     "equipamiento_en": [
@@ -3099,6 +3160,22 @@
       "Speed limiter"
     ],
     "version_en": "1.0 TSI S&S Style 85 kW (115 HP)"
+  },
+  "c5622cb4107ae838": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Park Assist package",
+      "\"Keyless\" entry system (without \"SAFE\" deadlock system)",
+      "Front and rear parking sensors with rear camera",
+      "Top speed: 195 km/h",
+      "16\" (41 cm) Machined Design alloy wheels",
+      "Bucket seats",
+      "16-inch front and rear alloy wheels (16\" diameter x 6.0\" width)",
+      "LED headlights with ellipsoidal lens and LED high beams",
+      "12V power outlet(s) in the front area",
+      "Velour seat upholstery (primary and secondary material)"
+    ],
+    "version_en": "1.0 TSI S&S FR 85 kW (115 HP)"
   },
   "c8d091d70a251835": {
     "color_en": "Black",
