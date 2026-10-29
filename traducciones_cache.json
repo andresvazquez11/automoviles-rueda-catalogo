@@ -248,6 +248,22 @@
     ],
     "version_en": "1.5 TSI e-Hybrid DSG 150 kW (204 hp)"
   },
+  "0f9f837376c96f77": {
+    "color_en": "Blue",
+    "equipamiento_en": [
+      "Park Assist Package",
+      "Keyless entry system without SAFE lock",
+      "Front and rear parking sensors with rear-view camera",
+      "Top speed: 195 km/h",
+      "16\" Machined Design alloy wheels (41 cm)",
+      "Bucket seats",
+      "16-inch front and rear aluminum wheels, 6.0 inches wide (40.6 cm and 15.2 cm)",
+      "Headlights with ellipsoidal lens, LED bulbs and LED main beam",
+      "12V power outlet(s) in the front seats",
+      "Velour seats (primary and secondary material)"
+    ],
+    "version_en": "1.0 TSI S&S FR 85 kW (115 HP)"
+  },
   "11c61edfec3a728c": {
     "color_en": "",
     "equipamiento_en": [
@@ -578,6 +594,22 @@
     ],
     "version_en": "1.0 TSI Style Plus 81 kW (110 hp)"
   },
+  "33c6154d2a123196": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Rear Cross Traffic Alert, Lane Change Assist, and Exit Warning System",
+      "High-resolution Matrix LED headlights with digital projection",
+      "Individually adjustable heated front seats",
+      "\"Keyless Advanced\" keyless entry and start system without safelock",
+      "Lane Assist with Emergency Assist and Traffic Jam Assist",
+      "3-zone Climatronic with rear climate control panel",
+      "Cloth seats with synthetic leather trim",
+      "Multi-zone climate controls for driver, front passenger, and rear seats",
+      "Tri-zone automatic air conditioning with rear controls",
+      "Full LED technology for brake lights, front fog lights, low/high beams, side indicators, DRLs, and tail lights"
+    ],
+    "version_en": "1.5 eTSI DSG 110 kW (150 HP)"
+  },
   "34479d335513c74a": {
     "color_en": "",
     "equipamiento_en": [
@@ -886,6 +918,22 @@
       "Speed limiter"
     ],
     "version_en": "1.0 TSI S&S Style 85 kW (115 hp)"
+  },
+  "47a21fc0fea0cdf6": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Keyless entry system (without \"SAFE\" deadlock feature)",
+      "Front and rear parking sensors with rear camera",
+      "Top speed: 200 km/h",
+      "16\" Machined Design alloy wheels",
+      "16-inch front and rear aluminum wheels, 6.5 inches wide (40.6 cm, 16.5 cm, PG4)",
+      "Ellipsoidal LED headlights with LED high beam",
+      "12V socket(s) in front seat area",
+      "Velour upholstery (primary and secondary material)",
+      "Individual driver and front passenger seats with manual fore/aft, height, and backrest adjustment",
+      "Forward-facing 3-seater split rear bench with split cushion and asymmetrical folding backrest"
+    ],
+    "version_en": "1.0 TSI S&S FR 85 kW (115 hp)"
   },
   "47f8a97b28efb5e6": {
     "color_en": "",
@@ -1334,6 +1382,22 @@
       "Front center armrest \"JUMBO BOX\" with 230V power inverter and 2x rear USB ports"
     ],
     "version_en": "2.0 TDI Ambition 85 kW (115 hp)"
+  },
+  "678aee1758dff0ae": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Cloth seats (main material) and synthetic leather (secondary material)",
+      "Separate climate controls for driver/front passenger and front/rear seats",
+      "Three-zone automatic climate control with rear controls",
+      "Full LED lighting: brake lights, front fog lights, low beam, side indicators, daytime running lights, tail lights, and high beam",
+      "Top speed: 220 km/h",
+      "Edge Pack",
+      "Intelligent Drive Pack",
+      "18\" (46 cm) alloy wheels - Garbi Copper",
+      "Front and rear 18-inch two-tone aluminum wheels, 7.5 inches wide (45.7 cm and 19.0 cm)",
+      "Ellipsoidal lens headlights with LED low beam and LED high beam bulbs"
+    ],
+    "version_en": "1.5 TSI e-Hybrid DSG 150 kW (204 hp)"
   },
   "681f0a56c2a34a91": {
     "color_en": "White",
@@ -3051,6 +3115,22 @@
       "Intelligent Drive Pack"
     ],
     "version_en": "1.5 TSI e-Hybrid DSG 150 kW (204 hp)"
+  },
+  "c976826e079a8486": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Top speed: 195 km/h",
+      "Premium Aurora upholstery",
+      "16-inch front and rear alloy wheels, 6.0 inches wide (40.6 cm and 15.2 cm)",
+      "LED headlights with ellipsoidal lens and LED high beam",
+      "12V power outlet(s) for front seats",
+      "Seats in velour (primary and secondary material)",
+      "Three-passenger forward-facing rear bench with fixed cushion and asymmetrical split-folding backrest",
+      "Leather-wrapped multifunction steering wheel, height and reach adjustable",
+      "Rearview mirror / camera",
+      "Speed limiter"
+    ],
+    "version_en": "1.0 TSI S&S Style 85 kW (115 hp)"
   },
   "c976e483bc54a9c5": {
     "color_en": "",
