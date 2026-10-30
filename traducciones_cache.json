@@ -562,6 +562,22 @@
     ],
     "version_en": "1.5 TSI S&S X-Perience DSG 110 kW (150 HP)"
   },
+  "2fa4eb87479b6189": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Comfort Pack: 3-zone climate control + front center armrest + 2 rear USB Type-C ports",
+      "Vision Plus Pack: Park Assist automatic parking assistant + rear view camera.",
+      "Separate climate controls for driver/passenger and front/rear seats",
+      "Tri-zone climate control with rear controls for automatic air conditioning",
+      "Front parking distance sensors, rear parking distance sensors with camera, and side parking distance sensors",
+      "Top speed: 217 km/h",
+      "Digital Cockpit instrument panel",
+      "KESSY keyless entry system",
+      "16-inch front and rear alloy wheels, 7.0 inches wide (40.6 cm and 17.8 cm)",
+      "LED headlights with ellipsoidal lens and LED high beams"
+    ],
+    "version_en": "1.5 eTSI S&S Style Special Edition DSG 110 kW (150 HP)"
+  },
   "30397c2588cb4bef": {
     "color_en": "Grey",
     "equipamiento_en": [
@@ -1794,6 +1810,22 @@
       "Child seat anchor system"
     ],
     "version_en": "1.5 eTSI Beyond DSG 110 kW (150 hp)"
+  },
+  "7fbc0c6c9aacd78d": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Front Assist including emergency braking function for ACC High",
+      "Lane Keeping Assist and Traffic Jam Assist",
+      "Lane Change Assist",
+      "Park Assist Package",
+      "\"Keyless\" entry system without \"SAFE\" lock",
+      "Front and rear parking sensors with rear camera",
+      "Top speed: 195 km/h",
+      "Premium Nuance upholstery",
+      "Multifunction leather sports steering wheel",
+      "\"Keyless-Entry\" central locking"
+    ],
+    "version_en": "1.0 TSI S&S FR 85 kW (115 HP)"
   },
   "805f71198bfab972": {
     "color_en": "",
@@ -3392,6 +3424,22 @@
       "12V power outlet(s) for the front seats"
     ],
     "version_en": "1.5 TSI e-Hybrid DSG 150 kW (204 hp)"
+  },
+  "d3aeeb084f706cf0": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Front Assist including emergency braking function for ACC High",
+      "Lane Keeping Assist",
+      "Top speed: 195 km/h",
+      "Leather multifunction sports steering wheel",
+      "Rearview camera system",
+      "Multifunction camera",
+      "Traffic Sign Recognition",
+      "16-inch front and rear alloy wheels (6.0 inches wide)",
+      "Ellipsoidal LED headlights with LED main beam",
+      "12V power socket(s) in the front seats"
+    ],
+    "version_en": "1.0 TSI S&S Style 85 kW (115 HP)"
   },
   "d73a76783e8e9e32": {
     "color_en": "",

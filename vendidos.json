@@ -249,6 +249,16 @@
   "precio": "18.900",
   "version": "1.0 TSI S&S Style 85 kW (115 CV)"
  },
+ "seat-arona-mf208354991": {
+  "baja": "2026-10-30",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "19.677",
+  "modelo": "SEAT Arona",
+  "precio": "18.900",
+  "version": "1.0 TSI S&S Style 85 kW (115 CV)"
+ },
  "seat-arona-mf208781576": {
   "baja": "2026-10-29",
   "cambio": "Manual",
@@ -257,6 +267,16 @@
   "km": "50",
   "modelo": "SEAT Arona",
   "precio": "21.900",
+  "version": "1.0 TSI S&S FR 85 kW (115 CV)"
+ },
+ "seat-arona-mf208988567": {
+  "baja": "2026-10-30",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "100",
+  "modelo": "SEAT Arona",
+  "precio": "22.500",
   "version": "1.0 TSI S&S FR 85 kW (115 CV)"
  },
  "seat-ateca-171720715": {
@@ -318,6 +338,16 @@
   "modelo": "SEAT Ibiza",
   "precio": "21.900",
   "version": "1.0 TSI S&S FR 85 kW (115 CV)"
+ },
+ "seat-ibiza-200537323": {
+  "baja": "2026-10-30",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "05/2025",
+  "km": "17.370",
+  "modelo": "SEAT Ibiza",
+  "precio": "17.900",
+  "version": "1.0 TSI S&S FR XS 85 kW (115 CV)"
  },
  "seat-ibiza-mf197896909": {
   "baja": "2026-10-08",
@@ -458,5 +488,15 @@
   "modelo": "SEAT León",
   "precio": "21.900",
   "version": "1.5 eTSI Style 25 Aniversario DSG 85 kW (116 CV)"
+ },
+ "seat-leon-mf209227940": {
+  "baja": "2026-10-30",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "6.404",
+  "modelo": "SEAT León",
+  "precio": "22.900",
+  "version": "1.5 eTSI S&S Style Special Edition DSG 110 kW (150 CV)"
  }
 }
