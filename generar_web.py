@@ -2453,8 +2453,23 @@ def datos_folleto_json(cars: list[dict], rutas: dict, perfil: dict) -> str:
     }
     return json.dumps({"asesor": asesor, "coches": coches}, ensure_ascii=False).replace("</", "<\\/")
 
+def orden_portada(cars: list[dict], hist: dict) -> list[dict]:
+    """Novedades arriba: los coches disponibles que llegaron en los últimos
+    DIAS_RECIEN_LLEGADO días (primera vez vistos en historial_precios.json) van
+    primero, del más reciente al más antiguo; el resto conserva su orden."""
+    from datetime import date, timedelta
+    limite = (date.today() - timedelta(days=DIAS_RECIEN_LLEGADO)).isoformat()
+    def llegada(c):
+        return min((r["fecha"] for r in hist.get(id_estable_coche(c)) or []), default="")
+    novedades = [c for c in cars if c.get("estado") == "Disponible" and llegada(c) >= limite and llegada(c)]
+    novedades.sort(key=llegada, reverse=True)   # sort estable: mismo día → orden de siempre
+    ya = {id(c) for c in novedades}
+    return novedades + [c for c in cars if id(c) not in ya]
+
+
 def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict, traducciones: dict[int, dict]) -> str:
     hist = _cargar_historial_precios()
+    cars = orden_portada(cars, hist)
     recortes = recortes_vigentes(cars)
     visibles = [c for c in cars if c.get("estado") != "Retirado"]
     total_disp = sum(1 for c in visibles if c["estado"] == "Disponible")

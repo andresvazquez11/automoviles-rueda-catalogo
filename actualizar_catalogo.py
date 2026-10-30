@@ -257,6 +257,63 @@ def comparar(anteriores: list, actuales: list):
 
     return nuevos, vendidos, cambios
 
+def _clave_cruce(c):
+    """Modelo+versión como bolsa de palabras normalizada (igual que
+    tokens_modelo_version de integrar_motorflash.py): DWA y MotorFlash no
+    reparten igual el nombre entre "modelo" y "version"."""
+    import re, unicodedata
+    s = f"{c.get('modelo', '')} {c.get('version', '')}".lower()
+    s = "".join(ch for ch in unicodedata.normalize("NFKD", s) if not unicodedata.combining(ch))
+    return tuple(sorted(re.sub(r"[^a-z0-9]+", " ", s).split()))
+
+def emparejar_cambio_de_anuncio(retirados: list, nuevos: list):
+    """Detecta el MISMO coche que deja de salir en una fuente y aparece en la
+    otra (MotorFlash ↔ Das WeltAuto). Pasa cuando un coche entra primero en
+    MotorFlash y días después lo publica Das WeltAuto con otro anuncio (otro
+    ID): integrar_motorflash.py descarta entonces la copia de MotorFlash por
+    duplicada, y el correo lo daba como "YA NO APARECE" y "NUEVO" a la vez
+    (SEAT León y dos Arona de Málaga, 30/10). Mismo coche = mismo modelo+versión
+    y mismos km (redondeados a decena) o, si falta el km, mismo precio.
+    Devuelve (retirados_reales, nuevos_reales, pares)."""
+    import re
+    def km(c):
+        d = re.sub(r"[^\d]", "", str(c.get("km") or ""))
+        return round(int(d), -1) if d else None
+    def precio(c):
+        return re.sub(r"[^\d]", "", str(c.get("precio") or ""))
+    libres, retirados_reales, pares = list(nuevos), [], []
+    for r in retirados:
+        par = None
+        for n in libres:
+            if _clave_cruce(n) != _clave_cruce(r):
+                continue
+            kr, kn = km(r), km(n)
+            if (kr == kn) if (kr is not None and kn is not None) else (precio(r) == precio(n)):
+                par = n
+                break
+        if par is None:
+            retirados_reales.append(r)
+        else:
+            libres.remove(par)
+            pares.append((r, par))
+    return retirados_reales, libres, pares
+
+def quitar_de_cambios_hoy(coches_nuevos: list, coches_vendidos: list):
+    """Saca de cambios_hoy.json (resumen del día) los coches que en realidad
+    solo han cambiado de anuncio."""
+    if not CAMBIOS_HOY_FILE.exists():
+        return None
+    try:
+        acum = json.loads(CAMBIOS_HOY_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    fuera_n = {id_coche(c) for c in coches_nuevos}
+    fuera_v = {id_coche(c) for c in coches_vendidos}
+    acum["nuevos"]   = [c for c in acum.get("nuevos", [])   if id_coche(c) not in fuera_n]
+    acum["vendidos"] = [c for c in acum.get("vendidos", []) if id_coche(c) not in fuera_v]
+    CAMBIOS_HOY_FILE.write_text(json.dumps(acum, ensure_ascii=False, indent=2), encoding="utf-8")
+    return acum
+
 def registrar_historial_cambios_precio(cambios: list):
     """Agrega al registro PERMANENTE (HISTORIAL_CAMBIOS_PRECIO) un evento por
     cada cambio de precio detectado en esta corrida — nunca se purga, a
@@ -663,6 +720,19 @@ async def main():
     try:
         mf_ahora = [c for c in actuales if c.get("fuente") == "motorflash"]
         mf_nuevos, mf_vendidos, mf_cambios = comparar(_mf_previos, mf_ahora)
+        # Mismo coche que cambia de anuncio (MotorFlash → DWA o DWA → MotorFlash):
+        # ni es nuevo ni se ha vendido.
+        mf_vendidos, nuevos, pares_a_dwa = emparejar_cambio_de_anuncio(mf_vendidos, list(nuevos))
+        retirados_confirmados, mf_nuevos, pares_a_mf = emparejar_cambio_de_anuncio(
+            list(retirados_confirmados), mf_nuevos)
+        pares = pares_a_dwa + pares_a_mf
+        if pares:
+            for r, n in pares:
+                print(f"  ↔ Mismo coche, cambia de anuncio (no es nuevo ni vendido): "
+                      f"{n.get('modelo', '')} {n.get('version', '')} | {n.get('precio', '')}€")
+            acum2 = quitar_de_cambios_hoy([n for _, n in pares], [r for r, _ in pares])
+            if acum2 is not None:
+                cambios_hoy_acum = acum2
         if mf_nuevos or mf_vendidos or mf_cambios:
             print(f"  MotorFlash: {len(mf_nuevos)} nuevo(s) · {len(mf_vendidos)} retirado(s) · "
                   f"{len(mf_cambios)} cambio(s)")
