@@ -1928,8 +1928,78 @@ def bloque_ejemplo_financiacion(car: dict, datos: dict) -> str:
         + (f'<p class="rd-fe-legal">{legal}</p>' if legal else '')
         + f'{otra_cuota}</section>')
 
+# Opiniones de Google del concesionario. Se muestran solo con datos REALES:
+# p.ej. {"nota": 4.8, "total": 215, "url": "https://g.page/r/..."}. None = no se muestra.
+RESENAS_GOOGLE = None
+
+
+def resenas_html() -> str:
+    r = RESENAS_GOOGLE
+    if not r:
+        return ""
+    nota = f'{r["nota"]:.1f}'.replace(".", ",")
+    return (f'<a class="rd-resenas" href="{r["url"]}" target="_blank" rel="noopener">'
+            f'<span class="rd-resenas-estrellas" aria-hidden="true">★★★★★</span>'
+            f'<strong>{nota}</strong> {i18n_span("en Google", "on Google")} · {r["total"]} {i18n_span("opiniones", "reviews")} ↗</a>')
+
+
+def bajada_reciente(car: dict, hist: dict, dias: int = 30):
+    """(importe, 'dd/mm') de la última bajada de precio si fue en los últimos `dias` días."""
+    from datetime import date, timedelta
+    regs = sorted(hist.get(id_estable_coche(car)) or [], key=lambda r: r["fecha"])
+    for i in range(len(regs) - 1, 0, -1):
+        if regs[i]["precio"] != regs[i - 1]["precio"]:
+            if regs[i]["precio"] < regs[i - 1]["precio"] and regs[i]["fecha"] >= (date.today() - timedelta(days=dias)).isoformat():
+                a, m, d = regs[i]["fecha"].split("-")
+                return regs[i - 1]["precio"] - regs[i]["precio"], f"{d}/{m}"
+            return None
+    return None
+
+
+def datos_clave_html(car: dict) -> str:
+    """Fila con lo primero que mira el comprador, justo debajo del precio."""
+    items = [
+        (ICO_KM, i18n_span("Kilómetros", "Mileage"), f'{car["km"]} km' if car.get("km") else ""),
+        (ICO_FECHA, i18n_span("Matriculación", "Registered"), car.get("fecha", "")),
+        (ICO_COMB, i18n_span("Combustible", "Fuel"),
+         i18n_span(car["combustible"], COMBUSTIBLE_EN.get(car["combustible"], car["combustible"])) if car.get("combustible") else ""),
+        (ICO_CAMBIO, i18n_span("Cambio", "Gearbox"),
+         i18n_span(car["cambio"], CAMBIO_EN.get(car["cambio"], car["cambio"])) if car.get("cambio") else ""),
+        (ICO_POT, i18n_span("Potencia", "Power"), potencia_cv(car)),
+    ]
+    celdas = "".join(f'<div class="rd-clave">{ico}<span class="lbl">{lbl}</span><span class="val">{val}</span></div>'
+                     for ico, lbl, val in items if val)
+    return f'<div class="rd-claves">{celdas}</div>'
+
+
+def similares_html(car: dict, todos: list, fotos_por: dict, excluir: set, maximo: int = 4) -> str:
+    """«También te puede interesar»: mismo modelo primero y luego precio parecido
+    (±3.000 €), solo disponibles. Para que la ficha no termine sin salida."""
+    precio = _num(car.get("precio"))
+    disp = [c for c in todos if c is not car and c.get("estado") == "Disponible"
+            and c["n"] not in excluir and fotos_por.get(c["n"])]
+    dist = lambda c: abs(_num(c.get("precio")) - precio)
+    mismo = sorted((c for c in disp if c["modelo"] == car["modelo"]), key=dist)
+    cerca = sorted((c for c in disp if c["modelo"] != car["modelo"] and dist(c) <= 3000), key=dist)
+    lista = (mismo + cerca)[:maximo]
+    if not lista:
+        return ""
+    tarjetas = "".join(f'''<a class="rd-sim" href="{archivo_ficha(c)}">
+      <img src="{miniatura_web(fotos_por[c["n"]][0])}" alt="{c["modelo"]}" loading="lazy">
+      <span class="rd-sim-mod">{c["modelo"]}</span>
+      <span class="rd-sim-ver">{c["version"]}</span>
+      <span class="rd-sim-dat">{c.get("km", "")} km · {c.get("fecha", "")}</span>
+      <span class="rd-sim-pre">{c["precio"]} €</span>
+    </a>''' for c in lista)
+    return f'''<section class="rd-section rd-similares">
+    <h3>{i18n_span("También te puede interesar", "You may also like")}</h3>
+    <div class="rd-sim-grid">{tarjetas}</div>
+    <a class="rd-sim-todos" href="../index.html">{i18n_span("Ver todos los coches →", "See all cars →")}</a>
+  </section>'''
+
+
 def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
-                     ficha: "dict | None" = None) -> str:
+                     ficha: "dict | None" = None, similares: str = "") -> str:
     n = car["n"]
     slug = slug_coche(car["modelo"])
     vendido = car["estado"] == "Retirado"
@@ -2004,6 +2074,14 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
     <div class="equip-grid" id="m-equip"></div>
   </div>'''
 
+    from urllib.parse import quote
+    url_ficha = f'{datos["dominio_pagina"]}/coches/{archivo_ficha(car)}'
+    wa_disponible = ("https://wa.me/" + datos["telefono_wa"] + "?text=" +
+                     quote(f'Hola {datos["nombre_corto"]}, ¿sigue disponible el {car["modelo"]} {car["version"]} de {car["precio"]} €? {url_ficha}'))
+    bajada = None if vendido else bajada_reciente(car, _cargar_historial_precios())
+    bajada_html = (f'<div class="rd-bajada">↓ {i18n_span("Bajado", "Reduced")} {f"{bajada[0]:,}".replace(",", ".")} € '
+                   f'{i18n_span("el", "on")} {bajada[1]}</div>') if bajada else ""
+
     og_image_tag = (f'<meta property="og:image" content="{datos["dominio_pagina"]}{foto_principal_root}">'
                      if foto_principal_root else '')
 
@@ -2061,11 +2139,15 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
       <div class="modelo" id="m-modelo"></div>
       <div class="version" id="m-version"></div>
       <div class="estado" id="m-estado-pill"></div>
+      <button type="button" class="rd-fav-ficha" id="rd-fav-ficha" aria-pressed="false">{ICO_CORAZON}<span>{i18n_span("Guardar", "Save")}</span></button>
     </div>
     <div class="precio-block">
       <div class="precio" id="m-precio"></div>
+      {bajada_html}
     </div>
   </div>
+  {"" if vendido else datos_clave_html(car)}
+  {resenas_html()}
 
   {bloque_datos}
 
@@ -2100,6 +2182,8 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 {CAIXA_HTML_INTERIOR}
   </div>
 
+  {similares}
+
   {bloque_final}
 
   <div class="rd-footnote">
@@ -2112,8 +2196,14 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
   <a class="rd-btn rd-btn-secondary" href="../index.html">{i18n_span("Ver disponibles", "See available")}</a>
 </div>
 <div class="rd-sticky-mobile" id="m-sticky-financiacion">
-  <div class="precio" id="m-precio-sticky"></div>
-  <a class="rd-btn rd-btn-primary" href="#rd-fin-ejemplo">{i18n_span("Ver financiación", "View financing")}</a>
+  <div class="rd-sticky-precio">
+    <div class="precio" id="m-precio-sticky"></div>
+    <a class="rd-sticky-fin" href="#rd-fin-ejemplo">{i18n_span("Ver financiación", "View financing")}</a>
+  </div>
+  <a class="rd-btn rd-btn-wa" href="{wa_disponible}" target="_blank" rel="noopener">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8.2 8.2 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.5 13.5 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.8a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.1-.3-.2-.7-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm0-21.6A11.8 11.8 0 0 0 1.9 18L.2 24l6.2-1.6A11.8 11.8 0 1 0 12 .2z"/></svg>
+    {i18n_span("¿Sigue disponible?", "Still available?")}
+  </a>
 </div>
 
 <script>
@@ -2128,6 +2218,19 @@ window.rdAlCambiarIdioma = function() {{ cargarFicha(COCHE); }};
 </script>
 <script src="{ASSET_ENVIAR}"></script>
 <script src="{ASSET_REBAJAS}"></script>
+<script>
+(function() {{
+  const b = document.getElementById('rd-fav-ficha'); if (!b) return;
+  let favs = []; try {{ favs = JSON.parse(localStorage.getItem('rd_favs') || '[]'); }} catch (e) {{}}
+  const pinta = () => {{ const on = favs.includes(COCHE.id); b.classList.toggle('activo', on); b.setAttribute('aria-pressed', on); }};
+  b.addEventListener('click', () => {{
+    favs = favs.includes(COCHE.id) ? favs.filter(x => x !== COCHE.id) : favs.concat(COCHE.id);
+    try {{ localStorage.setItem('rd_favs', JSON.stringify(favs)); }} catch (e) {{}}
+    pinta(); b.classList.remove('latido'); void b.offsetWidth; b.classList.add('latido');
+  }});
+  pinta();
+}})();
+</script>
 {footer_whatsapp_html(perfil)}
 {goatcounter_script_html()}
 </body>
@@ -2194,6 +2297,42 @@ def escribir_sitemap_y_robots(coches: list[dict]) -> None:
         f"\nSitemap: {DOMINIO_BASE}/sitemap.xml\n", encoding="utf-8")
     print(f"  🗺️  sitemap.xml: {len(urls)} páginas")
 
+# Iconos sobrios (trazo) para las tarjetas y la ficha — sustituyen a los emojis.
+def _ico(path: str) -> str:
+    return (f'<svg class="rd-ico" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" '
+            f'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{path}</svg>')
+ICO_COMB   = _ico('<path d="M3 22h12M4 9h10M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0V9.83a2 2 0 0 0-.59-1.42L18 5"/>')
+ICO_KM     = _ico('<path d="M12 14l4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>')
+ICO_FECHA  = _ico('<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>')
+ICO_CAMBIO = _ico('<circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v8M12 8v8M18 8v4H6"/>')
+ICO_POT    = _ico('<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>')
+ICO_FOTO   = _ico('<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>')
+ICO_CORAZON = ('<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" '
+               'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>')
+
+
+def grupo_combustible(comb: str) -> str:
+    """Grupo para el filtro: gasolina · diesel · hibrido · electrico."""
+    c = (comb or "").lower()
+    if "eléctr" in c or "electr" in c: return "electrico"
+    if "híbr" in c or "hibr" in c or "hybrid" in c: return "hibrido"
+    if "diés" in c or "dies" in c: return "diesel"
+    return "gasolina"
+
+
+def anio_coche(car: dict) -> int:
+    try:
+        return int(str(car.get("fecha", "")).split("/")[-1])
+    except ValueError:
+        return 0
+
+
+def potencia_cv(car: dict) -> str:
+    import re
+    m = re.search(r"\((\d{2,3})\s*CV\)", car.get("version", ""))
+    return f"{m.group(1)} CV" if m else ""
+
+
 def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte: str = "",
                     ficha: "dict | None" = None) -> str:
     n = car["n"]
@@ -2230,7 +2369,9 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte
     buscar_txt = f'{car["modelo"]} {car["version"]}'.lower()
 
     id_estable = id_estable_coche(car)
-    return f'''<a class="rd-card" href="{href}" data-n="{n}" data-id="{id_estable}" data-precio="{precio_num}" data-antes-auto="{p_ant}" data-km="{km_num}" data-estado="{estado_lbl}" data-buscar="{buscar_txt}">
+    marca = (car["modelo"].split() or [""])[0]
+    cambio_f = "automatico" if "autom" in (car.get("cambio") or "").lower() else "manual"
+    return f'''<a class="rd-card" href="{href}" data-n="{n}" data-id="{id_estable}" data-precio="{precio_num}" data-antes-auto="{p_ant}" data-km="{km_num}" data-estado="{estado_lbl}" data-buscar="{buscar_txt}" data-marca="{marca}" data-modelo="{car["modelo"]}" data-comb="{grupo_combustible(car.get("combustible", ""))}" data-cambio="{cambio_f}" data-anio="{anio_coche(car)}" data-llegada="{llegada_coche(car, hist)}">
   <div class="rd-card-media"{recorte}>
     <div class="rd-card-photos">{fotos_html}</div>
     {nav_html}
@@ -2239,16 +2380,17 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte
                            else f'<span class="rd-badge-estado {estado_cls}">' + i18n_span(estado_lbl, ESTADO_EN[estado_lbl]) + '</span>')}
     {'<div class="rd-band-reservado"><span>' + i18n_span(estado_lbl, ESTADO_EN[estado_lbl]) + '</span></div>' if reservado else ''}
     <span class="rd-badge-dgt"><img src="{DGT_URLS[dgt_txt]}" alt="Etiqueta {dgt_txt}" loading="lazy"></span>
-    {f'<span class="rd-badge-fotos">📷 {len(fotos)}</span>' if len(fotos) > 1 else ''}
+    {f'<span class="rd-badge-fotos">{ICO_FOTO}<span class="rd-fotos-n">1/{len(fotos)}</span></span>' if len(fotos) > 1 else ''}
+    <button type="button" class="rd-fav-btn" aria-pressed="false" aria-label="Guardar en favoritos" title="Guardar en favoritos">{ICO_CORAZON}</button>
   </div>
   <div class="rd-card-body">
     <div class="rd-card-modelo">{car["modelo"]}</div>
     <div class="rd-card-version">{i18n_span(car["version"], trad["version_en"])}</div>
     <div class="rd-card-pills">
-      {f'<span class="rd-pill">⛽ {i18n_span(car["combustible"], COMBUSTIBLE_EN.get(car["combustible"], car["combustible"]))}</span>' if car.get("combustible") else ''}
-      {f'<span class="rd-pill">🛣️ {car["km"]} km</span>' if car.get("km") else ''}
-      {f'<span class="rd-pill">📅 {car["fecha"]}</span>' if car.get("fecha") else ''}
-      {f'<span class="rd-pill">⚙️ {i18n_span(car["cambio"], CAMBIO_EN.get(car["cambio"], car["cambio"]))}</span>' if car.get("cambio") else ''}
+      {f'<span class="rd-pill">{ICO_COMB}{i18n_span(car["combustible"], COMBUSTIBLE_EN.get(car["combustible"], car["combustible"]))}</span>' if car.get("combustible") else ''}
+      {f'<span class="rd-pill">{ICO_KM}{car["km"]} km</span>' if car.get("km") else ''}
+      {f'<span class="rd-pill">{ICO_FECHA}{car["fecha"]}</span>' if car.get("fecha") else ''}
+      {f'<span class="rd-pill">{ICO_CAMBIO}{i18n_span(car["cambio"], CAMBIO_EN.get(car["cambio"], car["cambio"]))}</span>' if car.get("cambio") else ''}
     </div>
     {confianza_dwa.pastilla_tarjeta_html(ficha, i18n_span)}
     <div class="rd-card-price-row">
@@ -2477,6 +2619,55 @@ def orden_portada(cars: list[dict], hist: dict) -> list[dict]:
     return novedades + [c for c in cars if id(c) not in ya]
 
 
+ICO_FILTROS = ('<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" '
+               'stroke-linecap="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/>'
+               '<circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>')
+NOMBRE_COMB = {"gasolina": ("Gasolina", "Petrol"), "hibrido": ("Híbrido", "Hybrid"),
+               "electrico": ("Eléctrico", "Electric"), "diesel": ("Diésel", "Diesel")}
+
+
+def filtros_panel_html(visibles: list[dict]) -> str:
+    """Panel de filtros del catálogo (marca, precio, km, año, combustible, cambio).
+    Las opciones salen de los coches publicados; el filtrado lo hace el script de
+    la portada sobre los data-* de cada tarjeta."""
+    from collections import Counter
+    marcas = Counter((c["modelo"].split() or [""])[0] for c in visibles)
+    opts_marca = "".join(f'<option value="{m}">{m} ({n})</option>' for m, n in sorted(marcas.items()))
+    precios = [_num(c.get("precio")) for c in visibles]
+    pasos_p = [p for p in (12000, 15000, 18000, 20000, 22000, 25000, 30000, 35000, 40000)
+               if min(precios, default=0) < p < max(precios, default=0) + 1]
+    opts_precio = "".join(f'<option value="{p}">{p:,} €</option>'.replace(",", ".") for p in pasos_p)
+    opts_km = "".join(f'<option value="{k}">{k:,} km</option>'.replace(",", ".") for k in (10000, 25000, 50000, 75000, 100000))
+    anios = sorted({anio_coche(c) for c in visibles if anio_coche(c)}, reverse=True)
+    opts_anio = "".join(f'<option value="{a}">{a}</option>' for a in anios[1:])
+    combs = Counter(grupo_combustible(c.get("combustible", "")) for c in visibles)
+    chips_comb = "".join(
+        f'<button type="button" class="rd-f-chip" data-v="{k}">{i18n_span(*NOMBRE_COMB[k])} <small>{combs[k]}</small></button>'
+        for k in ("gasolina", "hibrido", "electrico", "diesel") if combs.get(k))
+    cambios = Counter("automatico" if "autom" in (c.get("cambio") or "").lower() else "manual" for c in visibles)
+    chips_cambio = "".join(
+        f'<button type="button" class="rd-f-chip" data-v="{k}">{i18n_span(es, en)} <small>{cambios[k]}</small></button>'
+        for k, es, en in (("manual", "Manual", "Manual"), ("automatico", "Automático", "Automatic")) if cambios.get(k))
+    todas = '<option value="" class="rd-i18n" data-es="Todas" data-en="All" data-de="Alle">Todas</option>'
+    sin = '<option value="" class="rd-i18n" data-es="Sin límite" data-en="No limit" data-de="Ohne Limit">Sin límite</option>'
+    return f'''<div class="rd-filtros-velo" id="rd-filtros-velo" hidden></div>
+<div class="rd-filtros-panel" id="rd-filtros-panel" hidden role="dialog" aria-modal="true" aria-label="Filtros">
+  <div class="rd-filtros-cab"><strong>{i18n_span("Filtros", "Filters")}</strong><button type="button" class="rd-filtros-x" id="rd-filtros-cerrar" aria-label="Cerrar">✕</button></div>
+  <div class="rd-filtros-cuerpo">
+    <label class="rd-f"><span>{i18n_span("Marca", "Make")}</span><select id="f-marca">{todas}{opts_marca}</select></label>
+    <label class="rd-f"><span>{i18n_span("Precio hasta", "Max price")}</span><select id="f-precio">{sin}{opts_precio}</select></label>
+    <label class="rd-f"><span>{i18n_span("Kilómetros hasta", "Max mileage")}</span><select id="f-km">{sin}{opts_km}</select></label>
+    <label class="rd-f"><span>{i18n_span("Año desde", "Year from")}</span><select id="f-anio">{todas}{opts_anio}</select></label>
+    <div class="rd-f rd-f-ancho"><span>{i18n_span("Combustible", "Fuel")}</span><div class="rd-f-chips" data-grupo="comb">{chips_comb}</div></div>
+    <div class="rd-f rd-f-ancho"><span>{i18n_span("Cambio", "Gearbox")}</span><div class="rd-f-chips" data-grupo="cambio">{chips_cambio}</div></div>
+  </div>
+  <div class="rd-filtros-pie">
+    <button type="button" class="rd-filtros-borrar" id="rd-filtros-borrar">{i18n_span("Borrar filtros", "Clear filters")}</button>
+    <button type="button" class="rd-filtros-ver" id="rd-filtros-ver">{i18n_span("Ver", "Show")} <span id="rd-filtros-ver-n">0</span> {i18n_span("coches", "cars")}</button>
+  </div>
+</div>'''
+
+
 def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict, traducciones: dict[int, dict]) -> str:
     hist = _cargar_historial_precios()
     cars = orden_portada(cars, hist)
@@ -2488,6 +2679,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
     # Versión por contenido (como asset()) para que el móvil no use un comparador.json viejo.
     v_cmp = hashlib.md5(COMPARADOR_JSON.read_bytes()).hexdigest()[:8] if COMPARADOR_JSON.exists() else "0"
     url_comparador = f"/comparador.json?v={v_cmp}"
+    filtros_html = filtros_panel_html(visibles)
     tarjetas = "\n".join(
         build_card_html(
             car, hist,
@@ -2542,26 +2734,33 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
   </div>
 </div>
 
+{resenas_html()}
 <div class="rd-controls" id="rd-catalogo-inicio">
+  <div class="rd-controls-top">
+    <div class="rd-search-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="rd-search-input" id="rd-search" type="search" placeholder="Buscar modelo..." data-es-placeholder="Buscar modelo..." data-en-placeholder="Search model..." data-de-placeholder="Modell suchen..." autocomplete="off">
+    </div>
+    <button type="button" class="rd-filtros-btn" id="rd-filtros-btn" aria-expanded="false" aria-controls="rd-filtros-panel">{ICO_FILTROS}{i18n_span("Filtros", "Filters")}<span class="rd-filtros-n" id="rd-filtros-n" hidden></span></button>
+    <select class="rd-sort-select" id="rd-sort" aria-label="Ordenar">
+      <option value="default" class="rd-i18n" data-es="Novedades primero" data-en="Newest arrivals first" data-de="Neuheiten zuerst">Novedades primero</option>
+      <option value="precio-asc" class="rd-i18n" data-es="Precio: menor primero" data-en="Price: lowest first" data-de="Preis: niedrigster zuerst">Precio: menor primero</option>
+      <option value="precio-desc" class="rd-i18n" data-es="Precio: mayor primero" data-en="Price: highest first" data-de="Preis: höchster zuerst">Precio: mayor primero</option>
+      <option value="km-asc" class="rd-i18n" data-es="Menos kilómetros" data-en="Lowest mileage" data-de="Wenigste Kilometer">Menos kilómetros</option>
+      <option value="anio-desc" class="rd-i18n" data-es="Más nuevo (año)" data-en="Newest (year)" data-de="Neuestes (Jahr)">Más nuevo (año)</option>
+    </select>
+  </div>
   <div class="rd-filter-tabs">
     <button class="rd-filter-btn activo" data-filter="todos">{i18n_span("Todos", "All")} ({total_disp + total_res})</button>
     <button class="rd-filter-btn" data-filter="Disponible">{i18n_span("Disponible", "Available")} ({total_disp})</button>
     <button class="rd-filter-btn" data-filter="Reservado">{i18n_span("Reservado", "Reserved")} ({total_res})</button>
-    <button class="rd-filter-btn rd-filter-oferta" data-filter="oferta" hidden>🔥 {i18n_span("Ofertas", "Deals")} (<span id="rd-cnt-oferta">0</span>)</button>
+    <button class="rd-filter-btn rd-filter-oferta" data-filter="oferta" hidden>{i18n_span("Ofertas", "Deals")} (<span id="rd-cnt-oferta">0</span>)</button>
+    <button class="rd-filter-btn rd-filter-fav" data-filter="fav" hidden>♥ {i18n_span("Favoritos", "Saved")} (<span id="rd-cnt-fav">0</span>)</button>
   </div>
-  <div class="rd-search-wrap">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input class="rd-search-input" id="rd-search" type="text" placeholder="Buscar modelo..." data-es-placeholder="Buscar modelo..." data-en-placeholder="Search model..." data-de-placeholder="Modell suchen..." autocomplete="off">
-  </div>
-  <select class="rd-sort-select" id="rd-sort">
-    <option value="default" class="rd-i18n" data-es="Ordenar" data-en="Sort by" data-de="Sortieren">Ordenar</option>
-    <option value="precio-asc" class="rd-i18n" data-es="Precio ↑ menor primero" data-en="Price ↑ lowest first" data-de="Preis ↑ niedrigster zuerst">Precio ↑ menor primero</option>
-    <option value="precio-desc" class="rd-i18n" data-es="Precio ↓ mayor primero" data-en="Price ↓ highest first" data-de="Preis ↓ höchster zuerst">Precio ↓ mayor primero</option>
-    <option value="km-asc" class="rd-i18n" data-es="Km ↑ menos km" data-en="Mileage ↑ lowest first" data-de="Kilometer ↑ wenigste zuerst">Km ↑ menos km</option>
-    <option value="km-desc" class="rd-i18n" data-es="Km ↓ más km" data-en="Mileage ↓ highest first" data-de="Kilometer ↓ meiste zuerst">Km ↓ más km</option>
-  </select>
+  <div class="rd-aplicados" id="rd-aplicados" hidden></div>
   <div class="rd-counter">{i18n_span("Mostrando", "Showing")} <strong id="rd-cnt">{total_disp + total_res}</strong> {i18n_span("vehículos", "vehicles")}</div>
 </div>
+{filtros_html}
 
 <div class="rd-grid" id="rd-grid">
 {tarjetas}
@@ -2599,66 +2798,177 @@ document.addEventListener('click', e => {{
     : (idx - 1 + imgs.length) % imgs.length;
   imgs.forEach((img, i) => img.classList.toggle('activa', i === idx));
   dots.forEach((d, i) => d.classList.toggle('activa', i === idx));
-  const contador = media.querySelector('.rd-badge-fotos');
-  if (contador) contador.textContent = '📷 ' + (idx + 1) + '/' + imgs.length;
+  const contador = media.querySelector('.rd-fotos-n');
+  if (contador) contador.textContent = (idx + 1) + '/' + imgs.length;
 }});
 
-// ── Buscador / filtro / orden — opera sobre las tarjetas ya generadas
-// (enlaces reales), sin re-renderizar nada por JS. ──────────────────
+// ── Buscador / filtros / orden / favoritos — opera sobre las tarjetas ya
+// generadas (enlaces reales), sin re-renderizar nada por JS. ──────────
 (function() {{
   const grid = document.getElementById('rd-grid');
   const cards = [...grid.querySelectorAll('.rd-card')];
   const cntEl = document.getElementById('rd-cnt');
   const emptyMsg = document.createElement('div');
   emptyMsg.className = 'rd-empty-state';
-  emptyMsg.innerHTML = '<div>🔍</div><p class="rd-i18n" data-es="No se encontraron vehículos." data-en="No vehicles found." data-de="Keine Fahrzeuge gefunden.">No se encontraron vehículos.</p>';
+  emptyMsg.innerHTML = '<p class="rd-i18n" data-es="No hay coches con estos filtros." data-en="No cars match these filters." data-de="Keine Fahrzeuge mit diesen Filtern.">No hay coches con estos filtros.</p><button type="button" class="rd-filtros-borrar" data-borrar-todo>Borrar filtros</button>';
 
-  let filtro = 'todos';
-  let busqueda = '';
-  let orden = 'default';
+  let filtro = 'todos', busqueda = '', orden = 'default';
+  const F = {{ marca: '', precio: 0, km: 0, anio: 0, comb: new Set(), cambio: new Set() }};
+
+  // Favoritos: se guardan en este navegador (no hace falta cuenta)
+  const FAV_KEY = 'rd_favs';
+  let favs = new Set();
+  try {{ favs = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]')); }} catch (e) {{}}
+  function guardarFavs() {{ try {{ localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); }} catch (e) {{}} }}
+  function marcarFavs(raiz) {{
+    (raiz || document).querySelectorAll('.rd-card').forEach(c => {{
+      const b = c.querySelector('.rd-fav-btn'); if (!b) return;
+      const on = favs.has(c.dataset.id);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.classList.toggle('activo', on);
+    }});
+    const vivos = cards.filter(c => favs.has(c.dataset.id)).length;
+    const fb = document.querySelector('.rd-filter-fav');
+    document.getElementById('rd-cnt-fav').textContent = vivos;
+    fb.hidden = !vivos;
+    if (!vivos && filtro === 'fav') {{ filtro = 'todos'; activarTab('todos'); }}
+  }}
+  window.rdMarcarFavs = marcarFavs;
+  document.addEventListener('click', e => {{
+    const b = e.target.closest('.rd-fav-btn');
+    if (!b) return;
+    e.preventDefault(); e.stopPropagation();
+    const id = b.closest('.rd-card').dataset.id;
+    if (favs.has(id)) favs.delete(id); else favs.add(id);
+    guardarFavs(); marcarFavs(); 
+    b.classList.remove('latido'); void b.offsetWidth; b.classList.add('latido');
+    if (filtro === 'fav') aplicar();
+  }});
 
   function norm(str) {{
     return (str || '').normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase();
   }}
-
+  function pasa(c, sin) {{
+    // `sin`: nombre del filtro a ignorar (para contar opciones)
+    if (filtro !== 'todos') {{
+      if (filtro === 'oferta' ? c.dataset.oferta !== '1'
+          : filtro === 'fav' ? !favs.has(c.dataset.id) : c.dataset.estado !== filtro) return false;
+    }}
+    if (busqueda && !norm(c.dataset.buscar).includes(norm(busqueda))) return false;
+    if (F.marca && c.dataset.marca !== F.marca) return false;
+    if (F.precio && +c.dataset.precio > F.precio) return false;
+    if (F.km && +c.dataset.km > F.km) return false;
+    if (F.anio && +c.dataset.anio < F.anio) return false;
+    if (sin !== 'comb' && F.comb.size && !F.comb.has(c.dataset.comb)) return false;
+    if (sin !== 'cambio' && F.cambio.size && !F.cambio.has(c.dataset.cambio)) return false;
+    return true;
+  }}
+  const fmt = n => String(n).replace(/\\B(?=(\\d{{3}})+(?!\\d))/g, '.');
+  const NOMBRE = {{ gasolina: 'Gasolina', hibrido: 'Híbrido', electrico: 'Eléctrico', diesel: 'Diésel', manual: 'Manual', automatico: 'Automático' }};
+  function aplicados() {{
+    const a = [];
+    if (F.marca) a.push(['marca', F.marca]);
+    if (F.precio) a.push(['precio', 'Hasta ' + fmt(F.precio) + ' €']);
+    if (F.km) a.push(['km', 'Hasta ' + fmt(F.km) + ' km']);
+    if (F.anio) a.push(['anio', 'Desde ' + F.anio]);
+    F.comb.forEach(v => a.push(['comb:' + v, NOMBRE[v]]));
+    F.cambio.forEach(v => a.push(['cambio:' + v, NOMBRE[v]]));
+    return a;
+  }}
+  function pintarAplicados() {{
+    const box = document.getElementById('rd-aplicados');
+    const a = aplicados();
+    box.hidden = !a.length;
+    box.innerHTML = a.map(([k, t]) => '<button type="button" class="rd-aplicado" data-quitar="' + k + '">' + t + ' <span aria-hidden="true">✕</span></button>').join('')
+      + (a.length > 1 ? '<button type="button" class="rd-aplicado rd-aplicado-todo" data-borrar-todo>Borrar todo</button>' : '');
+    const n = document.getElementById('rd-filtros-n');
+    n.hidden = !a.length; n.textContent = a.length;
+  }}
   function aplicar() {{
-    const q = norm(busqueda);
-    let visibles = cards.filter(c => {{
-      // "oferta" lo marca assets/rebajas.js (data-oferta) en coches con descuento
-      const matchFiltro = filtro === 'todos'
-        || (filtro === 'oferta' ? c.dataset.oferta === '1' : c.dataset.estado === filtro);
-      const matchBusqueda = !q || norm(c.dataset.buscar).includes(q);
-      return matchFiltro && matchBusqueda;
-    }});
-
+    let visibles = cards.filter(c => pasa(c));
+    const llegada = c => c.dataset.llegada || '';
     if (orden === 'precio-asc')  visibles.sort((a,b) => +a.dataset.precio - +b.dataset.precio);
     if (orden === 'precio-desc') visibles.sort((a,b) => +b.dataset.precio - +a.dataset.precio);
     if (orden === 'km-asc')      visibles.sort((a,b) => +a.dataset.km - +b.dataset.km);
-    if (orden === 'km-desc')     visibles.sort((a,b) => +b.dataset.km - +a.dataset.km);
+    if (orden === 'anio-desc')   visibles.sort((a,b) => (+b.dataset.anio - +a.dataset.anio) || (+a.dataset.km - +b.dataset.km));
+    if (orden === 'default')     visibles.sort((a,b) => cards.indexOf(a) - cards.indexOf(b));
 
     cards.forEach(c => c.style.display = 'none');
     visibles.forEach(c => {{ c.style.display = ''; grid.appendChild(c); }});
-
     if (emptyMsg.parentNode) emptyMsg.remove();
     if (!visibles.length) {{
       grid.appendChild(emptyMsg);
       if (window.rdAplicarIdioma) window.rdAplicarIdioma(window.rdIdiomaActual());
     }}
-
     cntEl.textContent = visibles.length;
+    document.getElementById('rd-filtros-ver-n').textContent = visibles.length;
+    // Recuento por opción (con el resto de filtros aplicados)
+    document.querySelectorAll('.rd-f-chips').forEach(g => {{
+      const grupo = g.dataset.grupo;
+      g.querySelectorAll('.rd-f-chip').forEach(ch => {{
+        const n = cards.filter(c => pasa(c, grupo) && c.dataset[grupo] === ch.dataset.v).length;
+        ch.querySelector('small').textContent = n;
+        ch.classList.toggle('vacio', !n && !F[grupo].has(ch.dataset.v));
+      }});
+    }});
+    pintarAplicados();
     if (window.rdColocarBanners) window.rdColocarBanners();   // assets/confianza.js
   }}
 
+  function activarTab(f) {{
+    document.querySelectorAll('.rd-filter-btn').forEach(b => b.classList.toggle('activo', b.dataset.filter === f));
+  }}
   document.querySelectorAll('.rd-filter-btn').forEach(btn => {{
-    btn.addEventListener('click', () => {{
-      document.querySelectorAll('.rd-filter-btn').forEach(b => b.classList.remove('activo'));
-      btn.classList.add('activo');
-      filtro = btn.dataset.filter;
-      aplicar();
-    }});
+    btn.addEventListener('click', () => {{ filtro = btn.dataset.filter; activarTab(filtro); aplicar(); }});
   }});
   document.getElementById('rd-search').addEventListener('input', e => {{ busqueda = e.target.value; aplicar(); }});
   document.getElementById('rd-sort').addEventListener('change', e => {{ orden = e.target.value; aplicar(); }});
+
+  // Panel de filtros (hoja inferior en el móvil, ventana en el ordenador)
+  const panel = document.getElementById('rd-filtros-panel');
+  const velo = document.getElementById('rd-filtros-velo');
+  const btnF = document.getElementById('rd-filtros-btn');
+  function abrir(si) {{
+    panel.hidden = velo.hidden = !si;
+    btnF.setAttribute('aria-expanded', si ? 'true' : 'false');
+    document.documentElement.classList.toggle('rd-sin-scroll', si);
+  }}
+  btnF.addEventListener('click', () => abrir(true));
+  velo.addEventListener('click', () => abrir(false));
+  document.getElementById('rd-filtros-cerrar').addEventListener('click', () => abrir(false));
+  document.getElementById('rd-filtros-ver').addEventListener('click', () => {{
+    abrir(false);
+    document.getElementById('rd-catalogo-inicio').scrollIntoView({{ behavior: 'smooth' }});
+  }});
+  document.addEventListener('keydown', e => {{ if (e.key === 'Escape' && !panel.hidden) abrir(false); }});
+  const sel = (id, k) => document.getElementById(id).addEventListener('change', e => {{ F[k] = k === 'marca' ? e.target.value : +e.target.value || 0; aplicar(); }});
+  sel('f-marca', 'marca'); sel('f-precio', 'precio'); sel('f-km', 'km'); sel('f-anio', 'anio');
+  document.querySelectorAll('.rd-f-chips').forEach(g => g.addEventListener('click', e => {{
+    const ch = e.target.closest('.rd-f-chip'); if (!ch) return;
+    const set = F[g.dataset.grupo], v = ch.dataset.v;
+    if (set.has(v)) set.delete(v); else set.add(v);
+    ch.classList.toggle('activo', set.has(v));
+    aplicar();
+  }}));
+  function borrar(k) {{
+    const [tipo, v] = k.split(':');
+    if (v) {{ F[tipo].delete(v); document.querySelector('.rd-f-chips[data-grupo="' + tipo + '"] .rd-f-chip[data-v="' + v + '"]').classList.remove('activo'); return; }}
+    F[tipo] = tipo === 'marca' ? '' : 0;
+    document.getElementById('f-' + tipo).value = '';
+  }}
+  document.addEventListener('click', e => {{
+    const q = e.target.closest('[data-quitar]');
+    if (q) {{ borrar(q.dataset.quitar); aplicar(); return; }}
+    if (e.target.closest('[data-borrar-todo]') || e.target.closest('#rd-filtros-borrar')) {{
+      ['marca', 'precio', 'km', 'anio'].forEach(k => borrar(k));
+      [...F.comb].forEach(v => borrar('comb:' + v)); [...F.cambio].forEach(v => borrar('cambio:' + v));
+      busqueda = ''; document.getElementById('rd-search').value = '';
+      aplicar();
+    }}
+  }});
+
+  marcarFavs();
+  aplicar();
   window.rdAplicarFiltros = aplicar; // rebajas.js lo llama al cargar las rebajas manuales
 }})();
 
@@ -2701,6 +3011,7 @@ document.addEventListener('click', e => {{
       if (window.rdActivarPopout) featured.forEach(c => window.rdActivarPopout(c.querySelector('.rd-card-media')));
       document.querySelector('.rd-controls').insertAdjacentElement('beforebegin', strip);
       if (window.rdAplicarRebajas) window.rdAplicarRebajas();
+      if (window.rdMarcarFavs) window.rdMarcarFavs(strip);
     }});
 }})();
 
@@ -2719,19 +3030,19 @@ document.addEventListener('click', e => {{
 
 // ── Hover: recorre las fotos exteriores de la tarjeta (flechas ‹ › y
 // dots ya existían; acá se suma pasar el mouse) + contador "pos/total"
-// reutilizando la insignia "📷 N" que antes mostraba solo el total. ──
+// reutilizando la insignia de fotos (icono + "N/total"). ──
 // Es una función (y no un forEach suelto) porque la franja de Destacados
 // clona tarjetas DESPUÉS de esto, y cloneNode no copia los listeners.
 window.rdActivarHoverFotos = function(media) {{
   const imgs = [...media.querySelectorAll('.rd-card-photos img')];
   const dots = [...media.querySelectorAll('.rd-card-dot')];
-  const contador = media.querySelector('.rd-badge-fotos');
+  const contador = media.querySelector('.rd-fotos-n');
   const total = imgs.length;
   if (total < 2) return;
   const setZone = zone => {{
     imgs.forEach((img, i) => img.classList.toggle('activa', i === zone));
     dots.forEach((d, i) => d.classList.toggle('activa', i === zone));
-    if (contador) contador.textContent = '📷 ' + (zone + 1) + '/' + total;
+    if (contador) contador.textContent = (zone + 1) + '/' + total;
   }};
   // Solo con ratón de verdad: en el móvil, al tocar la flecha › el navegador
   // simula un "mousemove" justo donde está el dedo (borde derecho = última
@@ -3208,7 +3519,8 @@ def main():
                     continue
                 slug = slug_coche(car["modelo"])
                 html_coche = build_coche_html(car, fotos_por_coche[n], perfil, traducciones[n],
-                                              fichas.get(ficha_tecnica.clave_ficha(car)))
+                                              fichas.get(ficha_tecnica.clave_ficha(car)),
+                                              similares_html(car, todos_los_coches, fotos_por_coche, sin_foto))
                 (coches_dir / archivo_ficha(car)).write_text(html_coche, encoding="utf-8")
                 # Ya no se generan las redirecciones antiguas por número (06-cupra-formentor.html):
                 # "n" cambia y llevaban a OTRO coche del mismo modelo. Esos enlaces caen ahora en

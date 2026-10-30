@@ -85,7 +85,7 @@
     if (on) ponerBotones();
     else document.querySelectorAll('.rde-btn-enviar').forEach(b => b.remove());
     // Botón fijo "Ver financiación" del móvil: cliente → ejemplo; asesor → calculadoras
-    const sticky = document.querySelector('#m-sticky-financiacion a');
+    const sticky = document.querySelector('#m-sticky-financiacion .rd-sticky-fin');
     if (sticky) sticky.setAttribute('href', on ? '#financiera-tabs' : '#rd-fin-ejemplo');
   }
 
