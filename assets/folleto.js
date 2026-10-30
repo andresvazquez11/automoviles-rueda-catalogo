@@ -104,6 +104,21 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
 
 .fl-pie { margin-top: 2.5mm; border-top: 1.5pt solid #C8232B; padding-top: 1.5mm; display: flex; justify-content: space-between; gap: 4mm; font-size: 7pt; }
 .fl-grid + .fl-pie { margin-top: auto; }
+/* Compactación automática: si los coches no caben en las 2 caras (una hoja A4 por
+   los dos lados), maquetar() prueba estos niveles uno tras otro. */
+#rd-folleto-sheet.fl-d1 .fl-grid { grid-auto-rows: 21mm; gap: 1.6mm 2.5mm; }
+#rd-folleto-sheet.fl-d2 .fl-grid { grid-auto-rows: 19mm; gap: 1.4mm 2.2mm; }
+#rd-folleto-sheet.fl-d2 .fl-card { grid-template-columns: 21mm 1fr; }
+#rd-folleto-sheet.fl-d2 .fl-mod { font-size: 9pt; }
+#rd-folleto-sheet.fl-d2 .fl-dat { font-size: 6.8pt; }
+#rd-folleto-sheet.fl-d2 .fl-pre { font-size: 11pt; }
+#rd-folleto-sheet.fl-d3 .fl-grid, #rd-folleto-sheet.fl-d4 .fl-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 19mm; gap: 1.4mm 2mm; }
+#rd-folleto-sheet.fl-d4 .fl-grid { grid-auto-rows: 17mm; gap: 1.2mm 1.8mm; }
+#rd-folleto-sheet.fl-d3 .fl-card, #rd-folleto-sheet.fl-d4 .fl-card { grid-template-columns: 17mm 1fr; }
+#rd-folleto-sheet.fl-d3 .fl-mod, #rd-folleto-sheet.fl-d4 .fl-mod { font-size: 8pt; }
+#rd-folleto-sheet.fl-d3 .fl-ver, #rd-folleto-sheet.fl-d4 .fl-ver { font-size: 5.8pt; }
+#rd-folleto-sheet.fl-d3 .fl-dat, #rd-folleto-sheet.fl-d4 .fl-dat { font-size: 6.2pt; }
+#rd-folleto-sheet.fl-d3 .fl-pre, #rd-folleto-sheet.fl-d4 .fl-pre { font-size: 10pt; }
 `;
   function estilos() {
     if (document.getElementById('rd-folleto-css')) return;
@@ -201,7 +216,17 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
 
   // Reparto midiendo de verdad (fuera de pantalla): se meten coches en la cara
   // hasta que no caben; la última cara lleva además el cierre con el QR.
+  const NIVELES = 5;   // 0 = tamaño normal … 4 = lo más compacto (ver .fl-d1….fl-d4)
   function maquetar(hoja, qr) {
+    // Debe entrar en UNA hoja A4 por los dos lados: se compacta hasta que caben
+    // en 2 caras (si ni así, se queda con lo más compacto).
+    for (let nivel = 0; nivel < NIVELES; nivel++) {
+      hoja.className = nivel ? 'fl-d' + nivel : '';
+      maquetarNivel(hoja, qr);
+      if (hoja.children.length <= 2) return;
+    }
+  }
+  function maquetarNivel(hoja, qr) {
     const a = D.asesor || {};
     const coches = D.coches || [];
     hoja.innerHTML = '';
@@ -231,7 +256,8 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
       if (sobra(cara) && grid.children.length) {
         cara.querySelector('.fl-cierre').remove();
         // se pasa la última fila de coches a una cara nueva junto con el cierre
-        const ultimos = Array.from(grid.children).slice(-3);
+        const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length || 3;
+        const ultimos = Array.from(grid.children).slice(-cols);
         cara = nuevaCara();
         ultimos.forEach(t => cara.querySelector('.fl-grid').appendChild(t));
         cara.querySelector('.fl-pie').insertAdjacentHTML('beforebegin', cierre(a, qr));

@@ -2235,7 +2235,8 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte
     <div class="rd-card-photos">{fotos_html}</div>
     {nav_html}
     <div class="rd-card-dots">{dots_html}</div>
-    {'' if reservado else f'<span class="rd-badge-estado {estado_cls}">' + i18n_span(estado_lbl, ESTADO_EN[estado_lbl]) + '</span>'}
+    {'' if reservado else (f'<span class="rd-badge-estado novedad">' + i18n_span3("Novedad", "New arrival", "Neu eingetroffen") + '</span>' if es_novedad(car, hist)
+                           else f'<span class="rd-badge-estado {estado_cls}">' + i18n_span(estado_lbl, ESTADO_EN[estado_lbl]) + '</span>')}
     {'<div class="rd-band-reservado"><span>' + i18n_span(estado_lbl, ESTADO_EN[estado_lbl]) + '</span></div>' if reservado else ''}
     <span class="rd-badge-dgt"><img src="{DGT_URLS[dgt_txt]}" alt="Etiqueta {dgt_txt}" loading="lazy"></span>
     {f'<span class="rd-badge-fotos">📷 {len(fotos)}</span>' if len(fotos) > 1 else ''}
@@ -2361,7 +2362,7 @@ def miniatura_web(ruta_web: str) -> str:
     except Exception:
         return ruta_web
 
-DIAS_RECIEN_LLEGADO = 14
+DIAS_RECIEN_LLEGADO = 3   # novedad: llegado hace 3 días o menos; después es coche de stock
 
 def fotos_coche(c: dict, rutas: dict) -> list:
     """Fotos web de un coche. Los de MotorFlash las traen en c["fotos"] (rutas
@@ -2453,16 +2454,25 @@ def datos_folleto_json(cars: list[dict], rutas: dict, perfil: dict) -> str:
     }
     return json.dumps({"asesor": asesor, "coches": coches}, ensure_ascii=False).replace("</", "<\\/")
 
+def llegada_coche(c: dict, hist: dict) -> str:
+    """Fecha (ISO) en que el coche se vio por primera vez (historial_precios.json)."""
+    return min((r["fecha"] for r in hist.get(id_estable_coche(c)) or []), default="")
+
+
+def es_novedad(c: dict, hist: dict) -> bool:
+    """Disponible y llegado en los últimos DIAS_RECIEN_LLEGADO días."""
+    from datetime import date, timedelta
+    limite = (date.today() - timedelta(days=DIAS_RECIEN_LLEGADO)).isoformat()
+    llegada = llegada_coche(c, hist)
+    return c.get("estado") == "Disponible" and bool(llegada) and llegada >= limite
+
+
 def orden_portada(cars: list[dict], hist: dict) -> list[dict]:
     """Novedades arriba: los coches disponibles que llegaron en los últimos
     DIAS_RECIEN_LLEGADO días (primera vez vistos en historial_precios.json) van
     primero, del más reciente al más antiguo; el resto conserva su orden."""
-    from datetime import date, timedelta
-    limite = (date.today() - timedelta(days=DIAS_RECIEN_LLEGADO)).isoformat()
-    def llegada(c):
-        return min((r["fecha"] for r in hist.get(id_estable_coche(c)) or []), default="")
-    novedades = [c for c in cars if c.get("estado") == "Disponible" and llegada(c) >= limite and llegada(c)]
-    novedades.sort(key=llegada, reverse=True)   # sort estable: mismo día → orden de siempre
+    novedades = [c for c in cars if es_novedad(c, hist)]
+    novedades.sort(key=lambda c: llegada_coche(c, hist), reverse=True)   # sort estable: mismo día → orden de siempre
     ya = {id(c) for c in novedades}
     return novedades + [c for c in cars if id(c) not in ya]
 
