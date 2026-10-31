@@ -161,6 +161,22 @@
         "auto": "2026-09-26",
         "desde": 2020,
         "hasta": 2022
+      },
+      {
+        "youtube": "89DPotnPvek",
+        "titulo": "CUPRA LEÓN SPORTSTOURER / Prueba español / Review en español",
+        "medio": "Motor1 España",
+        "auto": "2026-10-31",
+        "desde": 2022,
+        "hasta": 2024
+      },
+      {
+        "youtube": "v_mZINjOdIE",
+        "titulo": "Cupra León 1.5 eTSI 150 CV",
+        "medio": "Autocasión",
+        "auto": "2026-10-31",
+        "desde": 2022,
+        "hasta": 2024
       }
     ]
   },
@@ -237,7 +253,8 @@
     "SEAT Ateca|2023": "2026-09-30",
     "CUPRA Raval|2026": "2026-10-14",
     "Kia Sportage|2022": "2026-10-15",
-    "CUPRA Born|2024": "2026-10-19"
+    "CUPRA Born|2024": "2026-10-19",
+    "CUPRA León|2023": "2026-10-31"
   },
   "Abarth 500": {
     "videos": [

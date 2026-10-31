@@ -188,5 +188,15 @@
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656639",
     "precio_anterior": 33500.0,
     "precio_nuevo": 32900.0
+  },
+  {
+    "fecha_iso": "2026-10-31T10:02:09",
+    "fecha": "31/10/2026",
+    "n": 31,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 eTSI DSG 110 kW (150 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2026-en-malaga/178075705",
+    "precio_anterior": 33500.0,
+    "precio_nuevo": 32900.0
   }
 ]
