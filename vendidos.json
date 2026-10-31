@@ -109,6 +109,16 @@
   "precio": "36.900",
   "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)"
  },
+ "cupra-leon-mf209860440": {
+  "baja": "2026-10-31",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "2023",
+  "km": "115.675",
+  "modelo": "CUPRA León",
+  "precio": "18.900",
+  "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
  "cupra-raval-203496805": {
   "baja": "2026-10-29",
   "cambio": "Automático",
