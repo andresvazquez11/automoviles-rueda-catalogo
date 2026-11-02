@@ -2683,7 +2683,7 @@
     "color": "",
     "precio": "37.900",
     "ubicacion": "Málaga",
-    "estado": "No disponible",
+    "estado": "Retirado",
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/193600528",
     "equipamiento": [
       "Asistente de salida aparcamiento y cambio carril y sistema aviso para salir del vehículo",
@@ -2721,7 +2721,8 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 37.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 36.700,00 €. Precio al contado 37.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,28%. La oferta incluye Seg. Protección Plus Ampliado por 1.727,98€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 319,25 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 24.201,43 € (calculada con 15.000 km anuales). Entrada inicial: 7.580,00 €. Comisión de apertura al contado: 922,35 €. Importe total financiado 30.847,98 €. Importe total de los intereses: 12.508,45 €. Coste total del crédito: 13.430,80 €. Precio total a plazos 50.936,43 €. Importe total adeudado: 43.356,43 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 1
+    "_intentos_desaparecido": 2,
+    "fecha_reservado": "2026-11-02"
   },
   {
     "n": 57,
@@ -2734,7 +2735,7 @@
     "color": "",
     "precio": "22.900",
     "ubicacion": "Málaga",
-    "estado": "No disponible",
+    "estado": "Retirado",
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2021-en-malaga/155656843",
     "equipamiento": [
       "Asientos de tela (material principal) y de cuero sintético (material secundario)",
@@ -2768,7 +2769,8 @@
       "tipo": "Autocredit",
       "ejemplo": "Ejemplo de cuota a 84 meses: 355,98 €. Entrada inicial: 0,00 €. Comisión de apertura al contado: 867,03 €. Importe total financiado 24.772,21 €. Importe total de los intereses: 5.130,11 €. Coste total del crédito: 5.130,11 €. Precio total a plazos 29.902,32 €. Importe total adeudado: 29.902,32 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar"
     },
-    "_intentos_desaparecido": 1
+    "_intentos_desaparecido": 2,
+    "fecha_reservado": "2026-11-02"
   },
   {
     "n": 58,
@@ -2819,7 +2821,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 27.900,00 €. Precio financiando: 27.900,00 €. Precio al contado 27.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,19%. La oferta incluye Seg. Protección Plus Ampliado por 1.299,55€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 237,05 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.133,09 € (calculada con 15.000 km anuales). Entrada inicial: 6.000,00 €. Comisión de apertura al contado: 693,67 €. Importe total financiado 23.199,55 €. Importe total de los intereses: 8.156,54 €. Coste total del crédito: 8.850,21 €. Precio total a plazos 37.356,09 €. Importe total adeudado: 31.356,09 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 3,
+    "_intentos_desaparecido": 4,
     "fecha_reservado": "2026-10-31"
   },
   {
