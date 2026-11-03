@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════════════════════
    Automóviles Rueda — Motor de calculadora de financiación (compartido)
-   Extraído de generar_web.py — condiciones VWFS Octubre 2026.
+   Extraído de generar_web.py — condiciones VWFS Noviembre 2026.
    NO modificar la lógica de cv2* / initCalc a mano: si cambian las
    condiciones, se actualiza generar_web.py y se re-ejecuta la
    extracción (Task 1 de docs/superpowers/plans/2026-08-08-fichas-individuales-fase2-generalizacion.md).
@@ -42,8 +42,8 @@ const CV2 = {
   mantAnios:     0,
   cupraTipo:     'TERMICO',   // 'TERMICO' | 'ELECTRICO'
   modelo:        '',
-  demosRema:     false,       // toggle manual — campaña especial SEAT VS DEMOS + REMA (Octubre 2026)
-  salones:       false,       // toggle manual — campaña SALONES VO (solo SEAT Arona), Octubre 2026 v2
+  demosRema:     false,       // toggle manual — campaña especial SEAT VS DEMOS + REMA (Noviembre 2026)
+  salones:       false,       // toggle manual — campaña SALONES VO (solo SEAT Arona), Noviembre 2026
   auto:          true,        // modo automático: elige la campaña VW con la cuota más baja (modo asesor)
 };
 
@@ -133,7 +133,7 @@ function cv2GetRules() {
   let creditoMinimo = 0, bonificacion = 0, tin_auto = 7.50, campanaLabel = '';
 
   if (marca === 'SEAT') {
-    // VWFS Campaña comercial SEAT VO · Octubre 2026 (págs. 2-8)
+    // VWFS Campaña comercial SEAT VO · Noviembre 2026 (págs. 2-8)
     if (campana === 'ENTRY' && categoria !== 'VU') {
       // ENTRY: TIN 7,99% (antes 7,50%), sin bonificación. LINEAL VS 48-120 / VO 48-108
       tin_auto = 7.99; bonificacion = 0; creditoMinimo = 10000; campanaLabel = 'ENTRY · SEAT';
@@ -172,7 +172,7 @@ function cv2GetRules() {
     }
   } else {
     // Campaña Otras Marcas · Octubre 2026: Básica TIN 8,25% · bonificaciones 200/400/500€
-    // Plazo 48-120 meses (documento SEAT VO Octubre 2026 del 15/10, pág. 10; antes 48-96)
+    // Plazo 48-120 meses (documento SEAT VO Noviembre 2026; CUPRA Nov también 48-120, antes 48-96)
     plazosDisp = plazosDisp.filter(p => p >= 48 && p <= 120);
     if (importeNeto >= 20000) { tin_auto = 8.99; bonificacion = 500; creditoMinimo = 20000; campanaLabel = 'TOP · Otras Marcas'; }
     else if (importeNeto >= 15000) { tin_auto = 8.99; bonificacion = 400;  creditoMinimo = 15000; campanaLabel = 'Premium · Otras Marcas'; }
@@ -180,7 +180,7 @@ function cv2GetRules() {
     else { tin_auto = 8.25; bonificacion = 0; creditoMinimo = 6000; campanaLabel = 'Básica · Otras Marcas'; }
   }
 
-  // ── Campaña especial SEAT VS DEMOS + REMA (Octubre 2026, pág. 6) ───────
+  // ── Campaña especial SEAT VS DEMOS + REMA (Noviembre 2026, pág. 6) ───────
   // Sustituye a la campaña Arona Buy Back/REMA (ya no existe). Toda la gama SEAT,
   // solo VS, activación manual (no se puede saber desde el anuncio si el coche
   // es demo o REMA). FLEX 36-60m TIN 7,99% + 950€ · LINEAL 48-120m TIN 5,99%.
@@ -195,7 +195,7 @@ function cv2GetRules() {
     campanaLabel = 'DEMOS + REMA · SEAT VS';
   }
 
-  // ── Campaña SALONES VO (ARONA) · SEAT VO Octubre 2026 (págs. 4 y 9) ────────
+  // ── Campaña SALONES VO (ARONA) · SEAT VO Noviembre 2026 (págs. 4 y 9, oficial desde Noviembre) ────────
   // Solo SEAT Arona, activación manual. Con «ENTRY» seleccionado aplica SALONES TIN
   // BAJO (VS+VO) y con «GAMA», SALONES GAMA con bonificación. Bonificación según plazo.
   if (CV2.salones && marca === 'SEAT' && /arona/i.test(CV2.modelo || '')) {
@@ -204,15 +204,16 @@ function cv2GetRules() {
     if (campana === 'ENTRY' && categoria !== 'VU') {
       tin_auto = 7.99; campanaLabel = 'SALONES TIN BAJO · Arona';
       if (producto === 'FLEX') { creditoMinimo = 12000; bonificacion = 1000; plazosDisp = porAntig.filter(p => p >= 36 && p <= 60); }
-      else { creditoMinimo = 13500; bonificacion = m >= 60 ? 1000 : 500; plazosDisp = porAntig.filter(p => p >= 48 && p <= 120); }
+      else { creditoMinimo = 12000; bonificacion = m >= 60 ? 1000 : 500; plazosDisp = porAntig.filter(p => p >= 48 && p <= 120); }
     } else {
       tin_auto = 8.99; campanaLabel = 'SALONES GAMA · Arona' + (categoria ? ' · ' + categoria : '');
       if (producto === 'FLEX') {
         plazosDisp = porAntig.filter(p => p >= 36 && p <= 60);
-        if (categoria === 'VO') { creditoMinimo = 12000; bonificacion = m >= 60 ? 1500 : 1000; }
-        else { creditoMinimo = 13500; bonificacion = m >= 60 ? 2000 : m >= 48 ? 1750 : 1000; }
+        creditoMinimo = 13500;
+        if (categoria === 'VO') { bonificacion = m >= 60 ? 1500 : 1000; }
+        else { bonificacion = m >= 60 ? 2000 : m >= 48 ? 1750 : 1000; }
       } else {
-        creditoMinimo = 13500; bonificacion = m >= 84 ? 2000 : 1000;
+        creditoMinimo = categoria === 'VO' ? 12000 : 13500; bonificacion = m >= 84 ? 2000 : 1000;
         plazosDisp = porAntig.filter(p => p >= 60 && p <= 120);
       }
     }
@@ -223,7 +224,7 @@ function cv2GetRules() {
   return { tinFinal, tin_auto, bonificacion, creditoMinimo, campanaLabel, plazosDisp, categoria, antigMeses, codigo };
 }
 
-// ── Claves de campaña VWFS (Octubre 2026) ─────────────────────────────────────
+// ── Claves de campaña VWFS (Noviembre 2026) ─────────────────────────────────────
 // Las pide la web de la financiera al dar de alta la operación. Solo se muestran
 // en modo asesor. SEAT VO págs. 6-10 · CUPRA VO págs. 4-6. En las parejas de
 // SALONES TIN BAJO («AYRI / AYRE») la primera es VS y la segunda VO.

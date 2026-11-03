@@ -1515,7 +1515,7 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
           <div class="cv2-camp-auto" id="cv2-otra-label">Automático según importe financiado</div>
         </div>
 
-        <!-- Campaña especial SEAT VS DEMOS + REMA (Octubre 2026; sustituye a Arona BB/REMA).
+        <!-- Campaña especial SEAT VS DEMOS + REMA (Noviembre 2026; sustituye a Arona BB/REMA).
              Visible solo en SEAT VS, activación manual -->
         <div class="cv2-arona-wrap" id="cv2-arona-wrap">
           <button class="cv2-arona-btn" id="cv2-arona-btn" onclick="cv2ToggleDemosRema()">
@@ -1523,7 +1523,7 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
           </button>
           <span class="cv2-arona-lbl" id="cv2-arona-lbl">solo si el coche es demo o REMA</span>
         </div>
-        <!-- Campaña SALONES VO (Octubre 2026): solo SEAT Arona, activación manual -->
+        <!-- Campaña SALONES VO (Noviembre 2026): solo SEAT Arona, activación manual -->
         <div class="cv2-arona-wrap" id="cv2-salones-wrap">
           <button class="cv2-arona-btn" id="cv2-salones-btn" onclick="cv2ToggleSalones()">
             ⬡ SALONES · ARONA
