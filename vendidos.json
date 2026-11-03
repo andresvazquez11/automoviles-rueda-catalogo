@@ -489,6 +489,16 @@
   "precio": "22.700",
   "version": "2.0 TDI S&S Style XS 85 kW (116 CV)"
  },
+ "seat-leon-173779507": {
+  "baja": "2026-11-03",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "06/2026",
+  "km": "50",
+  "modelo": "SEAT León",
+  "precio": "27.900",
+  "version": "ST 1.5 TSI S&S FR Special Edition 110 kW (150 CV)"
+ },
  "seat-leon-195025777": {
   "baja": "2026-09-29",
   "cambio": "Automático",
