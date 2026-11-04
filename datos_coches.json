@@ -107,7 +107,7 @@
     "km": "800",
     "fecha": "08/2026",
     "cambio": "Manual",
-    "color": "Blanco",
+    "color": "",
     "precio": "20.900",
     "ubicacion": "Málaga",
     "estado": "No disponible",
@@ -135,7 +135,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 20.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 20.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 20.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "177.38",
@@ -2722,7 +2721,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 37.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 36.700,00 €. Precio al contado 37.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,28%. La oferta incluye Seg. Protección Plus Ampliado por 1.727,98€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 319,25 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 24.201,43 € (calculada con 15.000 km anuales). Entrada inicial: 7.580,00 €. Comisión de apertura al contado: 922,35 €. Importe total financiado 30.847,98 €. Importe total de los intereses: 12.508,45 €. Coste total del crédito: 13.430,80 €. Precio total a plazos 50.936,43 €. Importe total adeudado: 43.356,43 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 6,
+    "_intentos_desaparecido": 7,
     "fecha_reservado": "2026-11-02"
   },
   {
@@ -2770,7 +2769,7 @@
       "tipo": "Autocredit",
       "ejemplo": "Ejemplo de cuota a 84 meses: 355,98 €. Entrada inicial: 0,00 €. Comisión de apertura al contado: 867,03 €. Importe total financiado 24.772,21 €. Importe total de los intereses: 5.130,11 €. Coste total del crédito: 5.130,11 €. Precio total a plazos 29.902,32 €. Importe total adeudado: 29.902,32 €. Sistema de amortización francés. Incompatible con otras ofertas financieras. Consulta condiciones en tu concesionario Cupra. Cerrar"
     },
-    "_intentos_desaparecido": 6,
+    "_intentos_desaparecido": 7,
     "fecha_reservado": "2026-11-02"
   },
   {
