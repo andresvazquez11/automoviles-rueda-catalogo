@@ -46,7 +46,7 @@
     "km": "13.430",
     "fecha": "03/2026",
     "cambio": "Automático",
-    "color": "Gris",
+    "color": "",
     "precio": "22.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -74,7 +74,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT León - 22.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT León - 22.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT León - 22.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "162.10",
@@ -875,7 +874,7 @@
     "km": "10.831",
     "fecha": "02/2026",
     "cambio": "Automático",
-    "color": "Gris",
+    "color": "",
     "precio": "22.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -903,7 +902,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT León - 22.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT León - 22.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT León - 22.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "161.21",

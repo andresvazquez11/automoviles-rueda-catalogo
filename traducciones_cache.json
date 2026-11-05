@@ -1985,6 +1985,22 @@
     ],
     "version_en": "1.0 TSI S&S Style 85 kW (115 hp)"
   },
+  "7a71df96b29e9fd7": {
+    "color_en": "",
+    "equipamiento_en": [
+      "\"Keyless Advanced\" keyless entry and start system without safelock",
+      "Lane Keeping Assist",
+      "Independent climate control settings for driver/passenger and front/rear seats",
+      "Tri-zone automatic climate control with rear controls",
+      "Front, rear, and side parking sensors with rear view camera",
+      "Top speed: 217 km/h",
+      "Multifunction leather sports steering wheel with Tiptronic",
+      "Evasion assist with turn assist",
+      "Speed limiter system",
+      "Park Assist system"
+    ],
+    "version_en": "1.5 eTSI S&S Style Special Edition DSG 110 kW (150 HP)"
+  },
   "7ae096a2819e3c22": {
     "color_en": "Blue",
     "equipamiento_en": [
@@ -2637,6 +2653,22 @@
       "Traction control"
     ],
     "version_en": "1.0 TSI S&S FR 85 kW (115 hp)"
+  },
+  "9c256820052e4bfa": {
+    "color_en": "",
+    "equipamiento_en": [
+      "\"Keyless Advanced\" keyless entry and start system without safelock",
+      "Lane Keeping Assist",
+      "Independent climate controls for driver/passenger and front/rear seats",
+      "Tri-zone automatic climate control with rear controls",
+      "Front, rear, and side parking distance sensors with rear camera",
+      "Top speed: 217 km/h",
+      "Multifunction leather sports steering wheel with Tiptronic",
+      "Speed limiter system",
+      "Park Assist system",
+      "16\" 7J light alloy wheels"
+    ],
+    "version_en": "1.5 eTSI S&S Style Special Edition DSG 110 kW (150 HP)"
   },
   "9c3b188277659338": {
     "color_en": "Black",
