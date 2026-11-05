@@ -780,6 +780,54 @@ def asset(nombre: str) -> str:
     v = hashlib.md5(ruta.read_bytes()).hexdigest()[:8] if ruta.exists() else "0"
     return f"/assets/{nombre}?v={v}"
 
+# Identificador de ESTA generación de la web. Se publica en /version.json y va
+# dentro del index: si un ordenador se quedó con una portada vieja (pestaña abierta
+# días, caché del navegador), el script de abajo lo detecta y recarga solo.
+BUILD_ID = datetime.now(ZoneInfo("Europe/Madrid")).strftime("%Y%m%d%H%M%S")
+
+def _hash_foto(ruta_web: str) -> str:
+    f = BASE_DIR / ruta_web.lstrip("/")
+    try:
+        return hashlib.md5(f.read_bytes()).hexdigest()[:8]
+    except OSError:
+        return ""
+
+def versionar_fotos(texto: str) -> str:
+    """Añade ?v=<hash del contenido> a cada /web_fotos/…jpg|png|webp del texto.
+    Las carpetas web_fotos/NN se reutilizan: cuando un coche sale, su número lo
+    ocupa otro y la MISMA URL pasa a tener OTRA foto; los navegadores (y GitHub
+    Pages, 10 min) seguían enseñando la foto vieja → fotos "confundidas".
+    Con el hash en la URL, foto distinta = URL distinta."""
+    import re
+    cache: dict[str, str] = {}
+    def _sub(m):
+        ruta = m.group(1)
+        if ruta not in cache:
+            h = _hash_foto(ruta)
+            cache[ruta] = f"{ruta}?v={h}" if h else ruta
+        return cache[ruta]
+    return re.sub(r'(?<![\w/.])(/?web_fotos/[^"\'\s?)<>\\,]+?\.(?:jpe?g|png|webp))(?=["\'\s)<>\\,])', _sub, texto)
+
+SCRIPT_VERSION_WEB = """<script>
+// Si este ordenador tiene una portada vieja, se recarga sola (una vez por versión).
+(function () {
+  var BUILD = "__BUILD__";
+  function comprobar() {
+    fetch('/version.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j || !j.build || j.build === BUILD) return;
+        var k = 'rd_recarga_' + j.build;
+        try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { return; }
+        location.reload();
+      })
+      .catch(function () {});
+  }
+  comprobar();
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) comprobar(); });
+})();
+</script>""".replace("__BUILD__", BUILD_ID)
+
 ASSET_ESTILOS     = asset("estilos.css")
 ASSET_IDIOMA      = asset("idioma.js")
 ASSET_CALCULADORA = asset("calculadora.js")
@@ -2504,6 +2552,7 @@ def miniatura_web(ruta_web: str) -> str:
     except Exception:
         return ruta_web
 
+DIAS_ROTACION_DESTACADOS = 1   # los destacados automáticos cambian cada N días
 DIAS_RECIEN_LLEGADO = 3   # novedad: llegado hace 3 días o menos; después es coche de stock
 
 def fotos_coche(c: dict, rutas: dict) -> list:
@@ -2559,6 +2608,15 @@ def destacados_automaticos(cars: list[dict], rutas: dict, hist: dict, maximo: in
     rebajados.sort(key=lambda x: x[0])
     nuevos.sort(key=lambda x: x[0], reverse=True)
     resto.sort(key=lambda x: x[0])
+    # ROTACIÓN DIARIA: antes el orden era fijo (mayor rebaja, matrícula más reciente…)
+    # y salían SIEMPRE los mismos coches. Ahora cada tipo se baraja con una semilla
+    # que cambia cada DIAS_ROTACION_DESTACADOS días (las dos actualizaciones del
+    # mismo día dan el mismo resultado). Se mantiene la prioridad: rebajados →
+    # recién llegados → resto, pero dentro de cada grupo va cambiando.
+    import random
+    periodo = date.today().toordinal() // DIAS_ROTACION_DESTACADOS
+    for grupo in (rebajados, nuevos, resto):
+        random.Random(f"destacados-{periodo}").shuffle(grupo)
     candidatos = rebajados + nuevos + resto
 
     elegidos, modelos = [], set()
@@ -3139,6 +3197,7 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
 <script src="{ASSET_ENVIAR}"></script>
 {footer_whatsapp_html(perfil, accesos_ocultos=(perfil["id"] == "andres"))}
 {goatcounter_script_html()}
+{SCRIPT_VERSION_WEB}
 </body>
 </html>
 '''
@@ -3413,7 +3472,7 @@ def main():
         print(f"  ⚠️  Recortes de portada omitidos: {e}")
 
     lista_json = build_coches_lista_json(coches, rutas)
-    (BASE_DIR / "coches_lista.json").write_text(lista_json, encoding="utf-8")
+    (BASE_DIR / "coches_lista.json").write_text(versionar_fotos(lista_json), encoding="utf-8")
     print(f"  coches_lista.json generado ({len(json.loads(lista_json))} coches disponibles)")
 
     # Sin foto verificada = no se publica (ni en el índice ni con ficha propia).
@@ -3521,7 +3580,7 @@ def main():
                 html_coche = build_coche_html(car, fotos_por_coche[n], perfil, traducciones[n],
                                               fichas.get(ficha_tecnica.clave_ficha(car)),
                                               similares_html(car, todos_los_coches, fotos_por_coche, sin_foto))
-                (coches_dir / archivo_ficha(car)).write_text(html_coche, encoding="utf-8")
+                (coches_dir / archivo_ficha(car)).write_text(versionar_fotos(html_coche), encoding="utf-8")
                 # Ya no se generan las redirecciones antiguas por número (06-cupra-formentor.html):
                 # "n" cambia y llevaban a OTRO coche del mismo modelo. Esos enlaces caen ahora en
                 # 404.html, que enseña los coches de ese modelo.
@@ -3537,7 +3596,7 @@ def main():
                 print(f"  {archivadas} ficha(s) huérfana(s) eliminada(s) de {coches_dir} (coche ya no existe)")
 
             html_index = build_index_html(coches, rutas, perfil, traducciones)
-            (out_dir / "index.html").write_text(html_index, encoding="utf-8")
+            (out_dir / "index.html").write_text(versionar_fotos(html_index), encoding="utf-8")
             print(f"  index.html regenerado para {perfil['nombre']} en {out_dir}")
 
             hist_dir = out_dir / "historial-precios"
@@ -3566,6 +3625,7 @@ def main():
     for perfil in PERFILES:
         d = datos_perfil(perfil)
         asesores_404[perfil["carpeta"] or ""] = {"nombre_corto": d["nombre_corto"], "telefono_wa": d["telefono_wa"]}
+    (BASE_DIR / "version.json").write_text(json.dumps({"build": BUILD_ID}), encoding="utf-8")
     (BASE_DIR / "404.html").write_text(
         vendidos.build_404_html(disponibles_404, vendidos.cargar(), asesores_404), encoding="utf-8")
     print(f"  404.html: {len(disponibles_404)} coches para «similares», {len(vendidos.cargar())} vendidos registrados")
