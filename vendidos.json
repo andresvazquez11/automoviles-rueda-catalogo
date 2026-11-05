@@ -29,6 +29,16 @@
   "precio": "46.500",
   "version": "2.5 TSI VZ5 Taiga Grey 4Drive DSG 287 kW (390 CV)"
  },
+ "cupra-formentor-155656843": {
+  "baja": "2026-11-05",
+  "cambio": "Automático",
+  "combustible": "Gasolina",
+  "fecha": "08/2021",
+  "km": "70.529",
+  "modelo": "CUPRA Formentor",
+  "precio": "22.900",
+  "version": "1.5 TSI DSG 110 kW (150 CV)"
+ },
  "cupra-formentor-173814040": {
   "baja": "2026-09-28",
   "cambio": "Automático",
@@ -58,6 +68,16 @@
   "modelo": "CUPRA Formentor",
   "precio": "35.900",
   "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
+ "cupra-formentor-193600528": {
+  "baja": "2026-11-05",
+  "cambio": "Automático",
+  "combustible": "Híbrido",
+  "fecha": "06/2026",
+  "km": "50",
+  "modelo": "CUPRA Formentor",
+  "precio": "37.900",
+  "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)"
  },
  "cupra-formentor-198013252": {
   "baja": "2026-10-29",
@@ -515,6 +535,26 @@
   "combustible": "Gasolina",
   "fecha": "2026",
   "km": "6.404",
+  "modelo": "SEAT León",
+  "precio": "22.900",
+  "version": "1.5 eTSI S&S Style Special Edition DSG 110 kW (150 CV)"
+ },
+ "seat-leon-mf209662185": {
+  "baja": "2026-11-05",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "10.831",
+  "modelo": "SEAT León",
+  "precio": "22.900",
+  "version": "1.5 eTSI S&S Style Special Edition DSG 110 kW (150 CV)"
+ },
+ "seat-leon-mf209662191": {
+  "baja": "2026-11-05",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "13.430",
   "modelo": "SEAT León",
   "precio": "22.900",
   "version": "1.5 eTSI S&S Style Special Edition DSG 110 kW (150 CV)"
