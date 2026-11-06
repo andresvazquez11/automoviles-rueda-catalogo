@@ -119,13 +119,6 @@
     "antes_auto": 0
   },
   {
-    "id": "dwa-201280402",
-    "modelo": "SEAT Ibiza",
-    "precio": "18.300",
-    "foto": "/web_fotos/25/foto_01.jpg?v=c916ba2e",
-    "antes_auto": 0
-  },
-  {
     "id": "dwa-197882023",
     "modelo": "SEAT Ibiza",
     "precio": "18.300",
@@ -205,9 +198,9 @@
   {
     "id": "dwa-165115441",
     "modelo": "SEAT Arona",
-    "precio": "16.500",
+    "precio": "15.900",
     "foto": "/web_fotos/41/foto_01.jpg?v=87a97e97",
-    "antes_auto": 0
+    "antes_auto": 16500
   },
   {
     "id": "dwa-197879047",
