@@ -107,28 +107,48 @@ def descargar_foto(url, destino):
 # "Confort") — se descartan porque no son ítems de equipamiento en sí.
 _EQUIPO_CATEGORIAS = {"Exterior", "Interior", "Confort", "Seguridad", "Multimedia", "Motor", "Techo"}
 
-async def _equipamiento_desde_detalle(page, url_relativa: str) -> list:
-    """Respaldo cuando la tarjeta del listado no trae "Equipamiento
-    destacado" (le pasa a algunos anuncios de MotorFlash — viene vacío en el
-    propio HTML del listado, no es un fallo de scraping). La ficha de
-    detalle del coche sí trae equipamiento de serie completo, sin necesidad
-    de expandir "Ver más"."""
+_JS_FICHA = """() => {
+    const limpia = t => (t || '').replace(/\\s+/g, ' ').trim();
+    const caja = titulo => Array.from(document.querySelectorAll('details.accordionBox, .shadowBox'))
+        .find(b => {
+            const h = b.querySelector('summary, h2, h3, h4');
+            return h && limpia(h.textContent) === titulo;
+        });
+    // Equipamiento de serie: MotorFlash lo reparte en varias <ul> sin clase
+    // (antes era una sola ul.borderList; al cambiar el HTML el respaldo
+    // devolvía siempre vacío y los coches salían sin equipamiento).
+    const eq = caja('Equipamiento de serie');
+    const equipamiento = eq ? Array.from(eq.querySelectorAll('li')).map(li => limpia(li.textContent)).filter(t => t) : [];
+    // Características principales: pares "Matriculación 29/01/2026", "Color Blanco"…
+    const car = caja('Características principales');
+    const datos = {};
+    if (car) car.querySelectorAll('li').forEach(li => {
+        const partes = (li.innerText || '').split('\\n').map(limpia).filter(t => t);
+        if (partes.length >= 2) datos[partes[0]] = partes.slice(1).join(' ');
+    });
+    return { equipamiento, matriculacion: datos['Matriculación'] || '', color: datos['Color'] || '' };
+}"""
+
+async def _ficha_detalle(page, url_relativa: str) -> dict:
+    """Lee la ficha de detalle del coche en MotorFlash: equipamiento de serie
+    (respaldo cuando la tarjeta del listado viene vacía, le pasa a algunos
+    anuncios), fecha de matriculación exacta (el listado solo da el año:
+    "2026") y color. Devuelve {} si la ficha no carga."""
     try:
         await page.goto(f"https://www.motorflash.com{url_relativa}", wait_until="networkidle", timeout=60000)
         await page.wait_for_timeout(1500)
-        items = await page.evaluate("""() => {
-            const headings = Array.from(document.querySelectorAll('h2,h3,h4'))
-                .filter(el => el.textContent.trim() === 'Equipamiento de serie');
-            if (!headings.length) return [];
-            const box = headings[0].closest('.shadowBox');
-            if (!box) return [];
-            const ul = box.querySelector('ul.borderList');
-            if (!ul) return [];
-            return Array.from(ul.children).map(li => li.textContent.trim()).filter(t => t.length > 0);
-        }""")
-        return [t for t in items if t not in _EQUIPO_CATEGORIAS]
+        d = await page.evaluate(_JS_FICHA)
+        d["equipamiento"] = [t for t in d.get("equipamiento", []) if t not in _EQUIPO_CATEGORIAS]
+        # "29/01/2026" → "01/2026" (mismo formato mes/año que los coches de Das WeltAuto)
+        m = re.match(r"^\d{1,2}/(\d{1,2})/(\d{4})$", d.get("matriculacion", "").strip())
+        d["fecha"] = f"{int(m.group(1)):02d}/{m.group(2)}" if m else ""
+        return d
     except Exception:
-        return []
+        return {}
+
+async def _equipamiento_desde_detalle(page, url_relativa: str) -> list:
+    """Compatibilidad: solo el equipamiento de la ficha."""
+    return (await _ficha_detalle(page, url_relativa)).get("equipamiento", [])
 
 async def scrape_motorflash():
     from playwright.async_api import async_playwright
@@ -187,11 +207,23 @@ async def scrape_motorflash():
         # serie completo en su página de detalle. Se rellena visitando esa
         # página solo para los que vinieron vacíos, no para todos, así no se
         # ralentiza el scraping diario de forma innecesaria.
-        sin_equipo = [c for c in coches_raw if not c["equipamiento"] and c.get("urlRel")]
-        if sin_equipo:
-            print(f"  🔧 {len(sin_equipo)} anuncio(s) sin equipamiento en la tarjeta — buscando en su ficha de detalle...")
-            for c in sin_equipo:
-                c["equipamiento"] = await _equipamiento_desde_detalle(page, c["urlRel"])
+        # Se visita la ficha de los que vinieron sin equipamiento en la tarjeta
+        # o con la matriculación incompleta (solo el año, p.ej. "2026"): así
+        # salen con equipamiento, mes/año de matriculación y color. Los demás
+        # no se visitan, para no ralentizar el scraping diario.
+        necesitan_ficha = [c for c in coches_raw if c.get("urlRel") and
+                           (not c["equipamiento"] or re.fullmatch(r"\d{4}", str(c.get("anio", "")).strip()))]
+        if necesitan_ficha:
+            print(f"  🔧 {len(necesitan_ficha)} anuncio(s) con datos incompletos en la tarjeta — leyendo su ficha de detalle...")
+            for c in necesitan_ficha:
+                ficha = await _ficha_detalle(page, c["urlRel"])
+                if not c["equipamiento"] and ficha.get("equipamiento"):
+                    c["equipamiento"] = ficha["equipamiento"]
+                if ficha.get("fecha"):
+                    c["anio"] = ficha["fecha"]
+                if ficha.get("color"):
+                    c["color"] = ficha["color"]
+                print(f"     · {c['adId']}: equipamiento={len(c['equipamiento'])} fecha={c.get('anio')} color={c.get('color','')}")
 
         await browser.close()
 
@@ -251,7 +283,7 @@ def _normalizar(coches_raw):
             "km":             c["km"],
             "fecha":          c["anio"],
             "cambio":         c["cambio"],
-            "color":          "",
+            "color":          c.get("color", ""),
             "precio":         precio_limpio,
             "ubicacion":      "Málaga",
             "estado":         "Disponible",
