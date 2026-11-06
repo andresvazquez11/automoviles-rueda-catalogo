@@ -1035,6 +1035,22 @@
     ],
     "version_en": "1.0 TSI Special Edition 85 kW (115 HP)"
   },
+  "430937f1b98851a6": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Lane Keeping Assist",
+      "Top speed: 175 km/h",
+      "Leather sports multifunction steering wheel",
+      "Cruise control with speed limiter",
+      "Dual-zone Climatronic",
+      "16\" 6.5J light alloy wheels",
+      "Rearview camera system",
+      "Climatronic",
+      "Multifunction camera",
+      "Traffic sign recognition"
+    ],
+    "version_en": "1.0 MPI S&S Style 59 kW (80 HP)"
+  },
   "44ea54986f13ea72": {
     "color_en": "",
     "equipamiento_en": [
@@ -1389,6 +1405,22 @@
     ],
     "version_en": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 HP)"
   },
+  "56a569b2e56bcd6c": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Keyless Entry (without SAFE deadlock system)",
+      "Top speed: 200 km/h",
+      "Aurora premium upholstery",
+      "16\" Machined Design alloy wheels",
+      "Climatronic automatic climate control",
+      "LED headlights",
+      "16-inch front and rear alloy wheels (6.5\" width, PG4)",
+      "Headlights with ellipsoidal lens, LED low beams and LED high beams",
+      "12V power socket(s) in front seats area",
+      "Velour seat upholstery (main and secondary material)"
+    ],
+    "version_en": "1.0 TSI S&S Style 85 kW (115 HP)"
+  },
   "56ae8ce98287d814": {
     "color_en": "",
     "equipamiento_en": [
@@ -1436,6 +1468,22 @@
       "Dual-zone Climatronic"
     ],
     "version_en": "1.0 TSI Special Edition 85 kW (115 HP)"
+  },
+  "5db7768b291f3174": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Top speed: 175 km/h",
+      "Aurora premium upholstery",
+      "Front and rear 16-inch alloy wheels (6.5-inch width, 40.6 cm, PG4)",
+      "Ellipsoidal lens headlights with LED bulbs and LED high beam",
+      "12V power outlet(s) in the front",
+      "Velour seats (main material) and velour (secondary material)",
+      "Three-seater forward-facing split rear bench with split cushion and asymmetrical folding backrest",
+      "Leather-wrapped multifunction steering wheel adjustable for height and reach",
+      "Interior rear-view mirror / camera",
+      "Speed limiter"
+    ],
+    "version_en": "1.0 MPI S&S Style 59 kW (80 hp)"
   },
   "5de3c0413d92b338": {
     "color_en": "Red",
@@ -2295,6 +2343,11 @@
       "Dual-zone Climatronic climate control"
     ],
     "version_en": "1.0 TSI Xperience Special Edition 85 kW (115 HP)"
+  },
+  "8945e4ae57fa93cf": {
+    "color_en": "",
+    "equipamiento_en": [],
+    "version_en": "1.5 eTSI DSG 110 kW (150 hp)"
   },
   "8a419a9a27d1ee8c": {
     "color_en": "",

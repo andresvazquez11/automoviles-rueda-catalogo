@@ -479,6 +479,36 @@
   "precio": "20.900",
   "version": "1.0 TSI S&S FR 85 kW (115 CV)"
  },
+ "seat-ibiza-mf211998540": {
+  "baja": "2026-11-06",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "23.349",
+  "modelo": "SEAT Ibiza",
+  "precio": "15.600",
+  "version": "1.0 MPI S&S Style 59 kW (80 CV)"
+ },
+ "seat-ibiza-mf211999296": {
+  "baja": "2026-11-06",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "19.642",
+  "modelo": "SEAT Ibiza",
+  "precio": "15.700",
+  "version": "1.0 MPI S&S Style 59 kW (80 CV)"
+ },
+ "seat-ibiza-mf212000595": {
+  "baja": "2026-11-06",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "100",
+  "modelo": "SEAT Ibiza",
+  "precio": "20.500",
+  "version": "1.0 TSI S&S Style 85 kW (115 CV)"
+ },
  "seat-leon-151336815": {
   "baja": "2026-09-26",
   "cambio": "Automático",
