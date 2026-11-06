@@ -150,6 +150,36 @@ async def _equipamiento_desde_detalle(page, url_relativa: str) -> list:
     """Compatibilidad: solo el equipamiento de la ficha."""
     return (await _ficha_detalle(page, url_relativa)).get("equipamiento", [])
 
+async def _completar_desde_ficha(coches: list) -> None:
+    """Lee la ficha de detalle de los coches EXCLUSIVOS de MotorFlash (los que
+    no están en Das WeltAuto, ~3-4) y completa lo que el listado no trae: el
+    equipamiento si vino vacío, la matriculación exacta (el listado solo da el
+    año, "2026") y el color. Solo se visitan estos, no los ~50 de MotorFlash
+    que también están en Das WeltAuto, para no alargar cada actualización."""
+    from playwright.async_api import async_playwright
+    if not coches:
+        return
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        ctx = await browser.new_context(viewport={"width": 1400, "height": 900}, user_agent=HEADERS["User-Agent"])
+        page = await ctx.new_page()
+        for c in coches:
+            url = c.get("url_motorflash", "")
+            rel = url.replace("https://www.motorflash.com", "") if url else ""
+            if not rel.startswith("/"):
+                continue
+            ficha = await _ficha_detalle(page, rel)
+            if not c.get("equipamiento") and ficha.get("equipamiento"):
+                c["equipamiento"] = ficha["equipamiento"]
+            if ficha.get("fecha"):
+                c["fecha"] = ficha["fecha"]
+            if ficha.get("color"):
+                c["color"] = ficha["color"]
+            print(f"     · ficha {c.get('motorflash_id')}: equipamiento={len(c.get('equipamiento', []))} "
+                  f"fecha={c.get('fecha')} color={c.get('color', '') or '-'}")
+        await browser.close()
+
+
 async def scrape_motorflash():
     from playwright.async_api import async_playwright
 
@@ -207,24 +237,6 @@ async def scrape_motorflash():
         # serie completo en su página de detalle. Se rellena visitando esa
         # página solo para los que vinieron vacíos, no para todos, así no se
         # ralentiza el scraping diario de forma innecesaria.
-        # Se visita la ficha de los que vinieron sin equipamiento en la tarjeta
-        # o con la matriculación incompleta (solo el año, p.ej. "2026"): así
-        # salen con equipamiento, mes/año de matriculación y color. Los demás
-        # no se visitan, para no ralentizar el scraping diario.
-        necesitan_ficha = [c for c in coches_raw if c.get("urlRel") and
-                           (not c["equipamiento"] or re.fullmatch(r"\d{4}", str(c.get("anio", "")).strip()))]
-        if necesitan_ficha:
-            print(f"  🔧 {len(necesitan_ficha)} anuncio(s) con datos incompletos en la tarjeta — leyendo su ficha de detalle...")
-            for c in necesitan_ficha:
-                ficha = await _ficha_detalle(page, c["urlRel"])
-                if not c["equipamiento"] and ficha.get("equipamiento"):
-                    c["equipamiento"] = ficha["equipamiento"]
-                if ficha.get("fecha"):
-                    c["anio"] = ficha["fecha"]
-                if ficha.get("color"):
-                    c["color"] = ficha["color"]
-                print(f"     · {c['adId']}: equipamiento={len(c['equipamiento'])} fecha={c.get('anio')} color={c.get('color','')}")
-
         await browser.close()
 
     return _normalizar(coches_raw)
@@ -468,6 +480,10 @@ def main():
         # 3b) Exclusivos de MF (excluyendo los ya usados para enriquecer DWA)
         exclusivos = encontrar_exclusivos_mf(dwa_solo, mf_coches, mf_ya_usados)
         print(f"  Exclusivos MotorFlash (no en DWA): {len(exclusivos)}")
+        try:
+            asyncio.run(_completar_desde_ficha(exclusivos))
+        except Exception as e:
+            print(f"  ⚠️  No se pudo leer la ficha de los exclusivos de MotorFlash: {e.__class__.__name__}: {e}")
 
     # 4) Construir lista final: DWA (solo DWA) + exclusivos MF
     #    Los MF que ya no están en MotorFlash simplemente no se añaden (desaparecen)
