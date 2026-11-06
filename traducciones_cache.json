@@ -1711,6 +1711,22 @@
     ],
     "version_en": "1.5 TSI e-Hybrid DSG 150 kW (204 hp)"
   },
+  "67fcd446c741eed2": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Top speed: 175 km/h",
+      "Aurora premium upholstery",
+      "16-inch front and rear alloy wheels, 6.5 inches wide (40.6, 16.5, PG4)",
+      "Ellipsoidal lens headlights with LED main and high beam bulbs",
+      "12V power outlet in front seats",
+      "Velour seats (main material) and velour (secondary material)",
+      "Three-seat forward-facing split bench with asymmetric folding backrest",
+      "Leather-trimmed multifunction steering wheel, height and reach adjustable",
+      "Interior rearview mirror / camera",
+      "Speed limiter"
+    ],
+    "version_en": "1.0 MPI S&S Style 59 kW (80 HP)"
+  },
   "681f0a56c2a34a91": {
     "color_en": "White",
     "equipamiento_en": [
@@ -1891,6 +1907,22 @@
       "Multifunction camera"
     ],
     "version_en": "1.5 TSI e-Hybrid DSG 150 kW (204 hp)"
+  },
+  "6ea8ff447ed98cf2": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Keyless entry system (without SAFE lock)",
+      "Top speed: 200 km/h",
+      "Aurora premium upholstery",
+      "16\" Machined Design alloy wheels (41 cm)",
+      "Climatronic climate control",
+      "LED headlights",
+      "16-inch front and rear alloy wheels (6.5\" width)",
+      "Ellipsoidal LED headlights with LED high beam",
+      "12V power socket(s) for front seats",
+      "Velour seat upholstery (primary and secondary material)"
+    ],
+    "version_en": "1.0 TSI S&S Style 85 kW (115 HP)"
   },
   "6f2e28eb9af6a450": {
     "color_en": "",
@@ -2106,6 +2138,52 @@
       "Leather-wrapped multifunction steering wheel with height and reach adjustment"
     ],
     "version_en": "1.0 TSI S&S FR XS 85 kW (115 hp)"
+  },
+  "7cdfe536bcc3cd83": {
+    "color_en": "Black",
+    "equipamiento_en": [
+      "Automatic Start/Stop",
+      "Daytime Running Lights",
+      "Cruise Control",
+      "Multifunction Steering Wheel",
+      "Bluetooth",
+      "Alloy Wheels",
+      "16\" Alloy Wheels",
+      "On-Board Computer",
+      "Fog Lights",
+      "Air Conditioning",
+      "Automatic Climate Control",
+      "Airbag",
+      "Passenger Airbag",
+      "Driver Airbag",
+      "Side Airbags",
+      "ABS Brakes",
+      "ESP",
+      "Power Steering",
+      "Electric Windows",
+      "Central Locking",
+      "Center Armrest",
+      "Folding Rear Seats",
+      "Power Steering",
+      "Adaptive Cruise Control",
+      "Lane Change Assist",
+      "Lane Keep Assist",
+      "Park Assist",
+      "High Beam Assist",
+      "Power Socket",
+      "Hill Start Assist",
+      "LED Headlights",
+      "LED Taillights",
+      "ISOFIX",
+      "Rain Sensor",
+      "Automatic Headlights",
+      "Push-Button Start",
+      "Tyre Pressure Monitor",
+      "Traffic Sign Recognition",
+      "CarPlay",
+      "Speed Limiter"
+    ],
+    "version_en": "1.0 TSI Special Edition 85 kW (115 HP)"
   },
   "7dc6865a12da40f9": {
     "color_en": "",
@@ -3328,6 +3406,56 @@
     ],
     "version_en": "1.5 TSI S&S X-Perience DSG 110 kW (150 HP)"
   },
+  "b589f80f427ab82c": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Sports suspension",
+      "Automatic Start/Stop",
+      "Daytime running lights",
+      "Cruise control",
+      "Multifunction steering wheel",
+      "Bluetooth",
+      "Sports seats",
+      "Alloy wheels",
+      "18\" alloy wheels",
+      "On-board computer",
+      "Alarm",
+      "Fog lights",
+      "Air conditioning",
+      "Climate control",
+      "Airbag",
+      "Passenger airbag",
+      "Driver airbag",
+      "Side airbags",
+      "ABS anti-lock brakes",
+      "ESP",
+      "Power steering",
+      "Electric windows",
+      "Central locking",
+      "Centre armrest",
+      "Remote central locking",
+      "Power steering",
+      "Adaptive Cruise Control",
+      "Lane change assist",
+      "Lane keep assist",
+      "Park assist",
+      "High beam assist",
+      "Power socket",
+      "Hill start assist",
+      "LED headlights",
+      "LED taillights",
+      "ISOFIX",
+      "Rain sensor",
+      "Automatic headlights",
+      "Push-button start",
+      "Tyre pressure monitoring system",
+      "Electric parking brake",
+      "Traffic sign recognition",
+      "CarPlay",
+      "Speed limiter"
+    ],
+    "version_en": "1.5 eTSI DSG 110 kW (150 HP)"
+  },
   "b6d086ac2ad2aa88": {
     "color_en": "Grey",
     "equipamiento_en": [
@@ -4250,6 +4378,22 @@
       "Park Assist system"
     ],
     "version_en": "1.0 TSI S&S FR 85 kW (115 hp)"
+  },
+  "f2526010a968c72d": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Lane Keeping Assist",
+      "Top speed: 175 km/h",
+      "Multifunction leather sports steering wheel",
+      "Cruise control with speed limiter",
+      "Dual-zone Climatronic climate control",
+      "16\" 6.5J light alloy wheels",
+      "Rearview camera system",
+      "Climatronic climate control",
+      "Multifunction camera",
+      "Traffic sign recognition"
+    ],
+    "version_en": "1.0 MPI S&S Style 59 kW (80 hp)"
   },
   "f71fd7605adf6653": {
     "color_en": "White",
