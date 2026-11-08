@@ -500,10 +500,10 @@ function cv2RenderMapa() {
   if (resEl) resEl.innerHTML = fraseAct;
   let html = `<div class="cv2-mapa-leyenda">${Object.entries(CV2_MAPA_COLORES).map(([k, c]) => `<span><i style="background:${c}"></i>${k}</span>`).join('')}</div>
     ${frases}
-    <div class="cv2-mapa-wrap"><table class="cv2-mapa-tbl"><thead><tr><th>Plazo \\ Entrada</th>${entradas.map(e => `<th>${f0(e)} €</th>`).join('')}</tr></thead><tbody>`;
-  plazos.forEach((m, i) => {
-    html += `<tr><th>${m} m</th>`;
-    entradas.forEach((e, j) => {
+    <div class="cv2-mapa-wrap"><table class="cv2-mapa-tbl"><thead><tr><th>Entrada \\ Plazo</th>${plazos.map(m => `<th>${m} m</th>`).join('')}</tr></thead><tbody>`;
+  entradas.forEach((e, j) => {
+    html += `<tr><th>${e ? f0(e) + ' €' : 'Sin entrada'}</th>`;
+    plazos.forEach((m, i) => {
       const c = tabla[i][j];
       if (!c) { html += `<td class="na">—</td>`; return; }
       const act = m === CV2.meses && j === jAct && c.alcanzable;
