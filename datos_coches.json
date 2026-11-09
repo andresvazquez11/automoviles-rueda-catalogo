@@ -257,10 +257,10 @@
     "km": "50",
     "fecha": "09/2026",
     "cambio": "Manual",
-    "color": "",
+    "color": "Azul",
     "precio": "21.900",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2026-en-malaga/208555361",
     "equipamiento": [
       "Paquete de asistente de aparcamiento",
@@ -285,18 +285,19 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Arona - 21.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Arona - 21.900€/foto_08.jpg"
     ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Arona - 21.900€",
     "financiacion": {
       "meses": "60",
-      "cuota": "191.16",
+      "cuota": "191.32",
       "tin": "7.99",
       "tae": "9.19",
-      "cuota_final": "13595.15",
+      "cuota_final": "13583.67",
       "entrada": "4380.00",
       "comision_tipo": "al contado",
       "comision": "554.93",
       "capital": "18559.64",
       "tipo": "",
-      "ejemplo": "* PVPR con campaña de 21.900,00 €. Precio financiando: 21.900,00 €. Precio al contado 21.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,19%. La oferta incluye Seg. Protección Plus Ampliado por 1.039,64€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 191,16 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 13.595,15 € (calculada con 15.000 km anuales). Entrada inicial: 4.380,00 €. Comisión de apertura al contado: 554,93 €. Importe total financiado 18.559,64 €. Importe total de los intereses: 6.505,11 €. Coste total del crédito: 7.060,04 €. Precio total a plazos 29.444,75 €. Importe total adeudado: 25.064,75 €. Sistema de amortización francés"
+      "ejemplo": "* PVPR con campaña de 21.900,00 €. Precio financiando: 21.900,00 €. Precio al contado 21.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,19%. La oferta incluye Seg. Protección Plus Ampliado por 1.039,64€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 191,32 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 13.583,67 € (calculada con 15.000 km anuales). Entrada inicial: 4.380,00 €. Comisión de apertura al contado: 554,93 €. Importe total financiado 18.559,64 €. Importe total de los intereses: 6.503,23 €. Coste total del crédito: 7.058,16 €. Precio total a plazos 29.442,87 €. Importe total adeudado: 25.062,87 €. Sistema de amortización francés"
     }
   },
   {
@@ -1114,7 +1115,19 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/23 - SEAT Ibiza - 18.300€/foto_08.jpg"
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/23 - SEAT Ibiza - 18.300€",
-    "financiacion": {}
+    "financiacion": {
+      "meses": "60",
+      "cuota": "162.81",
+      "tin": "7.99",
+      "tae": "9.20",
+      "cuota_final": "11134.76",
+      "entrada": "3660.00",
+      "comision_tipo": "al contado",
+      "comision": "463.71",
+      "capital": "15508.74",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,20%. La oferta incluye Seg. Protección Plus Ampliado por 868,74€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 162,81 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.134,76 € (calculada con 15.000 km anuales). Entrada inicial: 3.660,00 €. Comisión de apertura al contado: 463,71 €. Importe total financiado 15.508,74 €. Importe total de los intereses: 5.394,62 €. Coste total del crédito: 5.858,33 €. Precio total a plazos 24.563,36 €. Importe total adeudado: 20.903,36 €. Sistema de amortización francés"
+    }
   },
   {
     "n": 24,
@@ -1253,7 +1266,19 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Arona - 20.900€/foto_08.jpg"
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Arona - 20.900€",
-    "financiacion": {}
+    "financiacion": {
+      "meses": "60",
+      "cuota": "196.65",
+      "tin": "8.99",
+      "tae": "10.32",
+      "cuota_final": "11729.40",
+      "entrada": "4180.00",
+      "comision_tipo": "al contado",
+      "comision": "507.42",
+      "capital": "16970.63",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 20.900,00 €. Bonificación de 700,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 20.200,00 €. Precio al contado 20.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,32%. La oferta incluye Seg. Protección Plus Ampliado por 950,63€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 196,65 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.729,40 € (calculada con 15.000 km anuales). Entrada inicial: 4.180,00 €. Comisión de apertura al contado: 507,42 €. Importe total financiado 16.970,63 €. Importe total de los intereses: 6.557,77 €. Coste total del crédito: 7.065,19 €. Precio total a plazos 27.708,40 €. Importe total adeudado: 23.528,40 €. Sistema de amortización francés"
+    }
   },
   {
     "n": 27,
@@ -1802,7 +1827,7 @@
     "km": "77.564",
     "fecha": "04/2022",
     "cambio": "Manual",
-    "color": "Azul",
+    "color": "",
     "precio": "15.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -1830,7 +1855,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 15.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 15.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - SEAT Arona - 15.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "178.58",
@@ -2811,7 +2835,7 @@
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - CUPRA León - 18.900€",
     "financiacion": {},
-    "_intentos_desaparecido": 2,
+    "_intentos_desaparecido": 3,
     "fecha_reservado": "2026-11-07"
   },
   {
@@ -2863,7 +2887,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 16.900,00 €. Precio financiando: 16.900,00 €. Precio al contado 16.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,28%. La oferta incluye Seg. Protección Plus Ampliado por 824,83€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 187,19 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 8.176,40 € (calculada con 15.000 km anuales). Entrada inicial: 3.000,00 €. Comisión de apertura al contado: 440,27 €. Importe total financiado 14.724,83 €. Importe total de los intereses: 4.682,97 €. Coste total del crédito: 5.123,24 €. Precio total a plazos 22.407,80 €. Importe total adeudado: 19.407,80 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 2,
+    "_intentos_desaparecido": 3,
     "fecha_reservado": "2026-11-07"
   },
   {
@@ -2904,60 +2928,8 @@
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - ŠKODA Karoq - 21.500€",
     "financiacion": {},
-    "_intentos_desaparecido": 2,
+    "_intentos_desaparecido": 3,
     "fecha_reservado": "2026-11-07"
-  },
-  {
-    "n": 61,
-    "modelo": "CUPRA Born",
-    "version": "77kWh E-Boost Pack+Battery 170 kW (231 CV)",
-    "combustible": "Eléctrico",
-    "km": "10.863",
-    "fecha": "02/2024",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "27.900",
-    "ubicacion": "Málaga",
-    "estado": "Retirado",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-born-electrico-231-cv-del-2024-en-malaga/204499885",
-    "equipamiento": [
-      "Llantas 20\" Hurricane Sport Black e-racer",
-      "Velocidad máxima: 160 km/h",
-      "Exclusive pack Plus",
-      "Llantas delanteras y traseras en aluminio de 19 pulgadas de diámetro y 7,5 pulgadas de ancho bi-tono, 48,3 y 19,0",
-      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
-      "Asientos de tela (material principal) y de tela (material secundario) comercializado como sostenible/vegano",
-      "Asientos traseros de tres plazas de tipo banco de orientación delantera con banqueta fija y respaldo abatible asimétrico",
-      "Volante multi-función térmico en cuero y negro piano ajustable en altura y en profundidad",
-      "Retrovisor interior/cámara con oscurecimiento progresivo automático",
-      "Limitador de velocidad"
-    ],
-    "_total": 58,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/61 - CUPRA Born - 27.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/61 - CUPRA Born - 27.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/61 - CUPRA Born - 27.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/61 - CUPRA Born - 27.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/61 - CUPRA Born - 27.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/61 - CUPRA Born - 27.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/61 - CUPRA Born - 27.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/61 - CUPRA Born - 27.900€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "323.62",
-      "tin": "8.99",
-      "tae": "10.43",
-      "cuota_final": "10609.77",
-      "entrada": "5580.00",
-      "comision_tipo": "al contado",
-      "comision": "668.96",
-      "capital": "22373.26",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 27.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 26.700,00 €. Precio al contado 27.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,43%. La oferta incluye Seg. Protección Plus Ampliado por 1.253,26€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 323,62 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.609,77 € (calculada con 15.000 km anuales). Entrada inicial: 5.580,00 €. Comisión de apertura al contado: 668,96 €. Importe total financiado 22.373,26 €. Importe total de los intereses: 7.653,71 €. Coste total del crédito: 8.322,67 €. Precio total a plazos 35.606,97 €. Importe total adeudado: 30.026,97 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 7,
-    "fecha_reservado": "2026-11-06"
   },
   {
     "fuente": "motorflash",
@@ -3029,7 +3001,7 @@
       "web_fotos/mf-212891043/foto_07.jpg",
       "web_fotos/mf-212891043/foto_08.jpg"
     ],
-    "n": 62
+    "n": 61
   },
   {
     "fuente": "motorflash",
@@ -3102,7 +3074,7 @@
       "web_fotos/mf-212438016/foto_07.jpg",
       "web_fotos/mf-212438016/foto_08.jpg"
     ],
-    "n": 63
+    "n": 62
   },
   {
     "fuente": "motorflash",
@@ -3174,6 +3146,76 @@
       "web_fotos/mf-212438010/foto_06.jpg",
       "web_fotos/mf-212438010/foto_07.jpg",
       "web_fotos/mf-212438010/foto_08.jpg"
+    ],
+    "n": 63
+  },
+  {
+    "fuente": "motorflash",
+    "motorflash_id": "204870619",
+    "tipo": "VO",
+    "modelo": "CUPRA Born",
+    "version": "77kWh E-Boost Pack+Battery 170 kW (231 CV)",
+    "combustible": "Eléctrico",
+    "km": "10.863",
+    "fecha": "02/2024",
+    "cambio": "Automatico",
+    "color": "Azul",
+    "precio": "27.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url_motorflash": "https://www.motorflash.com/coche-segunda-mano/cupra-born-77kwh_e_boost_packplusbattery_170_kw_231_cv/ocasion/204870619-es/",
+    "equipamiento": [
+      "Suspensión deportiva",
+      "Navegador",
+      "Luz diurna",
+      "Control de velocidad",
+      "Volante multifunción",
+      "Bluetooth",
+      "Asientos deportivos",
+      "Llantas de aleación",
+      "Llantas de aleación de 20\"",
+      "Ordenador",
+      "Aire Acondicionado",
+      "Climatizador",
+      "Airbag",
+      "Airbag para el acompañante",
+      "Airbag para el conductor",
+      "Airbags laterales",
+      "Frenos ABS antibloqueo",
+      "ESP",
+      "Dirección asistida",
+      "Elevalunas eléctrico",
+      "Cierre centralizado",
+      "Reposabrazos central",
+      "Servodirección",
+      "Control de crucero adaptativo",
+      "Asistente de cambio de carril",
+      "Asistente de mantenimiento de carril",
+      "Asistente de aparcamiento",
+      "Asistente para las luces de carretera",
+      "Radio con sistema de navegación",
+      "Asistente de arranque en pendiente",
+      "Faros delanteros led",
+      "Faros traseros led",
+      "Isofix",
+      "Sensor de lluvia",
+      "Encendido automático de faros",
+      "Arranque por botón",
+      "Sensor de presión de neumáticos",
+      "Freno de estacionamiento eléctrico",
+      "Reconocimiento señales de tráfico",
+      "Car Play",
+      "Limitador de velocidad"
+    ],
+    "fotos": [
+      "web_fotos/mf-204870619/foto_01.jpg",
+      "web_fotos/mf-204870619/foto_02.jpg",
+      "web_fotos/mf-204870619/foto_03.jpg",
+      "web_fotos/mf-204870619/foto_04.jpg",
+      "web_fotos/mf-204870619/foto_05.jpg",
+      "web_fotos/mf-204870619/foto_06.jpg",
+      "web_fotos/mf-204870619/foto_07.jpg",
+      "web_fotos/mf-204870619/foto_08.jpg"
     ],
     "n": 64
   }

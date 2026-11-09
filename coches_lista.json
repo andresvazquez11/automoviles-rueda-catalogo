@@ -21,13 +21,6 @@
     "antes_auto": 0
   },
   {
-    "id": "dwa-208555361",
-    "modelo": "SEAT Arona",
-    "precio": "21.900",
-    "foto": "/web_fotos/06/foto_01.jpg?v=36ae70ec",
-    "antes_auto": 0
-  },
-  {
     "id": "dwa-208352747",
     "modelo": "CUPRA León",
     "precio": "36.900",
@@ -354,6 +347,13 @@
     "modelo": "CUPRA León",
     "precio": "28.900",
     "foto": "/web_fotos/mf-212438010/foto_01.jpg?v=24788d56",
+    "antes_auto": 0
+  },
+  {
+    "id": "mf-204870619",
+    "modelo": "CUPRA Born",
+    "precio": "27.900",
+    "foto": "/web_fotos/mf-204870619/foto_01.jpg?v=65e598b5",
     "antes_auto": 0
   }
 ]
