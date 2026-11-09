@@ -339,6 +339,16 @@
   "precio": "24.900",
   "version": "1.5 TSI S&S X-Perience DSG 110 kW (150 CV)"
  },
+ "seat-ateca-mf212891043": {
+  "baja": "2026-11-09",
+  "cambio": "Manual",
+  "combustible": "Diésel",
+  "fecha": "11/2022",
+  "km": "45.223",
+  "modelo": "SEAT Ateca",
+  "precio": "20.900",
+  "version": "2.0 TDI S&S Style XM 85 kW (115 CV)"
+ },
  "seat-ibiza-151394481": {
   "baja": "2026-10-05",
   "cambio": "Manual",

@@ -89,6 +89,22 @@
     ],
     "version_en": "1.0 TSI S&S Style 85 kW (115 HP)"
   },
+  "07275a7289824f57": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Automatic Park Assist + front parking sensors",
+      "Front Assist including emergency braking function for ACC High",
+      "Black Exterior Pack: Black roof rails + Black wheel arch trims",
+      "Lane Keep Assist",
+      "Dual-zone digital climate control for driver and passenger",
+      "Rear radar parking sensors",
+      "Full LED technology for brake lights, front fog lights, low beam, side indicators, daytime running lights, rear lights, and high beam",
+      "Top speed: 185 km/h",
+      "Rearview camera",
+      "Safe & Driving Pack M1"
+    ],
+    "version_en": "2.0 TDI S&S Style 85 kW (115 hp)"
+  },
   "079223dbf27dc5dc": {
     "color_en": "",
     "equipamiento_en": [
@@ -2354,6 +2370,56 @@
     ],
     "version_en": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 HP)"
   },
+  "81080e103c47df70": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Sports suspension",
+      "Automatic Start/Stop",
+      "Daytime running lights",
+      "Cruise control",
+      "Multifunction steering wheel",
+      "Bluetooth",
+      "Sports seats",
+      "Alloy wheels",
+      "18\" alloy wheels",
+      "On-board computer",
+      "Alarm system",
+      "Fog lights",
+      "Air conditioning",
+      "Automatic climate control",
+      "Airbag",
+      "Passenger airbag",
+      "Driver airbag",
+      "Side airbags",
+      "ABS (Anti-lock braking system)",
+      "ESP (Electronic stability program)",
+      "Power steering",
+      "Electric windows",
+      "Central locking",
+      "Center armrest",
+      "Remote central locking",
+      "Power-assisted steering",
+      "Adaptive cruise control",
+      "Lane change assist",
+      "Lane keep assist",
+      "Park assist",
+      "High-beam assist",
+      "Power socket",
+      "Hill start assist",
+      "LED headlights",
+      "LED taillights",
+      "ISOFIX child seat mounts",
+      "Rain sensor",
+      "Automatic headlights",
+      "Push-button start",
+      "Tyre pressure monitoring system",
+      "Electric parking brake",
+      "Traffic sign recognition",
+      "Apple CarPlay",
+      "Speed limiter"
+    ],
+    "version_en": "1.5 eTSI DSG 110 kW (150 hp)"
+  },
   "83333f67141e9574": {
     "color_en": "",
     "equipamiento_en": [
@@ -3873,6 +3939,22 @@
       "Velour seat upholstery (primary and secondary material)"
     ],
     "version_en": "1.0 TSI S&S FR 85 kW (115 HP)"
+  },
+  "c640a32ed644ad25": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Park Exit Assist, Lane Change Assist, and Exit Warning System",
+      "High-resolution Matrix LED headlights with digital projection",
+      "Individually controlled heated front seats",
+      "\"Keyless Advanced\" keyless entry and start system without safelock",
+      "Lane Keep Assist with Emergency Assist and Traffic Jam Assist",
+      "Front and rear camera system with two side cameras",
+      "3-zone Climatronic climate control with rear control panel",
+      "CUPRA Matrix LED Ultra",
+      "Synthetic suede (main material) and synthetic leather (secondary material) seats, marketed as sustainable/vegan",
+      "Separate climate controls for driver, front passenger, and rear seats"
+    ],
+    "version_en": "1.5 eTSI Beyond DSG 110 kW (150 HP)"
   },
   "c8d091d70a251835": {
     "color_en": "Black",
