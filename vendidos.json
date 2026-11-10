@@ -20,10 +20,10 @@
   "version": "77kWh E-Boost Pack+Battery 170 kW (231 CV)"
  },
  "cupra-born-mf204870619": {
-  "baja": "2026-10-21",
+  "baja": "2026-11-10",
   "cambio": "Automatico",
   "combustible": "Eléctrico",
-  "fecha": "2024",
+  "fecha": "02/2024",
   "km": "10.863",
   "modelo": "CUPRA Born",
   "precio": "27.900",
@@ -157,6 +157,26 @@
   "km": "115.675",
   "modelo": "CUPRA León",
   "precio": "18.900",
+  "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
+ "cupra-leon-mf212438010": {
+  "baja": "2026-11-10",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "01/2026",
+  "km": "18.446",
+  "modelo": "CUPRA León",
+  "precio": "28.900",
+  "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
+ "cupra-leon-mf212438016": {
+  "baja": "2026-11-10",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "01/2026",
+  "km": "26.680",
+  "modelo": "CUPRA León",
+  "precio": "28.900",
   "version": "1.5 eTSI DSG 110 kW (150 CV)"
  },
  "cupra-raval-203496805": {
@@ -500,7 +520,7 @@
   "version": "1.0 TSI Special Edition 85 kW (115 CV)"
  },
  "seat-ibiza-mf203982457": {
-  "baja": "2026-11-07",
+  "baja": "2026-11-10",
   "cambio": "Manual",
   "combustible": "Gasolina",
   "fecha": "06/2025",
