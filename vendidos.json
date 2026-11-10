@@ -119,6 +119,16 @@
   "precio": "41.300",
   "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)"
  },
+ "cupra-leon-209859843": {
+  "baja": "2026-11-10",
+  "cambio": "Automático",
+  "combustible": "Mild Hybrid",
+  "fecha": "09/2023",
+  "km": "115.675",
+  "modelo": "CUPRA León",
+  "precio": "18.900",
+  "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
  "cupra-leon-mf208354994": {
   "baja": "2026-10-28",
   "cambio": "Automatico",
@@ -178,6 +188,16 @@
   "modelo": "Kia Sportage",
   "precio": "18.900",
   "version": "1.6 T-GDi Drive 4x2 110 kW (150 CV)"
+ },
+ "koda-karoq-193154158": {
+  "baja": "2026-11-10",
+  "cambio": "Manual",
+  "combustible": "Diésel",
+  "fecha": "01/2023",
+  "km": "91.250",
+  "modelo": "ŠKODA Karoq",
+  "precio": "21.500",
+  "version": "2.0 TDI Ambition 85 kW (115 CV)"
  },
  "nissan-qashqai-mf168212671": {
   "baja": "2026-09-26",
@@ -258,6 +278,16 @@
   "modelo": "SEAT Arona",
   "precio": "21.900",
   "version": "1.0 TSI Style Special Edition DSG 85 kW (115 CV)"
+ },
+ "seat-arona-203572465": {
+  "baja": "2026-11-10",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "11/2022",
+  "km": "48.923",
+  "modelo": "SEAT Arona",
+  "precio": "16.900",
+  "version": "1.0 TSI Style 81 kW (110 CV)"
  },
  "seat-arona-mf203677213": {
   "baja": "2026-10-15",
