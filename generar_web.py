@@ -1571,6 +1571,13 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
           </button>
           <span class="cv2-arona-lbl" id="cv2-arona-lbl">solo si el coche es demo o REMA</span>
         </div>
+        <!-- Comisión de apertura 0% (Noviembre 2026): +1,25 p.p. de TIN, activación manual -->
+        <div class="cv2-arona-wrap" id="cv2-ca0-wrap">
+          <button class="cv2-arona-btn" id="cv2-ca0-btn" onclick="cv2ToggleCa0()">
+            ⬡ COMISIÓN 0%
+          </button>
+          <span class="cv2-arona-lbl" id="cv2-ca0-lbl">sin comisión de apertura (+1,25 p.p. de TIN)</span>
+        </div>
         <!-- Campaña SALONES VO (Noviembre 2026): solo SEAT Arona, activación manual -->
         <div class="cv2-arona-wrap" id="cv2-salones-wrap">
           <button class="cv2-arona-btn" id="cv2-salones-btn" onclick="cv2ToggleSalones()">

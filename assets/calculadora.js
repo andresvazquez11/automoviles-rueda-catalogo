@@ -44,6 +44,7 @@ const CV2 = {
   modelo:        '',
   demosRema:     false,       // toggle manual — campaña especial SEAT VS DEMOS + REMA (Noviembre 2026)
   salones:       false,       // toggle manual — campaña SALONES VO (solo SEAT Arona), Noviembre 2026
+  ca0:           false,       // toggle manual — comisión de apertura 0% a cambio de +1,25 p.p. de TIN (SEAT ENTRY/GAMA y CUPRA APPROVED/GAMA, Noviembre 2026)
   auto:          true,        // modo automático: elige la campaña VW con la cuota más baja (modo asesor)
 };
 
@@ -51,6 +52,8 @@ const CV2 = {
 const CV2_ALL_PLAZOS = [24, 36, 48, 60, 72, 84, 96, 108, 120];
 // Comisión de apertura VWFS (financiada): 2,99% desde Octubre 2026 (antes 3,50%)
 const CV2_COMISION = 0.0299;
+// Opción «Comisión de apertura 0%» (Noviembre 2026): sin comisión, TIN +1,25 p.p.
+const CV2_CA0_RECARGO_TIN = 1.25;
 
 const CV2_MANT = {
   SEAT:                 { 2: 250,  4: 499, mandatory: false },
@@ -219,9 +222,16 @@ function cv2GetRules() {
     }
   }
 
+  // ── Comisión de apertura 0% (Noviembre 2026): +1,25 p.p. de TIN sobre la campaña. Vale en
+  // SEAT ENTRY/GAMA y CUPRA APPROVED/GAMA; no en DEMOS + REMA, SALONES ni Otras Marcas.
+  const demosActiva = CV2.demosRema && marca === 'SEAT' && (categoria === 'VS' || categoria === null);
+  const salonesActiva = CV2.salones && marca === 'SEAT' && /arona/i.test(CV2.modelo || '');
+  const ca0 = !!CV2.ca0 && marca !== 'OTRA' && !demosActiva && !salonesActiva;
+  if (ca0) { tin_auto = Math.round((tin_auto + CV2_CA0_RECARGO_TIN) * 100) / 100; campanaLabel += ' · Comisión 0%'; }
+
   const tinFinal = CV2.tinOverride !== null ? CV2.tinOverride : tin_auto;
-  const codigo = cv2CodigoCampana(marca, campana, producto, categoria, importeNeto);
-  return { tinFinal, tin_auto, bonificacion, creditoMinimo, campanaLabel, plazosDisp, categoria, antigMeses, codigo };
+  const codigo = cv2CodigoCampana(marca, campana, producto, categoria, importeNeto, ca0);
+  return { tinFinal, tin_auto, bonificacion, creditoMinimo, campanaLabel, plazosDisp, categoria, antigMeses, codigo, ca0 };
 }
 
 // ── Claves de campaña VWFS (Noviembre 2026) ─────────────────────────────────────
@@ -235,6 +245,11 @@ const CV2_CODIGOS = {
   SAL_GAMA:      { VS: { FLEX: 'AYRQ', LINEAL: 'AYRS' }, VO: { FLEX: 'AYRM', LINEAL: 'AYRO' }, VU: { LINEAL: 'AYRU' } },
   CUPRA_APPROVED:{ VS: { FLEX: 'AYJV', LINEAL: 'AYJZ' }, VO: { FLEX: 'AYJT', LINEAL: 'AYJX' } },
   CUPRA_GAMA:    { VS: { FLEX: 'AYI7', LINEAL: 'AYJB' }, VO: { FLEX: 'AYI5', LINEAL: 'AYI9' } },
+  // Con «Comisión de apertura 0%» (Noviembre 2026): SEAT ENTRY/GAMA págs. 6 y 8 · CUPRA GAMA/APPROVED págs. 4 y 5
+  SEAT_ENTRY_CA0:     { VS: { FLEX: 'AY20', LINEAL: 'AY2W' }, VO: { FLEX: 'AY2Y', LINEAL: 'AY2U' } },
+  SEAT_GAMA_CA0:      { VS: { FLEX: 'AY24', LINEAL: 'AY2S' }, VO: { FLEX: 'AY22', LINEAL: 'AY2Q' }, VU: { LINEAL: 'AY2O' } },
+  CUPRA_APPROVED_CA0: { VS: { FLEX: 'AY28', LINEAL: 'AY3C' }, VO: { FLEX: 'AY26', LINEAL: 'AY3A' } },
+  CUPRA_GAMA_CA0:     { VS: { FLEX: 'AY3K', LINEAL: 'AY3G' }, VO: { FLEX: 'AY3I', LINEAL: 'AY3E' } },
   // Otras Marcas: Básica · Entry · Premium · TOP
   OTRA:          { VS: ['AYKX', 'AYKY', 'AYK1', 'AYK2'], VO: ['AYKT', 'AYKU', 'AYK9', 'AYLA'], VU: ['AYLK', 'AYLL', 'AYK5', 'AYK6'] },
 };
@@ -247,7 +262,7 @@ function cv2CampanaActiva(marca, campana, categoria) {
   return campana === 'ENTRY' && categoria !== 'VU' ? 'SEAT_ENTRY' : 'SEAT_GAMA';
 }
 
-function cv2CodigoCampana(marca, campana, producto, categoria, importeNeto) {
+function cv2CodigoCampana(marca, campana, producto, categoria, importeNeto, ca0) {
   const id  = cv2CampanaActiva(marca, campana, categoria);
   const cat = categoria || 'VS';
   if (id === 'DEMOS') return producto === 'FLEX' ? 'AYJ5' : (CV2.meses >= 96 ? 'AYJ8' : 'AYJ7');
@@ -255,7 +270,7 @@ function cv2CodigoCampana(marca, campana, producto, categoria, importeNeto) {
     const nivel = importeNeto >= 20000 ? 3 : importeNeto >= 15000 ? 2 : importeNeto >= 10000 ? 1 : 0;
     return CV2_CODIGOS.OTRA[cat][nivel];
   }
-  const t = CV2_CODIGOS[id] && CV2_CODIGOS[id][cat];
+  const t = CV2_CODIGOS[id + (ca0 && id !== 'DEMOS' && id !== 'SAL_TIN' && id !== 'SAL_GAMA' ? '_CA0' : '')] && CV2_CODIGOS[id + (ca0 && id !== 'DEMOS' && id !== 'SAL_TIN' && id !== 'SAL_GAMA' ? '_CA0' : '')][cat];
   return (t && t[producto]) || '';
 }
 
@@ -389,8 +404,13 @@ function cv2RenderComparativa() {
   const res = cv2Calc();
   const f2 = v => { const [e, d] = Math.abs(v).toFixed(2).split('.'); return cv2Miles(+e) + ',' + d; };
   const m = CV2.meses, entrada = CV2.entrada, importe = Math.max(0, CV2.precio - entrada);
-  const filas = [{ nom: 'VW · ' + res.rules.campanaLabel + (res.rules.codigo ? ' (' + res.rules.codigo + ')' : ''), corto: 'VW',
-                   tin: res.rules.tinFinal.toFixed(2).replace('.', ','), cuota: res.cuota, vw: true }];
+  // Con «Comisión 0%» posible (SEAT ENTRY/GAMA, CUPRA APPROVED/GAMA) se comparan las dos
+  // versiones de la campaña: la normal (2,99% financiado) y la de comisión 0% (+1,25 p.p. TIN)
+  const calcCa0 = on => { const g = CV2.ca0; CV2.ca0 = on; const r = cv2Calc(); CV2.ca0 = g; return r; };
+  const puedeCa0 = (() => { const g = CV2.ca0; CV2.ca0 = true; const ok = cv2GetRules().ca0; CV2.ca0 = g; return ok; })();
+  const filaVw = (r, ca0) => ({ nom: 'VW · ' + r.rules.campanaLabel + (r.rules.codigo ? ' (' + r.rules.codigo + ')' : ''), etq: 'VW · ' + r.rules.campanaLabel,
+                                corto: 'VW', tin: r.rules.tinFinal.toFixed(2).replace('.', ','), cuota: r.cuota, vw: true, ca0 });
+  const filas = puedeCa0 ? [filaVw(calcCa0(false), false), filaVw(calcCa0(true), true)] : [filaVw(res, false)];
   const tb = bbvaTarifa();
   filas.push(tb.coef[m] && m <= tb.max
     ? { nom: 'BBVA', corto: 'BBVA', tin: tb.tin, cuota: Math.round(tb.coef[m] * importe * 100) / 100 }
@@ -408,11 +428,22 @@ function cv2RenderComparativa() {
   // Titular: la más barata y cuánto más cuestan las demás al mes
   const otras = filas.filter(f => f !== mejor).map(f => f.no
     ? `<span class="cv2-comp-na">${f.corto}: no a ${m} m</span>`
-    : `${f.corto} <b>+${f2(f.cuota - mejor.cuota)} €</b>`).join(' · ');
+    : `${f.vw && puedeCa0 ? (f.ca0 ? 'VW 0%' : 'VW') : f.corto} <b>+${f2(f.cuota - mejor.cuota)} €</b>`).join(' · ');
+  // Veredicto de la comisión 0%: qué le conviene al cliente frente a la campaña normal
+  let veredictoCa0 = '';
+  if (puedeCa0) {
+    const std = filas[0], c0 = filas[1], dc = c0.cuota - std.cuota, dt = c0.total - std.total;
+    let txt;
+    if (dc <= 0 && dt <= 0) txt = `<b style="color:#22C55E">Comisión 0% conviene:</b> cuota ${sg(dc)} €/mes y ${sg(dt)} € en total`;
+    else if (dc > 0 && dt >= 0) txt = `<b style="color:#22C55E">Con comisión conviene:</b> la opción 0% sube la cuota ${f2(dc)} €/mes y cuesta ${f2(dt)} € más en total`;
+    else if (dc <= 0) txt = `<b style="color:#F59E0B">Comisión 0%:</b> baja la cuota ${f2(-dc)} €/mes pero cuesta ${f2(dt)} € más en total (solo si prima la cuota)`;
+    else txt = `<b style="color:#F59E0B">Comisión 0%:</b> ahorra ${f2(-dt)} € en total pero sube la cuota ${f2(dc)} €/mes (solo si prima el ahorro total)`;
+    veredictoCa0 = `<div class="cv2-comp-otras" style="margin:4px 0 2px">${txt} · frente a la misma campaña con comisión del 2,99%</div>`;
+  }
   let html = `<div class="cv2-caja-tit">Comparativa con bancos <span class="cv2-caja-sub">${m} meses · entrada ${cv2Miles(entrada)} €</span>
       <span class="cv2-i" title="Préstamo lineal, cuota sin mantenimiento (los bancos no lo incluyen). VW con la bonificación ya descontada. Total = entrada + cuotas.">ⓘ</span></div>
-    <div class="cv2-comp-titular">✓ <b style="color:${color(mejor)}">${mejor.vw ? 'VW · ' + res.rules.campanaLabel : mejor.nom}</b> es la más barata: <b>${f2(mejor.cuota)} €/mes</b>
-      <span class="cv2-comp-otras">${otras} al mes</span></div>
+    <div class="cv2-comp-titular">✓ <b style="color:${color(mejor)}">${mejor.vw ? mejor.etq : mejor.nom}</b> es la más barata: <b>${f2(mejor.cuota)} €/mes</b>
+      <span class="cv2-comp-otras">${otras} al mes</span></div>${veredictoCa0}
     <details class="cv2-det-mini" data-k="compDet" ontoggle="cv2UiDet(this)"${CV2_UI.compDet ? ' open' : ''}><summary>ver detalle</summary>
     <div class="cv2-comp-row cv2-comp-head"><span>Financiera</span><span>Cuota/mes</span><span>Total a pagar</span><span>Diferencia con VW</span></div>`;
   filas.forEach(f => {
@@ -617,7 +648,7 @@ function cv2Calc() {
   const seg0     = precioEf * 0.061545;
   const seg      = precioEf > 0 ? Math.round(seg0 * Math.pow(neto / precioEf, 1.5) * 100) / 100 : 0;
   const base     = neto + seg;
-  const capital  = Math.round(base * (1 + CV2_COMISION) * 100) / 100;
+  const capital  = Math.round(base * (1 + (rules.ca0 ? 0 : CV2_COMISION)) * 100) / 100;
   const comision = Math.round((capital - base) * 100) / 100;
   let vr = 0, cuota = 0;
   if (tab === 'flex') {
@@ -829,6 +860,20 @@ function cv2Render() {
       : 'solo si el coche es demo o REMA';
   }
 
+  // Comisión de apertura 0%: visible en SEAT y CUPRA salvo DEMOS + REMA / SALONES / Otras Marcas
+  const caWrap = document.getElementById('cv2-ca0-wrap');
+  if (caWrap) {
+    const puedeCa = marca !== 'OTRA' && !CV2.demosRema && !CV2.salones;
+    caWrap.classList.toggle('visible', puedeCa);
+    if (!puedeCa && CV2.ca0) CV2.ca0 = false;
+    const cBtn = document.getElementById('cv2-ca0-btn');
+    if (cBtn) cBtn.classList.toggle('active', CV2.ca0);
+    const cLbl = document.getElementById('cv2-ca0-lbl');
+    if (cLbl) cLbl.textContent = CV2.ca0
+      ? 'activo · TIN ' + rules.tinFinal.toFixed(2).replace('.', ',') + '% · sin comisión de apertura'
+      : 'sin comisión de apertura (+1,25 p.p. de TIN)';
+  }
+
   // SALONES (Arona): botón visible solo en SEAT Arona; muestra las condiciones aplicadas
   const saWrap = document.getElementById('cv2-salones-wrap');
   if (saWrap) {
@@ -1035,7 +1080,7 @@ function cv2BuildWaLink(res, rules, mantInfo, cuotaTotal) {
   msg += `Plazo: *${CV2.meses} meses*\n`;
   msg += `TIN: *${rules.tinFinal.toFixed(2).replace('.', ',')}\%*\n`;
   msg += `Seguro Protección Plus: *${cv2Fmt2(res.seg)} €*\n`;
-  msg += `Comisión apertura (2,99\%): *${cv2Fmt2(res.comision)} €*\n`;
+  msg += res.rules.ca0 ? `Comisión apertura: *0 € (opción sin comisión, TIN +1,25 p.p.)*\n` : `Comisión apertura (2,99\%): *${cv2Fmt2(res.comision)} €*\n`;
   msg += `Importe financiado: *${cv2Fmt2(res.capital)} €*\n`;
   msg += `━━━━━━━━━━━━━━━\n`;
   msg += `📅 *Cuota financiación: ${cv2Fmt2(res.cuota)} €/mes*\n`;
@@ -1121,6 +1166,11 @@ function cv2ToggleSalones() {
   cv2Render();
 }
 
+function cv2ToggleCa0() {
+  CV2.ca0 = !CV2.ca0;
+  cv2Render();
+}
+
 function cv2ToggleDemosRema() {
   CV2.demosRema = !CV2.demosRema;
   if (CV2.demosRema) CV2.salones = false;
@@ -1201,6 +1251,7 @@ function initCalc(c) {
   CV2.modelo   = ((c.modelo||'') + ' ' + (c.version||'')).trim();
   CV2.demosRema = false;  // siempre empieza desactivado
   CV2.salones = false;
+  CV2.ca0 = false;
   CV2.auto = true;        // empieza eligiendo sola la campaña VW más barata
   cv2UiRestaurar();       // desplegables internos como los dejó el asesor
 
