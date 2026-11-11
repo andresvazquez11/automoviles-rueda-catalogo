@@ -97,10 +97,15 @@ jobs:
           python-version: '3.11'
 
       - name: Instalar dependencias
+        # Los repositorios de Ubuntu fallan a veces (DNS caído en el runner): se reintenta
+        # y no se deja colgado más de 12 minutos.
+        timeout-minutes: 12
         run: |
-          sudo apt-get update && sudo apt-get install -y fonts-dejavu-core
+          retry() { for i in 1 2 3; do "$@" && return 0; echo "Intento $i fallido, reintentando en 30 s..."; sleep 30; done; return 1; }
+          retry sudo apt-get update
+          retry sudo apt-get install -y fonts-dejavu-core
           pip install -r requirements.txt
-          playwright install --with-deps chromium
+          retry playwright install --with-deps chromium
 
       - name: Restaurar caché de fotos
         uses: actions/cache/restore@v4
