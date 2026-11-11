@@ -7,7 +7,7 @@
     "km": "26.680",
     "fecha": "01/2026",
     "cambio": "Automático",
-    "color": "Blanco",
+    "color": "",
     "precio": "28.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -35,7 +35,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - CUPRA León - 28.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - CUPRA León - 28.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - CUPRA León - 28.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "210.94",
@@ -647,7 +646,7 @@
     "km": "10.863",
     "fecha": "02/2024",
     "cambio": "Automático",
-    "color": "Azul",
+    "color": "",
     "precio": "27.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -675,7 +674,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA Born - 27.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA Born - 27.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA Born - 27.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "227.19",
@@ -887,7 +885,7 @@
     "km": "18.446",
     "fecha": "01/2026",
     "cambio": "Automático",
-    "color": "Blanco",
+    "color": "",
     "precio": "28.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -915,7 +913,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - CUPRA León - 28.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - CUPRA León - 28.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - CUPRA León - 28.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "206.90",
@@ -2677,10 +2674,10 @@
     "km": "500",
     "fecha": "10/2025",
     "cambio": "Automático",
-    "color": "",
+    "color": "Negro",
     "precio": "33.500",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656699",
     "equipamiento": [
       "Asistente de mantenimiento de carril",
@@ -2705,18 +2702,19 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 33.500€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 33.500€/foto_08.jpg"
     ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 33.500€",
     "financiacion": {
       "meses": "60",
-      "cuota": "254.07",
+      "cuota": "256.10",
       "tin": "8.99",
       "tae": "10.25",
-      "cuota_final": "23280.67",
+      "cuota_final": "23128.02",
       "entrada": "6700.00",
       "comision_tipo": "al contado",
       "comision": "810.86",
       "capital": "27119.10",
       "tipo": "",
-      "ejemplo": "* PVPR con campaña de 33.500,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 32.300,00 €. Precio al contado 33.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,25%. La oferta incluye Seg. Protección Plus Ampliado por 1.519,10€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 254,07 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.280,67 € (calculada con 15.000 km anuales). Entrada inicial: 6.700,00 €. Comisión de apertura al contado: 810,86 €. Importe total financiado 27.119,10 €. Importe total de los intereses: 11.405,77 €. Coste total del crédito: 12.216,63 €. Precio total a plazos 45.224,87 €. Importe total adeudado: 38.524,87 €. Sistema de amortización francés"
+      "ejemplo": "* PVPR con campaña de 33.500,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 32.300,00 €. Precio al contado 33.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,25%. La oferta incluye Seg. Protección Plus Ampliado por 1.519,10€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 256,10 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.128,02 € (calculada con 15.000 km anuales). Entrada inicial: 6.700,00 €. Comisión de apertura al contado: 810,86 €. Importe total financiado 27.119,10 €. Importe total de los intereses: 11.374,92 €. Coste total del crédito: 12.185,78 €. Precio total a plazos 45.194,02 €. Importe total adeudado: 38.494,02 €. Sistema de amortización francés"
     }
   },
   {
@@ -2996,7 +2994,7 @@
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - Abarth 500 - 18.500€",
     "financiacion": {},
-    "_intentos_desaparecido": 2,
+    "_intentos_desaparecido": 3,
     "fecha_reservado": "2026-11-10"
   }
 ]
