@@ -97,15 +97,20 @@ jobs:
           python-version: '3.11'
 
       - name: Instalar dependencias
-        # Los repositorios de Ubuntu fallan a veces (DNS caído en el runner): se reintenta
-        # y no se deja colgado más de 12 minutos.
+        # El mirror de Azure de los runners (azure.archive.ubuntu.com) deja de resolver a veces
+        # (corte de GitHub, 11/11/2026): se usa el servidor principal de Ubuntu y, si apt sigue
+        # sin responder, se instala Chromium sin las dependencias del sistema en vez de fallar.
         timeout-minutes: 12
         run: |
-          retry() { for i in 1 2 3; do "$@" && return 0; echo "Intento $i fallido, reintentando en 30 s..."; sleep 30; done; return 1; }
-          retry sudo apt-get update
-          retry sudo apt-get install -y fonts-dejavu-core
+          sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list /etc/apt/sources.list.d/*.sources 2>/dev/null || true
           pip install -r requirements.txt
-          retry playwright install --with-deps chromium
+          if timeout 150 sudo apt-get update -o Acquire::Retries=1; then
+            sudo apt-get install -y fonts-dejavu-core || true
+            playwright install --with-deps chromium || playwright install chromium
+          else
+            echo "::warning::apt no responde: se instala Chromium sin dependencias del sistema"
+            playwright install chromium
+          fi
 
       - name: Restaurar caché de fotos
         uses: actions/cache/restore@v4
