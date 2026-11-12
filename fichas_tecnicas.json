@@ -11616,5 +11616,33 @@
    "Control de arranque en pendiente": "Hill Start Assist",
    "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED": "LED brake lights, front fog lights, low beam, side indicators, daytime running lights, rear lights, and high beam"
   }
+ },
+ "mf-215243841": {
+  "fuente": "mf",
+  "gen": {
+   "matriculacion": "27/05/2021",
+   "km": "68.603 km",
+   "combustible": "Gasolina",
+   "potencia": "150 CV (110 kW)",
+   "cambio": "Automático",
+   "puertas": "5",
+   "plazas": "5",
+   "color": "Gris",
+   "carroceria": "Suv",
+   "etiqueta": "C",
+   "par": "250 Nm"
+  },
+  "dims": {},
+  "pintura": "",
+  "tapizado": "",
+  "extras": {},
+  "serie": {},
+  "huella": "fc8d64176b",
+  "en": {
+   "Gasolina": "Petrol",
+   "Automático": "Automatic",
+   "Gris": "Grey",
+   "Suv": "SUV"
+  }
  }
 }

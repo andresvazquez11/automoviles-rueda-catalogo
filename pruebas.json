@@ -254,7 +254,8 @@
     "CUPRA Raval|2026": "2026-10-14",
     "Kia Sportage|2022": "2026-10-15",
     "CUPRA Born|2024": "2026-10-19",
-    "CUPRA León|2023": "2026-10-31"
+    "CUPRA León|2023": "2026-10-31",
+    "SEAT Ateca|2021": "2026-11-12"
   },
   "Abarth 500": {
     "videos": [
@@ -357,6 +358,30 @@
         "auto": "2026-09-30",
         "desde": 2022,
         "hasta": 2024
+      },
+      {
+        "youtube": "XAPk_tNyKo0",
+        "titulo": "SEAT Tarraco FR SUV y SEAT Ateca 2021",
+        "medio": "coches.net",
+        "auto": "2026-11-12",
+        "desde": 2020,
+        "hasta": 2022
+      },
+      {
+        "youtube": "mNY9XU4CReQ",
+        "titulo": "Seat Ateca FR TSI - Prueba / Review en español",
+        "medio": "HolyCars TV",
+        "auto": "2026-11-12",
+        "desde": 2020,
+        "hasta": 2022
+      },
+      {
+        "youtube": "VZiaPGuqiJ0",
+        "titulo": "Seat Ateca - Probamos la versión Xcellence",
+        "medio": "Car Motor",
+        "auto": "2026-11-12",
+        "desde": 2020,
+        "hasta": 2022
       }
     ]
   },
