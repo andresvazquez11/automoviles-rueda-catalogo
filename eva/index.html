@@ -2013,7 +2013,7 @@ document.addEventListener('click', e => {
     .then(data => {
       // Manuales de /admin/ primero; los automáticos (elegidos en cada actualización:
       // rebajas, recién llegados…) rellenan hasta 3. Un manual vendido/reservado se salta.
-      const AUTO = [{"id": "dwa-171393895", "etiqueta": "Precio rebajado"}, {"id": "dwa-165115441", "etiqueta": "Precio rebajado"}, {"id": "dwa-155656639", "etiqueta": "Precio rebajado"}, {"id": "dwa-166434652", "etiqueta": "Precio rebajado"}, {"id": "dwa-151395138", "etiqueta": "Precio rebajado"}, {"id": "dwa-212890776", "etiqueta": "Recién llegado"}];
+      const AUTO = [{"id": "dwa-166434652", "etiqueta": "Precio rebajado"}, {"id": "dwa-155656777", "etiqueta": "Precio rebajado"}, {"id": "dwa-171393895", "etiqueta": "Precio rebajado"}, {"id": "dwa-193183603", "etiqueta": "Precio rebajado"}, {"id": "dwa-151395138", "etiqueta": "Precio rebajado"}, {"id": "dwa-204499885", "etiqueta": "Recién llegado"}];
       const manual = (data[PERFIL_ID] || []);
       const lista = manual.concat(AUTO.filter(a => !manual.some(m => m.id === a.id)));
       if (!lista.length) return;
@@ -2177,7 +2177,7 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
   <p class="rd-footer-dwa">
     <a href="https://www.dasweltauto.es/esp/concesionario-seat-automoviles-rueda" target="_blank" rel="noopener"><span class="rd-i18n" data-es="Ver todos los coches en Das WeltAuto ↗" data-en="See all cars on Das WeltAuto ↗" data-de="Alle Fahrzeuge bei Das WeltAuto ansehen ↗">Ver todos los coches en Das WeltAuto ↗</span></a>
   </p>
-  <p class="rd-footer-updated">🔄 <span class="rd-i18n" data-es="Última actualización: 11/11/2026 — 16:46 h" data-en="Last updated: 11/11/2026 — 16:46" data-de="Letzte Aktualisierung: 11/11/2026 — 16:46 Uhr">Última actualización: 11/11/2026 — 16:46 h</span></p>
+  <p class="rd-footer-updated">🔄 <span class="rd-i18n" data-es="Última actualización: 12/11/2026 — 10:06 h" data-en="Last updated: 12/11/2026 — 10:06" data-de="Letzte Aktualisierung: 12/11/2026 — 10:06 Uhr">Última actualización: 12/11/2026 — 10:06 h</span></p>
 </footer>
 
 <div class="rd-wa-popup" id="rd-wa-popup">
@@ -2254,7 +2254,7 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
 <script>
 // Si este ordenador tiene una portada vieja, se recarga sola (una vez por versión).
 (function () {
-  var BUILD = "20261111164317";
+  var BUILD = "20261112100422";
   function comprobar() {
     fetch('/version.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.json(); })
