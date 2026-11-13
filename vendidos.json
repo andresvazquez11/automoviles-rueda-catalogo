@@ -1,4 +1,14 @@
 {
+ "abarth-500-165443506": {
+  "baja": "2026-11-13",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "10/2022",
+  "km": "77.890",
+  "modelo": "Abarth 500",
+  "precio": "18.500",
+  "version": "1.4 16v T-Jet 595 121 kW (165 CV)"
+ },
  "bmw-serie-193180663": {
   "baja": "2026-10-24",
   "cambio": "Automático",
@@ -398,6 +408,16 @@
   "modelo": "SEAT Ateca",
   "precio": "20.900",
   "version": "2.0 TDI S&S Style XM 85 kW (115 CV)"
+ },
+ "seat-ateca-mf215243841": {
+  "baja": "2026-11-13",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "05/2021",
+  "km": "68.603",
+  "modelo": "SEAT Ateca",
+  "precio": "19.900",
+  "version": "1.5 TSI S&S Style DSG 110 kW (150 CV)"
  },
  "seat-ibiza-151394481": {
   "baja": "2026-10-05",
