@@ -11725,5 +11725,33 @@
    "Azul": "Blue",
    "Compacto": "Compact"
   }
+ },
+ "mf-215684202": {
+  "fuente": "mf",
+  "gen": {
+   "matriculacion": "29/04/2026",
+   "km": "5.590 km",
+   "combustible": "Gasolina",
+   "potencia": "150 CV (110 kW)",
+   "cambio": "Automático",
+   "puertas": "5",
+   "plazas": "5",
+   "color": "Gris",
+   "carroceria": "Suv",
+   "etiqueta": "ECO",
+   "par": "250 Nm"
+  },
+  "dims": {},
+  "pintura": "",
+  "tapizado": "",
+  "extras": {},
+  "serie": {},
+  "huella": "d22b30daf4",
+  "en": {
+   "Gasolina": "Petrol",
+   "Automático": "Automatic",
+   "Gris": "Grey",
+   "Suv": "SUV"
+  }
  }
 }

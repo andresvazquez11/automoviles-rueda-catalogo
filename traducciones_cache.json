@@ -248,6 +248,22 @@
     ],
     "version_en": "1.0 TSI Style Special Edition DSG 85 kW (115 HP)"
   },
+  "0c0a74936c6fc2a2": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Front Assist including emergency braking function for ACC High",
+      "Lane Assist",
+      "Top speed: 200 km/h",
+      "Aurora premium upholstery",
+      "16\" Machined Design alloy wheels",
+      "Leather multi-function sports steering wheel",
+      "Dual-zone Climatronic climate control",
+      "6.5J x 16\" light alloy wheels",
+      "Rearview camera system",
+      "Multifunction camera"
+    ],
+    "version_en": "1.0 TSI S&S Style 85 kW (115 HP)"
+  },
   "0e9d93cdf655909c": {
     "color_en": "White",
     "equipamiento_en": [
@@ -1548,6 +1564,57 @@
       "Three-passenger forward-facing rear bench seat, fold-flat with fixed cushion and asymmetric split-folding backrest"
     ],
     "version_en": "1.0 TSI Xperience Special Edition 85 kW (115 HP)"
+  },
+  "580a0e96d18fc40c": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Automatic Start/Stop",
+      "Daytime Running Lights",
+      "Cruise Control",
+      "Multifunction Steering Wheel",
+      "Bluetooth",
+      "Sports Seats",
+      "Alloy Wheels",
+      "19\" Alloy Wheels",
+      "Roof Rails",
+      "On-Board Computer",
+      "Alarm System",
+      "Fog Lights",
+      "Air Conditioning",
+      "Automatic Climate Control",
+      "Airbag",
+      "Passenger Airbag",
+      "Driver Airbag",
+      "Side Airbags",
+      "ABS (Anti-lock Braking System)",
+      "ESP",
+      "Power Steering",
+      "Electric Windows",
+      "Central Locking",
+      "Center Armrest",
+      "Remote Central Locking",
+      "Power Steering",
+      "Adaptive Cruise Control",
+      "Lane Change Assist",
+      "Lane Keep Assist",
+      "Park Assist",
+      "High-Beam Assist",
+      "Power Socket",
+      "Electric Tailgate",
+      "Hill Start Assist",
+      "LED Headlights",
+      "LED Taillights",
+      "ISOFIX",
+      "Rain Sensor",
+      "Automatic Headlights",
+      "Push-Button Start",
+      "Tyre Pressure Monitoring System",
+      "Electric Parking Brake",
+      "Traffic Sign Recognition",
+      "Apple CarPlay",
+      "Speed Limiter"
+    ],
+    "version_en": "1.5 eTSI DSG 110 kW (150 HP)"
   },
   "59c29738539095a5": {
     "color_en": "",
