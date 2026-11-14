@@ -11709,7 +11709,7 @@
    "puertas": "5",
    "plazas": "5",
    "color": "Azul",
-   "carroceria": "Compacto",
+   "carroceria": "Berlina",
    "etiqueta": "C",
    "par": "220 Nm"
   },
@@ -11718,12 +11718,12 @@
   "tapizado": "",
   "extras": {},
   "serie": {},
-  "huella": "f2b3f2194b",
+  "huella": "20a6b8889f",
   "en": {
    "Gasolina": "Petrol",
    "Manual": "Manual",
    "Azul": "Blue",
-   "Compacto": "Compact"
+   "Berlina": "Sedan"
   }
  },
  "mf-215684202": {
