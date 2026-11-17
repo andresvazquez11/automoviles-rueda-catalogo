@@ -1728,6 +1728,22 @@
     ],
     "version_en": "1.5 eTSI S&S FR Special Edition DSG 110 kW (150 HP)"
   },
+  "5fbedfdf3d76185d": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Separate climate controls for driver/passenger and front/rear seats",
+      "Tri-zone automatic climate control with rear controls",
+      "Front parking sensors, rear parking sensors with camera, and side parking sensors",
+      "LED brake lights, front fog lights, low beams, side indicators, daytime running lights, taillights, and high beams",
+      "Top speed: 217 km/h",
+      "Lane Keep Assist system",
+      "Speed Limiter system",
+      "Park Assist system",
+      "Matrix-beam headlights",
+      "Wireless and wired app connectivity"
+    ],
+    "version_en": "1.5 eTSI S&S FR Special Edition DSG 110 kW (150 HP)"
+  },
   "5fed0ff630246df5": {
     "color_en": "",
     "equipamiento_en": [
@@ -2301,6 +2317,57 @@
       "Full LED lighting: brake lights, low beam, daytime running lights, tail lights, and high beam"
     ],
     "version_en": "1.5 TSI FR DSG 110 kW (150 HP)"
+  },
+  "756612f1a636dd92": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Auto Start/Stop system",
+      "Daytime running lights",
+      "Cruise control",
+      "Multifunction steering wheel",
+      "Bluetooth",
+      "Sports seats",
+      "Alloy wheels",
+      "19\" alloy wheels",
+      "Roof rails",
+      "Trip computer",
+      "Alarm system",
+      "Fog lights",
+      "Air conditioning",
+      "Automatic climate control",
+      "Airbag",
+      "Passenger airbag",
+      "Driver airbag",
+      "Side airbags",
+      "ABS anti-lock brakes",
+      "ESP",
+      "Power steering",
+      "Electric windows",
+      "Central locking",
+      "Center armrest",
+      "Remote central locking",
+      "Power steering",
+      "Adaptive Cruise Control",
+      "Lane change assist",
+      "Lane keep assist",
+      "Park assist",
+      "High-beam assist",
+      "Power outlet",
+      "Electric tailgate",
+      "Hill start assist",
+      "LED headlights",
+      "LED taillights",
+      "ISOFIX",
+      "Rain sensor",
+      "Automatic headlights",
+      "Push-button start",
+      "Tyre pressure monitoring system",
+      "Electric parking brake",
+      "Traffic sign recognition",
+      "CarPlay",
+      "Speed limiter"
+    ],
+    "version_en": "1.5 eTSI DSG 110 kW (150 HP)"
   },
   "75c3c77f63fc1ee4": {
     "color_en": "",
@@ -4536,6 +4603,22 @@
       "Leather-wrapped multifunction steering wheel adjustable for height and reach"
     ],
     "version_en": "1.0 TSI S&S FR XS 85 kW (115 HP)"
+  },
+  "de64a5aa3028dd74": {
+    "color_en": "White",
+    "equipamiento_en": [
+      "Cloth seats (main material) and synthetic leather (secondary material)",
+      "Individual climate controls for driver/passenger and front/rear seats",
+      "Tri-zone automatic climate control with rear controls",
+      "Full LED technology for brake lights, front fog lights, low beams, side indicators, daytime running lights, tail lights, and high beams",
+      "Top speed: 205 km/h",
+      "Black (cloth/leatherette)",
+      "Edge Pack",
+      "19\" alloy wheels (48cm) - Sanstorm",
+      "Keyless entry and start system",
+      "Rearview camera"
+    ],
+    "version_en": "1.5 TSI 110 kW (150 HP)"
   },
   "df0b942fc11f1a62": {
     "color_en": "",

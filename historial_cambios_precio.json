@@ -208,5 +208,25 @@
     "url": "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-110-cv-del-2022-en-malaga/165115441",
     "precio_anterior": 16500.0,
     "precio_nuevo": 15900.0
+  },
+  {
+    "fecha_iso": "2026-11-17T10:04:00",
+    "fecha": "17/11/2026",
+    "n": 43,
+    "modelo": "SEAT Arona",
+    "version": "1.0 TSI Xperience Special Edition 85 kW (115 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/196349623",
+    "precio_anterior": 19900.0,
+    "precio_nuevo": 18900.0
+  },
+  {
+    "fecha_iso": "2026-11-17T10:04:00",
+    "fecha": "17/11/2026",
+    "n": 48,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI 110 kW (150 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/151394958",
+    "precio_anterior": 29900.0,
+    "precio_nuevo": 28900.0
   }
 ]

@@ -209,6 +209,16 @@
   "precio": "34.500",
   "version": "51,5kWh Endurance Dynamic Plus Launch Edition 155 kW (210 CV)"
  },
+ "cupra-terramar-178079683": {
+  "baja": "2026-11-17",
+  "cambio": "Automático",
+  "combustible": "Mild Hybrid",
+  "fecha": "04/2026",
+  "km": "100",
+  "modelo": "CUPRA Terramar",
+  "precio": "37.900",
+  "version": "1.5 eTSI Beyond DSG 110 kW (150 CV)"
+ },
  "kia-sportage-mf203846824": {
   "baja": "2026-10-16",
   "cambio": "Manual",
