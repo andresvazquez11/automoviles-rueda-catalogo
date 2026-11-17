@@ -596,10 +596,10 @@
     "km": "10.863",
     "fecha": "02/2024",
     "cambio": "Automático",
-    "color": "",
+    "color": "Azul",
     "precio": "27.900",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-born-electrico-231-cv-del-2024-en-malaga/204499885",
     "equipamiento": [
       "Llantas 20\" Hurricane Sport Black e-racer",
@@ -624,6 +624,7 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - CUPRA Born - 27.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - CUPRA Born - 27.900€/foto_08.jpg"
     ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - CUPRA Born - 27.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "227.19",
@@ -935,7 +936,7 @@
     "km": "23.349",
     "fecha": "01/2026",
     "cambio": "Manual",
-    "color": "Blanco",
+    "color": "",
     "precio": "15.600",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -963,7 +964,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 15.600€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 15.600€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 15.600€",
     "financiacion": {
       "meses": "60",
       "cuota": "162.72",
@@ -1975,7 +1975,7 @@
     "km": "1.500",
     "fecha": "02/2026",
     "cambio": "Automático",
-    "color": "Gris",
+    "color": "",
     "precio": "27.900",
     "ubicacion": "Málaga",
     "estado": "No disponible",
@@ -2003,7 +2003,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - SEAT León - 27.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - SEAT León - 27.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - SEAT León - 27.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "228.71",
@@ -2076,7 +2075,7 @@
     "km": "18.224",
     "fecha": "06/2025",
     "cambio": "Manual",
-    "color": "Gris",
+    "color": "",
     "precio": "18.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -2104,7 +2103,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "174.78",
@@ -2356,7 +2354,19 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 28.900€/foto_08.jpg"
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - CUPRA Formentor - 28.900€",
-    "financiacion": {}
+    "financiacion": {
+      "meses": "60",
+      "cuota": "253.58",
+      "tin": "8.99",
+      "tae": "10.30",
+      "cuota_final": "17216.90",
+      "entrada": "5780.00",
+      "comision_tipo": "al contado",
+      "comision": "694.30",
+      "capital": "23220.73",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 28.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 27.700,00 €. Precio al contado 28.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,30%. La oferta incluye Seg. Protección Plus Ampliado por 1.300,73€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 253,58 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.216,90 € (calculada con 15.000 km anuales). Entrada inicial: 5.780,00 €. Comisión de apertura al contado: 694,30 €. Importe total financiado 23.220,73 €. Importe total de los intereses: 9.210,97 €. Coste total del crédito: 9.905,27 €. Precio total a plazos 38.211,70 €. Importe total adeudado: 32.431,70 €. Sistema de amortización francés"
+    }
   },
   {
     "n": 49,
@@ -2555,7 +2565,7 @@
     "km": "5.850",
     "fecha": "03/2025",
     "cambio": "Automático",
-    "color": "Blanco",
+    "color": "",
     "precio": "32.900",
     "ubicacion": "Málaga",
     "estado": "No disponible",
@@ -2583,7 +2593,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "265.33",
@@ -2647,7 +2656,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 33.500,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 32.300,00 €. Precio al contado 33.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,25%. La oferta incluye Seg. Protección Plus Ampliado por 1.519,10€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 256,10 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.128,02 € (calculada con 15.000 km anuales). Entrada inicial: 6.700,00 €. Comisión de apertura al contado: 810,86 €. Importe total financiado 27.119,10 €. Importe total de los intereses: 11.374,92 €. Coste total del crédito: 12.185,78 €. Precio total a plazos 45.194,02 €. Importe total adeudado: 38.494,02 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 3,
+    "_intentos_desaparecido": 4,
     "fecha_reservado": "2026-11-16"
   },
   {
@@ -2699,7 +2708,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.900,00 €. Precio financiando: 22.900,00 €. Precio al contado 22.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,13%. La oferta incluye Seg. Protección Plus Ampliado por 1.087,11€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 162,10 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 16.991,81 € (calculada con 15.000 km anuales). Entrada inicial: 4.580,00 €. Comisión de apertura al contado: 580,27 €. Importe total financiado 19.407,11 €. Importe total de los intereses: 7.310,70 €. Coste total del crédito: 7.890,97 €. Precio total a plazos 31.297,81 €. Importe total adeudado: 26.717,81 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 4,
+    "_intentos_desaparecido": 5,
     "fecha_reservado": "2026-11-16"
   },
   {
@@ -2751,7 +2760,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.900,00 €. Precio financiando: 20.900,00 €. Precio al contado 20.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,18%. La oferta incluye Seg. Protección Plus Ampliado por 992,16€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 177,38 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 13.345,59 € (calculada con 15.000 km anuales). Entrada inicial: 4.180,00 €. Comisión de apertura al contado: 529,59 €. Importe total financiado 17.712,16 €. Importe total de los intereses: 6.276,23 €. Coste total del crédito: 6.805,82 €. Precio total a plazos 28.168,39 €. Importe total adeudado: 23.988,39 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 4,
+    "_intentos_desaparecido": 5,
     "fecha_reservado": "2026-11-16"
   },
   {
@@ -2803,7 +2812,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.600,00 €. Precio financiando: 20.600,00 €. Precio al contado 20.600,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,24%. La oferta incluye Seg. Protección Plus Ampliado por 1.044,38€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 220,44 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.570,11 € (calculada con 15.000 km anuales). Entrada inicial: 3.000,00 €. Comisión de apertura al contado: 557,47 €. Importe total financiado 18.644,38 €. Importe total de los intereses: 6.152,13 €. Coste total del crédito: 6.709,60 €. Precio total a plazos 27.796,51 €. Importe total adeudado: 24.796,51 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 4,
+    "_intentos_desaparecido": 5,
     "fecha_reservado": "2026-11-16"
   },
   {
@@ -2814,9 +2823,9 @@
     "version": "1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Gasolina",
     "km": "5.590",
-    "fecha": "2026",
+    "fecha": "04/2026",
     "cambio": "Automatico",
-    "color": "",
+    "color": "Gris",
     "precio": "33.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
