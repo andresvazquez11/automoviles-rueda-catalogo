@@ -259,14 +259,14 @@
   "archivo": "web_fotos/recortes/dwa-215243742.webp",
   "proporcion": 1.674
  },
- "mf-215684202": {
-  "hash": "8fae9d17e4f7a4ee",
-  "archivo": "web_fotos/recortes/mf-215684202.webp",
-  "proporcion": 1.953
- },
  "dwa-215450640": {
   "hash": "b005613d7debdd7e",
   "archivo": "web_fotos/recortes/dwa-215450640.webp",
   "proporcion": 1.777
+ },
+ "dwa-215684136": {
+  "hash": "6ce12402de3040df",
+  "archivo": "web_fotos/recortes/dwa-215684136.webp",
+  "proporcion": 1.95
  }
 }

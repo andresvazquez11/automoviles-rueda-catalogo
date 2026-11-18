@@ -119,6 +119,16 @@
   "precio": "21.500",
   "version": "1.4 e-Hybrid VZ DSG 180 kW (245 CV)"
  },
+ "cupra-formentor-mf215684202": {
+  "baja": "2026-11-18",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "04/2026",
+  "km": "5.590",
+  "modelo": "CUPRA Formentor",
+  "precio": "33.900",
+  "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
  "cupra-leon-151395102": {
   "baja": "2026-10-08",
   "cambio": "Automático",
