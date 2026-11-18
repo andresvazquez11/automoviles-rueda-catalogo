@@ -22,7 +22,7 @@ on:
 
 jobs:
   check-hora:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     outputs:
@@ -79,7 +79,7 @@ jobs:
   actualizar:
     needs: check-hora
     if: needs.check-hora.outputs.correr == 'si'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     # Hora de Madrid para TODO el job: sin esto `date` y datetime.now() de
