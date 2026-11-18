@@ -7,7 +7,7 @@
     "km": "5.590",
     "fecha": "04/2026",
     "cambio": "Automático",
-    "color": "Gris",
+    "color": "",
     "precio": "33.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -35,7 +35,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - CUPRA Formentor - 33.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - CUPRA Formentor - 33.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - CUPRA Formentor - 33.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "284.34",
@@ -647,7 +646,7 @@
     "km": "10.863",
     "fecha": "02/2024",
     "cambio": "Automático",
-    "color": "Azul",
+    "color": "",
     "precio": "27.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -675,7 +674,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA Born - 27.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA Born - 27.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA Born - 27.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "227.19",
@@ -2512,6 +2510,56 @@
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
+    "km": "8.819",
+    "fecha": "04/2025",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "32.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656777",
+    "equipamiento": [
+      "Asistente de mantenimiento de carril",
+      "Asistente de aparcamiento",
+      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
+      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
+      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
+      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
+      "Velocidad máxima: 210 km/h",
+      "Negro (tela/piel)",
+      "Edge Pack",
+      "Intelligent Drive Pack"
+    ],
+    "_total": 52,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€/foto_08.jpg"
+    ],
+    "financiacion": {
+      "meses": "60",
+      "cuota": "257.74",
+      "tin": "8.99",
+      "tae": "10.26",
+      "cuota_final": "22208.40",
+      "entrada": "6580.00",
+      "comision_tipo": "al contado",
+      "comision": "795.66",
+      "capital": "26610.62",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 32.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.700,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,26%. La oferta incluye Seg. Protección Plus Ampliado por 1.490,62€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 257,74 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.208,40 € (calculada con 15.000 km anuales). Entrada inicial: 6.580,00 €. Comisión de apertura al contado: 795,66 €. Importe total financiado 26.610,62 €. Importe total de los intereses: 11.062,18 €. Coste total del crédito: 11.857,84 €. Precio total a plazos 44.252,80 €. Importe total adeudado: 37.672,80 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 53,
+    "modelo": "CUPRA Formentor",
+    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "combustible": "Híbrido",
     "km": "5.850",
     "fecha": "03/2025",
     "cambio": "Automático",
@@ -2534,14 +2582,14 @@
     ],
     "_total": 52,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€ · RESERVADO/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€ · RESERVADO/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€ · RESERVADO/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€ · RESERVADO/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€ · RESERVADO/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€ · RESERVADO/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€ · RESERVADO/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 32.900€ · RESERVADO/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€ · RESERVADO/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€ · RESERVADO/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€ · RESERVADO/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€ · RESERVADO/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€ · RESERVADO/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€ · RESERVADO/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€ · RESERVADO/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Formentor - 32.900€ · RESERVADO/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2555,10 +2603,11 @@
       "capital": "26610.62",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 32.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.700,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,27%. La oferta incluye Seg. Protección Plus Ampliado por 1.490,62€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 265,33 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.636,12 € (calculada con 15.000 km anuales). Entrada inicial: 6.580,00 €. Comisión de apertura al contado: 795,66 €. Importe total financiado 26.610,62 €. Importe total de los intereses: 10.945,30 €. Coste total del crédito: 11.740,96 €. Precio total a plazos 44.135,92 €. Importe total adeudado: 37.555,92 €. Sistema de amortización francés"
-    }
+    },
+    "_intentos_desaparecido": 1
   },
   {
-    "n": 53,
+    "n": 54,
     "modelo": "SEAT Ibiza",
     "version": "1.0 TSI S&S Style 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -2568,7 +2617,7 @@
     "color": "",
     "precio": "20.900",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "Retirado",
     "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2026-en-malaga/169786447",
     "equipamiento": [
       "Asistente frontal incluido función frenada de emergencia para ACC High",
@@ -2584,14 +2633,14 @@
     ],
     "_total": 53,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - SEAT Ibiza - 20.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - SEAT Ibiza - 20.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - SEAT Ibiza - 20.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - SEAT Ibiza - 20.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - SEAT Ibiza - 20.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - SEAT Ibiza - 20.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - SEAT Ibiza - 20.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - SEAT Ibiza - 20.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - SEAT Ibiza - 20.900€ · RETIRADO/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - SEAT Ibiza - 20.900€ · RETIRADO/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - SEAT Ibiza - 20.900€ · RETIRADO/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - SEAT Ibiza - 20.900€ · RETIRADO/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - SEAT Ibiza - 20.900€ · RETIRADO/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - SEAT Ibiza - 20.900€ · RETIRADO/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - SEAT Ibiza - 20.900€ · RETIRADO/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - SEAT Ibiza - 20.900€ · RETIRADO/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2606,58 +2655,8 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.900,00 €. Precio financiando: 20.900,00 €. Precio al contado 20.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,92%. La oferta incluye Seg. Protección Plus Ampliado por 1.240,21€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 280,71 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.817,08 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 774,91 €. Importe total financiado 22.140,21 €. Importe total de los intereses: 6.519,47 €. Coste total del crédito: 7.294,38 €. Precio total a plazos 28.659,68 €. Importe total adeudado: 28.659,68 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 1
-  },
-  {
-    "n": 54,
-    "modelo": "CUPRA Formentor",
-    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
-    "combustible": "Híbrido",
-    "km": "8.819",
-    "fecha": "04/2025",
-    "cambio": "Automático",
-    "color": "",
-    "precio": "32.900",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-hibrido-electro-gasolina-204-cv-del-2025-en-malaga/155656777",
-    "equipamiento": [
-      "Asistente de mantenimiento de carril",
-      "Asistente de aparcamiento",
-      "Asientos de tela (material principal) y de cuero sintético (material secundario)",
-      "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
-      "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
-      "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
-      "Velocidad máxima: 210 km/h",
-      "Negro (tela/piel)",
-      "Edge Pack",
-      "Intelligent Drive Pack"
-    ],
-    "_total": 53,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA Formentor - 32.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA Formentor - 32.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA Formentor - 32.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA Formentor - 32.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA Formentor - 32.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA Formentor - 32.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA Formentor - 32.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA Formentor - 32.900€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "257.74",
-      "tin": "8.99",
-      "tae": "10.26",
-      "cuota_final": "22208.40",
-      "entrada": "6580.00",
-      "comision_tipo": "al contado",
-      "comision": "795.66",
-      "capital": "26610.62",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 32.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.700,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,26%. La oferta incluye Seg. Protección Plus Ampliado por 1.490,62€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 257,74 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.208,40 € (calculada con 15.000 km anuales). Entrada inicial: 6.580,00 €. Comisión de apertura al contado: 795,66 €. Importe total financiado 26.610,62 €. Importe total de los intereses: 11.062,18 €. Coste total del crédito: 11.857,84 €. Precio total a plazos 44.252,80 €. Importe total adeudado: 37.672,80 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    "_intentos_desaparecido": 2,
+    "fecha_reservado": "2026-11-18"
   },
   {
     "n": 55,
@@ -2708,7 +2707,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 33.500,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 32.300,00 €. Precio al contado 33.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,25%. La oferta incluye Seg. Protección Plus Ampliado por 1.519,10€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 256,10 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.128,02 € (calculada con 15.000 km anuales). Entrada inicial: 6.700,00 €. Comisión de apertura al contado: 810,86 €. Importe total financiado 27.119,10 €. Importe total de los intereses: 11.374,92 €. Coste total del crédito: 12.185,78 €. Precio total a plazos 45.194,02 €. Importe total adeudado: 38.494,02 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 5,
+    "_intentos_desaparecido": 6,
     "fecha_reservado": "2026-11-16"
   },
   {
@@ -2760,7 +2759,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.900,00 €. Precio financiando: 22.900,00 €. Precio al contado 22.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,13%. La oferta incluye Seg. Protección Plus Ampliado por 1.087,11€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 162,10 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 16.991,81 € (calculada con 15.000 km anuales). Entrada inicial: 4.580,00 €. Comisión de apertura al contado: 580,27 €. Importe total financiado 19.407,11 €. Importe total de los intereses: 7.310,70 €. Coste total del crédito: 7.890,97 €. Precio total a plazos 31.297,81 €. Importe total adeudado: 26.717,81 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 6,
+    "_intentos_desaparecido": 7,
     "fecha_reservado": "2026-11-16"
   },
   {
@@ -2812,7 +2811,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.900,00 €. Precio financiando: 20.900,00 €. Precio al contado 20.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,18%. La oferta incluye Seg. Protección Plus Ampliado por 992,16€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 177,38 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 13.345,59 € (calculada con 15.000 km anuales). Entrada inicial: 4.180,00 €. Comisión de apertura al contado: 529,59 €. Importe total financiado 17.712,16 €. Importe total de los intereses: 6.276,23 €. Coste total del crédito: 6.805,82 €. Precio total a plazos 28.168,39 €. Importe total adeudado: 23.988,39 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 6,
+    "_intentos_desaparecido": 7,
     "fecha_reservado": "2026-11-16"
   },
   {
@@ -2864,7 +2863,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.600,00 €. Precio financiando: 20.600,00 €. Precio al contado 20.600,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,24%. La oferta incluye Seg. Protección Plus Ampliado por 1.044,38€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 220,44 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.570,11 € (calculada con 15.000 km anuales). Entrada inicial: 3.000,00 €. Comisión de apertura al contado: 557,47 €. Importe total financiado 18.644,38 €. Importe total de los intereses: 6.152,13 €. Coste total del crédito: 6.709,60 €. Precio total a plazos 27.796,51 €. Importe total adeudado: 24.796,51 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 6,
+    "_intentos_desaparecido": 7,
     "fecha_reservado": "2026-11-16"
   }
 ]
