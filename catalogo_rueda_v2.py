@@ -230,6 +230,23 @@ def color_marca(modelo: str):
     else:                  return (10,10,10),    (0,160,220)
 
 # ── Scraping del listado ───────────────────────────────────
+async def evaluar_seguro(page, js, intentos=4):
+    """page.evaluate que reintenta si la página navega/recarga (contexto destruido)."""
+    for n in range(intentos):
+        try:
+            return await page.evaluate(js)
+        except Exception as e:
+            if "context was destroyed" not in str(e) and "navigation" not in str(e):
+                raise
+            if n == intentos - 1:
+                raise
+            print("  ⚠️  La página navegó durante la lectura, esperando y reintentando...")
+            try:
+                await page.wait_for_load_state("domcontentloaded", timeout=30000)
+            except Exception:
+                pass
+            await page.wait_for_timeout(2000)
+
 async def obtener_coches_del_listado(page) -> list[dict]:
     """Navega al listado, carga todos los coches y extrae datos básicos + URL."""
     print("  Accediendo al listado de Automóviles Rueda...")
@@ -241,7 +258,7 @@ async def obtener_coches_del_listado(page) -> list[dict]:
     await page.wait_for_timeout(2500)
 
     # Cerrar cookies si aparecen
-    await page.evaluate("""
+    await evaluar_seguro(page, """
         const btns = document.querySelectorAll('button');
         const btn  = Array.from(btns).find(b => b.textContent.includes('Rechazar') || b.textContent.includes('Aceptar'));
         if (btn) btn.click();
@@ -249,7 +266,7 @@ async def obtener_coches_del_listado(page) -> list[dict]:
     await page.wait_for_timeout(800)
 
     # Leer el total real que indica la página (ej: "39 Coches de segunda mano de Automóviles Rueda")
-    total_pagina = await page.evaluate("""
+    total_pagina = await evaluar_seguro(page, """
         () => {
             const m = document.body.innerText.match(/(\\d+)\\s+Coches de segunda mano de Automóviles Rueda/);
             return m ? parseInt(m[1]) : null;
@@ -260,19 +277,19 @@ async def obtener_coches_del_listado(page) -> list[dict]:
     # Hacer clic en "Ver más" SOLO hasta alcanzar el total real de la página
     # Evita cargar coches de otros concesionarios
     for intento in range(10):
-        cargados = await page.evaluate("document.querySelectorAll('h2.nombre').length")
+        cargados = await evaluar_seguro(page, "document.querySelectorAll('h2.nombre').length")
         if total_pagina and cargados >= total_pagina:
             break  # Ya tenemos todos los de Automóviles Rueda, parar
         mas = await page.query_selector(".showMore.primaryBtn")
         if not mas:
             break
-        await page.evaluate("document.querySelector('.showMore.primaryBtn').click()")
+        await evaluar_seguro(page, "document.querySelector('.showMore.primaryBtn').click()")
         await page.wait_for_timeout(1800)
 
-    total = await page.evaluate("document.querySelectorAll('h2.nombre').length")
+    total = await evaluar_seguro(page, "document.querySelectorAll('h2.nombre').length")
     print(f"  Coches cargados: {total} (objetivo: {total_pagina})")
 
-    cars = await page.evaluate("""
+    cars = await evaluar_seguro(page, """
         () => {
             const nombres = document.querySelectorAll('h2.nombre');
             const seen    = new Set();   // para deduplicar por URL
