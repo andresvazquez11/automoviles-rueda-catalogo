@@ -21,24 +21,10 @@
     "antes_auto": 0
   },
   {
-    "id": "dwa-212890776",
-    "modelo": "SEAT Ateca",
-    "precio": "20.900",
-    "foto": "/web_fotos/05/foto_01.jpg?v=e3d04955",
-    "antes_auto": 0
-  },
-  {
     "id": "dwa-212000127",
     "modelo": "SEAT Ibiza",
     "precio": "20.500",
     "foto": "/web_fotos/06/foto_01.jpg?v=f46abd98",
-    "antes_auto": 0
-  },
-  {
-    "id": "dwa-211998213",
-    "modelo": "SEAT Ibiza",
-    "precio": "15.700",
-    "foto": "/web_fotos/07/foto_01.jpg?v=ecb1e730",
     "antes_auto": 0
   },
   {
@@ -299,5 +285,12 @@
     "precio": "32.900",
     "foto": "/web_fotos/52/foto_01.jpg?v=1f94f619",
     "antes_auto": 33900
+  },
+  {
+    "id": "mf-218425326",
+    "modelo": "SEAT Ibiza",
+    "precio": "17.700",
+    "foto": "/web_fotos/mf-218425326/foto_01.jpg?v=40b5fa02",
+    "antes_auto": 0
   }
 ]

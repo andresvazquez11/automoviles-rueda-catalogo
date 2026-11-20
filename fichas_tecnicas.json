@@ -10400,5 +10400,33 @@
    "Control de arranque en pendiente": "Hill start assist",
    "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED": "LED brake lights, front fog lights, low beams, side indicators, daytime running lights, rear lights, and high beams"
   }
+ },
+ "mf-218425326": {
+  "fuente": "mf",
+  "gen": {
+   "matriculacion": "02/09/2025",
+   "km": "11.391 km",
+   "combustible": "Gasolina",
+   "potencia": "115 CV (85 kW)",
+   "cambio": "Manual",
+   "puertas": "5",
+   "plazas": "5",
+   "color": "Blanco",
+   "carroceria": "Compacto",
+   "etiqueta": "C",
+   "par": "200 Nm"
+  },
+  "dims": {},
+  "pintura": "",
+  "tapizado": "",
+  "extras": {},
+  "serie": {},
+  "huella": "a56087e29f",
+  "en": {
+   "Gasolina": "Petrol",
+   "Manual": "Manual",
+   "Blanco": "White",
+   "Compacto": "Compact"
+  }
  }
 }
