@@ -269,6 +269,16 @@
   "precio": "17.500",
   "version": "DIG-T 160 N-Connecta 4x2 DCT 117 kW (160 CV)"
  },
+ "renault-clio-159882925": {
+  "baja": "2026-11-20",
+  "cambio": "Automático",
+  "combustible": "Híbrido",
+  "fecha": "06/2025",
+  "km": "10.495",
+  "modelo": "Renault Clio",
+  "precio": "19.900",
+  "version": "Evolution E-Tech full hybrid 145 105 kW (143 CV)"
+ },
  "seat-arona-174150409": {
   "baja": "2026-09-28",
   "cambio": "Manual",
@@ -358,6 +368,16 @@
   "modelo": "SEAT Arona",
   "precio": "13.900",
   "version": "1.0 TSI Ecomotive S&S Xcellence 70 kW (95 CV)"
+ },
+ "seat-arona-208158263": {
+  "baja": "2026-11-20",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "01/2026",
+  "km": "19.677",
+  "modelo": "SEAT Arona",
+  "precio": "18.900",
+  "version": "1.0 TSI S&S Style 85 kW (115 CV)"
  },
  "seat-arona-208555361": {
   "baja": "2026-11-16",
@@ -699,6 +719,16 @@
   "precio": "20.500",
   "version": "1.0 TSI S&S Style 85 kW (115 CV)"
  },
+ "seat-ibiza-mf218425326": {
+  "baja": "2026-11-20",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2025",
+  "km": "11.391",
+  "modelo": "SEAT Ibiza",
+  "precio": "17.700",
+  "version": "1.0 TSI S&S FR XS 85 kW (115 CV)"
+ },
  "seat-leon-151336815": {
   "baja": "2026-09-26",
   "cambio": "Automático",
@@ -708,6 +738,16 @@
   "modelo": "SEAT León",
   "precio": "22.500",
   "version": "ST 1.5 eTSI Style 25 Aniversario DSG 85 kW (116 CV)"
+ },
+ "seat-leon-151393623": {
+  "baja": "2026-11-20",
+  "cambio": "Automático",
+  "combustible": "Mild Hybrid",
+  "fecha": "02/2026",
+  "km": "1.500",
+  "modelo": "SEAT León",
+  "precio": "27.900",
+  "version": "1.5 eTSI S&S FR Special Edition DSG 110 kW (150 CV)"
  },
  "seat-leon-157823092": {
   "baja": "2026-10-05",
