@@ -389,6 +389,16 @@
   "precio": "21.900",
   "version": "1.0 TSI S&S FR 85 kW (115 CV)"
  },
+ "seat-arona-208988378": {
+  "baja": "2026-11-21",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "08/2026",
+  "km": "100",
+  "modelo": "SEAT Arona",
+  "precio": "22.500",
+  "version": "1.0 TSI S&S FR 85 kW (115 CV)"
+ },
  "seat-arona-mf203677213": {
   "baja": "2026-10-15",
   "cambio": "Manual",
@@ -497,6 +507,16 @@
   "km": "350",
   "modelo": "SEAT Ibiza",
   "precio": "20.500",
+  "version": "1.0 TSI S&S Style 85 kW (115 CV)"
+ },
+ "seat-ibiza-169786447": {
+  "baja": "2026-11-21",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "04/2026",
+  "km": "100",
+  "modelo": "SEAT Ibiza",
+  "precio": "20.900",
   "version": "1.0 TSI S&S Style 85 kW (115 CV)"
  },
  "seat-ibiza-181537246": {

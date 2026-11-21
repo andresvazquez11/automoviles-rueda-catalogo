@@ -979,6 +979,22 @@
     ],
     "version_en": "1.5 TSI S&S Style DSG 110 kW (150 HP)"
   },
+  "3abf7c9a6e775ed6": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Lane Assist",
+      "Top speed: 198 km/h",
+      "Vision Plus Package",
+      "10.25\" Digital Cockpit",
+      "Multifunction leather sports steering wheel",
+      "Front and rear parking sensors",
+      "Cruise control with speed limiter",
+      "Dual-zone Climatronic climate control",
+      "Rearview camera system",
+      "Multifunction camera"
+    ],
+    "version_en": "1.0 TSI S&S FR XS 85 kW (115 HP)"
+  },
   "3ad613a4f3bba66f": {
     "color_en": "",
     "equipamiento_en": [
@@ -1663,6 +1679,22 @@
       "Dual-zone Climatronic"
     ],
     "version_en": "1.0 TSI Special Edition 85 kW (115 HP)"
+  },
+  "5b6c093116852af4": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Front Assist including emergency braking function for ACC High",
+      "Lane Assist and Traffic Jam Assist",
+      "Lane Change Assist",
+      "Keyless entry system without SAFELOCK",
+      "Front and rear parking sensors with rear camera",
+      "Top speed: 195 km/h",
+      "Front sports bucket seats in Nuance trim",
+      "17\" Dynamic alloy wheels (43 cm)",
+      "Leather sports multifunction steering wheel with Tiptronic",
+      "Keyless-entry central locking system without SAFELOCK"
+    ],
+    "version_en": "1.0 TSI S&S FR DSG 85 kW (115 HP)"
   },
   "5db7768b291f3174": {
     "color_en": "White",
@@ -2962,6 +2994,22 @@
     ],
     "version_en": "1.5 eTSI DSG 110 kW (150 HP)"
   },
+  "8f717f853aa879ff": {
+    "color_en": "Green",
+    "equipamiento_en": [
+      "Front Assist with emergency braking function for High ACC",
+      "Individually adjustable heated front seats",
+      "Lane Assist (lane keeping system)",
+      "Keyless Entry (without safelock)",
+      "Top speed: 200 km/h",
+      "Aurora premium upholstery",
+      "16\" Machined Design alloy wheels (41 cm)",
+      "Leather multifunction sports steering wheel",
+      "Keyless-Entry central locking without safelock",
+      "Front and rear park assist"
+    ],
+    "version_en": "1.0 TSI S&S Style 85 kW (115 HP)"
+  },
   "92d6f01dfcbbd0be": {
     "color_en": "",
     "equipamiento_en": [
@@ -3794,6 +3842,22 @@
       "Ventilation system with pollen filter and engine heater"
     ],
     "version_en": "1.4 16v T-Jet 595 121 kW (165 hp)"
+  },
+  "af3cef34fe1a97b2": {
+    "color_en": "Grey",
+    "equipamiento_en": [
+      "Vision Plus Pack: Park Assist automatic parking + Front parking sensors + Rearview camera",
+      "Lane Keeping Assist",
+      "Top speed: 199 km/h",
+      "Leather sports multifunction steering wheel",
+      "Evasive steering support with turn assist",
+      "Keyless-Go central locking without safe-lock",
+      "Speed limiter system",
+      "Park Assist system",
+      "Front Assist with warning and braking function for vehicles, pedestrians and cyclists",
+      "Electronic cruise control system"
+    ],
+    "version_en": "2.0 TDI S&S Style 85 kW (116 HP)"
   },
   "b0fd388018ffc224": {
     "color_en": "",
