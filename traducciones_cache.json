@@ -15,6 +15,22 @@
     ],
     "version_en": "2.0 TDI S&S Style XS 85 kW (116 hp)"
   },
+  "026a6a6e10a27064": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Front Assist including emergency braking function for High ACC",
+      "Lane Assist and Traffic Jam Assist",
+      "Lane Change Assist",
+      "Keyless Access (keyless vehicle entry) without Safelock",
+      "Front and rear parking sensors with rear-view camera",
+      "Top speed: 195 km/h",
+      "Nuance sports bucket front seats",
+      "17\" Dynamic alloy wheels",
+      "Multifunction leather sports steering wheel with Tiptronic",
+      "Keyless-entry central locking without Safelock"
+    ],
+    "version_en": "1.0 TSI S&S FR DSG 85 kW (115 HP)"
+  },
   "03dc192f89b57f1e": {
     "color_en": "",
     "equipamiento_en": [
@@ -295,6 +311,22 @@
       "Velour seats (primary and secondary material)"
     ],
     "version_en": "1.0 TSI S&S FR 85 kW (115 HP)"
+  },
+  "100acff9f898273d": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Vision Plus Package: Park Assist automatic parking + Front parking sensors + Rear view camera",
+      "Lane Keep Assist",
+      "Top speed: 199 km/h",
+      "Multifunction leather sports steering wheel",
+      "Evasion assist with turn assist",
+      "Keyless-Go central locking without safe lock",
+      "Speed limiter system",
+      "Park Assist system",
+      "Front Assist with warning and braking function for vehicles, pedestrians, and cyclists",
+      "Electronic cruise control system (GRA)"
+    ],
+    "version_en": "2.0 TDI S&S Style 85 kW (116 HP)"
   },
   "11c61edfec3a728c": {
     "color_en": "",
@@ -605,6 +637,22 @@
       "Speed limiter"
     ],
     "version_en": "Evolution E-Tech full hybrid 145 105 kW (143 hp)"
+  },
+  "1fcb4d1844717faf": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Front Assist including emergency braking function for ACC High",
+      "Individually controlled heated front seats",
+      "Lane Keeping Assist",
+      "Keyless entry system without SAFELOCK",
+      "Top speed: 200 km/h",
+      "Aurora premium upholstery",
+      "16\" Machined Design alloy wheels",
+      "Leather multi-function sports steering wheel",
+      "Keyless-entry central locking without deadlock feature",
+      "Front and rear parking sensors"
+    ],
+    "version_en": "1.0 TSI S&S Style 85 kW (115 hp)"
   },
   "204ec81c37babde9": {
     "color_en": "",

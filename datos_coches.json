@@ -7,7 +7,7 @@
     "km": "50",
     "fecha": "08/2026",
     "cambio": "Manual",
-    "color": "Verde",
+    "color": "",
     "precio": "20.600",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -35,7 +35,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€",
     "financiacion": {
       "meses": "60",
       "cuota": "192.74",
@@ -58,7 +57,7 @@
     "km": "15.557",
     "fecha": "03/2026",
     "cambio": "Automático",
-    "color": "Gris",
+    "color": "",
     "precio": "20.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -86,7 +85,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "170.13",
@@ -159,7 +157,7 @@
     "km": "23.247",
     "fecha": "03/2026",
     "cambio": "Manual",
-    "color": "Gris",
+    "color": "",
     "precio": "22.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -187,7 +185,6 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "192.19",
@@ -1049,10 +1046,10 @@
     "km": "23.349",
     "fecha": "01/2026",
     "cambio": "Manual",
-    "color": "",
+    "color": "Blanco",
     "precio": "15.600",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-80-cv-del-2026-en-malaga/211998198",
     "equipamiento": [
       "Asistente de mantenimiento de carril",
@@ -1077,6 +1074,7 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/22 - SEAT Ibiza - 15.600€/foto_07.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/22 - SEAT Ibiza - 15.600€/foto_08.jpg"
     ],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/22 - SEAT Ibiza - 15.600€",
     "financiacion": {
       "meses": "60",
       "cuota": "162.72",
@@ -2807,7 +2805,7 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 32.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.700,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,27%. La oferta incluye Seg. Protección Plus Ampliado por 1.490,62€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 265,33 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.636,12 € (calculada con 15.000 km anuales). Entrada inicial: 6.580,00 €. Comisión de apertura al contado: 795,66 €. Importe total financiado 26.610,62 €. Importe total de los intereses: 10.945,30 €. Coste total del crédito: 11.740,96 €. Precio total a plazos 44.135,92 €. Importe total adeudado: 37.555,92 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 6,
+    "_intentos_desaparecido": 7,
     "fecha_reservado": "2026-11-19"
   }
 ]
