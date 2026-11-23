@@ -228,5 +228,65 @@
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-formentor-gasolina-150-cv-del-2025-en-malaga/151394958",
     "precio_anterior": 29900.0,
     "precio_nuevo": 28900.0
+  },
+  {
+    "fecha_iso": "2026-11-23T16:03:13",
+    "fecha": "23/11/2026",
+    "n": 6,
+    "modelo": "SEAT Ateca",
+    "version": "1.5 TSI S&S Style DSG 110 kW (150 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/seat-ateca-gasolina-150-cv-del-2021-en-malaga/215243742",
+    "precio_anterior": 19900.0,
+    "precio_nuevo": 18900.0
+  },
+  {
+    "fecha_iso": "2026-11-23T16:03:13",
+    "fecha": "23/11/2026",
+    "n": 18,
+    "modelo": "Kia Sportage",
+    "version": "1.6 T-GDi Drive 4x2 110 kW (150 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/kia-sportage-gasolina-150-cv-del-2022-en-malaga/203846578",
+    "precio_anterior": 18900.0,
+    "precio_nuevo": 17500.0
+  },
+  {
+    "fecha_iso": "2026-11-23T16:03:13",
+    "fecha": "23/11/2026",
+    "n": 33,
+    "modelo": "CUPRA Terramar",
+    "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-terramar-hibrido-electro-gasolina-204-cv-del-2026-en-malaga/171393895",
+    "precio_anterior": 38900.0,
+    "precio_nuevo": 38500.0
+  },
+  {
+    "fecha_iso": "2026-11-23T16:03:13",
+    "fecha": "23/11/2026",
+    "n": 38,
+    "modelo": "CUPRA Terramar",
+    "version": "1.5 eTSI DSG 110 kW (150 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-terramar-gasolina-150-cv-del-2026-en-malaga/163429723",
+    "precio_anterior": 36900.0,
+    "precio_nuevo": 35900.0
+  },
+  {
+    "fecha_iso": "2026-11-23T16:03:13",
+    "fecha": "23/11/2026",
+    "n": 47,
+    "modelo": "SEAT Arona",
+    "version": "1.0 TSI S&S FR 85 kW (115 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2026-en-malaga/151310097",
+    "precio_anterior": 22900.0,
+    "precio_nuevo": 22500.0
+  },
+  {
+    "fecha_iso": "2026-11-23T16:03:13",
+    "fecha": "23/11/2026",
+    "n": 52,
+    "modelo": "CUPRA Leon",
+    "version": "Sportstourer 1.5 eTSI DSG 110 kW (150 CV)",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-sportstourer-gasolina-150-cv-del-2025-en-malaga/156969010",
+    "precio_anterior": 29800.0,
+    "precio_nuevo": 28900.0
   }
 ]
