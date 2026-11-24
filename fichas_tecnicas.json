@@ -10826,5 +10826,33 @@
    "Control de arranque en pendiente": "Hill Start Assist",
    "Luces de freno, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED": "LED technology brake lights, dipped beam, side indicators, daytime running lights, rear lights, and main beam"
   }
+ },
+ "mf-220145730": {
+  "fuente": "mf",
+  "gen": {
+   "matriculacion": "09/03/2026",
+   "km": "19.605 km",
+   "combustible": "Gasolina",
+   "potencia": "80 CV (59 kW)",
+   "cambio": "Manual",
+   "puertas": "5",
+   "plazas": "5",
+   "color": "Gris oscuro",
+   "carroceria": "Compacto",
+   "etiqueta": "C",
+   "par": "93 Nm"
+  },
+  "dims": {},
+  "pintura": "",
+  "tapizado": "",
+  "extras": {},
+  "serie": {},
+  "huella": "671c49dc19",
+  "en": {
+   "Gasolina": "Petrol",
+   "Manual": "Manual",
+   "Gris oscuro": "Dark grey",
+   "Compacto": "Compact"
+  }
  }
 }
