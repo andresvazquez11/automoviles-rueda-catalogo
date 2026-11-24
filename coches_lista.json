@@ -56,6 +56,13 @@
     "antes_auto": 0
   },
   {
+    "id": "dwa-211998213",
+    "modelo": "SEAT Ibiza",
+    "precio": "15.700",
+    "foto": "/web_fotos/11/foto_01.jpg?v=ecb1e730",
+    "antes_auto": 0
+  },
+  {
     "id": "dwa-209661993",
     "modelo": "SEAT León",
     "precio": "22.900",
@@ -74,13 +81,6 @@
     "modelo": "CUPRA León",
     "precio": "31.500",
     "foto": "/web_fotos/15/foto_01.jpg?v=00533655",
-    "antes_auto": 0
-  },
-  {
-    "id": "dwa-204499885",
-    "modelo": "CUPRA Born",
-    "precio": "27.900",
-    "foto": "/web_fotos/17/foto_01.jpg?v=2f048b08",
     "antes_auto": 0
   },
   {
@@ -158,7 +158,7 @@
     "modelo": "CUPRA Formentor",
     "precio": "36.900",
     "foto": "/web_fotos/30/foto_01.jpg?v=dcf2c5b8",
-    "antes_auto": 37500
+    "antes_auto": 0
   },
   {
     "id": "dwa-178075705",
@@ -193,7 +193,7 @@
     "modelo": "CUPRA Tavascan",
     "precio": "41.500",
     "foto": "/web_fotos/35/foto_01.jpg?v=f9950915",
-    "antes_auto": 41900
+    "antes_auto": 0
   },
   {
     "id": "dwa-165115441",
@@ -229,13 +229,6 @@
     "precio": "18.300",
     "foto": "/web_fotos/42/foto_01.jpg?v=1417dccc",
     "antes_auto": 0
-  },
-  {
-    "id": "dwa-196349623",
-    "modelo": "SEAT Arona",
-    "precio": "18.900",
-    "foto": "/web_fotos/43/foto_01.jpg?v=255a0212",
-    "antes_auto": 19900
   },
   {
     "id": "dwa-196354573",
@@ -298,7 +291,7 @@
     "modelo": "CUPRA León",
     "precio": "33.900",
     "foto": "/web_fotos/53/foto_01.jpg?v=c3f60d7b",
-    "antes_auto": 34900
+    "antes_auto": 0
   },
   {
     "id": "dwa-155656894",
@@ -312,6 +305,13 @@
     "modelo": "CUPRA Formentor",
     "precio": "32.900",
     "foto": "/web_fotos/55/foto_01.jpg?v=1f94f619",
-    "antes_auto": 33900
+    "antes_auto": 0
+  },
+  {
+    "id": "mf-220145730",
+    "modelo": "SEAT Ibiza",
+    "precio": "15.700",
+    "foto": "/web_fotos/mf-220145730/foto_01.jpg?v=5ea20405",
+    "antes_auto": 0
   }
 ]
