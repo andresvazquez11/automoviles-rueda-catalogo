@@ -259,6 +259,16 @@
   "precio": "37.900",
   "version": "1.5 eTSI Beyond DSG 110 kW (150 CV)"
  },
+ "cupra-terramar-mf220475788": {
+  "baja": "2026-11-25",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "1.150 km",
+  "modelo": "CUPRA Terramar",
+  "precio": "37.900",
+  "version": "1.5 eTSI Beyond DSG 110 kW (150 CV)"
+ },
  "kia-sportage-mf203846824": {
   "baja": "2026-10-16",
   "cambio": "Manual",
