@@ -1027,6 +1027,22 @@
     ],
     "version_en": "1.5 TSI S&S Style DSG 110 kW (150 HP)"
   },
+  "3a6a4d6fd468b860": {
+    "color_en": "",
+    "equipamiento_en": [
+      "Lane Keep Assist",
+      "Top speed: 198 km/h",
+      "Vision Plus Pack",
+      "10.25\" Digital Cockpit display",
+      "Leather multifunction sports steering wheel",
+      "Front and rear parking assistance",
+      "Cruise control with speed limiter",
+      "Dual-zone Climatronic climate control",
+      "Rear-view camera system",
+      "Multifunction camera"
+    ],
+    "version_en": "1.0 TSI FR XS 85 kW (115 HP)"
+  },
   "3abf7c9a6e775ed6": {
     "color_en": "",
     "equipamiento_en": [
@@ -1210,6 +1226,11 @@
       "Full LED lighting: brake lights, front fog lights, low beam, side indicators, daytime running lights, rear lights, and high beam"
     ],
     "version_en": "1.5 eTSI DSG 110 kW (150 HP)"
+  },
+  "4271c8e9469412fe": {
+    "color_en": "",
+    "equipamiento_en": [],
+    "version_en": "1.5 eTSI Beyond DSG 110 kW (150 HP)"
   },
   "43066c2030e69fa8": {
     "color_en": "",

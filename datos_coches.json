@@ -2,6 +2,48 @@
   {
     "n": 1,
     "modelo": "SEAT Ibiza",
+    "version": "1.0 MPI S&S Style 59 kW (80 CV)",
+    "combustible": "Gasolina",
+    "km": "19.605",
+    "fecha": "03/2026",
+    "cambio": "Manual",
+    "color": "Gris oscuro",
+    "precio": "15.700",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-80-cv-del-2026-en-malaga/220145007",
+    "equipamiento": [
+      "Velocidad máxima: 175 km/h",
+      "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 6,5 pulgadas de ancho 40,6, 16,5 y PG4",
+      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
+      "Toma/s de 12v en los asientos delanteros",
+      "Asientos de velour (material principal) y de velour (material secundario)",
+      "Asientos traseros de tres plazas de tipo banco partido de orientación delantera con banqueta partida y respaldo abatible asimétrico",
+      "Volante multi-función revestido de cuero ajustable en altura y en profundidad",
+      "Retrovisor interior/cámara",
+      "Limitador de velocidad",
+      "Dirección asistida eléctrica con endurecimiento progresivo s/velocidad"
+    ],
+    "_total": 56,
+    "fotos": [],
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 15.700€",
+    "financiacion": {
+      "meses": "60",
+      "cuota": "136.42",
+      "tin": "7.99",
+      "tae": "9.19",
+      "cuota_final": "9792.15",
+      "entrada": "3140.00",
+      "comision_tipo": "al contado",
+      "comision": "397.83",
+      "capital": "13305.31",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 15.700,00 €. Precio financiando: 15.700,00 €. Precio al contado 15.700,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,19%. La oferta incluye Seg. Protección Plus Ampliado por 745,31€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 136,42 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 9.792,15 € (calculada con 15.000 km anuales). Entrada inicial: 3.140,00 €. Comisión de apertura al contado: 397,83 €. Importe total financiado 13.305,31 €. Importe total de los intereses: 4.672,04 €. Coste total del crédito: 5.069,87 €. Precio total a plazos 21.117,35 €. Importe total adeudado: 17.977,35 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 2,
+    "modelo": "SEAT Ibiza",
     "version": "1.0 TSI S&S Style 85 kW (115 CV)",
     "combustible": "Gasolina",
     "km": "50",
@@ -24,16 +66,16 @@
       "Cierre centralizado keyless-entry sin cierre de seguridad",
       "Ayuda de aparcamiento delante y detrás"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/01 - SEAT Ibiza - 20.600€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 20.600€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 20.600€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 20.600€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 20.600€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 20.600€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 20.600€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 20.600€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Ibiza - 20.600€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -47,11 +89,10 @@
       "capital": "17457.92",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.600,00 €. Precio financiando: 20.600,00 €. Precio al contado 20.600,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,22%. La oferta incluye Seg. Protección Plus Ampliado por 977,92€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 192,74 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.838,40 € (calculada con 15.000 km anuales). Entrada inicial: 4.120,00 €. Comisión de apertura al contado: 521,99 €. Importe total financiado 17.457,92 €. Importe total de los intereses: 5.944,88 €. Coste total del crédito: 6.466,87 €. Precio total a plazos 27.522,80 €. Importe total adeudado: 23.402,80 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 2,
+    "n": 3,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI S&S FR DSG 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -75,16 +116,16 @@
       "Volante multifuncional deportivo de cuero con tiptronic",
       "Cierre centralizado keyless-entry sin cierre de seguridad"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/02 - SEAT Arona - 20.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 20.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 20.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 20.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 20.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 20.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 20.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 20.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Arona - 20.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -98,13 +139,12 @@
       "capital": "17712.16",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.900,00 €. Precio financiando: 20.900,00 €. Precio al contado 20.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,17%. La oferta incluye Seg. Protección Plus Ampliado por 992,16€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 170,13 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 13.877,91 € (calculada con 15.000 km anuales). Entrada inicial: 4.180,00 €. Comisión de apertura al contado: 529,59 €. Importe total financiado 17.712,16 €. Importe total de los intereses: 6.373,55 €. Coste total del crédito: 6.903,14 €. Precio total a plazos 28.265,71 €. Importe total adeudado: 24.085,71 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 3,
+    "n": 4,
     "modelo": "SEAT Ibiza",
-    "version": "1.0 TSI S&S FR XS 85 kW (115 CV)",
+    "version": "1.0 TSI FR XS 85 kW (115 CV)",
     "combustible": "Gasolina",
     "km": "11.391",
     "fecha": "09/2025",
@@ -126,16 +166,16 @@
       "Con sistema de cámara de marcha atrás",
       "Con cámara multifuncional"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 17.700€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 17.700€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 17.700€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 17.700€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 17.700€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 17.700€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 17.700€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/03 - SEAT Ibiza - 17.700€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 17.700€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 17.700€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 17.700€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 17.700€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 17.700€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 17.700€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 17.700€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT Ibiza - 17.700€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -149,11 +189,10 @@
       "capital": "14258.72",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 17.700,00 €. Bonificación de 700,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 17.000,00 €. Precio al contado 17.700,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,26%. La oferta incluye Seg. Protección Plus Ampliado por 798,72€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 140,25 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.738,43 € (calculada con 15.000 km anuales). Entrada inicial: 3.540,00 €. Comisión de apertura al contado: 426,34 €. Importe total financiado 14.258,72 €. Importe total de los intereses: 5.894,71 €. Coste total del crédito: 6.321,05 €. Precio total a plazos 23.693,43 €. Importe total adeudado: 20.153,43 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 4,
+    "n": 5,
     "modelo": "SEAT León",
     "version": "2.0 TDI S&S Style 85 kW (116 CV)",
     "combustible": "Diésel",
@@ -177,16 +216,16 @@
       "Front Assist con función de aviso y frenada para vehículos, peatones y bicicletas",
       "Regulador de velocidad (gra) electrónico"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/04 - SEAT León - 22.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT León - 22.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT León - 22.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT León - 22.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT León - 22.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT León - 22.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT León - 22.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT León - 22.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - SEAT León - 22.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -200,11 +239,10 @@
       "capital": "19407.11",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.900,00 €. Precio financiando: 22.900,00 €. Precio al contado 22.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,18%. La oferta incluye Seg. Protección Plus Ampliado por 1.087,11€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 192,19 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 14.781,77 € (calculada con 15.000 km anuales). Entrada inicial: 4.580,00 €. Comisión de apertura al contado: 580,27 €. Importe total financiado 19.407,11 €. Importe total de los intereses: 6.906,06 €. Coste total del crédito: 7.486,33 €. Precio total a plazos 30.893,17 €. Importe total adeudado: 26.313,17 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 5,
+    "n": 6,
     "modelo": "CUPRA Formentor",
     "version": "1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -228,16 +266,16 @@
       "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
       "Velocidad máxima: 205 km/h"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - CUPRA Formentor - 33.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - CUPRA Formentor - 33.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - CUPRA Formentor - 33.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - CUPRA Formentor - 33.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - CUPRA Formentor - 33.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - CUPRA Formentor - 33.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - CUPRA Formentor - 33.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/05 - CUPRA Formentor - 33.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - CUPRA Formentor - 33.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - CUPRA Formentor - 33.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - CUPRA Formentor - 33.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - CUPRA Formentor - 33.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - CUPRA Formentor - 33.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - CUPRA Formentor - 33.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - CUPRA Formentor - 33.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - CUPRA Formentor - 33.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -251,11 +289,10 @@
       "capital": "27458.09",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 33.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 32.700,00 €. Precio al contado 33.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,28%. La oferta incluye Seg. Protección Plus Ampliado por 1.538,09€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 284,34 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.528,45 € (calculada con 15.000 km anuales). Entrada inicial: 6.780,00 €. Comisión de apertura al contado: 821,00 €. Importe total financiado 27.458,09 €. Importe total de los intereses: 11.130,76 €. Coste total del crédito: 11.951,76 €. Precio total a plazos 45.368,85 €. Importe total adeudado: 38.588,85 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 6,
+    "n": 7,
     "modelo": "SEAT Ateca",
     "version": "1.5 TSI S&S Style DSG 110 kW (150 CV)",
     "combustible": "Gasolina",
@@ -279,23 +316,22 @@
       "Safe and driving pack M1",
       "Full Link en combinación con navegador"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Ateca - 18.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Ateca - 18.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Ateca - 18.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Ateca - 18.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Ateca - 18.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Ateca - 18.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Ateca - 18.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Ateca - 18.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT Ateca - 18.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT Ateca - 18.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT Ateca - 18.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT Ateca - 18.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT Ateca - 18.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT Ateca - 18.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT Ateca - 18.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT Ateca - 18.900€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/06 - SEAT Ateca - 18.900€",
-    "financiacion": {},
-    "_intentos_desaparecido": 1
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT Ateca - 18.900€",
+    "financiacion": {}
   },
   {
-    "n": 7,
+    "n": 8,
     "modelo": "SEAT León",
     "version": "1.5 TSI S&S Style XS 85 kW (116 CV)",
     "combustible": "Gasolina",
@@ -319,16 +355,16 @@
       "Regulador de velocidad (gra) electrónico",
       "Activación de las luces de marcha diurna con asistente de luz de marcha"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT León - 19.900€ · RESERVADO/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT León - 19.900€ · RESERVADO/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT León - 19.900€ · RESERVADO/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT León - 19.900€ · RESERVADO/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT León - 19.900€ · RESERVADO/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT León - 19.900€ · RESERVADO/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT León - 19.900€ · RESERVADO/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/07 - SEAT León - 19.900€ · RESERVADO/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - SEAT León - 19.900€ · RESERVADO/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - SEAT León - 19.900€ · RESERVADO/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - SEAT León - 19.900€ · RESERVADO/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - SEAT León - 19.900€ · RESERVADO/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - SEAT León - 19.900€ · RESERVADO/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - SEAT León - 19.900€ · RESERVADO/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - SEAT León - 19.900€ · RESERVADO/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - SEAT León - 19.900€ · RESERVADO/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -342,11 +378,10 @@
       "capital": "16123.15",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 19.900,00 €. Bonificación de 700,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 19.200,00 €. Precio al contado 19.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,26%. La oferta incluye Seg. Protección Plus Ampliado por 903,15€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 155,49 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 13.506,53 € (calculada con 15.000 km anuales). Entrada inicial: 3.980,00 €. Comisión de apertura al contado: 482,08 €. Importe total financiado 16.123,15 €. Importe total de los intereses: 6.712,78 €. Coste total del crédito: 7.194,86 €. Precio total a plazos 26.815,93 €. Importe total adeudado: 22.835,93 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 8,
+    "n": 9,
     "modelo": "CUPRA León",
     "version": "1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -370,16 +405,16 @@
       "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 7,5 pulgadas de ancho bi-tono, 45,7 y 19,0",
       "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - CUPRA León - 28.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - CUPRA León - 28.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - CUPRA León - 28.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - CUPRA León - 28.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - CUPRA León - 28.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - CUPRA León - 28.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - CUPRA León - 28.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/08 - CUPRA León - 28.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA León - 28.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA León - 28.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA León - 28.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA León - 28.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA León - 28.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA León - 28.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA León - 28.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - CUPRA León - 28.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -393,11 +428,10 @@
       "capital": "23220.73",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 28.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 27.700,00 €. Precio al contado 28.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,24%. La oferta incluye Seg. Protección Plus Ampliado por 1.300,73€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 210,94 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.432,58 € (calculada con 15.000 km anuales). Entrada inicial: 5.780,00 €. Comisión de apertura al contado: 694,30 €. Importe total financiado 23.220,73 €. Importe total de los intereses: 9.868,25 €. Coste total del crédito: 10.562,55 €. Precio total a plazos 38.868,98 €. Importe total adeudado: 33.088,98 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 9,
+    "n": 10,
     "modelo": "SEAT Ateca",
     "version": "2.0 TDI S&S Style 85 kW (115 CV)",
     "combustible": "Diésel",
@@ -421,16 +455,16 @@
       "Cámara de visión trasera",
       "Safe and driving pack M1"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - SEAT Ateca - 20.900€ · RESERVADO/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - SEAT Ateca - 20.900€ · RESERVADO/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - SEAT Ateca - 20.900€ · RESERVADO/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - SEAT Ateca - 20.900€ · RESERVADO/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - SEAT Ateca - 20.900€ · RESERVADO/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - SEAT Ateca - 20.900€ · RESERVADO/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - SEAT Ateca - 20.900€ · RESERVADO/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/09 - SEAT Ateca - 20.900€ · RESERVADO/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ateca - 20.900€ · RESERVADO/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ateca - 20.900€ · RESERVADO/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ateca - 20.900€ · RESERVADO/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ateca - 20.900€ · RESERVADO/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ateca - 20.900€ · RESERVADO/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ateca - 20.900€ · RESERVADO/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ateca - 20.900€ · RESERVADO/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ateca - 20.900€ · RESERVADO/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -444,11 +478,10 @@
       "capital": "17712.16",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.900,00 €. Precio financiando: 20.900,00 €. Precio al contado 20.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,17%. La oferta incluye Seg. Protección Plus Ampliado por 992,16€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 172,04 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 13.737,37 € (calculada con 15.000 km anuales). Entrada inicial: 4.180,00 €. Comisión de apertura al contado: 529,59 €. Importe total financiado 17.712,16 €. Importe total de los intereses: 6.347,61 €. Coste total del crédito: 6.877,20 €. Precio total a plazos 28.239,77 €. Importe total adeudado: 24.059,77 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 10,
+    "n": 11,
     "modelo": "SEAT Ibiza",
     "version": "1.0 TSI S&S Style 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -472,17 +505,8 @@
       "Toma/s de 12v en los asientos delanteros",
       "Asientos de velour (material principal) y de velour (material secundario)"
     ],
-    "_total": 55,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ibiza - 20.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ibiza - 20.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ibiza - 20.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ibiza - 20.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ibiza - 20.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ibiza - 20.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ibiza - 20.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/10 - SEAT Ibiza - 20.500€/foto_08.jpg"
-    ],
+    "_total": 56,
+    "fotos": [],
     "financiacion": {
       "meses": "60",
       "cuota": "192.59",
@@ -495,18 +519,17 @@
       "capital": "17373.18",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.500,00 €. Precio financiando: 20.500,00 €. Precio al contado 20.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,22%. La oferta incluye Seg. Protección Plus Ampliado por 973,18€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 192,59 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.723,31 € (calculada con 15.000 km anuales). Entrada inicial: 4.100,00 €. Comisión de apertura al contado: 519,46 €. Importe total financiado 17.373,18 €. Importe total de los intereses: 5.905,53 €. Coste total del crédito: 6.424,99 €. Precio total a plazos 27.378,71 €. Importe total adeudado: 23.278,71 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 11,
+    "n": 12,
     "modelo": "SEAT Ibiza",
     "version": "1.0 MPI S&S Style 59 kW (80 CV)",
     "combustible": "Gasolina",
     "km": "19.642",
     "fecha": "01/2026",
     "cambio": "Manual",
-    "color": "Blanco",
+    "color": "",
     "precio": "15.700",
     "ubicacion": "Málaga",
     "estado": "Disponible",
@@ -523,18 +546,17 @@
       "Retrovisor interior/cámara",
       "Limitador de velocidad"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 15.700€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 15.700€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 15.700€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 15.700€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 15.700€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 15.700€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 15.700€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 15.700€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT Ibiza - 15.700€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT Ibiza - 15.700€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT Ibiza - 15.700€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT Ibiza - 15.700€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT Ibiza - 15.700€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT Ibiza - 15.700€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT Ibiza - 15.700€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT Ibiza - 15.700€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/11 - SEAT Ibiza - 15.700€",
     "financiacion": {
       "meses": "60",
       "cuota": "163.84",
@@ -547,11 +569,10 @@
       "capital": "14512.96",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 15.700,00 €. Precio financiando: 15.700,00 €. Precio al contado 15.700,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,23%. La oferta incluye Seg. Protección Plus Ampliado por 812,96€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 163,84 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 9.575,91 € (calculada con 15.000 km anuales). Entrada inicial: 2.000,00 €. Comisión de apertura al contado: 433,94 €. Importe total financiado 14.512,96 €. Importe total de los intereses: 4.893,35 €. Coste total del crédito: 5.327,29 €. Precio total a plazos 21.406,31 €. Importe total adeudado: 19.406,31 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 12,
+    "n": 13,
     "modelo": "SEAT León",
     "version": "1.5 eTSI S&S Style Special Edition DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -575,16 +596,16 @@
       "Sistema de limitación de velocidad",
       "Sistema de aparcamiento asistido"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT León - 22.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT León - 22.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT León - 22.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT León - 22.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT León - 22.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT León - 22.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT León - 22.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/12 - SEAT León - 22.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - SEAT León - 22.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - SEAT León - 22.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - SEAT León - 22.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - SEAT León - 22.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - SEAT León - 22.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - SEAT León - 22.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - SEAT León - 22.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - SEAT León - 22.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -598,11 +619,10 @@
       "capital": "19407.11",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.900,00 €. Precio financiando: 22.900,00 €. Precio al contado 22.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,13%. La oferta incluye Seg. Protección Plus Ampliado por 1.087,11€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 161,21 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.056,89 € (calculada con 15.000 km anuales). Entrada inicial: 4.580,00 €. Comisión de apertura al contado: 580,27 €. Importe total financiado 19.407,11 €. Importe total de los intereses: 7.322,38 €. Coste total del crédito: 7.902,65 €. Precio total a plazos 31.309,49 €. Importe total adeudado: 26.729,49 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 13,
+    "n": 14,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI S&S FR 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -626,7 +646,7 @@
       "Volante multifunción deportivo de cuero",
       "Cierre centralizado \"Keyless-Entry\""
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - SEAT Arona - 22.500€ · RESERVADO/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/13 - SEAT Arona - 22.500€ · RESERVADO/foto_02.jpg",
@@ -649,11 +669,10 @@
       "capital": "19068.12",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.500,00 €. Precio financiando: 22.500,00 €. Precio al contado 22.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,20%. La oferta incluye Seg. Protección Plus Ampliado por 1.068,12€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 200,48 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 13.667,60 € (calculada con 15.000 km anuales). Entrada inicial: 4.500,00 €. Comisión de apertura al contado: 570,14 €. Importe total financiado 19.068,12 €. Importe total de los intereses: 6.628,28 €. Coste total del crédito: 7.198,42 €. Precio total a plazos 30.196,40 €. Importe total adeudado: 25.696,40 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 14,
+    "n": 15,
     "modelo": "CUPRA León",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -677,16 +696,16 @@
       "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 7,5 pulgadas de ancho bi-tono, 45,7 y 19,0",
       "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA León - 36.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA León - 36.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA León - 36.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA León - 36.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA León - 36.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA León - 36.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA León - 36.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/14 - CUPRA León - 36.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 36.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 36.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 36.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 36.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 36.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 36.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 36.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 36.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -700,11 +719,10 @@
       "capital": "30000.51",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 36.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 35.700,00 €. Precio al contado 36.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,27%. La oferta incluye Seg. Protección Plus Ampliado por 1.680,51€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 300,94 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 24.255,95 € (calculada con 15.000 km anuales). Entrada inicial: 7.380,00 €. Comisión de apertura al contado: 897,02 €. Importe total financiado 30.000,51 €. Importe total de los intereses: 12.311,84 €. Coste total del crédito: 13.208,86 €. Precio total a plazos 49.692,35 €. Importe total adeudado: 42.312,35 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 15,
+    "n": 16,
     "modelo": "CUPRA León",
     "version": "1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -728,16 +746,16 @@
       "Aire acondicionado trizona con mandos traseros para el climatizador de automático",
       "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 31.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 31.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 31.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 31.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 31.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 31.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 31.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/15 - CUPRA León - 31.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - CUPRA León - 31.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - CUPRA León - 31.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - CUPRA León - 31.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - CUPRA León - 31.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - CUPRA León - 31.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - CUPRA León - 31.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - CUPRA León - 31.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - CUPRA León - 31.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -751,11 +769,10 @@
       "capital": "25424.16",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 31.500,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 30.300,00 €. Precio al contado 31.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,26%. La oferta incluye Seg. Protección Plus Ampliado por 1.424,16€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 251,04 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.857,22 € (calculada con 15.000 km anuales). Entrada inicial: 6.300,00 €. Comisión de apertura al contado: 760,18 €. Importe total financiado 25.424,16 €. Importe total de los intereses: 10.495,46 €. Coste total del crédito: 11.255,64 €. Precio total a plazos 42.219,62 €. Importe total adeudado: 35.919,62 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 16,
+    "n": 17,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI S&S Style 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -779,16 +796,16 @@
       "Retrovisor interior/cámara",
       "Limitador de velocidad"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - SEAT Arona - 18.900€ · RESERVADO/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - SEAT Arona - 18.900€ · RESERVADO/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - SEAT Arona - 18.900€ · RESERVADO/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - SEAT Arona - 18.900€ · RESERVADO/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - SEAT Arona - 18.900€ · RESERVADO/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - SEAT Arona - 18.900€ · RESERVADO/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - SEAT Arona - 18.900€ · RESERVADO/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/16 - SEAT Arona - 18.900€ · RESERVADO/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - SEAT Arona - 18.900€ · RESERVADO/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - SEAT Arona - 18.900€ · RESERVADO/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - SEAT Arona - 18.900€ · RESERVADO/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - SEAT Arona - 18.900€ · RESERVADO/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - SEAT Arona - 18.900€ · RESERVADO/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - SEAT Arona - 18.900€ · RESERVADO/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - SEAT Arona - 18.900€ · RESERVADO/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - SEAT Arona - 18.900€ · RESERVADO/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -802,18 +819,17 @@
       "capital": "16017.21",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.899,99 €. Precio financiando: 18.899,99 €. Precio al contado 18.899,99 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,17%. La oferta incluye Seg. Protección Plus Ampliado por 897,22€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 155,64 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 12.418,02 € (calculada con 15.000 km anuales). Entrada inicial: 3.780,00 €. Comisión de apertura al contado: 478,91 €. Importe total financiado 16.017,21 €. Importe total de los intereses: 5.739,21 €. Coste total del crédito: 6.218,12 €. Precio total a plazos 25.536,42 €. Importe total adeudado: 21.756,42 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 17,
+    "n": 18,
     "modelo": "CUPRA Born",
     "version": "77kWh E-Boost Pack+Battery 170 kW (231 CV)",
     "combustible": "Eléctrico",
     "km": "10.863",
     "fecha": "02/2024",
     "cambio": "Automático",
-    "color": "Azul",
+    "color": "",
     "precio": "27.900",
     "ubicacion": "Málaga",
     "estado": "No disponible",
@@ -830,18 +846,17 @@
       "Retrovisor interior/cámara con oscurecimiento progresivo automático",
       "Limitador de velocidad"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - CUPRA Born - 27.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - CUPRA Born - 27.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - CUPRA Born - 27.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - CUPRA Born - 27.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - CUPRA Born - 27.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - CUPRA Born - 27.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - CUPRA Born - 27.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - CUPRA Born - 27.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - CUPRA Born - 27.900€ · RESERVADO/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - CUPRA Born - 27.900€ · RESERVADO/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - CUPRA Born - 27.900€ · RESERVADO/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - CUPRA Born - 27.900€ · RESERVADO/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - CUPRA Born - 27.900€ · RESERVADO/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - CUPRA Born - 27.900€ · RESERVADO/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - CUPRA Born - 27.900€ · RESERVADO/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - CUPRA Born - 27.900€ · RESERVADO/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/17 - CUPRA Born - 27.900€",
     "financiacion": {
       "meses": "60",
       "cuota": "227.19",
@@ -854,11 +869,10 @@
       "capital": "19283.32",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 27.900,00 €. Precio financiando: 27.900,00 €. Precio al contado 27.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 6,45%. TAE: 7,59%. La oferta incluye Seg. Protección Plus Ampliado por 1.080,17€ y SEGURO PROTECCION DE MOVILIDAD por 303,15€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 227,19 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.563,14 € (calculada con 15.000 km anuales). Entrada inicial: 10.000,00 €. Comisión de apertura al contado: 576,57 €. Importe total financiado 19.283,32 €. Importe total de los intereses: 4.911,22 €. Coste total del crédito: 5.487,79 €. Precio total a plazos 34.194,54 €. Importe total adeudado: 24.194,54 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 18,
+    "n": 19,
     "modelo": "Kia Sportage",
     "version": "1.6 T-GDi Drive 4x2 110 kW (150 CV)",
     "combustible": "Gasolina",
@@ -882,23 +896,22 @@
       "Asientos de tela (material principal) y de tela (material secundario)",
       "Asientos traseros de tres plazas y orientación delantera con banqueta fija, respaldo abatible 40/20/40 y ajuste manual del respaldo"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - Kia Sportage - 17.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - Kia Sportage - 17.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - Kia Sportage - 17.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - Kia Sportage - 17.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - Kia Sportage - 17.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - Kia Sportage - 17.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - Kia Sportage - 17.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - Kia Sportage - 17.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - Kia Sportage - 17.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - Kia Sportage - 17.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - Kia Sportage - 17.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - Kia Sportage - 17.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - Kia Sportage - 17.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - Kia Sportage - 17.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - Kia Sportage - 17.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - Kia Sportage - 17.500€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/18 - Kia Sportage - 17.500€",
-    "financiacion": {},
-    "_intentos_desaparecido": 1
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - Kia Sportage - 17.500€",
+    "financiacion": {}
   },
   {
-    "n": 19,
+    "n": 20,
     "modelo": "SEAT Ibiza",
     "version": "1.0 TSI Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -922,16 +935,16 @@
       "Con sistema de cámara de marcha atrás",
       "Con cámara multifuncional"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT Ibiza - 18.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT Ibiza - 18.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT Ibiza - 18.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT Ibiza - 18.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT Ibiza - 18.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT Ibiza - 18.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT Ibiza - 18.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/19 - SEAT Ibiza - 18.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -945,59 +958,7 @@
       "capital": "16419.77",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.500,00 €. Precio financiando: 18.500,00 €. Precio al contado 18.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,21%. La oferta incluye Seg. Protección Plus Ampliado por 919,77€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 179,46 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.268,24 € (calculada con 15.000 km anuales). Entrada inicial: 3.000,00 €. Comisión de apertura al contado: 490,95 €. Importe total financiado 16.419,77 €. Importe total de los intereses: 5.616,07 €. Coste total del crédito: 6.107,02 €. Precio total a plazos 25.035,84 €. Importe total adeudado: 22.035,84 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
-  },
-  {
-    "n": 20,
-    "modelo": "SEAT Ibiza",
-    "version": "1.0 TSI Special Edition 85 kW (115 CV)",
-    "combustible": "Gasolina",
-    "km": "10.671",
-    "fecha": "06/2025",
-    "cambio": "Manual",
-    "color": "",
-    "precio": "18.300",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/203846746",
-    "equipamiento": [
-      "Asistente frontal incluido función frenada de emergencia para ACC High",
-      "Paquete “Visión Plus”: cámara de marcha atrás, ayuda de aparcamiento delantera y trasera por ultrasonidos",
-      "Asistente de mantenimiento de carril",
-      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara",
-      "Velocidad máxima: 198 km/h",
-      "Marina Pack (tapricería SEAQUAL)",
-      "Volante multifunción deportivo de cuero",
-      "Cierre centralizado \"Keyless-Entry\"",
-      "Ayuda de aparcamiento delante y detrás",
-      "Climatronic bizona"
-    ],
-    "_total": 55,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.300€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.300€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.300€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.300€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.300€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.300€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.300€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/20 - SEAT Ibiza - 18.300€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "175.79",
-      "tin": "7.99",
-      "tae": "9.21",
-      "cuota_final": "11222.13",
-      "entrada": "3000.00",
-      "comision_tipo": "al contado",
-      "comision": "484.62",
-      "capital": "16207.90",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,21%. La oferta incluye Seg. Protección Plus Ampliado por 907,90€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 175,79 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.222,13 € (calculada con 15.000 km anuales). Entrada inicial: 3.000,00 €. Comisión de apertura al contado: 484,62 €. Importe total financiado 16.207,90 €. Importe total de los intereses: 5.561,63 €. Coste total del crédito: 6.046,25 €. Precio total a plazos 24.769,53 €. Importe total adeudado: 21.769,53 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 21,
@@ -1024,7 +985,7 @@
       "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 7,5 pulgadas de ancho bi-tono, 45,7 y 19,0",
       "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/21 - CUPRA León - 28.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/21 - CUPRA León - 28.900€/foto_02.jpg",
@@ -1047,8 +1008,7 @@
       "capital": "23220.73",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 28.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 27.700,00 €. Precio al contado 28.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,23%. La oferta incluye Seg. Protección Plus Ampliado por 1.300,73€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 206,90 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.737,32 € (calculada con 15.000 km anuales). Entrada inicial: 5.780,00 €. Comisión de apertura al contado: 694,30 €. Importe total financiado 23.220,73 €. Importe total de los intereses: 9.930,59 €. Coste total del crédito: 10.624,89 €. Precio total a plazos 38.931,32 €. Importe total adeudado: 33.151,32 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 22,
@@ -1075,7 +1035,7 @@
       "Con cámara multifuncional",
       "Reconocimiento de señales de trafico"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/22 - SEAT Ibiza - 15.600€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/22 - SEAT Ibiza - 15.600€/foto_02.jpg",
@@ -1098,8 +1058,7 @@
       "capital": "14407.02",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 15.600,00 €. Precio financiando: 15.600,00 €. Precio al contado 15.600,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,23%. La oferta incluye Seg. Protección Plus Ampliado por 807,02€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 162,72 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 9.500,44 € (calculada con 15.000 km anuales). Entrada inicial: 2.000,00 €. Comisión de apertura al contado: 430,77 €. Importe total financiado 14.407,02 €. Importe total de los intereses: 4.856,62 €. Coste total del crédito: 5.287,39 €. Precio total a plazos 21.263,64 €. Importe total adeudado: 19.263,64 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 23,
@@ -1126,7 +1085,7 @@
       "Llantas delanteras y traseras en aluminio de 16 pulgadas de diámetro y 7,0 pulgadas de ancho 40,6 y 17,8",
       "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/23 - SEAT León - 22.900€ · RESERVADO/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/23 - SEAT León - 22.900€ · RESERVADO/foto_02.jpg",
@@ -1149,11 +1108,60 @@
       "capital": "19407.11",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.900,00 €. Precio financiando: 22.900,00 €. Precio al contado 22.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,13%. La oferta incluye Seg. Protección Plus Ampliado por 1.087,11€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 159,35 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.193,55 € (calculada con 15.000 km anuales). Entrada inicial: 4.580,00 €. Comisión de apertura al contado: 580,27 €. Importe total financiado 19.407,11 €. Importe total de los intereses: 7.347,44 €. Coste total del crédito: 7.927,71 €. Precio total a plazos 31.334,55 €. Importe total adeudado: 26.754,55 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 24,
+    "modelo": "SEAT Ibiza",
+    "version": "1.0 TSI Special Edition 85 kW (115 CV)",
+    "combustible": "Gasolina",
+    "km": "10.671",
+    "fecha": "06/2025",
+    "cambio": "Manual",
+    "color": "",
+    "precio": "18.300",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/203846746",
+    "equipamiento": [
+      "Asistente frontal incluido función frenada de emergencia para ACC High",
+      "Paquete “Visión Plus”: cámara de marcha atrás, ayuda de aparcamiento delantera y trasera por ultrasonidos",
+      "Asistente de mantenimiento de carril",
+      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara",
+      "Velocidad máxima: 198 km/h",
+      "Marina Pack (tapricería SEAQUAL)",
+      "Volante multifunción deportivo de cuero",
+      "Cierre centralizado \"Keyless-Entry\"",
+      "Ayuda de aparcamiento delante y detrás",
+      "Climatronic bizona"
+    ],
+    "_total": 56,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_08.jpg"
+    ],
+    "financiacion": {
+      "meses": "60",
+      "cuota": "175.79",
+      "tin": "7.99",
+      "tae": "9.21",
+      "cuota_final": "11222.13",
+      "entrada": "3000.00",
+      "comision_tipo": "al contado",
+      "comision": "484.62",
+      "capital": "16207.90",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,21%. La oferta incluye Seg. Protección Plus Ampliado por 907,90€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 175,79 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.222,13 € (calculada con 15.000 km anuales). Entrada inicial: 3.000,00 €. Comisión de apertura al contado: 484,62 €. Importe total financiado 16.207,90 €. Importe total de los intereses: 5.561,63 €. Coste total del crédito: 6.046,25 €. Precio total a plazos 24.769,53 €. Importe total adeudado: 21.769,53 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 25,
     "modelo": "SEAT Ibiza",
     "version": "1.0 TSI Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -1177,16 +1185,16 @@
       "Con sistema de cámara de marcha atrás",
       "Con cámara multifuncional"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/24 - SEAT Ibiza - 18.300€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -1200,59 +1208,7 @@
       "capital": "16207.90",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,22%. La oferta incluye Seg. Protección Plus Ampliado por 907,90€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 179,21 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.971,18 € (calculada con 15.000 km anuales). Entrada inicial: 3.000,00 €. Comisión de apertura al contado: 484,62 €. Importe total financiado 16.207,90 €. Importe total de los intereses: 5.515,88 €. Coste total del crédito: 6.000,50 €. Precio total a plazos 24.723,78 €. Importe total adeudado: 21.723,78 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
-  },
-  {
-    "n": 25,
-    "modelo": "SEAT Ibiza",
-    "version": "1.0 TSI Special Edition 85 kW (115 CV)",
-    "combustible": "Gasolina",
-    "km": "8.061",
-    "fecha": "06/2025",
-    "cambio": "Manual",
-    "color": "",
-    "precio": "18.300",
-    "ubicacion": "Málaga",
-    "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/203846716",
-    "equipamiento": [
-      "Asistente frontal incluido función frenada de emergencia para ACC High",
-      "Asistente de mantenimiento de carril",
-      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara",
-      "Velocidad máxima: 198 km/h",
-      "Marina Pack (tapricería SEAQUAL)",
-      "Volante multifunción deportivo de cuero",
-      "Cierre centralizado \"Keyless-Entry\"",
-      "Ayuda de aparcamiento delante y detrás",
-      "Llantas de aleación ligera 6,5J x 16\" pulgadas",
-      "Con sistema de cámara de marcha atrás"
-    ],
-    "_total": 55,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/25 - SEAT Ibiza - 18.300€/foto_08.jpg"
-    ],
-    "financiacion": {
-      "meses": "60",
-      "cuota": "174.96",
-      "tin": "7.99",
-      "tae": "9.21",
-      "cuota_final": "11282.80",
-      "entrada": "3000.00",
-      "comision_tipo": "al contado",
-      "comision": "484.62",
-      "capital": "16207.90",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,21%. La oferta incluye Seg. Protección Plus Ampliado por 907,90€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 174,96 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.282,80 € (calculada con 15.000 km anuales). Entrada inicial: 3.000,00 €. Comisión de apertura al contado: 484,62 €. Importe total financiado 16.207,90 €. Importe total de los intereses: 5.572,50 €. Coste total del crédito: 6.057,12 €. Precio total a plazos 24.780,40 €. Importe total adeudado: 21.780,40 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 26,
@@ -1279,7 +1235,7 @@
       "Asiento delantero del conductor y acompañante individual, ajuste longitudinal manual y ajuste manual en altura con ajuste manual del respaldo",
       "Asientos traseros de tres plazas de tipo banco partido de orientación delantera con banqueta partida y respaldo abatible asimétrico"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Ibiza - 18.300€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/26 - SEAT Ibiza - 18.300€/foto_02.jpg",
@@ -1302,8 +1258,7 @@
       "capital": "15508.74",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,20%. La oferta incluye Seg. Protección Plus Ampliado por 868,74€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 165,56 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.932,79 € (calculada con 15.000 km anuales). Entrada inicial: 3.660,00 €. Comisión de apertura al contado: 463,71 €. Importe total financiado 15.508,74 €. Importe total de los intereses: 5.357,65 €. Coste total del crédito: 5.821,36 €. Precio total a plazos 24.526,39 €. Importe total adeudado: 20.866,39 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 27,
@@ -1330,7 +1285,7 @@
       "Asiento delantero del conductor y acompañante individual, ajuste longitudinal manual y ajuste manual en altura con ajuste manual del respaldo",
       "Asientos traseros de tres plazas de tipo banco partido de orientación delantera con banqueta partida y respaldo abatible asimétrico"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - SEAT Ibiza - 17.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/27 - SEAT Ibiza - 17.900€/foto_02.jpg",
@@ -1353,8 +1308,7 @@
       "capital": "15169.75",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 17.900,00 €. Precio financiando: 17.900,00 €. Precio al contado 17.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,20%. La oferta incluye Seg. Protección Plus Ampliado por 849,75€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 158,84 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 10.921,19 € (calculada con 15.000 km anuales). Entrada inicial: 3.580,00 €. Comisión de apertura al contado: 453,58 €. Importe total financiado 15.169,75 €. Importe total de los intereses: 5.281,84 €. Coste total del crédito: 5.735,42 €. Precio total a plazos 24.031,59 €. Importe total adeudado: 20.451,59 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 28,
@@ -1381,7 +1335,7 @@
       "Asientos traseros de tres plazas de tipo banco de orientación delantera abatibles en el suelo con banqueta fija y respaldo abatible asimétrico",
       "Volante multi-función de aluminio y cuero ajustable en altura y en profundidad"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/28 - SEAT Arona - 19.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/28 - SEAT Arona - 19.900€/foto_02.jpg",
@@ -1404,8 +1358,7 @@
       "capital": "16864.69",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 19.900,00 €. Precio financiando: 19.900,00 €. Precio al contado 19.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,84%. La oferta incluye Seg. Protección Plus Ampliado por 944,69€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 181,86 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.319,26 € (calculada con 15.000 km anuales). Entrada inicial: 3.980,00 €. Comisión de apertura al contado: 590,26 €. Importe total financiado 16.864,69 €. Importe total de los intereses: 5.366,17 €. Coste total del crédito: 5.956,43 €. Precio total a plazos 26.210,86 €. Importe total adeudado: 22.230,86 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 29,
@@ -1432,7 +1385,7 @@
       "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual y ajuste manual en altura con ajuste manual del respaldo",
       "Asientos traseros de tres plazas de tipo banco de orientación delantera abatibles en el suelo con banqueta fija y respaldo abatible asimétrico"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - SEAT Arona - 20.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/29 - SEAT Arona - 20.900€/foto_02.jpg",
@@ -1455,8 +1408,7 @@
       "capital": "16970.63",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.900,00 €. Bonificación de 700,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 20.200,00 €. Precio al contado 20.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,32%. La oferta incluye Seg. Protección Plus Ampliado por 950,63€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 196,65 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.729,40 € (calculada con 15.000 km anuales). Entrada inicial: 4.180,00 €. Comisión de apertura al contado: 507,42 €. Importe total financiado 16.970,63 €. Importe total de los intereses: 6.557,77 €. Coste total del crédito: 7.065,19 €. Precio total a plazos 27.708,40 €. Importe total adeudado: 23.528,40 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 30,
@@ -1483,7 +1435,7 @@
       "Negro (tela/piel)",
       "Llantas aleación 46cm (18\") - Sonora"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - CUPRA Formentor - 36.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/30 - CUPRA Formentor - 36.900€/foto_02.jpg",
@@ -1506,8 +1458,7 @@
       "capital": "30000.51",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 36.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 35.700,00 €. Precio al contado 36.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,28%. La oferta incluye Seg. Protección Plus Ampliado por 1.680,51€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 314,50 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.233,18 € (calculada con 15.000 km anuales). Entrada inicial: 7.380,00 €. Comisión de apertura al contado: 897,02 €. Importe total financiado 30.000,51 €. Importe total de los intereses: 12.102,67 €. Coste total del crédito: 12.999,69 €. Precio total a plazos 49.483,18 €. Importe total adeudado: 42.103,18 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 31,
@@ -1534,7 +1485,7 @@
       "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED",
       "Velocidad máxima: 205 km/h"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - CUPRA Formentor - 32.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/31 - CUPRA Formentor - 32.900€/foto_02.jpg",
@@ -1557,8 +1508,7 @@
       "capital": "26610.62",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 32.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.700,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,27%. La oferta incluye Seg. Protección Plus Ampliado por 1.490,62€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 268,58 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 21.390,66 € (calculada con 15.000 km anuales). Entrada inicial: 6.580,00 €. Comisión de apertura al contado: 795,66 €. Importe total financiado 26.610,62 €. Importe total de los intereses: 10.894,84 €. Coste total del crédito: 11.690,50 €. Precio total a plazos 44.085,46 €. Importe total adeudado: 37.505,46 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 32,
@@ -1585,7 +1535,7 @@
       "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 8,0 pulgadas de ancho 45,7 y 20,3",
       "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - CUPRA Formentor - 36.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/32 - CUPRA Formentor - 36.900€/foto_02.jpg",
@@ -1608,8 +1558,7 @@
       "capital": "39751.68",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 36.900,00 €. Precio financiando: 36.900,00 €. Precio al contado 36.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,19%. La oferta incluye Seg. Protección Plus Ampliado por 2.226,73€ y SEGURO PROTECCION DE MOVILIDAD por 624,95€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 435,37 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.148,73 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.391,31 €. Importe total financiado 39.751,68 €. Importe total de los intereses: 9.519,25 €. Coste total del crédito: 10.910,56 €. Precio total a plazos 49.270,93 €. Importe total adeudado: 49.270,93 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 33,
@@ -1636,7 +1585,7 @@
       "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
       "Toma/s de 12v en los asientos delanteros"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - CUPRA Terramar - 38.500€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - CUPRA Terramar - 38.500€/foto_02.jpg",
@@ -1648,8 +1597,19 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - CUPRA Terramar - 38.500€/foto_08.jpg"
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/33 - CUPRA Terramar - 38.500€",
-    "financiacion": {},
-    "_intentos_desaparecido": 1
+    "financiacion": {
+      "meses": "60",
+      "cuota": "209.79",
+      "tin": "6.45",
+      "tae": "7.44",
+      "cuota_final": "27542.59",
+      "entrada": "10000.00",
+      "comision_tipo": "al contado",
+      "comision": "918.00",
+      "capital": "30702.51",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 38.500,00 €. Precio financiando: 38.500,00 €. Precio al contado 38.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 6,45%. TAE: 7,44%. La oferta incluye Seg. Protección Plus Ampliado por 1.719,83€ y SEGURO PROTECCION DE MOVILIDAD por 482,68€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 209,79 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 27.542,59 € (calculada con 15.000 km anuales). Entrada inicial: 10.000,00 €. Comisión de apertura al contado: 918,00 €. Importe total financiado 30.702,51 €. Importe total de los intereses: 9.427,48 €. Coste total del crédito: 10.345,48 €. Precio total a plazos 50.129,99 €. Importe total adeudado: 40.129,99 €. Sistema de amortización francés"
+    }
   },
   {
     "n": 34,
@@ -1676,7 +1636,7 @@
       "Asientos traseros de tres plazas de tipo banco partido de orientación delantera con banqueta partida y respaldo abatible asimétrico",
       "Volante multi-función revestido de cuero ajustable en altura y en profundidad"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - SEAT Ibiza - 20.700€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/34 - SEAT Ibiza - 20.700€/foto_02.jpg",
@@ -1699,8 +1659,7 @@
       "capital": "21928.34",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 20.700,00 €. Precio financiando: 20.700,00 €. Precio al contado 20.700,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,92%. La oferta incluye Seg. Protección Plus Ampliado por 1.228,34€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 275,97 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.853,10 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 767,49 €. Importe total financiado 21.928,34 €. Importe total de los intereses: 6.482,96 €. Coste total del crédito: 7.250,45 €. Precio total a plazos 28.411,30 €. Importe total adeudado: 28.411,30 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 35,
@@ -1727,7 +1686,7 @@
       "Banco trasero de asientos no divididos, respaldo abatible por separado",
       "Apertura de confort del portón del maletero (pedal virtual)"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - CUPRA Tavascan - 41.500€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/35 - CUPRA Tavascan - 41.500€/foto_02.jpg",
@@ -1750,8 +1709,7 @@
       "capital": "33898.88",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 41.500,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 40.300,00 €. Precio al contado 41.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,38%. La oferta incluye Seg. Protección Plus Ampliado por 1.898,88€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 446,58 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 19.374,53 € (calculada con 15.000 km anuales). Entrada inicial: 8.300,00 €. Comisión de apertura al contado: 1.013,58 €. Importe total financiado 33.898,88 €. Importe total de los intereses: 12.270,45 €. Coste total del crédito: 13.284,03 €. Precio total a plazos 54.469,33 €. Importe total adeudado: 46.169,33 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 36,
@@ -1778,7 +1736,7 @@
       "Llantas de aleación ligera 6j x 16\" pulgadas",
       "Con cámara multifuncional"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - SEAT Arona - 18.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/36 - SEAT Arona - 18.900€/foto_02.jpg",
@@ -1801,8 +1759,7 @@
       "capital": "20021.52",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.899,99 €. Precio financiando: 18.899,99 €. Precio al contado 18.899,99 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,90%. La oferta incluye Seg. Protección Plus Ampliado por 1.121,53€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 245,71 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.276,25 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 700,75 €. Importe total financiado 20.021,52 €. Importe total de los intereses: 5.997,33 €. Coste total del crédito: 6.698,08 €. Precio total a plazos 26.018,85 €. Importe total adeudado: 26.018,85 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 37,
@@ -1829,7 +1786,7 @@
       "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
       "Acabados de lujo: pomo de la palanca de cambios en aluminio y cuero, consola central en aluminio simil, tablero en aluminio simil y empuñadura del freno de mano en cuero"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 15.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/37 - SEAT Arona - 15.900€/foto_02.jpg",
@@ -1852,8 +1809,7 @@
       "capital": "13665.50",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 15.900,01 €. Precio financiando: 15.900,01 €. Precio al contado 15.900,01 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,29%. La oferta incluye Seg. Protección Plus Ampliado por 765,49€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 178,58 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 7.231,49 € (calculada con 15.000 km anuales). Entrada inicial: 3.000,00 €. Comisión de apertura al contado: 408,60 €. Importe total financiado 13.665,50 €. Importe total de los intereses: 4.280,79 €. Coste total del crédito: 4.689,39 €. Precio total a plazos 20.946,29 €. Importe total adeudado: 17.946,29 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 38,
@@ -1880,7 +1836,7 @@
       "Velocidad máxima: 205 km/h",
       "Edge Pack"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - CUPRA Terramar - 35.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/38 - CUPRA Terramar - 35.900€/foto_02.jpg",
@@ -1903,8 +1859,7 @@
       "capital": "26165.70",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 35.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 34.700,00 €. Precio al contado 35.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,21%. La oferta incluye Seg. Protección Plus Ampliado por 1.465,70€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 212,00 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 24.960,87 € (calculada con 15.000 km anuales). Entrada inicial: 10.000,00 €. Comisión de apertura al contado: 782,35 €. Importe total financiado 26.165,70 €. Importe total de los intereses: 11.515,17 €. Coste total del crédito: 12.297,52 €. Precio total a plazos 47.680,87 €. Importe total adeudado: 37.680,87 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 39,
@@ -1931,7 +1886,7 @@
       "Retrovisor interior/cámara",
       "Limitador de velocidad"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - Renault Clio - 19.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - Renault Clio - 19.900€/foto_02.jpg",
@@ -1943,59 +1898,57 @@
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - Renault Clio - 19.900€/foto_08.jpg"
     ],
     "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/39 - Renault Clio - 19.900€",
-    "financiacion": {},
-    "_intentos_desaparecido": 1
+    "financiacion": {}
   },
   {
     "n": 40,
-    "modelo": "CUPRA Tavascan",
-    "version": "77kWh Endurance 210 kW (286 CV)",
-    "combustible": "Eléctrico",
-    "km": "22.510",
-    "fecha": "02/2025",
-    "cambio": "Automático",
+    "modelo": "SEAT Ibiza",
+    "version": "1.0 TSI Special Edition 85 kW (115 CV)",
+    "combustible": "Gasolina",
+    "km": "8.061",
+    "fecha": "06/2025",
+    "cambio": "Manual",
     "color": "",
-    "precio": "35.900",
+    "precio": "18.300",
     "ubicacion": "Málaga",
     "estado": "Disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-tavascan-electrico-286-cv-del-2025-en-malaga/156976378",
+    "url": "/esp/concesionario-seat-automoviles-rueda/seat-ibiza-gasolina-115-cv-del-2025-en-malaga/203846716",
     "equipamiento": [
-      "Asientos de tela (material principal) y de cuero sintético (material secundario) comercializado como sostenible/vegano",
-      "Velocidad máxima: 180 km/h",
-      "Llantas de 19'' pulgadas",
-      "Llantas delanteras y traseras en aluminio de 19 pulgadas de diámetro y 8,0 pulgadas de ancho bi-tono, 48,3 y 20,3",
-      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
-      "Asientos traseros de tres plazas de tipo banco de orientación delantera con banqueta fija y respaldo abatible asimétrico",
-      "Volante multi-función térmico en cuero y negro piano ajustable en altura y en profundidad",
-      "Retrovisor interior/cámara con oscurecimiento progresivo automático",
-      "Limitador de velocidad",
-      "Dirección asistida eléctrica con endurecimiento progresivo s/velocidad y desmultiplicación variable"
+      "Asistente frontal incluido función frenada de emergencia para ACC High",
+      "Asistente de mantenimiento de carril",
+      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara",
+      "Velocidad máxima: 198 km/h",
+      "Marina Pack (tapricería SEAQUAL)",
+      "Volante multifunción deportivo de cuero",
+      "Cierre centralizado \"Keyless-Entry\"",
+      "Ayuda de aparcamiento delante y detrás",
+      "Llantas de aleación ligera 6,5J x 16\" pulgadas",
+      "Con sistema de cámara de marcha atrás"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Tavascan - 35.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Tavascan - 35.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Tavascan - 35.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Tavascan - 35.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Tavascan - 35.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Tavascan - 35.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Tavascan - 35.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - CUPRA Tavascan - 35.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - SEAT Ibiza - 18.300€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - SEAT Ibiza - 18.300€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - SEAT Ibiza - 18.300€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - SEAT Ibiza - 18.300€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - SEAT Ibiza - 18.300€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - SEAT Ibiza - 18.300€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - SEAT Ibiza - 18.300€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/40 - SEAT Ibiza - 18.300€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
-      "cuota": "524.16",
-      "tin": "5.95",
-      "tae": "7.31",
-      "cuota_final": "15512.93",
-      "entrada": "0.00",
+      "cuota": "174.96",
+      "tin": "7.99",
+      "tae": "9.21",
+      "cuota_final": "11282.80",
+      "entrada": "3000.00",
       "comision_tipo": "al contado",
-      "comision": "1353.60",
-      "capital": "38674.40",
+      "comision": "484.62",
+      "capital": "16207.90",
       "tipo": "",
-      "ejemplo": "* PVPR con campaña de 35.900,00 €. Precio financiando: 35.900,00 €. Precio al contado 35.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,31%. La oferta incluye Seg. Protección Plus Ampliado por 2.166,39€ y SEGURO PROTECCION DE MOVILIDAD por 608,01€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 524,16 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 15.512,93 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.353,60 €. Importe total financiado 38.674,40 €. Importe total de los intereses: 8.288,13 €. Coste total del crédito: 9.641,73 €. Precio total a plazos 46.962,53 €. Importe total adeudado: 46.962,53 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+      "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,21%. La oferta incluye Seg. Protección Plus Ampliado por 907,90€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 174,96 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.282,80 € (calculada con 15.000 km anuales). Entrada inicial: 3.000,00 €. Comisión de apertura al contado: 484,62 €. Importe total financiado 16.207,90 €. Importe total de los intereses: 5.572,50 €. Coste total del crédito: 6.057,12 €. Precio total a plazos 24.780,40 €. Importe total adeudado: 21.780,40 €. Sistema de amortización francés"
+    }
   },
   {
     "n": 41,
@@ -2022,7 +1975,7 @@
       "Ayuda de aparcamiento delante y detrás",
       "Climatronic bizona"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - SEAT Ibiza - 18.300€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/41 - SEAT Ibiza - 18.300€/foto_02.jpg",
@@ -2045,11 +1998,60 @@
       "capital": "15508.74",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,20%. La oferta incluye Seg. Protección Plus Ampliado por 868,74€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 162,08 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.188,15 € (calculada con 15.000 km anuales). Entrada inicial: 3.660,00 €. Comisión de apertura al contado: 463,71 €. Importe total financiado 15.508,74 €. Importe total de los intereses: 5.404,21 €. Coste total del crédito: 5.867,92 €. Precio total a plazos 24.572,95 €. Importe total adeudado: 20.912,95 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 42,
+    "modelo": "SEAT Arona",
+    "version": "1.0 TSI Xperience Special Edition 85 kW (115 CV)",
+    "combustible": "Gasolina",
+    "km": "18.224",
+    "fecha": "06/2025",
+    "cambio": "Manual",
+    "color": "",
+    "precio": "18.900",
+    "ubicacion": "Málaga",
+    "estado": "No disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/196349623",
+    "equipamiento": [
+      "Luxe Pack. X-perience: Asientos Dinamica®",
+      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados con sensor",
+      "Velocidad máxima: 193 km/h",
+      "Llantas delanteras y traseras en aluminio de 17 pulgadas de diámetro y 6,5 pulgadas de ancho bi-tono, 43,2 y 16,5",
+      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
+      "Acabados de lujo: pomo de la palanca de cambios en aluminio y cuero, consola central en símil aluminio, puertas en símil aluminio y tablero en símil aluminio",
+      "Toma/s de 12v en los asientos delanteros",
+      "Asientos de tela (material principal) y de tela (material secundario)",
+      "Asiento delantero del conductor y acompañante individual, ajuste longitudinal manual y ajuste manual en altura con ajuste manual del respaldo",
+      "Asientos traseros de tres plazas de tipo banco de orientación delantera abatibles en el suelo con banqueta fija y respaldo abatible asimétrico"
+    ],
+    "_total": 56,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Arona - 18.900€ · RESERVADO/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Arona - 18.900€ · RESERVADO/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Arona - 18.900€ · RESERVADO/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Arona - 18.900€ · RESERVADO/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Arona - 18.900€ · RESERVADO/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Arona - 18.900€ · RESERVADO/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Arona - 18.900€ · RESERVADO/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Arona - 18.900€ · RESERVADO/foto_08.jpg"
+    ],
+    "financiacion": {
+      "meses": "60",
+      "cuota": "174.78",
+      "tin": "7.99",
+      "tae": "9.21",
+      "cuota_final": "11012.49",
+      "entrada": "3780.00",
+      "comision_tipo": "al contado",
+      "comision": "478.91",
+      "capital": "16017.21",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 18.899,99 €. Precio financiando: 18.899,99 €. Precio al contado 18.899,99 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,21%. La oferta incluye Seg. Protección Plus Ampliado por 897,22€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 174,78 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.012,49 € (calculada con 15.000 km anuales). Entrada inicial: 3.780,00 €. Comisión de apertura al contado: 478,91 €. Importe total financiado 16.017,21 €. Importe total de los intereses: 5.482,08 €. Coste total del crédito: 5.960,99 €. Precio total a plazos 25.279,29 €. Importe total adeudado: 21.499,29 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 43,
     "modelo": "SEAT Ibiza",
     "version": "1.0 TSI Special Edition 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -2073,16 +2075,16 @@
       "Asientos traseros de tres plazas de tipo banco partido de orientación delantera con banqueta partida y respaldo abatible asimétrico",
       "Volante multi-función revestido de cuero ajustable en altura y en profundidad"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Ibiza - 18.300€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Ibiza - 18.300€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Ibiza - 18.300€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Ibiza - 18.300€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Ibiza - 18.300€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Ibiza - 18.300€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Ibiza - 18.300€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT Ibiza - 18.300€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Ibiza - 18.300€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Ibiza - 18.300€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Ibiza - 18.300€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Ibiza - 18.300€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Ibiza - 18.300€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Ibiza - 18.300€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Ibiza - 18.300€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Ibiza - 18.300€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2096,60 +2098,7 @@
       "capital": "15508.74",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.300,00 €. Precio financiando: 18.300,00 €. Precio al contado 18.300,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,20%. La oferta incluye Seg. Protección Plus Ampliado por 868,74€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 162,81 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.134,76 € (calculada con 15.000 km anuales). Entrada inicial: 3.660,00 €. Comisión de apertura al contado: 463,71 €. Importe total financiado 15.508,74 €. Importe total de los intereses: 5.394,62 €. Coste total del crédito: 5.858,33 €. Precio total a plazos 24.563,36 €. Importe total adeudado: 20.903,36 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
-  },
-  {
-    "n": 43,
-    "modelo": "SEAT Arona",
-    "version": "1.0 TSI Xperience Special Edition 85 kW (115 CV)",
-    "combustible": "Gasolina",
-    "km": "18.224",
-    "fecha": "06/2025",
-    "cambio": "Manual",
-    "color": "Gris",
-    "precio": "18.900",
-    "ubicacion": "Málaga",
-    "estado": "No disponible",
-    "url": "/esp/concesionario-seat-automoviles-rueda/seat-arona-gasolina-115-cv-del-2025-en-malaga/196349623",
-    "equipamiento": [
-      "Luxe Pack. X-perience: Asientos Dinamica®",
-      "Sistema de distancia de aparcamiento delanteros con sensor, sistema de distancia de aparcamiento traseros con sensor y cámara, sistema de distancia de aparcamiento en los lados con sensor",
-      "Velocidad máxima: 193 km/h",
-      "Llantas delanteras y traseras en aluminio de 17 pulgadas de diámetro y 6,5 pulgadas de ancho bi-tono, 43,2 y 16,5",
-      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
-      "Acabados de lujo: pomo de la palanca de cambios en aluminio y cuero, consola central en símil aluminio, puertas en símil aluminio y tablero en símil aluminio",
-      "Toma/s de 12v en los asientos delanteros",
-      "Asientos de tela (material principal) y de tela (material secundario)",
-      "Asiento delantero del conductor y acompañante individual, ajuste longitudinal manual y ajuste manual en altura con ajuste manual del respaldo",
-      "Asientos traseros de tres plazas de tipo banco de orientación delantera abatibles en el suelo con banqueta fija y respaldo abatible asimétrico"
-    ],
-    "_total": 55,
-    "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€/foto_08.jpg"
-    ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/43 - SEAT Arona - 18.900€",
-    "financiacion": {
-      "meses": "60",
-      "cuota": "174.78",
-      "tin": "7.99",
-      "tae": "9.21",
-      "cuota_final": "11012.49",
-      "entrada": "3780.00",
-      "comision_tipo": "al contado",
-      "comision": "478.91",
-      "capital": "16017.21",
-      "tipo": "",
-      "ejemplo": "* PVPR con campaña de 18.899,99 €. Precio financiando: 18.899,99 €. Precio al contado 18.899,99 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,21%. La oferta incluye Seg. Protección Plus Ampliado por 897,22€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 174,78 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.012,49 € (calculada con 15.000 km anuales). Entrada inicial: 3.780,00 €. Comisión de apertura al contado: 478,91 €. Importe total financiado 16.017,21 €. Importe total de los intereses: 5.482,08 €. Coste total del crédito: 5.960,99 €. Precio total a plazos 25.279,29 €. Importe total adeudado: 21.499,29 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 44,
@@ -2176,7 +2125,7 @@
       "Sistema de aparcamiento asistido",
       "Climatronic bizona"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - SEAT Arona - 19.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/44 - SEAT Arona - 19.900€/foto_02.jpg",
@@ -2199,8 +2148,7 @@
       "capital": "16864.69",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 19.900,00 €. Precio financiando: 19.900,00 €. Precio al contado 19.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,85%. La oferta incluye Seg. Protección Plus Ampliado por 944,69€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 183,63 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.190,99 € (calculada con 15.000 km anuales). Entrada inicial: 3.980,00 €. Comisión de apertura al contado: 590,26 €. Importe total financiado 16.864,69 €. Importe total de los intereses: 5.344,10 €. Coste total del crédito: 5.934,36 €. Precio total a plazos 26.188,79 €. Importe total adeudado: 22.208,79 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 45,
@@ -2227,7 +2175,7 @@
       "Asiento delantero del conductor y acompañante individual, ajuste longitudinal manual y ajuste manual en altura con ajuste manual del respaldo",
       "Asientos traseros de tres plazas de tipo banco de orientación delantera abatibles en el suelo con banqueta fija y respaldo abatible asimétrico"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT Arona - 19.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/45 - SEAT Arona - 19.900€/foto_02.jpg",
@@ -2250,8 +2198,7 @@
       "capital": "16864.69",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 19.900,00 €. Precio financiando: 19.900,00 €. Precio al contado 19.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,84%. La oferta incluye Seg. Protección Plus Ampliado por 944,69€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 181,79 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.324,58 € (calculada con 15.000 km anuales). Entrada inicial: 3.980,00 €. Comisión de apertura al contado: 590,26 €. Importe total financiado 16.864,69 €. Importe total de los intereses: 5.367,29 €. Coste total del crédito: 5.957,55 €. Precio total a plazos 26.211,98 €. Importe total adeudado: 22.231,98 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 46,
@@ -2278,7 +2225,7 @@
       "Sistema de aparcamiento asistido",
       "Climatronic bizona"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/46 - SEAT Arona - 19.900€/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/46 - SEAT Arona - 19.900€/foto_02.jpg",
@@ -2301,11 +2248,60 @@
       "capital": "21080.87",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 19.900,00 €. Precio financiando: 19.900,00 €. Precio al contado 19.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,92%. La oferta incluye Seg. Protección Plus Ampliado por 1.180,87€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 266,02 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 11.342,94 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 737,83 €. Importe total financiado 21.080,87 €. Importe total de los intereses: 6.223,27 €. Coste total del crédito: 6.961,10 €. Precio total a plazos 27.304,14 €. Importe total adeudado: 27.304,14 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
     "n": 47,
+    "modelo": "CUPRA Tavascan",
+    "version": "77kWh Endurance 210 kW (286 CV)",
+    "combustible": "Eléctrico",
+    "km": "22.510",
+    "fecha": "02/2025",
+    "cambio": "Automático",
+    "color": "",
+    "precio": "35.900",
+    "ubicacion": "Málaga",
+    "estado": "Disponible",
+    "url": "/esp/concesionario-seat-automoviles-rueda/cupra-tavascan-electrico-286-cv-del-2025-en-malaga/156976378",
+    "equipamiento": [
+      "Asientos de tela (material principal) y de cuero sintético (material secundario) comercializado como sostenible/vegano",
+      "Velocidad máxima: 180 km/h",
+      "Llantas de 19'' pulgadas",
+      "Llantas delanteras y traseras en aluminio de 19 pulgadas de diámetro y 8,0 pulgadas de ancho bi-tono, 48,3 y 20,3",
+      "Faros con lente elipsoidal, bombilla LED y luz larga con bombilla LED",
+      "Asientos traseros de tres plazas de tipo banco de orientación delantera con banqueta fija y respaldo abatible asimétrico",
+      "Volante multi-función térmico en cuero y negro piano ajustable en altura y en profundidad",
+      "Retrovisor interior/cámara con oscurecimiento progresivo automático",
+      "Limitador de velocidad",
+      "Dirección asistida eléctrica con endurecimiento progresivo s/velocidad y desmultiplicación variable"
+    ],
+    "_total": 56,
+    "fotos": [
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Tavascan - 35.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Tavascan - 35.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Tavascan - 35.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Tavascan - 35.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Tavascan - 35.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Tavascan - 35.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Tavascan - 35.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - CUPRA Tavascan - 35.900€/foto_08.jpg"
+    ],
+    "financiacion": {
+      "meses": "60",
+      "cuota": "524.16",
+      "tin": "5.95",
+      "tae": "7.31",
+      "cuota_final": "15512.93",
+      "entrada": "0.00",
+      "comision_tipo": "al contado",
+      "comision": "1353.60",
+      "capital": "38674.40",
+      "tipo": "",
+      "ejemplo": "* PVPR con campaña de 35.900,00 €. Precio financiando: 35.900,00 €. Precio al contado 35.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 13.500,00 €. TIN: 5,95%. TAE: 7,31%. La oferta incluye Seg. Protección Plus Ampliado por 2.166,39€ y SEGURO PROTECCION DE MOVILIDAD por 608,01€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 524,16 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 15.512,93 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.353,60 €. Importe total financiado 38.674,40 €. Importe total de los intereses: 8.288,13 €. Coste total del crédito: 9.641,73 €. Precio total a plazos 46.962,53 €. Importe total adeudado: 46.962,53 €. Sistema de amortización francés"
+    }
+  },
+  {
+    "n": 48,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI S&S FR 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -2329,16 +2325,16 @@
       "Sistema de asistencia de aparcamiento",
       "Conexión de aplicaciones inalámbrica y por cable"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - SEAT Arona - 22.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - SEAT Arona - 22.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - SEAT Arona - 22.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - SEAT Arona - 22.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - SEAT Arona - 22.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - SEAT Arona - 22.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - SEAT Arona - 22.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/47 - SEAT Arona - 22.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT Arona - 22.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT Arona - 22.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT Arona - 22.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT Arona - 22.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT Arona - 22.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT Arona - 22.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT Arona - 22.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/48 - SEAT Arona - 22.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2352,11 +2348,10 @@
       "capital": "19068.12",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 22.500,00 €. Precio financiando: 22.500,00 €. Precio al contado 22.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,20%. La oferta incluye Seg. Protección Plus Ampliado por 1.068,12€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 200,59 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 13.659,22 € (calculada con 15.000 km anuales). Entrada inicial: 4.500,00 €. Comisión de apertura al contado: 570,14 €. Importe total financiado 19.068,12 €. Importe total de los intereses: 6.626,50 €. Coste total del crédito: 7.196,64 €. Precio total a plazos 30.194,62 €. Importe total adeudado: 25.694,62 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 48,
+    "n": 49,
     "modelo": "SEAT León",
     "version": "1.5 eTSI S&S FR Special Edition DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -2380,7 +2375,7 @@
       "Matrix-beam",
       "Conexión de aplicaciones inalámbrica y por cable"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT León - 27.900€ · RESERVADO/foto_01.jpg",
       "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/42 - SEAT León - 27.900€ · RESERVADO/foto_02.jpg",
@@ -2403,11 +2398,10 @@
       "capital": "24258.89",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 27.900,00 €. Precio financiando: 27.900,00 €. Precio al contado 27.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,17%. La oferta incluye Seg. Protección Plus Ampliado por 1.358,89€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 228,71 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 19.323,68 € (calculada con 15.000 km anuales). Entrada inicial: 5.000,00 €. Comisión de apertura al contado: 725,34 €. Importe total financiado 24.258,89 €. Importe total de los intereses: 8.787,39 €. Coste total del crédito: 9.512,73 €. Precio total a plazos 38.046,28 €. Importe total adeudado: 33.046,28 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 49,
+    "n": 50,
     "modelo": "SEAT León",
     "version": "1.5 eTSI S&S FR Special Edition DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -2431,16 +2425,16 @@
       "Matrix-beam",
       "Conexión de aplicaciones inalámbrica y por cable"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - SEAT León - 28.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - SEAT León - 28.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - SEAT León - 28.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - SEAT León - 28.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - SEAT León - 28.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - SEAT León - 28.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - SEAT León - 28.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/49 - SEAT León - 28.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT León - 28.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT León - 28.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT León - 28.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT León - 28.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT León - 28.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT León - 28.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT León - 28.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT León - 28.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2454,11 +2448,10 @@
       "capital": "30191.19",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 28.500,00 €. Precio financiando: 28.500,00 €. Precio al contado 28.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,50%. TAE: 8,84%. La oferta incluye Seg. Protección Plus Ampliado por 1.691,19€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 327,92 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 20.093,55 € (calculada con 15.000 km anuales). Entrada inicial: 0,00 €. Comisión de apertura al contado: 1.056,69 €. Importe total financiado 30.191,19 €. Importe total de los intereses: 9.577,56 €. Coste total del crédito: 10.634,25 €. Precio total a plazos 39.768,75 €. Importe total adeudado: 39.768,75 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 50,
+    "n": 51,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI S&S FR Plus DSG 81 kW (110 CV)",
     "combustible": "Gasolina",
@@ -2482,16 +2475,16 @@
       "Blanco (sólido) Techo Negro",
       "Llantas de aleación de 46cm (18\") PERFORMANCE AERO"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT Arona - 17.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT Arona - 17.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT Arona - 17.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT Arona - 17.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT Arona - 17.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT Arona - 17.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT Arona - 17.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/50 - SEAT Arona - 17.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Arona - 17.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Arona - 17.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Arona - 17.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Arona - 17.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Arona - 17.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Arona - 17.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Arona - 17.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - SEAT Arona - 17.500€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2505,11 +2498,10 @@
       "capital": "14830.76",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 17.500,00 €. Precio financiando: 17.500,00 €. Precio al contado 17.500,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,27%. La oferta incluye Seg. Protección Plus Ampliado por 830,76€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 185,55 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 8.454,82 € (calculada con 15.000 km anuales). Entrada inicial: 3.500,00 €. Comisión de apertura al contado: 443,44 €. Importe total financiado 14.830,76 €. Importe total de los intereses: 4.757,06 €. Coste total del crédito: 5.200,50 €. Precio total a plazos 23.087,82 €. Importe total adeudado: 19.587,82 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 51,
+    "n": 52,
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI 110 kW (150 CV)",
     "combustible": "Gasolina",
@@ -2533,16 +2525,16 @@
       "Sistema de cierre y arranque sin llave",
       "Cámara de marcha atrás"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 28.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 28.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 28.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 28.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 28.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 28.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 28.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/51 - CUPRA Formentor - 28.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 28.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 28.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 28.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 28.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 28.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 28.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 28.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Formentor - 28.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2556,11 +2548,10 @@
       "capital": "23220.73",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 28.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 27.700,00 €. Precio al contado 28.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,30%. La oferta incluye Seg. Protección Plus Ampliado por 1.300,73€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 253,58 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 17.216,90 € (calculada con 15.000 km anuales). Entrada inicial: 5.780,00 €. Comisión de apertura al contado: 694,30 €. Importe total financiado 23.220,73 €. Importe total de los intereses: 9.210,97 €. Coste total del crédito: 9.905,27 €. Precio total a plazos 38.211,70 €. Importe total adeudado: 32.431,70 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 52,
+    "n": 53,
     "modelo": "CUPRA Leon",
     "version": "Sportstourer 1.5 eTSI DSG 110 kW (150 CV)",
     "combustible": "Mild Hybrid",
@@ -2584,16 +2575,16 @@
       "Paquete de luces ambiente plus",
       "Llantas delanteras y traseras en aluminio de 18 pulgadas de diámetro y 7,5 pulgadas de ancho bi-tono, 45,7 y 19,0"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Leon - 28.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Leon - 28.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Leon - 28.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Leon - 28.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Leon - 28.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Leon - 28.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Leon - 28.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/52 - CUPRA Leon - 28.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Leon - 28.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Leon - 28.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Leon - 28.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Leon - 28.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Leon - 28.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Leon - 28.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Leon - 28.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA Leon - 28.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2607,11 +2598,10 @@
       "capital": "23220.73",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 28.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 27.700,00 €. Precio al contado 28.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,27%. La oferta incluye Seg. Protección Plus Ampliado por 1.300,73€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 235,79 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 18.558,78 € (calculada con 15.000 km anuales). Entrada inicial: 5.780,00 €. Comisión de apertura al contado: 694,30 €. Importe total financiado 23.220,73 €. Importe total de los intereses: 9.485,45 €. Coste total del crédito: 10.179,75 €. Precio total a plazos 38.486,18 €. Importe total adeudado: 32.706,18 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 53,
+    "n": 54,
     "modelo": "CUPRA León",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -2635,16 +2625,16 @@
       "Aire acondicionado Climatronic",
       "Cámara multifunción"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA León - 33.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA León - 33.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA León - 33.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA León - 33.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA León - 33.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA León - 33.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA León - 33.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/53 - CUPRA León - 33.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 33.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 33.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 33.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 33.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 33.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 33.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 33.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 33.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2658,11 +2648,10 @@
       "capital": "27458.09",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 33.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 32.700,00 €. Precio al contado 33.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,25%. La oferta incluye Seg. Protección Plus Ampliado por 1.538,09€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 259,53 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 23.399,75 € (calculada con 15.000 km anuales). Entrada inicial: 6.780,00 €. Comisión de apertura al contado: 821,00 €. Importe total financiado 27.458,09 €. Importe total de los intereses: 11.513,46 €. Coste total del crédito: 12.334,46 €. Precio total a plazos 45.751,55 €. Importe total adeudado: 38.971,55 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 54,
+    "n": 55,
     "modelo": "CUPRA León",
     "version": "1.4 e-Hybrid DSG 180 kW (245 CV)",
     "combustible": "Híbrido",
@@ -2672,7 +2661,7 @@
     "color": "Blanco",
     "precio": "25.500",
     "ubicacion": "Málaga",
-    "estado": "Disponible",
+    "estado": "No disponible",
     "url": "/esp/concesionario-seat-automoviles-rueda/cupra-leon-hibrido-electro-gasolina-245-cv-del-2021-en-malaga/155656894",
     "equipamiento": [
       "Controles de climatización diferenciados para conductor/acompañante y asientos delanteros/traseros",
@@ -2686,23 +2675,22 @@
       "Asientos de tela (material principal) y de vinilo (material secundario)",
       "Asiento delantero del conductor y acompañante deportivo, ajuste longitudinal manual, ajuste manual en altura y ajuste lumbar manual con ajuste manual del respaldo"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 25.500€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 25.500€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 25.500€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 25.500€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 25.500€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 25.500€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 25.500€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 25.500€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA León - 25.500€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA León - 25.500€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA León - 25.500€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA León - 25.500€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA León - 25.500€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA León - 25.500€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA León - 25.500€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA León - 25.500€/foto_08.jpg"
     ],
-    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/54 - CUPRA León - 25.500€",
-    "financiacion": {},
-    "_intentos_desaparecido": 1
+    "carpeta": "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA León - 25.500€",
+    "financiacion": {}
   },
   {
-    "n": 55,
+    "n": 56,
     "modelo": "CUPRA Formentor",
     "version": "1.5 TSI e-Hybrid DSG 150 kW (204 CV)",
     "combustible": "Híbrido",
@@ -2726,16 +2714,16 @@
       "Edge Pack",
       "Intelligent Drive Pack"
     ],
-    "_total": 55,
+    "_total": 56,
     "fotos": [
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 32.900€/foto_01.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 32.900€/foto_02.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 32.900€/foto_03.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 32.900€/foto_04.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 32.900€/foto_05.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 32.900€/foto_06.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 32.900€/foto_07.jpg",
-      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/55 - CUPRA Formentor - 32.900€/foto_08.jpg"
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/56 - CUPRA Formentor - 32.900€/foto_01.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/56 - CUPRA Formentor - 32.900€/foto_02.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/56 - CUPRA Formentor - 32.900€/foto_03.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/56 - CUPRA Formentor - 32.900€/foto_04.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/56 - CUPRA Formentor - 32.900€/foto_05.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/56 - CUPRA Formentor - 32.900€/foto_06.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/56 - CUPRA Formentor - 32.900€/foto_07.jpg",
+      "/home/runner/work/automoviles-rueda-catalogo/automoviles-rueda-catalogo/fotos/56 - CUPRA Formentor - 32.900€/foto_08.jpg"
     ],
     "financiacion": {
       "meses": "60",
@@ -2749,11 +2737,10 @@
       "capital": "26610.62",
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 32.900,00 €. Bonificación de 1.200,00 € de Volkswagen Bank GmbH S.E. no incluida. Bonificación sobre PVP, IVA incluido. Precio financiando: 31.700,00 €. Precio al contado 32.900,00 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 16.500,00 €, y una duración y permanencia mínima de la financiación de 36 meses. TIN: 8,99%. TAE: 10,26%. La oferta incluye Seg. Protección Plus Ampliado por 1.490,62€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 257,74 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 22.208,40 € (calculada con 15.000 km anuales). Entrada inicial: 6.580,00 €. Comisión de apertura al contado: 795,66 €. Importe total financiado 26.610,62 €. Importe total de los intereses: 11.062,18 €. Coste total del crédito: 11.857,84 €. Precio total a plazos 44.252,80 €. Importe total adeudado: 37.672,80 €. Sistema de amortización francés"
-    },
-    "_intentos_desaparecido": 1
+    }
   },
   {
-    "n": 56,
+    "n": 57,
     "modelo": "SEAT Arona",
     "version": "1.0 TSI S&S Style 85 kW (115 CV)",
     "combustible": "Gasolina",
@@ -2801,72 +2788,35 @@
       "tipo": "",
       "ejemplo": "* PVPR con campaña de 18.899,99 €. Precio financiando: 18.899,99 €. Precio al contado 18.899,99 €. Oferta para clientes particulares y autónomos que financien a través de Volkswagen Bank GmbH S.E. (según condiciones contractuales), sujeta a un capital mínimo de 10.000,00 €. TIN: 7,99%. TAE: 9,18%. La oferta incluye Seg. Protección Plus Ampliado por 897,22€, opcional/es y financiado/s que no está incluido como gasto en el cálculo de la TAE. Ejemplo de cuota a 60 meses: 156,88 €, y si lo deseas, al cabo de 5 años podrás cambiarlo por otro modelo, devolverlo o quedártelo pagando una cuota final en el mes 60 de 12.327,36 € (calculada con 15.000 km anuales). Entrada inicial: 3.780,00 €. Comisión de apertura al contado: 478,91 €. Importe total financiado 16.017,21 €. Importe total de los intereses: 5.722,95 €. Coste total del crédito: 6.201,86 €. Precio total a plazos 25.520,16 €. Importe total adeudado: 21.740,16 €. Sistema de amortización francés"
     },
-    "_intentos_desaparecido": 4,
+    "_intentos_desaparecido": 5,
     "fecha_reservado": "2026-11-23"
   },
   {
     "fuente": "motorflash",
-    "motorflash_id": "220145730",
+    "motorflash_id": "220475788",
     "tipo": "VO",
-    "modelo": "SEAT Ibiza",
-    "version": "1.0 MPI S&S Style 59 kW (80 CV)",
+    "modelo": "CUPRA Terramar",
+    "version": "1.5 eTSI Beyond DSG 110 kW (150 CV)",
     "combustible": "Gasolina",
-    "km": "19.605 km",
+    "km": "1.150 km",
     "fecha": "2026",
-    "cambio": "Manual",
+    "cambio": "Automatico",
     "color": "",
-    "precio": "15.700",
+    "precio": "37.900",
     "ubicacion": "Málaga",
     "estado": "Disponible",
-    "url_motorflash": "https://www.motorflash.com/coche-segunda-mano/seat-ibiza-1_0_mpi_sands_style_59_kw_80_cv/ocasion/220145730-es/",
-    "equipamiento": [
-      "Start/Stop automático",
-      "Luz diurna",
-      "Control de velocidad",
-      "Volante multifunción",
-      "Bluetooth",
-      "Llantas de aleación",
-      "Llantas de aleación de 16\"",
-      "Ordenador",
-      "Faros antiniebla",
-      "Aire Acondicionado",
-      "Climatizador",
-      "Airbag",
-      "Airbag para el acompañante",
-      "Airbag para el conductor",
-      "Airbags laterales",
-      "Frenos ABS antibloqueo",
-      "ESP",
-      "Dirección asistida",
-      "Elevalunas eléctrico",
-      "Cierre centralizado",
-      "Control remoto para cierre centralizado",
-      "Banqueta trasera abatible",
-      "Servodirección",
-      "Asistente de cambio de carril",
-      "Asistente de mantenimiento de carril",
-      "Asistente de aparcamiento",
-      "Conexión eléctrica",
-      "Asistente de arranque en pendiente",
-      "Faros delanteros led",
-      "Faros traseros led",
-      "Isofix",
-      "Encendido automático de faros",
-      "Sensor de presión de neumáticos",
-      "Reconocimiento señales de tráfico",
-      "Car Play",
-      "Limitador de velocidad"
-    ],
+    "url_motorflash": "https://www.motorflash.com/coche-segunda-mano/cupra-terramar-1_5_etsi_beyond_dsg_110_kw_150_cv/ocasion/220475788-es/",
+    "equipamiento": [],
     "fotos": [
-      "web_fotos/mf-220145730/foto_01.jpg",
-      "web_fotos/mf-220145730/foto_02.jpg",
-      "web_fotos/mf-220145730/foto_03.jpg",
-      "web_fotos/mf-220145730/foto_04.jpg",
-      "web_fotos/mf-220145730/foto_05.jpg",
-      "web_fotos/mf-220145730/foto_06.jpg",
-      "web_fotos/mf-220145730/foto_07.jpg",
-      "web_fotos/mf-220145730/foto_08.jpg"
+      "web_fotos/mf-220475788/foto_01.jpg",
+      "web_fotos/mf-220475788/foto_02.jpg",
+      "web_fotos/mf-220475788/foto_03.jpg",
+      "web_fotos/mf-220475788/foto_04.jpg",
+      "web_fotos/mf-220475788/foto_05.jpg",
+      "web_fotos/mf-220475788/foto_06.jpg",
+      "web_fotos/mf-220475788/foto_07.jpg",
+      "web_fotos/mf-220475788/foto_08.jpg"
     ],
-    "n": 57
+    "n": 58
   }
 ]

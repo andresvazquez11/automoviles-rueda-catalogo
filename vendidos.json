@@ -159,6 +159,16 @@
   "precio": "41.300",
   "version": "Sportstourer 1.5 TSI e-Hybrid DSG 150 kW (204 CV)"
  },
+ "cupra-leon-155656894": {
+  "baja": "2026-11-25",
+  "cambio": "Automático",
+  "combustible": "Híbrido",
+  "fecha": "10/2021",
+  "km": "65.890",
+  "modelo": "CUPRA León",
+  "precio": "25.500",
+  "version": "1.4 e-Hybrid DSG 180 kW (245 CV)"
+ },
  "cupra-leon-209859843": {
   "baja": "2026-11-10",
   "cambio": "Automático",
@@ -609,6 +619,16 @@
   "precio": "20.900",
   "version": "1.0 TSI S&S FR 85 kW (115 CV)"
  },
+ "seat-ibiza-212000127": {
+  "baja": "2026-11-25",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "08/2026",
+  "km": "100",
+  "modelo": "SEAT Ibiza",
+  "precio": "20.500",
+  "version": "1.0 TSI S&S Style 85 kW (115 CV)"
+ },
  "seat-ibiza-mf197896909": {
   "baja": "2026-10-08",
   "cambio": "Manual",
@@ -758,6 +778,16 @@
   "modelo": "SEAT Ibiza",
   "precio": "17.700",
   "version": "1.0 TSI S&S FR XS 85 kW (115 CV)"
+ },
+ "seat-ibiza-mf220145730": {
+  "baja": "2026-11-25",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "19.605 km",
+  "modelo": "SEAT Ibiza",
+  "precio": "15.700",
+  "version": "1.0 MPI S&S Style 59 kW (80 CV)"
  },
  "seat-leon-151336815": {
   "baja": "2026-09-26",
