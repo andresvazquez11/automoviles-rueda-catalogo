@@ -833,6 +833,8 @@ ASSET_IDIOMA      = asset("idioma.js")
 ASSET_CALCULADORA = asset("calculadora.js")
 ASSET_NUEVO_CMP = asset("nuevo_cmp.js")
 ASSET_GESTION = asset("gestion.js")
+ASSET_ASESOR = asset("asesor.js")
+ASSET_PORTADA = asset("portada.js")
 ASSET_IMPRIMIR    = asset("imprimir.js")
 ASSET_FOLLETO     = asset("folleto.js")   # folleto A4 de todos los coches (solo asesor, portada)
 ASSET_ENVIAR      = asset("enviar.js")   # enviar al cliente por WhatsApp (solo asesores) + vista del enlace
@@ -2290,6 +2292,7 @@ window.rdAlCambiarIdioma = function() {{ cargarFicha(COCHE); }};
 </script>
 <script src="{ASSET_ENVIAR}"></script>
 <script src="{ASSET_NUEVO_CMP}"></script>
+<script src="{ASSET_ASESOR}"></script>
 <script src="{ASSET_GESTION}"></script>
 <script src="{ASSET_REBAJAS}"></script>
 <script>
@@ -2822,6 +2825,7 @@ def build_index_html(cars: list[dict], rutas: dict[int, list[str]], perfil: dict
 </div>
 
 {resenas_html()}
+<div class="rd-asesor-barra" id="rd-asesor-barra"></div>
 <div class="rd-controls" id="rd-catalogo-inicio">
   <div class="rd-controls-top">
     <div class="rd-search-wrap">
@@ -3269,6 +3273,8 @@ document.querySelectorAll('.rd-card-media').forEach(window.rdActivarHoverFotos);
 <script src="{ASSET_PERSONAJE}"></script>
 <script id="rd-folleto-datos" type="application/json">{datos_folleto_json(cars, rutas, perfil)}</script>
 <script src="{ASSET_FOLLETO}"></script>
+<script src="{ASSET_ASESOR}"></script>
+<script src="{ASSET_PORTADA}"></script>
 <script src="{ASSET_ENVIAR}"></script>
 {footer_whatsapp_html(perfil, accesos_ocultos=(perfil["id"] == "andres"))}
 {goatcounter_script_html()}

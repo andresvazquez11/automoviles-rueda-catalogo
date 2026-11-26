@@ -1,60 +1,64 @@
-// Solo asesor: datos de gestión de este coche (compra, margen, régimen, origen…).
-// Los datos viajan CIFRADOS en /gestion.enc.json (AES-256-GCM, misma contraseña que /nuevos/): nada va en claro en la web.
+// Solo asesor, en la ficha: datos de gestión del coche (compra, margen, negociación, origen) y stock parecido aunque no esté publicado.
+// Usa assets/asesor.js (datos cargados del Excel en este dispositivo o publicados cifrados).
 (function () {
   var det = document.getElementById('rd-gestion');
-  if (!det || typeof COCHE === 'undefined') return;
-  var KEY = 'vn_clave', cuerpo = document.getElementById('rd-gestion-cuerpo'), datos = null, resolver;
+  if (!det || typeof COCHE === 'undefined' || !window.RD_ASESOR) return;
+  var A = window.RD_ASESOR, cuerpo = document.getElementById('rd-gestion-cuerpo'), resolver, datos = null, rec = null;
   window.RD_GESTION_LISTO = new Promise(function (ok) { resolver = ok; });
-  var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); };
-  var eur = function (n) { return n == null ? '—' : Math.round(n).toLocaleString('es-ES', { useGrouping: true }).replace(/,/g, '.') + ' €'; };
-  async function cargar(clave) {
-    var D = await (await fetch('/gestion.enc.json', { cache: 'no-store' })).json();
-    var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(clave), 'PBKDF2', false, ['deriveKey']);
-    var key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b64(D.s), iterations: D.n, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-    return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(D.i) }, key, b64(D.c))));
+  var eur = A.eur, web = A.num(COCHE.precio);
+  var esc = function (t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+  var fila = function (a, b, c) { return '<tr><td>' + a + '</td><td class="n">' + b + '</td><td>' + (c || '') + '</td></tr>'; };
+
+  function resumenSuperior() {   // línea visible junto al precio, sin abrir el desplegable
+    var p = document.getElementById('m-precio'); if (!p || !p.parentNode) return;
+    var d = document.getElementById('rd-gest-resumen');
+    if (!d) { d = document.createElement('div'); d.id = 'rd-gest-resumen'; d.className = 'rd-gest-resumen'; p.parentNode.appendChild(d); }
+    d.innerHTML = rec && rec.margen != null ? '💶 <b>Margen ' + eur(rec.margen) + '</b>' + (rec.venta ? ' (' + (rec.margen / rec.venta * 100).toFixed(1).replace('.', ',') + ' %)' : '') + ' · <a href="#rd-gestion">negociar</a> · <a href="/stock/" target="_blank" rel="noopener">stock ↗</a>'
+      : '💶 <a href="#rd-gestion">Datos de gestión</a> · <a href="/stock/" target="_blank" rel="noopener">stock ↗</a>';
   }
-  function buscar(d) {
-    var id = (String(COCHE.url || '').match(/(\d{6,})\/?$/) || [])[1];
-    return (id && d.coches['a' + id]) || d.coches['n' + COCHE.n] || null;
+  function similares() {
+    if (!datos || !datos.stock) return '';
+    var t = (rec && rec.tmaimg) || '', fam = A.familia(COCHE.modelo);
+    var xs = datos.stock.filter(function (s) { return s.bastidor !== (rec && rec.bastidor) && A.familia(s.coche) === fam; }).map(function (s) {
+      var p = (s.tmaimg && s.tmaimg === t ? 4 : (s.tmaimg && t && s.tmaimg.slice(0, 3) === t.slice(0, 3) ? 2 : 0)) - (s.venta && web ? Math.abs(s.venta - web) / 5000 : 1); return { s: s, p: p };
+    }).sort(function (a, b) { return b.p - a.p; }).slice(0, 8);
+    if (!xs.length) return '<p class="rd-gest-nota">No hay más ' + esc(COCHE.modelo) + ' en el stock cargado.</p>';
+    return '<h4>Parecidos en stock <small>(aunque no estén publicados: busca por matrícula)</small></h4><table class="rd-gest-tabla rd-gest-sim"><tr><th>Coche</th><th>Matrícula</th><th>Km</th><th>Matric.</th><th>TMAIMG</th><th class="n">Venta</th><th>Estado</th></tr>' +
+      xs.map(function (x) { var s = x.s; return '<tr class="' + (s.publicado ? '' : 'rd-gest-nopub') + '"><td>' + esc(s.coche).slice(0, 44) + (s.publicado ? '' : ' <b>· sin publicar</b>') + '</td><td><b>' + esc(s.matricula) + '</b></td><td>' + (s.km != null ? Number(s.km).toLocaleString('es-ES') : '') +
+        '</td><td>' + esc(s.f_matric) + '</td><td>' + esc(s.tmaimg) + '</td><td class="n">' + (s.venta ? eur(s.venta) + (s.estimado ? ' <span title="' + esc(s.base_est) + '">*</span>' : '') : 'sin precio') + '</td><td>' + esc(s.estado) + '</td></tr>'; }).join('') +
+      '</table><p class="rd-gest-nota">* precio de venta estimado (compra × razón mediana de coches parecidos).</p>';
   }
-  function pintar(rec) {
-    window.RD_GESTION = rec; resolver(rec);
-    if (!rec) { cuerpo.innerHTML = '<p class="rd-gest-nota">Este coche no está en el stock cargado (Excel de stock del ' + datos.generado.split('-').reverse().join('/') + ').</p>'; return; }
-    var web = parseInt(String(COCHE.precio).replace(/[^\d]/g, ''), 10) || 0, dif = rec.venta && web && Math.abs(rec.venta - web) > 1;
-    var neg = rec.margen != null && rec.margen < 0;
-    var fila = function (a, b, c) { return '<tr><td>' + a + '</td><td class="n">' + b + '</td>' + (c ? '<td>' + c + '</td>' : '<td></td>') + '</tr>'; };
+  function pintar() {
+    window.RD_GESTION = rec; resolver(rec); resumenSuperior();
+    if (!datos) return;
+    var f = datos.generado.split('-').reverse().join('/'), pie = '<p class="rd-gest-nota"><a href="/stock/" target="_blank" rel="noopener">Ver todo el stock ↗</a> · datos de ' + esc(datos.fuente) + ' del ' + f + '</p>';
+    if (!rec) { cuerpo.innerHTML = '<p class="rd-gest-nota">Este coche no está en el stock cargado.</p>' + similares() + pie; return; }
+    var dif = rec.venta && web && Math.abs(rec.venta - web) > 1, neg = rec.margen != null && rec.margen < 0;
     var campana = /^(demo|rema|km ?0)/i.test(rec.origen || '') ? 'Origen ' + rec.origen + ': aplica la campaña de VWFS «DEMOS + REMA» (TIN 5,99 %)' : /buy ?back/i.test(rec.origen || '') ? 'Origen Buy Back: campaña GAMA / ENTRY estándar' : '';
     cuerpo.innerHTML = '<table class="rd-gest-tabla">' +
       fila('Precio de compra', eur(rec.compra)) + fila('Gastos (garantía, reacondicionamiento, gestoría)', eur(rec.gastos)) +
       fila('Precio de venta en stock', eur(rec.venta), dif ? '<b class="rd-gest-alerta">⚠ la web publica ' + eur(web) + '</b>' : '') +
       fila('<b>Margen</b> (precios con IVA)', '<b class="' + (neg ? 'rd-gest-neg' : '') + '">' + eur(rec.margen) + '</b>' + (rec.venta ? ' <small>(' + (rec.margen / rec.venta * 100).toFixed(1).replace('.', ',') + ' %)</small>' : '')) +
-      fila('Margen sin IVA (estimado, ÷ 1,21)', eur(rec.margen_sin_iva)) +
-      '</table><table class="rd-gest-tabla rd-gest-ficha">' +
-      fila('Origen', rec.origen || '—', campana) + fila('Régimen', rec.regimen || '—', rec.regimen === 'REBU' ? 'IVA solo sobre el margen' : rec.regimen === 'IVA' ? 'IVA sobre el precio completo' : '') +
-      fila('Días en stock', rec.dias != null ? Math.round(rec.dias) : '—') + fila('Estado en stock', rec.estado || '—') +
-      fila('Matrícula · matriculación', (rec.matricula || '—') + ' · ' + (rec.f_matric || '—')) + fila('Bastidor', rec.bastidor || '—') + fila('TMAIMG', rec.tmaimg || '—') + '</table>' +
-      '<p class="rd-gest-nota"><a href="/stock/" target="_blank" rel="noopener">Ver todo el stock (incluido lo que aún no está publicado) ↗</a> · datos del Excel de stock del ' + datos.generado.split('-').reverse().join('/') + '</p>';
+      fila('Margen sin IVA (estimado, ÷ 1,21)', eur(rec.margen_sin_iva)) + '</table>' +
+      '<div class="rd-gest-neg-box"><b>Negociar:</b> si el cliente paga <input type="number" id="rd-gest-precio" step="100" value="' + (web || rec.venta || '') + '"> € → margen <b id="rd-gest-res"></b> <span class="rd-gest-nota" id="rd-gest-dto"></span></div>' +
+      '<table class="rd-gest-tabla rd-gest-ficha">' + fila('Origen', esc(rec.origen) || '—', campana) + fila('Régimen', esc(rec.regimen) || '—', rec.regimen === 'REBU' ? 'IVA solo sobre el margen' : rec.regimen === 'IVA' ? 'IVA sobre el precio completo' : '') +
+      fila('Días en stock', rec.dias != null ? Math.round(rec.dias) : '—') + fila('Estado en stock', esc(rec.estado) || '—') + fila('Matrícula · matriculación', esc(rec.matricula) + ' · ' + esc(rec.f_matric)) + fila('Bastidor', esc(rec.bastidor)) + fila('TMAIMG', esc(rec.tmaimg)) + '</table>' +
+      similares() + pie;
+    var inp = document.getElementById('rd-gest-precio');
+    var calc = function () { var p = parseFloat(inp.value) || 0, m = p - rec.compra - (rec.gastos || 0), el = document.getElementById('rd-gest-res');
+      el.textContent = eur(m) + ' (' + (p ? (m / p * 100).toFixed(1).replace('.', ',') : '0') + ' %)'; el.className = m < 0 ? 'rd-gest-neg' : '';
+      document.getElementById('rd-gest-dto').textContent = web ? 'Descuento sobre el precio web: ' + eur(web - p) + ' · margen que quedaría para ceder: ' + eur(Math.max(0, rec.compra ? (web - rec.compra - (rec.gastos || 0)) : 0)) : ''; };
+    inp.oninput = calc; calc();
   }
   function pedir(msg) {
-    cuerpo.innerHTML = '<form class="rd-gest-form"><label>Contraseña de la zona privada</label><input type="password" autocomplete="current-password"><label class="rd-gest-rec"><input type="checkbox" checked> Recordar en este dispositivo</label><button type="submit" class="rd-btn rd-btn-secondary">Desbloquear</button><div class="rd-gest-nota">' + (msg || '') + '</div></form>';
+    cuerpo.innerHTML = '<form class="rd-gest-form"><label>Contraseña de la zona privada</label><input type="password" autocomplete="current-password"><button type="submit" class="rd-btn rd-btn-secondary">Desbloquear</button><div class="rd-gest-nota">' + (msg || 'O carga el Excel de stock en la portada (modo asesor).') + '</div></form>';
     var f = cuerpo.querySelector('form');
-    f.onsubmit = async function (ev) {
-      ev.preventDefault();
-      var pw = f.querySelector('input[type=password]').value, rec = f.querySelector('input[type=checkbox]').checked;
-      try { datos = await cargar(pw); try { if (rec) localStorage.setItem(KEY, pw); } catch (e) {} pintar(buscar(datos)); }
-      catch (e) { pedir('Contraseña incorrecta.'); }
-    };
+    f.onsubmit = async function (ev) { ev.preventDefault(); try { datos = await A.obtener(f.querySelector('input').value); if (!datos) throw 0; rec = A.buscar(datos, COCHE); pintar(); } catch (e) { pedir('Contraseña incorrecta.'); } };
   }
-  async function abrir() {
-    if (datos) return pintar(buscar(datos));
-    var g = null; try { g = localStorage.getItem(KEY); } catch (e) {}
-    if (g) { try { cuerpo.textContent = 'Descifrando…'; datos = await cargar(g); return pintar(buscar(datos)); } catch (e) { try { localStorage.removeItem(KEY); } catch (x) {} } }
-    pedir('');
+  async function iniciar(visible) {
+    datos = await A.obtener();
+    if (datos) { rec = A.buscar(datos, COCHE); pintar(); } else { resolver(null); if (visible) pedir(''); }
   }
-  det.addEventListener('toggle', function () { if (det.open) abrir(); });
-  // con la contraseña recordada, los datos (p. ej. el origen) se cargan solos en modo asesor y los usa la comparación con el nuevo
-  if (document.documentElement.classList.contains('rd-asesor')) {
-    var g = null; try { g = localStorage.getItem(KEY); } catch (e) {}
-    if (g) cargar(g).then(function (d) { datos = d; pintar(buscar(d)); }).catch(function () { resolver(null); }); else resolver(null);
-  } else resolver(null);
+  det.addEventListener('toggle', function () { if (det.open && !datos) { cuerpo.textContent = 'Cargando…'; iniciar(true); } });
+  if (document.documentElement.classList.contains('rd-asesor')) iniciar(false); else resolver(null);
 })();
