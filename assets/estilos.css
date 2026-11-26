@@ -1510,3 +1510,10 @@ html.rd-asesor .rd-asesor-barra { display: flex; gap: 10px 14px; align-items: ce
 .rd-gest-aviso.ambar { background: rgba(178,106,0,.12); border-color: #b26a00; }
 .rd-gest-aviso.verde { background: rgba(28,122,74,.12); border-color: #1c7a4a; }
 .rd-gest-aviso.azul { background: rgba(29,95,138,.12); border-color: #1d5f8a; }
+
+/* Tarjeta «Datos del stock» (solo asesor, dentro de «Datos de gestión») */
+.rd-tk { margin: 12px 0; padding: 12px 14px; border: 1px solid rgba(0,0,0,.12); border-radius: 14px; background: rgba(0,0,0,.03); }
+.rd-tk h4 { margin: 0 0 8px; font-size: 14px; } .rd-tk h4 small { font-weight: 400; opacity: .65; }
+.rd-tk-g { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px 14px; }
+.rd-tk-f span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; opacity: .6; } .rd-tk-f b { font-size: 14px; word-break: break-word; }
+@media print { .rd-tk { display: none !important; } }

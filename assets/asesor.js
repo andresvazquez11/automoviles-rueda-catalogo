@@ -32,6 +32,8 @@
     return new Promise(function (ok, ko) { var s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'; s.onload = ok; s.onerror = function () { ko(new Error('No se pudo cargar el lector de Excel (¿sin internet?)')); }; document.head.appendChild(s); });
   }
   // files: lista de File (.xlsx «Stock Inventory»); tarjetas: [{n, id, km, precio}] de los coches publicados en esta página
+  var EXTRA = { color: 'Color', combustible: 'Combustible', cambio: 'Tipo de Cambio', model_vo: 'Model VO', id_ocasion: 'Id_ocasion', eurotax: 'Eurotax NatCode:', modelo_year: 'Vehículo: Modelo Year', garantia: 'Garantía', f_creacion: 'Fecha de creación', f_compra: 'Fecha de Compra', cpo: 'CPO', destacado: 'Destacado', atencion: 'Requires Attention', pub_marca: 'IsPublisedWebMarca', f_disp: 'Fecha Disponibilidad', zona: 'Dealer: Zona', pub_mf: 'Publish Motorflash Date', g_garantia: 'Gastos de garantía y certificación', g_reacond: 'Gastos totales de reacondicionamiento', g_gestoria: 'Gastos de gestoría', g_gestoria_int: 'Gastos Internos gestoría', margen_pct: 'Margen de Venta (%)' };
+  function extra(g, H) { var x = {}; Object.keys(EXTRA).forEach(function (k) { if (H[EXTRA[k]] == null) return; var v = g(EXTRA[k]); if (v === null || v === undefined || v === '' || v === 'Nº de error') return; x[k] = typeof v === 'number' ? Math.round(v * 100) / 100 : v; }); return x; }
   async function importar(files, tarjetas) {
     await cargarXLSX();
     var stock = [], vistos = {}, generado = new Date().toISOString().slice(0, 10);
@@ -53,7 +55,7 @@
         var gastos = ['Gastos de garantía y certificación', 'Gastos totales de reacondicionamiento', 'Gastos de gestoría', 'Gastos Internos gestoría'].reduce(function (s, k) { return s + (Number(g(k)) || 0); }, 0);
         stock.push({ bastidor: g('Bastidor'), matricula: g('Matrícula'), estado: g('Estado'), origen: g('Origen'), denominacion: g('Denominación Comercial') || '', id_anuncio: String(g('Id Anuncio') || ''),
           km: g('Kilometraje'), f_matric: g('Fecha de Matriculación'), tmaimg: g('TMAIMG Code'), dias: g('Días en Stock'), compra: Number(g('Precio de compra')) || 0, gastos: gastos,
-          venta: Number(g('Precio de venta')) || 0, margen: g('Margen de Venta'), regimen: g('Regimen') || '' });
+          venta: Number(g('Precio de venta')) || 0, margen: g('Margen de Venta'), regimen: g('Regimen') || '', x: extra(g, H) });
       });
     }
     var usados = {}, pubs = {};
@@ -78,7 +80,7 @@
       return f;
     });
     var coches = {};
-    filas.forEach(function (f) { if (f.publicado) { var rec = { origen: f.origen, estado: f.estado, compra: f.compra, gastos: f.gastos, venta: f.venta, margen: f.margen, margen_sin_iva: f.margen_sin_iva, regimen: f.regimen, dias: f.dias, matricula: f.matricula, bastidor: f.bastidor, tmaimg: f.tmaimg, f_matric: f.f_matric }; coches['n' + f.n] = rec; if (f.id_anuncio) coches['a' + f.id_anuncio] = rec; } });
+    filas.forEach(function (f) { if (f.publicado) { var rec = { origen: f.origen, estado: f.estado, compra: f.compra, gastos: f.gastos, venta: f.venta, margen: f.margen, margen_sin_iva: f.margen_sin_iva, regimen: f.regimen, dias: f.dias, matricula: f.matricula, bastidor: f.bastidor, tmaimg: f.tmaimg, f_matric: f.f_matric, x: f.x }; coches['n' + f.n] = rec; if (f.id_anuncio) coches['a' + f.id_anuncio] = rec; } });
     var data = { generado: generado, coches: coches, stock: filas };
     try { localStorage.setItem(LS, JSON.stringify(data)); } catch (e) { throw new Error('No cabe en la memoria de este navegador.'); }
     cache = null; return data;

@@ -32,6 +32,20 @@
         '</td><td>' + esc(s.f_matric) + '</td><td>' + esc(s.tmaimg) + '</td><td class="n">' + (s.venta ? eur(s.venta) + (s.estimado ? ' <span title="' + esc(s.base_est) + '">*</span>' : '') : 'sin precio') + '</td><td>' + esc(s.estado) + '</td></tr>'; }).join('') +
       '</table><p class="rd-gest-nota">* precio de venta estimado (compra × razón mediana de coches parecidos).</p>';
   }
+  // Tarjeta con TODO lo del Excel de stock que la web no muestra (solo asesor; no se imprime ni se enseña al cliente)
+  function tarjetaStock(r) {
+    var x = r.x || {}, si = function (v) { return v === true ? 'Sí' : v === false ? 'No' : v; }, g = function (k) { return x[k] != null ? esc(si(x[k])) : ''; };
+    var f = function (t, v) { return v !== '' && v != null ? '<div class="rd-tk-f"><span>' + t + '</span><b>' + v + '</b></div>' : ''; };
+    var gastos = ['g_garantia', 'g_reacond', 'g_gestoria', 'g_gestoria_int'].filter(function (k) { return x[k]; }).map(function (k) { return ({ g_garantia: 'garantía y certificación', g_reacond: 'reacondicionamiento', g_gestoria: 'gestoría', g_gestoria_int: 'gestoría interna' })[k] + ' ' + eur(x[k]); }).join(' · ');
+    var cuerpo = f('Matrícula', esc(r.matricula)) + f('Bastidor', esc(r.bastidor)) + f('Origen', esc(r.origen)) + f('Estado', esc(r.estado)) + f('Régimen', esc(r.regimen)) +
+      f('Matriculación', esc(r.f_matric)) + f('Año modelo', g('modelo_year')) + f('Color', g('color')) + f('Combustible', g('combustible')) + f('Cambio', g('cambio')) +
+      f('Modelo (VO)', g('model_vo')) + f('TMAIMG', esc(r.tmaimg)) + f('Eurotax', g('eurotax')) + f('Id ocasión', g('id_ocasion')) +
+      f('Garantía (meses)', g('garantia')) + f('Programa', g('cpo')) + f('Destacado', g('destacado')) +
+      f('Alta en inventario', g('f_creacion')) + f('Fecha de compra', g('f_compra')) + f('Disponible desde', g('f_disp')) + f('Publicado en la marca', g('pub_marca')) + f('Publicado en Motorflash', g('pub_mf')) +
+      f('Requiere atención', g('atencion')) + f('Zona', g('zona')) + f('Días en stock', r.dias != null ? Math.round(r.dias) : '') + f('Gastos', gastos);
+    if (!cuerpo) return '';
+    return '<div class="rd-tk"><h4>🗂️ Datos del stock <small>(solo asesor · no se imprime)</small></h4><div class="rd-tk-g">' + cuerpo + '</div></div>';
+  }
   function pintar() {
     window.RD_GESTION = rec; resolver(rec);
     if (!datos) return;
@@ -46,7 +60,7 @@
       fila('Margen sin IVA (estimado, ÷ 1,21)', eur(rec.margen_sin_iva)) + '</table>' +
       '<div class="rd-gest-neg-box"><b>Negociar:</b> si el cliente paga <input type="number" id="rd-gest-precio" step="100" value="' + (web || rec.venta || '') + '"> € → margen <b id="rd-gest-res"></b> <span class="rd-gest-nota" id="rd-gest-dto"></span></div>' +
       '<table class="rd-gest-tabla rd-gest-ficha">' + fila('Origen', esc(rec.origen) || '—', campana) + fila('Régimen', esc(rec.regimen) || '—', rec.regimen === 'REBU' ? 'IVA solo sobre el margen' : rec.regimen === 'IVA' ? 'IVA sobre el precio completo' : '') +
-      fila('Días en stock', rec.dias != null ? Math.round(rec.dias) : '—') + fila('Estado en stock', esc(rec.estado) || '—') + fila('Matrícula · matriculación', esc(rec.matricula) + ' · ' + esc(rec.f_matric)) + fila('Bastidor', esc(rec.bastidor)) + fila('TMAIMG', esc(rec.tmaimg)) + '</table>' +
+      fila('Días en stock', rec.dias != null ? Math.round(rec.dias) : '—') + fila('Estado en stock', esc(rec.estado) || '—') + fila('Matrícula · matriculación', esc(rec.matricula) + ' · ' + esc(rec.f_matric)) + fila('Bastidor', esc(rec.bastidor)) + fila('TMAIMG', esc(rec.tmaimg)) + '</table>' + tarjetaStock(rec) +
       similares() + pie;
     var inp = document.getElementById('rd-gest-precio');
     var calc = function () { var p = parseFloat(inp.value) || 0, m = p - rec.compra - (rec.gastos || 0), el = document.getElementById('rd-gest-res');
