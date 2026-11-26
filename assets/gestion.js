@@ -35,7 +35,7 @@
   function pintar() {
     window.RD_GESTION = rec; resolver(rec);
     if (!datos) return;
-    var f = datos.generado.split('-').reverse().join('/'), pie = '<p class="rd-gest-nota"><a href="/stock/" target="_blank" rel="noopener">Ver todo el stock ↗</a> · datos de ' + esc(datos.fuente) + ' del ' + f + '</p>';
+    var f = datos.generado.split('-').reverse().join('/'), pie = '<p class="rd-gest-nota"><a href="/stock/" target="_blank" rel="noopener">Ver todo el stock ↗</a> · <a href="/comparativa/" target="_blank" rel="noopener">Comparativa ocasión/nuevo ↗</a> · datos de ' + esc(datos.fuente) + ' del ' + f + '</p>';
     if (!rec) { cuerpo.innerHTML = '<p class="rd-gest-nota">Este coche no está en el stock cargado.</p>' + similares() + pie; return; }
     var dif = rec.venta && web && Math.abs(rec.venta - web) > 1, neg = rec.margen != null && rec.margen < 0;
     var campana = /^(demo|rema|km ?0)/i.test(rec.origen || '') ? 'Origen ' + rec.origen + ': aplica la campaña de VWFS «DEMOS + REMA» (TIN 5,99 %)' : /buy ?back/i.test(rec.origen || '') ? 'Origen Buy Back: campaña GAMA / ENTRY estándar' : '';

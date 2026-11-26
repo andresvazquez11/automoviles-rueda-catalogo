@@ -8,7 +8,7 @@
   async function pintar() {
     var d = await A.obtener();
     var estado = d ? 'Datos de ' + esc(d.fuente) + ' del ' + d.generado.split('-').reverse().join('/') + ' · ' + d.stock.length + ' coches' : 'Sin datos de stock: carga el Excel o desbloquea los publicados';
-    barra.innerHTML = '<b>🧰 Herramientas del asesor</b><a href="/nuevos/" target="_blank" rel="noopener">Vehículos nuevos ↗</a><a href="/stock/" target="_blank" rel="noopener">Stock completo ↗</a>' +
+    barra.innerHTML = '<b>🧰 Herramientas del asesor</b><a href="/nuevos/" target="_blank" rel="noopener">Vehículos nuevos ↗</a><a href="/stock/" target="_blank" rel="noopener">Stock completo ↗</a><a href="/comparativa/" target="_blank" rel="noopener">Comparativa ocasión/nuevo ↗</a>' +
       '<button type="button" id="rd-ab-excel">📥 Cargar Excel de stock</button><input type="file" id="rd-ab-file" accept=".xlsx" multiple hidden>' +
       (d ? '' : '<button type="button" id="rd-ab-unlock">🔓 Desbloquear publicados</button>') + (A.local() ? '<button type="button" id="rd-ab-borrar">Borrar datos de este dispositivo</button>' : '') +
       '<span class="rd-ab-estado" id="rd-ab-estado">' + estado + '</span>';
