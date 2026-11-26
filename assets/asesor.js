@@ -80,41 +80,84 @@
     cache = null; return data;
   }
 
-  // ---- Excel de ventas (uno de CUPRA y uno del resto). Formato aún sin ver: se buscan las columnas por su título; se guarda también la fila entera.
-  // Solo se añaden las filas NUEVAS (clave bastidor o matrícula + fecha). Se queda en este dispositivo; /historial/ lo lee de aquí.
-  var LSV = 'rd_ventas_local';
-  function ventasLocal() { try { return JSON.parse(localStorage.getItem(LSV) || 'null') || { filas: [], archivos: [] }; } catch (e) { return { filas: [], archivos: [] }; } }
-  var COLS = { bastidor: /bastidor|vin|chasis/, matricula: /matr[ií]cula/, vendedor: /vendedor|comercial|asesor/, fecha: /fecha.*(venta|factura|entrega|matric)|^fecha/, precio: /precio|importe|pvp|total/, modelo: /modelo|descrip|veh[ií]culo|denominaci/ };
+  // ---- Excel «Entregas VO» (uno de CUPRA y uno del resto, filtrados por mes) → almacén común CIFRADO (Worker rueda-historial).
+  // El navegador cifra cada archivo con la contraseña de la zona privada (AES-GCM) y lo guarda como un «lote»; solo se tratan las filas NUEVAS
+  // (clave = bastidor + fecha de entrega contable). Claude y la página /historial/ leen los lotes y los descifran con la misma contraseña.
+  var ALM = 'https://rueda-historial.andrescovidelpi.workers.dev';
+  var CAB = { presupuesto: 'Quote Name', vendedor: 'Creado por: Nombre completo', modelo_vo: 'Inventory VO: Model VO', coche: 'Inventory VO: Denominación Comercial', combustible: 'Inventory VO: Combustible',
+    cambio: 'Inventory VO: Tipo de Cambio', color: 'Inventory VO: Color', bastidor: 'Inventory VO: Bastidor', matricula: 'Inventory VO: Matrícula', id_ocasion: 'Inventory VO: Id_ocasion', km: 'Inventory VO: Kilometraje',
+    f_matric: 'Inventory VO: Fecha de Matriculación', tmaimg: 'Inventory VO: TMAIMG Code', origen: 'Inventory VO: Origen', tipo_venta: 'Inventory VO: Tipo de Venta', cliente: 'Quote: Client Type VO',
+    f_creacion: 'Inventory VO: Fecha de creación', f_compra: 'Inventory VO: Fecha de Compra', cpo: 'Inventory VO: CPO', garantia: 'Inventory VO: Garantía', compra: 'Inventory VO: Precio de compra',
+    venta: 'Inventory VO: Precio de venta', regimen: 'Inventory VO: Regimen', f_entrega: 'Quote: Fecha de entrega', f_entrega_contable: 'Quote: Fecha de Entrega Contable', concesionario: 'Quote: Concesionario SEAT: Código de Seat' };
+  var fechaISO = function (t) { var m = String(t == null ? '' : t).split(',')[0].trim().split('/'); if (m.length !== 3) return null; return ('0000' + m[2]).slice(-4) + '-' + ('0' + m[1]).slice(-2) + '-' + ('0' + m[0]).slice(-2); };
+  var hex = function (buf) { return Array.prototype.map.call(new Uint8Array(buf), function (x) { return ('0' + x.toString(16)).slice(-2); }).join(''); };
+  var unb64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); };
+  function clavePriv() { try { return localStorage.getItem(KEY) || ''; } catch (e) { return ''; } }
+  async function token(pwd) { var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pwd), 'PBKDF2', false, ['deriveBits']); return hex(await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: new TextEncoder().encode('rueda-acceso'), iterations: 100000, hash: 'SHA-256' }, base, 256)); }
+  async function cifrarObj(obj, pwd) {
+    var salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12)), n = 600000;
+    var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pwd), 'PBKDF2', false, ['deriveKey']);
+    var key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: n, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+    var ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, new TextEncoder().encode(JSON.stringify(obj))));
+    var b = function (u) { var s = ''; u.forEach(function (c) { s += String.fromCharCode(c); }); return btoa(s); };
+    return { s: b(salt), i: b(iv), c: b(ct), n: n };
+  }
+  async function descifrarObj(D, pwd) {
+    var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pwd), 'PBKDF2', false, ['deriveKey']);
+    var key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: unb64(D.s), iterations: D.n, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(D.i) }, key, unb64(D.c))));
+  }
+  async function almacen(metodo, ruta, cuerpo, pwd) {
+    var r = await fetch(ALM + ruta, { method: metodo, headers: { 'X-Acceso': await token(pwd), 'Content-Type': 'application/json' }, body: cuerpo ? JSON.stringify(cuerpo) : undefined });
+    if (r.status === 401) throw new Error('El almacén no acepta la contraseña de este dispositivo. Entra en /nuevos/ y márcala como «Recordar».');
+    if (!r.ok) throw new Error('Almacén: error ' + r.status);
+    return r.json();
+  }
+  async function ventasAlmacen() {   // todas las filas de todos los lotes, sin duplicados
+    var pwd = clavePriv(); if (!pwd) return [];
+    var lotes = await almacen('GET', '/lotes/ventas', null, pwd), vistas = {}, out = [];
+    for (var i = 0; i < lotes.length; i++) { var filas = await descifrarObj(lotes[i].d, pwd); filas.forEach(function (f) { if (!vistas[f.clave]) { vistas[f.clave] = 1; out.push(f); } }); }
+    return out;
+  }
   async function importarVentas(files) {
+    var pwd = clavePriv(); if (!pwd) throw new Error('Primero entra una vez en /nuevos/ con la contraseña y marca «Recordar en este dispositivo».');
     await cargarXLSX();
-    var V = ventasLocal(), claves = {}, nuevas = 0, leidas = 0;
-    V.filas.forEach(function (f) { claves[f.clave] = 1; });
+    var existentes = {}; (await ventasAlmacen()).forEach(function (f) { existentes[f.clave] = 1; });
+    var res = { nuevas: 0, leidas: 0, archivos: 0 };
     for (var fi = 0; fi < files.length; fi++) {
-      var wb = window.XLSX.read(await files[fi].arrayBuffer(), { type: 'array', cellDates: true });
-      var rows = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: null, raw: false });
-      var cab = rows.findIndex(function (r, i) { return i < 25 && r && r.some(function (c) { return c && /matr[ií]cula|bastidor/.test(norm(c)); }); });
-      if (cab < 0) throw new Error('«' + files[fi].name + '»: no encuentro la columna de matrícula o bastidor. Pásame el archivo y lo ajusto.');
-      var H = {}; rows[cab].forEach(function (v, j) { if (v) H[String(v).trim()] = j; });
-      var map = {}; Object.keys(COLS).forEach(function (k) { var h = Object.keys(H).find(function (t) { return COLS[k].test(norm(t)); }); if (h) map[k] = H[h]; });
-      rows.slice(cab + 1).forEach(function (r) {
-        if (!r || !r.some(function (c) { return c != null && c !== ''; })) return;
-        var f = { archivo: files[fi].name, cargado: new Date().toISOString().slice(0, 10), crudo: {} };
-        Object.keys(H).forEach(function (t) { if (r[H[t]] != null && r[H[t]] !== '') f.crudo[t] = r[H[t]]; });
-        Object.keys(map).forEach(function (k) { f[k] = r[map[k]]; });
-        if (!f.bastidor && !f.matricula) return;
-        leidas++;
-        f.clave = String(f.bastidor || f.matricula).trim().toUpperCase() + '|' + String(f.fecha || '');
-        if (claves[f.clave]) return; claves[f.clave] = 1; V.filas.push(f); nuevas++;
+      var buf = await files[fi].arrayBuffer();
+      var wb = window.XLSX.read(buf, { type: 'array' });
+      var rows = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: null });
+      var ic = rows.findIndex(function (r) { return r && r.indexOf('Quote Name') >= 0; });
+      if (ic < 0) throw new Error('«' + files[fi].name + '» no parece un Excel «Entregas VO» (no encuentro «Quote Name»).');
+      var pos = {}; rows[ic].forEach(function (v, j) { if (v) pos[String(v).trim()] = j; });
+      var nuevasFilas = [];
+      rows.slice(ic + 1).forEach(function (r) {
+        var g = function (k) { var j = pos[CAB[k]]; return j == null ? null : r[j]; };
+        if (!g('bastidor') && !g('matricula')) return;
+        var f = {}; Object.keys(CAB).forEach(function (k) { f[k] = g(k); });
+        ['f_matric', 'f_creacion', 'f_compra', 'f_entrega', 'f_entrega_contable'].forEach(function (k) { f[k] = fechaISO(f[k]); });
+        ['km', 'compra', 'venta', 'garantia'].forEach(function (k) { f[k] = f[k] == null || f[k] === '' ? null : Number(f[k]); });
+        f.marca = String(f.presupuesto || f.coche || '').split(' ')[0].toUpperCase();
+        f.fecha = f.f_entrega_contable || f.f_entrega;
+        f.margen = f.venta != null && f.compra != null ? Math.round((f.venta - f.compra) * 100) / 100 : null;
+        if (f.fecha && f.f_creacion) f.dias_stock = Math.round((new Date(f.fecha) - new Date(f.f_creacion)) / 864e5);
+        f.clave = (f.bastidor || f.matricula) + '|' + f.fecha;
+        res.leidas++; if (existentes[f.clave]) return; existentes[f.clave] = 1; nuevasFilas.push(f);
       });
-      V.archivos.push({ nombre: files[fi].name, fecha: new Date().toISOString().slice(0, 10), columnas: Object.keys(map) });
+      res.archivos++;
+      if (nuevasFilas.length) {
+        var id = hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(nuevasFilas.map(function (f) { return f.clave; }).sort().join(',')))).slice(0, 20);
+        await almacen('PUT', '/lote/ventas/' + id, await cifrarObj(nuevasFilas, pwd), pwd);
+        res.nuevas += nuevasFilas.length;
+      }
     }
-    localStorage.setItem(LSV, JSON.stringify(V));
-    return { nuevas: nuevas, leidas: leidas, total: V.filas.length };
+    return res;
   }
   function borrarLocal() { try { localStorage.removeItem(LS); } catch (e) {} cache = null; }
   function buscar(data, cochePag) {
     var id = (String(cochePag.url || '').match(/(\d{6,})\/?$/) || [])[1];
     return (id && data.coches['a' + id]) || data.coches['n' + cochePag.n] || null;
   }
-  window.RD_ASESOR = { importarVentas: importarVentas, ventasLocal: ventasLocal, obtener: obtener, importar: importar, local: local, borrarLocal: borrarLocal, familia: familia, buscar: buscar, eur: eur, num: num };
+  window.RD_ASESOR = { importarVentas: importarVentas, ventasAlmacen: ventasAlmacen, obtener: obtener, importar: importar, local: local, borrarLocal: borrarLocal, familia: familia, buscar: buscar, eur: eur, num: num };
 })();

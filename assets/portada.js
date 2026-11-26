@@ -24,7 +24,7 @@
     document.getElementById('rd-ab-ventas').onclick = function () { iv.click(); };
     iv.onchange = async function () {
       if (!iv.files.length) return; st.textContent = 'Leyendo el Excel de ventas…';
-      try { var r = await A.importarVentas(Array.prototype.slice.call(iv.files)); st.textContent = '✓ Ventas: ' + r.nuevas + ' nuevas de ' + r.leidas + ' leídas (' + r.total + ' guardadas en este dispositivo). Mira /historial/.'; }
+      try { var r = await A.importarVentas(Array.prototype.slice.call(iv.files)); st.textContent = '✓ Ventas: ' + r.nuevas + ' NUEVAS de ' + r.leidas + ' leídas en ' + r.archivos + ' archivo(s). Guardadas cifradas en el almacén común (verlas en Historial ↗).'; }
       catch (e) { st.textContent = '⚠ ' + e.message; }
     };
     var u = document.getElementById('rd-ab-unlock'); if (u) u.onclick = async function () { var pw = window.prompt('Contraseña de la zona privada'); if (!pw) return; try { await A.obtener(pw); await pintar(); } catch (e) { st.textContent = '⚠ Contraseña incorrecta'; } };
