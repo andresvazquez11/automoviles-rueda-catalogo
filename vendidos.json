@@ -229,6 +229,16 @@
   "precio": "28.900",
   "version": "1.5 eTSI DSG 110 kW (150 CV)"
  },
+ "cupra-leon-mf220711750": {
+  "baja": "2026-11-26",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "2025",
+  "km": "3.515 km",
+  "modelo": "CUPRA León",
+  "precio": "30.900",
+  "version": "1.5 eTSI DSG 110 kW (150 CV)"
+ },
  "cupra-raval-203496805": {
   "baja": "2026-10-29",
   "cambio": "Automático",
@@ -268,6 +278,16 @@
   "modelo": "CUPRA Terramar",
   "precio": "37.900",
   "version": "1.5 eTSI Beyond DSG 110 kW (150 CV)"
+ },
+ "cupra-terramar-mf220711438": {
+  "baja": "2026-11-26",
+  "cambio": "Automatico",
+  "combustible": "Híbrido Electro/Gasolina",
+  "fecha": "2026",
+  "km": "50 km",
+  "modelo": "CUPRA Terramar",
+  "precio": "41.900",
+  "version": "1.5 TSI e-Hybrid Beyond DSG 150 kW (204 CV)"
  },
  "kia-sportage-mf203846824": {
   "baja": "2026-10-16",
@@ -489,6 +509,26 @@
   "precio": "22.500",
   "version": "1.0 TSI S&S FR 85 kW (115 CV)"
  },
+ "seat-arona-mf220711753": {
+  "baja": "2026-11-26",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2026",
+  "km": "23.332 km",
+  "modelo": "SEAT Arona",
+  "precio": "18.900",
+  "version": "1.0 TSI S&S Style + Sound 85 kW (115 CV)"
+ },
+ "seat-arona-mf220712317": {
+  "baja": "2026-11-26",
+  "cambio": "Manual",
+  "combustible": "Gasolina",
+  "fecha": "2023",
+  "km": "56.550 km",
+  "modelo": "SEAT Arona",
+  "precio": "16.500",
+  "version": "1.0 TSI Style XM 81 kW (110 CV)"
+ },
  "seat-ateca-171720715": {
   "baja": "2026-09-26",
   "cambio": "Automático",
@@ -528,6 +568,16 @@
   "modelo": "SEAT Ateca",
   "precio": "19.900",
   "version": "1.5 TSI S&S Style DSG 110 kW (150 CV)"
+ },
+ "seat-ateca-mf220712320": {
+  "baja": "2026-11-26",
+  "cambio": "Automatico",
+  "combustible": "Gasolina",
+  "fecha": "2023",
+  "km": "16.450 km",
+  "modelo": "SEAT Ateca",
+  "precio": "26.900",
+  "version": "1.5 TSI S&S X-Perience XXL DSG 110 kW (150 CV)"
  },
  "seat-ibiza-151394481": {
   "baja": "2026-10-05",
