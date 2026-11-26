@@ -1605,22 +1605,24 @@ function bbvaEntradaInput(val) {
   bbvaRender();
 }
 
-// ── CaixaBank — Préstamo Vehículo VN y VO, tarifa "COM 07 26 AND" (+0,50% TIN) ──
-// Fuente: "Tarifa (+0,50% Tin) COM 07 26 AND V2.pdf", fila RMN · T.I.N. 5,99%, coeficiente
+// ── CaixaBank — Préstamo Vehículo VN y VO, tarifa "COM 07 26 AND" (V6, en vigor 1-dic-2026) ──
+// Fuente: "Tarifa (+0,25% Tin) COM 07 26 AND V5.pdf" (en su portada: «Nueva Tarifa V6 COM 07 26 AND»,
+// fecha 1 de diciembre de 2026), fila RMN · T.I.N. 6,25%, coeficiente
 // "PB" (Pack Vida, la tarifa de referencia). Coeficiente = cuota mensual por cada 1€
 // financiado: ya incluye los gastos financiados del 3,99% y el seguro Pack Vida.
 // Cuota = coef × (precio - entrada). RMN solo tiene plazos de 48 a 120 meses.
 // Válida para vehículos de hasta 96 meses de antigüedad; antigüedad + plazo ≤ 156 meses.
+// Anterior (V2, +0,50% TIN, TIN 5,99%): 48 0,025417 · 60 0,021099 · 72 0,018229 · 84 0,016186 · 96 0,014661 · 108 0,013480 · 120 0,012540.
 const CAIXA_COEF = {
-  48:  0.025417,
-  60:  0.021099,
-  72:  0.018229,
-  84:  0.016186,
-  96:  0.014661,
-  108: 0.013480,
-  120: 0.012540,
+  48:  0.025564,
+  60:  0.021248,
+  72:  0.018380,
+  84:  0.016339,
+  96:  0.014815,
+  108: 0.013636,
+  120: 0.012699,
 };
-const CAIXA_TIN = '5,99';
+const CAIXA_TIN = '6,25';
 const CAIXA_PLAZOS = [24, 36, 48, 60, 72, 84, 96, 108, 120];
 const CAIXA = { meses: 60, entrada: 0 };
 

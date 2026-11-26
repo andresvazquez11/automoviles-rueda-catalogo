@@ -831,6 +831,7 @@ SCRIPT_VERSION_WEB = """<script>
 ASSET_ESTILOS     = asset("estilos.css")
 ASSET_IDIOMA      = asset("idioma.js")
 ASSET_CALCULADORA = asset("calculadora.js")
+ASSET_NUEVO_CMP = asset("nuevo_cmp.js")
 ASSET_IMPRIMIR    = asset("imprimir.js")
 ASSET_FOLLETO     = asset("folleto.js")   # folleto A4 de todos los coches (solo asesor, portada)
 ASSET_ENVIAR      = asset("enviar.js")   # enviar al cliente por WhatsApp (solo asesores) + vista del enlace
@@ -1845,7 +1846,7 @@ BBVA_HTML_INTERIOR = '''    <div class="bbva-bar">
       <div class="bbva-legal" id="bbva-legal"></div>
     </div>'''
 
-# CaixaBank (Payments & Consumer) — Préstamo Vehículo, tarifa COM 07 26 AND RMN (TIN 5,99%,
+# CaixaBank (Payments & Consumer) — Préstamo Vehículo, tarifa COM 07 26 AND RMN (TIN 6,25%,
 # con Pack Vida). Mismo panel que BBVA (mismas clases CSS), con sus propios ids y funciones
 # (caixa*) en assets/calculadora.js.
 CAIXA_HTML_INTERIOR = (BBVA_HTML_INTERIOR
@@ -1856,8 +1857,8 @@ CAIXA_HTML_INTERIOR = (BBVA_HTML_INTERIOR
     .replace("rdImprimirSimulacion('BBVA')", "rdImprimirSimulacion('CAIXA')")
     .replace("BBVA · Préstamo Vehículo", "CaixaBank · Préstamo Vehículo")
     .replace("Nuevo / Seminuevo hasta 72 meses de antigüedad", "Nuevo / Ocasión hasta 96 meses de antigüedad · con Pack Vida")
-    .replace('5,75<span>% TIN</span>', '5,99<span>% TIN</span>')
-    .replace("<span>T.I.N.</span><span>5,75 %</span>", "<span>T.I.N.</span><span>5,99 %</span>")
+    .replace('5,75<span>% TIN</span>', '6,25<span>% TIN</span>')
+    .replace("<span>T.I.N.</span><span>5,75 %</span>", "<span>T.I.N.</span><span>6,25 %</span>")
     .replace("Solicitar financiación BBVA · WhatsApp", "Solicitar financiación CaixaBank · WhatsApp"))
 
 def datos_impresion(ficha: "dict | None") -> dict:
@@ -2082,6 +2083,8 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
         "color_en": trad["color_en"],
         "color_de": aleman.de(car.get("color", ""), trad["color_en"]),
         "precio": car["precio"], "estado": car["estado"], "vendido": vendido,
+        "precio_fin": (lambda m: f"{m.group(1)}" if m else "")(_re.search(r"Precio financiando:\s*([\d\.]+),\d\d", (car.get("financiacion") or {}).get("ejemplo", "") or "")),
+        "tin_fin": (car.get("financiacion") or {}).get("tin", ""),
         "id": id_estable_coche(car),
         "antes_auto": precio_antes_auto(car, _cargar_historial_precios()),
         "url": url_externa,
@@ -2237,9 +2240,17 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 {CAIXA_HTML_INTERIOR}
   </div>
 
+  <details class="rd-nuevo-cmp" id="rd-nuevo-cmp">
+    <summary><span>⚖️ Comparar con un nuevo parecido</span><small>solo asesor</small></summary>
+    <p class="rd-nuevo-ayuda">Resumen rápido: este ocasión frente a un nuevo de motor parecido, al contado y financiado con campañas.</p>
+    <iframe id="rd-nuevo-if" title="Comparación con un coche nuevo"></iframe>
+    <div class="rd-nuevo-acc"><a class="rd-nuevo-full" id="rd-nuevo-full" href="/nuevos/" target="_blank" rel="noopener">Ver el nuevo en detalle (simulación completa) ↗</a></div>
+  </details>
+
   {similares}
 
   {bloque_final}
+
 
   <div class="rd-footnote">
     <a id="m-link" href="#" target="_blank" rel="noopener">{i18n_span("Ver ficha original en Das WeltAuto ↗", "See original listing on Das WeltAuto ↗")}</a>
@@ -2272,6 +2283,7 @@ cargarFicha(COCHE);
 window.rdAlCambiarIdioma = function() {{ cargarFicha(COCHE); }};
 </script>
 <script src="{ASSET_ENVIAR}"></script>
+<script src="{ASSET_NUEVO_CMP}"></script>
 <script src="{ASSET_REBAJAS}"></script>
 <script>
 (function() {{
@@ -2644,15 +2656,18 @@ def datos_folleto_json(cars: list[dict], rutas: dict, perfil: dict) -> str:
     datos = datos_perfil(perfil)
     d = perfil.get("direccion", {})
     coches = []
+    hist = _cargar_historial_precios()
     for c in cars:
         if c.get("estado") != "Disponible" or not fotos_coche(c, rutas):
             continue
         coches.append({
+            "id": id_estable_coche(c), "antes_auto": precio_antes_auto(c, hist),
             "modelo": c["modelo"], "version": c.get("version", ""), "precio": c.get("precio", ""),
             "km": c.get("km", ""), "fecha": c.get("fecha", ""), "combustible": c.get("combustible", ""),
             "cambio": c.get("cambio", ""), "foto": miniatura_web(fotos_coche(c, rutas)[0]),
         })
-    coches.sort(key=lambda c: (c["modelo"], _num(c["precio"])))
+    # Los más económicos primero (a igual precio, por modelo); los rebajados llevan cartel de descuento (folleto.js)
+    coches.sort(key=lambda c: (_num(c["precio"]), c["modelo"]))
     asesor = {
         "nombre": datos["nombre"], "telefono": datos["telefono"], "email": datos["email"],
         "direccion": f'{d.get("calle", "")} · {d.get("cp", "")} {d.get("localidad", "")}'.strip(" ·"),
@@ -2949,7 +2964,7 @@ document.addEventListener('click', e => {{
     const n = document.getElementById('rd-filtros-n');
     n.hidden = !a.length; n.textContent = a.length;
   }}
-  function aplicar() {{
+  let aplicar = function() {{
     let visibles = cards.filter(c => pasa(c));
     const llegada = c => c.dataset.llegada || '';
     if (orden === 'precio-asc')  visibles.sort((a,b) => +a.dataset.precio - +b.dataset.precio);
@@ -3032,9 +3047,55 @@ document.addEventListener('click', e => {{
     }}
   }});
 
+  // ── Recordar búsqueda, filtros, orden y posición al volver atrás desde una ficha ──
+  // Se guarda en sessionStorage (solo esta pestaña) y solo se restaura si la
+  // página se abre con «atrás/adelante»; entrando de nuevo por la portada empieza limpia.
+  const ST_KEY = 'rd_estado_catalogo';
+  function guardarEstado() {{
+    try {{
+      sessionStorage.setItem(ST_KEY, JSON.stringify({{
+        filtro: filtro, busqueda: busqueda, orden: orden,
+        F: {{ marca: F.marca, precio: F.precio, km: F.km, anio: F.anio, comb: [...F.comb], cambio: [...F.cambio] }},
+        y: window.scrollY
+      }}));
+    }} catch (e) {{}}
+  }}
+  let volviendo = false;
+  try {{
+    const nav = performance.getEntriesByType('navigation')[0];
+    volviendo = !!nav && nav.type === 'back_forward';
+  }} catch (e) {{}}
+  let estadoPrevio = null;
+  if (volviendo) {{
+    try {{ estadoPrevio = JSON.parse(sessionStorage.getItem(ST_KEY) || 'null'); }} catch (e) {{}}
+  }}
+  if (estadoPrevio) {{
+    filtro = estadoPrevio.filtro || 'todos'; busqueda = estadoPrevio.busqueda || ''; orden = estadoPrevio.orden || 'default';
+    const g = estadoPrevio.F || {{}};
+    F.marca = g.marca || ''; F.precio = g.precio || 0; F.km = g.km || 0; F.anio = g.anio || 0;
+    F.comb = new Set(g.comb || []); F.cambio = new Set(g.cambio || []);
+    document.getElementById('rd-search').value = busqueda;
+    document.getElementById('rd-sort').value = orden;
+    activarTab(filtro);
+    [['f-marca', F.marca], ['f-precio', F.precio || ''], ['f-km', F.km || ''], ['f-anio', F.anio || '']].forEach(([id, v]) => {{ const el = document.getElementById(id); if (el) el.value = v; }});
+    document.querySelectorAll('.rd-f-chips').forEach(gr => gr.querySelectorAll('.rd-f-chip').forEach(ch => ch.classList.toggle('activo', F[gr.dataset.grupo].has(ch.dataset.v))));
+  }}
+  const aplicarSinGuardar = aplicar;
+  aplicar = function() {{ aplicarSinGuardar(); guardarEstado(); }};
+  window.addEventListener('pagehide', guardarEstado);
+  document.addEventListener('click', e => {{ if (e.target.closest('.rd-card')) guardarEstado(); }}, true);
+  let scrollTimer = null;
+  window.addEventListener('scroll', () => {{ clearTimeout(scrollTimer); scrollTimer = setTimeout(guardarEstado, 150); }}, {{ passive: true }});
+
   marcarFavs();
   aplicar();
   window.rdAplicarFiltros = aplicar; // rebajas.js lo llama al cargar las rebajas manuales
+  if (estadoPrevio) {{
+    // la posición se recupera varias veces: llegan después los destacados y las rebajas y mueven el contenido
+    try {{ history.scrollRestoration = 'manual'; }} catch (e) {{}}
+    const ir = () => window.scrollTo(0, estadoPrevio.y || 0);
+    ir(); setTimeout(ir, 150); setTimeout(ir, 600); window.addEventListener('load', ir);
+  }}
 }})();
 
 // ── Destacados: franja de coches marcados desde /admin/ ──────────────

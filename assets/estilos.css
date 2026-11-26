@@ -1217,7 +1217,8 @@ html.rd-asesor .btn-print, html.rd-asesor .rd-btn-imprimir-ficha { display: flex
 html:not(.rd-asesor) #financiera-tabs,
 html:not(.rd-asesor) #m-financiacion,
 html:not(.rd-asesor) #bbva-financiacion,
-html:not(.rd-asesor) #caixa-financiacion { display: none !important; }
+html:not(.rd-asesor) #caixa-financiacion,
+html:not(.rd-asesor) #rd-nuevo-cmp { display: none !important; }
 html.rd-asesor .rd-fin-ejemplo { display: none; }
 
 .rd-fin-ejemplo { background: var(--rd-surface); border: 1px solid var(--rd-border); border-top: 4px solid #C8232B;
@@ -1447,3 +1448,15 @@ html.rd-sin-scroll, html.rd-sin-scroll body { overflow: hidden; }
   .rd-featured-grid > .rd-card { flex: 0 0 84%; scroll-snap-align: center; }
 }
 .rd-filtros-n[hidden], .rd-aplicados[hidden] { display: none; }
+
+/* Comparar con un nuevo (solo asesor, desplegable bajo la financiación) */
+.rd-nuevo-cmp { margin: 18px 0; border: 1.5px solid var(--rd-red, #C8232B); border-radius: 14px; background: rgba(200,35,43,.04); overflow: hidden; }
+.rd-nuevo-cmp > summary { cursor: pointer; list-style: none; padding: 14px 18px; display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px; }
+.rd-nuevo-cmp > summary::-webkit-details-marker { display: none; }
+.rd-nuevo-cmp > summary::after { content: '▾'; margin-left: auto; transition: transform .2s; }
+.rd-nuevo-cmp[open] > summary::after { transform: rotate(180deg); }
+.rd-nuevo-cmp > summary small { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--rd-red, #C8232B); }
+.rd-nuevo-ayuda { margin: 0; padding: 0 18px 10px; font-size: 14px; opacity: .8; }
+.rd-nuevo-acc { padding: 10px 18px 16px; }
+.rd-nuevo-full { font-weight: 600; font-size: 14px; color: var(--rd-red, #C8232B); }
+.rd-nuevo-cmp iframe { display: block; width: calc(100% - 36px); height: 340px; margin: 0 18px; border: 1px solid rgba(0,0,0,.12); border-radius: 12px; background: #fff; }

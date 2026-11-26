@@ -83,7 +83,12 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
 /* ── Coches ── */
 .fl-grid { margin-top: 2.5mm; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 23.5mm; gap: 2.2mm 3mm; }
 .fl-card { border: .8pt solid #9c958b; border-radius: 1.5mm; display: grid; grid-template-columns: 24mm 1fr; overflow: hidden; }
-.fl-foto { background: #f2f1ed; overflow: hidden; }
+.fl-foto { background: #f2f1ed; overflow: hidden; position: relative; }
+.fl-rb { position: absolute; left: 0; top: 0; background: #C8232B; color: #fff; font-size: 6.2pt; font-weight: 800; letter-spacing: .2pt; padding: .8mm 1.6mm; border-radius: 0 0 1.2mm 0; line-height: 1.1; text-transform: uppercase; }
+.fl-card.fl-of { border: 1.2pt solid #C8232B; box-shadow: 0 0 0 .5pt #C8232B; }
+.fl-ant { font-size: 8pt; font-weight: 600; color: #C8232B; text-align: right; line-height: 1; margin-bottom: .6mm; }
+.fl-ant s { text-decoration-thickness: .8pt; }
+.fl-fire { color: #C8232B; font-weight: 800; font-size: 6.5pt; text-align: right; letter-spacing: .3pt; }
 .fl-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .fl-txt { padding: 1.1mm 1.8mm 1mm; display: flex; flex-direction: column; min-width: 0; }
 .fl-mod { font-size: 10pt; font-weight: 700; text-transform: uppercase; line-height: 1.05; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -156,16 +161,27 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
       m[4] && m[4] !== '/' ? `<span class="fl-ruta">${esc(m[4])}</span>` : ''}</span>`;
   }
 
+  // Rebajas manuales (/rebajas.json, las edita el asesor en /admin/): mismo criterio que la web (rebajas.js)
+  let manuales = {};
+  const num = t => parseInt(String(t).replace(/[^\d]/g, ''), 10) || 0;
+  const eur = n => Math.round(n).toLocaleString('es-ES', { useGrouping: true }).replace(/,/g, '.') + ' €';
+  function antesDe(c) {
+    const precio = num(c.precio), m = manuales[c.id];
+    if (m && m.descuento > 0) return precio + m.descuento;
+    return c.antes_auto > precio ? c.antes_auto : 0;
+  }
   function tarjeta(c) {
+    const antes = antesDe(c), precioN = num(c.precio), oferta = antes > precioN;
     const fecha = c.fecha ? `<b>${esc(c.fecha)}</b>` : '';
     const km = c.km ? `<b>${esc(c.km)} km</b>` : '';
-    return `<div class="fl-card">
-  <div class="fl-foto">${c.foto ? `<img src="${esc(c.foto)}" alt="">` : ''}</div>
+    return `<div class="fl-card${oferta ? ' fl-of' : ''}">
+  <div class="fl-foto">${c.foto ? `<img src="${esc(c.foto)}" alt="">` : ''}${oferta ? `<span class="fl-rb">${eur(antes - precioN)} dto.</span>` : ''}</div>
   <div class="fl-txt">
     <div class="fl-mod fl-osw">${esc(c.modelo)}</div>
     <div class="fl-ver">${esc(c.version)}</div>
     <div class="fl-dat">${[fecha, km].filter(Boolean).join(' · ')}</div>
     <div class="fl-dat">${esc([c.combustible, c.cambio].filter(Boolean).join(' · '))}</div>
+    ${oferta ? `<div class="fl-fire">🔥 OFERTA</div><div class="fl-ant">Antes: <s>${eur(antes)}</s></div>` : ''}
     <div class="fl-pre fl-osw">${esc(c.precio)} €</div>
   </div>
 </div>`;
@@ -288,6 +304,7 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
     preparando = (async () => {
       estilos();
       await cargarQR().catch(() => null);
+      try { const r = await fetch('/rebajas.json', { cache: 'no-store' }); if (r.ok) manuales = await r.json(); } catch (_) {}
       if (document.fonts && document.fonts.ready) await document.fonts.ready;   // medir con la letra definitiva
       const hoja = hojaFolleto();
       maquetar(hoja, qrSVG((D.asesor || {}).url || location.origin + '/'));
