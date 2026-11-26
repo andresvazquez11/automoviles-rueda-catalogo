@@ -44,7 +44,7 @@
       f('Alta en inventario', g('f_creacion')) + f('Fecha de compra', g('f_compra')) + f('Disponible desde', g('f_disp')) + f('Publicado en la marca', g('pub_marca')) + f('Publicado en Motorflash', g('pub_mf')) +
       f('Requiere atención', g('atencion')) + f('Zona', g('zona')) + f('Días en stock', r.dias != null ? Math.round(r.dias) : '') + f('Gastos', gastos);
     if (!cuerpo) return '';
-    return '<div class="rd-tk"><h4>🗂️ Datos del stock <small>(solo asesor · no se imprime)</small></h4><div class="rd-tk-g">' + cuerpo + '</div></div>';
+    return '<details class="rd-tk"><summary>🗂️ Datos del stock <small>(solo asesor · no se imprime)</small></summary><div class="rd-tk-g">' + cuerpo + '</div></details>';
   }
   function pintar() {
     window.RD_GESTION = rec; resolver(rec);

@@ -1513,7 +1513,9 @@ html.rd-asesor .rd-asesor-barra { display: flex; gap: 10px 14px; align-items: ce
 
 /* Tarjeta «Datos del stock» (solo asesor, dentro de «Datos de gestión») */
 .rd-tk { margin: 12px 0; padding: 12px 14px; border: 1px solid rgba(0,0,0,.12); border-radius: 14px; background: rgba(0,0,0,.03); }
-.rd-tk h4 { margin: 0 0 8px; font-size: 14px; } .rd-tk h4 small { font-weight: 400; opacity: .65; }
+.rd-tk summary { cursor: pointer; font-weight: 700; font-size: 14px; list-style: none; display: flex; align-items: center; gap: 6px; } .rd-tk summary::-webkit-details-marker { display: none; }
+.rd-tk summary::after { content: '▾'; margin-left: auto; transition: transform .2s; } .rd-tk[open] summary::after { transform: rotate(180deg); } .rd-tk summary small { font-weight: 400; opacity: .65; }
+.rd-tk[open] summary { margin-bottom: 10px; }
 .rd-tk-g { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px 14px; }
 .rd-tk-f span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; opacity: .6; } .rd-tk-f b { font-size: 14px; word-break: break-word; }
 @media print { .rd-tk { display: none !important; } }
