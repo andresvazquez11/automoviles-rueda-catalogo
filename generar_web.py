@@ -1550,6 +1550,7 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
           <span class="cv2-int-on">▾ Herramientas del asesor · ocultar</span><span class="cv2-int-off-lbl">▸ Herramientas del asesor</span>
         </button>
         <div class="cv2-interno cv2-zona">
+          <label class="rd-sinseg"><input type="checkbox" class="rd-sinseg-chk" onchange="rdSetSinSeg(this.checked)"><span class="rd-sinseg-txt"><b>Sin seguro de protección</b><small>Quita el seguro en VWFS, BBVA y CaixaBank, y también en la comparación con el nuevo</small></span></label>
           <div class="cv2-zona-tit">Campañas VW para este coche</div>
           <div class="cv2-camps" id="cv2-camps"></div>
         </div>
@@ -1780,7 +1781,8 @@ CALCULADORA_HTML_INTERIOR = '''      <!-- Car info bar (auto-populated) -->
         <div class="cv2-legal" id="cv2-legal"></div>
       </div>'''
 
-BBVA_HTML_INTERIOR = '''    <div class="bbva-bar">
+BBVA_HTML_INTERIOR = '''    <div class="cv2-interno rd-sinseg-zona"><label class="rd-sinseg"><input type="checkbox" class="rd-sinseg-chk" onchange="rdSetSinSeg(this.checked)"><span class="rd-sinseg-txt"><b>Sin seguro de protección</b><small>Quita el seguro en VWFS, BBVA y CaixaBank, y también en la comparación con el nuevo</small></span></label></div>
+    <div class="bbva-bar">
       <div>
         <div class="bbva-bar-title">BBVA · Préstamo Vehículo</div>
         <div class="bbva-bar-sub">Nuevo / Seminuevo hasta 72 meses de antigüedad</div>
@@ -2219,7 +2221,6 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 
   {"" if vendido else bloque_ejemplo_financiacion(car, datos)}
 
-  <label class="rd-sinseg" id="rd-sinseg-bar"><input type="checkbox" id="rd-sinseg-chk" onchange="rdSetSinSeg(this.checked)"><span class="rd-sinseg-txt"><b>Sin seguro de protección</b><small>Quita el seguro en VWFS, BBVA y CaixaBank, y también en la comparación con el nuevo</small></span></label>
   <div class="financiera-tabs" id="financiera-tabs">
     <button class="financiera-tab active" id="fin-vwfs" onclick="setFinanciera('VWFS', this)">
       VWFS <span class="fin-sub">Volkswagen Finance</span>

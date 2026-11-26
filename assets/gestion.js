@@ -9,6 +9,17 @@
   var esc = function (t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
   var fila = function (a, b, c) { return '<tr><td>' + a + '</td><td class="n">' + b + '</td><td>' + (c || '') + '</td></tr>'; };
 
+  // Estado del coche en el stock: avisos para el asesor
+  function avisos(r) {
+    var e = String(r.estado || '').toLowerCase(), d = r.dias, o = [];
+    if (/cartera/.test(e)) o.push(['rojo', '🔴 <b>En cartera: ya está vendido</b> (falta finalizar la operación).']);
+    else if (/^alta/.test(e)) o.push(['ambar', '🟠 <b>Alta:</b> aún no está disponible ni publicado; puede estar reservado fuera de la web.']);
+    else if (/disponible/.test(e)) o.push(['verde', '🟢 <b>Disponible para la venta.</b>']);
+    else if (/reacond/.test(e)) o.push(['azul', '🔧 <b>En reacondicionamiento.</b>']);
+    if (d != null && d < 0) o.push(['ambar', '⏳ <b>Aún no se puede vender como ocasión:</b> faltan ' + Math.round(-d) + ' días (la marca exige 3 meses desde la matriculación). Algunos se venden igual.']);
+    return o.map(function (a) { return '<div class="rd-gest-aviso ' + a[0] + '">' + a[1] + '</div>'; }).join('');
+  }
+  function punto(s) { var e = String(s.estado || '').toLowerCase(); return (/cartera/.test(e) ? '🔴' : /^alta/.test(e) ? '🟠' : /disponible/.test(e) ? '🟢' : '🔧') + ((s.dias != null && s.dias < 0) ? '⏳' : '') + ' '; }
   function similares() {
     if (!datos || !datos.stock) return '';
     var t = (rec && rec.tmaimg) || '', fam = A.familia(COCHE.modelo);
@@ -16,8 +27,8 @@
       var p = (s.tmaimg && s.tmaimg === t ? 4 : (s.tmaimg && t && s.tmaimg.slice(0, 3) === t.slice(0, 3) ? 2 : 0)) - (s.venta && web ? Math.abs(s.venta - web) / 5000 : 1); return { s: s, p: p };
     }).sort(function (a, b) { return b.p - a.p; }).slice(0, 8);
     if (!xs.length) return '<p class="rd-gest-nota">No hay más ' + esc(COCHE.modelo) + ' en el stock cargado.</p>';
-    return '<h4>Parecidos en stock <small>(aunque no estén publicados: busca por matrícula)</small></h4><table class="rd-gest-tabla rd-gest-sim"><tr><th>Coche</th><th>Matrícula</th><th>Km</th><th>Matric.</th><th>TMAIMG</th><th class="n">Venta</th><th>Estado</th></tr>' +
-      xs.map(function (x) { var s = x.s; return '<tr class="' + (s.publicado ? '' : 'rd-gest-nopub') + '"><td>' + (s.publicado && s.ficha ? '<a href="' + esc(s.ficha) + '">' + esc(s.coche).slice(0, 44) + ' ↗</a>' : esc(s.coche).slice(0, 44)) + (s.publicado ? '' : ' <b>· sin publicar</b>') + '</td><td><b>' + esc(s.matricula) + '</b></td><td>' + (s.km != null ? Number(s.km).toLocaleString('es-ES') : '') +
+    return '<h4>Parecidos en stock <small>(aunque no estén publicados: busca por matrícula)</small></h4><table class="rd-gest-tabla rd-gest-sim"><tr><th>Coche (🟢 disponible · 🔴 vendido · 🟠 alta · ⏳ aún no vendible)</th><th>Matrícula</th><th>Km</th><th>Matric.</th><th>TMAIMG</th><th class="n">Venta</th><th>Estado</th></tr>' +
+      xs.map(function (x) { var s = x.s; return '<tr class="' + (s.publicado ? '' : 'rd-gest-nopub') + '"><td>' + punto(s) + (s.publicado && s.ficha ? '<a href="' + esc(s.ficha) + '">' + esc(s.coche).slice(0, 44) + ' ↗</a>' : esc(s.coche).slice(0, 44)) + (s.publicado ? '' : ' <b>· sin publicar</b>') + '</td><td><b>' + esc(s.matricula) + '</b></td><td>' + (s.km != null ? Number(s.km).toLocaleString('es-ES') : '') +
         '</td><td>' + esc(s.f_matric) + '</td><td>' + esc(s.tmaimg) + '</td><td class="n">' + (s.venta ? eur(s.venta) + (s.estimado ? ' <span title="' + esc(s.base_est) + '">*</span>' : '') : 'sin precio') + '</td><td>' + esc(s.estado) + '</td></tr>'; }).join('') +
       '</table><p class="rd-gest-nota">* precio de venta estimado (compra × razón mediana de coches parecidos).</p>';
   }
@@ -28,7 +39,7 @@
     if (!rec) { cuerpo.innerHTML = '<p class="rd-gest-nota">Este coche no está en el stock cargado.</p>' + similares() + pie; return; }
     var dif = rec.venta && web && Math.abs(rec.venta - web) > 1, neg = rec.margen != null && rec.margen < 0;
     var campana = /^(demo|rema|km ?0)/i.test(rec.origen || '') ? 'Origen ' + rec.origen + ': aplica la campaña de VWFS «DEMOS + REMA» (TIN 5,99 %)' : /buy ?back/i.test(rec.origen || '') ? 'Origen Buy Back: campaña GAMA / ENTRY estándar' : '';
-    cuerpo.innerHTML = '<table class="rd-gest-tabla">' +
+    cuerpo.innerHTML = avisos(rec) + '<table class="rd-gest-tabla">' +
       fila('Precio de compra', eur(rec.compra)) + fila('Gastos (garantía, reacondicionamiento, gestoría)', eur(rec.gastos)) +
       fila('Precio de venta en stock', eur(rec.venta), dif ? '<b class="rd-gest-alerta">⚠ la web publica ' + eur(web) + '</b>' : '') +
       fila('<b>Margen</b> (precios con IVA)', '<b class="' + (neg ? 'rd-gest-neg' : '') + '">' + eur(rec.margen) + '</b>' + (rec.venta ? ' <small>(' + (rec.margen / rec.venta * 100).toFixed(1).replace('.', ',') + ' %)</small>' : '')) +

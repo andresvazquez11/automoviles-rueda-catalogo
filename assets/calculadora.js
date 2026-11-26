@@ -1753,7 +1753,7 @@ function setFinanciera(f, btn) {
 function rdSetSinSeg(v, desdeMarco) {
   RD_SINSEG = !!v;
   try { localStorage.setItem('rd_sinseg', RD_SINSEG ? '1' : '0'); } catch (e) {}
-  var c = document.getElementById('rd-sinseg-chk'); if (c) c.checked = RD_SINSEG;
+  document.querySelectorAll('.rd-sinseg-chk').forEach(function (c) { c.checked = RD_SINSEG; });
   try { if (typeof cv2Render === 'function') cv2Render(); } catch (e) {}
   try { if (typeof bbvaRender === 'function') bbvaRender(); } catch (e) {}
   try { if (typeof caixaRender === 'function') caixaRender(); } catch (e) {}
@@ -1763,4 +1763,4 @@ function rdSetSinSeg(v, desdeMarco) {
 window.addEventListener('message', function (e) {
   if (e.origin === location.origin && e.data && typeof e.data.rdSinSeg === 'boolean' && e.data.rdSinSeg !== RD_SINSEG) rdSetSinSeg(e.data.rdSinSeg, true);
 });
-(function () { var c = document.getElementById('rd-sinseg-chk'); if (c) c.checked = RD_SINSEG; })();
+(function () { document.querySelectorAll('.rd-sinseg-chk').forEach(function (c) { c.checked = RD_SINSEG; }); })();

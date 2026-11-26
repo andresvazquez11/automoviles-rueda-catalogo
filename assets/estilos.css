@@ -1219,7 +1219,8 @@ html:not(.rd-asesor) #m-financiacion,
 html:not(.rd-asesor) #bbva-financiacion,
 html:not(.rd-asesor) #caixa-financiacion,
 html:not(.rd-asesor) #rd-nuevo-cmp,
-html:not(.rd-asesor) #rd-sinseg-bar,
+html:not(.rd-asesor) .rd-sinseg,
+html:not(.rd-asesor) .rd-sinseg-zona,
 html:not(.rd-asesor) #rd-gestion { display: none !important; }
 html.rd-asesor .rd-fin-ejemplo { display: none; }
 
@@ -1497,3 +1498,15 @@ html.rd-asesor .rd-asesor-barra { display: flex; gap: 10px 14px; align-items: ce
 .rd-sinseg-txt { display: flex; flex-direction: column; line-height: 1.3; font-size: 15px; }
 .rd-sinseg-txt small { font-size: 12.5px; opacity: .7; }
 .rd-sinseg:has(input:checked) { border-color: var(--rd-red, #C8232B); background: rgba(200,35,43,.06); }
+
+/* «Sin seguro» dentro de las herramientas del asesor (zonas oscuras de las calculadoras) */
+.cv2-zona .rd-sinseg, .rd-sinseg-zona .rd-sinseg { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.2); color: #ece9e3; margin: 0 0 10px; }
+.cv2-zona .rd-sinseg:has(input:checked), .rd-sinseg-zona .rd-sinseg:has(input:checked) { background: rgba(200,35,43,.18); border-color: var(--rd-red, #C8232B); }
+.rd-sinseg-zona { padding: 0 16px; margin-top: 12px; }
+
+/* Avisos de estado en los datos de gestión */
+.rd-gest-aviso { margin: 0 0 8px; padding: 9px 12px; border-radius: 10px; font-size: 14px; border-left: 5px solid; }
+.rd-gest-aviso.rojo { background: rgba(200,35,43,.12); border-color: #c8232b; }
+.rd-gest-aviso.ambar { background: rgba(178,106,0,.12); border-color: #b26a00; }
+.rd-gest-aviso.verde { background: rgba(28,122,74,.12); border-color: #1c7a4a; }
+.rd-gest-aviso.azul { background: rgba(29,95,138,.12); border-color: #1d5f8a; }
