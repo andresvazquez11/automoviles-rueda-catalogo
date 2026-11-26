@@ -79,10 +79,42 @@
     try { localStorage.setItem(LS, JSON.stringify(data)); } catch (e) { throw new Error('No cabe en la memoria de este navegador.'); }
     cache = null; return data;
   }
+
+  // ---- Excel de ventas (uno de CUPRA y uno del resto). Formato aún sin ver: se buscan las columnas por su título; se guarda también la fila entera.
+  // Solo se añaden las filas NUEVAS (clave bastidor o matrícula + fecha). Se queda en este dispositivo; /historial/ lo lee de aquí.
+  var LSV = 'rd_ventas_local';
+  function ventasLocal() { try { return JSON.parse(localStorage.getItem(LSV) || 'null') || { filas: [], archivos: [] }; } catch (e) { return { filas: [], archivos: [] }; } }
+  var COLS = { bastidor: /bastidor|vin|chasis/, matricula: /matr[ií]cula/, vendedor: /vendedor|comercial|asesor/, fecha: /fecha.*(venta|factura|entrega|matric)|^fecha/, precio: /precio|importe|pvp|total/, modelo: /modelo|descrip|veh[ií]culo|denominaci/ };
+  async function importarVentas(files) {
+    await cargarXLSX();
+    var V = ventasLocal(), claves = {}, nuevas = 0, leidas = 0;
+    V.filas.forEach(function (f) { claves[f.clave] = 1; });
+    for (var fi = 0; fi < files.length; fi++) {
+      var wb = window.XLSX.read(await files[fi].arrayBuffer(), { type: 'array', cellDates: true });
+      var rows = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: null, raw: false });
+      var cab = rows.findIndex(function (r, i) { return i < 25 && r && r.some(function (c) { return c && /matr[ií]cula|bastidor/.test(norm(c)); }); });
+      if (cab < 0) throw new Error('«' + files[fi].name + '»: no encuentro la columna de matrícula o bastidor. Pásame el archivo y lo ajusto.');
+      var H = {}; rows[cab].forEach(function (v, j) { if (v) H[String(v).trim()] = j; });
+      var map = {}; Object.keys(COLS).forEach(function (k) { var h = Object.keys(H).find(function (t) { return COLS[k].test(norm(t)); }); if (h) map[k] = H[h]; });
+      rows.slice(cab + 1).forEach(function (r) {
+        if (!r || !r.some(function (c) { return c != null && c !== ''; })) return;
+        var f = { archivo: files[fi].name, cargado: new Date().toISOString().slice(0, 10), crudo: {} };
+        Object.keys(H).forEach(function (t) { if (r[H[t]] != null && r[H[t]] !== '') f.crudo[t] = r[H[t]]; });
+        Object.keys(map).forEach(function (k) { f[k] = r[map[k]]; });
+        if (!f.bastidor && !f.matricula) return;
+        leidas++;
+        f.clave = String(f.bastidor || f.matricula).trim().toUpperCase() + '|' + String(f.fecha || '');
+        if (claves[f.clave]) return; claves[f.clave] = 1; V.filas.push(f); nuevas++;
+      });
+      V.archivos.push({ nombre: files[fi].name, fecha: new Date().toISOString().slice(0, 10), columnas: Object.keys(map) });
+    }
+    localStorage.setItem(LSV, JSON.stringify(V));
+    return { nuevas: nuevas, leidas: leidas, total: V.filas.length };
+  }
   function borrarLocal() { try { localStorage.removeItem(LS); } catch (e) {} cache = null; }
   function buscar(data, cochePag) {
     var id = (String(cochePag.url || '').match(/(\d{6,})\/?$/) || [])[1];
     return (id && data.coches['a' + id]) || data.coches['n' + cochePag.n] || null;
   }
-  window.RD_ASESOR = { obtener: obtener, importar: importar, local: local, borrarLocal: borrarLocal, familia: familia, buscar: buscar, eur: eur, num: num };
+  window.RD_ASESOR = { importarVentas: importarVentas, ventasLocal: ventasLocal, obtener: obtener, importar: importar, local: local, borrarLocal: borrarLocal, familia: familia, buscar: buscar, eur: eur, num: num };
 })();
