@@ -39,7 +39,11 @@
       var wb = window.XLSX.read(await files[fi].arrayBuffer(), { type: 'array' });
       var rows = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: null });
       var cab = rows.findIndex(function (r) { return r && r[1] === 'Nombre Inventario VO'; });
-      if (cab < 0) throw new Error('«' + files[fi].name + '» no parece un Excel «Stock Inventory».');
+      if (cab < 0) {
+        var esVentas = rows.some(function (r) { return r && r.indexOf('Quote Name') >= 0; });
+        throw new Error(esVentas ? '«' + files[fi].name + '» es un Excel de VENTAS (Entregas VO), no de stock. Cárgalo con el botón «📥 Cargar Excel de ventas».'
+          : '«' + files[fi].name + '» no es un Excel de stock (Stock Inventory). Comprueba que has elegido el archivo correcto.');
+      }
       var m = String((rows[2] || [])[1] || '').match(/(\d{4}-\d{2}-\d{2})/); if (m && m[1] > '0') generado = m[1];
       var H = {}; rows[cab].forEach(function (v, j) { if (v) H[v] = j; });
       rows.slice(cab + 1).forEach(function (r) {
@@ -123,15 +127,19 @@
     var pwd = clavePriv(); if (!pwd) throw new Error('Primero entra una vez en /nuevos/ con la contraseña y marca «Recordar en este dispositivo».');
     await cargarXLSX();
     var existentes = {}; (await ventasAlmacen()).forEach(function (f) { existentes[f.clave] = 1; });
-    var res = { nuevas: 0, leidas: 0, archivos: 0 };
+    var res = { nuevas: 0, leidas: 0, archivos: 0, detalle: [] };
     for (var fi = 0; fi < files.length; fi++) {
       var buf = await files[fi].arrayBuffer();
       var wb = window.XLSX.read(buf, { type: 'array' });
       var rows = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: null });
       var ic = rows.findIndex(function (r) { return r && r.indexOf('Quote Name') >= 0; });
-      if (ic < 0) throw new Error('«' + files[fi].name + '» no parece un Excel «Entregas VO» (no encuentro «Quote Name»).');
+      if (ic < 0) {
+        var esStock = rows.some(function (r) { return r && r.indexOf('Nombre Inventario VO') >= 0; });
+        throw new Error(esStock ? '«' + files[fi].name + '» es un Excel de STOCK, no de ventas. Cárgalo con el botón «📥 Cargar Excel de stock». No se ha guardado nada.'
+          : '«' + files[fi].name + '» no es un Excel de ventas (Entregas VO). Comprueba que has elegido el archivo correcto. No se ha guardado nada.');
+      }
       var pos = {}; rows[ic].forEach(function (v, j) { if (v) pos[String(v).trim()] = j; });
-      var nuevasFilas = [];
+      var nuevasFilas = [], leidasArch = 0;
       rows.slice(ic + 1).forEach(function (r) {
         var g = function (k) { var j = pos[CAB[k]]; return j == null ? null : r[j]; };
         if (!g('bastidor') && !g('matricula')) return;
@@ -143,9 +151,9 @@
         f.margen = f.venta != null && f.compra != null ? Math.round((f.venta - f.compra) * 100) / 100 : null;
         if (f.fecha && f.f_creacion) f.dias_stock = Math.round((new Date(f.fecha) - new Date(f.f_creacion)) / 864e5);
         f.clave = (f.bastidor || f.matricula) + '|' + f.fecha;
-        res.leidas++; if (existentes[f.clave]) return; existentes[f.clave] = 1; nuevasFilas.push(f);
+        res.leidas++; leidasArch++; if (existentes[f.clave]) return; existentes[f.clave] = 1; nuevasFilas.push(f);
       });
-      res.archivos++;
+      res.archivos++; res.detalle.push({ nombre: files[fi].name, leidas: leidasArch, nuevas: nuevasFilas.length });
       if (nuevasFilas.length) {
         var id = hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(nuevasFilas.map(function (f) { return f.clave; }).sort().join(',')))).slice(0, 20);
         await almacen('PUT', '/lote/ventas/' + id, await cifrarObj(nuevasFilas, pwd), pwd);
