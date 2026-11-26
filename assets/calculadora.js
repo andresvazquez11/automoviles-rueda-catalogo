@@ -1,3 +1,5 @@
+// Interruptor general «sin seguro de protección» (se recuerda en este navegador; afecta a VWFS, BBVA y CaixaBank y a la comparación con el nuevo)
+var RD_SINSEG = (function () { try { return localStorage.getItem('rd_sinseg') === '1'; } catch (e) { return false; } })();
 /* ══════════════════════════════════════════════════════════════════
    Automóviles Rueda — Motor de calculadora de financiación (compartido)
    Extraído de generar_web.py — condiciones VWFS Noviembre 2026.
@@ -417,7 +419,7 @@ function cv2RenderComparativa() {
     : { nom: 'BBVA', corto: 'BBVA', tin: tb.tin, no: true });
   const tc = caixaTarifa();
   filas.push(tc.disponible && tc.plazos.includes(m)
-    ? { nom: 'CaixaBank', corto: 'CaixaBank', tin: CAIXA_TIN, cuota: Math.round(CAIXA_COEF[m] * importe * 100) / 100 }
+    ? { nom: 'CaixaBank', corto: 'CaixaBank', tin: CAIXA_TIN, cuota: Math.round(caixaCoef(m) * importe * 100) / 100 }
     : { nom: 'CaixaBank', corto: 'CaixaBank', tin: CAIXA_TIN, no: true });
   filas.forEach(f => { if (!f.no) f.total = Math.round((f.cuota * m + entrada) * 100) / 100; });
   const validas = filas.filter(f => !f.no);
@@ -480,7 +482,7 @@ function cv2MapaCelda(m, e) {
   const tb = bbvaTarifa();
   if (tb.coef[m] && m <= tb.max && precio - e >= 500) cands.push({ fin: 'BBVA', cuota: Math.round(tb.coef[m] * (precio - e) * 100) / 100 });
   const tc = caixaTarifa();
-  if (tc.disponible && tc.plazos.includes(m) && precio - e >= 500) cands.push({ fin: 'CaixaBank', cuota: Math.round(CAIXA_COEF[m] * (precio - e) * 100) / 100 });
+  if (tc.disponible && tc.plazos.includes(m) && precio - e >= 500) cands.push({ fin: 'CaixaBank', cuota: Math.round(caixaCoef(m) * (precio - e) * 100) / 100 });
   // Por financiera, su mejor opción; luego ganador y ahorro frente a la segunda financiera
   const porFin = {};
   cands.forEach(c => { if (!porFin[c.fin] || c.cuota < porFin[c.fin].cuota) porFin[c.fin] = c; });
@@ -646,7 +648,7 @@ function cv2Calc() {
   const precioEf = Math.max(0, precio - bonif);
   const neto     = Math.max(0, precioEf - entrada);
   const seg0     = precioEf * 0.061545;
-  const seg      = precioEf > 0 ? Math.round(seg0 * Math.pow(neto / precioEf, 1.5) * 100) / 100 : 0;
+  const seg      = RD_SINSEG || !(precioEf > 0) ? 0 : Math.round(seg0 * Math.pow(neto / precioEf, 1.5) * 100) / 100;
   const base     = neto + seg;
   const capital  = Math.round(base * (1 + (rules.ca0 ? 0 : CV2_COMISION)) * 100) / 100;
   const comision = Math.round((capital - base) * 100) / 100;
@@ -1484,6 +1486,8 @@ const BBVA_COEF_VO = {
   96: 0.015923,
 };
 const BBVA_PLAZOS = [24, 36, 48, 60, 72, 84, 96, 108, 120];
+// Tarifa BBVA SIN seguro de protección (fila «Cuota sin Protección»); la tarifa de usado de más de 72 meses solo existe con seguro
+const BBVA_COEF_SIN = { 24: 0.045954, 36: 0.031506, 48: 0.024294, 60: 0.019976, 72: 0.017105, 84: 0.015061, 96: 0.013534, 108: 0.012352, 120: 0.011411 };
 const BBVA = { meses: 60, entrada: 0 };
 
 // Tarifa y plazo máximo según antigüedad (tabla "Antigüedad / Plazo máximo" de BBVA):
@@ -1496,8 +1500,8 @@ function bbvaTarifa() {
     antig = Math.max(0, (now.getFullYear() - CV2.matriculaAnio) * 12 + (now.getMonth() + 1 - CV2.matriculaMes));
   }
   if (antig !== null && antig > 72) return { antig, vo: true,  tin: '7,99', coef: BBVA_COEF_VO, max: 96 };
-  if (antig !== null && antig > 60) return { antig, vo: false, tin: '5,75', coef: BBVA_COEF,    max: 108 };
-  return { antig, vo: false, tin: '5,75', coef: BBVA_COEF, max: 120 };
+  if (antig !== null && antig > 60) return { antig, vo: false, tin: '5,75', coef: RD_SINSEG ? BBVA_COEF_SIN : BBVA_COEF, max: 108 };
+  return { antig, vo: false, tin: '5,75', coef: RD_SINSEG ? BBVA_COEF_SIN : BBVA_COEF, max: 120 };
 }
 
 function bbvaFmt(n) { return Math.round(n).toLocaleString('es-ES'); }
@@ -1623,6 +1627,9 @@ const CAIXA_COEF = {
   120: 0.012699,
 };
 const CAIXA_TIN = '6,25';
+// Tarifa SIN seguro de protección (mismo documento, fila «Cuota sin Protección»)
+const CAIXA_COEF_SIN = { 48: 0.024541, 60: 0.020225, 72: 0.017357, 84: 0.015316, 96: 0.013793, 108: 0.012614, 120: 0.011676 };
+const caixaCoef = m => (RD_SINSEG ? CAIXA_COEF_SIN : CAIXA_COEF)[m];
 const CAIXA_PLAZOS = [24, 36, 48, 60, 72, 84, 96, 108, 120];
 const CAIXA = { meses: 60, entrada: 0 };
 
@@ -1684,7 +1691,7 @@ function caixaRender() {
   }
 
   const importe = Math.max(0, precio - CAIXA.entrada);
-  const coef = tarifa.disponible ? CAIXA_COEF[CAIXA.meses] : 0;
+  const coef = tarifa.disponible ? caixaCoef(CAIXA.meses) : 0;
   const cuota = Math.round(coef * importe * 100) / 100;
   const total = Math.round((cuota * CAIXA.meses + CAIXA.entrada) * 100) / 100;
 
@@ -1740,3 +1747,20 @@ function setFinanciera(f, btn) {
   if (f === 'BBVA') bbvaRender();
   if (f === 'CAIXA') caixaRender();
 }
+
+
+// ── Interruptor «sin seguro de protección»: se puede poner o quitar desde la financiación o desde la comparación con el nuevo ──
+function rdSetSinSeg(v, desdeMarco) {
+  RD_SINSEG = !!v;
+  try { localStorage.setItem('rd_sinseg', RD_SINSEG ? '1' : '0'); } catch (e) {}
+  var c = document.getElementById('rd-sinseg-chk'); if (c) c.checked = RD_SINSEG;
+  try { if (typeof cv2Render === 'function') cv2Render(); } catch (e) {}
+  try { if (typeof bbvaRender === 'function') bbvaRender(); } catch (e) {}
+  try { if (typeof caixaRender === 'function') caixaRender(); } catch (e) {}
+  var f = document.getElementById('rd-nuevo-if');
+  if (f && f.contentWindow && !desdeMarco) { try { f.contentWindow.postMessage({ rdSinSeg: RD_SINSEG }, location.origin); } catch (e) {} }
+}
+window.addEventListener('message', function (e) {
+  if (e.origin === location.origin && e.data && typeof e.data.rdSinSeg === 'boolean' && e.data.rdSinSeg !== RD_SINSEG) rdSetSinSeg(e.data.rdSinSeg, true);
+});
+(function () { var c = document.getElementById('rd-sinseg-chk'); if (c) c.checked = RD_SINSEG; })();

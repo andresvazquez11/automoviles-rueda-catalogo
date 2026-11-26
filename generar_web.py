@@ -2219,6 +2219,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 
   {"" if vendido else bloque_ejemplo_financiacion(car, datos)}
 
+  <label class="rd-sinseg" id="rd-sinseg-bar"><input type="checkbox" id="rd-sinseg-chk" onchange="rdSetSinSeg(this.checked)"><span class="rd-sinseg-txt"><b>Sin seguro de protección</b><small>Quita el seguro en VWFS, BBVA y CaixaBank, y también en la comparación con el nuevo</small></span></label>
   <div class="financiera-tabs" id="financiera-tabs">
     <button class="financiera-tab active" id="fin-vwfs" onclick="setFinanciera('VWFS', this)">
       VWFS <span class="fin-sub">Volkswagen Finance</span>

@@ -1219,6 +1219,7 @@ html:not(.rd-asesor) #m-financiacion,
 html:not(.rd-asesor) #bbva-financiacion,
 html:not(.rd-asesor) #caixa-financiacion,
 html:not(.rd-asesor) #rd-nuevo-cmp,
+html:not(.rd-asesor) #rd-sinseg-bar,
 html:not(.rd-asesor) #rd-gestion { display: none !important; }
 html.rd-asesor .rd-fin-ejemplo { display: none; }
 
@@ -1489,3 +1490,10 @@ html.rd-asesor .rd-asesor-barra { display: flex; gap: 10px 14px; align-items: ce
 .rd-gest-cuerpo h4 { margin: 14px 0 4px; font-size: 14px; }
 .rd-gest-sim th { text-align: left; font-size: 11px; text-transform: uppercase; opacity: .7; }
 .rd-gest-sim tr.rd-gest-nopub td { background: rgba(255,200,60,.14); }
+
+/* Interruptor «sin seguro de protección» (solo asesor, en la financiación) */
+.rd-sinseg { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; padding: 10px 14px; border: 1.5px solid rgba(0,0,0,.15); border-radius: 12px; background: rgba(255,255,255,.6); cursor: pointer; }
+.rd-sinseg input { width: 22px; height: 22px; flex: none; margin: 0; accent-color: var(--rd-red, #C8232B); cursor: pointer; }
+.rd-sinseg-txt { display: flex; flex-direction: column; line-height: 1.3; font-size: 15px; }
+.rd-sinseg-txt small { font-size: 12.5px; opacity: .7; }
+.rd-sinseg:has(input:checked) { border-color: var(--rd-red, #C8232B); background: rgba(200,35,43,.06); }

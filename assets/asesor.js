@@ -64,7 +64,7 @@
     });
     var filas = stock.map(function (s) {
       var f = { publicado: !!pubs[s.bastidor], n: pubs[s.bastidor] ? pubs[s.bastidor].n : '', estado: s.estado, origen: s.origen, coche: s.denominacion, matricula: s.matricula, bastidor: s.bastidor, km: s.km, f_matric: s.f_matric,
-        tmaimg: s.tmaimg, dias: s.dias, compra: s.compra > 1 ? s.compra : null, gastos: s.gastos, venta: s.venta > 1000 ? s.venta : null, estimado: false, base_est: '', regimen: s.regimen, id_anuncio: s.id_anuncio };
+        tmaimg: s.tmaimg, dias: s.dias, compra: s.compra > 1 ? s.compra : null, gastos: s.gastos, venta: s.venta > 1000 ? s.venta : null, estimado: false, base_est: '', regimen: s.regimen, id_anuncio: s.id_anuncio, ficha: pubs[s.bastidor] ? pubs[s.bastidor].href : '' };
       if (f.venta && s.compra > 1000) f.margen = Math.round(s.margen != null ? Number(s.margen) : s.venta - s.compra - s.gastos);
       else if (!f.venta && s.compra > 1000) {
         var ks = [familia(s.denominacion) + '|' + s.origen, '*|' + s.origen, '*|*'], k = ks.filter(function (x) { return (razones[x] || []).length >= 3; })[0];

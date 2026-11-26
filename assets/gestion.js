@@ -9,13 +9,6 @@
   var esc = function (t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
   var fila = function (a, b, c) { return '<tr><td>' + a + '</td><td class="n">' + b + '</td><td>' + (c || '') + '</td></tr>'; };
 
-  function resumenSuperior() {   // línea visible junto al precio, sin abrir el desplegable
-    var p = document.getElementById('m-precio'); if (!p || !p.parentNode) return;
-    var d = document.getElementById('rd-gest-resumen');
-    if (!d) { d = document.createElement('div'); d.id = 'rd-gest-resumen'; d.className = 'rd-gest-resumen'; p.parentNode.appendChild(d); }
-    d.innerHTML = rec && rec.margen != null ? '💶 <b>Margen ' + eur(rec.margen) + '</b>' + (rec.venta ? ' (' + (rec.margen / rec.venta * 100).toFixed(1).replace('.', ',') + ' %)' : '') + ' · <a href="#rd-gestion">negociar</a> · <a href="/stock/" target="_blank" rel="noopener">stock ↗</a>'
-      : '💶 <a href="#rd-gestion">Datos de gestión</a> · <a href="/stock/" target="_blank" rel="noopener">stock ↗</a>';
-  }
   function similares() {
     if (!datos || !datos.stock) return '';
     var t = (rec && rec.tmaimg) || '', fam = A.familia(COCHE.modelo);
@@ -24,12 +17,12 @@
     }).sort(function (a, b) { return b.p - a.p; }).slice(0, 8);
     if (!xs.length) return '<p class="rd-gest-nota">No hay más ' + esc(COCHE.modelo) + ' en el stock cargado.</p>';
     return '<h4>Parecidos en stock <small>(aunque no estén publicados: busca por matrícula)</small></h4><table class="rd-gest-tabla rd-gest-sim"><tr><th>Coche</th><th>Matrícula</th><th>Km</th><th>Matric.</th><th>TMAIMG</th><th class="n">Venta</th><th>Estado</th></tr>' +
-      xs.map(function (x) { var s = x.s; return '<tr class="' + (s.publicado ? '' : 'rd-gest-nopub') + '"><td>' + esc(s.coche).slice(0, 44) + (s.publicado ? '' : ' <b>· sin publicar</b>') + '</td><td><b>' + esc(s.matricula) + '</b></td><td>' + (s.km != null ? Number(s.km).toLocaleString('es-ES') : '') +
+      xs.map(function (x) { var s = x.s; return '<tr class="' + (s.publicado ? '' : 'rd-gest-nopub') + '"><td>' + (s.publicado && s.ficha ? '<a href="' + esc(s.ficha) + '">' + esc(s.coche).slice(0, 44) + ' ↗</a>' : esc(s.coche).slice(0, 44)) + (s.publicado ? '' : ' <b>· sin publicar</b>') + '</td><td><b>' + esc(s.matricula) + '</b></td><td>' + (s.km != null ? Number(s.km).toLocaleString('es-ES') : '') +
         '</td><td>' + esc(s.f_matric) + '</td><td>' + esc(s.tmaimg) + '</td><td class="n">' + (s.venta ? eur(s.venta) + (s.estimado ? ' <span title="' + esc(s.base_est) + '">*</span>' : '') : 'sin precio') + '</td><td>' + esc(s.estado) + '</td></tr>'; }).join('') +
       '</table><p class="rd-gest-nota">* precio de venta estimado (compra × razón mediana de coches parecidos).</p>';
   }
   function pintar() {
-    window.RD_GESTION = rec; resolver(rec); resumenSuperior();
+    window.RD_GESTION = rec; resolver(rec);
     if (!datos) return;
     var f = datos.generado.split('-').reverse().join('/'), pie = '<p class="rd-gest-nota"><a href="/stock/" target="_blank" rel="noopener">Ver todo el stock ↗</a> · datos de ' + esc(datos.fuente) + ' del ' + f + '</p>';
     if (!rec) { cuerpo.innerHTML = '<p class="rd-gest-nota">Este coche no está en el stock cargado.</p>' + similares() + pie; return; }

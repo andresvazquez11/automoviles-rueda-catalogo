@@ -4,7 +4,7 @@
   if (!barra || !A) return;
   var esc = function (t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
   var tarjetas = function () { return Array.prototype.map.call(document.querySelectorAll('#rd-grid .rd-card'), function (c) {
-    return { el: c, n: c.dataset.n, id: ((c.getAttribute('href') || '').match(/(\d{6,})\.html/) || [])[1] || '', km: parseFloat(c.dataset.km) || 0, precio: parseFloat(c.dataset.precio) || 0 }; }); };
+    return { el: c, href: c.getAttribute('href') || '', n: c.dataset.n, id: ((c.getAttribute('href') || '').match(/(\d{6,})\.html/) || [])[1] || '', km: parseFloat(c.dataset.km) || 0, precio: parseFloat(c.dataset.precio) || 0 }; }); };
   async function pintar() {
     var d = await A.obtener();
     var estado = d ? 'Datos de ' + esc(d.fuente) + ' del ' + d.generado.split('-').reverse().join('/') + ' · ' + d.stock.length + ' coches' : 'Sin datos de stock: carga el Excel o desbloquea los publicados';
