@@ -77,13 +77,6 @@
     "antes_auto": 0
   },
   {
-    "id": "dwa-209661993",
-    "modelo": "SEAT León",
-    "precio": "22.900",
-    "foto": "/web_fotos/14/foto_01.jpg?v=47a833fe",
-    "antes_auto": 0
-  },
-  {
     "id": "dwa-208352747",
     "modelo": "CUPRA León",
     "precio": "36.900",
@@ -319,6 +312,41 @@
     "modelo": "CUPRA Formentor",
     "precio": "32.900",
     "foto": "/web_fotos/57/foto_01.jpg?v=1f94f619",
+    "antes_auto": 0
+  },
+  {
+    "id": "mf-220712320",
+    "modelo": "SEAT Ateca",
+    "precio": "26.900",
+    "foto": "/web_fotos/mf-220712320/foto_01.jpg?v=4aeffa8d",
+    "antes_auto": 0
+  },
+  {
+    "id": "mf-220712317",
+    "modelo": "SEAT Arona",
+    "precio": "16.500",
+    "foto": "/web_fotos/mf-220712317/foto_01.jpg?v=3c9efdfa",
+    "antes_auto": 0
+  },
+  {
+    "id": "mf-220711753",
+    "modelo": "SEAT Arona",
+    "precio": "18.900",
+    "foto": "/web_fotos/mf-220711753/foto_01.jpg?v=d1a1d663",
+    "antes_auto": 0
+  },
+  {
+    "id": "mf-220711750",
+    "modelo": "CUPRA León",
+    "precio": "30.900",
+    "foto": "/web_fotos/mf-220711750/foto_01.jpg?v=55d9fec7",
+    "antes_auto": 0
+  },
+  {
+    "id": "mf-220711438",
+    "modelo": "CUPRA Terramar",
+    "precio": "41.900",
+    "foto": "/web_fotos/mf-220711438/foto_01.jpg?v=fe09fccb",
     "antes_auto": 0
   }
 ]
