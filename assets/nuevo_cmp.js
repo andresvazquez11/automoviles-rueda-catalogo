@@ -14,7 +14,12 @@
   if (full) full.href = base;
   // el marco carga solo al abrir el desplegable; con «Recordar en este dispositivo» no pide contraseña
   det.addEventListener('toggle', function () {
-    if (det.open && !marco.getAttribute('src')) marco.setAttribute('src', base + '&mini=1');
+    if (!det.open || marco.getAttribute('src')) return;
+    // espera (hasta 3 s) a los datos de gestión: el ORIGEN del coche (Demo, REMA, Buy Back…) decide qué campaña de VWFS le toca
+    Promise.race([window.RD_GESTION_LISTO || Promise.resolve(null), new Promise(function (r) { setTimeout(function () { r(null); }, 3000); })]).then(function (rec) {
+      if (rec && rec.origen) c.origen = rec.origen;
+      marco.setAttribute('src', '/nuevos/#oc=' + b64(c) + '&mini=1');
+    });
   });
   // la página de nuevos avisa de su altura para que el marco no tenga barra de desplazamiento
   window.addEventListener('message', function (e) {

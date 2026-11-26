@@ -1218,7 +1218,8 @@ html:not(.rd-asesor) #financiera-tabs,
 html:not(.rd-asesor) #m-financiacion,
 html:not(.rd-asesor) #bbva-financiacion,
 html:not(.rd-asesor) #caixa-financiacion,
-html:not(.rd-asesor) #rd-nuevo-cmp { display: none !important; }
+html:not(.rd-asesor) #rd-nuevo-cmp,
+html:not(.rd-asesor) #rd-gestion { display: none !important; }
 html.rd-asesor .rd-fin-ejemplo { display: none; }
 
 .rd-fin-ejemplo { background: var(--rd-surface); border: 1px solid var(--rd-border); border-top: 4px solid #C8232B;
@@ -1460,3 +1461,17 @@ html.rd-sin-scroll, html.rd-sin-scroll body { overflow: hidden; }
 .rd-nuevo-acc { padding: 10px 18px 16px; }
 .rd-nuevo-full { font-weight: 600; font-size: 14px; color: var(--rd-red, #C8232B); }
 .rd-nuevo-cmp iframe { display: block; width: calc(100% - 36px); height: 340px; margin: 0 18px; border: 1px solid rgba(0,0,0,.12); border-radius: 12px; background: #fff; }
+
+/* Datos de gestión (solo asesor) */
+.rd-gest-cuerpo { padding: 4px 18px 16px; }
+.rd-gest-tabla { width: 100%; border-collapse: collapse; margin: 0 0 10px; font-size: 14px; }
+.rd-gest-tabla td { padding: 6px 4px; border-top: 1px solid rgba(0,0,0,.1); vertical-align: top; }
+.rd-gest-tabla td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rd-gest-tabla td:last-child { font-size: 12.5px; opacity: .8; }
+.rd-gest-ficha { background: rgba(0,0,0,.03); border-radius: 8px; }
+.rd-gest-neg { color: #c8232b; }
+.rd-gest-alerta { color: #b26a00; font-size: 12.5px; }
+.rd-gest-nota { font-size: 12.5px; opacity: .75; margin: 6px 0 0; }
+.rd-gest-form { display: grid; gap: 8px; max-width: 320px; }
+.rd-gest-form input[type=password] { padding: 10px; border-radius: 10px; border: 1px solid rgba(0,0,0,.25); }
+.rd-gest-rec { display: flex; gap: 8px; align-items: center; font-size: 13px; }

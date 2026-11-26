@@ -832,6 +832,7 @@ ASSET_ESTILOS     = asset("estilos.css")
 ASSET_IDIOMA      = asset("idioma.js")
 ASSET_CALCULADORA = asset("calculadora.js")
 ASSET_NUEVO_CMP = asset("nuevo_cmp.js")
+ASSET_GESTION = asset("gestion.js")
 ASSET_IMPRIMIR    = asset("imprimir.js")
 ASSET_FOLLETO     = asset("folleto.js")   # folleto A4 de todos los coches (solo asesor, portada)
 ASSET_ENVIAR      = asset("enviar.js")   # enviar al cliente por WhatsApp (solo asesores) + vista del enlace
@@ -2240,6 +2241,11 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 {CAIXA_HTML_INTERIOR}
   </div>
 
+  <details class="rd-nuevo-cmp rd-gestion" id="rd-gestion">
+    <summary><span>💶 Datos de gestión: compra, margen y origen</span><small>solo asesor</small></summary>
+    <div id="rd-gestion-cuerpo" class="rd-gest-cuerpo"><p class="rd-gest-nota">Cargando…</p></div>
+  </details>
+
   <details class="rd-nuevo-cmp" id="rd-nuevo-cmp">
     <summary><span>⚖️ Comparar con un nuevo parecido</span><small>solo asesor</small></summary>
     <p class="rd-nuevo-ayuda">Resumen rápido: este ocasión frente a un nuevo de motor parecido, al contado y financiado con campañas.</p>
@@ -2284,6 +2290,7 @@ window.rdAlCambiarIdioma = function() {{ cargarFicha(COCHE); }};
 </script>
 <script src="{ASSET_ENVIAR}"></script>
 <script src="{ASSET_NUEVO_CMP}"></script>
+<script src="{ASSET_GESTION}"></script>
 <script src="{ASSET_REBAJAS}"></script>
 <script>
 (function() {{
