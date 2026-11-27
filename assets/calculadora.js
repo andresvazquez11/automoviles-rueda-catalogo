@@ -1442,6 +1442,23 @@ function cargarFicha(c) {
 
   document.getElementById('m-precio').textContent = c.precio + ' €';
   document.getElementById('m-precio-sticky').textContent = c.precio + ' €';
+  // Precio financiando (variante B): solo si hay descuento por financiar; si no, queda un único precio (el de contado)
+  (function () {
+    const pf = c.pf, el = document.getElementById('m-pf'), pr = document.getElementById('m-precio'), stk = document.getElementById('m-precio-sticky');
+    if (!el || !pf || c.estado === 'No disponible') { if (el) el.hidden = true; return; }
+    const ent = pf.origen === 'oficial' && pf.cuota
+      ? tr('Ejemplo: cuota de ', 'Example: ', 'Beispiel: Rate ') + String(pf.cuota).replace('.', ',') + ' € ' + tr('al mes durante ', 'per month for ', 'pro Monat über ') + pf.meses + tr(' meses · TIN ', ' months · TIN ', ' Monate · TIN ') + String(pf.tin).replace('.', ',') + ' % · TAE ' + String(pf.tae).replace('.', ',') + ' %'
+      : 'TIN ' + String(pf.tin).replace('.', ',') + ' % · ' + tr('cuota y TAE en la simulación de más abajo', 'payment and APR in the simulation below', 'Rate und effektiver Jahreszins in der Simulation unten');
+    el.hidden = false;
+    el.innerHTML = '<div class="rd-pf-lbl">' + tr('Precio financiando', 'Financed price', 'Finanzierungspreis') + '</div>' +
+      '<div class="rd-pf-precio">' + cv2Miles(pf.pf) + ' €</div>' +
+      '<div class="rd-pf-ahorro">' + tr('Ahorras ', 'You save ', 'Sie sparen ') + cv2Miles(pf.bonif) + ' € ' + tr('financiando con ', 'financing with ', 'bei Finanzierung mit ') + pf.financiera + '</div>' +
+      '<div class="rd-pf-cond">' + tr('Capital mínimo a financiar ', 'Minimum amount financed ', 'Mindestfinanzierung ') + cv2Miles(pf.cap_min || 0) + ' €' + (pf.perm ? ' · ' + tr('permanencia mínima ', 'minimum term ', 'Mindestlaufzeit ') + pf.perm + tr(' meses', ' months', ' Monate') : '') + '<br>' + ent + '</div>' +
+      '<div class="rd-pf-legal">' + tr('Bonificación de ', 'Bonus of ', 'Bonus von ') + pf.financiera + tr(' sobre el PVP, IVA incluido, para particulares y autónomos que financien con ella (según condiciones contractuales). El seguro de protección es opcional.', ' on the list price, VAT included, for private customers and self-employed who finance with them (subject to contract terms). Protection insurance is optional.', ' auf den Listenpreis inkl. MwSt. für Privatkunden und Selbständige bei Finanzierung (nach Vertragsbedingungen). Schutzversicherung optional.') + '</div>';
+    pr.innerHTML = '<span class="rd-cont-lbl">' + tr('Precio al contado', 'Cash price', 'Barpreis') + '</span> ' + c.precio + ' €';
+    pr.parentNode.classList.add('con-pf');
+    stk.innerHTML = '<small>' + tr('Financiando', 'Financed', 'Finanziert') + '</small> ' + cv2Miles(pf.pf) + ' €';
+  })();
   const pill = document.getElementById('m-estado-pill');
   const reservado = esReservado(c.estado);
   pill.textContent = reservado ? tr('🟠 Reservado', '🟠 Reserved', '🟠 Reserviert') : tr('✅ Disponible', '✅ Available', '✅ Verfügbar');

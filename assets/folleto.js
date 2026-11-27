@@ -95,6 +95,18 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
 .fl-ver { font-size: 6.5pt; line-height: 1.15; margin-top: .3mm; color: #222; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 .fl-dat { font-size: 7.3pt; margin-top: .5mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fl-dat b { font-weight: 700; }
+.fl-card.fl-pfc { grid-template-columns: 19mm 1fr; }
+#rd-folleto-sheet.fl-d2 .fl-card.fl-pfc { grid-template-columns: 17mm 1fr; }
+.fl-dat2 { font-size: 6.8pt; display: flex; justify-content: space-between; align-items: baseline; gap: 1mm; }
+.fl-dat2 > span:first-child { overflow: hidden; text-overflow: ellipsis; }
+.fl-cont { font-size: 6.6pt; color: #222; white-space: nowrap; flex-shrink: 0; }
+.fl-cont s { color: #777; }
+.fl-pfrow { margin-top: auto; display: flex; justify-content: flex-end; align-items: baseline; gap: 1.2mm; }
+.fl-pf-lbl { font-size: 5.8pt; font-weight: 800; letter-spacing: .3pt; text-transform: uppercase; color: #C8232B; }
+.fl-pfrow .fl-pre { margin-top: 0; }
+.fl-pf sup { font-size: 6.5pt; font-weight: 700; vertical-align: super; line-height: 0; }
+.fl-pf { font-size: 12pt; }
+.fl-legal { margin-top: 1.5mm; font-size: 5.6pt; line-height: 1.25; color: #444; }
 .fl-pre { margin-top: auto; font-size: 12.5pt; font-weight: 700; line-height: 1; text-align: right; color: #C8232B; }
 
 /* ── Cierre con QR (final de la última cara) ── */
@@ -109,6 +121,8 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
 
 .fl-pie { margin-top: 2.5mm; border-top: 1.5pt solid #C8232B; padding-top: 1.5mm; display: flex; justify-content: space-between; gap: 4mm; font-size: 7pt; }
 .fl-grid + .fl-pie { margin-top: auto; }
+.fl-grid + .fl-legal { margin-top: auto; }
+.fl-legal + .fl-pie { margin-top: 1.5mm; }
 /* Compactación automática: si los coches no caben en las 2 caras (una hoja A4 por
    los dos lados), maquetar() prueba estos niveles uno tras otro. */
 #rd-folleto-sheet.fl-d1 .fl-grid { grid-auto-rows: 21mm; gap: 1.6mm 2.5mm; }
@@ -170,19 +184,23 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
     if (m && m.descuento > 0) return precio + m.descuento;
     return c.antes_auto > precio ? c.antes_auto : 0;
   }
+  // Abreviaturas solo para la línea «combustible · cambio» de las tarjetas con precio financiando (así cabe también el precio de contado)
+  const corto = t => /^gasolina y|h[ií]brido/i.test(t || '') ? 'Híbrido' : /autom/i.test(t || '') ? 'Aut.' : /^manual/i.test(t || '') ? 'Man.' : /di[eé]sel/i.test(t || '') ? 'Diésel' : /el[eé]ctric/i.test(t || '') ? 'Eléctrico' : (t || '');
   function tarjeta(c) {
     const antes = antesDe(c), precioN = num(c.precio), oferta = antes > precioN;
     const fecha = c.fecha ? `<b>${esc(c.fecha)}</b>` : '';
     const km = c.km ? `<b>${esc(c.km)} km</b>` : '';
-    return `<div class="fl-card${oferta ? ' fl-of' : ''}">
+    return `<div class="fl-card${oferta ? ' fl-of' : ''}${c.pf ? ' fl-pfc' : ''}">
   <div class="fl-foto">${c.foto ? `<img src="${esc(c.foto)}" alt="">` : ''}${oferta ? `<span class="fl-rb">${eur(antes - precioN)} dto.</span>` : ''}</div>
   <div class="fl-txt">
     <div class="fl-mod fl-osw">${esc(c.modelo)}</div>
     <div class="fl-ver">${esc(c.version)}</div>
     <div class="fl-dat">${[fecha, km].filter(Boolean).join(' · ')}</div>
-    <div class="fl-dat">${esc([c.combustible, c.cambio].filter(Boolean).join(' · '))}</div>
+    ${c.pf ? `<div class="fl-dat fl-dat2"><span>${esc([corto(c.combustible), corto(c.cambio)].filter(Boolean).join(' · '))}</span><span class="fl-cont">Contado ${oferta ? `<s>${eur(antes)}</s> ` : ''}<b>${esc(c.precio)} €</b></span></div>
+    <div class="fl-pfrow"><span class="fl-pf-lbl">Financiando</span><span class="fl-pre fl-pf fl-osw">${eur(c.pf)}<sup>(1)</sup></span></div>`
+    : `<div class="fl-dat">${esc([c.combustible, c.cambio].filter(Boolean).join(' · '))}</div>
     ${oferta ? `<div class="fl-fire">🔥 OFERTA</div><div class="fl-ant">Antes: <s>${eur(antes)}</s></div>` : ''}
-    <div class="fl-pre fl-osw">${esc(c.precio)} €</div>
+    <div class="fl-pre fl-osw">${esc(c.precio)} €</div>`}
   </div>
 </div>`;
   }
@@ -228,18 +246,21 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
     </div>
   </div>`;
   }
+  const legalPf = () => (D.coches || []).some(c => c.pf) && D.pf_legal ? `<div class="fl-legal"><sup>(1)</sup> ${esc(D.pf_legal)}</div>` : '';
   const pie = (a, p, total) => `<div class="fl-pie"><span>Precios y disponibilidad a ${hoy()} · sujetos a cambios</span><span>${esc(a.web)} · ${esc(a.telefono)}${total > 1 ? ' · ' + p + '/' + total : ''}</span></div>`;
 
   // Reparto midiendo de verdad (fuera de pantalla): se meten coches en la cara
   // hasta que no caben; la última cara lleva además el cierre con el QR.
   const NIVELES = 5;   // 0 = tamaño normal … 4 = lo más compacto (ver .fl-d1….fl-d4)
+  // ¿Se corta el texto de alguna tarjeta (más líneas de las que caben en su altura)? Entonces ese nivel no vale
+  const desbordan = hoja => [...hoja.querySelectorAll('.fl-txt')].some(t => t.scrollHeight > t.clientHeight + 1);
   function maquetar(hoja, qr) {
     // Debe entrar en UNA hoja A4 por los dos lados: se compacta hasta que caben
     // en 2 caras (si ni así, se queda con lo más compacto).
     for (let nivel = 0; nivel < NIVELES; nivel++) {
       hoja.className = nivel ? 'fl-d' + nivel : '';
       maquetarNivel(hoja, qr);
-      if (hoja.children.length <= 2) return;
+      if (hoja.children.length <= 2 && !desbordan(hoja)) return;
     }
   }
   function maquetarNivel(hoja, qr) {
@@ -253,7 +274,7 @@ body.rd-cx-abierto .rd-folleto-btn { display: none !important; }   /* comparador
       cara.className = 'flp';
       const n = hoja.children.length;   // 0 = cara 1; la 2ª cara lleva la franja de garantía
       cara.innerHTML = (n ? cabecera2(a) : cabecera1(a, coches.length)) + (n === 1 ? garantia() : '')
-        + '<div class="fl-grid"></div><div class="fl-pie"></div>';
+        + '<div class="fl-grid"></div>' + legalPf() + '<div class="fl-pie"></div>';
       hoja.appendChild(cara);
       return cara;
     };

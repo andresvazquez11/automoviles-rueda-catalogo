@@ -20,6 +20,7 @@ import prensa
 import vendidos   # registro de coches vendidos + 404.html «vendido + similares»
 import pruebas
 import quienes_somos
+import precio_fin   # precio financiando (variante B): contado menos la mayor bonificación de financiación
 import recortar_portadas
 import subprocess
 
@@ -2092,6 +2093,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
         "tin_fin": (car.get("financiacion") or {}).get("tin", ""),
         "id": id_estable_coche(car),
         "antes_auto": precio_antes_auto(car, _cargar_historial_precios()),
+        "pf": precio_fin.calcular(car),
         "url": url_externa,
         "equipamiento": car.get("equipamiento", []),
         "equipamiento_en": trad["equipamiento_en"],
@@ -2206,6 +2208,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
       <button type="button" class="rd-fav-ficha" id="rd-fav-ficha" aria-pressed="false">{ICO_CORAZON}<span>{i18n_span("Guardar", "Save")}</span></button>
     </div>
     <div class="precio-block">
+      <div class="rd-pf" id="m-pf" hidden></div>
       <div class="precio" id="m-precio"></div>
       {bajada_html}
     </div>
@@ -2443,6 +2446,9 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte
     # assets/rebajas.js — con esta bajada real (data-antes-auto) o con la
     # rebaja manual de /admin/ (rebajas.json), que tiene prioridad.
     precio_row = f'<span class="rd-card-precio">{car["precio"]} €</span>'
+    _pf = precio_fin.calcular(car) if not reservado else None
+    _pf_precio = f"{_pf['pf']:,}".replace(",", ".") if _pf else ""
+    _pf_html = (f'<span class="rd-card-pf-lbl">{i18n_span("Precio financiando", "Financed price")}</span><span class="rd-card-pf">{_pf_precio} €</span>') if _pf else ''
 
     precio_num = int(str(car["precio"]).replace(".", "").replace(",", "").split()[0])
     km_num = int(str(car.get("km", "0")).replace(".", "").replace(",", "").split()[0] or 0)
@@ -2473,8 +2479,8 @@ def build_card_html(car: dict, hist: dict, fotos: list[str], trad: dict, recorte
       {f'<span class="rd-pill">{ICO_CAMBIO}{i18n_span(car["cambio"], CAMBIO_EN.get(car["cambio"], car["cambio"]))}</span>' if car.get("cambio") else ''}
     </div>
     {confianza_dwa.pastilla_tarjeta_html(ficha, i18n_span)}
-    <div class="rd-card-price-row">
-      <div>{precio_row}</div>
+    <div class="rd-card-price-row{' con-pf' if _pf else ''}">
+      <div>{_pf_html}{precio_row}</div>
       <div class="rd-card-cuota">{cuota_card}</div>
     </div>
     <button type="button" class="rd-compare-btn">{i18n_span("+ Comparar", "+ Compare")}</button>
@@ -2669,12 +2675,17 @@ def datos_folleto_json(cars: list[dict], rutas: dict, perfil: dict) -> str:
     datos = datos_perfil(perfil)
     d = perfil.get("direccion", {})
     coches = []
+    pfs = []
     hist = _cargar_historial_precios()
     for c in cars:
         if c.get("estado") != "Disponible" or not fotos_coche(c, rutas):
             continue
+        _p = precio_fin.calcular(c)
+        if _p:
+            pfs.append(_p)
         coches.append({
             "id": id_estable_coche(c), "antes_auto": precio_antes_auto(c, hist),
+            "pf": (precio_fin.calcular(c) or {}).get("pf", 0), "pf_bonif": (precio_fin.calcular(c) or {}).get("bonif", 0),
             "modelo": c["modelo"], "version": c.get("version", ""), "precio": c.get("precio", ""),
             "km": c.get("km", ""), "fecha": c.get("fecha", ""), "combustible": c.get("combustible", ""),
             "cambio": c.get("cambio", ""), "foto": miniatura_web(fotos_coche(c, rutas)[0]),
@@ -2687,7 +2698,7 @@ def datos_folleto_json(cars: list[dict], rutas: dict, perfil: dict) -> str:
         "web": datos["dominio_pagina"].replace("https://", "").replace("http://", ""),
         "url": datos["dominio_pagina"] + "/",
     }
-    return json.dumps({"asesor": asesor, "coches": coches}, ensure_ascii=False).replace("</", "<\\/")
+    return json.dumps({"asesor": asesor, "coches": coches, "pf_legal": precio_fin.pie_legal(pfs)}, ensure_ascii=False).replace("</", "<\\/")
 
 def llegada_coche(c: dict, hist: dict) -> str:
     """Fecha (ISO) en que el coche se vio por primera vez (historial_precios.json)."""
