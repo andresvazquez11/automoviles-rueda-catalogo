@@ -569,10 +569,12 @@ async def main():
         _ocultados = []
         for c in actuales:
             _idn = (c.get("url") or "").rstrip("/").split("/")[-1]
-            if _idn in _ocultos and c.get("estado") != "Retirado":
-                c["estado"] = "Retirado"
-                c["motivo_retiro"] = _ocultos[_idn]
-                _ocultados.append(c)
+            if _idn in _ocultos:
+                c["sigue_en_dwa"] = _idn in {(v.get("url") or "").rstrip("/").split("/")[-1] for v in actuales_vivos}   # ¿DWA todavía lo muestra? (para avisar de que lo quiten allí)
+                if c.get("estado") != "Retirado":
+                    c["estado"] = "Retirado"
+                    c["motivo_retiro"] = _ocultos[_idn]
+                    _ocultados.append(c)
         if _ocultados:
             print(f"  🙈 {len(_ocultados)} coche(s) ocultado(s) de la web por ocultos.json")
         coches_a_regenerar = {id_coche(c) for c in nuevos}
