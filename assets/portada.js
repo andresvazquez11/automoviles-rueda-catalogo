@@ -23,9 +23,9 @@
     var iv = document.getElementById('rd-ab-fventas');
     document.getElementById('rd-ab-ventas').onclick = function () { iv.click(); };
     iv.onchange = async function () {
-      if (!iv.files.length) return; st.textContent = 'Leyendo y guardando las ventas…';
+      if (!iv.files.length) return; st.textContent = 'Leyendo y guardando…';
       try { var r = await A.importarVentas(Array.prototype.slice.call(iv.files));
-        st.innerHTML = '✓ <b>Ventas guardadas correctamente</b> en el almacén común (cifradas). ' + r.detalle.map(function (d) { return '«' + esc(d.nombre) + '»: ' + d.nuevas + ' nueva(s)' + (d.leidas - d.nuevas ? ', ' + (d.leidas - d.nuevas) + ' ya estaban' : ''); }).join(' · ') + '. Total nuevas: ' + r.nuevas + '. Puedes cargar los dos archivos juntos o de uno en uno. Mira «Historial ↗» (si no aparecen, espera 1 minuto y recarga).'; }
+        st.innerHTML = '✓ <b>Guardado correctamente</b> en el almacén común (cifrado). ' + r.detalle.map(function (d) { return d.tipo === 'cartera' ? '«' + esc(d.nombre) + '»: <b>CARTERA</b> del ' + d.fecha.split('-').reverse().join('/') + ', ' + d.coches + ' coche(s) vendido(s) pendiente(s) de entrega' + (d.coches ? '' : ' (vacío: normal si no hay cartera de esa marca)') : '«' + esc(d.nombre) + '»: <b>ENTREGAS</b>, ' + d.nuevas + ' nueva(s)' + (d.leidas - d.nuevas ? ', ' + (d.leidas - d.nuevas) + ' ya estaban' : ''); }).join(' · ') + '. Total ventas nuevas: ' + r.nuevas + '. Puedes cargar los dos archivos juntos o de uno en uno. Mira «Historial ↗» (si no aparecen, espera 1 minuto y recarga).'; }
       catch (e) { st.textContent = '⚠ ' + e.message; }
     };
     var u = document.getElementById('rd-ab-unlock'); if (u) u.onclick = async function () { var pw = window.prompt('Contraseña de la zona privada'); if (!pw) return; try { await A.obtener(pw); await pintar(); } catch (e) { st.textContent = '⚠ Contraseña incorrecta'; } };

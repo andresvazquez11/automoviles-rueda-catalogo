@@ -135,12 +135,36 @@
       var wb = window.XLSX.read(buf, { type: 'array' });
       var rows = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: null });
       var ic = rows.findIndex(function (r) { return r && r.indexOf('Quote Name') >= 0; });
+      if (ic < 0 && rows.slice(0, 8).some(function (r) { return r && /cartera/i.test(r.join(' ')); })) {   // «Cartera VO vigente» sin ninguna fila (p. ej. CUPRA sin coches pendientes): se guarda como foto vacía
+        var mv = rows.slice(0, 8).map(function (r) { return (r || []).join(' '); }).join(' ').match(/(\d{4}-\d{2}-\d{2})/), fv = mv ? mv[1] : new Date().toISOString().slice(0, 10);
+        var idv = 'c-' + fv + '-' + hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode('|' + files[fi].name + files[fi].size))).slice(0, 12);
+        await almacen('PUT', '/lote/cartera/' + idv, await cifrarObj({ fecha: fv, nombre: files[fi].name, filas: [] }, pwd), pwd);
+        res.archivos++; res.detalle.push({ nombre: files[fi].name, tipo: 'cartera', fecha: fv, coches: 0, leidas: 0, nuevas: 0 });
+        continue;
+      }
       if (ic < 0) {
         var esStock = rows.some(function (r) { return r && r.indexOf('Nombre Inventario VO') >= 0; });
         throw new Error(esStock ? '«' + files[fi].name + '» es un Excel de STOCK, no de ventas. Cárgalo con el botón «📥 Cargar Excel de stock». No se ha guardado nada.'
           : '«' + files[fi].name + '» no es un Excel de ventas (Entregas VO). Comprueba que has elegido el archivo correcto. No se ha guardado nada.');
       }
       var pos = {}; rows[ic].forEach(function (v, j) { if (v) pos[String(v).trim()] = j; });
+      if (pos[CAB.f_entrega_contable] == null) {   // «Cartera VO vigente»: coches vendidos con pedido aún NO entregados (foto del momento)
+        var mf = String((rows[2] || [])[1] || '').match(/(\d{4}-\d{2}-\d{2})/), fcar = mf ? mf[1] : new Date().toISOString().slice(0, 10), filasC = [];
+        rows.slice(ic + 1).forEach(function (r) {
+          var g = function (k) { var j = pos[CAB[k]]; return j == null ? null : r[j]; };
+          if (!g('bastidor') && !g('matricula')) return;
+          var f = {}; Object.keys(CAB).forEach(function (k) { if (k !== 'f_entrega' && k !== 'f_entrega_contable') f[k] = g(k); });
+          ['f_matric', 'f_creacion', 'f_compra'].forEach(function (k) { f[k] = fechaISO(f[k]); });
+          ['km', 'compra', 'venta', 'garantia'].forEach(function (k) { f[k] = f[k] == null || f[k] === '' ? null : Number(f[k]); });
+          f.marca = String(f.presupuesto || f.coche || '').split(' ')[0].toUpperCase();
+          f.margen = f.venta != null && f.compra != null ? Math.round((f.venta - f.compra) * 100) / 100 : null;
+          f.clave = (f.bastidor || f.matricula) + '|' + fcar; filasC.push(f);
+        });
+        var idc = 'c-' + fcar + '-' + hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(filasC.map(function (f) { return f.clave; }).sort().join(',') + (filasC.length ? '' : '|' + files[fi].name + files[fi].size)))).slice(0, 12);
+        await almacen('PUT', '/lote/cartera/' + idc, await cifrarObj({ fecha: fcar, nombre: files[fi].name, filas: filasC }, pwd), pwd);
+        res.archivos++; res.detalle.push({ nombre: files[fi].name, tipo: 'cartera', fecha: fcar, coches: filasC.length, leidas: filasC.length, nuevas: 0 });
+        continue;
+      }
       var nuevasFilas = [], leidasArch = 0;
       rows.slice(ic + 1).forEach(function (r) {
         var g = function (k) { var j = pos[CAB[k]]; return j == null ? null : r[j]; };
