@@ -9,6 +9,19 @@
   var esc = function (t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
   var fila = function (a, b, c) { return '<tr><td>' + a + '</td><td class="n">' + b + '</td><td>' + (c || '') + '</td></tr>'; };
 
+  var pc = function (x) { return x == null ? '' : x.toFixed(1).replace('.', ',') + ' %'; };
+  var sg = function (n) { return (n < 0 ? '−' : '') + eur(Math.abs(n)); };
+  // Cuenta del margen, paso a paso: Excel (con IVA) → IVA → sin IVA → transferencia → FINAL
+  function desgloseMargen(r) {
+    var m = A.margenNeto(r.venta, r.compra, r.gastos, r.regimen, r.margen); if (!m) return fila('Margen', '—');
+    var rebu = /rebu/i.test(r.regimen || ''), ng = m.final < 0;
+    return fila('Margen del Excel <small>(venta − compra − gastos, con IVA)</small>', sg(m.bruto), r.venta ? pc(m.bruto / r.venta * 100) + ' de la venta' : '') +
+      fila('− IVA del margen <small>(21/121' + (rebu ? ', REBU: solo sobre el margen' : '') + ')</small>', sg(-m.iva)) +
+      fila('= Margen sin IVA', '<b>' + sg(m.neto) + '</b>') +
+      fila('− Gasto de transferencia', sg(-m.transf)) +
+      fila('<b>= MARGEN FINAL</b> <small>(sin IVA, tras transferencia)</small>', '<b class="' + (ng ? 'rd-gest-neg' : '') + '" style="font-size:1.15em">' + sg(m.final) + '</b>', m.pct != null ? '<b>' + pc(m.pct) + '</b> <small>de la venta sin IVA (' + eur(m.ventaNeta) + ')</small>' : '');
+  }
+
   // Estado del coche en el stock: avisos para el asesor
   function avisos(r) {
     var e = String(r.estado || '').toLowerCase(), d = r.dias, o = [];
@@ -90,7 +103,7 @@
     var p = perfil(r), L = parecidos(r, E, false), amplio = false;
     if (L.length < 2) { L = parecidos(r, E, true); amplio = true; }
     var med = function (a, k) { var b = a.filter(function (x) { return x[k] != null; }); return b.length ? b.reduce(function (s, x) { return s + Number(x[k]); }, 0) / b.length : null; };
-    var pm = med(L, 'venta'), dm = med(L, 'dias'), mm = med(L, 'margen');
+    var pm = med(L, 'venta'), dm = med(L, 'dias'), mm = med(L.map(function (x) { var q = x.margen != null ? A.margenNeto(null, null, 0, '', Number(x.margen)) : null; return { margen: q ? q.final : null }; }), 'margen');
     var iguales = (datos && datos.stock ? datos.stock : []).filter(function (s) { return s.publicado && s.bastidor !== r.bastidor && s.coche === rec_coche(r) && s.venta && p.precio && Math.abs(s.venta - p.precio) <= 500; });
     var caja = function (t, v, sub) { return '<div style="background:rgba(0,0,0,.04);border-radius:8px;padding:8px 12px"><div style="font-size:11px;opacity:.65;text-transform:uppercase">' + t + '</div><div style="font-size:20px;font-weight:700">' + v + '</div><div style="font-size:12px;opacity:.7">' + sub + '</div></div>'; };
     var cab = '<details class="rd-tk"><summary>📊 Cómo vendimos coches parecidos <small>(solo asesor)</small></summary>';
@@ -99,7 +112,7 @@
     return cab + '<p class="rd-gest-nota">' + esc(COCHE.modelo) + ', ' + (amplio ? 'año ±1 y km parecidos (ampliado porque había pocos)' : 'de ' + p.anio + ' y entre ' + p.kf.toLocaleString('es-ES') + ' y ' + p.kt.toLocaleString('es-ES') + ' km') + '. <b>Muestra: ' + L.length + ' coche(s)</b>' + (L.length < 5 ? ' — poca, tómalo como orientación' : '') + '.</p>' +
       '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0">' +
       caja('Precio al que se fueron', eur(pm), dif == null ? '' : (dif === 0 ? 'igual que el nuestro' : 'este está ' + eur(Math.abs(dif)) + (dif < 0 ? ' por debajo' : ' por encima'))) +
-      caja('Días hasta vender', dm == null ? '—' : Math.round(dm) + ' días', 'media') + caja('Margen medio', eur(mm), 'con IVA, sin gastos') + '</div>' +
+      caja('Días hasta vender', dm == null ? '—' : Math.round(dm) + ' días', 'media') + caja('Margen final medio', eur(mm), 'sin IVA, tras transferencia') + '</div>' +
       '<table class="rd-gest-tabla"><tr><th>Coche vendido</th><th>Km</th><th>Venta</th><th>Días</th><th>Origen</th></tr>' +
       L.sort(function (a, b) { return String(b.fecha).localeCompare(String(a.fecha)); }).slice(0, 8).map(function (v) { return '<tr><td>' + esc(String(v.coche || '').replace(/^(SEAT|CUPRA|KIA|RENAULT|SKODA) /i, '')).slice(0, 42) + '</td><td class="n">' + Number(v.km).toLocaleString('es-ES') + '</td><td class="n">' + eur(v.venta) + '</td><td class="n">' + (v.dias != null ? v.dias : '—') + '</td><td>' + esc(v.origen || '') + '</td></tr>'; }).join('') + '</table>' + avisoIguales(iguales) + '</details>';
   }
@@ -128,17 +141,16 @@
     cuerpo.innerHTML = avisos(rec) + '<table class="rd-gest-tabla">' +
       fila('Precio de compra', eur(rec.compra)) + fila('Gastos (garantía, reacondicionamiento, gestoría)', eur(rec.gastos)) +
       fila('Precio de venta en stock', eur(rec.venta), dif ? '<b class="rd-gest-alerta">⚠ la web publica ' + eur(web) + '</b>' : '') +
-      fila('<b>Margen</b> (precios con IVA)', '<b class="' + (neg ? 'rd-gest-neg' : '') + '">' + eur(rec.margen) + '</b>' + (rec.venta ? ' <small>(' + (rec.margen / rec.venta * 100).toFixed(1).replace('.', ',') + ' %)</small>' : '')) +
-      fila('Margen sin IVA (estimado, ÷ 1,21)', eur(rec.margen_sin_iva)) + '</table>' +
+      desgloseMargen(rec) + '</table>' +
       '<div class="rd-gest-neg-box"><b>Negociar:</b> si el cliente paga <input type="number" id="rd-gest-precio" step="100" value="' + (web || rec.venta || '') + '"> € → margen <b id="rd-gest-res"></b> <span class="rd-gest-nota" id="rd-gest-dto"></span></div>' +
       '<table class="rd-gest-tabla rd-gest-ficha">' + fila('Origen', esc(rec.origen) || '—', campana) + fila('Régimen', esc(rec.regimen) || '—', rec.regimen === 'REBU' ? 'IVA solo sobre el margen' : rec.regimen === 'IVA' ? 'IVA sobre el precio completo' : '') +
       fila('Días en stock', rec.dias != null ? Math.round(rec.dias) : '—') + fila('Estado en stock', esc(rec.estado) || '—') + fila('Matrícula · matriculación', esc(rec.matricula) + ' · ' + esc(rec.f_matric)) + fila('Bastidor', esc(rec.bastidor)) + fila('TMAIMG', esc(rec.tmaimg)) + '</table>' + tarjetaStock(rec) + '<div id="rd-merc"></div><div id="rd-vend"></div>' +
       similares() + pie;
     mercadoYVendidos(rec);
     var inp = document.getElementById('rd-gest-precio');
-    var calc = function () { var p = parseFloat(inp.value) || 0, m = p - rec.compra - (rec.gastos || 0), el = document.getElementById('rd-gest-res');
-      el.textContent = eur(m) + ' (' + (p ? (m / p * 100).toFixed(1).replace('.', ',') : '0') + ' %)'; el.className = m < 0 ? 'rd-gest-neg' : '';
-      document.getElementById('rd-gest-dto').textContent = web ? 'Descuento sobre el precio web: ' + eur(web - p) + ' · margen que quedaría para ceder: ' + eur(Math.max(0, rec.compra ? (web - rec.compra - (rec.gastos || 0)) : 0)) : ''; };
+    var calc = function () { var p = parseFloat(inp.value) || 0, m = A.margenNeto(p, rec.compra, rec.gastos, rec.regimen), el = document.getElementById('rd-gest-res'), mw = web && rec.compra ? A.margenNeto(web, rec.compra, rec.gastos, rec.regimen) : null;
+      el.textContent = m ? sg(m.final) + (m.pct != null ? ' (' + pc(m.pct) + ')' : '') + ' final · ' + sg(m.neto) + ' sin IVA antes de la transferencia' : '—'; el.className = m && m.final < 0 ? 'rd-gest-neg' : '';
+      document.getElementById('rd-gest-dto').textContent = web ? 'Descuento sobre el precio web: ' + eur(web - p) + (mw ? ' · margen final al precio web: ' + sg(mw.final) : '') : ''; };
     inp.oninput = calc; calc();
   }
   function pedir(msg) {

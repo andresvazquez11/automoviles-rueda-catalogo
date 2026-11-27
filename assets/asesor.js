@@ -6,6 +6,14 @@
   var norm = function (t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
   var familia = function (d) { var t = norm(d).replace(/\b(nuevo|seat|cupra)\b/g, '').trim(); return t.split(/\s+/)[0] || ''; };
   var mediana = function (a) { a = a.slice().sort(function (x, y) { return x - y; }); var m = a.length >> 1; return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2; };
+  // MARGEN NETO: el del Excel (venta − compra − gastos, con IVA) → sin IVA (21/121 del margen; en REBU un margen negativo no lleva IVA) → menos la transferencia (110 €) = margen final. % sobre la venta sin IVA.
+  var TRANSF = 110;
+  var margenNeto = function (venta, compra, gastos, regimen, bruto) {
+    if (bruto == null) { if (venta == null || compra == null) return null; bruto = venta - compra - (gastos || 0); }
+    var rebu = /rebu/i.test(regimen || ''), iva = (rebu && bruto < 0) ? 0 : bruto * 21 / 121, neto = bruto - iva, fin = neto - TRANSF;
+    var vn = venta ? (rebu ? venta - iva : venta / 1.21) : null;
+    return { bruto: bruto, iva: iva, neto: neto, transf: TRANSF, final: fin, pct: vn ? fin / vn * 100 : null, ventaNeta: vn };
+  };
   var eur = function (n) { return n == null ? '—' : Math.round(n).toLocaleString('es-ES', { useGrouping: true }).replace(/,/g, '.') + ' €'; };
   var num = function (t) { var d = String(t == null ? '' : t).split(',')[0].replace(/[^\d]/g, ''); return d ? parseFloat(d) : 0; };
   var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); };
@@ -79,11 +87,12 @@
         var ks = [familia(s.denominacion) + '|' + s.origen, '*|' + s.origen, '*|*'], k = ks.filter(function (x) { return (razones[x] || []).length >= 3; })[0];
         if (k) { var r = mediana(razones[k]); f.venta = Math.round(s.compra * r / 100) * 100; f.estimado = true; f.base_est = 'compra × ' + r.toFixed(3) + ' (mediana de ' + razones[k].length + ' coches parecidos)'; f.margen = Math.round(f.venta - s.compra - s.gastos); }
       }
-      f.margen_sin_iva = f.margen != null ? Math.round(f.margen / 1.21) : null;
+      var mn = f.margen != null ? margenNeto(f.venta, s.compra, s.gastos, f.regimen, f.margen) : null;
+      f.margen_sin_iva = mn ? Math.round(mn.neto) : null; f.margen_final = mn ? Math.round(mn.final) : null; f.margen_pct = mn && mn.pct != null ? Math.round(mn.pct * 10) / 10 : null;
       return f;
     });
     var coches = {};
-    filas.forEach(function (f) { if (f.publicado) { var rec = { origen: f.origen, estado: f.estado, compra: f.compra, gastos: f.gastos, venta: f.venta, margen: f.margen, margen_sin_iva: f.margen_sin_iva, regimen: f.regimen, dias: f.dias, matricula: f.matricula, bastidor: f.bastidor, tmaimg: f.tmaimg, f_matric: f.f_matric, x: f.x }; coches['n' + f.n] = rec; if (f.id_anuncio) coches['a' + f.id_anuncio] = rec; } });
+    filas.forEach(function (f) { if (f.publicado) { var rec = { origen: f.origen, estado: f.estado, compra: f.compra, gastos: f.gastos, venta: f.venta, margen: f.margen, margen_sin_iva: f.margen_sin_iva, margen_final: f.margen_final, margen_pct: f.margen_pct, regimen: f.regimen, dias: f.dias, matricula: f.matricula, bastidor: f.bastidor, tmaimg: f.tmaimg, f_matric: f.f_matric, x: f.x }; coches['n' + f.n] = rec; if (f.id_anuncio) coches['a' + f.id_anuncio] = rec; } });
     var data = { generado: generado, coches: coches, stock: filas };
     try { localStorage.setItem(LS, JSON.stringify(data)); } catch (e) { throw new Error('No cabe en la memoria de este navegador.'); }
     cache = null; return data;
@@ -267,5 +276,5 @@
     var id = (String(cochePag.url || '').match(/(\d{6,})\/?$/) || [])[1];
     return (id && data.coches['a' + id]) || data.coches['n' + cochePag.n] || null;
   }
-  window.RD_ASESOR = { cargarTodo: cargarTodo, estadoActual: estadoActual, importarVentas: importarVentas, ventasAlmacen: ventasAlmacen, obtener: obtener, importar: importar, local: local, borrarLocal: borrarLocal, familia: familia, buscar: buscar, eur: eur, num: num };
+  window.RD_ASESOR = { cargarTodo: cargarTodo, estadoActual: estadoActual, importarVentas: importarVentas, ventasAlmacen: ventasAlmacen, obtener: obtener, importar: importar, local: local, borrarLocal: borrarLocal, familia: familia, buscar: buscar, eur: eur, num: num, margenNeto: margenNeto, TRANSF: TRANSF };
 })();
