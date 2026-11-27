@@ -76,8 +76,8 @@ def _campana(car, precio, ant):
         # Campaña especial SEAT VS DEMOS + REMA (Noviembre 2026, págs. 3 y 7): solo VS (≤24 m), la procedencia (Demo/REMA/KM 0) la sabemos por el stock
         if cat == 'VS' and _id(car) in set(man.get('demos_rema') or []):
             cands.append((950, 10000, 'FLEX', '36-60 meses', '7.99'))
-        # Campaña SALONES VO (Arona), págs. 4 y 9: solo si está activada a mano en campanas_config.json (hay que confirmar que aplica a nuestros Arona)
-        if man.get('salones_arona') and 'arona' in str(car.get('modelo', '')).lower() and cat in ('VS', 'VO'):
+        # Campaña SALONES VO (Arona), págs. 4 y 9: solo los ids que lista campanas_manuales.json (según el modo elegido en campanas_config.json: apagado, buyback o todos)
+        if _id(car) in set(man.get('salones_arona') or []) and 'arona' in str(car.get('modelo', '')).lower() and cat in ('VS', 'VO'):
             if cat == 'VS':
                 cands += [(2000, 13500, 'FLEX', '60 meses', '8.99'), (2000, 13500, 'LINEAL', '84-120 meses', '8.99')]
             else:
