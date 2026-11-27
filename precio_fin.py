@@ -28,6 +28,11 @@ def _manual():
     return _MANUAL
 
 
+def es_demos_rema(car):
+    """¿Está este coche en la lista DEMOS+REMA que genera el proceso privado (procedencia Demo/REMA/KM 0 del stock)?"""
+    return _id(car) in set(_manual().get('demos_rema') or [])
+
+
 def _id(car):
     return (car.get('url') or '').rstrip('/').split('/')[-1]
 

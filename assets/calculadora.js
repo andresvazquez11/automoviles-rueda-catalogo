@@ -283,9 +283,9 @@ const CV2_OPCIONES = [
   { id: 'SEAT_GAMA',  marca: 'SEAT', nombre: 'GAMA · con bonificación', set: { campana: 'GAMA',  demosRema: false, salones: false } },
   { id: 'DEMOS',      marca: 'SEAT', nombre: 'DEMOS + REMA', nota: 'solo si el coche es demo o REMA',
     set: { campana: 'GAMA', demosRema: true, salones: false }, ok: c => c === 'VS' || c === null },
-  { id: 'SAL_TIN',    marca: 'SEAT', arona: true, nombre: 'SALONES Arona · TIN bajo',
+  { id: 'SAL_TIN',    marca: 'SEAT', arona: true, nombre: 'SALONES Arona · TIN bajo', nota: 'solo a mano · sin confirmar a qué coches aplica',
     set: { campana: 'ENTRY', demosRema: false, salones: true }, ok: c => c !== 'VU' },
-  { id: 'SAL_GAMA',   marca: 'SEAT', arona: true, nombre: 'SALONES Arona · GAMA',
+  { id: 'SAL_GAMA',   marca: 'SEAT', arona: true, nombre: 'SALONES Arona · GAMA', nota: 'solo a mano · sin confirmar a qué coches aplica',
     set: { campana: 'GAMA', demosRema: false, salones: true } },
   { id: 'CUPRA_APPROVED', marca: 'CUPRA', nombre: 'APPROVED', set: { campana: 'APPROVED' }, ok: c => c === 'VS' || c === null },
   { id: 'CUPRA_GAMA',     marca: 'CUPRA', nombre: 'GAMA · con bonificación', set: { campana: 'GAMA' } },
@@ -469,7 +469,8 @@ function cv2MapaCelda(m, e) {
   const precio = CV2.precio, cands = [];
   const ops = CV2.marca === 'OTRA' ? [{ id: 'OTRA', nombre: 'Otras Marcas', set: {} }]
     : CV2_OPCIONES.filter(o => o.marca === CV2.marca && (!o.arona || /arona/i.test(CV2.modelo || ''))
-        && (o.id !== 'DEMOS' || CV2.demosRema));
+        && (!/^SAL_/.test(o.id) || CV2.salones)
+        && (o.id !== 'DEMOS' || CV2.demosRema || (typeof COCHE !== 'undefined' && COCHE.demos_rema)));
   ops.forEach(o => {
     Object.assign(CV2, o.set, { tab: 'lineal', meses: m, entrada: e, tinOverride: null });
     const r = cv2GetRules();
@@ -777,7 +778,9 @@ function cv2OpcionesAuto() {
   if (CV2.marca === 'OTRA') return [];
   const cat = cv2GetRules().categoria;
   const arona = /arona/i.test(CV2.modelo || '');
-  return CV2_OPCIONES.filter(o => o.marca === CV2.marca && (!o.arona || arona) && o.id !== 'DEMOS' && (!o.ok || o.ok(cat)));
+  // SALONES nunca entra solo (no está claro a qué coches aplica: solo a mano); DEMOS + REMA entra solo si el stock dice que el coche es demo/REMA/KM 0 (COCHE.demos_rema)
+  const demos = typeof COCHE !== 'undefined' && !!COCHE.demos_rema;
+  return CV2_OPCIONES.filter(o => o.marca === CV2.marca && (!o.arona || arona) && !/^SAL_/.test(o.id) && (o.id !== 'DEMOS' || demos) && (!o.ok || o.ok(cat)));
 }
 
 // Ejecuta fn y deja la calculadora como estaba (para simular otras campañas/plazos)
