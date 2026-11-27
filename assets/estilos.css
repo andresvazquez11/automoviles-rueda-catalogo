@@ -1519,3 +1519,9 @@ html.rd-asesor .rd-asesor-barra { display: flex; gap: 10px 14px; align-items: ce
 .rd-tk-g { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px 14px; }
 .rd-tk-f span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; opacity: .6; } .rd-tk-f b { font-size: 14px; word-break: break-word; }
 @media print { .rd-tk { display: none !important; } }
+
+/* Resumen de cargas de Excel (botón único del asesor) */
+.rd-ab-resumen { flex-basis: 100%; font-size: 13px; line-height: 1.5; } .rd-ab-resumen:empty { display: none; } .rd-ab-resumen ul { margin: 4px 0 8px; padding-left: 18px; } .rd-ab-resumen small { display: block; opacity: .7; margin-top: 6px; }
+.rd-ab-est { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0; } .rd-ab-chip { padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(0,0,0,.15); background: rgba(0,0,0,.04); font-size: 12.5px; }
+.rd-ab-chip.aviso { background: #fdf1d8; border-color: #e0b35a; } .rd-ab-chip.falta { background: #fbe4e4; border-color: #e19a9a; } .rd-ab-chip.ok { background: #e3f4e8; border-color: #9ad0ae; }
+@media print { .rd-asesor-barra { display: none !important; } }

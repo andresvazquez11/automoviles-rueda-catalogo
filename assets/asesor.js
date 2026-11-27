@@ -34,6 +34,12 @@
   // files: lista de File (.xlsx «Stock Inventory»); tarjetas: [{n, id, km, precio}] de los coches publicados en esta página
   var EXTRA = { color: 'Color', combustible: 'Combustible', cambio: 'Tipo de Cambio', model_vo: 'Model VO', id_ocasion: 'Id_ocasion', eurotax: 'Eurotax NatCode:', modelo_year: 'Vehículo: Modelo Year', garantia: 'Garantía', f_creacion: 'Fecha de creación', f_compra: 'Fecha de Compra', cpo: 'CPO', destacado: 'Destacado', atencion: 'Requires Attention', pub_marca: 'IsPublisedWebMarca', f_disp: 'Fecha Disponibilidad', zona: 'Dealer: Zona', pub_mf: 'Publish Motorflash Date', g_garantia: 'Gastos de garantía y certificación', g_reacond: 'Gastos totales de reacondicionamiento', g_gestoria: 'Gastos de gestoría', g_gestoria_int: 'Gastos Internos gestoría', margen_pct: 'Margen de Venta (%)' };
   function extra(g, H) { var x = {}; Object.keys(EXTRA).forEach(function (k) { if (H[EXTRA[k]] == null) return; var v = g(EXTRA[k]); if (v === null || v === undefined || v === '' || v === 'Nº de error') return; x[k] = typeof v === 'number' ? Math.round(v * 100) / 100 : v; }); return x; }
+  function filaStockDe(g, H) {
+    var gastos = ['Gastos de garantía y certificación', 'Gastos totales de reacondicionamiento', 'Gastos de gestoría', 'Gastos Internos gestoría'].reduce(function (s, k) { return s + (Number(g(k)) || 0); }, 0);
+    return { bastidor: g('Bastidor'), matricula: g('Matrícula'), estado: g('Estado'), origen: g('Origen'), denominacion: g('Denominación Comercial') || '', id_anuncio: String(g('Id Anuncio') || ''),
+      km: g('Kilometraje'), f_matric: g('Fecha de Matriculación'), tmaimg: g('TMAIMG Code'), dias: g('Días en Stock'), compra: Number(g('Precio de compra')) || 0, gastos: gastos,
+      venta: Number(g('Precio de venta')) || 0, margen: g('Margen de Venta'), regimen: g('Regimen') || '', x: extra(g, H) };
+  }
   async function importar(files, tarjetas) {
     await cargarXLSX();
     var stock = [], vistos = {}, generado = new Date().toISOString().slice(0, 10);
@@ -52,10 +58,7 @@
         var g = function (k) { return r[H[k]]; };
         if (!r[1] || !g('Matrícula') || vistos[g('Bastidor')]) return;
         vistos[g('Bastidor')] = 1;
-        var gastos = ['Gastos de garantía y certificación', 'Gastos totales de reacondicionamiento', 'Gastos de gestoría', 'Gastos Internos gestoría'].reduce(function (s, k) { return s + (Number(g(k)) || 0); }, 0);
-        stock.push({ bastidor: g('Bastidor'), matricula: g('Matrícula'), estado: g('Estado'), origen: g('Origen'), denominacion: g('Denominación Comercial') || '', id_anuncio: String(g('Id Anuncio') || ''),
-          km: g('Kilometraje'), f_matric: g('Fecha de Matriculación'), tmaimg: g('TMAIMG Code'), dias: g('Días en Stock'), compra: Number(g('Precio de compra')) || 0, gastos: gastos,
-          venta: Number(g('Precio de venta')) || 0, margen: g('Margen de Venta'), regimen: g('Regimen') || '', x: extra(g, H) });
+        stock.push(filaStockDe(g, H));
       });
     }
     var usados = {}, pubs = {};
@@ -188,10 +191,81 @@
     }
     return res;
   }
+
+  // ---- BOTÓN ÚNICO: stock + entregas + cartera (6 archivos: SEAT y CUPRA de cada uno). Detecta tipo y marca de cada archivo, lo guarda cifrado en el
+  // almacén común, apunta qué se cargó y cuándo (registro) y avisa de lo que falta o se queda sin cargar demasiados días.
+  var NOM_T = { stock: 'Stock', entregas: 'Entregas VO', cartera: 'Cartera VO' }, NOM_G = { seat: 'SEAT y resto', cupra: 'CUPRA' }, UMBRAL = { stock: 2, cartera: 2, entregas: 3 };
+  var hoyISO = function () { return new Date().toISOString().slice(0, 10); };
+  async function clasificar(file) {
+    var wb = window.XLSX.read(await file.arrayBuffer(), { type: 'array' });
+    var rows = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: null });
+    var tex = rows.slice(0, 8).map(function (r) { return (r || []).join(' '); }).join(' '), fm = tex.match(/(\d{4}-\d{2}-\d{2})/), fecha = fm ? fm[1] : hoyISO();
+    var cs = rows.findIndex(function (r) { return r && r[1] === 'Nombre Inventario VO'; });
+    if (cs >= 0) {
+      var H = {}; rows[cs].forEach(function (v, j) { if (v) H[v] = j; });
+      var filas = [], vistos = {}, cod = '';
+      rows.slice(cs + 1).forEach(function (r) { var g = function (k) { return r[H[k]]; }; if (!r[1] || !g('Matrícula') || vistos[g('Bastidor')]) return; vistos[g('Bastidor')] = 1; if (!cod) cod = String(g('Dealer: Código de Seat') || ''); filas.push(filaStockDe(g, H)); });
+      return { file: file, tipo: 'stock', grupo: filas.length ? (/^c/i.test(cod) ? 'cupra' : 'seat') : null, fecha: fecha, filas: filas };
+    }
+    var cq = rows.findIndex(function (r) { return r && r.indexOf('Quote Name') >= 0; });
+    var esEnt = cq >= 0 ? rows[cq].indexOf('Quote: Fecha de Entrega Contable') >= 0 : /entregas/i.test(tex), esCar = cq >= 0 ? !esEnt : /cartera/i.test(tex);
+    if (!esEnt && !esCar) return { file: file, tipo: null };
+    var cod2 = '', n = 0;
+    if (cq >= 0) { var jc = rows[cq].indexOf('Quote: Concesionario SEAT: Código de Seat'), jb = rows[cq].indexOf('Inventory VO: Bastidor'), jm = rows[cq].indexOf('Inventory VO: Matrícula');
+      rows.slice(cq + 1).forEach(function (r) { if (r && ((jb >= 0 && r[jb]) || (jm >= 0 && r[jm]))) { n++; if (!cod2) cod2 = String(r[jc] || ''); } }); }
+    return { file: file, tipo: esEnt ? 'entregas' : 'cartera', grupo: n ? (/^c/i.test(cod2) ? 'cupra' : 'seat') : null, fecha: fecha, filas: n };
+  }
+  async function registroLeer(pwd) {
+    var l = await almacen('GET', '/lotes/otros', null, pwd), out = {};
+    for (var i = 0; i < l.length; i++) { if (!/^reg-/.test(l[i].id)) continue; try { var d = await descifrarObj(l[i].d, pwd); out[d.tipo + '|' + d.grupo] = d; } catch (e) {} }
+    return out;
+  }
+  function estadoCargas(reg) {
+    var out = [], hoy = new Date(hoyISO());
+    ['stock', 'entregas', 'cartera'].forEach(function (t) { ['seat', 'cupra'].forEach(function (g) {
+      var r = reg[t + '|' + g], dias = r ? Math.round((hoy - new Date(r.cargado.slice(0, 10))) / 864e5) : null;
+      var nivel = !r ? 'falta' : dias > UMBRAL[t] ? 'aviso' : 'ok';
+      out.push({ tipo: t, grupo: g, nivel: nivel, dias: dias, nombre: NOM_T[t] + ' · ' + NOM_G[g], texto: !r ? 'nunca cargado' : dias === 0 ? 'cargado hoy' : dias === 1 ? 'cargado ayer' : 'hace ' + dias + ' días' });
+    }); });
+    return out;
+  }
+  async function estadoActual() { var pwd = clavePriv(); if (!pwd) return null; return estadoCargas(await registroLeer(pwd)); }
+  async function cargarTodo(files, tarjetas) {
+    var pwd = clavePriv(); if (!pwd) throw new Error('Primero entra una vez en /nuevos/ con la contraseña y marca «Recordar en este dispositivo».');
+    await cargarXLSX();
+    var cls = []; for (var i = 0; i < files.length; i++) cls.push(await clasificar(files[i]));
+    var reg = {}; try { reg = await registroLeer(pwd); } catch (e) { if (/contraseña/.test(e.message)) throw e; }
+    ['stock', 'entregas', 'cartera'].forEach(function (t) {   // archivos sin coches: no se puede ver su marca; se deduce
+      var mios = cls.filter(function (c) { return c.tipo === t; }), conocidos = mios.filter(function (c) { return c.grupo; }).map(function (c) { return c.grupo; });
+      mios.filter(function (c) { return !c.grupo; }).forEach(function (c) {
+        var libres = ['cupra', 'seat'].filter(function (g) { return conocidos.indexOf(g) < 0; });
+        libres.sort(function (a, b) { var x = reg[t + '|' + a], y = reg[t + '|' + b]; return (x ? x.cargado : '') < (y ? y.cargado : '') ? -1 : 1; });
+        c.grupo = libres[0] || 'cupra'; c.inferido = true; conocidos.push(c.grupo);
+      });
+    });
+    var informe = [], stockF = cls.filter(function (c) { return c.tipo === 'stock'; }), ventasF = cls.filter(function (c) { return c.tipo === 'entregas' || c.tipo === 'cartera'; });
+    cls.filter(function (c) { return !c.tipo; }).forEach(function (c) { informe.push({ nombre: c.file.name, ok: false, texto: 'No reconozco este archivo (no es Stock Inventory, Entregas VO ni Cartera VO). No se ha guardado.' }); });
+    var datosStock = null;
+    if (stockF.length) {
+      datosStock = await importar(stockF.map(function (c) { return c.file; }), tarjetas || []);   // para este dispositivo (fichas y portada)
+      for (var k = 0; k < stockF.length; k++) { var c = stockF[k];
+        await almacen('PUT', '/lote/stock/s-' + c.fecha + '-' + c.grupo, await cifrarObj({ fecha: c.fecha, nombre: c.file.name, grupo: c.grupo, filas: c.filas }, pwd), pwd);
+        informe.push({ nombre: c.file.name, tipo: 'stock', grupo: c.grupo, inferido: c.inferido, ok: true, texto: c.filas.length ? c.filas.length + ' coches en stock' : 'sin coches' }); }
+    }
+    var det = {};
+    if (ventasF.length) { var r = await importarVentas(ventasF.map(function (c) { return c.file; })); r.detalle.forEach(function (d) { det[d.nombre] = d; }); }
+    ventasF.forEach(function (c) { var d = det[c.file.name] || {};
+      informe.push({ nombre: c.file.name, tipo: c.tipo, grupo: c.grupo, inferido: c.inferido, ok: true,
+        texto: c.tipo === 'cartera' ? (c.filas ? c.filas + ' coche(s) vendido(s) pendiente(s) de entrega' : 'sin coches pendientes de entrega') : (d.nuevas || 0) + ' venta(s) nueva(s)' + (d.leidas - d.nuevas ? ', ' + (d.leidas - d.nuevas) + ' ya estaban' : '') }); });
+    for (var q = 0; q < cls.length; q++) { var z = cls[q]; if (!z.tipo) continue;
+      var info = { tipo: z.tipo, grupo: z.grupo, fecha: z.fecha, cargado: new Date().toISOString(), nombre: z.file.name, filas: typeof z.filas === 'number' ? z.filas : z.filas.length };
+      await almacen('PUT', '/lote/otros/reg-' + z.tipo + '-' + z.grupo, await cifrarObj(info, pwd), pwd); reg[z.tipo + '|' + z.grupo] = info; }
+    return { informe: informe, estado: estadoCargas(reg), datosStock: datosStock };
+  }
   function borrarLocal() { try { localStorage.removeItem(LS); } catch (e) {} cache = null; }
   function buscar(data, cochePag) {
     var id = (String(cochePag.url || '').match(/(\d{6,})\/?$/) || [])[1];
     return (id && data.coches['a' + id]) || data.coches['n' + cochePag.n] || null;
   }
-  window.RD_ASESOR = { importarVentas: importarVentas, ventasAlmacen: ventasAlmacen, obtener: obtener, importar: importar, local: local, borrarLocal: borrarLocal, familia: familia, buscar: buscar, eur: eur, num: num };
+  window.RD_ASESOR = { cargarTodo: cargarTodo, estadoActual: estadoActual, importarVentas: importarVentas, ventasAlmacen: ventasAlmacen, obtener: obtener, importar: importar, local: local, borrarLocal: borrarLocal, familia: familia, buscar: buscar, eur: eur, num: num };
 })();

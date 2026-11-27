@@ -9,24 +9,28 @@
     var d = await A.obtener();
     var estado = d ? 'Datos de ' + esc(d.fuente) + ' del ' + d.generado.split('-').reverse().join('/') + ' · ' + d.stock.length + ' coches' : 'Sin datos de stock: carga el Excel o desbloquea los publicados';
     barra.innerHTML = '<b>🧰 Herramientas del asesor</b><a href="/nuevos/" target="_blank" rel="noopener">Vehículos nuevos ↗</a><a href="/stock/" target="_blank" rel="noopener">Stock completo ↗</a><a href="/comparativa/" target="_blank" rel="noopener">Comparativa ocasión/nuevo ↗</a><a href="/historial/" target="_blank" rel="noopener">Historial ↗</a>' +
-      '<button type="button" id="rd-ab-excel">📥 Cargar Excel de stock</button><input type="file" id="rd-ab-file" accept=".xlsx" multiple hidden>' +
-      '<button type="button" id="rd-ab-ventas">📥 Cargar Excel de ventas</button><input type="file" id="rd-ab-fventas" accept=".xlsx" multiple hidden>' +
+      '<button type="button" id="rd-ab-excel">📥 Cargar Excel (stock, entregas y cartera)</button><input type="file" id="rd-ab-file" accept=".xlsx" multiple hidden>' +
       (d ? '' : '<button type="button" id="rd-ab-unlock">🔓 Desbloquear publicados</button>') + (A.local() ? '<button type="button" id="rd-ab-borrar">Borrar datos de este dispositivo</button>' : '') +
-      '<span class="rd-ab-estado" id="rd-ab-estado">' + estado + '</span>';
+      '<span class="rd-ab-estado" id="rd-ab-estado">' + estado + '</span><div class="rd-ab-resumen" id="rd-ab-resumen"></div>';
     var inp = document.getElementById('rd-ab-file'), st = document.getElementById('rd-ab-estado');
     document.getElementById('rd-ab-excel').onclick = function () { inp.click(); };
+    var res = document.getElementById('rd-ab-resumen');
+    var tabla = function (estado) {
+      return '<div class="rd-ab-est">' + estado.map(function (e) { var ic = e.nivel === 'ok' ? '✅' : e.nivel === 'aviso' ? '⚠️' : '❌';
+        return '<span class="rd-ab-chip ' + e.nivel + '">' + ic + ' ' + esc(e.nombre) + ' · ' + esc(e.texto) + (e.nivel === 'aviso' ? ' — toca sacarlo' : e.nivel === 'falta' ? ' — falta cargarlo' : '') + '</span>'; }).join('') + '</div>'; };
+    A.estadoActual().then(function (e) { if (e && res && !res.innerHTML) res.innerHTML = '<b>Estado de las cargas</b>' + tabla(e); }).catch(function () {});
     inp.onchange = async function () {
-      if (!inp.files.length) return; st.textContent = 'Leyendo el Excel…';
-      try { var data = await A.importar(Array.prototype.slice.call(inp.files), tarjetas()); await pintar(); st = document.getElementById('rd-ab-estado'); st.textContent += ' · ✓ cargado (' + data.stock.length + ' coches, ' + Object.keys(data.coches).filter(function (k) { return k[0] === 'n'; }).length + ' publicados emparejados). Se queda solo en este dispositivo.'; }
-      catch (e) { st.textContent = '⚠ ' + e.message; }
-    };
-    var iv = document.getElementById('rd-ab-fventas');
-    document.getElementById('rd-ab-ventas').onclick = function () { iv.click(); };
-    iv.onchange = async function () {
-      if (!iv.files.length) return; st.textContent = 'Leyendo y guardando…';
-      try { var r = await A.importarVentas(Array.prototype.slice.call(iv.files));
-        st.innerHTML = '✓ <b>Guardado correctamente</b> en el almacén común (cifrado). ' + r.detalle.map(function (d) { return d.tipo === 'cartera' ? '«' + esc(d.nombre) + '»: <b>CARTERA</b> del ' + d.fecha.split('-').reverse().join('/') + ', ' + d.coches + ' coche(s) vendido(s) pendiente(s) de entrega' + (d.coches ? '' : ' (vacío: normal si no hay cartera de esa marca)') : '«' + esc(d.nombre) + '»: <b>ENTREGAS</b>, ' + d.nuevas + ' nueva(s)' + (d.leidas - d.nuevas ? ', ' + (d.leidas - d.nuevas) + ' ya estaban' : ''); }).join(' · ') + '. Total ventas nuevas: ' + r.nuevas + '. Puedes cargar los dos archivos juntos o de uno en uno. Mira «Historial ↗» (si no aparecen, espera 1 minuto y recarga).'; }
-      catch (e) { st.textContent = '⚠ ' + e.message; }
+      if (!inp.files.length) return; st.textContent = 'Leyendo y guardando los archivos…';
+      try {
+        var r = await A.cargarTodo(Array.prototype.slice.call(inp.files), tarjetas());
+        var nm = { stock: 'Stock', entregas: 'Entregas VO', cartera: 'Cartera VO' }, gr = { seat: 'SEAT y resto', cupra: 'CUPRA' };
+        var ok = r.informe.filter(function (i) { return i.ok; }).length, mal = r.informe.length - ok;
+        res.innerHTML = '<b>' + (mal ? '⚠ Cargados ' + ok + ' de ' + r.informe.length + ' archivos' : '✓ Cargados correctamente ' + ok + ' archivo(s)') + '</b> (guardados cifrados en el almacén común)<ul>' +
+          r.informe.map(function (i) { return '<li>' + (i.ok ? '✅' : '❌') + ' «' + esc(i.nombre) + '» → ' + (i.ok ? '<b>' + nm[i.tipo] + ' · ' + gr[i.grupo] + '</b>' + (i.inferido ? ' <i>(no trae coches: deduzco que es ' + gr[i.grupo] + ')</i>' : '') + ': ' + esc(i.texto) : esc(i.texto)) + '</li>'; }).join('') +
+          '</ul><b>Estado de las cargas</b>' + tabla(r.estado) + '<small>Si ves «toca sacarlo», ese Excel lleva varios días sin cargarse. Las ventas nuevas aparecen en «Historial ↗» (si no, espera 1 minuto y recarga).</small>';
+        if (r.datosStock) { await pintar(); res = document.getElementById('rd-ab-resumen'); }
+        st = document.getElementById('rd-ab-estado');
+      } catch (e) { st.textContent = '⚠ ' + e.message; }
     };
     var u = document.getElementById('rd-ab-unlock'); if (u) u.onclick = async function () { var pw = window.prompt('Contraseña de la zona privada'); if (!pw) return; try { await A.obtener(pw); await pintar(); } catch (e) { st.textContent = '⚠ Contraseña incorrecta'; } };
     var b = document.getElementById('rd-ab-borrar'); if (b) b.onclick = async function () { A.borrarLocal(); await pintar(); };
