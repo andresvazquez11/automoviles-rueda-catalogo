@@ -1,0 +1,8 @@
+{
+ "_nota": "Coches que NO deben estar en la web aunque Das WeltAuto todavía los muestre. Clave: número final de la URL del anuncio. Los lee actualizar_catalogo.py y los pasa a «Retirado» (página «vendido + similares»). Quitar el anuncio también en DWA/Motorflash.",
+ "ids": {
+  "204499885": "CUPRA Born: VENDIDO en DWA y entregado el 26/11/2026 (Entregas VO). Comprobado 27/11/2026.",
+  "165438064": "Arona Style Special 10.643 km: no está en el stock (Excel 26/11/2026), ni en entregas de noviembre ni en cartera. Comprobado 27/11/2026.",
+  "165442777": "Arona X-Perience Special 12.506 km: no está en el stock (Excel 26/11/2026), ni en entregas de noviembre ni en cartera. Comprobado 27/11/2026."
+ }
+}

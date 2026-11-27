@@ -330,7 +330,7 @@ async def obtener_coches_del_listado(page) -> list[dict]:
                     color:      colorM ? colorM[1] : '',
                     precio:     priceM ? priceM[1] : '',
                     ubicacion:  velez  ? 'Vélez-Málaga' : 'Málaga',
-                    estado:     (stateM && stateM[1] !== 'Reservar') ? 'No disponible' : 'Disponible',
+                    estado:     !stateM ? 'Disponible' : (stateM[1] === 'Vendido' ? 'Vendido' : (stateM[1] !== 'Reservar' ? 'No disponible' : 'Disponible')),
                     url:        url,
                     equipamiento: []
                 });

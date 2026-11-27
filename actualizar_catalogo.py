@@ -19,6 +19,7 @@ from catalogo_rueda_v2 import (
 )
 
 CACHE           = OUTPUT_DIR / "datos_coches.json"
+BASE_OCULTOS = Path(__file__).resolve().parent / "ocultos.json"
 CACHE_BAK       = OUTPUT_DIR / "datos_coches_anterior.json"
 INFORME         = OUTPUT_DIR / "informe_cambios.txt"
 
@@ -467,6 +468,12 @@ async def main():
         for c in actuales_vivos:
             c["_total"] = total
 
+        # Das WeltAuto muestra «VENDIDO» (coche entregado) distinto de «Reservado»: lo vendido NO se publica (página «vendido + similares»), solo lo reservado se muestra como RESERVADO.
+        for c in actuales_vivos:
+            if c.get("estado") == "Vendido":
+                c["estado"] = "Retirado"
+                c["motivo_retiro"] = "Marcado como VENDIDO en Das WeltAuto"
+
         # Los coches "fuente=motorflash" no tienen URL de DWA, así que nunca
         # coinciden con actuales_vivos (scrapeados de DWA) → integrar_motorflash.py
         # (paso 5c) gestiona su ciclo de vida de forma independiente. Se excluyen
@@ -555,8 +562,22 @@ async def main():
             print(f"  🗑️  {expirados} coche(s) expirado(s) eliminados (>2 días sin aparecer en DWA)")
 
         actuales = actuales_vivos + preservados
+
+        # Lista manual de coches que NO deben estar en la web aunque Das WeltAuto aún los muestre (p. ej. comprobado que no están en el stock). Ver ocultos.json
+        _oc = BASE_OCULTOS.read_text(encoding="utf-8") if BASE_OCULTOS.exists() else "{}"
+        _ocultos = json.loads(_oc).get("ids", {})
+        _ocultados = []
+        for c in actuales:
+            _idn = (c.get("url") or "").rstrip("/").split("/")[-1]
+            if _idn in _ocultos and c.get("estado") != "Retirado":
+                c["estado"] = "Retirado"
+                c["motivo_retiro"] = _ocultos[_idn]
+                _ocultados.append(c)
+        if _ocultados:
+            print(f"  🙈 {len(_ocultados)} coche(s) ocultado(s) de la web por ocultos.json")
         coches_a_regenerar = {id_coche(c) for c in nuevos}
         coches_a_regenerar |= {id_coche(e["coche"]) for e in cambios}
+        coches_a_regenerar |= {id_coche(c) for c in _ocultados}
 
         hay_cambios = bool(nuevos or vendidos or cambios)
 

@@ -2188,6 +2188,7 @@ def build_coche_html(car: dict, fotos_urls: list[str], perfil: dict, trad: dict,
 </header>
 <a class="rd-back" href="../index.html">&#8249; {i18n_span("Volver al catálogo", "Back to catalog")}</a>
 {vendido_banner}
+<div class="rd-gest-banner" id="rd-gest-banner" hidden></div>
 
 <div class="rd-coche-wrap">
   <div class="rd-gallery-frame modal-gallery" id="modal-gallery">

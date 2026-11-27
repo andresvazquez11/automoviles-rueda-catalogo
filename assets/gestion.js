@@ -46,8 +46,19 @@
     if (!cuerpo) return '';
     return '<details class="rd-tk"><summary>🗂️ Datos del stock <small>(solo asesor · no se imprime)</small></summary><div class="rd-tk-g">' + cuerpo + '</div></details>';
   }
+  // Aviso GRANDE arriba de la ficha (solo modo asesor, no se imprime): el coche está publicado pero en el stock NO está disponible para la venta
+  function bannerEstado(r) {
+    var b = document.getElementById('rd-gest-banner'); if (!b) return;
+    var e = r ? String(r.estado || '').toLowerCase() : '', d = r ? r.dias : null, h = '', cls = '';
+    if (/^alta/.test(e)) { cls = 'rojo'; h = '<b>⛔ COCHE NO DISPONIBLE PARA LA VENTA · ESTADO «ALTA»</b><span>Posible reserva en otra web (Das WeltAuto, Motorflash…). <u>CONSULTAR antes de ofrecerlo al cliente.</u></span>'; }
+    else if (/reacond/.test(e)) { cls = 'ambar'; h = '<b>🔧 EN REACONDICIONAMIENTO · NO DISPONIBLE PARA LA VENTA TODAVÍA</b><span>Consultar fecha de entrega antes de ofrecerlo.</span>'; }
+    else if (/disponible/.test(e) && d != null && d < 0) { cls = 'ambar'; h = '<b>⏳ AÚN NO SE PUEDE VENDER COMO OCASIÓN</b><span>Faltan ' + Math.round(-d) + ' días (3 meses desde la matriculación). Consultar.</span>'; }
+    if (!h) { b.hidden = true; b.innerHTML = ''; return; }
+    b.className = 'rd-gest-banner ' + cls; b.innerHTML = h; b.hidden = false;
+  }
   function pintar() {
     window.RD_GESTION = rec; resolver(rec);
+    bannerEstado(rec);
     if (!datos) return;
     var f = datos.generado.split('-').reverse().join('/'), pie = '<p class="rd-gest-nota"><a href="/stock/" target="_blank" rel="noopener">Ver todo el stock ↗</a> · <a href="/comparativa/" target="_blank" rel="noopener">Comparativa ocasión/nuevo ↗</a> · datos de ' + esc(datos.fuente) + ' del ' + f + '</p>';
     if (!rec) { cuerpo.innerHTML = '<p class="rd-gest-nota">Este coche no está en el stock cargado.</p>' + similares() + pie; return; }
