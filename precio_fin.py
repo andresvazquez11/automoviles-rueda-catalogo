@@ -3,6 +3,9 @@
  · Fuente 2: campañas VWFS VO vigentes (las mismas reglas que usa la calculadora de la ficha, assets/calculadora.js → cv2GetRules): SEAT GAMA 750 (VS ≤24 m) / 500 (VO 25–60 m) / 300 (VU >60 m),
    CUPRA GAMA 1.200 €, Otras marcas 200/400/500 € según importe. Solo las que se pueden saber desde el anuncio (no DEMOS+REMA ni Salones Arona, que son de activación manual).
  Se aplica la MAYOR. Si no hay bonificación (o el coche no llega al capital mínimo a financiar) → None: la web y el folleto enseñan UN SOLO precio (el de contado).
+Fuentes de las reglas (comprobadas el 27-nov-2026 con los PDF de financiacion/): «Campaña comercial SEAT VO · Noviembre 2026» págs. 2, 8, 10, 15-17 (GAMA: VS 0-24 m 750 €, VO 25-60 m 500 €, VU >60 m 300 € LINEAL 36-48 m crédito mín. 15.000 €;
+ Otras Marcas LINEAL 48-120 m: Entry 200 € desde 10.000, Premium 400 € desde 15.000, TOP 500 € desde 20.000; TIN 8,99 %; comisión de apertura 2,99 %) y «Campaña comercial CUPRA VO · Noviembre 2026» págs. 2, 4 (GAMA solo VS-VO 0-5 años:
+ FLEX 1.200 € crédito mín. 16.500 € 36-60 m; LINEAL 1.000 € 48-71 m / 1.200 € 72-120 m crédito mín. 13.500 €).
 Los números de cuota y TAE solo se muestran cuando la bonificación aplicada es la del ejemplo oficial (son los de ese ejemplo)."""
 import re
 from datetime import date
@@ -39,7 +42,9 @@ def _oficial(car):
 def _campana(car, precio, ant):
     """Mejor bonificación de nuestras campañas para este coche → (bonif, capital_min, producto, plazos, tin) o None."""
     marca = (str(car.get('modelo', '')).split() or [''])[0].upper()
-    cat = None if ant is None else ('VS' if ant <= 24 else 'VO' if ant <= 60 else 'VU')
+    if ant is None:
+        return None   # sin fecha de matriculación no se puede saber la campaña
+    cat = 'VS' if ant <= 24 else 'VO' if ant <= 60 else 'VU'
     cands = []
     if marca == 'SEAT':
         if cat == 'VU':
@@ -49,7 +54,9 @@ def _campana(car, precio, ant):
         else:
             cands.append((750, 10000, 'FLEX', '36-60 meses'))
     elif marca == 'CUPRA':
-        cands += [(1200, 16500, 'FLEX', '36-60 meses'), (1200, 13500, 'LINEAL', '72-120 meses')]
+        # Campaña CUPRA VO Noviembre 2026 (pág. 4): GAMA «VS-VO (0-5 años)»: no vale para coches de más de 60 meses
+        if cat != 'VU':
+            cands += [(1200, 16500, 'FLEX', '36-60 meses'), (1200, 13500, 'LINEAL', '72-120 meses')]
     else:
         for b, mn in ((500, 20000), (400, 15000), (200, 10000)):
             if precio >= mn:
@@ -78,7 +85,7 @@ def calcular(car):
         return None
     if b_of >= b_ca:   # gana (o empata) el ejemplo oficial: sus condiciones y su cuota/TAE son las válidas
         return dict(pf=precio - int(b_of), contado=precio, bonif=int(b_of), cap_min=int(of['cap_min'] or 0) or None, perm=of['perm'] or 36, tin=of['tin'], tae=of['tae'],
-                    cuota=of['cuota'], meses=of['meses'], origen='oficial', financiera=FINANCIERA)
+                    cuota=of['cuota'], meses=of['meses'], origen='oficial', producto='FLEX', plazos='36-60 meses', financiera=FINANCIERA)
     return dict(pf=precio - int(b_ca), contado=precio, bonif=int(b_ca), cap_min=int(ca['cap_min']), perm=36 if ca['producto'] == 'FLEX' else None, tin=ca['tin'], tae=None,
                 cuota=None, meses=None, origen='campana', producto=ca['producto'], plazos=ca['plazos'], financiera=FINANCIERA)
 
@@ -93,6 +100,7 @@ def pie_legal(pfs):
         return ''
     bmin, bmax = min(p['bonif'] for p in pfs), max(p['bonif'] for p in pfs)
     mins = [p['cap_min'] for p in pfs if p.get('cap_min')]
-    return (f"Precio financiando: precio de contado menos la bonificación de {FINANCIERA} ({_m(bmin)} a {_m(bmax)} € según coche, IVA incluido), "
-            f"solo para particulares y autónomos que financien con {FINANCIERA} (según condiciones contractuales), con capital mínimo a financiar desde {_m(min(mins))} € "
-            "y permanencia mínima de 36 meses (según campaña). TIN 8,99 %. TAE y cuota de cada coche, en su ficha. El seguro de protección es opcional.")
+    return (f"Precio financiando: precio de contado menos la bonificación de {FINANCIERA} ({_m(bmin)} a {_m(bmax)} € según coche y campaña, IVA incluido), "
+            f"solo para particulares y autónomos que financien con {FINANCIERA} (según condiciones contractuales). Capital mínimo a financiar desde {_m(min(mins))} € según campaña; "
+            "plazo de 36 a 120 meses según coche y producto (FLEX o LINEAL, el plazo exacto de cada coche figura en su ficha); TIN 8,99 %; comisión de apertura 2,99 %. "
+            "TAE y cuota de cada coche, en su ficha. El seguro de protección es opcional.")

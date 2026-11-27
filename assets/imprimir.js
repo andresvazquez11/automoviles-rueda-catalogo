@@ -40,6 +40,10 @@
   border-top: 1pt solid #000; border-bottom: 1pt solid #000; margin-top: 3mm; padding: 1.5mm 0; }
 .rdp-precio-lbl { font-size: 8pt; font-weight: 700; letter-spacing: .8pt; text-transform: uppercase; }
 .rdp-precio { font-size: 20pt; font-weight: 700; line-height: 1; }
+.rdp-pf-row .rdp-precio { font-size: 24pt; }
+.rdp-pf-cond { font-size: 6.5pt; line-height: 1.3; color: #333; margin: 1mm 0 1.5mm; }
+.rdp-cont-row .rdp-precio { font-size: 13pt; font-weight: 600; }
+.rdp-cont-row .rdp-precio-lbl { font-weight: 600; }
 .rdp-specs { display: grid; grid-template-columns: 1fr 1fr; column-gap: 4mm; margin-top: 2mm; }
 .rdp-spec { display: flex; justify-content: space-between; gap: 2mm; padding: .9mm 0; border-bottom: .5pt solid #999; font-size: 8.3pt; }
 .rdp-spec b { font-weight: 600; text-align: right; }
@@ -247,6 +251,14 @@
     '/ mes': ['/ month', '/ Monat'],
     'de': ['of', 'von'], 'resto en la ficha online': ['see the online listing for the rest', 'Rest im Online-Datenblatt'], '€/mes': ['€/month', '€/Monat'], 'km/año': ['km/year', 'km/Jahr'],
   };
+  // Precio financiando en la hoja impresa (solo si el coche tiene descuento por financiar; si no, un único precio)
+  const pfFila = (c, contadoTxt) => {
+    const pf = c && c.pf; if (!pf) return '';
+    const m = n => Math.round(n).toLocaleString('es-ES', { useGrouping: true }).replace(/,/g, '.');
+    const cond = L('Capital mínimo a financiar') + ' ' + m(pf.cap_min || 0) + ' €' + (pf.perm ? ' · ' + L('permanencia mínima') + ' ' + pf.perm + ' ' + L('meses') : '') + ' · ' + (pf.producto || '') + ' ' + (pf.plazos || '') + ' · TIN ' + String(pf.tin).replace('.', ',') + ' %' + (pf.origen === 'oficial' && pf.cuota ? ' · ' + L('cuota') + ' ' + String(pf.cuota).replace('.', ',') + ' € × ' + pf.meses + ' · TAE ' + String(pf.tae).replace('.', ',') + ' %' : '') + ' · ' + L('comisión de apertura') + ' 2,99 %';
+    return `<div class="rdp-precio-row rdp-pf-row"><span class="rdp-precio-lbl">${esc(L('Precio financiando'))}</span><span class="rdp-precio rdp-osw">${m(pf.pf)} €</span></div>
+      <div class="rdp-pf-cond">${esc(L('Bonificación de'))} ${esc(pf.financiera)}: ${m(pf.bonif)} € (${esc(L('IVA incluido'))}). ${esc(cond)}. ${esc(L('Particulares y autónomos que financien con ella, según condiciones contractuales. Seguro de protección opcional.'))}</div>`;
+  };
   const L = s => {
     const l = idioma();
     if (l === 'es') return s;
@@ -451,7 +463,8 @@
     <div>
       <div class="rdp-modelo rdp-osw">${esc(c.modelo)}</div>
       <div class="rdp-version">${esc(tri(c.version, c.version_en, c.version_de))}</div>
-      <div class="rdp-precio-row">
+      ${pfFila(c)}
+      <div class="rdp-precio-row${c.pf ? ' rdp-cont-row' : ''}">
         <span class="rdp-precio-lbl">${esc(L('Precio al contado'))}</span>
         <span class="rdp-precio rdp-osw">${eur(CV2.precio || 0)}</span>
       </div>
@@ -622,8 +635,8 @@
     <div>
       <div class="rdp-modelo rdp-osw">${esc(c.modelo)}</div>
       <div class="rdp-version">${esc(tri(c.version, c.version_en, c.version_de))}</div>
-      ${precioTxt ? `<div class="rdp-precio-row">
-        <span class="rdp-precio-lbl">${esc(L('Precio'))}</span>
+      ${precioTxt ? `${pfFila(c)}<div class="rdp-precio-row${c.pf ? ' rdp-cont-row' : ''}">
+        <span class="rdp-precio-lbl">${esc(c.pf ? L('Precio al contado') : L('Precio'))}</span>
         <span class="rdp-precio rdp-osw">${esc(precioTxt)}</span>
       </div>` : ''}
     </div>

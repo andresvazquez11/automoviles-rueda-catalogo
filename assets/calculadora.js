@@ -1448,7 +1448,7 @@ function cargarFicha(c) {
     if (!el || !pf || c.estado === 'No disponible') { if (el) el.hidden = true; return; }
     const ent = pf.origen === 'oficial' && pf.cuota
       ? tr('Ejemplo: cuota de ', 'Example: ', 'Beispiel: Rate ') + String(pf.cuota).replace('.', ',') + ' € ' + tr('al mes durante ', 'per month for ', 'pro Monat über ') + pf.meses + tr(' meses · TIN ', ' months · TIN ', ' Monate · TIN ') + String(pf.tin).replace('.', ',') + ' % · TAE ' + String(pf.tae).replace('.', ',') + ' %'
-      : 'TIN ' + String(pf.tin).replace('.', ',') + ' % · ' + tr('cuota y TAE en la simulación de más abajo', 'payment and APR in the simulation below', 'Rate und effektiver Jahreszins in der Simulation unten');
+      : tr('Financiación ', 'Financing ', 'Finanzierung ') + (pf.producto || '') + ' ' + (pf.plazos || '') + ' · TIN ' + String(pf.tin).replace('.', ',') + ' % · ' + tr('comisión de apertura 2,99 %', 'opening fee 2.99 %', 'Bearbeitungsgebühr 2,99 %') + '<br>' + tr('Cuota y TAE: en la simulación de más abajo', 'Payment and APR: see the simulation below', 'Rate und effektiver Jahreszins: siehe Simulation unten');
     el.hidden = false;
     el.innerHTML = '<div class="rd-pf-lbl">' + tr('Precio financiando', 'Financed price', 'Finanzierungspreis') + '</div>' +
       '<div class="rd-pf-precio">' + cv2Miles(pf.pf) + ' €</div>' +
