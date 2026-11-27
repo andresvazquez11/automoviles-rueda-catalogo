@@ -56,6 +56,67 @@
     if (!h) { b.hidden = true; b.innerHTML = ''; return; }
     b.className = 'rd-gest-banner ' + cls; b.innerHTML = h; b.hidden = false;
   }
+
+  // ---- «Comparar con el mercado» (enlaces ya filtrados, sin rastrear nada) y «Cómo vendimos coches parecidos» (con nuestras entregas). Solo asesor.
+  var sa = function (t) { return String(t == null ? '' : t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim(); };
+  var redondea = function (n, m) { return Math.round(n / m) * m; };
+  function perfil(r) {
+    var mm = String(COCHE.modelo || '').split(' '), marca = sa(mm[0]), modelo = sa(mm.slice(1).join(' ')).replace(/ /g, '_');
+    var anio = parseInt((String(r.f_matric || '').match(/(\d{4})\s*$/) || String(COCHE.fecha || '').match(/(\d{4})\s*$/) || [])[1], 10);
+    var km = r.km != null && r.km !== '' ? Number(r.km) : A.num(COCHE.km);
+    var kf = km < 2500 ? 0 : Math.floor(km * 0.65 / 5000) * 5000, kt = Math.max(kf + (km < 2500 ? 5000 : 10000), Math.ceil(km * 1.35 / 5000) * 5000);
+    return { marca: marca, modelo: modelo, anio: anio, km: km, kf: kf, kt: kt, precio: web };
+  }
+  function tarjetaMercado(r) {
+    var p = perfil(r); if (!p.marca || !p.modelo || !p.anio) return '';
+    var as = 'https://www.autoscout24.es/lst/' + p.marca + '/' + p.modelo.replace(/_/g, '-') + '/re_' + p.anio + '?cy=E&kmfrom=' + p.kf + '&kmto=' + p.kt + '&sort=price&desc=0&ustate=N%2CU&atype=C&powertype=kw';
+    var dwa = (p.marca === 'seat' || p.marca === 'cupra') ? 'https://www.dasweltauto.es/esp/' + p.marca + '-' + p.modelo + '-segunda-mano' : '';
+    var btn = 'style="display:inline-block;margin:0 8px 6px 0;padding:7px 12px;border:1px solid rgba(0,0,0,.25);border-radius:8px;text-decoration:none;font-weight:600"';
+    return '<details class="rd-tk"><summary>🔎 Comparar con el mercado <small>(solo asesor)</small></summary>' +
+      '<p class="rd-gest-nota">Cada botón abre una pestaña nueva con la búsqueda ya filtrada: <b>' + esc(COCHE.modelo) + ' de ' + p.anio + '</b>, entre <b>' + p.kf.toLocaleString('es-ES') + '</b> y <b>' + p.kt.toLocaleString('es-ES') + ' km</b>, del más barato al más caro. Nuestro precio: <b>' + eur(p.precio) + '</b>.</p>' +
+      '<a ' + btn + ' href="' + esc(as) + '" target="_blank" rel="noopener">AutoScout24 ↗</a>' + (dwa ? '<a ' + btn + ' href="' + esc(dwa) + '" target="_blank" rel="noopener">Das WeltAuto, toda España ↗</a>' : '') +
+      '<p class="rd-gest-nota">Ojo: casi todos los portales destacan el <b>precio financiado</b> (más bajo); compara con el precio de contado que sale dentro de cada ficha. En Das WeltAuto el año y los km se ajustan con sus filtros.</p></details>';
+  }
+  function parecidos(r, E, amplio) {
+    var p = perfil(r), marcaN = p.marca, fam = sa(p.modelo).split('_')[0];
+    return (E || []).filter(function (v) {
+      var tk = sa(v.coche).split(' '), m = sa(v.marca || tk[0]), f = tk[0] === m ? tk[1] : tk[0], y = parseInt(String(v.f_matric || '').slice(0, 4), 10), k = Number(v.km);
+      if (m !== marcaN || f !== fam || !v.venta) return false;
+      var okY = amplio ? Math.abs(y - p.anio) <= 1 : y === p.anio, okK = amplio ? (k >= p.km * 0.4 - 2000 && k <= p.km * 2.2 + 3000) : (k >= p.kf && k <= p.kt);
+      return okY && okK;
+    });
+  }
+  function tarjetaVendidos(r, E) {
+    var p = perfil(r), L = parecidos(r, E, false), amplio = false;
+    if (L.length < 2) { L = parecidos(r, E, true); amplio = true; }
+    var med = function (a, k) { var b = a.filter(function (x) { return x[k] != null; }); return b.length ? b.reduce(function (s, x) { return s + Number(x[k]); }, 0) / b.length : null; };
+    var pm = med(L, 'venta'), dm = med(L, 'dias'), mm = med(L, 'margen');
+    var iguales = (datos && datos.stock ? datos.stock : []).filter(function (s) { return s.publicado && s.bastidor !== r.bastidor && s.coche === rec_coche(r) && s.venta && p.precio && Math.abs(s.venta - p.precio) <= 500; });
+    var caja = function (t, v, sub) { return '<div style="background:rgba(0,0,0,.04);border-radius:8px;padding:8px 12px"><div style="font-size:11px;opacity:.65;text-transform:uppercase">' + t + '</div><div style="font-size:20px;font-weight:700">' + v + '</div><div style="font-size:12px;opacity:.7">' + sub + '</div></div>'; };
+    var cab = '<details class="rd-tk"><summary>📊 Cómo vendimos coches parecidos <small>(solo asesor)</small></summary>';
+    if (!L.length) return cab + '<p class="rd-gest-nota">Todavía no hay entregas de ' + esc(COCHE.modelo) + ' parecidas en nuestro historial (se va llenando con cada carga de «Entregas VO»).</p>' + avisoIguales(iguales) + '</details>';
+    var dif = p.precio && pm != null ? p.precio - pm : null;
+    return cab + '<p class="rd-gest-nota">' + esc(COCHE.modelo) + ', ' + (amplio ? 'año ±1 y km parecidos (ampliado porque había pocos)' : 'de ' + p.anio + ' y entre ' + p.kf.toLocaleString('es-ES') + ' y ' + p.kt.toLocaleString('es-ES') + ' km') + '. <b>Muestra: ' + L.length + ' coche(s)</b>' + (L.length < 5 ? ' — poca, tómalo como orientación' : '') + '.</p>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0">' +
+      caja('Precio al que se fueron', eur(pm), dif == null ? '' : (dif === 0 ? 'igual que el nuestro' : 'este está ' + eur(Math.abs(dif)) + (dif < 0 ? ' por debajo' : ' por encima'))) +
+      caja('Días hasta vender', dm == null ? '—' : Math.round(dm) + ' días', 'media') + caja('Margen medio', eur(mm), 'con IVA, sin gastos') + '</div>' +
+      '<table class="rd-gest-tabla"><tr><th>Coche vendido</th><th>Km</th><th>Venta</th><th>Días</th><th>Origen</th></tr>' +
+      L.sort(function (a, b) { return String(b.fecha).localeCompare(String(a.fecha)); }).slice(0, 8).map(function (v) { return '<tr><td>' + esc(String(v.coche || '').replace(/^(SEAT|CUPRA|KIA|RENAULT|SKODA) /i, '')).slice(0, 42) + '</td><td class="n">' + Number(v.km).toLocaleString('es-ES') + '</td><td class="n">' + eur(v.venta) + '</td><td class="n">' + (v.dias != null ? v.dias : '—') + '</td><td>' + esc(v.origen || '') + '</td></tr>'; }).join('') + '</table>' + avisoIguales(iguales) + '</details>';
+  }
+  function rec_coche(r) { var x = (datos && datos.stock || []).filter(function (s) { return s.bastidor === r.bastidor; })[0]; return x ? x.coche : ''; }
+  function avisoIguales(ig) { return ig.length >= 2 ? '<div class="rd-gest-aviso ambar">⚠ Tenemos <b>' + (ig.length + 1) + '</b> iguales publicados a precio casi idéntico (±500 €): se compiten entre sí.</div>' : ''; }
+  function mercadoYVendidos(r) {
+    if (!r) return;
+    var a = document.getElementById('rd-merc'), b = document.getElementById('rd-vend');
+    if (a) a.innerHTML = tarjetaMercado(r);
+    var E = (datos && datos.entregas ? datos.entregas : []).slice();
+    if (b) b.innerHTML = tarjetaVendidos(r, E);
+    if (A.ventasAlmacen) A.ventasAlmacen().then(function (rows) {   // entregas cargadas desde el botón (almacén común), por si son más recientes que los datos cifrados
+      var cl = {}; E.forEach(function (x) { cl[(x.matricula || '') + '|' + x.fecha] = 1; }); var n = 0;
+      rows.forEach(function (x) { var k = (x.matricula || '') + '|' + x.fecha; if (!cl[k]) { cl[k] = 1; E.push({ matricula: x.matricula, coche: x.coche, marca: x.marca, f_matric: x.f_matric, km: x.km, venta: x.venta, compra: x.compra, margen: x.margen, dias: x.dias_stock, origen: x.origen, fecha: x.fecha }); n++; } });
+      if (n && b) { var abierto = b.querySelector('details') && b.querySelector('details').open; b.innerHTML = tarjetaVendidos(r, E); if (abierto) b.querySelector('details').open = true; }
+    }).catch(function () {});
+  }
   function pintar() {
     window.RD_GESTION = rec; resolver(rec);
     bannerEstado(rec);
@@ -71,8 +132,9 @@
       fila('Margen sin IVA (estimado, ÷ 1,21)', eur(rec.margen_sin_iva)) + '</table>' +
       '<div class="rd-gest-neg-box"><b>Negociar:</b> si el cliente paga <input type="number" id="rd-gest-precio" step="100" value="' + (web || rec.venta || '') + '"> € → margen <b id="rd-gest-res"></b> <span class="rd-gest-nota" id="rd-gest-dto"></span></div>' +
       '<table class="rd-gest-tabla rd-gest-ficha">' + fila('Origen', esc(rec.origen) || '—', campana) + fila('Régimen', esc(rec.regimen) || '—', rec.regimen === 'REBU' ? 'IVA solo sobre el margen' : rec.regimen === 'IVA' ? 'IVA sobre el precio completo' : '') +
-      fila('Días en stock', rec.dias != null ? Math.round(rec.dias) : '—') + fila('Estado en stock', esc(rec.estado) || '—') + fila('Matrícula · matriculación', esc(rec.matricula) + ' · ' + esc(rec.f_matric)) + fila('Bastidor', esc(rec.bastidor)) + fila('TMAIMG', esc(rec.tmaimg)) + '</table>' + tarjetaStock(rec) +
+      fila('Días en stock', rec.dias != null ? Math.round(rec.dias) : '—') + fila('Estado en stock', esc(rec.estado) || '—') + fila('Matrícula · matriculación', esc(rec.matricula) + ' · ' + esc(rec.f_matric)) + fila('Bastidor', esc(rec.bastidor)) + fila('TMAIMG', esc(rec.tmaimg)) + '</table>' + tarjetaStock(rec) + '<div id="rd-merc"></div><div id="rd-vend"></div>' +
       similares() + pie;
+    mercadoYVendidos(rec);
     var inp = document.getElementById('rd-gest-precio');
     var calc = function () { var p = parseFloat(inp.value) || 0, m = p - rec.compra - (rec.gastos || 0), el = document.getElementById('rd-gest-res');
       el.textContent = eur(m) + ' (' + (p ? (m / p * 100).toFixed(1).replace('.', ',') : '0') + ' %)'; el.className = m < 0 ? 'rd-gest-neg' : '';
