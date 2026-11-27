@@ -1525,3 +1525,11 @@ html.rd-asesor .rd-asesor-barra { display: flex; gap: 10px 14px; align-items: ce
 .rd-ab-est { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0; } .rd-ab-chip { padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(0,0,0,.15); background: rgba(0,0,0,.04); font-size: 12.5px; }
 .rd-ab-chip.aviso { background: #fdf1d8; border-color: #e0b35a; } .rd-ab-chip.falta { background: #fbe4e4; border-color: #e19a9a; } .rd-ab-chip.ok { background: #e3f4e8; border-color: #9ad0ae; }
 @media print { .rd-asesor-barra { display: none !important; } }
+
+/* Barra del asesor plegable: cabecera siempre visible, cuerpo recordado abierto/cerrado */
+.rd-ab-cab { flex-basis: 100%; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
+.rd-ab-insignia { font-size: 12px; opacity: .8; } .rd-ab-flecha { margin-left: auto; opacity: .6; }
+.rd-ab-cuerpo { flex-basis: 100%; display: flex; gap: 10px 14px; align-items: center; flex-wrap: wrap; } .rd-ab-cuerpo[hidden] { display: none !important; }
+.rd-ab-ok { padding: 8px 12px; border-radius: 10px; background: #e3f4e8; border: 1px solid #9ad0ae; margin: 6px 0; font-size: 14px; } .rd-ab-ok.mal { background: #fbe4e4; border-color: #e19a9a; }
+.rd-ab-x { float: right; }
+.rd-ab-alerta { font-size: 12px; font-weight: 700; color: #c8232b; text-decoration: none; background: #fbe4e4; border-radius: 999px; padding: 2px 10px; }
