@@ -255,7 +255,8 @@
     "Kia Sportage|2022": "2026-10-15",
     "CUPRA Born|2024": "2026-10-19",
     "CUPRA León|2023": "2026-10-31",
-    "SEAT Ateca|2021": "2026-11-12"
+    "SEAT Ateca|2021": "2026-11-12",
+    "Volkswagen T-Cross|2021": "2026-11-28"
   },
   "Abarth 500": {
     "videos": [
@@ -466,6 +467,34 @@
         "auto": "2026-10-19",
         "desde": 2023,
         "hasta": 2025
+      }
+    ]
+  },
+  "Volkswagen T-Cross": {
+    "videos": [
+      {
+        "youtube": "sPDESfrPIAA",
+        "titulo": "Volkswagen T-Cross 2021 - Prueba / Review en español",
+        "medio": "HolyCars TV",
+        "auto": "2026-11-28",
+        "desde": 2020,
+        "hasta": 2022
+      },
+      {
+        "youtube": "r5ZYAVoQZOM",
+        "titulo": "VOLKSWAGEN T-CROSS 2021 - Prueba / Análisis / Review",
+        "medio": "TestCoches - Carlos González",
+        "auto": "2026-11-28",
+        "desde": 2020,
+        "hasta": 2022
+      },
+      {
+        "youtube": "AWi5zJZ0Fkw",
+        "titulo": "Volkswagen T-Cross Sport 1.5 TSI 150 CV 2021",
+        "medio": "Autocasión",
+        "auto": "2026-11-28",
+        "desde": 2020,
+        "hasta": 2022
       }
     ]
   }

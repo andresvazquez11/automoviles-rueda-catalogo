@@ -11991,5 +11991,33 @@
    "Control de arranque en pendiente": "Hill start assist",
    "Luces de freno, luces frontales antiniebla, luces de cruce, luces intermitentes laterales, Luces de día, Luces traseras y luces de carretera con tecnología LED": "Full LED lights: brake lights, front fog lights, low beam, side indicators, daytime running lights, tail lights, and high beam"
   }
+ },
+ "mf-220765189": {
+  "fuente": "mf",
+  "gen": {
+   "matriculacion": "19/04/2021",
+   "km": "107.861 km",
+   "combustible": "Gasolina",
+   "potencia": "110 CV (81 kW)",
+   "cambio": "Manual",
+   "puertas": "5",
+   "plazas": "5",
+   "color": "Gris Plata",
+   "carroceria": "Suv",
+   "etiqueta": "C",
+   "par": "200 Nm"
+  },
+  "dims": {},
+  "pintura": "",
+  "tapizado": "",
+  "extras": {},
+  "serie": {},
+  "huella": "eb934c681f",
+  "en": {
+   "Gasolina": "Petrol",
+   "Manual": "Manual",
+   "Gris Plata": "Silver",
+   "Suv": "SUV"
+  }
  }
 }
